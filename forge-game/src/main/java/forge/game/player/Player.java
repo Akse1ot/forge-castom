@@ -215,6 +215,23 @@ public class Player extends GameEntity implements Comparable<Player> {
     private final AchievementTracker achievementTracker = new AchievementTracker();
     private final PlayerView view;
 
+    // Resonance: cards in Exile waiting to merge with next instant/sorcery
+    private final java.util.List<forge.game.card.Card> pendingResonance = new java.util.ArrayList<>();
+
+    public java.util.List<forge.game.card.Card> getPendingResonance() {
+        return pendingResonance;
+    }
+
+    public void addPendingResonance(forge.game.card.Card c) {
+        if (c != null && !pendingResonance.contains(c)) {
+            pendingResonance.add(c);
+        }
+    }
+
+    public void removePendingResonance(forge.game.card.Card c) {
+        pendingResonance.remove(c);
+    }
+
     public Player(String name0, Game game0, final int id0) {
         super(id0);
 

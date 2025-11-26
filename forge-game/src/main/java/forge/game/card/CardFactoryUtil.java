@@ -2885,7 +2885,8 @@ public class CardFactoryUtil {
 
             inst.addSpellAbility(faceDown);
             inst.addSpellAbility(faceUp);
-        } else if (keyword.startsWith("Disturb")) {
+        }
+        else if (keyword.startsWith("Disturb")) {
             final String[] k = keyword.split(":");
             final Cost disturbCost = new Cost(k[1], true);
 
@@ -3569,26 +3570,50 @@ public class CardFactoryUtil {
             SpellAbility unattachSA = AbilityFactory.getAbility(unattachStr.toString(), card);
             unattachSA.setIntrinsic(intrinsic);
             inst.addSpellAbility(unattachSA);
-        } else if (keyword.startsWith("Reinforce")) {
+        } else if (keyword.startsWith("Resonance")) {
             final String[] k = keyword.split(":");
-            final String n = k[1];
-            final String manacost = k[2];
 
-            StringBuilder sb = new StringBuilder();
-            sb.append("AB$ PutCounter | CounterType$ P1P1 | ActivationZone$ Hand | ValidTgts$ Creature ");
-            sb.append("| Cost$ ").append(manacost).append(" Discard<1/CARDNAME>");
-            sb.append("| CounterNum$ ").append(n);
-            sb.append("| CostDesc$ ").append(ManaCostParser.parse(manacost)); // to hide the Discard from the cost
-            sb.append("| PrecostDesc$ Reinforce ").append(n).append("—");
-            sb.append("| SpellDescription$ (").append(inst.getReminderText()).append(")");
+            if (k.length < 2) {
+                System.err.println("Invalid Resonance keyword on card: " + card.getName());
+            } else {
+                final String cost = k[1].trim();
 
-            final SpellAbility sa = AbilityFactory.getAbility(sb.toString(), card);
-            sa.setIntrinsic(intrinsic);
+                // реальная карта-хост
+                final forge.game.card.Card hostCard = card.getCard();
 
-            if (n.equals("X")) {
-                sa.setSVar("X", "Count$xPaid");
+                // Resonance имеет смысл только на Instant/Sorcery
+                if (hostCard.getType().isInstant() || hostCard.getType().isSorcery()) {
+
+                    // 1) базовая SpellAbility
+                    final SpellAbility base = card.getFirstSpellAbilityWithFallback();
+                    if (base != null) {
+
+                        // 2) альтернативная стоимость
+                        final Cost resonanceCost = new Cost(cost, false);
+                        final SpellAbility resonanceSA = base.copyWithDefinedCost(resonanceCost);
+
+                        // 3) помечаем как альтернативную стоимость Resonance
+                        resonanceSA.setAlternativeCost(AlternativeCost.Resonance);
+
+                        // 4) флаг — проверяется в MagicStack.resolveStack()
+                        resonanceSA.setSVar("ResonanceCast", "True");
+
+                        // 5) текст
+                        final StringBuilder desc = new StringBuilder();
+                        desc.append("Resonance ").append(cost).append(" (")
+                                .append(inst.getReminderText()).append(")");
+                        resonanceSA.setDescription(desc.toString());
+
+                        resonanceSA.setIntrinsic(intrinsic);
+
+                        // 6) добавляем альтернативную SpellAbility к карте
+                        inst.addSpellAbility(resonanceSA);
+                    }
+
+                } else {
+                    System.err.println("Resonance allowed only on Instant or Sorcery: " + card.getName());
+                }
             }
-            inst.addSpellAbility(sa);
         } else if (keyword.startsWith("Saddle")) {
             final String[] k = keyword.split(":");
             final String power = k[1];

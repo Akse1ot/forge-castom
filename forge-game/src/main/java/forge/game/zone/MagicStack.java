@@ -50,6 +50,11 @@ import java.util.Map.Entry;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.function.Predicate;
 
+//- для Resonance
+import forge.game.player.Player;
+import forge.game.spellability.SpellAbility;
+import forge.game.ResonanceHelper;
+
 /**
  * <p>
  * MagicStack class.
@@ -316,6 +321,10 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
             }
         }
 
+        // RESONANCE: merge BEFORE target-check
+        ResonanceHelper.maybeMerge(game, activator, sp);
+
+        // CHECK TARGETING
         if (!sp.isCopied() && !hasLegalTargeting(sp)) {
             String str = source + " - [Couldn't add to stack, failed to target] - " + sp.getDescription();
             System.err.println(str + sp.getAllTargetChoices());
@@ -720,11 +729,27 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
 
         if ((source.isInstant() || source.isSorcery() || fizzle) &&
                 source.isInZone(ZoneType.Stack)) {
-            // If Spell and still on the Stack then let it goto the graveyard or replace its own movement
+
+            // Общие параметры для перемещения
             Map<AbilityKey, Object> params = AbilityKey.newMap();
             params.put(AbilityKey.StackSa, sa);
             params.put(AbilityKey.Fizzle, fizzle);
-            game.getAction().moveToGraveyard(source, null, params);
+
+            Player activator = sa.getActivatingPlayer();
+
+            if ("True".equals(sa.getSVar("ResonanceCast"))) {
+                source.setSVar("WasCastWithResonance", "True");
+
+                game.getAction().moveTo(ZoneType.Exile, source, -1, sa, params);
+                System.out.println("[Resonance] " + source.getName()
+                        + " moved to Exile after resolving with Resonance.");
+
+                if (activator != null) {
+                    activator.addPendingResonance(source);
+                }
+            } else {
+                game.getAction().moveToGraveyard(source, sa, params);
+            }
         }
     }
 

@@ -163,6 +163,7 @@ public enum Keyword {
     REFLECT("Reflect", KeywordWithCost.class, false, "As this enters, each opponent may pay %s. When they do, they create a token copy of this except it lacks this ability."),
     REINFORCE("Reinforce", KeywordWithCostAndAmount.class, false, "%s, Discard this card: Put {%d:+1/+1 counter} on target creature."),
     RENOWN("Renown", KeywordWithAmount.class, false, "When this creature deals combat damage to a player, if it isn't renowned, put {%d:+1/+1 counter} on it and it becomes renowned."),
+    RESONANCE("Resonance", KeywordWithCost.class,false, "If you cast this spell for {cost}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell."),
     REPLICATE("Replicate", KeywordWithCost.class, false, "As an additional cost to cast this spell, you may pay %s any number of times. If you do, copy it that many times. You may choose new targets for the copies."),
     RETRACE("Retrace", SimpleKeyword.class, false, "You may cast this card from your graveyard by discarding a land card in addition to paying its other costs."),
     RIOT("Riot", SimpleKeyword.class, false, "This creature enters with your choice of a +1/+1 counter or haste."),
