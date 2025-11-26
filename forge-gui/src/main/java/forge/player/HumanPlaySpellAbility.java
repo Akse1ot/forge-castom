@@ -32,6 +32,7 @@ import forge.game.cost.CostPayment;
 import forge.game.mana.ManaPool;
 import forge.game.player.Player;
 import forge.game.player.PlayerController;
+import forge.game.spellability.ResonanceHelper;
 import forge.game.spellability.SpellAbility;
 import forge.game.staticability.StaticAbilityManaConvert;
 import forge.game.zone.Zone;
@@ -82,6 +83,9 @@ public class HumanPlaySpellAbility {
                     return false;
                 }
             }
+
+            // ===== Resonance merge — ДО выбора целей =====
+            ability = ResonanceHelper.mergeOnCast(game, human, ability);
 
             ability = AbilityUtils.addSpliceEffects(ability);
         }
