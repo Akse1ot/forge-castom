@@ -37,6 +37,7 @@ import forge.game.mana.ManaRefundService;
 import forge.game.player.Player;
 import forge.game.player.PlayerPredicates;
 import forge.game.spellability.AbilityStatic;
+import forge.game.spellability.ResonanceHelper;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityStackInstance;
 import forge.game.spellability.TargetChoices;
@@ -49,11 +50,6 @@ import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.function.Predicate;
-
-//- для Resonance
-import forge.game.player.Player;
-import forge.game.spellability.SpellAbility;
-import forge.game.ResonanceHelper;
 
 /**
  * <p>
@@ -422,6 +418,9 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
 
             sp.applyPayingManaEffects();
 
+            // ===== Resonance: make spell multicolored BEFORE SpellCast triggers =====
+            ResonanceHelper.applyDirectColorOverrideForSpellCast(sp);
+
             // Run SpellCast triggers
             if (sp.isSpell()) {
                 if (source.isCommander() && source.getCastFrom() != null && ZoneType.Command == source.getCastFrom().getZoneType()
@@ -713,6 +712,9 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
 
     private void removeCardFromStack(final SpellAbility sa, final SpellAbilityStackInstance si, final boolean fizzle) {
         Card source = sa.getHostCard();
+
+        // ===== Resonance: cleanup direct color override when leaving stack =====
+        ResonanceHelper.clearDirectColorOverrideForSpellCast(sa);
 
         // need to update active trigger
         game.getTriggerHandler().resetActiveTriggers();

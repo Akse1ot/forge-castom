@@ -86,7 +86,6 @@ public class HumanPlaySpellAbility {
 
             // ===== Resonance merge — ДО выбора целей =====
             ability = ResonanceHelper.mergeOnCast(game, human, ability);
-
             ability = AbilityUtils.addSpliceEffects(ability);
         }
 

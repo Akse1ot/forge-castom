@@ -1,58 +1,55 @@
 package forge.game.spellability;
 
 import com.google.common.collect.Maps;
+import forge.card.ColorSet;
+import forge.card.MagicColor.Color;
 import forge.game.Game;
-import forge.game.card.Card;
-import forge.game.card.CardState;
 import forge.game.ability.AbilityFactory;
 import forge.game.ability.AbilityFactory.AbilityRecordType;
 import forge.game.ability.ApiType;
+import forge.game.card.Card;
+import forge.game.card.CardState;
 import forge.game.player.Player;
 import forge.game.player.PlayerActionConfirmMode;
-import forge.game.staticability.StaticAbility;
 import forge.game.zone.ZoneType;
-import forge.card.ColorSet;
-import forge.card.MagicColor.Color;
 import forge.util.collect.FCollectionView;
+
 import java.util.*;
 
-/**
- * Helper for Resonance mechanic.
- *
- * Called BEFORE ability.setupTargets(), similar to Splice.
- * This ensures all added subAbilities participate in targeting
- * together with the original spell.
- */
 public final class ResonanceHelper {
 
     private ResonanceHelper() {}
+
+    // =====================================================================
+    // SVars
+    // =====================================================================
+    private static final String SVAR_RESONANCE_COLORS = "ResonanceColors";
+    private static final String SVAR_RESONANCE_COLOR_TS = "ResonanceColorTS";
+
+    // =====================================================================
+    // COMPAT HELPER
+    // =====================================================================
+    public static void maybeMerge(Game game, Player activator, SpellAbility root) {
+        mergeOnCast(game, activator, root);
+    }
 
     // =====================================================================
     // MAIN MERGE FUNCTION
     // =====================================================================
     public static SpellAbility mergeOnCast(Game game, Player activator, SpellAbility root) {
 
-        if (root == null || !root.isSpell())
-            return root;
+        if (root == null || !root.isSpell()) return root;
 
         final Card host = root.getHostCard();
-        if (host == null)
-            return root;
+        if (host == null) return root;
+        if (!host.isInstant() && !host.isSorcery()) return root;
+        if (activator == null) return root;
 
-        if (!host.isInstant() && !host.isSorcery())
-            return root;
-
-        if (activator == null)
-            return root;
-
-        // pending resonance
         List<Card> pending = new ArrayList<>(activator.getPendingResonance());
-        if (pending.isEmpty())
-            return root;
+        if (pending.isEmpty()) return root;
 
         System.out.println("[Resonance] mergeOnCast for " + host.getName());
 
-        // For each exiled card with Resonance
         for (Card resCard : pending) {
 
             if (!resCard.isInZone(ZoneType.Exile)) {
@@ -60,21 +57,25 @@ public final class ResonanceHelper {
                 continue;
             }
 
-            // get ALL SpellAbilities from card A
             FCollectionView<SpellAbility> allSA_view = resCard.getSpellAbilities();
-            if (allSA_view == null || allSA_view.isEmpty()) {
+            if (allSA_view.isEmpty()) {
                 activator.removePendingResonance(resCard);
                 game.getAction().moveTo(ZoneType.Graveyard, resCard, -1, root, null);
                 continue;
             }
 
-            // convert FCollectionView → List
             List<SpellAbility> allSA = new ArrayList<>();
             for (SpellAbility sa : allSA_view) {
+                if ("True".equals(sa.getSVar("ResonanceCast"))) continue;
                 allSA.add(sa);
             }
 
-            // ask player to apply A to B
+            if (allSA.isEmpty()) {
+                activator.removePendingResonance(resCard);
+                game.getAction().moveTo(ZoneType.Graveyard, resCard, -1, root, null);
+                continue;
+            }
+
             boolean apply = activator.getController().confirmAction(
                     root,
                     PlayerActionConfirmMode.OptionalChoose,
@@ -92,65 +93,63 @@ public final class ResonanceHelper {
 
             final CardState hostState = host.getCurrentState();
 
-            // =====================================================================
-            // Convert EACH SpellAbility A into a SubAbility and attach to root
-            // =====================================================================
+            // === MERGE EFFECTS ===
             for (SpellAbility saA : allSA) {
 
-                // Copy params
                 Map<String, String> paramsA = Maps.newHashMap();
-                if (saA.getMapParams() != null)
+                if (saA.getMapParams() != null) {
                     paramsA.putAll(saA.getMapParams());
+                }
 
-                // Determine recordType & API
                 AbilityRecordType recType = AbilityRecordType.getRecordType(paramsA);
-                ApiType apiA = recType.getApiTypeOf(paramsA);
+                if (recType == null) {
+                    System.err.println("[Resonance] Unknown ability type in " + resCard.getName());
+                    continue;
+                }
 
-                // Create SubAbility using Forge factory (same approach as Fuse)
+                ApiType apiA = recType.getApiTypeOf(paramsA);
+                if (apiA == null) {
+                    System.err.println("[Resonance] Cannot determine ApiType for " + resCard.getName());
+                    continue;
+                }
+
                 SpellAbility subSa;
                 try {
                     subSa = AbilityFactory.getAbility(
                             AbilityRecordType.SubAbility,
                             apiA,
                             paramsA,
-                            null,          // SubAbility has no cost
+                            null,
                             hostState,
                             hostState
                     );
-                }
-                catch (Exception e) {
-                    System.err.println("[Resonance] Failed to build sub-ability of "
-                            + resCard.getName() + " : " + e);
+                } catch (Exception e) {
+                    System.err.println("[Resonance] Failed building sub-ability: " + e);
                     continue;
                 }
 
                 AbilitySub sub = (AbilitySub) subSa;
                 sub.setActivatingPlayer(activator);
-
-                // attach to root chain
                 root.appendSubAbility(sub);
             }
 
-            // =====================================================================
-            // Ask player to add COLORS of A to spell B
-            // =====================================================================
-            boolean addColors = activator.getController().confirmAction(
-                    root,
-                    PlayerActionConfirmMode.OptionalChoose,
-                    "Add colors of " + resCard.getName() + " to this spell?",
-                    Collections.emptyList(),
-                    resCard,
-                    null
-            );
+            // === REMEMBER COLORS ===
+            ColorSet colorsA = resCard.getColor();
+            if (!colorsA.isColorless()) {
 
-            if (addColors) {
-                ColorSet colorsA = resCard.getColor(); // includes continuous effects
-                if (!colorsA.isColorless()) {
-                    applyColorAddEffect(host, colorsA);
+                String colorsParam = colorsToParam(colorsA);
+                String existing = root.getSVar(SVAR_RESONANCE_COLORS);
+
+                if (existing == null || existing.isEmpty()) {
+                    root.setSVar(SVAR_RESONANCE_COLORS, colorsParam);
+                } else {
+                    Set<String> all = new LinkedHashSet<>();
+                    Collections.addAll(all, existing.split(" "));
+                    Collections.addAll(all, colorsParam.split(" "));
+                    root.setSVar(SVAR_RESONANCE_COLORS, String.join(" ", all));
                 }
             }
 
-            // remove pending and move A → graveyard
             activator.removePendingResonance(resCard);
             game.getAction().moveTo(ZoneType.Graveyard, resCard, -1, root, null);
 
@@ -162,49 +161,55 @@ public final class ResonanceHelper {
     }
 
     // =====================================================================
-    // COLOR SUPPORT
+    // DIRECT COLOR OVERRIDE (Variant A)
     // =====================================================================
+    public static void applyDirectColorOverrideForSpellCast(final SpellAbility sp) {
 
-    /** Convert ColorSet to "Red Blue ..." string for AddColor$. */
+        if (sp == null || !sp.isSpell()) return;
+
+        final String colors = sp.getSVar(SVAR_RESONANCE_COLORS);
+        if (colors == null || colors.isEmpty()) return;
+
+        if (sp.getSVar(SVAR_RESONANCE_COLOR_TS) != null
+                && !sp.getSVar(SVAR_RESONANCE_COLOR_TS).isEmpty()) {
+            return;
+        }
+
+        final Card host = sp.getHostCard();
+        if (host == null || host.getGame() == null) return;
+
+        final long ts = host.getGame().getNextTimestamp();
+        host.addColor(ColorSet.fromNames(colors), true, ts, null);
+        sp.setSVar(SVAR_RESONANCE_COLOR_TS, Long.toString(ts));
+    }
+
+    public static void clearDirectColorOverrideForSpellCast(final SpellAbility sp) {
+
+        if (sp == null) return;
+
+        final String tsStr = sp.getSVar(SVAR_RESONANCE_COLOR_TS);
+        if (tsStr == null || tsStr.isEmpty()) return;
+
+        final Card host = sp.getHostCard();
+        if (host == null) {
+            sp.setSVar(SVAR_RESONANCE_COLOR_TS, "");
+            return;
+        }
+
+        try {
+            long ts = Long.parseLong(tsStr);
+            host.removeColor(ts, 0L);
+        } catch (NumberFormatException ignored) {}
+
+        sp.setSVar(SVAR_RESONANCE_COLOR_TS, "");
+    }
+
+    // =====================================================================
+    // UTILS
+    // =====================================================================
     private static String colorsToParam(ColorSet colors) {
         List<String> out = new ArrayList<>();
-        for (Color c : colors)
-            out.add(c.toString());
+        for (Color c : colors) out.add(c.toString());
         return String.join(" ", out);
     }
-
-    /**
-     * Temporary continuous color effect for spell on stack:
-     * Mode$ AddColor;
-     * AddColor$ <colors>;
-     * Affected$ Card.Self;
-     * EffectZone$ Stack;
-     */
-    private static void applyColorAddEffect(Card host, ColorSet addColors) {
-
-        Map<String, String> p = new HashMap<>();
-
-        // Continuous effect
-        p.put("Mode", "Continuous");
-
-        // AddColor$ Red Blue ...
-        p.put("AddColor", colorsToParam(addColors));
-
-        // Restrict to stack only
-        p.put("EffectZone", "Stack");
-
-        // Affected$ Card.Self
-        p.put("Affected", "Card.Self");
-
-        CardState state = host.getCurrentState();
-
-        // Direct constructor: NO STRING PARSING
-        StaticAbility st = new StaticAbility(p, host, state);
-
-        state.addStaticAbility(st);
-
-        System.out.println("[Resonance] Added colors " +
-                colorsToParam(addColors) + " to spell " + host.getName());
-    }
-
 }
