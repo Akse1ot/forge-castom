@@ -1,0 +1,255 @@
+//Rank|Name|Rarity|Set
+#1|Angelic Mentor|M|AENR
+#2|Ashdancer|M|AENR
+#3|Ashiok, Harbinger of Fear|M|AENR
+#4|Creativity|M|AENR
+#5|Eraser of Thoughts|M|AENR
+#6|Eregon's Masterpiece|M|AENR
+#7|Lost in Eternity|M|AENR
+#8|Marionette Show|M|AENR
+#9|Mount Chromaziel|M|AENR
+#10|Never Forgotten|M|AENR
+#11|Pensive Songwriter|M|AENR
+#12|Roselyn Valvidia|M|AENR
+#13|The Senate of Censures|M|AENR
+#14|Veila Lokan|M|AENR
+#15|Alone in the World|R|AENR
+#16|Ashanid the Dreamweaver|R|AENR
+#17|Blood Pact AENR|R|AENR
+#18|Chaosborn Muse|R|AENR
+#19|Chorus of the Unliving|R|AENR
+#20|Chromaborn Muse|R|AENR
+#21|Creative Surge|R|AENR
+#22|Dancing Master|R|AENR
+#23|Duskborn Muse|R|AENR
+#24|Duskwood Shaman|R|AENR
+#25|Echoborn Muse|R|AENR
+#26|Effervescent Idealon|R|AENR
+#27|Eidolic Waltz|R|AENR
+#28|Exquisite Idealon|R|AENR
+#29|Facestealer|R|AENR
+#30|Gloom Tender|R|AENR
+#31|Graceborn Muse|R|AENR
+#32|Grasp of Nature|R|AENR
+#33|Heart of Inspiration|R|AENR
+#34|Highborn Muse|R|AENR
+#35|Impromptu Performance|R|AENR
+#36|Infernal Cacophony|R|AENR
+#37|Lifelike Canvas|R|AENR
+#38|Luck of the Draw|R|AENR
+#39|Lyrehorn Runehart|R|AENR
+#40|Lyss, Duskwood Seer|R|AENR
+#41|Maskborn Muse|R|AENR
+#42|Master Flamedancer|R|AENR
+#43|Masterly Maneuver|R|AENR
+#44|Mental Transgression|R|AENR
+#45|Moment of Quietude|R|AENR
+#46|Painter's Servant|R|AENR
+#47|Primal Drummer|R|AENR
+#48|Renegade Fortuneteller|R|AENR
+#49|Restless Librarian|R|AENR
+#50|Sanguine Connoisseur|R|AENR
+#51|Silent Riddler|R|AENR
+#52|Skiv's Regards|R|AENR
+#53|Skiv, Madcap Trickster|R|AENR
+#54|Skyguard Challenger|R|AENR
+#55|Skylyre Archangel|R|AENR
+#56|Starsong Dragon|R|AENR
+#57|Steelborn Muse|R|AENR
+#58|Storytime|R|AENR
+#59|Symphonic Harmony|R|AENR
+#60|Tales Retold|R|AENR
+#61|Thought Storm|R|AENR
+#62|Tome of Infinity|R|AENR
+#63|Torrent of Emotions|R|AENR
+#64|Tranceborn Muse|R|AENR
+#65|Verseborn Muse|R|AENR
+#66|Vibrant Hydra|R|AENR
+#67|Wistful Sonnet|R|AENR
+#68|Worldgorger Idealon|R|AENR
+#69|Aerial Grace|U|AENR
+#70|Arachnoid Ambush|U|AENR
+#71|Austere Familiar|U|AENR
+#72|Aven Blade-Dancer|U|AENR
+#73|Awakening Melody|U|AENR
+#74|Back Alley Crook|U|AENR
+#75|Blood Artist|U|AENR
+#76|Book Worm|U|AENR
+#77|Brumewing|U|AENR
+#78|Carnival Sentinel|U|AENR
+#79|Censure|U|AENR
+#80|Chant of the Damned|U|AENR
+#81|Chaotic Clarity|U|AENR
+#82|Chimerical Visitant|U|AENR
+#83|Chromatic Brush|U|AENR
+#84|Chromesthesia|U|AENR
+#85|Danse Macabre AENR|U|AENR
+#86|Delsanian Aristocrat|U|AENR
+#87|Diminuendo|U|AENR
+#88|Dreamlike Journey|U|AENR
+#89|Dreams from Beyond|U|AENR
+#90|Dreamsilk Infiltrator|U|AENR
+#91|Duskwood Neophyte|U|AENR
+#92|Eerie Harpist|U|AENR
+#93|Elegant Blade|U|AENR
+#94|Entry Fee|U|AENR
+#95|Fabled Manifestation|U|AENR
+#96|Fantasia Wyrm|U|AENR
+#97|Fearless Feline|U|AENR
+#98|Fiery Bolero|U|AENR
+#99|Fruitful Rest|U|AENR
+#100|Ghastly Mural|U|AENR
+#101|Ghostlight|U|AENR
+#102|Goblin Chef|U|AENR
+#103|Grim Revel|U|AENR
+#104|Harmonious Prosperity|U|AENR
+#105|Hellish Idealon|U|AENR
+#106|Intrepid Poet|U|AENR
+#107|Journey Inward|U|AENR
+#108|Keeper of Secret Texts|U|AENR
+#109|Keeper of the Cycle|U|AENR
+#110|Kenoram Mythmaker|U|AENR
+#111|Kenoram Ritualist|U|AENR
+#112|Masquerade Infiltrator|U|AENR
+#113|Master Stoneshaper|U|AENR
+#114|Mental Trauma|U|AENR
+#115|Mystical Minstrel|U|AENR
+#116|Parch the Mind|U|AENR
+#117|Passionate Anthem|U|AENR
+#118|Peaceful Thoughts|U|AENR
+#119|Peek-a-Burn|U|AENR
+#120|Persona Elemental|U|AENR
+#121|Persona Shift|U|AENR
+#122|Pretentious Critic|U|AENR
+#123|Prismatic Harmony|U|AENR
+#124|Prismavore|U|AENR
+#125|Prowling Idealon|U|AENR
+#126|Pyrebloom Ritual|U|AENR
+#127|Radiant Skinmarks|U|AENR
+#128|Ragesmith|U|AENR
+#129|Reconceptualize|U|AENR
+#130|Resentful Giant|U|AENR
+#131|Ribbon Whirler|U|AENR
+#132|Roaming Museum|U|AENR
+#133|Secluded Lumidar|U|AENR
+#134|Seed of Despair|U|AENR
+#135|Serenade of the Mists|U|AENR
+#136|Shepherd of Souls|U|AENR
+#137|Skyseeker|U|AENR
+#138|Soul Fracture|U|AENR
+#139|Sound Blast|U|AENR
+#140|Sunblessed Dancer|U|AENR
+#141|Taunting Satyr|U|AENR
+#142|Torch Juggler|U|AENR
+#143|Ultimate Price|U|AENR
+#144|Vivid Paradise|U|AENR
+#145|Voice of Lost Songs|U|AENR
+#146|Words of Denial|U|AENR
+#147|Zealous Duelist|U|AENR
+#148|Ardent Choreography|C|AENR
+#149|Aria of the Spider|C|AENR
+#150|Ashiok's Phantasm|C|AENR
+#151|Aven Acrobat|C|AENR
+#152|Aven Conductor|C|AENR
+#153|Aven Vocalist|C|AENR
+#154|Avenging Mauler|C|AENR
+#155|Beneath the Mask|C|AENR
+#156|Bequeathment|C|AENR
+#157|Bladewhirl|C|AENR
+#158|Blazeheart Idealon|C|AENR
+#159|Blazing Sonnet|C|AENR
+#160|Boon of the Twin Roses|C|AENR
+#161|Boundless Halls|C|AENR
+#162|Captivating Performer|C|AENR
+#163|Chromawing Idealon|C|AENR
+#164|City of Wonders|C|AENR
+#165|Contemplative Ancient|C|AENR
+#166|Daring Strike|C|AENR
+#167|Dashing Swordsman|C|AENR
+#168|Deafening Ballad|C|AENR
+#169|Deathcaller Oracle|C|AENR
+#170|Deep-Sea Dreamhunter|C|AENR
+#171|Deepwood Ritual|C|AENR
+#172|Delsanian Sellsword|C|AENR
+#173|Deserted Fairgrounds|C|AENR
+#174|Dreadful Demise|C|AENR
+#175|Dream Drinker|C|AENR
+#176|Dreamborn Vision|C|AENR
+#177|Dreamborn Wurm|C|AENR
+#178|Duskwood Extortionist|C|AENR
+#179|Dutiful Patrollers|C|AENR
+#180|Enlightened Valley|C|AENR
+#181|Ensorcelled Instrument|C|AENR
+#182|Ethereal Chord|C|AENR
+#183|Ethereal Gardens|C|AENR
+#184|Evanescing Chord|C|AENR
+#185|Fade into Nothingness|C|AENR
+#186|Fervent Balladeer|C|AENR
+#187|Flamedance Prodigy|C|AENR
+#188|Flourishing Chord|C|AENR
+#189|Fortune Telling|C|AENR
+#190|Glamor District|C|AENR
+#191|Gliding Mantas|C|AENR
+#192|Goblin Ukulelist|C|AENR
+#193|Hand of Skiv|C|AENR
+#194|Hat Trick|C|AENR
+#195|High Road Bandit|C|AENR
+#196|Hulking Creation|C|AENR
+#197|Hymn of the Lost|C|AENR
+#198|Inner Flame|C|AENR
+#199|Inspiring March|C|AENR
+#200|Jest-In-The-Box|C|AENR
+#201|Kenoram Scavenger|C|AENR
+#202|Kenoram Stalker|C|AENR
+#203|Kirsus Hypnotist|C|AENR
+#204|Kirsus Maniac|C|AENR
+#205|Kirsus Mongrel|C|AENR
+#206|Lifesong Flutist|C|AENR
+#207|Lone Poet|C|AENR
+#208|Lush Vale|C|AENR
+#209|Mad Jester|C|AENR
+#210|Mindscraper|C|AENR
+#211|Minimalism|C|AENR
+#212|Mistfire Ridge|C|AENR
+#213|Mistwalker Idealon|C|AENR
+#214|Moltenheart Elemental|C|AENR
+#215|Nefarious Noble|C|AENR
+#216|Nightmarish Chord|C|AENR
+#217|Nightmarish Morass|C|AENR
+#218|Opera Ghost|C|AENR
+#219|Parade Mastodon|C|AENR
+#220|Phantasmal Triad|C|AENR
+#221|Piercing Shout|C|AENR
+#222|Poisonous Advantage|C|AENR
+#223|Primeval Serenity|C|AENR
+#224|Psychic Laceration|C|AENR
+#225|Quell Eloquence|C|AENR
+#226|Refute AENR|C|AENR
+#227|Satyr Brawler|C|AENR
+#228|Satyr Wayfinder|C|AENR
+#229|Scapeforger Bauble|C|AENR
+#230|Search for Inspiration|C|AENR
+#231|Seasoned Dancer|C|AENR
+#232|Silkfinder Ranger|C|AENR
+#233|Soaring Pursuits|C|AENR
+#234|Sonata of Somnolence|C|AENR
+#235|Sparkling Chord|C|AENR
+#236|Spawn of Ashanid|C|AENR
+#237|Springleaf Drum|C|AENR
+#238|Stoic Bihorn|C|AENR
+#239|Strobe Light|C|AENR
+#240|Sunlit Alley|C|AENR
+#241|Surreal Grandeur|C|AENR
+#242|Tale of the Lone Hunter|C|AENR
+#243|The Show Must Go On|C|AENR
+#244|Thundersong Trumpeter|C|AENR
+#245|Traveling Minstrel|C|AENR
+#246|Twisted Woodlands|C|AENR
+#247|Unfinished Creation|C|AENR
+#248|Vengeful Apparitions|C|AENR
+#249|Young Dreamer|C|AENR
+#250|Forest|L|AENR
+#251|Island|L|AENR
+#252|Mountain|L|AENR
+#253|Plains|L|AENR
+#254|Swamp|L|AENR

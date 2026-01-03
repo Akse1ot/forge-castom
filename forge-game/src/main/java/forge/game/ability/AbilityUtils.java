@@ -49,6 +49,33 @@ import java.util.stream.Collectors;
 public class AbilityUtils {
     private final static ImmutableList<String> cmpList = ImmutableList.of("LT", "LE", "EQ", "GE", "GT", "NE");
 
+    // Imaginarium
+    public static ColorSet calculateColors(final Card card, final String expr, final SpellAbility ability) {
+        if (StringUtils.isBlank(expr)) {
+            return ColorSet.C;
+        }
+
+        // normalize text changes (важно для continuous/text-change)
+        final String source = applyAbilityTextChangeEffects(expr, ability);
+
+        // === Imaginarium: Colors$InYourYard ===
+        if (source.equalsIgnoreCase("InYourYard") || source.equalsIgnoreCase("YourGraveyard")) {
+            if (ability == null) {
+                return ColorSet.C;
+            }
+            final Player p = ability.getActivatingPlayer();
+            if (p == null) {
+                return ColorSet.C;
+            }
+            return CardUtil.getColorsFromCards(p.getCardsIn(ZoneType.Graveyard));
+        }
+
+        // future-proof: unknown expression
+        System.err.printf("calculateColors: unknown Colors expression '%s' on card %s%n",
+                source, card.getName());
+        return ColorSet.C;
+    }
+
     // should the three getDefined functions be merged into one? Or better to
     // have separate?
     // If we only have one, each function needs to Cast the Object to the
@@ -1596,6 +1623,20 @@ public class AbilityUtils {
             l[0] = l[0].substring(6);
         }
 
+        // === Imaginarium: Count$ColorsInYourYard ===
+        if (l[0].equalsIgnoreCase("ColorsInYourYard")
+                || l[0].equalsIgnoreCase("ColorsYourGraveyard")) {
+
+            if (player == null) {
+                return 0;
+            }
+
+            ColorSet colors = CardUtil.getColorsFromCards(
+                    player.getCardsIn(ZoneType.Graveyard)
+            );
+            return doXMath(colors.countColors(), expr, c, ctb);
+        }
+
         if (l[0].startsWith("SVar$")) {
             String n = l[0].substring(5);
             String v = ctb == null ? c.getSVar(n) : ctb.getSVar(n);
@@ -1607,6 +1648,19 @@ public class AbilityUtils {
         String[] paidparts = l[0].split("\\$", 2);
         Iterable<Card> someCards = null;
         final Game game = c.getGame();
+
+        // === Imaginarium: Count$ColorsInYourYard (number of distinct colors among cards in your graveyard) ===
+        if (sq[0].equalsIgnoreCase("ColorsInYourYard")
+                || sq[0].equalsIgnoreCase("ColorsYourGraveyard")) {
+
+            int colors = 0;
+            if (player != null) {
+                for (MagicColor.Color ignored : CardUtil.getColorsFromCards(player.getCardsIn(ZoneType.Graveyard))) {
+                    colors++;
+                }
+            }
+            return doXMath(colors, expr, c, ctb);
+        }
 
         if (ctb != null) {
             // Count$Compare <int comparator value>.<True>.<False>

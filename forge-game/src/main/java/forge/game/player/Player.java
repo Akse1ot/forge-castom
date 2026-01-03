@@ -232,6 +232,30 @@ public class Player extends GameEntity implements Comparable<Player> {
         pendingResonance.remove(c);
     }
 
+    // =========================================================
+    // Next spell additional colors (until end of turn)
+    // =========================================================
+    private forge.card.ColorSet nextSpellAddColors = null;
+
+    public void setNextSpellAddColors(final forge.card.ColorSet colors) {
+        nextSpellAddColors = (colors == null || colors.isColorless()) ? null : colors;
+    }
+
+    public boolean hasNextSpellAddColors() {
+        return nextSpellAddColors != null && !nextSpellAddColors.isColorless();
+    }
+
+    /** Consume and clear — guarantees "next spell only" */
+    public forge.card.ColorSet consumeNextSpellAddColors() {
+        final forge.card.ColorSet out = nextSpellAddColors;
+        nextSpellAddColors = null;
+        return out;
+    }
+
+    public void clearNextSpellAddColors() {
+        nextSpellAddColors = null;
+    }
+
     public Player(String name0, Game game0, final int id0) {
         super(id0);
 

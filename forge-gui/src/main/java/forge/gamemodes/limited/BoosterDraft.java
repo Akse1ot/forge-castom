@@ -269,6 +269,63 @@ public class BoosterDraft implements IBoosterDraft {
 
             default:
                 throw new NoSuchElementException("Draft for mode " + this.draftFormat + " has not been set up!");
+
+            case CustomExpansion: {
+                // 1. Собрать все CUSTOM_SET-сеты, для которых реально существует booster
+                final List<CardEdition> candidates = new ArrayList<>();
+
+                for (CardEdition ed : StaticData.instance().getEditions().getOrderedEditions()) {
+
+                    // Только CUSTOM_SET
+                    if (ed.getType() != CardEdition.Type.CUSTOM_SET) {
+                        continue;
+                    }
+
+                    // Только те, у которых есть booster definition
+                    if (FModel.getMagicDb().getBoosters().get(ed.getCode()) == null) {
+                        continue;
+                    }
+
+                    candidates.add(ed);
+                }
+
+                if (candidates.isEmpty()) {
+                    SOptionPane.showMessageDialog(
+                            "No draftable Expansion sets found.",
+                            "Custom Expansion Draft"
+                    );
+                    return false;
+                }
+
+                // 2. Выбор сета
+                final CardEdition chosen = SGuiChoose.oneOrNone(
+                        "Choose Expansion to Draft",
+                        candidates
+                );
+                if (chosen == null) {
+                    return false;
+                }
+
+                // 3. Создать 3 бустера выбранного сета
+                for (int i = 0; i < 3; i++) {
+                    this.product.add(
+                            new UnOpenedProduct(
+                                    FModel.getMagicDb().getBoosters().get(chosen.getCode())
+                            )
+                    );
+                }
+
+                // 4. LAND_SET_CODE — безопасный дефолт (как в Full Draft)
+                IBoosterDraft.LAND_SET_CODE[0] =
+                        CardEdition.Predicates.getRandomSetWithAllBasicLands(
+                                FModel.getMagicDb().getEditions()
+                        );
+
+                // подключаем ранкинги для set-draft
+                IBoosterDraft.CUSTOM_RANKINGS_FILE[0] = chosen.getCode() + ".rnk";
+
+                break;
+            }
         }
 
         return true;

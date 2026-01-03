@@ -152,6 +152,9 @@ public enum StaticAbilityMode {
     // StaticAbilityIgnoreLegendRule
     IgnoreLegendRule,
 
+    // StaticAbilityModifyModalChoices
+    ModifyModes,
+
     // StaticAbilityMaxCounter
     MaxCounter,
 

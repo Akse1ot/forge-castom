@@ -1,0 +1,304 @@
+[metadata]
+Code=AENR
+Date=2018-12-18
+Name=Aenyr
+Type=CUSTOM_SET
+ScryfallCode=AENR
+BoosterSlots=Common,Uncommon,RareMythic,AnyLand,Wildcard
+Booster=8 Common, 3 Uncommon, 1 RareMythic, 1 AnyLand, 1 Wildcard
+Prerelease=6 Boosters, 1 RareMythic+
+BoosterBox=36
+
+[Common]
+Base=Common:fromSheet("AENR cards")
+
+[Uncommon]
+Base=Uncommon:fromSheet("AENR cards")
+
+[RareMythic]
+Base=RareMythic:fromSheet("AENR cards")
+
+[AnyLand]
+Base=Land:fromSheet("AENR cards")
+Replace=.60F BasicLand
+
+[Wildcard]
+Base=Uncommon:fromSheet("AENR cards")
+Replace=.25F Rare:fromSheet("AENR cards")
+Replace=.10F Mythic:fromSheet("AENR cards")
+Replace=.15F Common:fromSheet("AENR cards")
+
+[cards]
+
+1 U Aerial Grace
+2 R Alone in the World
+3 C Aven Acrobat
+4 C Daring Strike
+5 C Dashing Swordsman
+6 C Delsanian Sellsword
+7 C Dutiful Patrollers
+8 U Eerie Harpist
+9 C Evanescing Chord
+10 C Inspiring March
+11 C Lifesong Flutist
+12 U Master Stoneshaper
+13 U Mystical Minstrel
+14 U Peaceful Thoughts
+15 U Prismatic Harmony
+16 C Quell Eloquence
+17 C Seasoned Dancer
+18 C Silkfinder Ranger
+19 R Skylyre Archangel
+20 U Sunblessed Dancer
+21 C Vengeful Apparitions
+22 C Young Dreamer
+23 C Aven Vocalist
+24 C Captivating Performer
+25 U Censure
+26 C Deep-Sea Dreamhunter
+27 U Diminuendo
+28 C Dreamborn Vision
+29 U Dreamsilk Infiltrator
+30 C Ethereal Chord
+31 C Fade into Nothingness
+32 U Fruitful Rest
+33 C Gliding Mantas
+34 C Hat Trick
+35 U Keeper of Secret Texts
+36 C Kirsus Hypnotist
+37 C Mindscraper
+38 C Refute AENR
+39 U Serenade of the Mists
+40 C The Show Must Go On
+41 R Silent Riddler
+42 U Skyseeker
+43 C Sonata of Somnolence
+44 R Symphonic Harmony
+45 C Ashiok's Phantasm
+46 U Back Alley Crook
+47 C Beneath the Mask
+48 C Bequeathment
+49 U Blood Artist
+50 R Blood Pact AENR
+51 U Brumewing
+52 U Chant of the Damned
+53 R Chorus of the Unliving
+54 U Danse Macabre AENR
+55 C Deathcaller Oracle
+56 C Deepwood Ritual
+57 C Dreadful Demise
+58 C Dream Drinker
+59 C Duskwood Extortionist
+60 C Hymn of the Lost
+61 U Kenoram Ritualist
+62 C Kirsus Maniac
+63 C Minimalism
+64 C Nightmarish Chord
+65 C Satyr Brawler
+66 U Ultimate Price
+67 C Ardent Choreography
+68 C Avenging Mauler
+69 C Blazing Sonnet
+70 U Chaotic Clarity
+71 C Deafening Ballad
+72 C Fervent Balladeer
+73 U Fiery Bolero
+74 C Flamedance Prodigy
+75 U Goblin Chef
+76 C Goblin Ukulelist
+77 C High Road Bandit
+78 C Inner Flame
+79 C Kirsus Mongrel
+80 R Master Flamedancer
+81 C Moltenheart Elemental
+82 U Parch the Mind
+83 U Passionate Anthem
+84 C Piercing Shout
+85 U Ragesmith
+86 M Roselyn Valvidia
+87 C Sparkling Chord
+88 R Starsong Dragon
+89 U Torch Juggler
+90 U Arachnoid Ambush
+91 C Aria of the Spider
+92 R Ashanid the Dreamweaver
+93 U Awakening Melody
+94 U Chromesthesia
+95 C Contemplative Ancient
+96 C Dreamborn Wurm
+97 U Duskwood Neophyte
+98 C Flourishing Chord
+99 U Kenoram Mythmaker
+100 C Kenoram Stalker
+101 C Lone Poet
+102 C Parade Mastodon
+103 R Primal Drummer
+104 C Primeval Serenity
+105 U Prismavore
+106 C Satyr Wayfinder
+107 C Spawn of Ashanid
+108 C Surreal Grandeur
+109 C Tale of the Lone Hunter
+110 U Taunting Satyr
+111 C Traveling Minstrel
+112 M Angelic Mentor
+113 M Ashdancer
+114 M Ashiok, Harbinger of Fear
+115 U Aven Blade-Dancer
+116 C Aven Conductor
+117 C Blazeheart Idealon
+118 U Book Worm
+119 R Chaosborn Muse
+120 U Chimerical Visitant
+121 R Chromaborn Muse
+122 C Chromawing Idealon
+123 M Creativity
+124 U Delsanian Aristocrat
+125 U Dreams from Beyond
+126 R Duskborn Muse
+127 R Echoborn Muse
+128 R Effervescent Idealon
+129 R Eidolic Waltz
+130 U Entry Fee
+131 M Eraser of Thoughts
+132 M Eregon's Masterpiece
+133 R Exquisite Idealon
+135 U Fantasia Wyrm
+134 R Facestealer
+136 U Fearless Feline
+137 R Gloom Tender
+138 R Graceborn Muse
+139 R Grasp of Nature
+140 U Harmonious Prosperity
+141 U Hellish Idealon
+142 R Highborn Muse
+143 R Infernal Cacophony
+144 U Intrepid Poet
+145 U Journey Inward
+146 U Keeper of the Cycle
+147 C Kenoram Scavenger
+148 R Lifelike Canvas
+149 M Lost in Eternity
+150 R Lyrehorn Runehart
+151 R Lyss, Duskwood Seer
+152 C Mad Jester
+153 M Marionette Show
+154 R Maskborn Muse
+155 U Masquerade Infiltrator
+156 R Masterly Maneuver
+157 R Mental Transgression
+158 C Mistwalker Idealon
+159 R Moment of Quietude
+160 C Nefarious Noble
+161 M Never Forgotten
+162 U Peek-a-Burn
+163 M Pensive Songwriter
+164 U Persona Elemental
+165 U Persona Shift
+166 U Pretentious Critic
+167 U Prowling Idealon
+168 C Psychic Laceration
+169 U Pyrebloom Ritual
+170 U Reconceptualize
+171 U Resentful Giant
+172 R Sanguine Connoisseur
+173 U Secluded Lumidar
+174 U Seed of Despair
+175 M The Senate of Censures
+176 U Shepherd of Souls
+177 R Skiv, Madcap Trickster
+178 R Skyguard Challenger
+179 C Soaring Pursuits
+180 U Soul Fracture
+181 U Sound Blast
+182 R Steelborn Muse
+183 R Tales Retold
+184 R Thought Storm
+185 C Thundersong Trumpeter
+186 R Torrent of Emotions
+187 R Tranceborn Muse
+188 M Veila Lokan
+189 R Verseborn Muse
+190 R Vibrant Hydra
+191 U Words of Denial
+192 R Worldgorger Idealon
+193 U Zealous Duelist
+194 U Austere Familiar
+195 C Bladewhirl
+196 C Boon of the Twin Roses
+197 U Carnival Sentinel
+198 R Creative Surge
+199 R Dancing Master
+200 U Dreamlike Journey
+201 R Duskwood Shaman
+202 U Fabled Manifestation
+203 C Fortune Telling
+204 U Ghastly Mural
+205 U Grim Revel
+206 C Hand of Skiv
+207 R Impromptu Performance
+208 R Luck of the Draw
+209 U Mental Trauma
+210 C Opera Ghost
+211 C Phantasmal Triad
+212 C Poisonous Advantage
+213 U Radiant Skinmarks
+214 R Renegade Fortuneteller
+215 R Restless Librarian
+216 U Ribbon Whirler
+217 C Search for Inspiration
+218 R Skiv's Regards
+219 C Stoic Bihorn
+220 R Storytime
+221 C Unfinished Creation
+222 U Voice of Lost Songs
+223 R Wistful Sonnet
+224 U Chromatic Brush
+225 U Elegant Blade
+226 C Ensorcelled Instrument
+227 U Ghostlight
+228 C Hulking Creation
+229 C Jest-In-The-Box
+230 R Painter's Servant
+231 U Roaming Museum
+232 C Scapeforger Bauble
+233 C Springleaf Drum
+234 C Strobe Light
+235 R Tome of Infinity
+236 C Boundless Halls
+237 C City of Wonders
+238 C Deserted Fairgrounds
+239 C Enlightened Valley
+240 C Ethereal Gardens
+241 C Glamor District
+242 R Heart of Inspiration
+243 C Lush Vale
+244 C Mistfire Ridge
+245 M Mount Chromaziel
+246 C Nightmarish Morass
+247 C Sunlit Alley
+248 C Twisted Woodlands
+249 U Vivid Paradise
+250 L Plains
+251 L Island
+252 L Swamp
+253 L Mountain
+254 L Forest
+
+[Lands]
+1 Plains|AENR|1
+1 Island|AENR|1
+1 Swamp|AENR|1
+1 Mountain|AENR|1
+1 Forest|AENR|1
+
+[tokens]
+1 u_2_2_illusion_flying
+2 b_3_3_nightmare
+3 bg_1_1_satyr_bard
+4 c_a_gecree_sac
+
+[other]
+10 emblem_Roselyn_Valvidia
+
+оригинальных карт - 2

@@ -271,8 +271,29 @@ public class ManaEffect extends SpellAbilityEffect {
             abMana.setExpressChoice(mana);
         } else if (type.startsWith("EachColorAmong")) {
             final String res = type.split("_")[1];
-            ColorSet colors = CardUtil.getColorsFromCards(AbilityUtils.getDefinedCards(host, res, sa));
-            if (colors.isColorless()) return;
+
+            ColorSet colors;
+
+            // === Imaginarium: EachColorAmong_YourGraveyard ===
+            if (res.equalsIgnoreCase("YourGraveyard")) {
+                final Player player = sa.getActivatingPlayer();
+                if (player == null) {
+                    return;
+                }
+                colors = CardUtil.getColorsFromCards(
+                        player.getCardsIn(forge.game.zone.ZoneType.Graveyard)
+                );
+            } else {
+                // existing behavior
+                colors = CardUtil.getColorsFromCards(
+                        AbilityUtils.getDefinedCards(host, res, sa)
+                );
+            }
+
+            if (colors.isColorless()) {
+                return;
+            }
+
             abMana.setExpressChoice(colors);
         }
     }

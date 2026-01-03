@@ -36,6 +36,7 @@ import forge.card.CardStateName;
 import forge.card.ColorSet;
 import forge.card.MagicColor;
 import forge.card.mana.ManaAtom;
+import forge.game.card.Card;
 import forge.game.CardTraitBase;
 import forge.game.ForgeScript;
 import forge.game.Game;
@@ -60,6 +61,7 @@ import forge.game.player.Player;
 import forge.game.player.PlayerCollection;
 import forge.game.replacement.ReplacementEffect;
 import forge.game.staticability.StaticAbility;
+import forge.game.staticability.StaticAbilityMode;
 import forge.game.staticability.StaticAbilityCastWithFlash;
 import forge.game.staticability.StaticAbilityMustTarget;
 import forge.game.trigger.Trigger;
@@ -2702,5 +2704,29 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
             return;
         }
         maxWaterbend = AbilityUtils.calculateAmount(getHostCard(), cost.getMaxWaterbend(), this);
+    }
+
+    public static void applyModalChoiceModifiers(final Game game, final ModalChoiceContext ctx) {
+        // NOTE: в этом Forge нет game.getStaticAbilities(), поэтому собираем через game.getCardsInGame() -> card.getStaticAbilities()
+        for (final Card c : game.getCardsInGame()) {
+            for (final StaticAbility st : c.getStaticAbilities()) {
+                // 1) фильтр по Mode$ (требует добавленного enum-значения)
+                if (!st.checkMode(StaticAbilityMode.ModifyModes)) {
+                    continue;
+                }
+                // 2) стандартные проверки статики
+                if (!st.checkConditions()) {
+                    continue;
+                }
+                // 3) "…on spells and abilities you control"
+                if (st.getHostCard().getController() != ctx.sa.getHostCard().getController()) {
+                    continue;
+                }
+
+                // применяем модификацию выбора modes
+                ctx.max = ctx.possible.size();   // "any number of additional modes"
+                ctx.allowRepeat = false;         // "can’t choose the same mode more than once this way"
+            }
+        }
     }
 }

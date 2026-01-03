@@ -226,6 +226,30 @@ public final class StaticAbilityContinuous {
                         }
                         return true;
                     }
+
+                    // === Imaginarium: ColorsInYourYard ===
+                    if (input.contains("ColorsInYourYard") || input.contains("colorsInYourYard")) {
+
+                        // StaticAbility НЕ имеет activating player → берём controller hostCard
+                        final Player player = hostCard.getController();
+                        if (player == null) {
+                            return true;
+                        }
+
+                        final ColorSet colors =
+                                CardUtil.getColorsFromCards(player.getCardsIn(ZoneType.Graveyard));
+
+                        for (MagicColor.Color color : colors) {
+                            if (color == MagicColor.Color.COLORLESS) {
+                                continue;
+                            }
+                            String y = input.replace("ColorsInYourYard", color.getName());
+                            y = y.replace("colorsInYourYard", color.getName());
+                            newKeywords.add(y);
+                        }
+                        return true;
+                    }
+
                     if (input.contains("YourBasic")) {
                         CardCollectionView lands = hostCard.getController().getLandsInPlay();
                         final List<String> basic = MagicColor.Constant.BASIC_LANDS;

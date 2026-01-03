@@ -614,6 +614,21 @@ public class CostAdjustment {
                 return false;
             }
         }
+
+        if (st.hasParam("AltCost")) {
+            // Only spells can have alternative casting costs
+            if (!sa.isSpell()) {
+                return false;
+            }
+
+            final forge.game.spellability.AlternativeCost required =
+                    forge.game.spellability.AlternativeCost.valueOf(st.getParam("AltCost"));
+
+            // This also implies the spell is being cast via an alternative cost
+            if (!sa.isAlternativeCost(required)) {
+                return false;
+            }
+        }
         return true;
     }
 }

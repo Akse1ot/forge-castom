@@ -2,7 +2,6 @@ package forge.game.spellability;
 
 import com.google.common.collect.Maps;
 import forge.card.ColorSet;
-import forge.card.MagicColor.Color;
 import forge.game.Game;
 import forge.game.ability.AbilityFactory;
 import forge.game.ability.AbilityFactory.AbilityRecordType;
@@ -133,20 +132,24 @@ public final class ResonanceHelper {
                 root.appendSubAbility(sub);
             }
 
-            // === REMEMBER COLORS ===
+            // === REMEMBER COLORS (MASK-BASED) ===
             ColorSet colorsA = resCard.getColor();
             if (!colorsA.isColorless()) {
 
-                String colorsParam = colorsToParam(colorsA);
-                String existing = root.getSVar(SVAR_RESONANCE_COLORS);
+                final int maskA = colorsA.getColor();
+                final String existing = root.getSVar(SVAR_RESONANCE_COLORS);
 
                 if (existing == null || existing.isEmpty()) {
-                    root.setSVar(SVAR_RESONANCE_COLORS, colorsParam);
+                    root.setSVar(SVAR_RESONANCE_COLORS, Integer.toString(maskA));
                 } else {
-                    Set<String> all = new LinkedHashSet<>();
-                    Collections.addAll(all, existing.split(" "));
-                    Collections.addAll(all, colorsParam.split(" "));
-                    root.setSVar(SVAR_RESONANCE_COLORS, String.join(" ", all));
+                    try {
+                        int maskExisting = Integer.parseInt(existing);
+                        int merged = maskExisting | maskA;
+                        root.setSVar(SVAR_RESONANCE_COLORS, Integer.toString(merged));
+                    } catch (NumberFormatException e) {
+                        // fallback: reset to current mask
+                        root.setSVar(SVAR_RESONANCE_COLORS, Integer.toString(maskA));
+                    }
                 }
             }
 
@@ -161,7 +164,7 @@ public final class ResonanceHelper {
     }
 
     // =====================================================================
-    // DIRECT COLOR OVERRIDE (Variant A)
+    // DIRECT COLOR OVERRIDE
     // =====================================================================
     public static void applyDirectColorOverrideForSpellCast(final SpellAbility sp) {
 
@@ -179,7 +182,14 @@ public final class ResonanceHelper {
         if (host == null || host.getGame() == null) return;
 
         final long ts = host.getGame().getNextTimestamp();
-        host.addColor(ColorSet.fromNames(colors), true, ts, null);
+        int mask;
+        try {
+            mask = Integer.parseInt(colors);
+        } catch (NumberFormatException e) {
+            return;
+        }
+
+        host.addColor(ColorSet.fromMask(mask), true, ts, null);
         sp.setSVar(SVAR_RESONANCE_COLOR_TS, Long.toString(ts));
     }
 
@@ -202,14 +212,5 @@ public final class ResonanceHelper {
         } catch (NumberFormatException ignored) {}
 
         sp.setSVar(SVAR_RESONANCE_COLOR_TS, "");
-    }
-
-    // =====================================================================
-    // UTILS
-    // =====================================================================
-    private static String colorsToParam(ColorSet colors) {
-        List<String> out = new ArrayList<>();
-        for (Color c : colors) out.add(c.toString());
-        return String.join(" ", out);
     }
 }

@@ -15,6 +15,7 @@ import forge.game.keyword.Keyword;
 import forge.game.player.Player;
 import forge.game.spellability.AbilitySub;
 import forge.game.spellability.SpellAbility;
+import forge.game.spellability.ModalChoiceContext;
 import forge.util.Aggregates;
 import forge.util.Lang;
 import forge.util.Localizer;
@@ -255,7 +256,29 @@ public class CharmEffect extends SpellAbilityEffect {
             sa.setChoosingPlayer(chooser);
         }
 
-        List<AbilitySub> chosen = chooser.getController().chooseModeForAbility(sa, choices, min, num, canRepeat);
+        // ===== Modal choice context =====
+        ModalChoiceContext ctx = new ModalChoiceContext(
+                sa,
+                chooser,
+                choices,
+                min,
+                num,
+                canRepeat
+        );
+
+        // ===== APPLY MODAL MODIFIERS (static abilities etc.) =====
+        SpellAbility.applyModalChoiceModifiers(chooser.getGame(), ctx);
+
+        // ===== UI / AI choice =====
+        List<AbilitySub> chosen = chooser.getController()
+                .chooseModeForAbility(
+                        sa,
+                        ctx.possible,
+                        ctx.min,
+                        ctx.max,
+                        ctx.allowRepeat
+                );
+
         chainAbilities(sa, chosen);
 
         // trigger without chosen modes are removed from stack
@@ -263,8 +286,9 @@ public class CharmEffect extends SpellAbilityEffect {
             return chosen != null && !chosen.isEmpty();
         }
 
-        // for spells and activated abilities it is possible to chose zero if minCharmNum allows it
+        // for spells and activated abilities it is possible to choose zero if minCharmNum allows it
         return true;
+
     }
 
     public static void chainAbilities(SpellAbility sa, List<AbilitySub> chosen) {

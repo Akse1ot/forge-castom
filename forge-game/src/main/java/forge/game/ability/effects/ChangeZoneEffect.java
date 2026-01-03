@@ -16,6 +16,7 @@ import forge.game.player.*;
 import forge.game.player.PlayerController.FullControlFlag;
 import forge.game.replacement.ReplacementEffect;
 import forge.game.replacement.ReplacementType;
+import forge.game.replacement.ReplacementResult;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityStackInstance;
 import forge.game.trigger.TriggerType;
@@ -1014,6 +1015,18 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
             else {
                 fetchList = new CardCollection(player.getCardsIn(origin));
                 if (origin.contains(ZoneType.Library) && !sa.hasParam("NoLooking")) {
+
+                    Map<AbilityKey, Object> repParams = AbilityKey.newMap();
+                    repParams.put(AbilityKey.Affected, source); // host card of the effect
+                    repParams.put(AbilityKey.Player, decider);
+                    repParams.put(AbilityKey.Cause, sa);
+
+                    if (game.getReplacementHandler()
+                            .run(ReplacementType.SearchLibrary, repParams)
+                            != ReplacementResult.NotReplaced) {
+                        continue; // поиск полностью заменён
+                    }
+
                     searchedLibrary = true;
 
                     if (decider.hasKeyword("LimitSearchLibrary")) { // Aven Mindcensor

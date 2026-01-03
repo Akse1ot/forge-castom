@@ -47,6 +47,7 @@ public enum ApiType {
     Charm (CharmEffect.class),
     ChooseCard (ChooseCardEffect.class),
     ChooseColor (ChooseColorEffect.class),
+    ChooseColorsForNextSpell (ChooseColorsForNextSpellEffect.class),
     ChooseDirection (ChooseDirectionEffect.class),
     ChooseEvenOdd (ChooseEvenOddEffect.class),
     ChooseNumber (ChooseNumberEffect.class),

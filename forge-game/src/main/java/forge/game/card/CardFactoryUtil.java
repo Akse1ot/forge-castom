@@ -3590,7 +3590,8 @@ public class CardFactoryUtil {
 
                         // 2) альтернативная стоимость
                         final Cost resonanceCost = new Cost(cost, false);
-                        final SpellAbility resonanceSA = base.copyWithDefinedCost(resonanceCost);
+                        final SpellAbility resonanceSA =
+                                base.copyWithManaCostReplaced(host.getController(), resonanceCost);
 
                         // 3) помечаем как альтернативную стоимость Resonance
                         resonanceSA.setAlternativeCost(AlternativeCost.Resonance);

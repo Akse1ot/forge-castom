@@ -37,6 +37,7 @@ import forge.game.mana.ManaRefundService;
 import forge.game.player.Player;
 import forge.game.player.PlayerPredicates;
 import forge.game.spellability.AbilityStatic;
+import forge.game.spellability.NextSpellColorHelper;
 import forge.game.spellability.ResonanceHelper;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityStackInstance;
@@ -320,6 +321,11 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
         // RESONANCE: merge BEFORE target-check
         ResonanceHelper.maybeMerge(game, activator, sp);
 
+        // NextSpellColor
+        if (sp.isSpell() && !sp.isCopied()) {
+            NextSpellColorHelper.tagSpellOnCast(activator, sp);
+        }
+
         // CHECK TARGETING
         if (!sp.isCopied() && !hasLegalTargeting(sp)) {
             String str = source + " - [Couldn't add to stack, failed to target] - " + sp.getDescription();
@@ -420,6 +426,11 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
 
             // ===== Resonance: make spell multicolored BEFORE SpellCast triggers =====
             ResonanceHelper.applyDirectColorOverrideForSpellCast(sp);
+
+            // ===== NextSpellColor: make spell multicolored BEFORE SpellCast triggers =====
+            if (sp.isSpell() && !sp.isCopied()) {
+                NextSpellColorHelper.applyDirectColorOverrideForSpellCast(sp);
+            }
 
             // Run SpellCast triggers
             if (sp.isSpell()) {
@@ -712,6 +723,9 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
 
     private void removeCardFromStack(final SpellAbility sa, final SpellAbilityStackInstance si, final boolean fizzle) {
         Card source = sa.getHostCard();
+
+        // ===== Next spell color cleanup =====
+        NextSpellColorHelper.clearDirectColorOverrideForSpellCast(sa);
 
         // ===== Resonance: cleanup direct color override when leaving stack =====
         ResonanceHelper.clearDirectColorOverrideForSpellCast(sa);

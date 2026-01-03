@@ -2465,6 +2465,7 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
 
     @Override
     public void resetAtEndOfTurn() {
+        player.clearNextSpellAddColors();
         // Not used by the human controller
     }
 

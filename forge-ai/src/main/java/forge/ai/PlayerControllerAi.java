@@ -1507,6 +1507,7 @@ public class PlayerControllerAi extends PlayerController {
 
     @Override
     public void resetAtEndOfTurn() {
+        player.clearNextSpellAddColors();
         // TODO - if card memory is ever used to remember something for longer than a turn, make sure it's not reset here.
         getAi().getCardMemory().clearAllRemembered();
     }

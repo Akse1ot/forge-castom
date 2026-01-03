@@ -46,6 +46,7 @@ public enum ReplacementType {
     RollPlanarDice(ReplaceRollPlanarDice.class),
     Scry(ReplaceScry.class),
     SetInMotion(ReplaceSetInMotion.class),
+    SearchLibrary(ReplaceSearchLibrary.class),
     Tap(ReplaceTap.class),
     Transform(ReplaceTransform.class),
     TurnFaceUp(ReplaceTurnFaceUp.class),
