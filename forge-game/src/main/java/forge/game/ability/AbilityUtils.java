@@ -1623,6 +1623,11 @@ public class AbilityUtils {
             l[0] = l[0].substring(6);
         }
 
+        // Count$ModifiedWays (number of different modification types on this creature)
+        if (l[0].equalsIgnoreCase("ModifiedWays")) {
+            return doXMath(c.getModificationTypeCount(), expr, c, ctb);
+        }
+
         // === Imaginarium: Count$ColorsInYourYard ===
         if (l[0].equalsIgnoreCase("ColorsInYourYard")
                 || l[0].equalsIgnoreCase("ColorsYourGraveyard")) {

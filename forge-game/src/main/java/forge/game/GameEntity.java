@@ -143,8 +143,27 @@ public abstract class GameEntity implements GameObject, IIdentifiable {
     public abstract boolean hasKeyword(final Keyword keyword);
 
     public final CardCollectionView getEnchantedBy() {
-        // enchanted means attached by Aura
-        return CardLists.filter(getAttachedCards(), Card::isAura);
+        CardCollection result = new CardCollection();
+
+        // 1. Обычные Auras, прикреплённые напрямую
+        for (Card c : getAttachedCards()) {
+            if (c.isAura()) {
+                result.add(c);
+            }
+        }
+
+        // 2. Ash of War: Aura → Equipment → this creature
+        if (this instanceof Card creature && creature.isCreature()) {
+            for (Card equipment : creature.getEquippedBy()) {
+                for (Card attached : equipment.getAttachedCards()) {
+                    if (attached.isAura() && attached.hasKeyword(Keyword.ASH_OF_WAR)) {
+                        result.add(attached);
+                    }
+                }
+            }
+        }
+
+        return result;
     }
 
     // doesn't include phased out cards
@@ -175,8 +194,23 @@ public abstract class GameEntity implements GameObject, IIdentifiable {
     }
 
     public final boolean isEnchanted() {
-        // enchanted means attached by Aura
-        return getAttachedCards().anyMatch(Card::isAura);
+        // обычная Aura
+        if (getAttachedCards().anyMatch(Card::isAura)) {
+            return true;
+        }
+
+        // Ash of War: Aura → Equipment → this creature
+        if (this instanceof Card creature && creature.isCreature()) {
+            for (Card equipment : creature.getEquippedBy()) {
+                for (Card attached : equipment.getAttachedCards()) {
+                    if (attached.isAura() && attached.hasKeyword(Keyword.ASH_OF_WAR)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     public final boolean hasCardAttachment(Card c) {

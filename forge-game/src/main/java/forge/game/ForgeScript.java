@@ -233,6 +233,8 @@ public class ForgeScript {
             return sa.isKeyword(Keyword.MODULAR);
         } else if (property.equals("Equip")) {
             return sa.isEquip();
+        } else if (property.equals("SpiritAsh")) {
+            return sa.isSpiritAsh();
         } else if (property.equals("Boast")) {
             return sa.isBoast();
         } else if (property.equals("Exhaust")) {

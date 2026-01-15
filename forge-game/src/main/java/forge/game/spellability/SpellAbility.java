@@ -702,6 +702,10 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
         return isAlternativeCost(AlternativeCost.Spectacle);
     }
 
+    public final boolean isSpiritAsh() {
+        return hasParam("PrecostDesc") && "Spirit Ash".equals(getParam("PrecostDesc"));
+    }
+
     public boolean isFlashback() {
         return this.isAlternativeCost(AlternativeCost.Flashback);
     }

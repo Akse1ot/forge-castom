@@ -3450,6 +3450,21 @@ public class CardFactoryUtil {
             newSA.setIntrinsic(intrinsic);
             newSA.setAlternativeCost(AlternativeCost.Overload);
             inst.addSpellAbility(newSA);
+        } else if (keyword.startsWith("Spirit Ash")) {
+            final String[] kw = keyword.split(":", 2);
+            final String costStr = kw.length > 1 ? kw[1].trim() : "";
+
+            final String effect =
+                    "AB$ CopyPermanent | Cost$ " + costStr + " ExileFromGrave<1/CARDNAME> " +
+                            "| ActivationZone$ Graveyard | SorcerySpeed$ True " +
+                            "| RemoveCost$ True | AddTypes$ Enchantment Spirit" +
+                            "| PrecostDesc$ Spirit Ash | CostDesc$ " + costStr + " | Defined$ Self " +
+                            "| StackDescription$ Spirit Ash - CARDNAME " +
+                            "| SpellDescription$ (" + inst.getReminderText() + ")";
+
+            final SpellAbility sa = AbilityFactory.getAbility(effect, card);
+            sa.setIntrinsic(intrinsic);
+            inst.addSpellAbility(sa);
         } else if (keyword.startsWith("Plot")) {
             final String[] k = keyword.split(":");
             final String manacost = k[1];

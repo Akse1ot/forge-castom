@@ -4184,10 +4184,34 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     }
 
     public final boolean isModified() {
-        if (this.isEquipped() || this.hasCounters()) {
-            return true;
+        return !getModificationTypes().isEmpty();
+    }
+
+    public EnumSet<ModificationType> getModificationTypes() {
+        EnumSet<ModificationType> mods = EnumSet.noneOf(ModificationType.class);
+
+        // Equipment
+        if (!getEquippedBy().isEmpty()) {
+            mods.add(ModificationType.EQUIPMENT);
         }
-        return this.getEnchantedBy().anyMatch(CardPredicates.isController(this.getController()));
+
+        // Counters
+        if (hasCounters()) {
+            mods.add(ModificationType.COUNTER);
+        }
+
+        // Auras you control
+        if (getEnchantedBy().anyMatch(aura ->
+                aura.getController().equals(getController())
+        )) {
+            mods.add(ModificationType.AURA);
+        }
+
+        return mods;
+    }
+
+    public int getModificationTypeCount() {
+        return getModificationTypes().size();
     }
 
     public final void setType(final CardType type0) {

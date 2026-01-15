@@ -299,6 +299,5 @@ Replace=.15F Common:fromSheet("AENR cards")
 4 c_a_gecree_sac
 
 [other]
-10 emblem_Roselyn_Valvidia
+5 emblem_Roselyn_Valvidia
 
-оригинальных карт - 2
