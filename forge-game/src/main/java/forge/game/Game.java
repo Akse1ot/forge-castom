@@ -56,6 +56,9 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 /**
@@ -285,6 +288,13 @@ public class Game {
     public final void clearChangeZoneLKIInfo() {
         changeZoneLKIInfo.clear();
     }
+
+    // === Custom patch: zone-change batching + first-batch-per-turn registry ===
+    private int zoneChangeBatchDepth = 0;
+    private UUID currentZoneChangeBatchId = null;
+
+    // key -> first batch UUID in this turn
+    private final Map<String, UUID> firstThisTurnBatchByKey = new HashMap<>();
 
     public void addLeftBattlefieldThisTurn(Card lki) {
         leftBattlefieldThisTurn.add(lki);
@@ -1164,6 +1174,47 @@ public class Game {
         numPiledGuessedSA = 0;
     }
 
+    public void beginZoneChangeBatch() {
+        if (zoneChangeBatchDepth == 0) {
+            currentZoneChangeBatchId = UUID.randomUUID();
+        }
+        zoneChangeBatchDepth++;
+    }
+
+    public void endZoneChangeBatch() {
+        zoneChangeBatchDepth--;
+        if (zoneChangeBatchDepth <= 0) {
+            zoneChangeBatchDepth = 0;
+            currentZoneChangeBatchId = null;
+        }
+    }
+
+    public UUID getCurrentZoneChangeBatchId() {
+        return currentZoneChangeBatchId;
+    }
+
+    /**
+     * Returns true if (key) is happening in the first batch of this turn.
+     * On first call with a non-null batchId, locks the first batch for this key until cleanup.
+     */
+    public boolean isFirstBatchThisTurn(final String key, final UUID batchId) {
+        if (key == null || key.isEmpty() || batchId == null) {
+            return false;
+        }
+        final UUID first = firstThisTurnBatchByKey.get(key);
+        if (first == null) {
+            firstThisTurnBatchByKey.put(key, batchId);
+            return true;
+        }
+        return first.equals(batchId);
+    }
+
+    public void clearFirstThisTurnBatchByKey() {
+        firstThisTurnBatchByKey.clear();
+    }
+
+
+
     public void onCleanupPhase() {
         resetNumPiledGuessedSA();
         clearLeftBattlefieldThisTurn();
@@ -1181,6 +1232,11 @@ public class Game {
         for (final Card card : getCardsInGame()) {
             card.resetActivationsPerTurn();
         }
+        clearFirstThisTurnBatchByKey();
+
+        // safety: also reset batch state at end of turn
+        zoneChangeBatchDepth = 0;
+        currentZoneChangeBatchId = null;
     }
 
     public void addCounterAddedThisTurn(Player putter, CounterType cType, Card card, Integer value) {

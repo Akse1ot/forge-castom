@@ -1570,6 +1570,8 @@ public class GameAction {
             // 704.5m World rule
             checkAgain |= handleWorldRule(noRegCreats);
 
+            game.beginZoneChangeBatch();
+
             // only check static abilities once after destroying all the creatures
             // (e.g. helpful for Erebos's Titan and another creature dealing lethal damage to each other simultaneously)
             setHoldCheckingStaticAbilities(true);
@@ -1603,6 +1605,8 @@ public class GameAction {
             sacrifice(sacrificeList, null, true, mapParams);
 
             setHoldCheckingStaticAbilities(false);
+
+            game.endZoneChangeBatch();
 
             table.triggerChangesZoneAll(game, null);
 
@@ -2170,8 +2174,18 @@ public class GameAction {
         }
         game.getTriggerHandler().runTrigger(TriggerType.Destroyed, runParams, false);
 
-        final Card sacrificed = sacrificeDestroy(c, sa, params);
-        return sacrificed != null;
+        final UUID prevBatch = game.getCurrentZoneChangeBatchId();
+        if (prevBatch == null) {
+            game.beginZoneChangeBatch();
+        }
+        try {
+            final Card sacrificed = sacrificeDestroy(c, sa, params);
+            return sacrificed != null;
+        } finally {
+            if (prevBatch == null) {
+                game.endZoneChangeBatch();
+            }
+        }
     }
 
     /**
@@ -2183,9 +2197,18 @@ public class GameAction {
             return null;
         }
 
-        final Card newCard = moveToGraveyard(c, cause, params);
-
-        return newCard;
+        final UUID prevBatch = game.getCurrentZoneChangeBatchId();
+        if (prevBatch == null) {
+            game.beginZoneChangeBatch();
+        }
+        try {
+            final Card newCard = moveToGraveyard(c, cause, params);
+            return newCard;
+        } finally {
+            if (prevBatch == null) {
+                game.endZoneChangeBatch();
+            }
+        }
     }
 
     public void revealTo(final Card card, final Player to) {

@@ -2860,6 +2860,32 @@ public class AbilityUtils {
             return activated;
         }
 
+        // Count$FirstBatchThisTurnEntered_<ZoneDestination>[_from_<ZoneOrigin>]_ <Valid>
+        // Returns 1 if we are in the first batch this turn for this key, else 0.
+        if (sq[0].startsWith("FirstBatchThisTurnEntered")) {
+            final String[] workingCopy = paidparts[0].split("_", 6);
+            // workingCopy[0] = FirstBatchThisTurnEntered
+            ZoneType destination = ZoneType.smartValueOf(workingCopy[1]);
+
+            final boolean hasFrom = "from".equals(workingCopy[2]);
+            ZoneType origin = hasFrom ? ZoneType.smartValueOf(workingCopy[3]) : null;
+
+            // validFilter is the remaining token after zones
+            String validFilter = workingCopy[hasFrom ? 4 : 2];
+
+            // Batch id comes from Game batching mechanism
+            final UUID batchId = game.getCurrentZoneChangeBatchId();
+            if (batchId == null) {
+                return 0;
+            }
+
+            final String key = "Entered:" + destination
+                    + ":from:" + (origin == null ? "Any" : origin)
+                    + ":valid:" + validFilter;
+
+            return game.isFirstBatchThisTurn(key, batchId) ? 1 : 0;
+        }
+
         // Count$ThisTurnEntered <ZoneDestination> [from <ZoneOrigin>] <Valid>
         if (sq[0].startsWith("ThisTurnEntered") || sq[0].startsWith("LastTurnEntered")) {
             final String[] workingCopy = paidparts[0].split("_", 5);

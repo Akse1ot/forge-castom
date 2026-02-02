@@ -359,6 +359,51 @@ public class SealedCardPoolGenerator {
                     return;
                 }
                 break;
+            case CustomExpansion: {
+                // 1) Собрать все CUSTOM_SET-сеты, для которых реально существует booster
+                final List<CardEdition> candidates = new ArrayList<>();
+
+                for (CardEdition ed : StaticData.instance().getEditions().getOrderedEditions()) {
+                    if (ed.getType() != CardEdition.Type.CUSTOM_SET) {
+                        continue;
+                    }
+                    if (FModel.getMagicDb().getBoosters().get(ed.getCode()) == null) {
+                        continue;
+                    }
+                    candidates.add(ed);
+                }
+
+                if (candidates.isEmpty()) {
+                    SOptionPane.showMessageDialog(
+                            "No draftable Expansion sets found.",
+                            "Custom Expansion Sealed"
+                    );
+                    return;
+                }
+
+                // 2) Выбор сета
+                final CardEdition chosen = SGuiChoose.oneOrNone(
+                        "Choose Expansion for Sealed",
+                        candidates
+                );
+                if (chosen == null) {
+                    return;
+                }
+
+                // 3) Добавить нужное число бустеров выбранного сета
+                // В этом классе "сколько паков" всегда выбирается через chooseNumberOfBoosters(...)
+                final UnOpenedProduct booster = new UnOpenedProduct(
+                        FModel.getMagicDb().getBoosters().get(chosen.getCode())
+                );
+                if (!chooseNumberOfBoosters(booster)) {
+                    return;
+                }
+
+                // 4) Земли: используем код выбранного издания (как в Prerelease)
+                landSetCode = chosen.getCode();
+                break;
+            }
+
         }
     }
 
