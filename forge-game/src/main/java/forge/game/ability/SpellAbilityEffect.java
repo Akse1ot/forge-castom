@@ -970,6 +970,16 @@ public abstract class SpellAbilityEffect {
             host.addLeavesPlayCommand(until);
             host.addChangeControllerCommand(until);
             host.addPhaseOutCommand(until);
+        } else if ("AsLongAsYouControlIt".equals(duration)) {
+            // "it" = targeted card (not host)
+            final Card controlled = sa.getSATargetingCard().getTargetCard();
+            if (controlled != null) {
+                controlled.addLeavesPlayCommand(until);
+                controlled.addChangeControllerCommand(until);
+                controlled.addPhaseOutCommand(until);
+            } else {
+                game.getEndOfTurn().addUntil(until);
+            }
         } else if ("AsLongAsInPlay".equals(duration)) {
             host.addLeavesPlayCommand(until);
             host.addPhaseOutCommand(until);
@@ -1001,7 +1011,8 @@ public abstract class SpellAbilityEffect {
         //if host is not on the battlefield don't apply
         // Suspend should does Affect the Stack
         if ((duration.startsWith("UntilHostLeavesPlay") || "UntilLoseControlOfHost".equals(duration) || "UntilUntaps".equals(duration)
-                || "AsLongAsControl".equals(duration) || "AsLongAsInPlay".equals(duration))
+                || "AsLongAsControl".equals(duration) || "AsLongAsInPlay".equals(duration)
+                || "AsLongAsYouControlIt".equals(duration))
                 && !(hostCard.isInPlay() || hostCard.isInZone(ZoneType.Stack))) {
             return false;
         }
@@ -1017,6 +1028,19 @@ public abstract class SpellAbilityEffect {
         if ("UntilTargetedUntaps".equals(sa.getParam("Duration"))) {
             Card tgt = sa.getSATargetingCard().getTargetCard();
             if (!tgt.isTapped() || tgt.isPhasedOut()) {
+                return false;
+            }
+        }
+        if ("AsLongAsYouControlIt".equals(sa.getParam("Duration"))) {
+            Card tgt = sa.getSATargetingCard().getTargetCard();
+            if (tgt == null) {
+                return false;
+            }
+            // must currently control it at application time
+            if (!tgt.isInPlay() || tgt.isPhasedOut()) {
+                return false;
+            }
+            if (tgt.getController() != sa.getActivatingPlayer()) {
                 return false;
             }
         }

@@ -173,6 +173,7 @@ public class FOptionPane extends FDialog {
     public FOptionPane(final String message, final String title, final SkinImage icon, final Component comp, final List<String> options, final int defaultOption) {
         FThreads.assertExecutedByEdt(true);
         this.setTitle(title);
+        this.setResizable(true);
 
         final int padding = 10;
         int x = padding;

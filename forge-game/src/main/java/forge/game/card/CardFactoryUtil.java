@@ -32,6 +32,7 @@ import forge.game.ability.AbilityUtils;
 import forge.game.cost.*;
 import forge.game.event.GameEventCardForetold;
 import forge.game.event.GameEventCardPlotted;
+import forge.game.keyword.Hexproof;
 import forge.game.keyword.Keyword;
 import forge.game.keyword.KeywordInterface;
 import forge.game.player.Player;
@@ -4157,6 +4158,7 @@ public class CardFactoryUtil {
             StaticAbility stAb = StaticAbility.create(reduceEffect, state.getCard(), state, intrinsic);
             stAb.setSVar("AffectedX", "Count$OptionalKeywordAmount");
             inst.addStaticAbility(stAb);
+
         } else if (keyword.startsWith("Hexproof") && inst instanceof Hexproof hexproof) {
             final StringBuilder sbValid = new StringBuilder();
 

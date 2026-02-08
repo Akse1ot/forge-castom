@@ -113,6 +113,11 @@ public class ListChooser<T> {
         if (this.lstChoices.getModel().getSize() > this.lstChoices.getVisibleRowCount()) {
             minWidth += listScroller.getVerticalScrollBar().getPreferredSize().width;
         }
+
+        // сделаем диалог заметно больше
+        listScroller.setPreferredSize(new Dimension(Math.max(minWidth, 800), 650));
+
+        // минимум можно оставить
         listScroller.setMinimumSize(new Dimension(minWidth, listScroller.getMinimumSize().height));
 
         this.optionPane = new FOptionPane(null, title, null, listScroller, options, minChoices < 0 ? 0 : -1);

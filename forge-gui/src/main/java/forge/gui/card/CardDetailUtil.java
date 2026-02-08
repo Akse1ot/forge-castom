@@ -303,6 +303,10 @@ public class CardDetailUtil {
         String text = !card.isSplitCard() ?
             card.getText(state, needTranslation ? CardTranslation.getTranslationTexts(state) : null) :
             card.getText(state, needTranslation ? CardTranslation.getTranslationTexts(card.getLeftSplitState(), card.getRightSplitState()) : null );
+            // Remove duplicated Spirit Ash keyword-line (it is shown again via the generated ability text)
+            // Keep the proper "Spirit ash {2}{W}, ..." line.
+            text = text.replaceAll("(?m)^Spirit Ash:.*\\R?", "");
+            text = text.trim();
 
         // Bracket P/T for Level up
         if (text.contains("LEVEL")) {
