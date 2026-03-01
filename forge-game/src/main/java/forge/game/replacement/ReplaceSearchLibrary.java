@@ -31,7 +31,7 @@ public class ReplaceSearchLibrary extends ReplacementEffect {
 
     @Override
     public void setReplacingObjects(final Map<AbilityKey, Object> runParams, final SpellAbility sa) {
-        // передаём игрока в саб-абилку
-        sa.setReplacingObject(AbilityKey.Player, runParams.get(AbilityKey.Player));
+        final Object p = runParams.get(AbilityKey.Player); // игрок, который ищет
+        sa.setReplacingObject(AbilityKey.Affected, p);     // <-- сюда
     }
 }
