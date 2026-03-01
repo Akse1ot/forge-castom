@@ -4,7 +4,7 @@
   <export target="wastetown..tmx" format="tmx"/>
  </editorsettings>
  <properties>
-  <property name="dungeonEffect" value="{&quot;startBattleWithCard&quot;: [ &quot;Dictate of Erebos&quot;, &quot;Tymaret, Chosen from death&quot; ]}"/>
+  <property name="dungeonEffect" value="{&quot;startBattleWithCard&quot;: [ &quot;Dark Prophecy&quot;, &quot;Tymaret, Chosen from death&quot; ]}"/>
  </properties>
  <tileset firstgid="1" source="../../../../common/maps/tileset/main.tsx"/>
  <tileset firstgid="10113" source="../../../../common/maps/tileset/buildings.tsx"/>
@@ -60,7 +60,7 @@
   </object>
   <object id="86" template="../../../../common/maps/obj/enemy.tx" x="197.666" y="87.6667">
    <properties>
-    <property name="effect">{&quot;startBattleWithCard&quot;: [&quot;Font of Return|JOU&quot;, &quot;Eradicator Valkyrie&quot;, &quot;Elvish Doomsayer&quot;, &quot;Draugr's Helm&quot;
+    <property name="effect">{&quot;startBattleWithCard&quot;: [&quot;Font of Return|JOU&quot;, &quot;Waste Not&quot;, &quot;Elvish Doomsayer&quot;, &quot;Draugr's Helm&quot;
 ]}</property>
     <property name="enemy" value="Tergrid"/>
     <property name="speedModifier" type="float" value="10"/>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="70" height="80" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="183">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="70" height="80" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="188">
  <editorsettings>
   <export target="wastetown..tmx" format="tmx"/>
  </editorsettings>
  <properties>
-  <property name="dungeonEffect" value="{&quot;startBattleWithCard&quot;: [ &quot;Arena&quot; ]}"/>
+  <property name="dungeonEffect" value="{&quot;startBattleWithCard&quot;: [ &quot;Trouble in Pairs|MKC&quot; ]}"/>
  </properties>
  <tileset firstgid="1" source="../../../../common/maps/tileset/main.tsx"/>
  <tileset firstgid="10113" source="../../../../common/maps/tileset/buildings.tsx"/>
@@ -136,6 +136,24 @@
       &quot;count&quot;:1, 
       &quot;cardName&quot;: &quot;last one standing&quot;,
       &quot;editions&quot;: [&quot;BBD&quot;]
+},
+{
+      &quot;type&quot;: &quot;card&quot;,
+      &quot;count&quot;:1, 
+      &quot;cardName&quot;: &quot;Phyrexian Arena&quot;,
+      &quot;editions&quot;: [&quot;SCD&quot;]
+},
+{
+      &quot;type&quot;: &quot;card&quot;,
+      &quot;count&quot;:1, 
+      &quot;cardName&quot;: &quot;Arena of Glory&quot;,
+      &quot;editions&quot;: [&quot;MH3&quot;]
+},
+{
+      &quot;type&quot;: &quot;card&quot;,
+      &quot;count&quot;:1, 
+      &quot;cardName&quot;: &quot;Arena&quot;,
+      &quot;editions&quot;: [&quot;TSB&quot;]
 }
 ]</property>
    </properties>
@@ -565,5 +583,7 @@
   <object id="180" template="../../../../common/maps/obj/collision.tx" x="750.22" y="558.924" width="16.8925" height="35.4844"/>
   <object id="181" template="../../../../common/maps/obj/collision.tx" x="575.554" y="398.424" width="30.6425" height="16.6511"/>
   <object id="182" template="../../../../common/maps/obj/collision.tx" x="367.054" y="463.424" width="16.8925" height="31.9011"/>
+  <object id="183" template="../../../../common/maps/obj/gold.tx" x="841.25" y="249"/>
+  <object id="186" template="../../../../common/maps/obj/gold.tx" x="897.5" y="249.25"/>
  </objectgroup>
 </map>

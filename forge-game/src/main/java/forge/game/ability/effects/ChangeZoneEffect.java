@@ -11,6 +11,7 @@ import forge.game.ability.AbilityKey;
 import forge.game.ability.AbilityUtils;
 import forge.game.ability.SpellAbilityEffect;
 import forge.game.card.*;
+import forge.game.event.GameEventAddLog;
 import forge.game.event.GameEventCombatChanged;
 import forge.game.keyword.Keyword;
 import forge.game.player.*;
@@ -38,6 +39,7 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
 
     @Override
     public void buildSpellAbility(SpellAbility sa) {
+        super.buildSpellAbility(sa);
         AbilityFactory.adjustChangeZoneTarget(sa.getMapParams(), sa);
     }
 
@@ -684,7 +686,7 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
 
                     // If it would leave the battlefield, exile it instead of putting it anywhere else.
                     addLeaveBattlefieldReplacement(eff, "Exile");
-                    movedCard.addLeavesPlayCommand(exileEffectCommand(game, eff));
+                    movedCard.addLeavesPlayCommand(() -> game.getAction().exileEffect(eff));
 
                     game.getAction().moveToCommand(eff, sa);
 
@@ -738,7 +740,7 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                 if (ZoneType.Hand.equals(destination) && ZoneType.Command.equals(originZone.getZoneType())) {
                     StringBuilder sb = new StringBuilder();
                     sb.append(movedCard.getDisplayName()).append(" has moved from Command Zone to ").append(activator).append("'s hand.");
-                    game.getGameLog().add(GameLogEntryType.ZONE_CHANGE, sb.toString());
+                    game.fireEvent(new GameEventAddLog(GameLogEntryType.ZONE_CHANGE, sb.toString()));
                     commandCards.add(movedCard); //add to list to reveal the commandzone cards
                 }
 

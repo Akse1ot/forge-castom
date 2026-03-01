@@ -76,8 +76,7 @@ public enum TrackableProperty {
     ChosenDirection(TrackableTypes.EnumType(Direction.class)),
     ChosenEvenOdd(TrackableTypes.EnumType(EvenOdd.class)),
     ChosenMode(TrackableTypes.StringType),
-    ChosenSector(TrackableTypes.StringType),
-    Sector(TrackableTypes.StringListType),
+    Sector(TrackableTypes.StringType),
     Sprocket(TrackableTypes.IntegerType),
     DraftAction(TrackableTypes.StringListType),
     ClassLevel(TrackableTypes.IntegerType),
@@ -116,6 +115,7 @@ public enum TrackableProperty {
     Room(TrackableTypes.BooleanType, FreezeMode.IgnoresFreeze),
     HiddenId(TrackableTypes.IntegerType),
     ExertedThisTurn(TrackableTypes.BooleanType),
+    Detained(TrackableTypes.BooleanType),
 
     //Card State
     Name(TrackableTypes.StringType),
@@ -126,6 +126,7 @@ public enum TrackableProperty {
     ImageKey(TrackableTypes.StringType),
     Type(TrackableTypes.CardTypeViewType),
     ManaCost(TrackableTypes.ManaCostType),
+    OriginalManaCost(TrackableTypes.ManaCostType),
     SetCode(TrackableTypes.StringType),
     Rarity(TrackableTypes.EnumType(CardRarity.class)),
     FunctionalVariant(TrackableTypes.StringType),
@@ -143,16 +144,8 @@ public enum TrackableProperty {
     ChangedTypes(TrackableTypes.StringMapType),
 
     //check produce mana for BG
-    OrigProduceManaR(TrackableTypes.BooleanType),
-    OrigProduceManaG(TrackableTypes.BooleanType),
-    OrigProduceManaB(TrackableTypes.BooleanType),
-    OrigProduceManaU(TrackableTypes.BooleanType),
-    OrigProduceManaW(TrackableTypes.BooleanType),
-    OrigProduceManaC(TrackableTypes.BooleanType),
+    OrigProduceMana(TrackableTypes.ColorSetType),
     OrigProduceAnyMana(TrackableTypes.BooleanType),
-    CountOrigProduceColoredMana(TrackableTypes.IntegerType),
-    //number of basic landtypes
-    CountBasicLandTypes(TrackableTypes.IntegerType),
 
     KeywordKey(TrackableTypes.StringType),
     HasAnnihilator(TrackableTypes.BooleanType),
@@ -193,7 +186,7 @@ public enum TrackableProperty {
     NonAbilityText(TrackableTypes.StringType),
     FoilIndex(TrackableTypes.IntegerType),
 
-    CantHaveKeyword(TrackableTypes.StringListType),
+    CantHaveKeyword(TrackableTypes.StringSetType),
 
     //Player
     IsAI(TrackableTypes.BooleanType),
@@ -251,6 +244,7 @@ public enum TrackableProperty {
     Description(TrackableTypes.StringType),
     CanPlay(TrackableTypes.BooleanType),
     PromptIfOnlyPossibleAbility(TrackableTypes.BooleanType),
+    SA_IsSpell(TrackableTypes.BooleanType),
 
     //ReplacementEffectView
     RE_HostCard(TrackableTypes.CardViewType),
@@ -300,8 +294,6 @@ public enum TrackableProperty {
     StormCount(TrackableTypes.IntegerType),
     GameOver(TrackableTypes.BooleanType),
     PoisonCountersToLose(TrackableTypes.IntegerType),
-    GameLog(TrackableTypes.StringType),
-    NeedsPhaseRedrawn(TrackableTypes.BooleanType),
     PlayerTurn(TrackableTypes.PlayerViewType, FreezeMode.IgnoresFreeze),
     Phase(TrackableTypes.EnumType(PhaseType.class), FreezeMode.IgnoresFreeze),
     Dependencies(TrackableTypes.StringType);
