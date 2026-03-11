@@ -321,6 +321,13 @@ public class SpellAbilityRestriction extends SpellAbilityVariables {
             }
         }
 
+        if (sa.isSpell() && sa.getMayPlay() != null) {
+            Map<String, String> params = sa.getMayPlay().getMapParams();
+            if (params.containsKey("OnlySorcerySpeed") && !activator.canCastSorcery()) {
+                return false;
+            }
+        }
+
         if (this.getFirstCombatOnly()) {
             if (game.getPhaseHandler().getNumCombat() > (game.getPhaseHandler().inCombat() ? 1 : 0)) {
                 return false;

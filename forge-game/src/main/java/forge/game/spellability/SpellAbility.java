@@ -2708,7 +2708,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
                     continue;
                 }
                 // 3) "…on spells and abilities you control"
-                if (st.getHostCard().getController() != ctx.sa.getHostCard().getController()) {
+                if (st.getHostCard().getController() != ctx.chooser) {
                     continue;
                 }
 
