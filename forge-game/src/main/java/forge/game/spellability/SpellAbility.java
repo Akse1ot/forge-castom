@@ -679,7 +679,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
     public final boolean isMadness() {
         return isAlternativeCost(AlternativeCost.Madness);
     }
-    
+
     public final boolean isMayhem() {
         return isAlternativeCost(AlternativeCost.Mayhem);
     }
