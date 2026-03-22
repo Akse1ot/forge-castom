@@ -67,6 +67,22 @@ public class AttachEffect extends SpellAbilityEffect {
             return;
         }
 
+        if (sa.hasParam("ChooseFromDefined")) {
+            String title = sa.hasParam("ChoiceTitle")
+                    ? sa.getParam("ChoiceTitle")
+                    : Localizer.getInstance().getMessage("lblChoose") + " ";
+
+            Map<String, Object> params = Maps.newHashMap();
+            params.put("Target", Iterables.getFirst(getDefinedEntitiesOrTargeted(sa, "Defined"), null));
+
+            Card chosenAttachment = chooser.getController().chooseSingleEntityForEffect(attachments, sa, title, params);
+            if (chosenAttachment == null) {
+                return;
+            }
+
+            attachments = new CardCollection(chosenAttachment);
+        }
+
         GameEntity attachTo;
 
         if (sa.hasParam("Object") && (sa.hasParam("Choices") || sa.hasParam("PlayerChoices"))) {

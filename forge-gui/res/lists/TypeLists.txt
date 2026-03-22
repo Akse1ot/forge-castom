@@ -21,6 +21,7 @@ Urza's
 [CreatureTypes]
 Advisor:Advisors
 Aetherborn:Aetherborn
+Albinauric:Albinaurics
 Alien:Aliens
 Ally:Allies
 Angel:Angels
@@ -149,8 +150,10 @@ Hippo:Hippos
 Hippogriff:Hippogriffs
 Homarid:Homarids
 Homunculus:Homunculi
+Hornsent:Hornsent
 Horror:Horrors
 Horse:Horses
+Hound:Hounds
 Human:Humans
 Hydra:Hydras
 Hyena:Hyenas
@@ -160,6 +163,7 @@ Incarnation:Incarnations
 Inkling:Inklings
 Inquisitor:Inquisitors
 Insect:Insects
+Jar:Jars
 Jackal:Jackals
 Jellyfish:Jellyfishes
 Juggernaut:Juggernauts
@@ -188,6 +192,7 @@ Masticore:Masticores
 Mercenary:Mercenaries
 Merfolk:Merfolk
 Metathran:Metathrans
+Misbegotten:Misbegotten
 Minion:Minions
 Minotaur:Minotaurs
 Mite:Mites
@@ -212,6 +217,8 @@ Ninja:Ninjas
 Noble:Nobles
 Noggle:Noggles
 Nomad:Nomads
+Nox:Nox
+Numen:Numen
 Nymph:Nymphs
 Octopus:Octopi
 Ogre:Ogres
@@ -382,6 +389,7 @@ Lander:Landers
 Map
 Mutagen
 Powerstone:Powerstones
+Rune:Runes
 Spacecraft:Spacecraft
 Stone:Stones
 Treasure:Treasures
@@ -396,10 +404,13 @@ Ashiok
 B.O.B.
 Bahamut
 Basri
+Boggart
 Bolas
 Calix
 Chandra
 Comet
+Corhyn
+D
 Dack
 Dakkon
 Daretti
@@ -419,6 +430,7 @@ Garruk
 Gideon
 Grist
 Guff
+Goldmask
 Huatli
 Inzerva
 Jace
@@ -444,6 +456,8 @@ Nixilis
 Oko
 Quintorius
 Ral
+Rogier
+Roselyn
 Rowan
 Saheeli
 Samut
@@ -458,10 +472,12 @@ Teferi
 Teyo
 Tezzeret
 Tibalt
+Thiollier
 Tyvar
 Ugin
 Urza
 Venser
+Veila
 Vivien
 Vraska
 Vronos

@@ -3440,7 +3440,6 @@ public class CardFactoryUtil {
             SpellAbility unattachSA = AbilityFactory.getAbility(unattachStr.toString(), card);
             unattachSA.setIntrinsic(intrinsic);
             inst.addSpellAbility(unattachSA);
-            inst.addSpellAbility(sa);
         } else if (keyword.startsWith("Resonance")) {
             final String[] k = keyword.split(":");
 
