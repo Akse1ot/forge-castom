@@ -28,7 +28,6 @@ import forge.game.zone.MagicStack;
 import forge.game.zone.ZoneType;
 import forge.util.FileSection;
 import forge.util.MyRandom;
-import forge.util.TextUtil;
 import forge.util.collect.FCollectionView;
 
 import java.util.ArrayList;
@@ -150,6 +149,23 @@ public class EffectAi extends SpellAbilityAi {
                     return new AiAbilityDecision(0, AiPlayDecision.CantPlayAi);
                 }
                 randomReturn = true;
+            } else if (logic.equals("SecretTunnel")) {
+                randomReturn = false;
+                if (phase.is(PhaseType.COMBAT_BEGIN, ai)) {
+                    for (String s : CardFactoryUtil.getMostProminentCreatureType(ai.getCreaturesInPlay())) {
+                        CardCollection typedCards = CardLists.filter(ai.getCreaturesInPlay(), CardPredicates.isType(s));
+                        if (typedCards.size() >= 2) {
+                            Card tgt1 = typedCards.get(0);
+                            Card tgt2 = typedCards.get(1);
+                            if (ComputerUtilCard.doesCreatureAttackAI(ai, tgt1) || ComputerUtilCard.doesCreatureAttackAI(ai, tgt2)) {
+                                sa.getTargets().add(tgt1);
+                                sa.getTargets().add(tgt2);
+                                randomReturn = true;
+                                break;
+                            }
+                        }
+                    }
+                }
             } else if (logic.equals("WillCastCreature") && ai.isAI()) {
                 AiController aic = ((PlayerControllerAi) ai.getController()).getAi();
                 SpellAbility saCreature = aic.predictSpellToCastInMain2(ApiType.PermanentNoncreature);
@@ -670,19 +686,6 @@ public class EffectAi extends SpellAbilityAi {
                 }
                 String valid = subAbility.getParamOrDefault("ValidCards", "");
 
-                // Ugh. If calculateAmount needs to be called with DestroyAll it _needs_
-                // to use the X variable
-                // We really need a better solution to this
-                if (valid.contains("X")) {
-                    valid = TextUtil.fastReplace(valid,
-                            "X", Integer.toString(AbilityUtils.calculateAmount(subAbility.getHostCard(), "X", subAbility)));
-                }
-
-                // host card is valid
-                if (host.isValid(valid.split(","), subAbility.getActivatingPlayer(), subAbility.getHostCard(), subAbility)) {
-                    return true;
-                }
-                // failed to check via valid, need to pass through the filterList method
                 CardCollectionView list = game.getCardsIn(ZoneType.Battlefield);
 
                 if (subAbility.usesTargeting()) {
