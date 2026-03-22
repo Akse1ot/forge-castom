@@ -35,6 +35,7 @@ import forge.game.mana.ManaCostBeingPaid;
 import forge.game.mana.ManaPool;
 import forge.game.mana.ManaRefundService;
 import forge.game.spellability.OptionalCostValue;
+import forge.game.spellability.ResonanceHelper;
 import forge.game.spellability.SpellAbility;
 import forge.game.staticability.StaticAbilityManaConvert;
 import forge.game.zone.Zone;
@@ -607,7 +608,7 @@ public class PlaySpellAbility {
                     return false;
                 }
             }
-
+            ability = ResonanceHelper.mergeOnCast(game, player, ability);
             ability = AbilityUtils.addSpliceEffects(ability);
         }
 
