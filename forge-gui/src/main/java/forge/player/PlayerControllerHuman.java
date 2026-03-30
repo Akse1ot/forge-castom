@@ -2710,8 +2710,8 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
             }
             final Card card = gameCacheCounters.get(cv);
 
-            final ImmutableList<CounterType> counters = subtract ? ImmutableList.copyOf(card.getCounters().keySet())
-                    : ImmutableList.copyOf(CounterEnumType.values);
+            final List<CounterType> counters = subtract ? ImmutableList.copyOf(card.getCounters().keySet())
+                    : CounterType.getValues();
 
             final CounterType counter = getGui().oneOrNone(localizer.getMessage("lblWhichTypeofCounter"), counters);
             if (counter == null) {
@@ -2861,7 +2861,13 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
 
         @Override
         public void addTokenToBattlefield() {
-            final Player p = getPlayer();
+            String message = localizer.getMessage("lblPutTokenInWhichPlayerBattlefield");
+            GameEntityViewMap<Player, PlayerView> gameCachePlayer = GameEntityView.getMap(getGame().getPlayers());
+            PlayerView pv = getGui().oneOrNone(message, gameCachePlayer.getTrackableKeys());
+            if (pv == null || !gameCachePlayer.containsKey(pv)) {
+                return;
+            }
+            final Player p = gameCachePlayer.get(pv);
 
             final TokenDb tokenDb = FModel.getMagicDb().getAllTokens();
             // Use rulesByName — the comprehensive, edition-agnostic token list
@@ -2898,6 +2904,7 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
                 }
                 return label + " — " + oracle.replace("\\n", ", ");
             };
+
             final List<CardRules> selection = getGui().getChoices(
                     localizer.getMessage("lblNameTheToken"), 0, 1, choices, null, displayFn);
             final CardRules chosen = selection.isEmpty() ? null : selection.get(0);

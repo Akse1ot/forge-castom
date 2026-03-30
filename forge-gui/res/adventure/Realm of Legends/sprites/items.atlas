@@ -27,6 +27,24 @@ Jade
 BlueDiamond
   xy: 112, 640
   size: 16, 16
+OutlawsHat
+  xy: 32, 320
+  size: 16, 16
+ManaforceMace
+  xy: 304, 416
+  size: 16, 16
+Shadowspear
+  xy: 256, 560
+  size: 16, 16
+HeirloomBlade
+  xy: 192, 656
+  size: 16, 16
+HengestriderBoots
+  xy: 64, 96
+  size: 16, 16
+TomeofBlight
+  xy: 32, 720
+  size: 16, 16
 BowlofAncientBlood
   xy: 256, 960
   size: 16, 16
@@ -94,7 +112,7 @@ GenerousRing
   xy: 128, 912
   size: 16, 16
 GenerousIngot
-  xy: 224, 944
+  xy: 288, 944
   size: 16, 16
 SpikedRipsaw
   xy: 304, 736
@@ -131,6 +149,27 @@ NobleSoul
   size: 16, 16
 RoyalSoul
   xy: 256, 864
+  size: 16, 16
+TokenofBlades
+  xy: 224, 736
+  size: 16, 16
+TokenofDecay
+  xy: 224, 944
+  size: 16, 16
+TokenofInsight
+  xy: 16, 608
+  size: 16, 16
+TokenofLanding
+  xy: 16, 592
+  size: 16, 16
+TokenofShielding
+  xy: 192, 128
+  size: 16, 16
+TokenofSpirit
+  xy: 128, 528
+  size: 16, 16
+TokenofSoaringSpirit
+  xy: 144, 512
   size: 16, 16
 MedalOutnumbered
   xy: 32, 608
@@ -859,7 +898,7 @@ GoldBlessing
   xy: 256, 832
   size: 16, 16
 TruthButcher'sArmor
-  xy: 0, 304
+  xy: 304, 0
   size: 16, 16
 FlamingArmor
   xy: 160, 16

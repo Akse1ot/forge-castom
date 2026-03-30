@@ -3,7 +3,7 @@
   "screenHeight": 270,
   "skin": "skin/ui_skin.json",
   "playerBaseSpeed": 60,
-  "minDeckSize": 99,         
+  "minDeckSize": 98,
   "colorIds":["W","U","B","R","G"],  
   "colorIdNames":["tr(lblWhite) [+W]","tr(lblBlue) [+U]","tr(lblBlack) [+B]","tr(lblRed) [+R]","tr(lblGreen) [+G]"],
   "restrictedCards": [
@@ -157,6 +157,7 @@
     "CNS",
     "CN2"
   ],
+  "usePriceListPrices": false,
   "difficulties": [
     {
       "name": "Easy",
@@ -182,7 +183,7 @@
         "Challenge Coin",
         "Silver Challenge Coin",
         "Steel Boots",
-        "Lotus Petal",
+        "Chromatic Sphere",
         "Echo Shield",
         "Cloak of the Wastes"
       ]
@@ -212,7 +213,7 @@
         "Silver Challenge Coin",
         "Steel Boots",
         "Steel Armor",
-        "Lotus Petal"
+        "Chromatic Sphere"
       ]
     },{
       "name": "Hard",
@@ -261,26 +262,28 @@
     }
   ],
   "starterEditions": [
-	"JMP",
-	"DMU",
-	"BRO",
-	"J22",
-	"ONE",
-	"MOM",
-	"LTR",
-	"J25",
-	"(All)"
+      "JMP",
+      "DMU",
+      "BRO",
+      "J22",
+      "ONE",
+      "MOM",
+      "LTR",
+      "J25",
+      "TLA",
+      "(All)"
   ],
-  "starterEditionNames": [
-	"Jumpstart",
-	"Dominaria United",
-	"The Brothers' War",
-	"Jumpstart 22",
-	"Phyrexia: ONE",
-	"March of the Machine",
-	"Lord of the Rings",
-	"Jumpstart 25",
-	"(All)"
-	]
+    "starterEditionNames": [
+      "Jumpstart",
+      "Dominaria United",
+      "The Brothers' War",
+      "Jumpstart 22",
+      "Phyrexia: ONE",
+      "March of the Machine",
+      "Lord of the Rings",
+      "Jumpstart 25",
+      "The Last Airbender",
+      "(All)"
+    ]
 }
 
