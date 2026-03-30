@@ -217,8 +217,23 @@ public abstract class GameEntity implements GameObject, IIdentifiable {
         return getAttachedCards().contains(c);
     }
     public final boolean isEnchantedBy(Card c) {
-        // Rule 303.4k  Even if c is no Aura it still counts
-        return hasCardAttachment(c);
+        // Rule 303.4k Even if c is no Aura it still counts
+        if (hasCardAttachment(c)) {
+            return true;
+        }
+
+        // Ash of War: Aura -> Equipment -> this creature
+        if (this instanceof Card creature && creature.isCreature()) {
+            for (Card equipment : creature.getEquippedBy()) {
+                for (Card attached : equipment.getAttachedCards()) {
+                    if (attached.equals(c) && attached.isAura() && attached.hasKeyword(Keyword.ASH_OF_WAR)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     public final boolean hasCardAttachment(final String cardName) {
