@@ -1605,7 +1605,13 @@ public class AbilityUtils {
 
         // Count$ModifiedWays (number of different modification types on this creature)
         if (l[0].equalsIgnoreCase("ModifiedWays")) {
-            return doXMath(c.getModificationTypeCount(), expr, c, ctb);
+            Card countCard = c;
+
+            if (l.length > 1 && l[1].equalsIgnoreCase("Affected")) {
+                countCard = c;
+            }
+
+            return doXMath(countCard.getModificationTypeCount(), expr, countCard, ctb);
         }
 
         // === Imaginarium: Count$ColorsInYourYard ===
