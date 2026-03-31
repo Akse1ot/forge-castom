@@ -1603,17 +1603,6 @@ public class AbilityUtils {
             l[0] = l[0].substring(6);
         }
 
-        // Count$ModifiedWays (number of different modification types on this creature)
-        if (l[0].equalsIgnoreCase("ModifiedWays")) {
-            Card countCard = c;
-
-            if (l.length > 1 && l[1].equalsIgnoreCase("Affected")) {
-                countCard = c;
-            }
-
-            return doXMath(countCard.getModificationTypeCount(), expr, countCard, ctb);
-        }
-
         // === Imaginarium: Count$ColorsInYourYard ===
         if (l[0].equalsIgnoreCase("ColorsInYourYard")
                 || l[0].equalsIgnoreCase("ColorsYourGraveyard")) {
@@ -1639,6 +1628,11 @@ public class AbilityUtils {
         String[] paidparts = l[0].split("\\$", 2);
         Iterable<Card> someCards = null;
         final Game game = c.getGame();
+
+        // Count$ModifiedWays и Count$ModifiedWays.Affected
+        if (sq[0].equalsIgnoreCase("ModifiedWays")) {
+            return doXMath(c.getModificationTypeCount(), expr, c, ctb);
+        }
 
         // === Imaginarium: Count$ColorsInYourYard (number of distinct colors among cards in your graveyard) ===
         if (sq[0].equalsIgnoreCase("ColorsInYourYard")

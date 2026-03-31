@@ -716,13 +716,30 @@ public final class StaticAbilityContinuous {
 
             // add P/T bonus
             if (layer == StaticAbilityLayer.MODIFYPT) {
-                if (addP.contains("Affected")) {
-                    // TODO don't calculate these above if this gets used instead
+                String resolvedAddP = addP;
+                String resolvedAddT = addT;
+
+                if (!resolvedAddP.isEmpty()) {
+                    String svarP = AbilityUtils.getSVar(stAb, resolvedAddP);
+                    if (svarP != null && !svarP.isEmpty()) {
+                        resolvedAddP = svarP;
+                    }
+                }
+
+                if (!resolvedAddT.isEmpty()) {
+                    String svarT = AbilityUtils.getSVar(stAb, resolvedAddT);
+                    if (svarT != null && !svarT.isEmpty()) {
+                        resolvedAddT = svarT;
+                    }
+                }
+
+                if (resolvedAddP.contains("Affected")) {
                     powerBonus = AbilityUtils.calculateAmount(affectedCard, addP, stAb, true);
                 }
-                if (addT.contains("Affected")) {
+                if (resolvedAddT.contains("Affected")) {
                     toughnessBonus = AbilityUtils.calculateAmount(affectedCard, addT, stAb, true);
                 }
+
                 affectedCard.addPTBoost(powerBonus, toughnessBonus, se.getTimestamp(), stAb.getId());
             }
 

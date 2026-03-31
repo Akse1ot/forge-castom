@@ -46,6 +46,7 @@ import forge.game.staticability.StaticAbility;
 import forge.game.staticability.StaticAbilityAlternativeCost;
 import forge.game.staticability.StaticAbilityLayer;
 import forge.game.staticability.StaticAbilityMode;
+import forge.game.staticability.StaticAbilityOptionalCost;
 import forge.game.zone.Zone;
 import forge.game.zone.ZoneType;
 import forge.util.Aggregates;
@@ -526,23 +527,30 @@ public final class GameActionUtil {
             result.putParam("RaiseCost", sa.getParam("RaiseCost"));
         }
         for (OptionalCostValue v : list) {
+            Cost costToAdd = v.getCost();
+
+            final Cost replacement = StaticAbilityOptionalCost.getOptionalCostReplacement(v, result);
+            if (replacement != null) {
+                costToAdd = replacement;
+            }
+
             if (v.getType() != OptionalCost.Offering) {
-                result.getPayCosts().add(v.getCost());
+                result.getPayCosts().add(costToAdd);
             }
             result.addOptionalCost(v.getType());
 
             // add some extra logic, try to move it to other parts
             switch (v.getType()) {
-            case Retrace:
-            case Jumpstart:
-                result.getRestrictions().setZone(ZoneType.Graveyard);
-                break;
-            case Flash:
-            case Offering:
-                result.getRestrictions().setInstantSpeed(true);
-                break;
-            default:
-                break;
+                case Retrace:
+                case Jumpstart:
+                    result.getRestrictions().setZone(ZoneType.Graveyard);
+                    break;
+                case Flash:
+                case Offering:
+                    result.getRestrictions().setInstantSpeed(true);
+                    break;
+                default:
+                    break;
             }
         }
         return result;
