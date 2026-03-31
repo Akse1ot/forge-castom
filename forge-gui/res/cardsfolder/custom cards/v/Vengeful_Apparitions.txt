@@ -1,0 +1,7 @@
+Name:Vengeful Apparitions
+ManaCost:3 W
+Types:Sorcery
+A:SP$ Charm | Choices$ DBChangeZone,DBTokens
+SVar:DBChangeZone:DB$ ChangeZone | ValidTgts$ Creature.tapped | TgtPrompt$ Select target tapped creature | Origin$ Battlefield | Destination$ Exile | SpellDescription$Exile target tapped creature
+SVar:DBTokens:DB$ Token | TokenScript$ w_1_1_spirit_flying | TokenOwner$ You | TokenAmount$ 2 | SpellDescription$Create two 1/1 white Spirit creature tokens with flying
+Oracle:Choose one —\n• Exile target tapped creature.\n• Create two 1/1 white Spirit creature tokens with flying.

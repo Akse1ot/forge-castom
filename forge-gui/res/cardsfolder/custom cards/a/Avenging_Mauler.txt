@@ -1,0 +1,7 @@
+Name:Avenging Mauler
+ManaCost:3 R
+Types:Creature Giant Warrior
+PT:3/3
+K:Trample
+K:Renown:1
+Oracle:Trample\nRenown 1 (When this creature deals combat damage to a player, if it isn't renowned, put a +1/+1 counter on it and it becomes renowned.)

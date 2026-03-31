@@ -1,0 +1,7 @@
+Name:Dreams from Beyond
+ManaCost:2 U B
+Types:Sorcery
+A:SP$ Play | TgtZone$ Graveyard | WithoutManaCost$ True | ValidSA$ Spell.cmcLEX | ValidTgts$ Instant.OppOwn,Sorcery.OppOwn,Creature.OppOwn | TgtPrompt$ Choose target instant or sorcery, or creature card from an opponent's graveyard | Controller$ You | Optional$ True | SpellDescription$ Imaginarium — You may cast target instant, sorcery, or creature card from an opponent’s graveyard without paying its mana cost if its converted mana cost is less than or equal to the number of colors among cards in your graveyard.
+SVar:X:Count$ColorsInYourYard
+AI:RemoveDeck:All
+Oracle:Imaginarium — You may cast target instant, sorcery, or creature card from an opponent’s graveyard without paying its mana cost if its converted mana cost is less than or equal to the number of colors among cards in your graveyard.

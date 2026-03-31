@@ -1,0 +1,7 @@
+Name:Mindscraper
+ManaCost:U
+Types:Creature Homunculus
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBScry | TriggerDescription$ When CARDNAME enters, scry 2.
+SVar:DBScry:DB$ Scry | ScryNum$ 2 | SpellDescription$ Scry 2. (Look at the top two cards of your library, then put any number of them on the bottom of your library and the rest on top in any order.)
+Oracle:When Mindscraper enters the battlefield, scry 2. (Look at the top two cards of your library, then put any number of them on the bottom of your library and the rest on top in any order.)

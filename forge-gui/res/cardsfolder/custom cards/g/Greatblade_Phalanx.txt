@@ -1,0 +1,7 @@
+Name:Greatblade Phalanx
+ManaCost:1 U
+Types:Instant
+K:Multikicker:U
+A:SP$ Token | TokenOwner$ You | TokenAmount$ X | TokenScript$ u_e_Glintblade_sac | SpellDescription$ Create three blue enchantment tokens named Glintblade with “Sacrifice this enchantment: Target creature gets -1/-0 until end of turn.”. Create an additional token for each time this spell was kicked.
+SVar:X:Count$TimesKicked/Plus.3
+Oracle:Multikicker {U} (You may pay an additional {U} any number of times as you cast this spell.)\nCreate three blue enchantment tokens named Glintblade with “Sacrifice this enchantment: Target creature gets -1/-0 until end of turn.”. Create an additional token for each time this spell was kicked.

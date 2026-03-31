@@ -1,0 +1,9 @@
+Name:Dryleaf Dane
+ManaCost:1 W
+Types:Legendary Creature Human Monk
+PT:2/1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigToken | CombatDamage$ True | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, create a Rune token.
+SVar:TrigToken:DB$ Token | TokenAmount$ 1 | TokenScript$ c_a_Rune_sac | TokenOwner$ You
+T:Mode$ CounterAddedOnce | CounterType$ P1P1 | ValidSource$ You | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever you put one or more +1/+1 counters on CARDNAME, it gains first strike and lifelink until end of turn.
+SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ First Strike & Lifelink
+Oracle:Whenever this creature deals combat damage to a player, create a Rune token.\nWhenever you put one or more +1/+1 counters on this creature, it gains first strike and lifelink until end of turn.

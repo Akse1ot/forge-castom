@@ -1,0 +1,7 @@
+Name:Prowling Idealon
+ManaCost:2 R G
+Types:Creature Elemental Wolf
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFight | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters, you may have it fight another target creature. (Each deals damage equal to its power to the other.)
+SVar:TrigFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.Other | TgtPrompt$ Select another target creature
+Oracle:When Prowling Idealon enters the battlefield, you may have it fight target creature. (Each deals damage equal to its power to the other.)

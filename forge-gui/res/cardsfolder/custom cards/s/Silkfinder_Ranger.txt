@@ -1,0 +1,6 @@
+Name:Silkfinder Ranger
+ManaCost:1 W
+Types:Creature Human Scout
+PT:3/1
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.Spider | Description$ CARDNAME can't be blocked by Spiders.
+Oracle:Silkfinder Ranger can’t be blocked by Spiders.

@@ -1,0 +1,10 @@
+Name:Divine Tower
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated | Description$ CARDNAME enters tapped unless you control a legendary creature.
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Creature.Legendary+YouCtrl | ConditionCompare$ EQ0
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInComputerDeck | SpellDescription$ As this land enters, choose a color
+A:AB$ Mana | Cost$ T | Produced$ Chosen | SpellDescription$ Add one mana of the chosen color.
+A:AB$ Token | Cost$ 3 T Sac<1/CARDNAME> | TokenScript$ c_a_Rune_sac | TokenAmount$ 3 | TokenOwner$ You | SpellDescription$ Create three Rune tokens.
+Oracle:Divine Tower enters tapped unless you control a legendary creature. As it enters, choose a color.\nAdd one mana of the chosen color.\n{3}{T}, Sacrifice this land: Create three Rune tokens.

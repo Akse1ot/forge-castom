@@ -1,0 +1,9 @@
+Name:Mimic Tear
+ManaCost:3 U U U U
+Types:Legendary Creature Shapeshifter
+PT:1/1
+K:ETBReplacement:Copy:DBCopy:Optional
+SVar:DBCopy:DB$ Clone | Choices$ Creature.Other+YouCtrl | NonLegendary$ True | AddAbilities$ MPlay | SpellDescription$ As CARDNAME enters, you may have it become a copy of a creature you control, except it isn’t legendary and has “{U}{U}, {T}: You may cast a noncreature spell from your hand or graveyard without paying its mana cost. If a spell cast this way would be put into a graveyard, exile it instead.”
+SVar:MPlay:AB$ Play | Cost$ U U T | Valid$ Card | ValidZone$ Hand,Graveyard | ValidSA$ Spell.nonCreature+YouOwn | WithoutManaCost$ True | Amount$ 1 | Controller$ You | TgtPrompt$ Select target noncreature spell from your hand or graveyard | Optional$ True | ReplaceGraveyard$ Exile | SpellDescription$ You may cast a noncreature spell from your hand or graveyard without paying its mana cost. If a spell cast this way would be put into a graveyard, exile it instead.
+K:Spirit Ash:7 U Discard<1/Card>
+Oracle:As Mimic Tear enters, you may have it become a copy of a creature you control, except it isn’t legendary and has “{U}{U}, {T}: You may cast a noncreature spell from your hand or graveyard without paying its mana cost. If a spell cast this way would be put into a graveyard, exile it instead.”\nSpirit Ash—{7}{U}, Discard a card.

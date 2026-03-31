@@ -1,0 +1,9 @@
+Name:Ragesmith
+ManaCost:4 R
+Types:Creature Giant Artificer
+PT:4/3
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever you cast a multicolored spell, create a 1/1 white Spirit creature token with flying.
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScript$ r_2_1_elemental_haste | TokenOwner$ You | AtEOT$ Exile
+DeckHints:Type$Multicolored
+DeckHas:Ability$Token
+Oracle:Virtuoso — Virtuoso — Whenever you cast a multicolored spell, create two 2/1 red Elemental creature tokens with haste.\nExile those tokens at the beginning of the next end step.

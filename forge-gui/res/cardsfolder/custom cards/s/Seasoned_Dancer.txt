@@ -1,0 +1,8 @@
+Name:Seasoned Dancer
+ManaCost:2 W
+Types:Creature Human Wizard
+PT:3/1
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ Whenever you cast a multicolored spell, put a +1/+1 counter on CARDNAME. It gains indestructible until end of turn.
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | Defined$ Self | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Indestructible
+Oracle:Virtuoso — Whenever you cast a multicolored spell, put a +1/+1 counter on Seasoned Dancer. It gains indestructible until end of turn.

@@ -1,0 +1,10 @@
+Name:Persona Elemental
+ManaCost:2 U B
+Types:Creature Elemental
+PT:2/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDraw | TriggerDescription$ When CARDNAME enters, target player draws a card.
+SVar:TrigDraw:DB$ Draw | NumCards$ 1 | ValidTgts$ Player
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ TrigDiscard | TriggerDescription$ When CARDNAME leaves the battlefield, target player discards a card.
+SVar:TrigDiscard:DB$ Discard | Mode$ TgtChoose | NumCards$ 1 | ValidTgts$ Player
+Oracle:When Persona Elemental enters the battlefield, target player draws a card.\nWhen Persona Elemental leaves the battlefield, target player discards a card.
+

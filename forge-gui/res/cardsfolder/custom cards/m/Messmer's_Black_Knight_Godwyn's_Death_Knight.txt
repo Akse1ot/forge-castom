@@ -1,0 +1,21 @@
+Name:Messmer's Black Knight
+ManaCost:2 W
+Types:Creature Human Knight
+PT:1/3
+K:Vigilance
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ Х | Description$ This creature gets +1/+0 for each different way it is modified. (Equipment, Auras you control, and counters are modifications.) 
+SVar:Х:Count$ModifiedWays
+AlternateMode:Modal
+Oracle:Vigilance\nThis creature gets +1/+0 for each different way it is modified. (Equipment, Auras you control, and counters are modifications.)
+
+ALTERNATE
+
+Name:Godwyn's Death Knight
+ManaCost:4 W
+Types:Creature Human Knight
+PT:3/4
+K:Vigilance
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | CheckSVar$ X | SVarCompare$ GE3 | Execute$ TrigDamage |  TriggerDescription$ When this creature enters, if one or more cards left a graveyard this turn, this creature deals 3 damage to target tapped creature.
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature.tapped | NumDmg$ 3 | TgtPrompt$ Select target tapped creature
+SVar:X:Count$LeftGraveyardThisTurn Card.YouOwn
+Oracle:Vigilance\nWhen this creature enters, if one or more cards left a graveyard this turn, this creature deals 3 damage to target tapped creature.

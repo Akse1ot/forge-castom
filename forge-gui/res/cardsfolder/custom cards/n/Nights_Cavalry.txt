@@ -1,0 +1,11 @@
+Name:Nights Cavalry
+ManaCost:3 B
+Types:Creature Shade Knight
+PT:3/3
+K:Menace
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigSurveil | CheckSVar$ X | TriggerDescription$ At the beginning of each end step, if a card left a graveyard this turn, surveil 1.
+SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+SVar:X:Count$LeftGraveyardThisTurn Card.YouOwn
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When this creature dies, create a 2/2 black Knight creature token.
+SVar:TrigToken:DB$ Token | TokenScript$ b_2_2_Knight | TokenOwner$ You
+Oracle:Menace\nAt the beginning of each end step, if a card left a graveyard this turn, surveil 1.\nWhen this creature dies, create a 2/2 black Knight creature token.

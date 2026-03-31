@@ -1,0 +1,8 @@
+Name:Hellish Idealon
+ManaCost:1 B R
+Types:Creature Elemental Hound
+PT:4/3
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigLoot | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, discard a card.
+SVar:TrigLoot:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+Oracle:Menace\nWhenever Hellish Idealon deals combat damage to a player, discard a card.

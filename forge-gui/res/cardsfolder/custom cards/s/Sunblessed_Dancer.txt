@@ -1,0 +1,9 @@
+Name:Sunblessed Dancer
+ManaCost:2 W
+Types:Creature Human Wizard
+PT:2/2
+K:Flying
+K:Renown:1
+T:Mode$ BecomeRenowned | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile | OptionalDecider$ You | TriggerDescription$ When CARDNAME becomes renowned, you may exile all cards from target player’s graveyard
+SVar:TrigExile:DB$ ChangeZoneAll | ValidTgts$ Player | TgtPrompt$ Select target player | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | IsCurse$ True
+Oracle:Flying\nRenown 1\nWhen Sunblessed Dancer becomes renowned, you may exile all cards from target player’s graveyard.

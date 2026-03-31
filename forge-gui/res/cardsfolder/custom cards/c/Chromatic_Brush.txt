@@ -1,0 +1,6 @@
+Name:Chromatic Brush
+ManaCost:3
+Types:Artifact
+A:AB$ Mana | Cost$ T | Produced$ Any | SpellDescription$ Add one mana of any color.
+A:AB$ ChooseColorsForNextSpell | Cost$ T | SpellDescription$ Choose one or more colors. The next spell you cast this turn is the chosen color or colors in addition to its other colors.
+Oracle:{T}: Add one mana of any color.\n{T}: Choose one or more colors. The next spell you cast this turn is the chosen color or colors in addition to its other colors.

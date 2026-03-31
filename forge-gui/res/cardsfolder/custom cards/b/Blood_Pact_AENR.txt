@@ -1,0 +1,9 @@
+Name:Blood Pact AENR
+ManaCost:3 B B
+Types:Sorcery
+A:SP$ Effect | Abilities$ ABPump | SpellDescription$ Until end of turn, any time you could cast an instant, you may pay 1 life. If you do, target creature gets -1/-1 until end of turn.
+SVar:ABPump:AB$ Pump | Cost$ PayLife<1> | ActivationZone$ Command | ValidTgts$ Creature | NumAtt$ -1 | NumDef$ -1 
+AI:RemoveDeck:All
+Oracle:Until end of turn, any time you could cast an instant, you may pay 1 life. If you do, target creature gets -1/-1 until end of turn.
+
+

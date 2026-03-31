@@ -1,0 +1,7 @@
+Name:Skiv's Regards
+ManaCost:BR
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | TgtPrompt$ Select target creature | SpellDescription$ Target creature gets +2/+0 and gains haste until end of turn.
+S:Mode$ Continuous | Affected$ Card.Self | MayPlay$ True | AffectedZone$ Graveyard | EffectZone$ Graveyard | RaiseCost$ Discard<1/Card.nonLand/nonland card> | Description$ You may cast this card from your graveyard by discarding a card in addition to paying its other costs.
+DeckHas:Ability$Graveyard|Discard
+Oracle:Target creature gets +2/+0 and gains haste until end of turn.\nYou may cast Skiv’s Regards from your graveyard by discarding a nonland card in addition to paying its other costs.

@@ -1,0 +1,7 @@
+Name:Prismatic Harmony
+ManaCost:W
+Types:Instant
+K:Resonance:1 W
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBProtection | SpellDescription$ Target creature you control gets +1/+1 and gains protection from the color of your choice until end of turn.
+SVar:DBProtection:DB$ Protection | Defined$ Targeted | Gains$ Choice | Choices$ AnyColor
+Oracle:Target creature you control gets +1/+1 and gains protection from the color of your choice until end of turn.\nResonance {1}{W} (If you cast this spell for {1}{W}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell.)

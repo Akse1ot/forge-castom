@@ -1,0 +1,10 @@
+Name:Inspiring March
+ManaCost:1 W
+Types:Instant
+K:Resonance:3 W
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | SpellDescription$ Creatures you control get +1/+1 until end of turn.
+DeckHas:Ability$Pump  
+DeckHas:Type$Instant  
+DeckHas:Keyword$Resonance  
+DeckHas:Type$Creature
+Oracle:Creatures you control get +1/+1 until end of turn.\nResonance {3}{W} (If you cast this spell for {3}{W}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell.)

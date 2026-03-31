@@ -1,0 +1,5 @@
+Name:Unfinished Creation
+ManaCost:3 RG RG
+Types:Creature Elemental
+PT:5/4
+Oracle:

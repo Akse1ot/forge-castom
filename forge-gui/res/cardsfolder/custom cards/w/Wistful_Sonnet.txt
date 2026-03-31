@@ -1,0 +1,9 @@
+Name:Wistful Sonnet
+ManaCost:X WB WB
+Types:Sorcery
+A:SP$ Charm | Choices$ DBReturn,DBReturnAll | CharmNum$ 1 | Announce$ X
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TgtPrompt$ Choose target creature with mana value X | ValidTgts$ Creature.YouOwn+cmcLEX | SpellDescription$ Return target creature card with converted mana cost X or less from your graveyard to the battlefield.
+SVar:DBReturnAll:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Creature.YouOwn+cmcLE2 | TgtPrompt$ Select up to X target creature cards with mana value 2 or less | SpellDescription$ Return up to X target creature cards with converted mana cost 2 or less from your graveyard to the battlefield.
+SVar:X:Count$xPaid
+SVar:PlayMain1:TRUE
+Oracle:Choose one —\n• Return target creature card with converted mana cost X or less from your graveyard to the battlefield.\n• Return up to X target creature cards with converted mana cost 2 or less from your graveyard to the battlefield.

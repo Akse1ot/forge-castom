@@ -1,0 +1,8 @@
+Name:Austere Familiar
+ManaCost:1 WU
+Types:Creature Hound
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect | TriggerDescription$ When CARDNAME enters, noncreature spells target opponent casts cost {2} more to cast until your next turn. 
+SVar:TrigEffect:DB$ Effect | RememberPlayers$ Targeted | ValidTgts$ Opponent | Duration$ UntilYourNextTurn | StaticAbilities$ RaiseCost
+SVar:RaiseCost:Mode$ RaiseCost | ValidCard$ Card.nonCreature | Activator$ Remembered | Type$ Spell | Amount$ 2 | Description$ Noncreature spells your opponents cast cost {2} more to cast until your next turn.
+Oracle:When Austere Familiar enters the battlefield, noncreature spells target opponent casts cost {2} more to cast until your next turn.

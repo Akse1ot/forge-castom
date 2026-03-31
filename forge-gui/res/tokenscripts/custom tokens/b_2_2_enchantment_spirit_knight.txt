@@ -1,0 +1,7 @@
+Name:Knight Spirit Token
+ManaCost:no cost
+Colors:blue
+Types:Enchantment Creature Spirit Knight
+PT:2/2
+K:Vigilance
+Oracle:Vigilance

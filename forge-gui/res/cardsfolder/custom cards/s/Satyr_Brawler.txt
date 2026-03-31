@@ -1,0 +1,7 @@
+Name:Satyr Brawler
+ManaCost:3 B
+Types:Creature Satyr Warrior
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters the battlefield, create a 1/1 black and green Satyr Bard creature token.
+SVar:TrigToken:DB$ Token | TokenAmount$ 1 | TokenScript$ bg_1_1_satyr_bard | TokenOwner$ You
+Oracle:When Satyr Brawler enters the battlefield, create a 1/1 black and green Satyr Bard creature token.

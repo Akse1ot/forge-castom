@@ -1,0 +1,7 @@
+Name:Deep-Sea Dreamhunter
+ManaCost:4 U U
+Types:Creature Serpent
+PT:6/6
+S:Mode$ CantAttack | ValidCard$ Card.Self | CheckSVar$ X | SVarCompare$ EQ0 | Description$ CARDNAME can't attack unless a card has been put into a graveyard from anywhere this turn.
+SVar:X:Count$ThisTurnEntered_Graveyard_Card
+Oracle:Deep-Sea Dreamhunter can’t attack unless a card has been put into a graveyard from anywhere this turn.

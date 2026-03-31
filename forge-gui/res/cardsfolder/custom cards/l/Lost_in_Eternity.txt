@@ -1,0 +1,15 @@
+Name:Lost in Eternity
+ManaCost:4 G G U U
+Types:Sorcery
+A:SP$ AddTurn | NumTurns$ 1 | SubAbility$ DelTrig | SpellDescription$ Take an extra turn after this one. If you would draw a card during that turn, draw two cards instead. If you would gain life during that turn, you gain twice that much life instead. If you tap a land for mana during that turn, it produces twice as much of that mana instead. Exile Lost in Eternity.
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ Upkeep | Execute$ TrigEffect | SubAbility$ DBChange
+SVar:DBChange:DB$ ChangeZone | Origin$ Stack | Destination$ Exile | StackDescription$ None
+SVar:TrigEffect:DB$ Effect | ReplacementEffects$ SelfDraw,SelfGainLife,SelfMana
+SVar:SelfDraw:Event$ Draw | ValidPlayer$ You | ReplaceWith$ DrawTwo | Duration$ UntilEndOfTurn | Description$ If you would draw a card, draw two cards instead.
+SVar:DrawTwo:DB$ Draw | Defined$ You | NumCards$ 2
+SVar:SelfGainLife:Event$ GainLife | ValidPlayer$ You | ReplaceWith$ GainDouble | Duration$ UntilEndOfTurn | Description$ If you would gain life, you gain twice that much life instead.
+SVar:GainDouble:DB$ ReplaceEffect | VarName$ LifeGained | VarValue$ X
+SVar:X:ReplaceCount$LifeGained/Twice
+SVar:SelfMana:Event$ ProduceMana | ValidActivator$ You | ValidCard$ Land | ReplaceWith$ ProduceTwice | Duration$ UntilEndOfTurn | Description$ If you tap a land for mana, it produces twice as much of that mana instead.
+SVar:ProduceTwice:DB$ ReplaceMana | ReplaceAmount$ 2
+Oracle:Take an extra turn after this one. If you would draw a card during that turn, draw two cards instead. If you would gain life during that turn, you gain twice that much life instead. If you tap a land for mana during that turn, it produces twice as much of that mana instead. Exile Lost in Eternity.

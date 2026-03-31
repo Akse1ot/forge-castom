@@ -1,0 +1,11 @@
+Name:Mental Transgression
+ManaCost:4 U B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library | Destination$ Exile | ValidTgts$ Player | ChangeType$ Card.nonLand | TargetMin$ 0 | TargetMax$ 1 | RememberChanged$ True | IsCurse$ True | SubAbility$ RevHand | SpellDescription$ Search target player’s library for up to one nonland card and exile it. Repeat this process for that player’s hand and graveyard. Then that player shuffles their library. For as long as those cards remain in exile, you may cast them and spend mana as though it were mana of any color to do so.
+SVar:RevHand:DB$ RevealHand | Defined$ Targeted | SubAbility$ ExileCard 
+SVar:ExileCard:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | Chooser$ You | ChangeType$ Card.nonLand | TargetMin$ 0 | TargetMax$ 1 | RememberChanged$ True | SubAbility$ GravExile
+SVar:GravExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 1 | DefinedPlayer$ Targeted | ValidTgts$ Card.nonLand | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ EffSModeContinuous | ForgetOnMoved$ Exile | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:EffSModeContinuous:Mode$ Continuous | MayPlay$ True | Affected$ Card.nonLand+IsRemembered | AffectedZone$ Exile | MayPlayIgnoreType$ True | Description$ For as long as those cards remain in exile, you may cast them and spend mana as though it were mana of any color to do so.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True 
+Oracle:Search target player’s library for up to one nonland card and exile it. Repeat this process for that player’s hand and graveyard. Then that player shuffles their library. For as long as those cards remain in exile, you may cast them and spend mana as though it were mana of any color to do so.

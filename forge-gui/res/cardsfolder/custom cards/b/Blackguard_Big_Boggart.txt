@@ -1,0 +1,13 @@
+Name:Blackguard Big Boggart
+ManaCost:1 B
+Types:Legendary Planeswalker Boggart
+Loyalty:3
+A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenAmount$ 1 | TokenScript$ c_a_food_sac | TokenOwner$ You | SpellDescription$ Create a Food token.
+A:AB$ Effect | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Triggers$ LifeGained | Duration$ UntilEndOfTurn | SpellDescription$ Until end of turn, whenever you gain life, put a +1/+1 counter on target creature you control.
+SVar:LifeGained:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ Whenever you gain life, put a +1/+1 counter on target creature you control.
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ Effect | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Boggart | Image$ emblem_Boggart | Triggers$ LifeGain | Duration$ Permanent | SpellDescription$ You gain an emblem with “Whenever you gain life, target creature you control gains indestructible until end of turn.”
+SVar:LifeGain:Mode$ LifeGained | | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever you gain life, target creature you control gains indestructible until end of turn.
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | KW$ Indestructible
+SVar:PlayMain1:TRUE
+Oracle:[+1]: Create a Food token.\n[-3]: Until end of turn, whenever you gain life, put a +1/+1 counter on target creature you control.\n[-5]: You gain an emblem with “Whenever you gain life, target creature you control gains indestructible until end of turn.”

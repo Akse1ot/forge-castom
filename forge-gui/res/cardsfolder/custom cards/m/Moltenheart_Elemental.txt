@@ -1,0 +1,6 @@
+Name:Moltenheart Elemental
+ManaCost:5 R
+Types:Creature Elemental
+PT:7/3
+A:AB$ Pump | Cost$ 1 R | Defined$ Self | NumAtt$ +1 | SpellDescription$ CARDNAME gets +1/+0 until end of turn.
+Oracle:{1}{R}: Moltenheart Elemental gets +1/+0 until end of turn.

@@ -1,0 +1,11 @@
+Name:Flame Grant me Strength
+ManaCost:R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+K:Kicker:1 R
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigDamage | TriggerDescription$ When this enchantment enters, if it was kicked, enchanted creature deals damage equal to its power to target creature or planeswalker you don’t control.
+SVar:TrigDamage:DB$ DealDamage | DamageSource$ Enchanted | ValidTgts$ Creature.YouDontCtrl,Planeswalker.YouDontCtrl | TgtPrompt$ Select any other target | NumDmg$ X
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | Description$ Enchanted creature gets +2/+0.
+SVar:X:Enchanted$CardPower
+Oracle:Kicker{1}{R}\nEnchant creature\nWhen this enchantment enters, if it was kicked, enchanted creature deals damage equal to its power to target creature or planeswalker you don’t control.\nEnchanted creature gets +2/+0.

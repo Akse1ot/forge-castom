@@ -1,0 +1,7 @@
+Name:Renegade Fortuneteller
+ManaCost:1 UB UB UB
+Types:Creature Human Rogue
+PT:3/1
+S:Mode$ Continuous | Affected$ Card.TopLibrary+OppCtrl | AffectedZone$ Library | MayLookAt$ Player | Description$ Each opponent plays with the top card of their library revealed.
+S:Mode$ Continuous | Affected$ Card.TopLibrary+OppCtrl | AffectedZone$ Library | MayPlay$ True | OnlySorcerySpeed$ True | Description$ You may play the top card of an opponent’s library, but only any time you could cast a sorcery.
+Oracle:Each opponent plays with the top card of their library revealed.\nYou may play the top card of an opponent’s library, but only any time you could cast a sorcery.

@@ -1,0 +1,8 @@
+Name:Thought Storm
+ManaCost:2 U R
+Types:Sorcery
+A:SP$ Effect | Triggers$ TrigDrawn | SubAbility$ DBDraw | SpellDescription$ Until end of turn, whenever you draw a card, Thought Storm deals 2 damage to any target. Draw a card.
+SVar:TrigDrawn:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDealDamage | TriggerDescription$ Whenever you draw a card, Thought Storm deals 2 damage to any target.
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | TgtPrompt$ Select any target
+SVar:DBDraw:DB$ Draw | NumCards$ 1
+Oracle:Until end of turn, whenever you draw a card, Thought Storm deals 2 damage to any target.\nDraw a card.

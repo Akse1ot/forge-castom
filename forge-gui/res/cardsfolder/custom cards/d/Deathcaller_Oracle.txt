@@ -1,0 +1,8 @@
+Name:Deathcaller Oracle
+ManaCost:B
+Types:Creature Satyr Shaman
+PT:1/1
+A:AB$ LoseLife | Cost$ T Sac<1/Creature> | ValidTgts$ Player | TgtPrompt$ Select a player | LifeAmount$ X | SpellDescription$ Target player loses 1. If you sacrificed a Satyr this way, that player loses 2 life instead.
+SVar:Y:Sacrificed$Valid Creature.Satyr
+SVar:X:Count$Compare Y EQ1.2.1
+Oracle:{T}, Sacrifice a creature: Target player loses 1 life. If you sacrificed a Satyr this way, that player loses 2 life instead.

@@ -1,0 +1,7 @@
+Name:Chaotic Clarity
+ManaCost:1 R
+Types:Sorcery
+S:Mode$ CantBeCast | ValidCard$ Card.Self | EffectZone$ All | CheckSVar$ X | SVarCompare$ GE2 | Description$ Tragic Backstory — Cast this spell only if you have two or more cards in hand
+SVar:X:Count$ValidHand Card.YouOwn
+A:SP$ Draw | Cost$ 1 R Discard<1/Random> | NumCards$ 3 | SpellDescription$ As an additional cost to cast this spell, discard a card at random. Draw three cards.
+Oracle:Cast Chaotic Clarity only if you have two or more cards in hand.\nAs an additional cost to cast this spell, discard a card at random.\nDraw three cards.

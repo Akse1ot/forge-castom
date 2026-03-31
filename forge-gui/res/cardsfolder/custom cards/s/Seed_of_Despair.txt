@@ -1,0 +1,7 @@
+Name:Seed of Despair
+ManaCost:X B G
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ +X | NumDef$ +X | SpellDescription$ Target creature you gets +X/+X until end of turn.
+A:SP$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ -X | NumDef$ -X | SpellDescription$ Target creature you gets -X/-X until end of turn.
+SVar:X:Count$xPaid
+Oracle:Target creature gets +X/+X until end of turn.\nTarget creature gets -X/-X until end of turn.

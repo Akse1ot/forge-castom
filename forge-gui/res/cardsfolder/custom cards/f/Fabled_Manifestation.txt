@@ -1,0 +1,9 @@
+Name:Fabled Manifestation
+ManaCost:2 GW
+Types:Creature Elemental Cat
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife | TriggerDescription$ Whenever CARDNAME enters or attacks, you gain 3 life.
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigGainLife | Secondary$ True | TriggerZones$ Battlefield | TriggerDescription$ Whenever CARDNAME enters or attacks, you gain 3 life.
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 3 | SubAbility$ DBReturn
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3
+Oracle:Whenever Fabled Manifestation enters the battlefield or attacks, you gain 3 life.

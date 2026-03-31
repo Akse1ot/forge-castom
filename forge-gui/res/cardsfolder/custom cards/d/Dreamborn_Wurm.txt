@@ -1,0 +1,7 @@
+Name:Dreamborn Wurm
+ManaCost:7 G
+Types:Creature Wurm
+PT:6/6
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All | Description$ Imaginarium — This spell costs {1} less to cast for each color among cards in your graveyard.
+SVar:X:Count$ColorsInYourYard
+Oracle:Imaginarium — This spell costs {1} less to cast for each color among cards in your graveyard.

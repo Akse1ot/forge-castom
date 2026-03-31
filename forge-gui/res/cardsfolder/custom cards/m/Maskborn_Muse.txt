@@ -1,0 +1,7 @@
+Name:Maskborn Muse
+ManaCost:3 U B
+Types:Creature Spirit
+PT:2/5
+T:Mode$ ChangesZone | ValidCard$ Card.OppOwn | Origin$ Any | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigDraw | OptionalDecider$ You | TriggerDescription$ Whenever one or more cards an opponent owns are put into that player’s graveyard for the first time each turn, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Whenever Angelic Cub becomes the target of a spell or ability for the first time each turn, put a +1/+1 counter on it.\nAs long as Angelic Cub has three or more +1/+1 counters on it, it has flying.

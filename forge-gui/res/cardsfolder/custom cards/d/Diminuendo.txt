@@ -1,0 +1,6 @@
+Name:Diminuendo
+ManaCost:2 U
+Types:Instant
+K:Resonance:4 U
+A:SP$ PumpAll | ValidTgts$ Player | TgtPrompt$ Select target player | ValidCards$ Creature | NumAtt$ -3 | IsCurse$ True | SpellDescription$ Creatures target player controls get -3/-0 until end of turn.
+Oracle:Creatures target player controls get -3/-0 until end of turn.\nResonance {4}{U} (If you cast this spell for {4}{U}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell.)

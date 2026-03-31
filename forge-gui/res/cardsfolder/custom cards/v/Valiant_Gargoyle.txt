@@ -1,0 +1,12 @@
+Name:Valiant Gargoyle
+ManaCost:4 W W
+Types:Creature Human Soldier
+PT:3/4
+K:Flying
+K:Vigilance
+K:Kicker:3
+K:TypeCycling:Plains:2
+T:Mode$ ChangesZone | ValidCard$ Card.Self+kicked | Origin$ Any | Destination$ Battlefield | Execute$ TrigCopy | TriggerDescription$ When CARDNAME enters, if it was kicked, create a token that’s a copy of it.
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ Self
+Oracle:Flying, vigilance\nKicker {3} (You may pay an additional {3} as you cast this spell.)\nWhen this creature enters, if it was kicked, create a token that’s a copy of it.\nPlainscycling {2} ({2}, Discard this card: Search your library for a Plains card, reveal it, put it into your hand, then shuffle.)
+

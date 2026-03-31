@@ -1,0 +1,8 @@
+Name:Shatter the Elden Ring
+ManaCost:3 W
+Types:Instant
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | ValidTarget$ Permanent.Legendary | EffectZone$ All | Description$ CARDNAME costs {2} less to cast if it targets a legendary permanent.
+A:SP$ Destroy | ValidTgts$ Permanent.nonLand | TgtPrompt$ Select target nonland permanent | SubAbility$ DBToken | SpellDescription$ Destroy target nonland permanent. Its controller creates two Rune tokens.
+SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScript$ c_a_Rune_sac | TokenOwner$ TargetedController
+DeckHas:Ability$Token
+Oracle:This spell costs {2} less to cast if it targets a legendary permanent.\nDestroy target nonland permanent. Its controller creates two Rune tokens. (They’re artifacts with “{T}, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)

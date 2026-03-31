@@ -1,0 +1,9 @@
+Name:Miquellas Great Rune
+ManaCost:3
+Types:Legendary Artifact Rune
+A:AB$ Mana | Cost$ T | Produced$ Combo W U | SpellDescription$ Add {W} or {U}.
+S:Mode$ Continuous | Affected$ Enchantment.YouCtrl | AddKeyword$ Ward:2 | Description$ Enchantments you control have ward {2}. (Whenever an artifact you control becomes the target of a spell or ability an opponent controls, counter it unless that player pays {1}.)
+A:AB$ PutCounter | Cost$ T Sac<1/CARDNAME> | ActivationZone$ Battlefield | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 3 | SorcerySpeed$ True | SpellDescription$ Put three +1/+1 counters on target creature you control. Activate only as a sorcery.
+DeckNeeds:Color$Red|Green
+Oracle:{T}: Add {W} or {U}.\nEnchantments you control have ward {2}. (Whenever an enchantments you control becomes the target of a spell or ability an opponent controls, counter it unless that player pays {2}.)
+\n{T}, Sacrifice this artifact: Put three +1/+1 counters on target creature you control. Activate only as a sorcery.

@@ -1,0 +1,9 @@
+Name:Gravebird
+ManaCost:2 B
+Types:Artifact Creature Bird Skeleton
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigMill | TriggerDescription$ When CARDNAME enters, you may mill two cards.
+SVar:TrigMill:DB$ Mill | NumCards$ 2
+K:Spirit Ash:3 B ExileFromGrave<1/Creature.Other;Planeswalker.Other/another creature or planeswalker>
+Oracle:Flying\nWhen this creature enters, you may mill two cards.\nSpirit Ash—{3}{B}, Exile another creature or planeswalker card from your graveyard.

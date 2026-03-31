@@ -1,0 +1,5 @@
+Name:Hand of Skiv
+ManaCost:2 BR
+Types:Creature Rogue
+PT:3/2
+Oracle:

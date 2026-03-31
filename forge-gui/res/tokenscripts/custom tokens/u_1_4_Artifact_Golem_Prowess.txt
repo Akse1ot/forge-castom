@@ -1,0 +1,7 @@
+Name:Golem Token
+ManaCost:no cost
+Colors:blue
+Types:Artifact Creature Golem
+PT:1/4
+K:Prowess
+Oracle:Prowess

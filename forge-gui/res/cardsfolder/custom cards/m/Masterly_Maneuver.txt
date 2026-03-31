@@ -1,0 +1,9 @@
+Name:Masterly Maneuver
+ManaCost:1 R W
+Types:Instant
+A:SP$ Effect | ValidTgts$ Creature,Player | TgtPrompt$ Choose target creature or player. | RememberObjects$ Targeted | SubAbility$ DBPrevent | SpellDescription$ Choose target creature or player. Until end of turn, if a source would deal damage to an attacking creature you control, it deals that much damage to the chosen creature or player instead. 
+SVar:DBPrevent:DB$ Effect | ReplacementEffects$ RPrevent 
+SVar:RPrevent:Event$ DamageDone | ValidSource$ Card.YouDontCtrl,Emblem.YouDontCtrl | ValidTarget$ Creature.attacking+YouCtrl | ReplaceWith$ DamageTarget |  ExecuteMode$ PerSource
+SVar:DamageTarget:DB$ DealDamage | Defined$ Remembered | DamageSource$ EffectSource | NumDmg$ X
+SVar:X:ReplaceCount$DamageAmount
+Oracle:Choose target creature or player. Until end of turn, if a source would deal damage to an attacking creature you control, it deals that much damage to the chosen creature or player instead.

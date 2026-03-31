@@ -1,0 +1,7 @@
+Name:Alabaster Lord
+ManaCost:2 U
+Types:Creature Alien Wizard
+PT:2/2
+K:Prowess
+S:Mode$ ReduceCost | Type$ Spell.Kicked | Amount$ 1 | Description$Kicked spells you cast cost {1} less to cast.
+Oracle:Prowess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)\nKicked spells you cast cost {1} less to cast.

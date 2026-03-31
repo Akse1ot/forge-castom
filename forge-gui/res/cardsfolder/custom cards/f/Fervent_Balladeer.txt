@@ -1,0 +1,14 @@
+Name:Fervent Balladeer
+ManaCost:1 R
+Types:Creature Human Bard
+PT:1/2
+A:AB$ DealDamage | Cost$ T | NumDmg$ 1 | Defined$ Player.Opponent | SpellDescription$ CARDNAME deals 1 damage to each opponent.
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigUntap | TriggerDescription$ Whenever you cast a multicolored spell, untap CARDNAME.
+SVar:TrigUntap:DB$ Untap | Defined$ Self
+DeckHints:Type$Multicolored
+DeckHas:Ability$SpellCast
+DeckHas:Ability$Damage
+DeckHas:Type$Creature
+DeckHas:Tribe$Human
+DeckHas:Tribe$Bard
+Oracle:{T}: Fervent Balladeer deals 1 damage to each opponent.\nVirtuoso — Whenever you cast a multicolored spell, untap Fervent Balladeer.

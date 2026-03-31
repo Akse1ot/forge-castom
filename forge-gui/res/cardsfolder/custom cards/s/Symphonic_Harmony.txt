@@ -1,0 +1,6 @@
+Name:Symphonic Harmony
+ManaCost:4 U
+Types:Sorcery
+K:Resonance:5 U U
+A:SP$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Instant.cmcLE3,Sorcery.cmcLE3 | ChangeNum$ 2 | Reveal$ True | SpellDescription$ Search your library for up to two instant and/or sorcery cards with converted mana cost 3 or less, reveal them, and put them into your hand. Then shuffle your library.
+Oracle:Search your library for up to two instant and/or sorcery cards with converted mana cost 3 or less, reveal them, and put them into your hand. Then shuffle your library.\nResonance {5}{U}{U} (If you cast this spell for {5}{U}{U}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell.)

@@ -1,0 +1,16 @@
+Name:Foreboding Bloodstain
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Destroy | Cost$ 1 B Sac<1/Creature;Planeswalker/creature or planeswalker> | ValidTgts$ Creature,Planeswalker | TgtPrompt$ Select target creature or planeswalker | SpellDescription$ Destroy target creature or planeswalker.
+SVar:AIPreference:SacCost$Creature.token,Planeswalker.cmcLE2
+AlternateMode:Modal
+Oracle:As an additional cost to cast this spell, sacrifice a creature or planeswalker.\nDestroy target creature or planeswalker.
+
+ALTERNATE
+
+Name:Foreboding Message
+ManaCost:3 B
+Types:Sorcery
+A:SP$ Surveil | Cost$ 3 B PayLife<2> | Amount$ 2 | SubAbility$ DBDraw | SpellDescription$ Surveil 2, then draw two cards. (To surveil 2, look at the top two cards of your library, then put any number of them into your graveyard and the rest on top of your library in any order.)
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 2
+Oracle:As an additional cost to cast this spell, pay 2 life.\nSurveil 2, then draw two cards. (To surveil 2, look at the top two cards of your library, then put any number of them into your graveyard and the rest on top of your library in any order.)

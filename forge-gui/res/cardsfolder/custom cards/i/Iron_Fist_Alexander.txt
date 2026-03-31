@@ -1,0 +1,11 @@
+Name:Iron Fist Alexander
+ManaCost:4
+Types:Legendary Artifact Creature Jar Warrior
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+modified | TriggerZones$ Battlefield | Execute$ TrigCharm | TriggerDescription$ Whenever a modified creature you control dies, choose one —
+SVar:TrigCharm:DB$ Charm | Choices$ DBCounter,DBEquipment,DBAura
+SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
+SVar:X:TriggeredCard$CardCounters.P1P1
+SVar:DBEquipment:DB$ Attach | Object$ AttachedTo TriggeredCardLKICopy.Equipment | Defined$ Self | ChooseFromDefined$ True | ChoiceTitle$ Choose target Equipment that was attached to that creature
+SVar:DBAura:DB$ ChangeZone | Hidden$ True | ChangeNum$ 1 | ChangeType$ Card | ChooseFromDefined$ AttachedTo TriggeredCardLKICopy.Aura | Origin$ Graveyard | Destination$ Battlefield | AttachedTo$ Self
+Oracle:Whenever a modified creature you control dies, choose one—\n• If that creature had one or more +1/+1 counters on it, put those counters on this creature.\n• Attach target Equipment that was attached to that creature to this creature.\n• Attach target Aura card in your graveyard that was attached to that creature to this creature.

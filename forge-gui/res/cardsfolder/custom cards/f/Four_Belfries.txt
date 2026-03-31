@@ -1,0 +1,9 @@
+Name:Four Belfries
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ CARDNAME enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ C | SubAbility$ DBCounter | SpellDescription$ Add {C}. Put an imbued counter on this land.
+SVar:DBCounter:DB$ PutCounter | CounterType$ IMBUED | CounterNum$ 1
+A:AB$ ChangeZone | Cost$ 4 T SubCounter<4/IMBUED> Sac<1/CARDNAME> | Origin$ Library | Destination$ Battlefield | ChangeType$ Land | ChangeNum$ 3 | Tapped$ True | SpellDescription$ Search your library for three land cards, put them onto the battlefield tapped, then shuffle.
+Oracle:Four Belfries enters tapped.\n{T}: Add {C}. Put an imbued counter on this land.\n{1}, {T}: Put a medallion counter on this land.\n{4}{T}, Remove four imbued counters from this land, Sacrifice this land: Search your library for three land cards, put them onto the battlefield tapped, then shuffle.

@@ -1,0 +1,9 @@
+Name:Beastman of Farum Azula
+ManaCost:1 R
+Types:Creature Beast Warrior
+PT:2/2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDealDamage | TriggerZones$ Battlefield | CheckSVar$ PackTactics | SVarCompare$ GE6 | NoResolvingCheck$ True | TriggerDescription$ Pack tactics — Whenever CARDNAME attacks, if you attacked with creatures with total power 6 or greater this combat, this creature deals 1 damage to any target.
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1
+SVar:PackTactics:Count$Valid Creature.attacking$CardPower
+DeckHas:Ability$Token
+Oracle:Pack tactics — Whenever this creature attacks, if you attacked with creatures with total power 6 or greater this combat, this creature deals 1 damage to any target.

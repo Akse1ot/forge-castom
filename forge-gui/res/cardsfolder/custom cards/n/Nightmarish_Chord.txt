@@ -1,0 +1,6 @@
+Name:Nightmarish Chord
+ManaCost:B
+Types:Instant
+K:Resonance:1 B
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True | SpellDescription$ Target creature gets -1/-1 until end of turn.
+Oracle:Target creature gets -1/-1 until end of turn.\nResonance {1}{B} (If you cast this spell for {1}{B}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell.)

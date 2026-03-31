@@ -1,0 +1,9 @@
+Name:Second-Generation Albinauric
+ManaCost:1 U
+Types:Creature Albinauric
+PT:1/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap | TriggerDescription$ When CARDNAME enters, tap target creature an opponent controls. Put a stun counter on that creature if you control another Knight. (If a permanent with a stun counter would become untapped, remove one from it instead.)
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBCounter | TgtPrompt$ Select target creature an opponent controls
+SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1 | ConditionPresent$ Enchantment.YouCtrl
+K:Spirit Ash:2 U Mill<2>
+Oracle:When this creature enters, tap target creature an opponent controls. Put a stun counter on that creature if you control an enchantment. (If a permanent with a stun counter would become untapped, remove one from it instead.)\nSpirit Ash—{3}{U}, Mill two cards ({3}{U}, Mill two cards, Exile this card from your graveyard: Create a token that’s a copy of this creature, except it’s a Spirit enchantment creature in addition to its other types. Activate only as a sorcery.)

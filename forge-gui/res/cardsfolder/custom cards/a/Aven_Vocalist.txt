@@ -1,0 +1,8 @@
+Name:Aven Vocalist
+ManaCost:2 U
+Types:Creature Bird Bard
+PT:2/1
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | TriggerZones$ Battlefield | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerDescription$ Whenever you cast a multicolored spell, put a +1/+1 counter on CARDNAME.
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | Defined$ Self
+Oracle:Flying\nVirtuoso — Whenever you cast a multicolored spell, put a +1/+1 counter on Aven Vocalist.

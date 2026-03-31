@@ -1,0 +1,9 @@
+Name:Cherishing Fingers
+ManaCost:1 U U
+Types:Instant
+K:Kicker:3 ExileFromGrave<1/Card.nonCreature+nonLand/nonland, noncreature card>
+A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | RememberCounteredCMC$ True | SubAbility$ PlayKicked | SpellDescription$ Counter target spell. If this spell was kicked, you may cast target instant or sorcery card with mana value X or less in your graveyard without paying its mana cost, where X is the countered spell’s mana value. If that spell would be put into your graveyard, exile it instead.
+SVar:PlayKicked:DB$ Play | TgtZone$ Graveyard | Condition$ Kicked | ValidTgts$ Instant.YouCtrl+cmcLEX,Sorcery.YouCtrl+cmcLEX | ValidSA$ Spell | TgtPrompt$ Choose target instant or sorcery card with mana value X or less from your graveyard | WithoutManaCost$ True | Optional$ True | ReplaceGraveyard$ Exile | AILogic$ ReplaySpell | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedNumber
+Oracle:Kicker {3}, Exile a nonland, noncreature card from your graveyard.\nCounter target spell. If this spell was kicked, you may cast target instant or sorcery card with mana value X or less in your graveyard without paying its mana cost, where X is the countered spell’s mana value. If that spell would be put into your graveyard, exile it instead.

@@ -1,0 +1,11 @@
+Name:Worldgorger Idealon
+ManaCost:5 G U
+Types:Creature Elemental Leviathan
+PT:6/6
+K:Flying
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExile | TriggerDescription$ Whenever Worldgorger Idealon attacks, you may pay {W}{U}{B}{R}{G}. If you do, exile target nonland permanent and put three +1/+1 counters on Worldgorger Idealon.
+SVar:TrigExile:AB$ ChangeZone | Cost$ W U B R G | Mode$ TgtChoose | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand | TgtPrompt$ Select target permanent | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 3 | Defined$ Self
+DeckHas:Ability$Counters
+Oracle:Flying, trample\nWhenever Worldgorger Idealon attacks, you may pay {W}{U}{B}{R}{G}. If you do, exile target nonland permanent and put three +1/+1 counters on Worldgorger Idealon.

@@ -1,0 +1,9 @@
+Name:Surreal Grandeur
+ManaCost:2 G
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Trample | Description$ Enchanted creature has trample.
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X | Description$ Imaginarium — Enchanted creature gets +1/+1 for each color among cards in your graveyard.
+SVar:X:Count$ColorsInYourYard
+Oracle:Enchant creature\nEnchanted creature has trample.\nImaginarium — Enchanted creature gets +1/+1 for each color among cards in your graveyard.

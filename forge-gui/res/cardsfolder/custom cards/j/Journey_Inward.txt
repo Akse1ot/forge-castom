@@ -1,0 +1,8 @@
+Name:Journey Inward
+ManaCost:G U
+Types:Sorcery
+A:SP$ Charm | Choices$ FetchBasic,Tap
+SVar:FetchBasic:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land | Shuffle$ True | SpellDescription$ Search your library for a basic land card and put it onto the battlefield tapped. Then shuffle your library.
+SVar:Tap:DB$ Tap | ValidTgts$ Creature | SubAbility$ DBPump | SpellDescription$ Tap target creature. It doesn’t untap during its controller’s next untap step.
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+Oracle:Choose one —\n• Search your library for a basic land card and put it onto the battlefield tapped. Then shuffle your library.\n• Tap target creature. It doesn’t untap during its controller’s next untap step.

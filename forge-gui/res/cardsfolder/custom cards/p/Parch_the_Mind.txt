@@ -1,0 +1,8 @@
+Name:Parch the Mind
+ManaCost:3 R
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Player | NumDmg$ 2 | RememberObjects$ Targeted | SubAbility$ DBTap | SpellDescription$ CARDNAME deals 2 damage to target player. Tap up to two target lands that player controls. Those lands don’t untap during their controller’s next untap step.
+SVar:DBTap:DB$ Tap | TargetMin$ 0 | TargetMax$ 2 | TgtPrompt$ Select target lands | Defined$ RememberedPlayer | ValidTgts$ Land | SubAbility$ TrigPump | SpellDescription$ Tap up to two target lands that player controls. Those lands don’t untap during their controller’s next untap step.
+SVar:TrigPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Parch the Mind deals 2 damage to target player. Tap up to two target lands that player controls. Those lands don’t untap during their controller’s next untap step.

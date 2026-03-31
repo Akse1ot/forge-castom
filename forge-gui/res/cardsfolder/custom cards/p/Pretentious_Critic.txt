@@ -1,0 +1,9 @@
+Name:Pretentious Critic
+ManaCost:3 W U
+Types:Creature Human Advisor
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerDescription$ When CARDNAME enters, ABILITY
+SVar:TrigCharm:DB$ Charm | Choices$ DBSearch,DBChangeZone
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Library | LibraryPosition$ 0 | ChangeNum$ 1 | ChangeType$ Card.MultiColor+YouCtrl | SpellDescription$ Search your library for a multicolored card, reveal it, then shuffle your library and put that card on top of it.
+SVar:DBChangeZone:DB$ ChangeZone | ValidTgts$ Permanent.MultiColor | TgtPrompt$  Select target multicolored permanent. | Origin$ Battlefield | Destination$ Library | LibraryPosition$ -1 | SpellDescription$ Put target multicolored permanent on the bottom of its owner's library.
+Oracle:When Pretentious Critic enters, choose one —\n• Search your library for a multicolored card, reveal it, then shuffle your library and put that card on top of it.\n• Put another target multicolored permanent on the bottom of its owner’s library.

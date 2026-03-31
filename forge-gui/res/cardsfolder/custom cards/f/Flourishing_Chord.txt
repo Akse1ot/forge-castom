@@ -1,0 +1,6 @@
+Name:Flourishing Chord
+ManaCost:G
+Types:Sorcery
+K:Resonance:2 G
+A:SP$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land | SpellDescription$ Search your library for a basic land card, reveal it, put it into your hand, then shuffle.
+Oracle:Search your library for a basic land card, reveal it, and put it into your hand. Then shuffle your library.\nResonance {2}{G} (If you cast this spell for {2}{G}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell.)

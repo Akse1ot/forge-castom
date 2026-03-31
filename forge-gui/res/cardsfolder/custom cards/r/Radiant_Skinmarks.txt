@@ -1,0 +1,6 @@
+Name:Radiant Skinmarks
+ManaCost:2 RG RG
+Types:Enchantment
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMana | TriggerDescription$ At the beginning of your precombat main phase, add {R}{G}. If that mana is spent on a creature spell, it gains haste until end of turn.
+SVar:TrigMana:DB$ Mana | Produced$ R G | AddsKeywords$ Haste | AddsKeywordsValid$ Spell.Creature | AddsKeywordsUntil$ UntilEOT
+Oracle:At the beginning of your precombat main phase, add {R}{G}. If that mana is spent on a creature spell, it gains haste until end of turn.

@@ -1,0 +1,7 @@
+Name:Strobe Light
+ManaCost:1
+Types:Artifact
+A:AB$ ChangeZone | Cost$ 1 T Sac<1/CARDNAME> |  ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn | SpellDescription$ Exile target creature you control, then return it to the battlefield under your control.
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup | GainControl$ True
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:{1}, {T}, Sacrifice Strobe Light: Exile target creature you control, then return it to the battlefield under your control.

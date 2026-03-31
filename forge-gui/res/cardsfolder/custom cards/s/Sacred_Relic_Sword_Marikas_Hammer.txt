@@ -1,0 +1,30 @@
+Name:Sacred Relic Sword
+ManaCost:1 W
+Types:Legendary Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Lifelink | CanBlockAny$ True | Description$ Equipped creature has lifelink and “This creature can block any number of creatures.”
+T:Mode$ Blocks | ValidCard$ Creature.EquippedBy | Execute$ TrigPumpBlock | TriggerDescription$ Whenever equipped creature blocks or becomes blocked by one or more creatures, it gets +1/+1 until end of turn for each of those creatures.
+SVar:TrigPumpBlock:DB$ Pump | Defined$ Equipped | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$Valid Creature.blockedBySource
+T:Mode$ AttackerBlocked | ValidCard$ Creature.EquippedBy | Execute$ TrigPumpBlocked | TriggerDescription$ Whenever equipped creature blocks or becomes blocked by one or more creatures, it gets +1/+1 until end of turn for each of those creatures.
+SVar:TrigPumpBlocked:DB$ Pump | Defined$ Equipped | NumAtt$ +Y | NumDef$ +Y
+SVar:Y:Count$Valid Creature.blockingSource
+K:Equip:2 W
+AlternateMode:Modal
+Oracle:Equipped creature has lifelink and “This creature can block any number of creatures.”\nWhenever equipped creature blocks or becomes blocked by one or more creatures, it gets +1/+1 until end of turn for each of those creatures.\nEquip {2}{W}
+
+ALTERNATE
+
+Name:Marika's Hammer
+ManaCost:2 W
+Types:Legendary Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 1 | Description$ Equipped creature gets +2/+1.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach | TriggerDescription$ When CARDNAME enters, attach it to target creature you control.
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control
+T:Mode$ DamageDone | ValidSource$ Creature.AttachedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDestroy | TriggerZones$ Battlefield | TriggerDescription$ Whenever equipped creature deals combat damage to a player, destroy up to one target artifact or enchantment. If you don’t, create a Rune token.
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment | TargetMin$ 0 | TargetMax$ 1 | RememberDestroyed$ True | SubAbility$ DBToken | TgtPrompt$ Select target artifact or enchantment.
+SVar:DBToken:DB$ Token | TokenScript$ c_a_Rune_sac | TokenOwner$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Equip:3 W
+Oracle:Equipped creature gets +2/+1.\nWhen this equipment enters, attach it to target creature you control.\nWhenever equipped creature deals combat damage to a player, destroy up to one target artifact or enchantment. If you don’t, create a Rune token.\nEquip {3}{W}
+
+

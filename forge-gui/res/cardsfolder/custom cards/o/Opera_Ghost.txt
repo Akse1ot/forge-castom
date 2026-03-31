@@ -1,0 +1,5 @@
+Name:Opera Ghost
+ManaCost:3 UB
+Types:Creature Spirit
+PT:2/4
+Oracle:

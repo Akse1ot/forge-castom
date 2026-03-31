@@ -1,0 +1,6 @@
+Name:Rot Token
+ManaCost:no cost
+Colors:colorless
+Types:Land
+A:AB$ Mana | Cost$ T PayLife<2> | Produced$ C | SpellDescription$ Add {C}.
+Oracle:{T}, Pay 2 life: Add {C}.

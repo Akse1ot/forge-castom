@@ -1,0 +1,6 @@
+Name:Hat Trick
+ManaCost:2 U
+Types:Instant
+A:SP$ Tap | ValidTgts$ Creature | TgtPrompt$ Select up to three target creatures | TargetMin$ 0 | TargetMax$ 3 | SubAbility$ DBDraw | SpellDescription$ Tap up to three target creatures. Draw a card.
+SVar:DBDraw:DB$ Draw
+Oracle:{T}:Tap up to three target creatures.\nDraw a card.

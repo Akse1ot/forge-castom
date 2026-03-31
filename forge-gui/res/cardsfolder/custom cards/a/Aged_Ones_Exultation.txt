@@ -1,0 +1,9 @@
+Name:Aged Ones Exultation
+ManaCost:1 R
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Card.!wasCastFromTheirHand | ValidActivatingPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever a player cast a spell from anywhere other than their hand, each creature you control gets +1/+1 until end of turn.
+T:Mode$ SpellCast | ValidCard$ Card.kicked | ValidActivatingPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever a playe casts a kicked spell, each creature you control gets +1/+1 until end of turn.
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1
+K:Madness:R
+Oracle:Whenever a player cast a spell from anywhere other than their hand or casts a kicked spell, each creature you control gets +1/+1 until end of turn.\nnMadness {R} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)
+

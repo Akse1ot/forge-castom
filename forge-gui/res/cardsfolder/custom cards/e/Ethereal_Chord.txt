@@ -1,0 +1,6 @@
+Name:Ethereal Chord
+ManaCost:U
+Types:Instant
+K:Resonance:2 U
+A:SP$ Draw | Defined$ You | NumCards$ 1 | SpellDescription$ Draw a card.
+Oracle:Draw a card.\nResonance {2}{U} (If you cast this spell for {2}{U}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell.)

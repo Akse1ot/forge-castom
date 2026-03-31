@@ -1,0 +1,9 @@
+Name:Dream Drinker
+ManaCost:1 B
+Types:Creature Vampire Wizard
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill | TriggerDescription$ When CARDNAME enters the battlefield, target player puts the top X cards of their library into their graveyard and you gain X life, where X is the number of colors among cards in your graveyard.
+SVar:TrigMill:DB$ Mill | NumCards$ X | ValidTgts$ Player | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ X
+SVar:X:Count$ColorsInYourYard
+Oracle:Imaginarium — When Dream Drinker enters the battlefield, target player puts the top X cards of their library into their graveyard and you gain X life, where X is the number of colors among cards in your graveyard.

@@ -1,0 +1,9 @@
+Name:Creative Surge
+ManaCost:2 RG RG
+Types:Sorcery
+A:SP$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChangeZone | SpellDescription$ Imaginarium — Exile the top X cards of your library, where X is the number of colors among cards in your graveyard. You may put any number of creature and/or land cards from among those cards onto the battlefield.
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | ChangeType$ Creature.IsRemembered,Land.IsRemembered | Hidden$ True | ChangeNum$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ColorsInYourYard
+SVar:Y:Count$ValidExile Creature.IsRemembered,Land.IsRemembered
+Oracle:Imaginarium — Exile the top X cards of your library, where X is the number of colors among cards in your graveyard. You may put any number of creature and/or land cards from among those cards onto the battlefield.

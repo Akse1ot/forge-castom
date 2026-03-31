@@ -1,0 +1,8 @@
+Name:Miquella's Charm
+ManaCost:4 U U
+Types:Enchantment Aura
+K:Ward:3
+K:Enchant:Creature,Planeswalker:creature or Planeswalker
+SVar:AttachAILogic:GainControl
+S:Mode$ Continuous | Affected$ Permanent.EnchantedBy | GainControl$ You | Description$ You control enchanted permanent.
+Oracle:Ward {1}\nEnchant creature or Planeswalker\nYou control enchanted permanent.

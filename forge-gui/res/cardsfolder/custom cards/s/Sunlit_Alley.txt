@@ -1,0 +1,8 @@
+Name:Sunlit Alley
+ManaCost:no cost
+Types:Land
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ StayTapped | TriggerDescription$ When CARDNAME enters, it doesn’t untap during your next untap step.
+SVar:StayTapped:DB$ Effect | ReplacementEffects$ DontUntap | RememberObjects$ Self | ExileOnMoved$ Battlefield | Duration$ UntilTheEndOfYourNextUntap
+SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ Player.Activator | Layer$ CantHappen | Description$ EFFECTSOURCE doesn't untap during your next untap step.
+A:AB$ Mana | Cost$ T | Produced$ Combo R W | SpellDescription$ Add {R} or {W}.
+Oracle:When Sunlit Alley enters the battlefield, it doesn’t untap during your next untap step.\n{T}: Add {R} or {W}.

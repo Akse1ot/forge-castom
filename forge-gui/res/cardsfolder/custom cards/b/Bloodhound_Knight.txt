@@ -1,0 +1,11 @@
+Name:Bloodhound Knight
+ManaCost:2 R
+Types:Creature Human Knight
+PT:2/3
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ OppDamaged | SVarCompare$ GE1 | Execute$ TrigCharm | TriggerDescription$ When CARDNAME enters, if an opponent was dealt damage this turn, ABILITY
+SVar:TrigCharm:DB$ Charm | Choices$ DBRune,DBSearch
+SVar:DBRune:DB$ Token | TokenScript$ c_a_Rune_sac | SpellDescription$ Create a Rune token.
+SVar:DBSearch:DB$ Token | TokenScript$ c_a_blood_draw | SpellDescription$ Create a Blood token.
+SVar:OppDamaged:PlayerCountRegisteredOpponents$HasPropertywasDealtDamageThisTurn
+Oracle:Menace\nWhen this creature enters, if an opponent was dealt damage this turn, choose one —\n• Create a Rune token.\n• Create a Blood token.

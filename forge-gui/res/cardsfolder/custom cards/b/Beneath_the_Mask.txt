@@ -1,0 +1,7 @@
+Name:Beneath the Mask
+ManaCost:3 B
+Types:Sorcery
+A:SP$ Charm | Choices$ DBDiscard,DBToken
+SVar:DBDiscard:DB$ Discard | ValidTgts$ Player | NumCards$ 2 | Mode$ TgtChoose | IsCurse$ True | SpellDescription$ Target player discards two cards.
+SVar:DBToken:DB$ Token | TokenScript$ b_3_3_nightmare | SpellDescription$ Create a 3/3 black Nightmare creature token.
+Oracle:Choose one —\n• Target player discards two cards.\n•Create a 3/3 black Nightmare creature token.

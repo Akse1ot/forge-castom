@@ -1,0 +1,12 @@
+Name:Dashing Swordsman
+ManaCost:W
+Types:Creature Human Soldier
+PT:1/1
+K:First Strike
+K:Renown:1
+DeckHas:Ability$Counters
+DeckHas:Keyword$FirstStrike
+DeckHas:Type$Creature
+DeckHas:Tribe$Human
+DeckHas:Tribe$Soldier
+Oracle:First strike\nRenown 1 (When this creature deals combat damage to a player, if it isn't renowned, put a +1/+1 counter on it and it becomes renowned.)

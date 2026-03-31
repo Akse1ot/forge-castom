@@ -1,0 +1,8 @@
+Name:Lorettas Greatbow
+ManaCost:1 U
+Types:Instant
+K:Kicker:2 B
+A:SP$ ChangeZone | ValidTgts$ Creature,Planeswalker | TgtPrompt$ Select target creature or planeswalker | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBChangeZone | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SpellDescription$ Return target creature or planeswalker to its owner's hand. If this spell was kicked, that permanent’s owner puts it on the top or bottom of their library instead.
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Targeted | Origin$ Battlefield | Destination$ Library | DestinationAlternative$ Library | LibraryPositionAlternative$ -1 | Condition$ Kicked
+SVar:X:Count$TimesKicked
+Oracle:Kicker {2}{B} (You may pay an additional {2}{B} as you cast this spell.)\nReturn target creature or planeswalker to its owner's hand. If this spell was kicked, that permanent’s owner puts it on the top or bottom of their library instead.

@@ -1,0 +1,8 @@
+Name:Chaosborn Muse
+ManaCost:3 B R
+Types:Creature Spirit
+PT:3/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | TriggerZones$ Battlefield | CheckSVar$ TrigCount | SVarCompare$ EQ0 | Execute$ TrigDamage | TriggerDescription$ At the beginning of each player's upkeep, if that player has no cards in hand, you draw a card and you lose 1 life.
+SVar:TrigDamage:DB$ DamageAll | NumDmg$ 2 | ValidPlayers$ Player.Opponent | ValidCards$ Creature.OppCtrl | ValidDescription$ each opponent and each creature they control
+SVar:TrigCount:Count$ValidHand Card.ActivePlayerCtrl
+Oracle:At the beginning of each player’s upkeep, if that player has no cards in hand, Chaosborn Muse deals 2 damage to each creature you don’t control and each opponent.

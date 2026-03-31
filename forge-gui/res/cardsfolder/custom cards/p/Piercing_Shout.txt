@@ -1,0 +1,7 @@
+Name:Piercing Shout
+ManaCost:1 R
+Types:Instant
+A:SP$ Charm | Choices$ DBDestroy,DBDmg
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact.nonCreature | SpellDescription$ Destroy target noncreature artifact.
+SVar:DBDmg:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | SpellDescription$ CARDNAME deals 3 deals 2 damage to any target.
+Oracle:Choose one —\n• Destroy target noncreature artifact.\n• Piercing Shout deals 2 damage to any target.

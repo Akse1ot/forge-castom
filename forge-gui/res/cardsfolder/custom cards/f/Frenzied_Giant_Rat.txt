@@ -1,0 +1,10 @@
+Name:Frenzied Giant Rat
+ManaCost:1 B
+Types:Creature Rat
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME dies, create a Blood token. (It's an artifact with "{1}, {T}, Discard a card, Sacrifice this artifact: Draw a card.")
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_blood_draw | TokenOwner$ You
+K:Madness:B PayLife<1>
+K:Spirit Ash:B PayLife<1>
+DeckHas:Ability$Token|Sacrifice & Type$Blood
+Oracle:When this creature dies, create a Blood token. (It's an artifact with "{1}, {T}, Discard a card, Sacrifice this artifact: Draw a card.")\n\n

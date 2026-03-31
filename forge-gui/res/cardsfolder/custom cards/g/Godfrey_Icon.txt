@@ -1,0 +1,6 @@
+Name:Godfrey Icon
+ManaCost:3
+Types:Artifact
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl+kicked | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever you cast a kicked spell, create a 2/1 red Warrior creature token.
+SVar:TrigToken:DB$ Token | TokenScript$ r_2_1_Warrior
+Oracle:Whenever you cast a kicked spell, create a 2/1 red Warrior creature token.

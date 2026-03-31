@@ -1,0 +1,9 @@
+Name:Warhawk
+ManaCost:W
+Types:Creature Bird Soldier
+PT:1/1
+K:Flying
+K:Spirit Ash:1 W W
+S:Mode$ Continuous | Affected$ Card.Self | CheckSVar$ X | SVarCompare$ GE2 | AddPower$ 1
+SVar:Х:Count$ModifiedWays
+Oracle:Flying\nAs long as this creature is modified in two or more different ways, it gets +1/+0.\nSpirit Ash—{1}{W}{W}.({1}{W}{W}, Exile this card from your graveyard: Create a token that’s a copy of this creature, except it’s a Spirit enchantment creature in addition to its other types. Activate only as a sorcery.)

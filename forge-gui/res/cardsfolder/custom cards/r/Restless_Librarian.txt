@@ -1,0 +1,7 @@
+Name:Restless Librarian
+ManaCost:WU WU
+Types:Creature Human Wizard
+PT:2/1
+R:Event$ SearchLibrary | ActiveZones$ Battlefield | ReplaceWith$ DBRepDraw | Description$ If a player would search a library, that player draws a card instead.
+SVar:DBRepDraw:DB$ Draw | Defined$ Affected | NumCards$ 1
+Oracle:If a player would search a library, that player draws a card instead.

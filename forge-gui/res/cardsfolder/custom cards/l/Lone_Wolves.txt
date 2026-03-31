@@ -1,0 +1,8 @@
+Name:Lone Wolves
+ManaCost:2 W
+Types:Enchantment Creature Wolf Spirit
+PT:1/1
+K:Spirit Ash:2 W W W
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a 1/1 white Soldier creature token.
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScript$ b_1_1_enchantment_Wolf_Spirit | TokenOwner$ You
+Oracle:When this creature enters, create two 1/1 blue Wolf Spirit enchantment creature tokens.\nSpirit Ash {2}{W}{W}{W} ({2}{W}{W}{W}, Exile this card from your graveyard: Create a token that’s a copy of this creature, except it’s a Spirit enchantment creature in addition to its other types. Activate only as a sorcery.)

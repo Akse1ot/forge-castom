@@ -1,0 +1,7 @@
+Name:Tales Retold
+ManaCost:4 G U
+Types:Sorcery
+A:SP$ CopyPermanent | ValidTgts$ Permanent.YouCtrl | ValidZone$ Graveyard | TgtPrompt$ Select target permanent card in your graveyard. | AILogic$ BestCard | SubAbility$ DBChangeZone | SpellDescription$ Create a token that’s a copy of target permanent card in your graveyard, then return that card to your hand.
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Targeted | Origin$ Graveyard | Destination$ Hand
+Oracle:Create a token that’s a copy of target permanent card in your graveyard, then return that card to your hand.
+

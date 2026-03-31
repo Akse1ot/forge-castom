@@ -1,0 +1,7 @@
+Name:Dragon Communion
+ManaCost:4 R R
+Types:Enchantment
+S:Mode$ AlternativeCost | EffectZone$ All | ValidSA$ Spell.Dragon+YouCtrl | ValidPlayer$ You | Cost$ Sac<1/Creature.nonDragon+YouCtrl;Planeswalker.YouCtrl/a non-Dragon creature or planeswalker> | Description$ You may sacrifice a non-Dragon creature or planeswalker rather than pay the mana cost of Dragon spells you control.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Dragon.!token | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever a nontoken Dragon dies, create a 3/3 red Dragon creature token.
+SVar:TrigToken:DB$ Token | TokenScript$ r_3_3_Dragon
+Oracle:You may sacrifice a non-Dragon creature or planeswalker instead of paying the mana cost of Dragon spells you control.\nWhenever a nontoken Dragon dies, create a 3/3 red Dragon creature token.

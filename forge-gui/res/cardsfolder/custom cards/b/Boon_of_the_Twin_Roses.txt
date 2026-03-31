@@ -1,0 +1,7 @@
+Name:Boon of the Twin Roses
+ManaCost:1 WB
+Types:Enchantment Aura
+K:Enchant:Creature
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 2 | AddKeyword$ Lifelink | Description$ Enchanted creature gets +1/+2 and has lifelink.
+SVar:AttachAILogic:Pump
+Oracle:Enchant creature\nEnchanted creature gets +1/+2 and has lifelink.

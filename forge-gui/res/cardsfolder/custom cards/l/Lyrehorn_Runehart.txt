@@ -1,0 +1,9 @@
+Name:Lyrehorn Runehart
+ManaCost:2 G W
+Types:Creature Elk
+PT:4/4
+K:Vigilance
+K:Protection:Card.cmcLE2:mana value 2 or less
+A:AB$ Pump | Cost$ 5 G W ExileFromGrave<1/CARDNAME> | ValidTgts$ Creature | KW$ Vigilance & Protection:Card.cmcLE2:mana value 2 or less  | NumAtt$ +4 | NumDef$ +4 | SpellDescription$ Target creature gets +4/+4, gains vigilance, and gains protection from converted mana cost 2 or less until end of turn.
+Oracle:Vigilance, protection from converted mana cost 2 or less\n{5}{W}{G}, Exile Lyrehorn Runehart from your graveyard: Target creature gets +4/+4, gains vigilance, and gains protection from converted mana cost 2 or less until end of turn.
+

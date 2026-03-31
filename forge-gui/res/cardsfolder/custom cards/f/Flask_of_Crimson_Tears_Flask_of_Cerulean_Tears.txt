@@ -1,0 +1,24 @@
+Name:Flask of Crimson Tears
+ManaCost:1
+Types:Legendary Artifact
+K:etbCounter:SEED:3
+K:etbCounter:TEAR:1
+A:AB$ PutCounter | Cost$ 2 | SorcerySpeed$ True | CounterType$ SEED | CounterNum$ 1 | SpellDescription$ Put a seed counter on CARDNAME. Activate only as a sorcery.
+A:AB$ PutCounter | Cost$ X | SorcerySpeed$ True | CounterType$ TEAR | CounterNum$ 1 | SpellDescription$ Put a tear counter on CARDNAME. Activate only as a sorcery.
+A:AB$ GainLife | Cost$ T SubCounter<1/SEED> | Defined$ You | LifeAmount$ X
+SVar:X:Count$CardCounters.TEAR
+AlternateMode:Modal
+Oracle:This artifact enters with three seed counters and a tear counter on it.\n{2}: Put a seed counter on this artifact. Activate only as a sorcery.\n{X}, where X is the amount of tear counters on this artifact: Put a tear counter on this artifact. Activate only as a sorcery.\n{T}, Remove a seed counter from this artifact: Gain life equal to the number of tear counters on this artifact.
+
+ALTERNATE
+
+Name:Flask of Cerulean Tears
+ManaCost:3
+Types:Legendary Artifact
+K:etbCounter:SEED:3
+K:etbCounter:TEAR:1
+A:AB$ PutCounter | Cost$ 2 | SorcerySpeed$ True | CounterType$ SEED | CounterNum$ 1 | SpellDescription$ Put a seed counter on CARDNAME. Activate only as a sorcery.
+A:AB$ PutCounter | Cost$ X X | SorcerySpeed$ True | CounterType$ TEAR | CounterNum$ 1 | SpellDescription$ Put a tear counter on CARDNAME. Activate only as a sorcery.
+A:AB$ Mana | Cost$ T SubCounter<1/SEED> | Produced$ C | Amount$ X | RestrictValid$ !Activated.Self | SpellDescription$ Add {C} for each tear counter on this artifact. You can’t spend this mana to activate this artifact’s abilities.
+SVar:X:Count$CardCounters.TEAR
+Oracle:This artifact enters with three seed counters and a tear counter on it.\n{2}: Put a seed counter on this artifact. Activate only as a sorcery.\n{X}{X}, where X is the number of tear counters on this artifact: Put a tear counter on this artifact. Activate only as a sorcery.\n{T}, Remove a seed counter from this artifact: Add {C} for each tear counter on this artifact. You can’t spend this mana to activate this artifact’s abilities.

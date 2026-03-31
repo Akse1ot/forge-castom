@@ -1,0 +1,8 @@
+Name:Effervescent Idealon
+ManaCost:3 R G
+Types:Creature Elemental Beast
+PT:4/3
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigCopy | CombatDamage$ True | TriggerDescription$ Whenever Effervescent Idealon deals combat damage to a player, create a token that’s a copy of it.
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ Self | NumCopies$ 1
+Oracle:Menace\nWhenever Effervescent Idealon deals combat damage to a player, create a token that’s a copy of it.

@@ -1,0 +1,13 @@
+Name:Dutiful Patrollers
+ManaCost:3 W
+Types:Creature Human Soldier
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ DBPump | TriggerDescription$ When CARDNAME enters the battlefield, target creature gets +1/+1 and gains vigilance until end of turn.
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ +1 | NumDef$ +1 | KW$ Vigilance
+SVar:PlayMain1:TRUE
+DeckHas:Ability$Pump
+DeckHas:Ability$ETB
+DeckHas:Type$Creature
+DeckHas:Tribe$Soldier
+DeckHas:Keyword$Vigilance
+Oracle:When Dutiful Patrollers enters the battlefield, target creature gets +1/+1 and gains vigilance until end of turn.

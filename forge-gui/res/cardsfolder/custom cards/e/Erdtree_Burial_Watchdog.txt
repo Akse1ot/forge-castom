@@ -1,0 +1,9 @@
+Name:Erdtree Burial Watchdog
+ManaCost:3
+Types:Artifact Creature Dog Golem
+PT:2/2
+K:Vigilance
+T:Mode$ BecomesTarget | ValidTarget$ Creature.inZoneGraveyard,Planeswalker.inZoneGraveyard | ValidSource$ SpellAbility.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigCounter | TriggerDescription$ Whenever a spell or ability an opponent controls targets a creature or planeswalker card in a graveyard,  counter that spell or ability unless its controller pays {1}.
+T:Mode$ AbilityCast | ValidCard$ Creature.OppCtrl+inZoneGraveyard,Planeswalker.OppCtrl+inZoneGraveyard | ValidSA$ SpellAbility | ValidActivatingPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigCounter | TriggerDescription$ Whenever an ability of a creature or planeswalker card in an opponent’s graveyard is activated, counter that ability unless its controller pays {1}.
+SVar:TrigCounter:DB$ Counter | Defined$ TriggeredSourceSA | UnlessCost$ 1 | UnlessPayer$ TriggeredSourceSAController
+Oracle:Vigilance\nWhenever a spell or ability an opponent controls targets a creature or planeswalker card in a graveyard, or an ability of a creature or planeswalker card in an opponent’s graveyard is activated, counter that spell or ability unless its controller pays {1}.

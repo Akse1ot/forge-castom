@@ -1,0 +1,25 @@
+Name:D, Hunter of the Dead
+ManaCost:1 W
+Types:Legendary Planeswalker D
+Loyalty:3
+A:AB$ ChangeZone | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | TgtPrompt$ Select target card from a graveyard. | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBGainLife | SpellDescription$ Exile up to one target card from a graveyard. Gain 1 life.
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Permanent.YouOwn+nonLand | TgtPrompt$ Select target nonland permanent | SpellDescription$ Return target nonland permanent card in your graveyard to your hand.
+A:AB$ ChangeZoneAll | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | ChangeType$ Card | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBToken | SpellDescription$ Exile all graveyards. Create a Rune token for each card exiled this way.
+SVar:DBToken:DB$ Token | TokenScript$ c_a_Rune_sac | TokenAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+AlternateMode:Modal
+Oracle:[+1]: Exile up to one target card from a graveyard. Gain 1 life.\n[-3]: Return target nonland permanent card in your graveyard to your hand.\n[-5]: Exile all graveyards. Create a Rune token for each card exiled this way.
+
+ALTERNATE
+
+Name:D, Beholder of Death
+ManaCost:2 W W
+Types:Legendary Planeswalker D
+Loyalty:4
+A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenScript$ w_2_2_Knight_vigilance | TokenAmount$ 1 | SpellDescription$ Create a 2/2 white Knight creature token with vigilance.
+A:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True || ValidTgts$ Planeswalker,Enchantment,Creature.tapped | TgtPrompt$ Select target planeswalker, enchantment, or tapped creature | SpellDescription$ Destroy target planeswalker, enchantment, or tapped creature.
+A:AB$ DestroyAll | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Permanent.nonLand+nonWhite | SpellDescription$ Destroy all nonland, nonwhite permanents
+AlternateMode:Modal
+Oracle:[+1]: Create a 2/2 white Knight creature token with vigilance.\n[-3]: Destroy target planeswalker, enchantment, or tapped creature.\n[-8]: Destroy all nonland, nonwhite permanents

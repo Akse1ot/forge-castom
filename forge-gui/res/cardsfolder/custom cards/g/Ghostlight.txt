@@ -1,0 +1,7 @@
+Name:Ghostlight
+ManaCost:2
+Types:Artifact
+A:AB$ ChangeZone | Cost$ 3 T | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | SubAbility$ DBToken | RememberChanged$ True | SpellDescription$ Exile target card from a graveyard. If you do, create a 1/1 white Spirit creature token with flying.
+SVar:DBToken:DB$ Token | TokenAmount$ 1 | TokenScript$ w_1_1_spirit_flying | TokenOwner$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:{3}, {T}: Exile target card from a graveyard. If you do, create a 1/1 white Spirit creature token with flying.

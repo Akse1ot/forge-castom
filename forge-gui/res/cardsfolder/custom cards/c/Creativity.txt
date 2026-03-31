@@ -1,0 +1,10 @@
+Name:Creativity
+ManaCost:W U B R G
+Types:Creature Incarnation
+PT:5/5
+K:Flying
+S:Mode$ Continuous | Affected$ Card.YouOwn | MayPlay$ True | MayPlayLimit$ 1 | EffectZone$ Battlefield | AffectedZone$ Sideboard | Description$ During each turn, you may cast one card you own from outside the game.
+R:Event$ Moved | Destination$ Graveyard | ValidCard$ Card.Self | ReplaceWith$ DBShuffle | Description$ If CARDNAME would be put into a graveyard from anywhere, reveal CARDNAME and shuffle it into its owner's library instead.
+SVar:DBShuffle:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Library | Defined$ ReplacedCard | Reveal$ True | Shuffle$ True
+
+Oracle:Flying\nDuring each turn, you may cast one card you own from outside the game.\nIf Creativity would be put into a graveyard from anywhere, reveal Creativity and shuffle it into its owner’s library instead.

@@ -1,0 +1,9 @@
+Name:Assassin Token
+ManaCost:no cost
+Colors:black
+Types:Creature Assassin
+PT:1/1
+K:Deathtouch
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSurveil | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)
+SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+Oracle:Deathtouch\nWhen this creature deals combat damage to a player, surveil 1.

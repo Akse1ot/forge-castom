@@ -1,0 +1,6 @@
+Name:Primeval Serenity
+ManaCost:3 G
+Types:Instant
+A:SP$ Sacrifice | SacValid$ Artifact,Enchantment | Defined$ Player.Opponent | SubAbility$ DBDraw | SpellDescription$ Each opponent sacrifices an artifact or an enchantment.
+SVar:DBDraw:DB$ Draw | SpellDescription$ Draw a card.
+Oracle:Each opponent sacrifices an artifact or an enchantment.\nDraw a card.

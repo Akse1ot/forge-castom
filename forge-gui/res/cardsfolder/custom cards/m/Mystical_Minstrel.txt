@@ -1,0 +1,9 @@
+Name:Mystical Minstrel
+ManaCost:1 W
+Types:Creature Human Bard
+PT:1/3
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever you cast a multicolored spell, create a 1/1 white Spirit creature token with flying.
+SVar:TrigToken:DB$ Token | TokenAmount$ 1 | TokenScript$ w_1_1_spirit_flying | TokenOwner$ You
+DeckHints:Type$Multicolored
+DeckHas:Ability$Token
+Oracle:Virtuoso — Whenever you cast a multicolored spell, create a 1/1 white Spirit creature token with flying.

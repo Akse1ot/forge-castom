@@ -1,0 +1,8 @@
+Name:Duskwood Neophyte
+ManaCost:2 G
+Types:Creature Satyr
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBDig | TriggerDescription$ When CARDNAME enters or dies, reveal the top card of your library. If it’s a creature or land card, put it into your hand. Otherwise, put it into your graveyard.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ DBDig | Secondary$ True | TriggerDescription$ When CARDNAME enters or dies, reveal the top card of your library. If it’s a creature or land card, put it into your hand. Otherwise, put it into your graveyard.
+SVar:DBDig:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Creature,Land | DestinationZone2$ Graveyard
+Oracle:When Duskwood Neophyte enters the battlefield or dies, reveal the top card of your library. If it’s a creature or land card, put it into your hand. Otherwise, put it into your graveyard.

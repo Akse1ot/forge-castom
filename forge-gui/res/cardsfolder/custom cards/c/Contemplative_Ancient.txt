@@ -1,0 +1,7 @@
+Name:Contemplative Ancient
+ManaCost:3 G
+Types:Creature Treefolk
+PT:3/4
+T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | FirstTime$ True | Execute$ DBUntap | TriggerDescription$ Whenever you gain life for the first time each turn, untap target land.
+SVar:DBUntap:DB$ Untap | ValidTgts$ Land | TgtPrompt$ Select target land
+Oracle:Whenever you gain life for the first time each turn, untap target land.

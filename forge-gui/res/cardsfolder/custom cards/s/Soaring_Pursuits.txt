@@ -1,0 +1,5 @@
+Name:Soaring Pursuits
+ManaCost:U R
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ +2 | NumDef$ +1 | KW$ Flying & Haste | SpellDescription$ Target creature gets +2/+1 and gains flying and haste until end of turn.
+Oracle:Target creature gets +2/+1 and gains flying and haste until end of turn.

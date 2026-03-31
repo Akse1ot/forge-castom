@@ -1,0 +1,9 @@
+Name:Ymir Mother of Fingers
+ManaCost:3 U U
+Types:Legendary Creature Human Wizard
+PT:3/3
+T:Mode$ SpellCast | TriggerZones$ Battlefield | ValidCard$ Enchantment,Instant,Sorcery | Execute$ TrigToken | TriggerDescription$ Whenever you cast an instant, sorcery or enchantment spell, create a 0/0 green Fungus creature token. Put X +1/+1 counters on that token, where X is that spell’s mana value.
+SVar:TrigToken:DB$ Token | TokenScript$ g_0_0_Fungus | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ TriggeredSpellAbility$CardManaCostLKI | SubAbility$ DBCleanup | StackDescription$ SpellDescription | SpellDescription$ Put X +1/+1 counters on that token, where X is that spell’s mana value.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Whenever you cast an instant, sorcery or enchantment spell, create a 0/0 green Fungus creature token. Put X +1/+1 counters on that token, where X is that spell’s mana value.

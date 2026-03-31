@@ -1,0 +1,12 @@
+Name:Flame Chariot
+ManaCost:2 R R
+Types:Artifact Vehicle
+PT:3/1
+K:Trample
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self+Creature | Execute$ TrigCharm | TriggerDescription$ When CARDNAME dies, if it was a creature, ABILITY
+SVar:TrigCharm:DB$ Charm | Choices$ DBDestroy,DBSac
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact | SpellDescription$ Destroy target artifact.
+SVar:DBSac:DB$ Sacrifice | SacValid$ Land | Defined$ Player | SpellDescription$ Each player sacrifices a land.
+K:Crew:1
+Oracle:Trample\nWhen this permanent dies, if it’s a creature, choose one—\n•Destroy target artifact.\n•Each player sacrifices a land.\nCrew 1 (Tap any number of creatures you control with total power 2 or more: This Vehicle becomes an artifact creature until end of turn.)
+

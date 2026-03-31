@@ -1,0 +1,6 @@
+Name:Pyrebloom Ritual
+ManaCost:R G
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | SubAbility$ DBMana | SpellDescription$ CARDNAME deals 2 damage to any target. Add two mana in any combination of colors.
+SVar:DBMana:DB$ Mana | Produced$ Combo Any | Amount$ 2
+Oracle:Pyrebloom Ritual deals 2 damage to any target. Add two mana in any combination of colors.

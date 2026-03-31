@@ -1,0 +1,10 @@
+Name:Abductor Virgin
+ManaCost:4
+Types:Artifact Creature Construct
+PT:2/3
+K:Trample
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.DamagedBy | TriggerZones$ Battlefield | Execute$ TrigExile | TriggerDescription$ Whenever a creature dealt damage by CARDNAME this turn dies, exile it from its owner’s graveyard. When you do, create a Rune token.
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_Rune_sac | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Trample\nWhenever a creature dealt combat damage by this creature this turn dies, exile it from its owner’s graveyard. When you do, create a Rune token. (It’s an artifact with “{T}, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)

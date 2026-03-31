@@ -1,0 +1,7 @@
+Name:Sound Blast
+ManaCost:1 U R
+Types:Instant
+A:SP$ Charm | Choices$ DBCounter,DBDealDamage
+SVar:DBCounter:DB$ Counter | TargetType$ Spell | TgtPrompt$ Select target noncreature spell | ValidTgts$ Card.nonCreature | UnlessCost$ 3 | SpellDescription$ Counter target noncreature spell unless its controller pays {3}.
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 3 | SpellDescription$ CARDNAME deals 3 damage to target creature.
+Oracle:Choose one —\n• Counter target noncreature spell unless its controller pays {3}.\n• Sound Blast deals 3 damage to target creature.

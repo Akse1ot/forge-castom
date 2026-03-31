@@ -1,0 +1,6 @@
+Name:Satyr Bard Token
+ManaCost:no cost
+Colors:black,green
+Types:Creature Satyr Bard
+PT:1/1
+Oracle:

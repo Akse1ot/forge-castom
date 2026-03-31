@@ -1,0 +1,6 @@
+Name:Censure
+ManaCost:1 U U
+Types:Instant
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 1 | EffectZone$ All | IsPresent$ Permanent.MultiColor+YouCtrl | Description$ This spell costs {1} less to cast if you control a multicolored permanent.
+A:SP$ Counter | TargetType$ Spell | TgtPrompt$ Select target spell | ValidTgts$ Card | SpellDescription$ Counter target spell.
+Oracle:This spell costs {1} less to cast if you control a multicolored permanent.\nCounter target spell.

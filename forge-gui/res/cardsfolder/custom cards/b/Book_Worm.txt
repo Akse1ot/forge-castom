@@ -1,0 +1,10 @@
+Name:Book Worm
+ManaCost:3 U B
+Types:Creature Worm Horror
+PT:*/4
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | Description$ CARDNAME's power is equal to the greatest number of cards in a player’s graveyard.
+SVar:X:Count$Compare Y GEZ.Y.Z
+SVar:Y:Count$ValidGraveyard Card.YouOwn
+SVar:Z:Count$ValidGraveyard Card.OppOwn
+Oracle:Book Worm’s power is equal to the greatest number of cards in a player’s graveyard.
+GreatestPower

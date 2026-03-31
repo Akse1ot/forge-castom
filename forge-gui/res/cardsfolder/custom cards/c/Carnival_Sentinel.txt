@@ -1,0 +1,7 @@
+Name:Carnival Sentinel
+ManaCost:BR BR
+Types:Creature Human Soldier
+PT:2/1
+T:Mode$ DiscardedAll | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigDealDamage | TriggerDescription$ Whenever a player discards one or more cards, CARDNAME deals 1 damage to target player or planeswalker.
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Player,Planeswalker | TgtPrompt$ Select target player or planeswalker | NumDmg$ 1 | SpellDescription$ CARDNAME deals 1 damage to target player or planeswalker.
+Oracle:Whenever a player discards one or more cards, Carnival Sentinel deals 1 damage to target player or planeswalker.

@@ -1,0 +1,11 @@
+Name:Sanguine Connoisseur
+ManaCost:2 W B
+Types:Creature Vampire Advisor
+PT:3/2
+K:Flash
+K:Lifelink
+R:Event$ GainLife | ActiveZones$ Battlefield | ValidPlayer$ Opponent | ReplaceWith$ RLoseLife | AILogic$ LoseLife | Description$ If an opponent would gain life, you gain that much life instead.
+SVar:RLoseLife:DB$ GainLife | LifeAmount$ X | Defined$ You
+SVar:X:ReplaceCount$LifeGained
+SVar:NonStackingEffect:True
+Oracle:Flash\nLifelink\nIf an opponent would gain life, you gain that much life instead.

@@ -1,0 +1,10 @@
+Name:Kenoram Mythmaker
+ManaCost:3 G
+Types:Creature Satyr Bard
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | TriggerZones$ Battlefield | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerDescription$ Whenever you cast a multicolored spell, put a +1/+1 counter on CARDNAME.
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 2 | Defined$ Self
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigSac | TriggerDescription$ When CARDNAME dies, you gain life equal to its power.
+SVar:TrigSac:DB$ GainLife | Defined$ TriggeredCardController | LifeAmount$ XPower
+SVar:XPower:TriggeredCard$CardPower
+Oracle:Virtuoso — Whenever you cast a multicolored spell, put two +1/+1 counters on Kenoram Mythmaker.\nWhen Kenoram Mythmaker dies, you gain life equal to its power.

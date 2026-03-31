@@ -1,0 +1,6 @@
+Name:Spirit Calling Bell
+ManaCost:2
+Types:Artifact
+S:Mode$ ReduceCost | ValidCard$ Creature.YouOwn+inZoneGraveyard | Type$ Ability | Amount$ 1 | Description$ Activated abilities of creature cards in your graveyard cost {1} less to activate.
+A:AB$ Pump | Cost$ T | ValidTgts$ Creature.Spirit+YouCtrl | NumAtt$ +1 | NumDef$ +1 | SorcerySpeed$ True | SpellDescription$ Target Spirit you control gets +1/+1 until end of turn. Activate only as a sorcery.
+Oracle:Activated abilities of creature cards in your graveyard cost {1} less to activate.\n{T}: Target Spirit you control gets +1/+1 until end of turn. Activate only as a sorcery.

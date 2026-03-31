@@ -1,0 +1,22 @@
+Name:Black Flame Ritual
+ManaCost:2 B
+Types:Sorcery
+A:SP$ Sacrifice | Cost$ 2 B Mill<2> | SacValid$ Creature,Planeswalker | Defined$ Player.Opponent | RememberSacrificed$ True | SubAbility$ DBRepeat | SpellDescription$ Each opponent sacrifices a creature or planeswalker. When a God or Demigod is sacrificed this way, exile it from its owner’s graveyard. That player loses 2 life and you gain 2 life.
+SVar:DBRepeat:DB$ RepeatEach | DefinedCards$ Remembered | ClearRemembered$ True | RepeatSubAbility$ DBExileCheck | SubAbility$ DBCleanup
+SVar:DBExileCheck:DB$ ChangeZone | Defined$ Remembered | Origin$ Graveyard | Destination$ Exile | ConditionDefined$ Remembered | ConditionPresent$ Card.God,Card.Demigod | ConditionCompare$ GE1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ RememberedOwner | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+
+AlternateMode:Modal
+Oracle:As an additional cost to cast this spell, mill two cards.\nEach opponent sacrifices a creature or planeswalker. When a God or Demigod is sacrificed this way, exile it from its owner’s graveyard. That player loses 2 life and you gain 2 life.
+
+ALTERNATE
+
+Name:Black Flame Tornado
+ManaCost:1 B B
+Types:Enchantment Aura
+K:Flash
+K:Ash of War
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Wither | Description$ As long as enchanted creature is black, it gets +1/+1 and has wither. (It deals damage to creatures in the form of -1/-1 counters.)
+Oracle:Flash\nAsh of War (This Aura can enchant creatures or Equipment. If it enchants an Equipment, creatures equipped with that Equipment are treated as if they were enchanted by this Aura.)\nEnchanted creature gets +1/+1 and has wither (This deals damage to creatures in the form of -1/-1 counters.)

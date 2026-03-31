@@ -1,0 +1,9 @@
+Name:Eregon's Masterpiece
+ManaCost:4 R G
+Types:Legendary Creature Elemental Avatar
+PT:6/6
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDig | TriggerDescription$ Whenever CARDNAME attacks, look at the top six cards of your library. You may exile a creature card from among those cards and put the rest on the bottom of your library in a random order. Then for each creature card exiled with Eregon’s Masterpiece, create a tapped and attacking token that’s a copy of that card. Exile those tokens at the beginning of the next end step.
+SVar:TrigDig:DB$ Dig | DigNum$ 6 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature | DestinationZone$ Exile | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True | RememberChanged$ True | SubAbility$ TrigCopy
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ Remembered | TokenTapped$ True | TokenAttacking$ True | NumCopies$ 1 | AtEOT$ Exile
+SVar:HasAttackEffect:TRUE
+Oracle:Whenever Eregon’s Masterpiece attacks, look at the top six cards of your library. You may exile a creature card from among those cards and put the rest on the bottom of your library in a random order. Then for each creature card exiled with Eregon’s Masterpiece, create a tapped and attacking token that’s a copy of that card. Exile those tokens at the beginning of the next end step.

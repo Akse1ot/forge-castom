@@ -1,0 +1,7 @@
+Name:Search for Nokron
+ManaCost:2 U
+Types:Sorcery
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | CheckSVar$ X | Amount$ 1 | EffectZone$ All | Description$ This spell costs {1} less to cast if a noncreature card was put into your graveyard this turn.
+A:SP$ Draw | NumCards$ 2 | SpellDescription$ Draw two cards.
+SVar:X:Count$ThisTurnEntered_Graveyard_Card.nonCreature
+Oracle:This spell costs {1} less to cast if a noncreature card was put into your graveyard this turn.\nDraw two cards.

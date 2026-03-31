@@ -1,0 +1,10 @@
+Name:Liurnian Giant Crab
+ManaCost:5 U U
+Types:Creature Crab
+PT:5/6
+K:Affinity:Enchantment
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ CARDNAME enters tapped.
+K:TypeCycling:Island:2
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+DeckHints:Type$Enchantment
+Oracle:Affinity for enchantments (This spell costs {1} less to cast for each enchantment you control.)\nThis creature enters tapped.\nIslandcycling {2} ({2}, Discard this card: Search your library for an Island card, reveal it, put it into your hand, then shuffle.)

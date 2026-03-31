@@ -1,0 +1,11 @@
+Name:Burning the Erdtree
+ManaCost:R
+Types:Sorcery
+A:SP$ Destroy | Cost$ R Sac<1/Enchantment;Creature/creature or enchantment> | ValidTgts$ Land | TgtPrompt$ Choose target land. | RememberLKI$ True | SubAbility$ DBToken | SpellDescription$ Ravage target land. (Destroy that land. When you do, if its controller doesn’t control the most lands, that player creates a tapped Wastes token.)
+SVar:DBToken:DB$ Token | ConditionDefined$ RememberedLKI | ConditionPresent$ Card | ConditionCompare$ GE1 | ConditionCheckSVar$ CtrlLands | ConditionSVarCompare$ LTMostLands | TokenScript$ c_Wastes | TokenAmount$ 1 | TokenTapped$ True | TokenOwner$ TargetedController | SubAbility$ DBRune
+SVar:DBRune:DB$ Token | TokenScript$ c_a_Rune_sac | TokenAmount$ 2 | TokenOwner$ You | ConditionDefined$ RememberedLKI | ConditionPresent$ Land.Legendary | ConditionCompare$ EQ1 | ConditionDescription$ If that land was legendary | SubAbility$ SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:CtrlLands:TargetedController$Valid Land.YouCtrl
+SVar:MostLands:PlayerCountPlayers$HighestValid Land.YouCtrl
+AI:RemoveDeck:All
+Oracle:As an additional cost to cast this spell, sacrifice a creature or enchantment.\nRavage target land. If that land was legendary, create two Rune tokens. (Destroy that land. When you do, if its controller doesn’t control the most lands, that player creates a tapped Ruins token.)

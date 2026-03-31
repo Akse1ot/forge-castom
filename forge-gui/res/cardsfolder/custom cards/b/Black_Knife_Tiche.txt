@@ -1,0 +1,11 @@
+Name:Black Knife Tiche
+ManaCost:2 B
+Types:Legendary Creature Numen Assassin
+PT:2/2
+K:Deathtouch
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSurveil | TriggerZones$ Battlefield | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, remove all -1/-1 counters from it.
+SVar:TrigSurveil:DB$ DB$ Surveil | Amount$ 2
+T:Mode$ ChangesZoneAll | Origin$ Hand,Library | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigDrain | TriggerDescription$ Whenever one or more cards are put into a player’s graveyard from their hand or library, each opponent loses 1 life.
+SVar:TrigDrain:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1
+K:Spirit Ash:2 B Sac<1/Permanent.Legendary/legendary permanent>
+Oracle:Deathtouch\nWhenever this creature deals combat damage to a player, surveil 2.\nWhenever one or more cards are put into a player’s graveyard from their hand or library, each opponent loses 1 life.\nSpirit Ash—{2}{B}, Sacrifice a legendary permanent.

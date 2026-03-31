@@ -1,0 +1,7 @@
+Name:Fade into Nothingness
+ManaCost:4 U
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 0 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBSecond | TgtPrompt$ Select target creature | IsCurse$ True | SpellDescription$ Put target creature on top of its owner’s library. If that creature is multicolored, put it second from the top instead.
+SVar:DBSecond:DB$ ChangeZone | Defined$ Targeted | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1
+SVar:X:Targeted$Valid Creature.MultiColor
+Oracle:Put target creature on top of its owner’s library. If that creature is multicolored, put it second from the top instead.

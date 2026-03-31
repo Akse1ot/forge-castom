@@ -1,0 +1,9 @@
+Name:Parade Mastodon
+ManaCost:5 G
+Types:Creature Elephant
+PT:5/4
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | TriggerDescription$ Whenever CARDNAME attacks, target creature gains trample until end of turn.
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | KW$ Trample
+SVar:HasAttackEffect:TRUE
+Oracle:Trample\nWhenever Parade Mastodon attacks, target creature gains trample until end of turn.

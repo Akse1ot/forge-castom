@@ -1,0 +1,8 @@
+Name:Delsanian Aristocrat
+ManaCost:2 W B
+Types:Creature Vampire Advisor
+PT:2/3
+K:Lifelink
+A:AB$ PumpAll | Cost$ 1 Sac<1/Creature> | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | SpellDescription$ Creatures you control get +1/+1 until end of turn.
+SVar:AIPreference:SacCost$Creature.token+powerLE2,Creature.cmcLE2+powerLE2
+Oracle:{1},Sacrifice a creature: Creatures you control get +1/+1 until end of turn.

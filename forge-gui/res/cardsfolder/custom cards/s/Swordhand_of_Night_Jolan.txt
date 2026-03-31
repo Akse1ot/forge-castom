@@ -1,0 +1,11 @@
+Name:Swordhand of Night Jolan
+ManaCost:1 U U
+Types:Legendary Creature Human Soldier
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigImprint | TriggerDescription$ When CARDNAME enters, create a token that’s a copy of it, except it’s named Swordhand of Night Anna and doesn’t have this ability.
+SVar:TrigImprint:DB$ CopyPermanent | Defined$ Self| Controller$ You | NewName$ Swordhand of Night Anna | DoesntHaveThisAbility$ True
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigMill | CombatDamage$ True | TriggerDescription$ Whenever this creature deals combat damage to a player, mill a card. Then draw a card.
+SVar:TrigMill:DB$ Mill | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+K:Spirit Ash:2 U Discard<1/Card>
+Oracle:When this creature enters, create a token that’s a copy of it, except it’s named Swordhand of Night Anna and doesn’t have this ability.\nWhenever this creature deals combat damage to a player, mill a card. Then draw a card.\nSpirit Ash—{2}{U}, Discard a card.

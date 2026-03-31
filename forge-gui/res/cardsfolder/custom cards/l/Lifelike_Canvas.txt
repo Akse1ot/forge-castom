@@ -1,0 +1,7 @@
+Name:Lifelike Canvas
+ManaCost:W B
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigExile | TriggerDescription$ When CARDNAME enters, exile target nonland permanent an opponent controls with mana value 4 or less until CARDNAME leaves the battlefield.
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Permanent.nonLand+cmcLE4 | TgtPrompt$ Select target nonland permanent an opponent controls with mana value 4 or less | Origin$ Battlefield | Destination$ Exile | Duration$ UntilHostLeavesPlay
+SVar:PlayMain1:TRUE
+Oracle:When Lifelike Canvas enters the battlefield, exile target nonland permanent with converted mana cost 4 or less until Lifelike Canvas leaves the battlefield. (That permanent returns under its owner’s control.)

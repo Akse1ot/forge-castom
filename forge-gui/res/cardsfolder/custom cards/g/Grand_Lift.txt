@@ -1,0 +1,7 @@
+Name:Grand Lift
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ PutCounter | Cost$ 1 T | CounterType$ MEDALLION | CounterNum$ 1 | SpellDescription$ Put a medallion counter on CARDNAME.
+A:AB$ ChangeZone | Cost$ 2 T SubCounter<2/MEDALLION> | Origin$ Library | Destination$ Battlefield | ChangeType$ Land | ChangeNum$ 1 | Tapped$ True | SpellDescription$ Search your library for a land card, put it onto the battlefield tapped, then shuffle.
+Oracle:{T}: Add {C}.\n{1}, {T}: Put a medallion counter on this land.\n{2}{T}, Remove two medallion counters from this land: Search your library for a land card, put it onto the battlefield tapped, then shuffle.

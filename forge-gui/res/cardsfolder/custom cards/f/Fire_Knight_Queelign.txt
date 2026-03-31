@@ -1,0 +1,10 @@
+Name:Fire Knight Queelign
+ManaCost:1 W
+Types:Legendary Creature Human Knight
+PT:2/2
+K:Spirit Ash:2 W Sac<1/Aura;Equipment;Rune>
+S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | CheckSVar$ X | SVarCompare$ GE1 | AddKeyword$ Vigilance | Description$ As long as this creature is modified, it has the following abilities up to how many different ways it is modified —\n•One — Vigilance.\n•Two — First strike.\n•Three — Protection from nonlegendary.
+S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | CheckSVar$ X | SVarCompare$ GE2 | AddKeyword$ First Strike
+S:Mode$ Continuous | Affected$ Card.Self | EffectZone$ Battlefield | CheckSVar$ X | SVarCompare$ GE3 | AddKeyword$ Protection:Card.nonLegendary:nonlegendary
+SVar:X:Count$ModifiedWays
+Oracle:As long as this creature is modified, it has the following abilities up to how many different ways it is modified —\n•One — Vigilance.\n•Two — First strike.\n•Three — Protection from nonlegendary.\nSpirit ash {2}{W}, Sacrifice an Aura, Equipment or Rune ({2}{W}{W}, Sacrifice an Aura, Equipment or Rune, Exile this card from your graveyard: Create a token that’s a copy of this creature, except it’s a Spirit enchantment creature in addition to its other types. Activate only as a sorcery.)

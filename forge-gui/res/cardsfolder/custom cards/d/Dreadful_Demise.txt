@@ -1,0 +1,6 @@
+Name:Dreadful Demise
+ManaCost:B
+Types:Sorcery
+A:SP$ Destroy | ValidTgts$ Creature.powerLEX | TgtPrompt$ Select target creature with power X or less | SpellDescription$ Imaginarium — Destroy target creature with power less than or equal to the number of colors among cards in your graveyard.
+SVar:X:Count$ColorsInYourYard
+Oracle:Imaginarium — Destroy target creature with power less than or equal to the number of colors among cards in your graveyard.

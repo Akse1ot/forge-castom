@@ -1,0 +1,7 @@
+Name:Bequeathment
+ManaCost:2 B
+Types:Instant
+S:Mode$ CantBeCast | ValidCard$ Card.Self | EffectZone$ All | CheckSVar$ X | Description$ Cast CARDNAME only if a creature died this turn.
+SVar:X:Count$Morbid.0.1
+A:SP$ Draw | NumCards$ 2 | SpellDescription$ Draw two cards.
+Oracle:Cast Bequeathment only if a creature died this turn.\nDraw two cards.

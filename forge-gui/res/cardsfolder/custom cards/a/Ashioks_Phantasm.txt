@@ -1,0 +1,10 @@
+Name:Ashiok's Phantasm
+ManaCost:3 B
+Types:Creature Nightmare Horror
+PT:2/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters, you may exile target card from a graveyard. If you do, that card’s owner loses 2 life.
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | SubAbility$ DBLoseLife | TgtPrompt$ Select target card in a graveyard | RememberChanged$ True | IsCurse$ True
+SVar:DBLoseLife:DB$ LoseLife | Defined$ RememberedOwner | LifeAmount$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Flying\nWhen Ashiok’s Phantasm enters the battlefield, you may exile target card from a graveyard. If you do, that card’s owner loses 2 life.

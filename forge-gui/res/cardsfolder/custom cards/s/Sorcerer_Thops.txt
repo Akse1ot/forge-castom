@@ -1,0 +1,8 @@
+Name:Sorcerer Thops
+ManaCost:1 U
+Types:Legendary Creature Human Wizard
+PT:1/3
+A:AB$ Mana | Cost$ T | Produced$ U | Amount$ 1 | RestrictValid$ Spell.Instant,Spell.Sorcery | SpellDescription$ Add {U}. Spend this mana only to cast an instant or sorcery spell.
+A:AB$ ChangeTargets | Cost$ U U U T Sac<1/CARDNAME> | TargetType$ Spell.singleTarget | ValidTgts$ Card | TgtPrompt$ Select target spell with a single target | SpellDescription$ Change the target of target spell with a single target.
+AI:RemoveDeck:All
+Oracle:{T}: Add {U}. Spend this mana only to cast an instant or sorcery spell.\n{U}{U}{U}, {T}, Sacrifice this creature: Change the target of target spell with a single target.

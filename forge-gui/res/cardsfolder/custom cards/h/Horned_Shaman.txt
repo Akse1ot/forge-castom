@@ -1,0 +1,8 @@
+Name:Horned Shaman
+ManaCost:1 W
+Types:Creature Hornsent Shaman
+PT:1/3
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Spirit.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a Spirit you control enters, you gain 2 life.
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+Oracle:Lifelink\nWhenever a Spirit you control enters, you gain 2 life.

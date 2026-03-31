@@ -1,0 +1,7 @@
+Name:Words of Denial
+ManaCost:1 W U
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | TgtPrompt$ Select target spell | ValidTgts$ Card | SubAbility$ DBEffect | SpellDescription$ Counter target spell. Spells your opponents cast this turn cost {1} more to cast.
+SVar:DBEffect:DB$ Effect | Duration$ UntilEndOfTurn | StaticAbilities$ RaiseCost | SpellDescription$ Spells your opponents cast this turn cost {1} more to cast.
+SVar:RaiseCost:Mode$ RaiseCost | ValidCard$ Card | Activator$ Opponent | Type$ Spell | Amount$ 1 | Description$ Spells your opponents cast this turn cost {1} more to cast.
+Oracle:Counter target spell. Spells your opponents cast this turn cost {1} more to cast.

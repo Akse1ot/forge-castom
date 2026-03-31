@@ -1,0 +1,8 @@
+Name:Grafted Blade Greatsword
+ManaCost:4
+Types:Legendary Artifact Equipment
+K:Graft:5
+S:Mode$ Continuous | Affected$ Card.EquippedBy | AddPower$ X | AddToughness$ X | Description$ Equipped creature gets +1/+1 for each +1/+1 counter on CARDNAME.
+SVar:X:Count$CardCounters.P1P1
+K:Equip:3
+Oracle:Graft 5 (This permanent enters with five +1/+1 counters on it. Whenever a creature enters, you may move a +1/+1 counter from this permanent onto it.)\nEquipped creature gets +1/+1 for each +1/+1 counter on this Equipment.\nEquip {3}.

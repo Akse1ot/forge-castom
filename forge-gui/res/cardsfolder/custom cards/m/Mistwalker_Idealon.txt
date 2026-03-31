@@ -1,0 +1,7 @@
+Name:Mistwalker Idealon
+ManaCost:2 G W
+Types:Creature Elemental Elk
+PT:3/3
+K:Lifelink
+K:Trample
+Oracle:Trample, lifelink

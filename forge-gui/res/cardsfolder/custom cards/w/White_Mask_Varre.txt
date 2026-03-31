@@ -1,0 +1,7 @@
+Name:White Mask Varre
+ManaCost:B R
+Types:Legendary Creature Human Cleric
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other+!token+YouCtrl | Execute$ TrigToken | TriggerDescription$ Whenever another nontoken creature dies, create a Blood token.
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_blood_draw
+Oracle:Whenever another nontoken creature dies, create a Blood token. (It’s an artifact with “{1}, {T}, Discard a card, Sacrifice this artifact: Draw a card.”)

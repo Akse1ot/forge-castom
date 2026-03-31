@@ -1,0 +1,9 @@
+Name:Daring Strike
+ManaCost:2 W
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ +3 | NumDef$ 0 | KW$ Indestructible | SubAbility$ DBUntap | SpellDescription$ Target creature gets +3/+0 and gains indestructible until end of turn. If it's renowned, untap it.
+SVar:DBUntap:DB$ Untap | Defined$ Targeted | ConditionDefined$ Targeted | ConditionPresent$ Card.IsRenowned
+DeckHints:Type$Creature
+DeckHints:Ability$Pump
+DeckHints:Keyword$Renown
+Oracle:Target creature gets +3/+0 and gains indestructible until end of turn. If it's renowned, untap it.

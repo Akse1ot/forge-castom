@@ -1,0 +1,7 @@
+Name:Mad Jester
+ManaCost:B R
+Types:Creature Human Rogue
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard | TriggerDescription$ When CARDNAME enters, each player discards a card.
+SVar:TrigDiscard:DB$ Discard | Defined$ Player | NumCards$ 1 | Mode$ TgtChoose
+Oracle:When Mad Jester enters the battlefield, each player discards a card.

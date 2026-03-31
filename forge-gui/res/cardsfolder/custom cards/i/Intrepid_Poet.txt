@@ -1,0 +1,10 @@
+Name:Intrepid Poet
+ManaCost:1 R W
+Types:Creature Human Soldier Wizard
+PT:1/3
+K:Renown:2
+T:Mode$ BecomeRenowned | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ Whenever a creature you control becomes renowned, CARDNAME deals 2 damage to target player or planeswalker and you gain 2 life.
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Opponent,Planeswalker.OppCtrl | NumDmg$ 2 | TgtPrompt$ Select target player or planeswalker | SubAbility$ DBGainLife
+SVar:DBDeal:DB$ DealDamage | NumDmg$ 2 | ValidTgts$ Player,Planeswalker | TgtPrompt$ Select target player or planeswalker
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+Oracle:Renown 2 (When this creature deals combat damage to a player, if it isn't renowned, put two +1/+1 counters on it and it becomes renowned.)\nWhenever a creature you control becomes renowned, Intrepid Poet deals 2 damage to target player or planeswalker and you gain 2 life.

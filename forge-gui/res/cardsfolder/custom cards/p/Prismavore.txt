@@ -1,0 +1,7 @@
+Name:Prismavore
+ManaCost:3 G
+Types:Creature Plant
+PT:3/3
+A:AB$ Pump | Cost$ 2 G | Defined$ Self | NumAtt$ +X | NumDef$ +X | PrecostDesc$ Imaginarium — | SpellDescription$ Until end of turn, CARDNAME gets +1/+1 for each color among cards in your graveyard until end of turn.
+SVar:X:Count$ColorsInYourYard
+Oracle:Imaginarium — {2}{G}: Prismavore gets +1/+1 for each color among cards in your graveyard until end of turn.

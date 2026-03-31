@@ -1,0 +1,7 @@
+Name:Blazeheart Idealon
+ManaCost:R G
+Types:Creature Elemental Elk
+PT:2/2
+A:AB$ Mana | Cost$ T | Produced$ R | Amount$ 1 | SpellDescription$ Add {R}.
+DeckHints:Type$Elf
+Oracle:{T}: Add {R}.

@@ -1,0 +1,8 @@
+Name:Lion Guardian
+ManaCost:4 W
+Types:Creature Cat
+PT:4/4
+K:Vigilance
+S:Mode$ ReduceCost | ValidTarget$ Card.Self | Activator$ You | Type$ Aura,Equipment | Amount$ 1 | Description$ Aura spells you cast that target this creature or an Equipment attached to this creature cost {1} less to cast.
+S:Mode$ ReduceCost | ValidTarget$ Card.Self | ValidSpell$ Activated.Equip | Activator$ You | Amount$ 1 | Description$ Equip abilities you activate that target this creature cost {1} less to activate.
+Oracle:Vigilance\nAura spells you cast that target this creature or an Equipment attached to this creature cost {1} less to cast.\nEquip abilities that target this creature cost {1} less to activate.

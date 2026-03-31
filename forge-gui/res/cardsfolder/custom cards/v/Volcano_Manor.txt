@@ -1,0 +1,10 @@
+Name:Volcano Manor
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ CARDNAME enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a Rune token.
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac | TokenAmount$ 1 | TokenOwner$ You
+A:AB$ Mana | Cost$ T | Produced$ Combo R G | SpellDescription$ Add {R} or {G}
+DeckHas:Ability$LifeGain
+Oracle:Volcano Manor enters tapped.\nWhen Volcano Manor enters, create a Rune token. (It’s an artifact with “, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)\n{T}: Add {R} or {G}.

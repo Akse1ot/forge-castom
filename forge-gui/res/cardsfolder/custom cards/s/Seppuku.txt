@@ -1,0 +1,11 @@
+Name:Seppuku
+ManaCost:2 U U
+Types:Enchantment Aura
+K:Ash of War
+S:Mode$ RaiseCost | ValidCard$ Card.Self | Activator$ You | Type$ Spell | Cost$ PayLife<2> | EffectZone$ All | Description$ As an additional cost to cast this spell, sacrifice a creature.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When this enchantment enters, create a Blood token.
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_blood_draw | TokenOwner$ You
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Deathtouch | AddTrigger$ TriggerDamageDone | Description$ Enchanted creature has deathtouch and “Whenever this creature deals combat damage to a player, create a Blood token.”
+SVar:TriggerDamageDone:Mode$ DamageDone | ValidSource$ Card.Self | CombatDamage$ True | ValidTarget$ Player | Execute$ DBToken | TriggerDescription$ Whenever this creature deals combat damage to a player, create a 1/1 white Human Soldier token.
+SVar:DBToken:DB$ Token | TokenOwner$ You | TokenScript$ c_a_blood_draw
+Oracle:As an additional cost to cast this spell, pay 2 life.\nAsh of War\nWhen this enchantment enters, create a Blood token.\nEnchanted creature has deathtouch and “Whenever this creature deals combat damage to a player, create a Blood token.”

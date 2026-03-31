@@ -1,0 +1,8 @@
+Name:Eidolic Waltz
+ManaCost:4 W U
+Types:Sorcery
+A:SP$ ChangeZone | ValidTgts$ Creature.YouCtrl | Origin$ Battlefield | Destination$ Exile | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select up to one target creature you control | RememberObjects$ Targeted | SubAbility$ DBExileO | SpellDescription$ Exile up to one target creature you control and up to one target creature you don’t control, then return those creatures to the battlefield under your control.
+SVar:DBExileO:DB$ ChangeZone | ValidTgts$ Creature.OppCtrl | Origin$ Battlefield | Destination$ Exile | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select up to one target creature you don’t control | RememberObjects$ Targeted | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | GainControl$ True | SubAbility$ DBCleanup | StackDescription$ then return those creatures to the battlefield under your control.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Exile up to one target creature you control and up to one target creature you don’t control, then return those creatures to the battlefield under your control.

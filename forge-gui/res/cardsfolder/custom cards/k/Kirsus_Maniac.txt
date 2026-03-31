@@ -1,0 +1,7 @@
+Name:Kirsus Maniac
+ManaCost:1 B
+Types:Creature Human Rogue Berserker
+PT:2/2
+A:AB$ Pump | Cost$ Discard<1/Card> | Defined$ Self | KW$ Deathtouch | SpellDescription$ CARDNAME gains deathtouch until end of turn.
+DeckHas:Keyword$Deathtouch
+Oracle:Discard a card: Kirsus Maniac gains deathtouch until end of turn.

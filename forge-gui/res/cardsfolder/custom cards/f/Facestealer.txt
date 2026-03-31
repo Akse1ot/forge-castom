@@ -1,0 +1,7 @@
+Name:Facestealer
+ManaCost:2 U B
+Types:Creature Shapeshifter
+PT:0/0
+K:ETBReplacement:Copy:DBCopy:Optional
+SVar:DBCopy:DB$ Clone | ChoiceZone$ Battlefield,Graveyard | Choices$ Creature.Other | SpellDescription$ Have CARDNAME enter as a copy of a creature on the battlefield or creature card in a graveyard.
+Oracle:You may have Facestealer enter the battlefield as a copy of any creature on the battlefield or creature card in a graveyard.

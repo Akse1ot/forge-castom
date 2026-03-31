@@ -1,0 +1,12 @@
+Name:Ashiok, Harbinger of Fear
+ManaCost:3 U B
+Types:Legendary Planeswalker Ashiok
+Loyalty:5
+A:AB$ ChangeZone | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Opponent | DefinedPlayer$ Targeted | Mandatory$ True | ChangeType$ Card | ChangeNum$ 1 | Hidden$ True | Chooser$ Targeted | SubAbility$ DBExYard | IsCurse$ True | SpellDescription$ Target opponent exiles the top card of their library, a card from their hand, and a card from their graveyard.
+SVar:DBExYard:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ Targeted | Mandatory$ True | ChangeNum$ 1 | Hidden$ True | Chooser$ Targeted | SubAbility$ DBDig
+SVar:DBDig:DB$ Dig | Defined$ TargetedPlayer | DigNum$ 1 | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Exile
+A:AB$ ChangeZone | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | TgtPrompt$ Select target creature | Origin$ Battlefield | Destination$ Exile | IsCurse$ True | SubAbility$ DBToken | AILogic$ Pongify | SpellDescription$ Exile target creature. Its controller creates a 3/3 black Nightmare creature token.
+SVar:DBToken:DB$ Token | TokenAmount$ 1 | TokenScript$ b_3_3_nightmare | TokenOwner$ TargetedController
+A:AB$ Effect | Cost$ SubCounter<9/LOYALTY> | Planeswalker$ True | Ultimate$ True | RememberObjects$ ExiledWithSource | StaticAbilities$ STMayPlay | ForgetOnMoved$ Exile | Duration$ UntilEndOfTurn | SpellDescription$ Until end of turn, you may play cards exiled with CARDNAME without paying their mana costs.
+SVar:STMayPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlayIgnoreType$ True | MayPlayWithoutManaCost$ True | ForgetOnMoved$ Exile | Description$ You may play cards exiled with CARDNAME without paying their mana costs.
+Oracle:[+1]: Target opponent exiles the top card of their library, a card from their hand, and a card from their graveyard.\n[-2]: Exile target creature. Its controller creates a 3/3 black Nightmare creature token.\n[-9]: Until end of turn, you may play cards exiled with Ashiok without paying their mana costs.

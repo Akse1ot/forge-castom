@@ -1,0 +1,7 @@
+Name:Kenoram Stalker
+ManaCost:2 G
+Types:Creature Satyr Rogue
+PT:4/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigScry | TriggerDescription$ When CARDNAME dies, scry 2.
+SVar:TrigScry:DB$ Scry | ScryNum$ 2
+Oracle:When Kenoram Stalker dies, scry 2. (Look at the top two cards of your library, then put any number of them on the bottom of your library and the rest on top in any order.)

@@ -1,0 +1,13 @@
+Name:Evanescing Chord
+ManaCost:W
+Types:Instant
+K:Resonance:2 W
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.YouCtrl | RememberTargets$ True | ForgetOtherTargets$ True | TgtPrompt$ Select target creature | SubAbility$ DBDelayedTrigger | SpellDescription$ Exile target creature you control. Return that card to the battlefield under your control at the beginning of the next end step.
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ DBReturn | TriggerDescription$ Return the exiled card to the battlefield under your control at the beginning of the next end step.
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Flicker
+DeckHas:Type$Instant
+DeckHas:Type$Creature
+DeckHas:Keyword$Resonance
+Oracle:Exile target creature you control. Return that card to the battlefield under your control at the beginning of the next end step.\nResonance {2}{W} (If you cast this spell for {2}{W}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell.)

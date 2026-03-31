@@ -1,0 +1,8 @@
+Name:Duskwood Extortionist
+ManaCost:1 B
+Types:Creature Satyr Bard
+PT:2/1
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | TriggerZones$ Battlefield | ValidActivatingPlayer$ You | Execute$ TrigDrain | TriggerDescription$ Virtuoso — Whenever you cast a multicolored spell, each opponent loses 1 life and you gain 1 life.
+SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+Oracle:Virtuoso — Whenever you cast a multicolored spell, each opponent loses 1 life and you gain 1 life.

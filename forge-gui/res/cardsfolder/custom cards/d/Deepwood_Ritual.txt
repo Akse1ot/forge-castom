@@ -1,0 +1,6 @@
+Name:Deepwood Ritual
+ManaCost:2 B
+Types:Sorcery
+A:SP$ Token | TokenAmount$ 3 | TokenScript$ bg_1_1_satyr_bard | TokenOwner$ You | SubAbility$ DBSac | SpellDescription$ Create three 1/1 black and green Satyr Bard creature tokens, then sacrifice a creature.
+SVar:DBSac:DB$ Sacrifice | Defined$ You | SacValid$ Creature
+Oracle:Create three 1/1 black and green Satyr Bard creature tokens, then sacrifice a creature.

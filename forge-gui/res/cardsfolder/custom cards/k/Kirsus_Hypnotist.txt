@@ -1,0 +1,8 @@
+Name:Kirsus Hypnotist
+ManaCost:1 U
+Types:Creature Human Wizard
+PT:1/3
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | TriggerZones$ Battlefield | ValidActivatingPlayer$ You | Execute$ TrigMill | TriggerDescription$ Whenever you cast a multicolored spell, target player mills three cards.
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | ValidTgts$ Player
+DeckHas:Ability$Graveyard
+Oracle:Virtuoso — Whenever you cast a multicolored spell, target player puts the top three cards of their library into their graveyard.

@@ -1,0 +1,7 @@
+Name:Shepherd of Souls
+ManaCost:1 B G
+Types:Creature Satyr Shaman
+PT:2/2
+S:Mode$ Continuous | Affected$ Creature.Satyr+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1 | Description$ Other Satyr creatures you control get +1/+1.
+A:AB$ ChangeZone | Cost$ 2 B G | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Satyr.YouCtrl | TgtPrompt$ Choose target Satyr card in your graveyard. |  SpellDescription$ Return target Satyr card from your graveyard to your hand.
+Oracle:Other Satyr creatures you control get +1/+1.\n{2}{B}{G}: Return target Satyr card from your graveyard to your hand.

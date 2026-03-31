@@ -1,0 +1,8 @@
+Name:Morgotts Great Rune
+ManaCost:3
+Types:Legendary Artifact Rune
+A:AB$ Mana | Cost$ T | Produced$ Combo G W | SpellDescription$ Add {G} or {W}.
+A:AB$ Token | Cost$ T | TokenScript$ c_a_Rune_sac | SpellDescription$ Create a Rune token.
+A:AB$ PutCounter | Cost$ T Sac<1/CARDNAME> | ActivationZone$ Battlefield | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 3 | SorcerySpeed$ True | SpellDescription$ Put three +1/+1 counters on target creature you control. Activate only as a sorcery.
+DeckNeeds:Color$Red|Green
+Oracle:{T}: Add {G} or {W}.\n{T}: Create a Rune token.\n{T}, Sacrifice this artifact: Put three +1/+1 counters on target creature you control. Activate only as a sorcery.

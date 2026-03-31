@@ -1,0 +1,6 @@
+Name:Serenade of the Mists
+ManaCost:1 U
+Types:Instant
+K:Resonance:2 U U
+A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand | TgtPrompt$ Select target nonland permanent | Origin$ Battlefield | Destination$ Hand | SpellDescription$ Return target nonland permanent to its owner's hand.
+Oracle:Return target nonland permanent to its owner’s hand.\nResonance {2}{U}{U} (If you cast this spell for {2}{U}{U}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell.)

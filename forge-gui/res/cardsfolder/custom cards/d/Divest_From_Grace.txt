@@ -1,0 +1,9 @@
+Name:Divest From Grace
+ManaCost:3 W W
+Types:Enchantment
+K:Vanishing:4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | TriggerDescription$ When CARDNAME enters, exile all creatures and planeswalkers. When CARDNAME leaves the battlefield, return each planeswalker card exiled with it to the battlefield under its owner’s control.
+SVar:TrigExile:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Creature,Planeswalker 
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigReturn | TriggerDescription$ When CARDNAME leaves the battlefield, return each planeswalker card exiled with it to the battlefield under its owner’s control.
+SVar:TrigReturn:DB$ ChangeZoneAll | Origin$ Exile | Destination$ Battlefield | ValidCard$ Planeswalker.ExiledWithSource
+Oracle:Vanishing 4 (This enchantment enters with three time counters on it. At the beginning of your upkeep, remove a time counter from it. When the last is removed, sacrifice it.)\nWhen this enchantment enters, exile all creatures and planeswalkers. When this enchantment leaves the battlefield, return each planeswalker card exiled with it to the battlefield under its owner’s control.

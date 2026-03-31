@@ -1,0 +1,6 @@
+Name:Psychic Laceration
+ManaCost:U B
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBDrain | SpellDescription$ Return target creature to its owner's hand. Its controller loses 1 life.
+SVar:DBDrain:DB$ LoseLife | Defined$ TargetedController | LifeAmount$ 3
+Oracle:Return target creature to its owner's hand. Its controller loses 3 life.

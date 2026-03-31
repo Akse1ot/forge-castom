@@ -1,0 +1,5 @@
+Name:Stoic Bihorn
+ManaCost:1 GW GW
+Types:Creature Rhino
+PT:3/3
+Oracle:

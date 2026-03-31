@@ -1,0 +1,7 @@
+Name:High Road Bandit
+ManaCost:1 R
+Types:Creature Human Rogue
+PT:2/1
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 1 | AddToughness$ 2 | CheckSVar$ X | SVarCompare$ LE1 | Description$ CARDNAME gets +1/+2 as long as a player has one or fewer cards in hand.
+SVar:X:PlayerCountPlayers$LowestValidHand Card.YouOwn
+Oracle:High Road Bandit gets +1/+2 as long as a player has one or fewer cards in hand.

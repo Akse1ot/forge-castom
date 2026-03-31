@@ -1,0 +1,15 @@
+Name:Flask of Wondrous Physick
+ManaCost:4
+Types:Legendary Artifact
+A:AB$ Charm | Cost$ T | Choices$ DBGainLife,DBMana,DBSurveil,DBSacCr,DBPump,DBSac  | CharmNum$ 2 | ChoiceRestriction$ ThisGame
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3 | SpellDescription$ Gain 3 life.
+SVar:DBMana:DB$ Mana | Cost$ T | Produced$ Any | SpellDescription$ Add one mana of any color.
+SVar:DBSurveil:DB$ Surveil | Amount$ 1 | SpellDescription$ Surveil 1. (To surveil 1, look at the top card of your library. You may put that card into your graveyard.)
+SVar:DBSacCr:DB$ Sacrifice | SacValid$ Creature | Defined$ Player | SpellDescription$ Each player sacrifices a creature.
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | KW$ Indestructible | SpellDescription$ Target creature you control gains indestructible until end of turn. (Damage and effects that say "destroy" don't destroy it.)
+SVar:DBSac:DB$ Sacrifice | SacValid$ Self | SubAbility$ DBDraw | SpellDescription$ Sacrifice CARDNAME, then draw a card.
+SVar:DBDraw:DB$ Draw
+DeckHas:Ability$LifeGain|Sacrifice
+Oracle:{T}: Choose two that haven’t been chosen—\n•Gain 3 life.\n•Add one mana of any color.\n•Surveil 1.\n•Each player sacrifices a creature.\n•Target creature you control gains indestructible until end of turn.\n•Sacrifice this artifact, then draw a card.
+
+ 

@@ -1,0 +1,8 @@
+Name:Leyndell
+ManaCost:no cost
+Types:Legendary Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated | Description$ CARDNAME enters tapped unless you control a legendary creature.
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Creature.Legendary+YouCtrl | ConditionCompare$ EQ0
+A:AB$ Mana | Cost$ T | Produced$ W | SpellDescription$ Add {W}.
+A:AB$ Token | Cost$ W T Sac<1/CARDNAME> | TokenScript$ Ruins | TokenAmount$ 2 | TokenOwner$ You | TokenTapped$ True | SpellDescription$ Create two tapped Ruins tokens. (They’re colorless basic lands with “{T}: Add {C}”)
+Oracle:Leyndell enters tapped unless you control a legendary creature.\n{T}: Add {W}.\n{W}, {T}, Sacrifice Leyndell: Create two tapped Ruins tokens. (They’re colorless basic lands with “{T}: Add {C}”)

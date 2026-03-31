@@ -1,0 +1,5 @@
+Name:Phantasmal Triad
+ManaCost:3 WU WU
+Types:Creature Spirit Bard
+PT:3/5
+Oracle:

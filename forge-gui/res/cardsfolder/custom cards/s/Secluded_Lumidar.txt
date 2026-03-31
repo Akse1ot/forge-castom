@@ -1,0 +1,7 @@
+Name:Secluded Lumidar
+ManaCost:4 G W
+Types:Creature Minotaur Pilot
+PT:6/6
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Player | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigBounce | TriggerDescription$ Whenever a player casts a spell, you may return CARDNAME to its owner’s hand. If you do, you gain 2 life.
+SVar:TrigBounce:AB$ GainLife | Cost$ Return<1/CARDNAME> | LifeAmount$ 2 | Defined$ You
+Oracle:Whenever a player casts a spell, you may return Secluded Lumidar to its owner’s hand. If you do, you gain 2 life.

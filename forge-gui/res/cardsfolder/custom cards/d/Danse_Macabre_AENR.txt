@@ -1,0 +1,6 @@
+Name:Danse Macabre AENR
+ManaCost:3 B
+Types:Sorcery
+A:SP$ PumpAll | ValidCards$ Creature | NumAtt$ -X | NumDef$ -X | IsCurse$ True | SpellDescription$ Imaginarium — All creatures get -1/-1 until end of turn for each color among cards in your graveyard.
+SVar:X:Count$ColorsInYourYard
+Oracle:Imaginarium — All creatures get -1/-1 until end of turn for each color among cards in your graveyard.

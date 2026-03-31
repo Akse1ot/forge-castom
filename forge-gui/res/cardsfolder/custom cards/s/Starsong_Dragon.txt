@@ -1,0 +1,9 @@
+Name:Starsong Dragon
+ManaCost:5 R R
+Types:Creature Dragon
+PT:5/5
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | TriggerZones$ Battlefield | ValidActivatingPlayer$ You | PlayerTurn$ True | Phase$ Main1,Main2 | Execute$ TrigUntapAll | TriggerDescription$ Whenever you cast a multicolored spell, if it’s your main phase, untap all creatures that attacked this turn. After this main phase, there is an additional combat phase followed by an additional main phase.
+SVar:TrigUntapAll:DB$ UntapAll | ValidCards$ Creature.YouCtrl+attackedThisTurn | SubAbility$ DBAddCombat 
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | FollowedBy$ Main2 | ConditionPhases$ Main1,Main2 | ConditionPlayerTurn$ True
+Oracle:Flying\nVirtuoso — Whenever you cast a multicolored spell, if it’s your main phase, untap all creatures that attacked this turn. After this main phase, there is an additional combat phase followed by an additional main phase.

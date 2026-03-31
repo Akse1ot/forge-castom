@@ -1,0 +1,8 @@
+Name:Finger Severer
+ManaCost:2
+Types:Artifact
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn | TriggerDescription$ When NICKNAME enters, return up to one target creature or planeswalker you control to its owner's hand.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Creature.YouCtrl,Planeswalker.YouCtrl | RememberChanged$ True | TgtPrompt$ Select up to one target creature or planeswalker you control. | TargetMin$ 0 | TargetMax$ 1
+A:AB$ ChangeZone | Cost$ 7 T Sac<1/CARDNAME> | ValidTgts$ Creature,Planeswalker | TgtPrompt$ Select target creature or planeswalker | Origin$ Battlefield | Destination$ Library | Shuffle$ True | SpellDescription$ Target creature or planeswalker’s owner shuffles it into their library.
+Oracle:Flash\nWhen this artifact enters, you may return up to one target creature or planeswalker you control to its owner’s hand.\n{7}, {T}, Sacrifice this artifact: Target creature or planeswalker’s owner shuffles it into their library.

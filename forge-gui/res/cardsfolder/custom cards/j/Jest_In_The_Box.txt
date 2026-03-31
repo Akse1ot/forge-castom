@@ -1,0 +1,7 @@
+Name:Jest-In-The-Box
+ManaCost:4
+Types:Artifact Creature Construct Horror
+PT:4/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump | TriggerDescription$ When CARDNAME enters, target creature can't block this turn.
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | IsCurse$ True | KW$ HIDDEN CARDNAME can't block. | TgtPrompt$ Select target creature.Oracle:Empty-Shrine Kannushi has protection from the colors of permanents you control.
+Oracle:When Jest-In-The-Box enters the battlefield, target creature can’t block this turn.

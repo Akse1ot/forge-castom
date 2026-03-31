@@ -1,0 +1,8 @@
+Name:Back Alley Crook
+ManaCost:2 B
+Types:Creature Human Bard Rogue
+PT:2/3
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | TriggerZones$ Battlefield | ValidActivatingPlayer$ You | Execute$ TrigDig | TriggerDescription$ Whenever you cast a multicolored spell, each opponent exiles the top card of their library.
+SVar:TrigDig:DB$ Dig | Defined$ Opponent | DestinationZone$ Exile | DigNum$ 1 | ChangeNum$ All | RememberChanged$ True
+S:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | Description$ You may play cards exiled with CARDNAME.
+Oracle:Virtuoso — Whenever you cast a multicolored spell, each opponent exiles the top card of their library.\nYou may play cards exiled with Back Alley Crook.

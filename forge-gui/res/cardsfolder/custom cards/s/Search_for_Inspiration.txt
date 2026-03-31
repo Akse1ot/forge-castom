@@ -1,0 +1,7 @@
+Name:Search for Inspiration
+ManaCost:2 GU
+Types:Sorcery
+A:SP$ ChooseColor | Defined$ You | SubAbility$ DBDig | SpellDescription$ Choose a color, then reveal the top five cards of your library. You may put up to two cards of the chosen color revealed this way into your hand. Put the rest into your graveyard.
+SVar:DBDig:DB$ Dig | DigNum$ 5 | Reveal$ True | ChangeNum$ 2 | ChangeValid$ Card.ChosenColor | Optional$ True | DestinationZone$ Hand | DestinationZone2$ Graveyard
+Oracle:Choose a color, then reveal the top five cards of your library. You may put up to two cards of the chosen color revealed this way into your hand. Put the rest into your graveyard.
+

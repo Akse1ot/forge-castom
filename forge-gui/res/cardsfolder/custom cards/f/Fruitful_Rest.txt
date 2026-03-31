@@ -1,0 +1,7 @@
+Name:Fruitful Rest
+ManaCost:3 U
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTap | OptionalDecider$ You | TriggerDescription$ Whenever you cast an instant or sorcery spell, you may tap target creature an opponent controls and it doesn’t untap during its controller’s next untap step.
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | SubAbility$ DBPump | TgtPrompt$ Select target creature an opponent controls.
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+Oracle:Whenever you cast an instant or sorcery spell, you may tap target creature an opponent controls and it doesn’t untap during its controller’s next untap step.

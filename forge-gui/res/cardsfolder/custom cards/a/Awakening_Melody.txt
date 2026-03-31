@@ -1,0 +1,8 @@
+Name:Awakening Melody
+ManaCost:4 G
+Types:Sorcery
+K:Resonance:5 G G
+A:SP$ Untap | ValidTgts$ Land.YouCtrl | TgtPrompt$ Select target land you control | SubAbility$ DBPutCounter | SpellDescription$ Untap target land you control and put five +1/+1 counters on it. It becomes a 0/0 Elemental creature with haste. It’s still a land.
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 5 | Defined$ Targeted | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Targeted | Power$ 0 | Toughness$ 0 | Types$ Creature,Elemental | Keywords$ Haste | Duration$ Permanent
+Oracle:Untap target land you control and put five +1/+1 counters on it. It becomes a 0/0 Elemental creature with haste. It’s still a land.\nResonance {5}{G}{G} (If you cast this spell for {5}{G}{G}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell.)

@@ -1,0 +1,7 @@
+Name:Walking Mausoleum
+ManaCost:6
+Types:Artifact Creature Golem
+PT:5/8
+K:Defender
+A:AB$ ChangeZone | Cost$ 8 T Sac<1/CARDNAME> | Origin$ Library | OriginAlternative$ Graveyard,Hand | Destination$ Battlefield | ChangeType$ Creature.God+YouOwn,Creature.Demigod+YouOwn, | ShuffleNonMandatory$ True | SpellDescription$ Search your library, hand and graveyard for a God or Demigod card, put it onto the battlefield, then shuffle.
+Oracle:Defender\n{8}, {T}, Sacrifice this creature: Search your library, hand and graveyard for a God or Demigod card, put it onto the battlefield, then shuffle.

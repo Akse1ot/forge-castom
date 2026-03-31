@@ -1,0 +1,11 @@
+Name:Alone in the World
+ManaCost:3 W W
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Creature | SubAbility$ DBToken | SpellDescription$ Destroy all creatures, then create a 1/1 white Spirit creature token with flying.
+SVar:DBToken:DB$ Token | TokenAmount$ 1 | TokenScript$ w_1_1_spirit_flying | TokenOwner$ You
+DeckHas:Ability$DestroyAll
+DeckHas:Ability$Token
+DeckHas:Keyword$Flying
+DeckHas:Type$Creature
+DeckHas:Tribe$Spirit
+Oracle:Destroy all creatures, then create a 1/1 white Spirit creature token with flying.

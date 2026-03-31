@@ -1,0 +1,17 @@
+Name:Angelic Mentor
+ManaCost:3 R W
+Types:Creature Angel Soldier
+PT:3/3
+K:Flying
+K:Renown:2
+T:Mode$ BecomeRenowned | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigSearch | TriggerDescription$ When CARDNAME becomes renowned, search your library for a creature card with power 2 or less and put that card onto the battlefield. Then shuffle.
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Creature.powerLE2 | ChangeNum$ 1 | SpellDescription$ Search your library for a creature card with power 2 or less and put that card onto the battlefield. Then shuffle.
+DeckHas:Ability$Counters
+DeckHas:Ability$Search
+DeckHas:Ability$ETB
+DeckHas:Type$Creature
+DeckHas:Tribe$Angel
+DeckHas:Tribe$Soldier
+DeckHas:Keyword$Flying
+DeckHas:Keyword$Renown
+Oracle:Flying\nRenown 2 (When this creature deals combat damage to a player, if it isn't renowned, put two +1/+1 counters on it and it becomes renowned.)\nWhen Angelic Mentor becomes renowned, search your library for a creature card with power 2 or less and put that card onto the battlefield under your control. Then shuffle your library.

@@ -1,0 +1,6 @@
+Name:Soul Fracture
+ManaCost:1 W B
+Types:Sorcery
+A:SP$ LoseLife | ValidTgts$ Opponent | LifeAmount$ 2 | SubAbility$ DBToken | SpellDescription$ Target opponent loses 2 life.
+SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScript$ w_1_1_spirit_flying | TokenOwner$ You | SpellDescription$ Create two 1/1 white Spirit creature tokens with flying.
+Oracle:Target opponent loses 2 life. Create two 1/1 white Spirit creature tokens with flying.

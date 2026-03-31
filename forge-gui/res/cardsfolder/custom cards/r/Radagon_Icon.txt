@@ -1,0 +1,6 @@
+Name:Radagon Icon
+ManaCost:2 U
+Types:Legendary Artifact
+S:Mode$ CastWithFlash | ValidCard$ Card.nonCreature | ValidSA$ Spell | Caster$ You | Description$ You may cast noncreature spells as though they had flash.
+S:Mode$ ReduceCost | Type$ Spell.Kicked | Amount$ 1 | Description$Kicked spells you cast cost {1} less to cast.
+Oracle:You may cast noncreature spells as though they had flash.\nKicked spells you cast cost {1} less to cast.

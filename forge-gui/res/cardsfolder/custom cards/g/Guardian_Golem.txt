@@ -1,0 +1,8 @@
+Name:Guardian Golem
+ManaCost:7
+Types:Artifact Creature Golem
+PT:5/5
+K:Vigilance
+K:Trample
+K:Reach
+Oracle:Vigilance, trample, reach

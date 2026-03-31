@@ -1,0 +1,6 @@
+Name:Fiery Bolero
+ManaCost:1 R
+Types:Sorcery
+K:Resonance:3 R R
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3 | SpellDescription$ CARDNAME deals 3 damage to any target.
+Oracle:Fiery Bolero deals 3 damage to any target.\nResonance {3}{R}{R} (If you cast this spell for {3}{R}{R}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell.)

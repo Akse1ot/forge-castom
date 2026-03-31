@@ -1,0 +1,11 @@
+Name:Fantasia Wyrm
+ManaCost:1 U R
+Types:Creature Drake
+PT:2/2
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever you cast a instant, sorcery, or Wizard spell, CARDNAME gets +2/+0 until end of turn.
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ 1
+SVar:BuffedBy:Instant,Sorcery
+DeckHints:Type$Instant|Sorcery
+Oracle:Flying\nWhenever you cast an instant or sorcery spell, Fantasia Wyrm gets +1/+0 until end of turn, then scry 1. (Look at the top card of your library. You may put that card on the bottom of your library.)

@@ -1,0 +1,8 @@
+Name:Forge of the Giants
+ManaCost:no cost
+Types:Legendary Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated | Description$ CARDNAME enters tapped unless you control a legendary creature.
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Creature.Legendary+YouCtrl | ConditionCompare$ EQ0
+A:AB$ Mana | Cost$ T | Produced$ R | SpellDescription$ Add {R}.
+A:AB$ Mana | Cost$ T | Produced$ R | Amount$ 2 | RestrictValid$ Spell.Kicked,Spell.wasCastFromExile | SpellDescription$ Add {R}{R}. Spend this mana only to cast a kicked spell or to cast a spell from exile.
+Oracle:Forge of the Giants enters tapped unless you control a legendary creature.\n{T}: Add {R}.\n{T}: Add {R}{R}. Spend this mana only to cast a kicked spell or to cast a spell from exile.

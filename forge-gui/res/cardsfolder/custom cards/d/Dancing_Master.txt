@@ -1,0 +1,17 @@
+Name:Dancing Master
+ManaCost:RW RW
+Types:Creature Human Soldier Wizard
+PT:3/2
+K:Renown:1
+S:Mode$ Continuous | Affected$ Card.Self+IsRenowned | AddTrigger$ DamageTrigger | Description$ As long as CARDNAME is renowned, it has "Whenever CARDNAME is dealt damage, it deals that much damage to any target."
+SVar:DamageTrigger:Mode$ DamageDoneOnce | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ Whenever CARDNAME is dealt damage, if it's renowned, it deals that much damage to any target.
+SVar:TrigDamage:DB$ DealDamage | NumDmg$ X | ValidTgts$ Creature,Player,Planeswalker,Battle | TgtPrompt$ Select a target
+SVar:X:TriggerCount$DamageAmount
+DeckHas:Ability$Counters
+DeckHas:Ability$Damage
+DeckHas:Type$Creature
+DeckHas:Tribe$Human
+DeckHas:Tribe$Soldier
+DeckHas:Tribe$Wizard
+DeckHas:Keyword$Renown
+Oracle:Renown 1 (When this creature deals combat damage to a player, if it isn't renowned, put a +1/+1 counter on it and it becomes renowned.)\nWhenever Dancing Master is dealt damage, if it's renowned, it deals that much damage to any target.

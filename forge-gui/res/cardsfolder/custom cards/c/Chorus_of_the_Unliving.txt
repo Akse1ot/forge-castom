@@ -1,0 +1,9 @@
+Name:Chorus of the Unliving
+ManaCost:2 B B
+Types:Creature Zombie Bard
+PT:3/2
+K:Menace
+S:Mode$ CantBlock | ValidCard$ Card.Self | Description$ CARDNAME can't block.
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | TriggerZones$ Graveyard | ValidActivatingPlayer$ You | OptionalDecider$ You | Execute$ TrigChange | TriggerDescription$ Whenever you cast a multicolored spell, you may return CARDNAME from your graveyard to the battlefield.
+SVar:TrigChange:DB$ ChangeZone | Defined$ Self| Origin$ Graveyard | Destination$ Battlefield
+Oracle:Menace\nChorus of the Unliving can’t block.\nVirtuoso — Whenever you cast a multicolored spell, you may return Chorus of the Unliving from your graveyard to the battlefield.

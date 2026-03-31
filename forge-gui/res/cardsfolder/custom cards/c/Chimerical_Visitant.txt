@@ -1,0 +1,8 @@
+Name:Chimerical Visitant
+ManaCost:3 G U
+Types:Creature Illusion
+PT:3/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPlay | TriggerDescription$ When this creature enters, if {W}{U}{B}{R}{G} was spent to cast it, you may cast a creature card with converted mana cost 5 or less from your graveyard or hand without paying its mana cost.
+SVar:TrigPlay:DB$ Play | Optional$ True | Valid$ Creature.YouOwn | ConditionManaSpent$ W | ConditionManaSpent$ U | ConditionManaSpent$ B | ConditionManaSpent$ R | ConditionManaSpent$ G | ValidSA$ Spell.cmcLE5 | ValidZone$ Hand,Graveyard | Controller$ You | WithoutManaCost$ True | Amount$ 1 | TgtPrompt$ Choose target creature card with mana value 5 or less from your graveyard or hand.
+Oracle:Flying\nWhen Chimerical Visitant enters the battlefield, if {W}{U}{B}{R}{G} was spent to cast it, you may cast a creature card with converted mana cost 5 or less from your graveyard or hand without paying its mana cost.

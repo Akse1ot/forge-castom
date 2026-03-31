@@ -1,0 +1,6 @@
+Name:Fungus Token
+ManaCost:no cost
+Colors:green
+Types:Creature Fungus
+PT:0/0
+Oracle:

@@ -1,0 +1,6 @@
+Name:Fortune Telling
+ManaCost:UR
+Types:Sorcery
+A:SP$ Draw | Defined$ Player | NumCards$ 2 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Player | Mode$ Random | NumCards$ 1
+Oracle:Each player draws two cards, then discards a card at random.

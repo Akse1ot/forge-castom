@@ -1,0 +1,16 @@
+Name:Zealous Duelist
+ManaCost:R W
+Types:Creature Human Soldier
+PT:2/3
+K:Vigilance
+K:Renown:1
+S:Mode$ MustAttack | ValidCreature$ Card.Self | Description$ CARDNAME attacks each combat if able.
+S:Mode$ MustBlock | ValidCreature$ Card.Self
+DeckHas:Ability$Counters
+DeckHas:Ability$Combat
+DeckHas:Type$Creature
+DeckHas:Tribe$Human
+DeckHas:Tribe$Soldier
+DeckHas:Keyword$Vigilance
+DeckHas:Keyword$Renown
+Oracle:Vigilance\nRenown 1 (When this creature deals combat damage to a player, if it isn't renowned, put a +1/+1 counter on it and it becomes renowned.)\nZealous Duelist attacks or blocks each combat if able.

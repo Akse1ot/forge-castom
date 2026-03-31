@@ -1,0 +1,7 @@
+Name:Echoborn Muse
+ManaCost:3 U R
+Types:Creature Spirit
+PT:2/4
+K:Flying
+S:Mode$ Panharmonicon | ValidCard$ Card.YouCtrl | Description$ If a triggered ability of a permanent you control would trigger, that ability triggers twice instead.
+Oracle:Flying\nIf a triggered ability of a permanent you control would trigger, that ability triggers twice instead.

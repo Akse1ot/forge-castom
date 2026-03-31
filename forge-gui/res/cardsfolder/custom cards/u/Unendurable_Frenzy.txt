@@ -1,0 +1,6 @@
+Name:Unendurable Frenzy
+ManaCost:3 B
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Creature,Planeswalker | TgtPrompt$ Select target creature or planeswalker | SpellDescription$ Destroy target creature or planeswalker.
+K:Madness:1 B
+Oracle:Destroy target creature or planeswalker.\nMadness {1}{B}

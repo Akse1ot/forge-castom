@@ -1,0 +1,8 @@
+Name:Mount Chromaziel
+ManaCost:no cost
+Types:Land
+A:AB$ Reveal | Cost$ T | RevealValid$ Card.Land+YouCtrl | RememberRevealed$ True | SubAbility$ DBMountChromazielMana | SpellDescription$ {T},Reveal a land card from your hand: Add one mana of any type that the revealed card could produce.
+SVar:DBMountChromazielMana:DB$ ManaReflected | Valid$ Defined.Remembered | ColorOrType$ Type | ReflectProperty$ Produce | SubAbility$ DBMountChromazieCleanup
+SVar:DBMountChromazieCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ ChangeZone | Cost$ W U B R G T | Origin$ Library | Destination$ Hand | ChangeType$ Card.MultiColor | StackDescription$ {p:You} searches their library for a multicolored, reveal it, put it into their hand, then shuffles their library. | SpellDescription$ Search your library for a multicolored card, reveal it, and put it into your hand, then shuffle.
+Oracle:{T},Reveal a land card from your hand: Add one mana of any type that the revealed card could produce.\n{W}{U}{B}{R}{G}, {T}: Search your library for a multicolored card, reveal it, and put it into your hand. Then shuffle your library.

@@ -1,0 +1,7 @@
+Name:Never Forgotten
+ManaCost:4 G W
+Types:Enchantment
+S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited | Description$ You have no maximum hand size.
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidLKI$ Creature.!token+YouCtrl | ReplaceWith$ Return | Description$ If a nontoken creature you own would die, return that creature to your hand instead.
+SVar:Return:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ ReplacedCard
+Oracle:You have no maximum hand size.\nIf a nontoken creature you own would die, return that creature to your hand instead.

@@ -1,0 +1,7 @@
+Name:Sonata of Somnolence
+ManaCost:1 U
+Types:Sorcery
+K:Resonance:3 U
+A:SP$ Tap | ValidTgts$ Creature | SubAbility$ DBPump | SpellDescription$ Tap target creature. It doesn't untap during its controller's next untap step.
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+Oracle:Tap target creature. It doesn't untap during its controller's next untap step.\nResonance {3}{U} (If you cast this spell for {3}{U}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell.)

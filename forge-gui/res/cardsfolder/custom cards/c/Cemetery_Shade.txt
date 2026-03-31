@@ -1,0 +1,8 @@
+Name:Cemetery Shade
+ManaCost:4 B
+Types:Creature Shade
+PT:4/3
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Planeswalker | CombatDamage$ True | Execute$ TrigToken | TriggerZones$ Battlefield | TriggerDescription$ Whenever this creature deals combat damage to a player or planeswalker, you may mill two cards. If you milled a creature or planeswalker card this way, create a 2/1 black Skeleton creature token with “This creature can’t block.”
+SVar:TrigToken:DB$ Token | TokenScript$ b_2_1_skeleton_noblock | TokenAmount$ 1 | TokenOwner$ You
+Oracle:Menace\nWhenever this creature deals combat damage to a player or planeswalker, you may mill two cards. If you milled a creature or planeswalker card this way, create a 2/1 black Skeleton creature token with “This creature can’t block.”

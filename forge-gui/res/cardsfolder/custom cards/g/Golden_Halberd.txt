@@ -1,0 +1,8 @@
+Name:Golden Halberd
+ManaCost:2
+Types:Artifact Equipment
+S:Mode$ Continuous | Affected$ Card.EquippedBy | AddPower$ 1 | AddToughness$ 1 | Description$ Equipped creature gets +1/+1.
+T:Mode$ DamageDone | ValidSource$ Creature.AttachedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken | TriggerZones$ Battlefield | TriggerDescription$ Whenever equipped creature deals combat damage to a player, create a Rune token. (It’s an artifact with “, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac
+K:Equip:1
+Oracle:Equipped creature gets +1/+1.\nWhenever equipped creature deals combat damage to a player, create a Rune token. (It’s an artifact with “, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)\nEquip {1}.

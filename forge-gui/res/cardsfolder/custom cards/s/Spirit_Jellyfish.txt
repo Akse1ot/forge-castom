@@ -1,0 +1,10 @@
+Name:Spirit Jellyfish
+ManaCost:3 W
+Types:Enchantment Creature Jellyfish Spirit
+PT:1/1
+K:Flying
+K:Spirit Ash:W W
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X | Description$ CARDNAME gets +1/+1 for each other Spirit you control.
+SVar:X:Count$Valid Spirit.Other+YouCtrl
+SVar:BuffedBy:Spirit
+Oracle:Flying\nThis creature gets +1/+1 for each other Spirit you control.\nSpirit Ash {W}{W} ({W}{W}, Exile this card from your graveyard: Create a token that’s a copy of this creature, except it’s a Spirit enchantment creature in addition to its other types. Activate only as a sorcery.)

@@ -1,0 +1,12 @@
+Name:Resentful Giant
+ManaCost:5 R G
+Types:Creature Giant Shaman
+PT:5/7
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy | TriggerDescription$ When CARDNAME enters, destroy target artifact, enchantment, or land. CARDNAME damage equal to that permanent’s converted mana cost to that permanent’s controller.
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment,Land | SubAbility$ DBDamage | RememberObjects$ Targeted | TgtPrompt$ Select target artifact, enchantment, or land
+SVar:DBDamage:DB$ DealDamage | Defined$ RememberedOwner | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardManaCost
+SVar:PlayMain1:TRUE
+Oracle:When Resentful Giant enters the battlefield, destroy target artifact, enchantment, or land. Resentful Giant deals  

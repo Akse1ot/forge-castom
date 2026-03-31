@@ -1,0 +1,7 @@
+Name:Site of Grace
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ CARDNAME enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ ManaReflected | Cost$ T | ColorOrType$ Color | Valid$ Land.YouCtrl | ReflectProperty$ Produce | SpellDescription$ Add one mana of any color a land you control could produce.
+Oracle:Site of Grace enters tapped.\n{T}: Add one mana of any color a land you control could produce.

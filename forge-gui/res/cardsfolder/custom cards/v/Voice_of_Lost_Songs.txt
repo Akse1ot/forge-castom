@@ -1,0 +1,10 @@
+Name:Voice of Lost Songs
+ManaCost:2 UR
+Types:Creature Spirit Bard
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters, you may return target card with resonance from your graveyard to your hand.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.withResonance+YouOwn | TgtPrompt$ Choose target creature with Infect in your graveyard.
+S:Mode$ ReduceCost | AltCost$ Resonance | Type$ Spell | Activator$ You | Amount$ 1 | Description$ Each spell you cast for its resonance cost costs {1} less to cast.
+Oracle:When Voice of Lost Songs enters the battlefield, return target card with resonance from your graveyard to your hand.\nEach spell you cast for its resonance cost costs {1} less to cast.
+
+

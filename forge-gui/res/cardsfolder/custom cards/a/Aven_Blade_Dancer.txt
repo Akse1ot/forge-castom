@@ -1,0 +1,10 @@
+Name:Aven Blade-Dancer
+ManaCost:1 U
+Types:Creature Bird Soldier
+PT:2/3
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ DBBlink | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, exile up to one target creature you control, then return it to the battlefield under its owner’s control.
+SVar:DBBlink:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select up to one target creature you control | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBReturn | RememberChanged$ True | SpellDescription$ Exile up to one target creature you control, then return it to the battlefield under its owner’s control.
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Flying\nWhenever Aven Blade-Dancer deals combat damage to a player, exile up to one target creature you control, then return it to the battlefield under its owner’s control.

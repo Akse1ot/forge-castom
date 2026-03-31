@@ -1,0 +1,16 @@
+Name:Two Fingers
+ManaCost:G W
+Types:Creature Fungus Avatar
+PT:2/2
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+counters_GE1_P1P1 | AddKeyword$ Protection:Creature.counters_LT1_P1P1:creatures without +1/+1 counters on them | Description$ Each creature you control with a +1/+1 counter on it has protection from creatures without +1/+1 counters on them. (This creature can’t be blocked, targeted or dealt damage by creatures without +1/+1 counters on them.)
+AlternateMode:Modal
+Oracle:Each creature you control with a +1/+1 counter on it has protection from creatures without +1/+1 counters on them. (This creature can’t be blocked, targeted or dealt damage by creatures without +1/+1 counters on them.)
+
+ALTERNATE
+
+Name:Three Fingers
+ManaCost:1 B R
+Types:Creature Fungus Avatar
+PT:3/3
+S:Mode$ Continuous | Affected$ Creature.YouOwn,Planeswalker.YouOwn | AffectedZone$ Hand,Library,Graveyard,Exile,Command,Stack | AddKeyword$ Madness:ManaCost | Description$ Each creature and planeswalker card you own that isn’t on the battlefield has madness. The madness cost is equal to its mana cost.
+Oracle:Each creature and planeswalker card you own that isn’t on the battlefield has madness. The madness cost is equal to its mana cost.

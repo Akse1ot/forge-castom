@@ -1,0 +1,16 @@
+Name:Elemer of the Briar
+ManaCost:2 R
+Types:Legendary Creature Human Noble
+PT:3/3
+K:Reach
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ Whenever CARDNAME enters or attacks, create a Blood token.
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True | TriggerZones$ Battlefield | TriggerDescription$ Whenever CARDNAME enters or attacks, create a Blood token.
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_blood_draw
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact |TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigExile | TriggerDescription$ Whenever an artifact is put into a graveyard from the battlefield, exile the top card of your library. Until the end of your next turn, you may play that card. This ability triggers only once each turn.
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | Duration$ UntilTheEndOfYourNextTurn | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | Description$ You may play remembered card.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:HasAttackEffect:TRUE
+Oracle:Menace, reach\nWhen this creature enters or attacks, create a Blood token.\nWhenever an artifact is put into a graveyard from the battlefield, exile the top card of your library. Until the end of your next turn, you may play that card. This ability triggers only once each turn.

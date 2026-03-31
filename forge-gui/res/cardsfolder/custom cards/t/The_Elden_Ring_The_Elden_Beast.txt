@@ -1,0 +1,29 @@
+Name:The Elden Ring
+ManaCost:W W W
+Types:Legendary Artifact Rune
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ ETBChooseColors | TriggerDescription$ When CARDNAME enters, choose one or more colors other than white.
+SVar:ETBChooseColors:DB$ ChooseColor | Defined$ You | OrColors$ True | UpTo$ True | Exclude$ White
+S:Mode$ RaiseCost | ValidCard$ Card.AnyChosenColor | Type$ Spell | Amount$ 1 | Description$ Spells that are one or more of the chosen colors cost {1} more to cast.
+S:Mode$ ReduceCost | ValidCard$ Card.White | Type$ Spell | Amount$ 1 | Description$ White spells cost {1} less to cast.
+A:AB$ Token | Cost$ W W W T Sac<1/CARDNAME> | TokenScript$ c_a_Rune_sac | TokenAmount$ 7 | TokenOwner$ You | CheckSVar$ X | SVarCompare$ GT0 | SpellDescription$ Create seven Rune tokens. Activate only if a legendary creature you controlled died this turn.
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.YouCtrl+Legendary
+AlternateMode:Modal
+Oracle:When The Elden Ring enters, choose any number of colors other than white.\nSpells that are one or more of the chosen colors cost {1} more to cast.\nWhite spells cost {1} less to cast.\n{W}{W}{W}, {T}, Sacrifice this artifact: Create seven Rune tokens. Activate only if a legendary creature you controlled died this turn.
+
+ALTERNATE
+
+Name:The Elden Beast
+ManaCost:1 W W W W
+Types:Legendary Creature Avatar Beast
+PT:3/4
+K:Flying
+K:Lifelink
+K:Vigilance
+K:Protection:Card.nonLegendary:nonlegendary
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ Detain | TriggerDescription$ When CARDNAME enters or attacks, detain target creature an opponent controls. (Until your next turn, that creature can't attack or block and its activated abilities can't be activated.)
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ Detain | Secondary$ True | TriggerZones$ Battlefield | TriggerDescription$ When CARDNAME enters or attacks, detain target creature an opponent controls. (Until your next turn, that creature can't attack or block and its activated abilities can't be activated.)
+SVar:Detain:DB$ Pump | KW$ HIDDEN CARDNAME can't attack or block. & HIDDEN CARDNAME's activated abilities can't be activated. | IsCurse$ True | Duration$ UntilYourNextTurn | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.Legendary | TgtPrompt$ Select target legendary creature to detain.
+SVar:PlayMain1:TRUE
+Oracle:Flying, lifelink, vigilance, Protection from nonlegendary (This permanent can’t be targeted, dealt damage, enchanted, or equipped by anything nonlegendary.)\nWhen this creature enters or attacks, detain up to one target legendary creature.
+
+

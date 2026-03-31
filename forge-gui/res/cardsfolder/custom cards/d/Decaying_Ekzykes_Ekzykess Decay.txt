@@ -1,0 +1,28 @@
+Name:Decaying Ekzykes
+ManaCost:4 B B
+Types:Legendary Creature Dragon Zombie
+PT:4/4
+K:Flying
+K:Deathtouch
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDestroy | TriggerZones$ Battlefield | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, destroy target land that player controls. When you do, each player creates a colorless land token named Rot with “{T}, Pay 2 life: Add {C}.”
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Land | TargetsWithDefinedController$ TriggeredTarget | RememberTargets$ True | TgtPrompt$ Select target land opponent controls.
+SVar:TrigToken:DB$ Token | ConditionDefined$ Remembered | ConditionPresent$ Land | ConditionCompare$ GE1 | TokenScript$ c_Rot | TokenAmount$ 1 | TokenOwner$ Player | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:Modal
+Oracle:Flying, deathtouch\nWhenever this creature deals combat damage to a player, destroy target land that player controls. When you do, each player creates a colorless land token named Rot with “{T}, Pay 2 life: Add {C}.”
+
+ALTERNATE
+
+Name:Ekzykes's Decay
+ManaCost:2 B
+Types:Enchantment Aura
+K:Enchant:Creature,Planeswalker:creature or Planeswalker
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Deathtouch | AddType$ Dragon | Description$ Enchanted permanent has deathtouch and is a Dragon in addition to its other types.
+S:Mode$ Continuous | Affected$ Planeswalker.EnchantedBy | AddAbility$ Plus | Description$ Enchanted planeswalker has "[+1]: Target opponent loses 1 life and you gain 1 life"
+SVar:Plus:AB$ LoseLife| Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife | SpellDescription$ Target opponent loses 1 life and you gain 1 life
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+S:Mode$ Continuous | Affected$ Planeswalker.EnchantedBy | AddAbility$ Ult | Description$ Enchanted planeswalker has “ [-3]: Target creature gets -X/-X, where X is the amount of life you’ve lost this turn.”
+SVar:Ult:AB$ Pump | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | NumAtt$ +X | NumDef$ +X | SpellDescription$ Target creature gets -X/-X, where X is the amount of life you’ve lost this turn.
+SVar:X:Count$LifeYouLostThisTurn
+Oracle:Enchant creature or planeswalker.\nEnchanted permanent has deathtouch and is a Dragon in addition to its other types.\nEnchanted permanent has “ [+1]: Target opponent loses 1 life and you gain 1 life” and “ [-3]: Target creature gets -X/-X, where X is the amount of life you’ve lost this turn.”

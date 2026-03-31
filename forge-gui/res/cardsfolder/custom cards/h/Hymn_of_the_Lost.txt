@@ -1,0 +1,6 @@
+Name:Hymn of the Lost
+ManaCost:1 B
+Types:Sorcery
+K:Resonance:3 B
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TgtPrompt$ Choose target creature card in your graveyard | ValidTgts$ Creature.YouCtrl | SpellDescription$ Return target creature card from your graveyard to your hand.
+Oracle:Return target creature card from your graveyard to your hand.\nResonance {3}{B} (If you cast this spell for {3}{B}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell.)

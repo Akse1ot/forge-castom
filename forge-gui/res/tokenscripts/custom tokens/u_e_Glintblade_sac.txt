@@ -1,0 +1,5 @@
+Name:Glintblade Token
+ManaCost:no cost
+Types:Enchantment
+A:AB$ Pump | Cost$ Sac<1/CARDNAME/this token> | ValidTgts$ Creature | TgtPrompt$ Select target creature to get -1/-0 | NumAtt$ -1 | IsCurse$ True | SpellDescription$ Sacrifice this enchantment: Target creature gets -1/-0 until end of turn.
+Oracle:Sacrifice this enchantment: Target creature gets -1/-0 until end of turn.

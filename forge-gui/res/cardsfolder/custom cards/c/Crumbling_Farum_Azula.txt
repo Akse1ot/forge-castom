@@ -1,0 +1,9 @@
+Name:Crumbling Farum Azula
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ CARDNAME enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a Rune token.
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac | TokenAmount$ 1 | TokenOwner$ You
+A:AB$ Mana | Cost$ T | Produced$ Combo G U | SpellDescription$ Add {G} or {U}
+Oracle:Crumbling Farum Azula enters tapped.\nWhen Crumbling Farum Azula enters, create a Rune token. (It’s an artifact with “, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)\n{T}: Add {G} or {U}.

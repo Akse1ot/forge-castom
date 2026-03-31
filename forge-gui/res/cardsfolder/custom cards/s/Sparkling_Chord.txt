@@ -1,0 +1,12 @@
+Name:Sparkling Chord
+ManaCost:R
+Types:Instant
+K:Resonance:2 R
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature | NumAtt$ +1 | KW$ First Strike | SpellDescription$ Target creature you control gets +1/+0 and gains first strike until end of turn.
+DeckHas:Ability$Pump  
+DeckHas:Ability$Combat  
+DeckHas:Type$Instant  
+DeckHas:Keyword$Resonance  
+DeckHas:Keyword$First Strike  
+DeckHas:Type$Creature
+Oracle:Target creature you control gets +1/+0 and gains first strike until end of turn.\nResonance {2}{R} (If you cast this spell for {2}{R}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell.)

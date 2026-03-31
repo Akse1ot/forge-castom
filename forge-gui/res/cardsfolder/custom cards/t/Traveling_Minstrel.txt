@@ -1,0 +1,7 @@
+Name:Traveling Minstrel
+ManaCost:G
+Types:Creature Human Bard
+PT:1/1
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | TriggerZones$ Battlefield | ValidActivatingPlayer$ You | Execute$ TrigPutCounter | TriggerDescription$ Whenever you cast a multicolored spell, put a +1/+1 counter on CARDNAME.
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | Defined$ Self
+Oracle:Virtuoso — Whenever you cast a multicolored spell, put a +1/+1 counter on Traveling Minstrel.

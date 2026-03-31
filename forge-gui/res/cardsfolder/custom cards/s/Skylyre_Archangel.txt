@@ -1,0 +1,9 @@
+Name:Skylyre Archangel
+ManaCost:4 W W
+Types:Creature Human Scout
+PT:4/5
+K:Flying
+K:Vigilance
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ PumpAll | TriggerDescription$ Whenever you cast a multicolored spell, permanents you control gain indestructible until your next turn.
+SVar:PumpAll:DB$ PumpAll | ValidCards$ Permanent.YouCtrl | KW$ Indestructible | Duration$ UntilYourNextTurn
+Oracle:Flying, vigilance\nVirtuoso — Whenever you cast a multicolored spell, permanents you control gain indestructible until your next turn.

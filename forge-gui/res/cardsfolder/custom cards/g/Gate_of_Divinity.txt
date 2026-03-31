@@ -1,0 +1,13 @@
+Name:Gate of Divinity
+ManaCost:no cost
+Types:Legendary Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated | Description$ CARDNAME enters tapped unless you control a legendary creature.
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Creature.Legendary+YouCtrl | ConditionCompare$ EQ0
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ Mana | Cost$ T Sac<1/CARDNAME> | Produced$ Any | TriggersWhenSpent$ TrigSpent | SpellDescription$ Add one mana of any color. If you spend this mana to cast a creature spell, that creature becomes a God legendary creature in addition to its other types and gains protection from nonlegendary.
+SVar:TrigSpent:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | Execute$ TrigEffect | TriggerDescription$ If you spend this mana to cast a creature spell, that creature becomes a God legendary creature in addition to its other types and gains protection from nonlegendary.
+SVar:TrigEffect:DB$ Effect | ReplacementEffects$ ETBAnimate | RememberObjects$ TriggeredCard
+SVar:ETBAnimate:Event$ Moved | Origin$ Stack | Destination$ Battlefield | ValidCard$ Card.IsRemembered | ReplaceWith$ DBAnimateGod | ReplacementResult$ Updated
+SVar:DBAnimateGod:DB$ Animate | Defined$ ReplacedCard | Types$ Legendary,God | Keywords$ Protection:Card.nonLegendary:nonlegendary | Duration$ Permanent | SubAbility$ DBRemoveSelf
+SVar:DBRemoveSelf:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+Oracle:Gate of Divinity enters tapped unless you control a legendary creature.\n{T}: Add {C}.\n{T}, Sacrifice Gate of Divinity: Add one mana of any color. If you spend this mana to cast a creature spell, that creature becomes a God legendary creature in addition to its other types and gains protection from nonlegendary.

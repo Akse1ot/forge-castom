@@ -1,0 +1,16 @@
+Name:Marika's Soreseal
+ManaCost:W W
+Types:Legendary Artifact
+S:Mode$ RaiseCost | ValidCard$ Creature,Artifact,Aura,Battle | Type$ Spell | Amount$ 1 | Description$ Creature, artifact, Aura and battle spells cost {1} more to cast.
+S:Mode$ ReduceCost | ValidCard$ Instant,Sorcery,Planeswalker,Enchantment.nonAura | Type$ Spell | Amount$ 1 | Description$ Instant and sorcery spells cost {2} less to cast.
+AlternateMode:Modal
+Oracle:Creature, artifact, Aura and battle spells cost {1} more to cast.\nInstant, sorcery, planeswalker and non-Aura enchantment spells cost {1} less to cast.
+
+ALTERNATE
+
+Name:Radagon's Soreseal
+ManaCost:W W
+Types:Legendary Artifact
+S:Mode$ RaiseCost | ValidCard$ Instant,Sorcery,Planeswalker,Enchantment.nonAura | Type$ Spell | Amount$ 1 | Description$ Creature, artifact, Aura and battle spells cost {1} more to cast.
+S:Mode$ ReduceCost | ValidCard$ Creature,Artifact,Aura,Battle | Type$ Spell | Amount$ 1 | Description$ Instant and sorcery spells cost {2} less to cast.
+Oracle:Instant, sorcery, planeswalker and non-Aura enchantment spells cost {1} more to cast.\nCreature, artifact, Aura and battle spells cost {1} less to cast.

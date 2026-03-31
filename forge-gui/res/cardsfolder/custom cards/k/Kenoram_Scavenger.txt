@@ -1,0 +1,9 @@
+Name:Kenoram Scavenger
+ManaCost:1 B G
+Types:Creature Satyr Warrior
+PT:2/2
+T:Mode$ ChangesZone | ValidCard$ Creature.Other+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ Whenever another creature you control dies, put a +1/+1 counter on CARDNAME.
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+DeckHas:Ability$Counters
+DeckHints:Ability$Sacrifice
+Oracle:Whenever another creature you control dies, put a +1/+1 counter on Kenoram Scavenger.

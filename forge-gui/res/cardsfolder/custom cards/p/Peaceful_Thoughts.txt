@@ -1,0 +1,6 @@
+Name:Peaceful Thoughts
+ManaCost:2 W
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature.attacking,Creature.blocking,Enchantment | TgtPrompt$ Select target attacking creature, blocking creature, or enchantment | Origin$ Battlefield | Destination$ Exile | SpellDescription$ Exile target attacking creature, blocking creature, or enchantment. Its controller gains 4 life. | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ TargetedController | LifeAmount$ 4
+Oracle:Exile target attacking creature, blocking creature, or enchantment. Its controller gains 4 life.

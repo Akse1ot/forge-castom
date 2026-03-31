@@ -1,0 +1,8 @@
+Name:The Senate of Censures
+ManaCost:2 W U
+Types:Legendary Creature Human Advisor
+PT:3/3
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a 1/1 colorless Thopter artifact creature token with flying.
+SVar:TrigToken:DB$ Token | TokenAmount$ 1 | TokenScript$ c_a_gecree_sac | TokenOwner$ You
+Oracle:Vigilance\nWhen The Senate of Censures enters the battlefield, create a colorless artifact token named Decree with “As this artifact enters the battlefield, choose a card name” and “Sacrifice this artifact: Counter target spell with the chosen name.”

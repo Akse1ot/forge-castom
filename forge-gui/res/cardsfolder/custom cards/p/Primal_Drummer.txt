@@ -1,0 +1,8 @@
+Name:Primal Drummer
+ManaCost:5 G G
+Types:Creature Giant Bard
+PT:6/6
+K:Trample
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | TriggerZones$ Battlefield | ValidActivatingPlayer$ You | Execute$ DBPump | TriggerDescription$ Whenever you cast a multicolored spell, target creature gets +2/+2 until end of turn.
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ 6 | NumDef$ 6
+Oracle:Trample\nVirtuoso — Whenever you cast a multicolored spell, target creature gets +6/+6 until end of turn.

@@ -1,0 +1,14 @@
+Name:Luck of the Draw
+ManaCost:1 UR UR
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigChooseNames |  TriggerDescription$ When Luck of the Draw enters the battlefield, choose three nonland card names.
+SVar:TrigChooseNames:DB$ NameCard | ValidCards$ Card.nonLand | ValidDescription$ nonland | ExcludeChosen$ True | SubAbility$ ChooseName
+SVar:ChooseName:DB$ NameCard | ValidCards$ Card.nonLand | ValidDescription$ nonland | ExcludeChosen$ True | SubAbility$ ChooseNam
+SVar:ChooseNam:DB$ NameCard | ValidCards$ Card.nonLand | ValidDescription$ nonland | ExcludeChosen$ True
+T:Mode$ Drawn | ValidPlayer$ You | ValidCard$ Card.YouOwn | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigReveal | TriggerDescription$ Whenever you draw a card, you may reveal it. If you reveal a card with a name chosen this way, put a luck counter on Luck of the Draw. Then if Luck of the Draw has five or more luck counters on it, you win the game.
+SVar:TrigReveal:DB$ Reveal | Defined$ You | RevealDefined$ TriggeredCard | RememberRevealed$ True | SubAbility$ PutLuck
+SVar:PutLuck:DB$ PutCounter | ConditionDefined$ Remembered | ConditionPresent$ Card.NamedCard | ConditionCompare$ GE1 | Defined$ Self | CounterType$ LUCK | CounterNum$ 1 | SubAbility$ WinGame
+SVar:LuckCount:Count$CardCounters.LUCK
+SVar:WinGame:DB$ WinsGame | Defined$ You | ConditionCheckSVar$ LuckCount | ConditionSVarCompare$ GE5 | SubAbility$ Cleanup
+SVar:Cleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:When Luck of the Draw enters the battlefield, choose three nonland card names.\nWhenever you draw a card, you may reveal it. If you reveal a card with a name chosen this way, put a luck counter on Luck of the Draw. Then if Luck of the Draw has five or more luck counters on it, you win the game.

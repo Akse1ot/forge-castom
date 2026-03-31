@@ -1,0 +1,7 @@
+Name:The Show Must Go On
+ManaCost:4 U
+Types:Instant
+A:SP$ Draw | NumCards$ X | SubAbility$ DBDiscard | SpellDescription$ Draw cards equal to the number of colors among cards in your graveyard, then discard a card.
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
+SVar:X:Count$ColorsInYourYard
+Oracle:Imaginarium — Draw cards equal to the number of colors among cards in your graveyard, then discard a card.

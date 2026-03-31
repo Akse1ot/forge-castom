@@ -1,0 +1,10 @@
+Name:Monstrous Crow
+ManaCost:4 U
+Types:Creature Bird
+PT:4/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigSurveil | TriggerDescription$ When this creature dies, surveil 1. Draw a card, then discard a card.
+SVar:TrigSurveil:DB$ Surveil | Amount$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
+Oracle:Flying\nWhen this creature dies, surveil 1. Draw a card, then discard a card.

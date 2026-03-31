@@ -1,0 +1,19 @@
+Name:Briars of Sin
+ManaCost:B
+Types:Sorcery
+K:Multikicker:1 PayLife<1>
+A:SP$ Token | Cost$ B PayLife<1> | TokenScript$ c_a_blood_draw | TokenOwner$ You | SubAbility$ DBToken | SpellDescription$ Create a Blood token. Create an additional Blood token for each time this spell was kicked.
+SVar:DBToken:DB$ Token | TokenScript$ c_a_blood_draw | TokenAmount$ XKicked | TokenOwner$ You | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw
+SVar:XKicked:Count$TimesKicked
+AlternateMode:Modal
+Oracle:As an additional cost to cast this spell, pay 1 life.\nMultikicker—{1}, Pay 1 life. (You may pay an additional {1} and pay 1 life any number of times as you cast this spell.)\nCreate a Blood token. Create an additional Blood token for each time this spell was kicked.\nDraw a card.
+
+ALTERNATE
+
+Name:Briars of Punishment
+ManaCost:4 B
+Types:Instant
+A:SP$ Destroy | Cost$ 4 B PayLife<2> | ValidTgts$ Creature,Planeswalker | SubAbility$ DBToken | TgtPrompt$ Select target creature or planeswalker | SpellDescription$ Destroy target creature or planeswalker
+SVar:DBToken:DB$ Token | TokenScript$ c_a_blood_draw | TokenAmount$ 2 | TokenOwner$ You
+Oracle:As an additional cost to cast this spell, pay 2 life.\nDestroy target creature or planeswalker.\nCreate two Blood tokens. (They’re artifacts with “, , Discard a card, Sacrifice this artifact: Draw a card.”)

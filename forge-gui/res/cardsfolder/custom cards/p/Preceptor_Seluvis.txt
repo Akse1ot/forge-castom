@@ -1,0 +1,11 @@
+Name:Preceptor Seluvis
+ManaCost:3 U U
+Types:Legendary Creature Human Wizard
+PT:2/3
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigImmediateTrig | TriggerDescription$ When CARDNAME enters, you may collect evidence X. If you do, gain control of target creature or planeswalker with mana value X for as long as you control this creature. It’s a Spirit enchantment in addition to its other types for as long as you control it. (To collect evidence X, exile cards with total mana value X or greater from your graveyard.)
+SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ CollectEvidence<X> | RememberSVarAmount$ X | Execute$ TrigControl
+SVar:TrigControl:DB$ GainControl | ValidTgts$ Creature.cmcLEX,Planeswalker.cmcLEX | TgtPrompt$ Select another target creature or planeswalker | LoseControl$ LeavesPlay,LoseControl | SubAbility$ DBPump
+SVar:DBPump:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ SpiritEnchantStatic | Duration$ AsLongAsYouControlIt
+SVar:SpiritEnchantStatic:Mode$ Continuous | Affected$ Card.IsRemembered+YouCtrl | AddType$ Enchantment & Spirit
+SVar:X:Count$xPaid
+Oracle:When this creature enters, you may collect evidence X. If you do, gain control of target creature or planeswalker with mana value X for as long as you control this creature. It’s a Spirit enchantment in addition to its other types for as long as you control it. (To collect evidence X, exile cards with total mana value X or greater from your graveyard.)

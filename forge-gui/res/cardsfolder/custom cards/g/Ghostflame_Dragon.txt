@@ -1,0 +1,8 @@
+Name:Ghostflame Dragon
+ManaCost:4 B B
+Types:Creature Dragon Skeleton
+PT:4/4
+K:Flying
+A:AB$ ChangeZone | Cost$ 5 B B B | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | Tapped$ True | SpellDescription$ Return CARDNAME from your graveyard to the battlefield tapped.
+K:TypeCycling:Swamp:2
+Oracle:Flying\n{5}{B}{B}{B}: Return Death Tyrant from your graveyard to the battlefield tapped.\nSwampcycling {2} ({2}, Discard this card: Search your library for a Swamp card, reveal it, put it into your hand, then shuffle.)

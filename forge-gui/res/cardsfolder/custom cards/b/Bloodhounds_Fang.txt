@@ -1,0 +1,12 @@
+Name:Bloodhounds Fang
+ManaCost:1 R
+Types:Artifact Equipment
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach | TriggerDescription$ When CARDNAME enters, attach it to target creature you control.
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control
+SVar:NeedsToPlay:Creature.YouCtrl
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddKeyword$ First Strike | AddTrigger$ TrigDamageDone | Description$ Equipped creature gets +1/+0 and has first strike and “Whenever this creature deals combat damage to a player, create a Blood token.”
+SVar:TrigDamageDone:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigBlood | TriggerDescription$ Whenever equipped creature deals combat damage to a player or battle, create a Treasure token.
+SVar:TrigBlood:DB$ Token | TokenScript$ c_a_blood_draw
+K:Equip:3
+Oracle:Flash\nWhen this Equipment enters, attach it to target creature you control.\nEquipped creature gets +1/+0 and has first strike and “Whenever this creature deals combat damage to a player, create a Blood token.”\nEquip {3} ({3}: Attach to target creature you control. Equip only as a sorcery.)

@@ -1,0 +1,5 @@
+Name:Tome of Infinity
+ManaCost:3
+Types:Artifact
+S:Mode$ ModifyModes | EffectZone$ Battlefield | Description$ You may choose any number of additional modes on spells and abilities you control. You can’t choose the same mode more than once this way. (Modes are generally indicated after “Choose one.”)
+Oracle:You may choose any number of additional modes on spells and abilities you control. You can’t choose the same mode more than once this way. (Modes are generally indicated after “Choose one.”)

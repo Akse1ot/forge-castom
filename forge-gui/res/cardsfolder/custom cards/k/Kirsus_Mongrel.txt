@@ -1,0 +1,8 @@
+Name:Kirsus Mongrel
+ManaCost:4 R
+Types:Creature Demon Hound 
+PT:4/1
+K:First Strike
+K:Haste
+S:Mode$ MustAttack | ValidCreature$ Card.Self | Description$ CARDNAME attacks each combat if able.
+Oracle:First strike, haste\nKirsus Mongrel attacks each combat if able.

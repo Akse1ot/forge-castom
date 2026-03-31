@@ -1,0 +1,10 @@
+Name:Moon of Nokstella
+ManaCost:4 U
+Types:Legendary Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerDescription$ When this artifact enters, draw a card for each instant, sorcery or enchantment card in your graveyard. Then draw a card for each Spirit you control.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ Y
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn,Enchantment.YouOwn
+SVar:Y:Count$Valid Spirit.YouCtrl
+S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited | Description$ You have no maximum hand size.
+Oracle:When this artifact enters, draw a card for each instant, sorcery or enchantment card in your graveyard. Then draw a card for each Spirit you control.\nYou have no maximum hand size.

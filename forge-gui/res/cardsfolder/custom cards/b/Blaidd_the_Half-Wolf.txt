@@ -1,0 +1,11 @@
+Name:Blaidd the Half-Wolf
+ManaCost:2 U U
+Types:Legendary Creature Wolf Knight
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill | TriggerDescription$ When NICKNAME enters, mill four cards, then return a nonland, noncreature card from your graveyard to your hand.
+SVar:TrigMill:DB$ Mill | NumCards$ 4 | Defined$ You | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Mandatory$ True | ChangeType$ Card.nonLand+nonCreature+YouOwn | Hidden$ True
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | OptionalDecider$ You | Execute$ TrigTap | TriggerZones$ Battlefield | TriggerDescription$ Whenever you cast an instant or sorcery spell, tap up to one target creature and put a stun counter on it.
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+Oracle:Prowess\nWhen this creature enters, mill four cards, then return a nonland, noncreature card from your graveyard to your hand.\nWhenever you cast an instant or sorcery spell, tap up to one target creature and put a stun counter on it.

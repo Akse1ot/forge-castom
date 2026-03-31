@@ -1,0 +1,11 @@
+Name:Aven Acrobat
+ManaCost:1 W
+Types:Creature Bird Wizard
+PT:1/2
+K:Flying
+K:Renown:1
+DeckHas:Keyword$Flying
+DeckHas:Ability$Counters
+DeckHas:Tribe$Bird
+DeckHas:Tribe$Wizard
+Oracle:Flying\nRenown 1 (When this creature deals combat damage to a player, if it isn't renowned, put a +1/+1 counter on it and it becomes renowned.)

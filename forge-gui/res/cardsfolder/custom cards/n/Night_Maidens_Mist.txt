@@ -1,0 +1,10 @@
+Name:Night Maidens Mist
+ManaCost:1 B
+Types:Sorcery
+A:SP$ RevealHand | ValidTgts$ Opponent | RememberRevealed$ True | SubAbility$ DBChoose | SpellDescription$ Target opponent reveals their hand.
+SVar:DBChoose:DB$ ChooseCard | ChoiceZone$ Hand | Amount$ 1 | Choices$ Card.nonLand+IsRemembered | ChoiceDesc$ nonland | FromDesc$ it | SubAbility$ DBBranch | ChoiceTitle$ You may choose a nonland card | SpellDescription$ You may choose a nonland card from it.
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ Count$ChosenSize | TrueSubAbility$ DBDiscard | FalseSubAbility$ DBChangeZone | StackDescription$ If they do, {p:Targeted} discards that card. If you don’t, you may return a creature card from your graveyard to your hand.
+SVar:DBDiscard:DB$ Discard | DefinedCards$ ChosenCard | Defined$ Targeted | Mode$ Defined | SubAbility$ DBCleanup
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TgtPrompt$ Choose target creature card in your graveyard | ValidTgts$ Creature.YouOwn | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+Oracle:As an additional cost to cast this spell, pay 2 life.\nTarget opponent reveals their hand. You may choose a nonland card from it. If you do, that player discards that card. If you don’t, you may return a creature card from your graveyard to your hand.

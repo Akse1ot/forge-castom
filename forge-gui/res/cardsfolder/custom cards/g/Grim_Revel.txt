@@ -1,0 +1,6 @@
+Name:Grim Revel
+ManaCost:3 BG
+Types:Sorcery
+A:SP$ Token | TokenAmount$ X | TokenScript$ bg_1_1_satyr_bard | TokenOwner$ You | SpellDescription$ Imaginarium — Create a 1/1 black and green Satyr Bard creature token for each color among cards in your graveyard.
+SVar:X:Count$ColorsInYourYard
+Oracle:Imaginarium — Create a 1/1 black and green Satyr Bard creature token for each color among cards in your graveyard.

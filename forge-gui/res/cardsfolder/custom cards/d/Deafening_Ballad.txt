@@ -1,0 +1,10 @@
+Name:Deafening Ballad
+ManaCost:1 R
+Types:Sorcery
+K:Resonance:3 R
+A:SP$ Pump | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True | TargetMin$ 0 | TargetMax$ 2 | TgtPrompt$ Select up to two target creatures | StackDescription$ {c:Targeted} can't block this turn. | SpellDescription$ Up to two target creatures can't block this turn.
+DeckHas:Ability$Combat
+DeckHas:Type$Instant
+DeckHas:Keyword$Resonance
+DeckHas:Type$Creature
+Oracle:Up to two target creatures can’t block this turn.\nResonance {3}{R} (If you cast this spell for {3}{R}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell.)

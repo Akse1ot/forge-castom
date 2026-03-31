@@ -1,0 +1,7 @@
+Name:Arachnoid Ambush
+ManaCost:3 G
+Types:Instant
+A:SP$ Token | TokenAmount$ 2 | TokenScript$ g_1_2_spider_reach | TokenOwner$ You | SubAbility$ DBDealDamage | SpellDescription$ Create two 1/2 green Spider creature tokens with reach. Then Arachnoid Ambush deals damage equal to the number of Spiders you control to up to one target creature with flying.
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Creature.withFlying | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select up to one target creature with flying | NumDmg$ X
+SVar:X:Count$Valid Spider.YouCtrl
+Oracle:Create two 1/2 green Spider creature tokens with reach. Then Arachnoid Ambush deals damage equal to the number of Spiders you control to up to one target creature with flying.

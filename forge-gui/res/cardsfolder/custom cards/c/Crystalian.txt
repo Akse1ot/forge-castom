@@ -1,0 +1,13 @@
+Name:Crystalian
+ManaCost:2 U
+Types:Artifact Creature Golem
+PT:1/4
+K:Kicker:1 U:1 U
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigCharm | TriggerDescription$ When CARDNAME enters, ABILITY
+SVar:TrigCharm:DB$ Charm | Choices$ DBTokenA,DBTokenB | CharmNum$ X
+SVar:DBTokenA:DB$ Token | TokenScript$ u_1_4_Artifact_Golem_flying | TokenOwner$ You | SpellDescription$ Create a 1/4 blue Golem artifact creature with flying.
+SVar:DBTokenB:DB$ Token | TokenScript$ u_1_4_Artifact_Golem_Prowess | TokenOwner$ You | SpellDescription$ Create a 1/4 blue Golem artifact creature with prowess.
+SVar:X:Count$TimesKicked
+A:AB$ PumpAll | Cost$ 6 U | ValidCards$ Creature.Golem+YouCtrl | NumAtt$ +3 | NumDef$ -3 | SpellDescription$ Golems you control get +3/-3 until end of turn.
+Oracle:Kicker {1}{U} and/or {1}{U} (You may pay an additional {1}{U} and/or {1}{U} as you cast this spell.)\nVigilance\nWhen this creature enters, choose X, where X is the amount of times this spell was kicked, then create tokens with the chosen characteristics.\n• 1/4 blue Golem artifact creature with flying.\n• 1/4 blue Golem artifact creature with prowess.\n{6}{U}: Golems you control get +3/-3 until end of turn.

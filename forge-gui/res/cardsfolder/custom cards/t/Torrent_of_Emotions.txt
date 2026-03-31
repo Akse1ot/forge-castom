@@ -1,0 +1,9 @@
+Name:Torrent of Emotions
+ManaCost:1 U R
+Types:Sorcery
+K:Jump-start
+A:SP$ DamageAll | ValidCards$ Creature | NumDmg$ X | SubAbility$ DBShuffle | SpellDescription$ CARDNAME deals damage to target creature equal to the total number of instant and sorcery cards you own in exile and in your graveyard.
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+SVar:DBShuffle:DB$ ChangeZoneAll | ChangeType$ Card.YouOwn | Origin$ Graveyard | Destination$ Library | Shuffle$ True
+DeckHints:Type$Instant|Sorcery
+Oracle:Torrent of Emotions deals damage to each creature equal to the number of instant and sorcery cards in your graveyard. Then shuffle your graveyard into your library.

@@ -1,0 +1,8 @@
+Name:Master Stoneshaper
+ManaCost:3 W
+Types:Creature Human Artificer
+PT:2/4
+K:Renown:1
+T:Mode$ BecomeRenowned | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ DBToken | TriggerDescription$ When CARDNAME becomes renowned, create a 3/3 colorless Golem artifact creature token.
+SVar:DBToken:DB$ Token | TokenAmount$ 1 | TokenScript$ c_3_3_a_golem | TokenOwner$ You
+Oracle:Renown 1 (When this creature deals combat damage to a player, if it isn’t renowned, put a +1/+1 counter on it and it becomes renowned.)\nWhen Master Stoneshaper becomes renowned, create a 3/3 colorless Golem artifact creature token.

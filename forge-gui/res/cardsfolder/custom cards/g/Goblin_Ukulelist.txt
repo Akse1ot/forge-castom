@@ -1,0 +1,10 @@
+Name:Goblin Ukulelist
+ManaCost:R
+Types:Creature Goblin Bard
+PT:1/1
+K:Haste
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigDiscard | TriggerDescription$ Whenever you cast a multicolored spell, you may discard a card. If you do, draw a card.
+SVar:TrigDiscard:DB$ ChangeZone | Origin$ Hand | Destination$ Graveyard | DefinedPlayer$ You | ChangeType$ Card | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ TrigDraw
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True 
+Oracle:Haste\nVirtuoso — Whenever you cast a multicolored spell, you may discard a card. If you do, draw a card.

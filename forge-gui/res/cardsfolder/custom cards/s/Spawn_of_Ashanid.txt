@@ -1,0 +1,6 @@
+Name:Spawn of Ashanid
+ManaCost:4 G
+Types:Creature Spider
+PT:2/6
+K:Reach
+Oracle:Reach

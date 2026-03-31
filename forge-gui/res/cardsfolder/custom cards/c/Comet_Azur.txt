@@ -1,0 +1,8 @@
+Name:Comet Azur
+ManaCost:1 U
+Types:Legendary Instant
+K:Multikicker:1 U
+A:SP$ ChangeZone | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Permanent.nonLand | TgtPrompt$ Select up to X nonland permanents | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBSearch | SpellDescription$ Return up to two target creatures to their owner's hand.
+SVar:X:Count$TimesKicked/Plus.1
+K:Flashback:1 U U U Discard<1/Instant;Sorcery/instant or sorcery card>
+Oracle:(You may cast a legendary instant only if you control a legendary creature or planeswalker.)\n:Multikicker {1}{U} (You may pay an additional {1}{U} any number of times as you cast this spell.)\nReturn up to X target nonland permanents to their owner’s hand, where X is one plus the number of times this spell was kicked.\nFlashback—{1}{U}{U}{U}, Discard an instant or sorcery card.

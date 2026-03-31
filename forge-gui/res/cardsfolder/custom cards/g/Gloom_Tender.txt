@@ -1,0 +1,7 @@
+Name:Gloom Tender
+ManaCost:B G
+Types:Creature Satyr Shaman
+PT:1/1
+A:AB$ Mana | Cost$ T | Produced$ Special EachColorAmong_YourGraveyard | PrecostDesc$ Imaginarium — | SpellDescription$ {T}: For each color among cards in your graveyard, add one mana of that color.
+A:AB$ ChangeZone | Cost$ 2 B G T Sac<1/CARDNAME> | TgtPrompt$ Choose target card in your graveyard | ValidTgts$ Card.YouOwn | Origin$ Graveyard | Destination$ Hand | SpellDescription$ Return target card from your graveyard to your hand.
+Oracle:Imaginarium — {T}: For each color among cards in your graveyard, add one mana of that color.\n{2}{B}{G}, {T}, Sacrifice Gloom Tender: Return target card from your graveyard to your hand.

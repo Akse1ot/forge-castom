@@ -1,0 +1,10 @@
+Name:Moment of Quietude
+ManaCost:G W
+Types:Instant
+R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen | Description$ This spell can't be countered.
+A:SP$ Effect | Duration$ UntilEndOfTurn | StaticAbilities$ SelflessDamage,STCantChange | SubAbility$ DBPumpAll | SpellDescription$ Until end of turn, your life total can't change, and permanents you control gain hexproof and indestructible.
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Permanent.YouCtrl | KW$ Hexproof & Indestructible
+SVar:SelflessDamage:Event$ LifeReduced | ValidPlayer$ You | Layer$ CantHappen
+SVar:STCantChange:Mode$ CantDiscard | ValidPlayer$ You | ValidCause$ SpellAbility.OppCtrl | ForCost$ False 
+Oracle:This spell can’t be countered.\nUntil end of turn, permanents you control gain indestructible and hexproof, you can’t lose life, and spells or abilities your opponents control can’t cause you to discard cards.
+

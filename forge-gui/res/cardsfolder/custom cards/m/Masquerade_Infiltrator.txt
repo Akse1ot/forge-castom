@@ -1,0 +1,7 @@
+Name:Masquerade Infiltrator
+ManaCost:B R
+Types:Creature Human Rogue
+PT:2/2
+A:SP$ DealDamage | Cost$ R Sac<1/CARDNAME> | ValidTgts$ Any | NumDmg$ 2 | SpellDescription$ CARDNAME deals 2 damage to any target.
+A:SP$ Discard | Cost$ B Sac<1/CARDNAME> | SorcerySpeed$ True | ValidTgts$ Opponent | Mode$ TgtChoose | NumCards$ 2 | SpellDescription$ Target opponent discards two cards.
+Oracle:{R}, Sacrifice Masquerade Infiltrator: Masquerade Infiltrator deals 2 damage to any target.\n{B}, Sacrifice Masquerade Infiltrator: Target opponent discards two cards. Activate this ability only any time you could cast a sorcery.

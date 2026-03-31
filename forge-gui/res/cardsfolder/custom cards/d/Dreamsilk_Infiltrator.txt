@@ -1,0 +1,9 @@
+Name:Dreamsilk Infiltrator
+ManaCost:3 U
+Types:Creature Human Rogue
+PT:3/2
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | TriggerZones$ Battlefield | ValidActivatingPlayer$ You | Execute$ DBPump | StackDescription$ {c:Targeted} gains hexproof until end of turn and can’t be blocked this turn. | TriggerDescription$ Whenever you cast a multicolored spell, target creature gains hexproof until end of turn and can’t be blocked this turn.
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | KW$ Hexproof | SubAbility$ DBUnblockable
+SVar:DBUnblockable:DB$ Effect | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered | Description$ This creature can't be blocked this turn.
+Oracle:Virtuoso — Whenever you cast a multicolored spell, target creature gains hexproof until end of turn and can’t be blocked this turn.

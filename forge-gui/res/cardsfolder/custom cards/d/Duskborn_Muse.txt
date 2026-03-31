@@ -1,0 +1,8 @@
+Name:Duskborn Muse
+ManaCost:2 B G
+Types:Creature Spirit
+PT:2/2
+S:Mode$ ReduceCost | EffectZone$ Battlefield | ValidCard$ Creature | Activator$ You | Type$ Spell | OnlyFirstSpell$ True | Amount$ X | EffectZone$ All | Description$ The first creature spell you cast each turn costs {1} less to cast for each creature card in your graveyard.
+SVar:X:Count$ValidGraveyard Creature.YouOwn
+A:AB$ Draw | Cost$ 1 B G Sac<1/Creature> | NumCards$ 1 | SpellDescription$ Draw a card.
+Oracle:The first creature spell you cast each turn costs {1} less to cast for each creature card in your graveyard.\n{1}{B}{G}, Sacrifice a creature: Draw a card.

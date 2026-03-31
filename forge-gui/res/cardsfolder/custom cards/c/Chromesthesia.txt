@@ -1,0 +1,9 @@
+Name:Chromesthesia
+ManaCost:2 G
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | NumAtt$ +3 | NumDef$ +3 | SubAbility$ DBLifelink | SpellDescription$ Target creature you control gets +3/+3 until end of turn. Then if {W} was spent to cast CARDNAME, that creature gains lifelink until end of turn. The same is true for {U} and flying, {B} and deathtouch, and {R} and first strike.
+SVar:DBLifelink:DB$ Pump | KW$ Lifelink | Defined$ ParentTarget | ConditionManaSpent$ W | SubAbility$ DBFlying
+SVar:DBFlying:DB$ Pump | KW$ Flying | Defined$ ParentTarget | ConditionManaSpent$ U | SubAbility$ DBFirstStrike
+SVar:DBFirstStrike:DB$ Pump | KW$ First Strike | Defined$ ParentTarget | ConditionManaSpent$ R | SubAbility$ DBDeathtouch
+SVar:DBDeathtouch:DB$ Pump | KW$ Deathtouch | Defined$ ParentTarget | ConditionManaSpent$ B
+Oracle:Target creature you control gets +3/+3 until end of turn. Then if {W} was spent to cast Chromesthesia, that creature gains lifelink until end of turn. The same is true for {U} and flying, {B} and deathtouch, and {R} and first strike.

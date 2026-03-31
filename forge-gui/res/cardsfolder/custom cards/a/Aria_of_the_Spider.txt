@@ -1,0 +1,6 @@
+Name:Aria of the Spider
+ManaCost:1 G
+Types:Instant
+K:Resonance:3 G
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | NumAtt$ +2 | NumDef$ +2 | KW$ Reach | SpellDescription$ Target creature you control gets +2/+2 and gains hexproof until end of turn.
+Oracle:Target creature you control gets +2/+2 and gains reach until end of turn.\nResonance {3}{G} (If you cast this spell for {3}{G}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell.)

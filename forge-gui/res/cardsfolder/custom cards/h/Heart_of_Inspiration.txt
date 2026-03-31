@@ -1,0 +1,7 @@
+Name:Heart of Inspiration
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ Any | SpellDescription$ Add one mana of any color.
+T:Mode$ TapsForMana | ValidCard$ Card.Self | Activator$ You | Execute$ DBScry | TriggerDescription$ Whenever you tap CARDNAME for mana, each opponent may scry 1.
+SVar:DBScry:DB$ Scry | Defined$ Player.Opponent | Optional$ True | SpellDescription$ Then each opponent may scry 1.
+Oracle:{T}: Add one mana of any color.\nWhenever you tap Heart of Inspiration for mana, each opponent may scry 1.

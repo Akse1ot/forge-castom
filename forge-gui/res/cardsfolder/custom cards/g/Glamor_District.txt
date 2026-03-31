@@ -1,0 +1,8 @@
+Name:Glamor District
+ManaCost:no cost
+Types:Land
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ StayTapped | TriggerDescription$ When CARDNAME enters, it doesn’t untap during your next untap step.
+SVar:StayTapped:DB$ Effect | ReplacementEffects$ DontUntap | RememberObjects$ Self | ExileOnMoved$ Battlefield | Duration$ UntilTheEndOfYourNextUntap
+SVar:DontUntap:Event$ Untap | ValidCard$ Card.IsRemembered | ValidStepTurnToController$ Player.Activator | Layer$ CantHappen | Description$ EFFECTSOURCE doesn't untap during your next untap step.
+A:AB$ Mana | Cost$ T | Produced$ Combo W B | SpellDescription$ Add {W} or {B}.
+Oracle:When Nightmarish Morass enters the battlefield, it doesn’t untap during your next untap step.\n{T}: Add {W} or {B}.

@@ -1,0 +1,10 @@
+Name:Godwyn Prince of Death
+ManaCost:4 B B B
+Types:Legendary Creature Demigod Zombie
+PT:9/9
+K:Indestructible
+S:Mode$ CantAttack,CantBlock | ValidCard$ Card.Self | IsPresent$ Skeleton.Other+YouCtrl,Zombie.Other+YouCtrl,Spirit.Other+YouCtrl | PresentCompare$ LT3 | Description$ CARDNAME can't attack or block unless you control three or more other Skeletons, Zombies, and/or Spirits.
+T:Mode$ ChangesZone | ValidCard$ Creature.Other | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigReturn | TriggerDescription$ Whenever another creature dies, return it to the battlefield tapped under your control with a finality counter on it. It becomes a Skeleton Spirit in addition to its other types.
+SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Battlefield | Tapped$ True | WithCountersType$ FINALITY | GainControl$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ TriggeredCard | Types$ Skeleton,Spirit | Duration$ Permanent
+Oracle:Indestructible\nThis creature can’t attack or block unless you control three or more other Skeletons, Zombies, and/or Spirits.\nWhenever another creature dies, return it to the battlefield tapped under your control with a finality counter on it. It becomes a Skeleton Spirit in addition to its other types.

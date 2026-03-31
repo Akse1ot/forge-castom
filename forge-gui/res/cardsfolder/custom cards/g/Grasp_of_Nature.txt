@@ -1,0 +1,6 @@
+Name:Grasp of Nature
+ManaCost:1 B G
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Creature | SubAbility$ DBSearch | SpellDescription$ Destroy target creature. Destroy target creature. Search your library for a Forest card, reveal it, and put it into your hand. Then shuffle your library.
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Forest.Basic 
+Oracle:Destroy target creature. Search your library for a Forest card, reveal it, and put it into your hand. Then shuffle your library.

@@ -1,0 +1,6 @@
+Name:Chromaborn Muse
+ManaCost:1 R G
+Types:Creature Spirit
+PT:2/2
+A:AB$ Mana | Cost$ ExileFromHand<1/Card.Land> | CostDesc$ Exile a land card from your hand: | Produced$ Combo Any | Amount$ 3 | ActivationLimit$ 1 | SpellDescription$ Add three mana in any combination of colors.
+Oracle:Exile a land card from your hand: Add three mana in any combination of colors. Activate this ability only once each turn.

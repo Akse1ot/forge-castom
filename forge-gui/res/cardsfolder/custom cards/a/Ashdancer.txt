@@ -1,0 +1,12 @@
+Name:Ashdancer
+ManaCost:1 B R
+Types:Creature Human Wizard
+PT:3/1
+S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ 0 | Description$ Your maximum hand size is 0.
+S:Mode$ CantDraw | ValidPlayer$ You | Description$ You can’t draw cards.
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | ValidPlayer$ You | Execute$ TrigExile | TriggerDescription$ At the beginning of your upkeep, exile the top three cards of your library. Until end of turn, you may play those cards.
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffectYou
+SVar:DBEffectYou:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ForgetOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | SubAbility$ DBCleanup | Description$ You may play the exiled cards this turn.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Your maximum hand size is 0.\nYou can’t draw cards.\nAt the beginning of your upkeep, exile the top three cards of your library. Until end of turn, you may play those cards.

@@ -1,0 +1,11 @@
+Name:Tranceborn Muse
+ManaCost:2 G U
+Types:Creature Spirit
+PT:2/2
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig | TriggerDescription$ Revolt — At the beginning of your end step, if a permanent you controlled left the battlefield this turn, reveal the top card of your library. If it's a permanent card, you may put it onto the battlefield. Otherwise, you may put it on the bottom of your library.
+SVar:TrigDig:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ 1 | DestinationZone$ Library | LibraryPosition$ 0 |  RememberRevealed$ True | SubAbility$ DBToken,DBLand,DBDraw,DBCleanup
+SVar:DBToken:DB$ Token | ConditionDefined$ Remembered | ConditionPresent$ Creature | TokenScript$ g_2_2_wolf | TokenAmount$ 1 | TokenOwner$ You
+SVar:DBLand:DB$ Mana | Produced$ Any | Amount$ 2 | ConditionDefined$ Self | ConditionDefined$ Remembered | ConditionPresent$ Land
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card.nonCreature+nonLand 
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:At the beginning of your precombat main phase, reveal the top card of your library. If it’s a creature card, create a 2/2 green Wolf creature token. If it’s a land card, add two mana in any combination of colors. If it’s a noncreature, nonland card, draw a card.

@@ -1,0 +1,8 @@
+Name:The Erdtree
+ManaCost:no cost
+Types:Legendary Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated | Description$ CARDNAME enters tapped unless you control a legendary creature.
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Creature.Legendary+YouCtrl | ConditionCompare$ EQ0
+A:AB$ Mana | Cost$ T | Produced$ G | SpellDescription$ Add {G}.
+A:AB$ ChangeZone | Cost$ 4 G G T | Origin$ Graveyard | Destination$ Hand | TgtPrompt$ Select target creature or enchantment card in your graveyard | ValidTgts$ Creature.YouCtrl,Enchantment.YouCtrl | SpellDescription$ Return target creature or enchantment card from your graveyard to your hand.
+Oracle:The Erdtree enters tapped unless you control a legendary creature.\n{T}: Add {G}.\n{4}{G}{G}, {T}: Return target creature or enchantment card from your graveyard to your hand.

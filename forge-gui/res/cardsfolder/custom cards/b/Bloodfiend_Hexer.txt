@@ -1,0 +1,10 @@
+Name:Bloodfiend Hexer
+ManaCost:3 B
+Types:Creature Demon Warlock
+PT:2/4
+K:Lifelink
+K:Madness:1 B B Sac<1/Blood.token;Creature/creature or a Blood token>
+A:AB$ LoseLife | Cost$ B T | ValidTgts$ Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife | SpellDescription$ Target opponent loses 1 life and you gain 1 life. Create a Blood token.
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_blood_draw
+Oracle:Lifelink\n{B},{T}: Target opponent loses 1 life and you gain 1 life. Create a Blood token. (It’s an artifact with “{1}, {T}, Discard a card, Sacrifice this artifact: Draw a card.”)\nMadness—{1}{B}{B}, Sacrifice a creature or a Blood token.

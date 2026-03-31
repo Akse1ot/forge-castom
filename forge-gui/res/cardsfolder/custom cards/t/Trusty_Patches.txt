@@ -1,0 +1,12 @@
+Name:Trusty Patches
+ManaCost:2 B B
+Types:Legendary Planeswalker Patches
+Loyalty:4
+T:Mode$ Sacrificed | ValidCard$ Creature | Execute$ TrigToken | TriggerZones$ Battlefield | TriggerDescription$ Whenever a player sacrifices a creature create a Rune token.
+T:Mode$ Discarded | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever a player discards a card, create a Rune token.
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac | TokenOwner$ You
+A:AB$ Discard | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumCards$ 1 | Mode$ TgtChoose | Defined$ Player | SpellDescription$ Each player discards a card.
+A:AB$ Sacrifice | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ Player | SacValid$ Creature | SpellDescription$ Each player sacrifices a creature.
+A:AB$ Draw | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | ValidTgts$ Opponent | NumCards$ X | SpellDescription$ Draw a card for each nonland card in target opponent's graveyard.
+SVar:X:PlayerCountDefinedTargeted$ValidGraveyard Card.nonLand
+Oracle:Whenever a player sacrifices a creature or discards a card, create a Rune token.\n[+1]: Each player discards a card.\n[+1]: Each player sacrifices a creature.\n[-8]: Draw a card for each nonland card in target opponent’s graveyard.

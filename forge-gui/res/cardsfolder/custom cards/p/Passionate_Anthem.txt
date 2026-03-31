@@ -1,0 +1,7 @@
+Name:Passionate Anthem
+ManaCost:1 R R
+Types:Sorcery
+K:Resonance:3 R R
+A:SP$ Untap | ValidTgts$ Creature | TgtPrompt$ Select target creature | SubAbility$ DBControl | SpellDescription$ Untap target creature and gain control of it until end of turn. That creature gains haste until end of turn.
+SVar:DBControl:DB$ GainControl | Defined$ Targeted | LoseControl$ EOT | AddKWs$ Haste
+Oracle:Untap target creature and gain control of it until end of turn. It gains haste until end of turn.\nResonance {3}{R}{R} (If you cast this spell for {3}{R}{R}, exile it as it resolves. As you cast your next instant or sorcery spell, put this card into your graveyard and you may add its effects and colors to that spell.)

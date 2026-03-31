@@ -1,0 +1,6 @@
+Name:Refute AENR
+ManaCost:1 U
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | TgtPrompt$ Select target spell | ValidTgts$ Card | UnlessCost$ X | SpellDescription$ Counter target spell unless its controller pays {1} for each color among cards in your graveyard.
+SVar:X:Count$ColorsInYourYard
+Oracle:Imaginarium — Counter target spell unless its controller pays {1} for each color among cards in your graveyard.

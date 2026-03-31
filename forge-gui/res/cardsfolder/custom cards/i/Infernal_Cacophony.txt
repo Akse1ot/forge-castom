@@ -1,0 +1,8 @@
+Name:Infernal Cacophony
+ManaCost:5 B R
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile | TriggerDescription$ At the beginning of your end step, exile target card from a graveyard.
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | TargetMin$ 1 | TargetMax$ 1 | TgtPrompt$ Select target card from a graveyard | RememberChanged$ True | SubAbility$ DBTokenIfCreature
+SVar:DBTokenIfCreature:DB$ Token | TokenScript$ b_3_3_nightmare | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ GE1 | SubAbility$ DBDmgIfNonCreature | SpellDescription$ If you exiled a creature card this way, create a 3/3 black Nightmare creature token.
+SVar:DBDmgIfNonCreature:DB$ DealDamage | ValidTgts$ Any | TgtPrompt$ Select any target | NumDmg$ 3 | ConditionDefined$ Remembered | ConditionPresent$ Creature | ConditionCompare$ EQ0 | SpellDescription$ If you exiled a noncreature card this way, CARDNAME deals 3 damage to any target.
+Oracle:At the beginning of your end step, exile target card from a graveyard. If you exiled a creature card this way, create a 3/3 black Nightmare creature token. If you exiled a noncreature card this way, Infernal Cacophony deals 3 damage to any target.

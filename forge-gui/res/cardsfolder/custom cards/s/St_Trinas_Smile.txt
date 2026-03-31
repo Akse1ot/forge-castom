@@ -1,0 +1,8 @@
+Name:St Trinas Smile
+ManaCost:2 U U
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap | TriggerDescription$ When CARDNAME enters, tap all creatures target player controls.
+SVar:TrigTap:DB$ TapAll | ValidTgts$ Player | ValidCards$ Creature
+T:Mode$ Taps | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ Whenever a creature an opponent controls becomes tapped, put a stun counter on that creature unless its controller pays {1}.
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredCard  | CounterType$ Stun | CounterNum$ 1 | UnlessCost$ 1 | UnlessPayer$ TriggeredActivator
+Oracle:When this enchantment enters, tap all creatures target player controls.\nWhenever a creature an opponent controls becomes tapped, put a stun counter on that creature unless its controller pays {1}.

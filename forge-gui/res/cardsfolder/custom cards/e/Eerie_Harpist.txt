@@ -1,0 +1,15 @@
+Name:Eerie Harpist
+ManaCost:W
+Types:Creature Spirit Bard
+PT:1/1
+K:Lifelink
+T:Mode$ SpellCast | ValidCard$ Card.MultiColor | TriggerZones$ Battlefield | ValidActivatingPlayer$ You | Execute$ DBPump | TriggerDescription$ Whenever you cast a multicolored spell, target creature gets +2/+2 until end of turn.
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ 2 | NumDef$ 2
+DeckHas:Ability$Pump
+DeckHas:Ability$SpellCast
+DeckHas:Type$Creature
+DeckHas:Tribe$Spirit
+DeckHas:Keyword$Lifelink
+DeckHas:Type$Multicolored
+DeckHints:Type$Multicolored
+Oracle:Lifelink\nVirtuoso — Whenever you cast a multicolored spell, target creature gets +2/+2 until end of turn.

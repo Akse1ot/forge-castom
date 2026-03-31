@@ -1,0 +1,8 @@
+Name:Fearless Feline
+ManaCost:1 G W
+Types:Creature Cat
+PT:2/2
+K:Flash
+K:etbCounter:P1P1:X:no Condition:NICKNAME enters with a number of +1/+1 counters on it equal to the amount of life you’ve gained this turn.
+SVar:X:Count$LifeYouGainedThisTurn
+Oracle:Flash\nFearless Feline enters the battlefield with an amount of +1/+1 counters on it equal to the amount of life you’ve gained this turn.
