@@ -1,0 +1,9 @@
+Name:Leonine Misbegotten
+ManaCost:1 R
+Types:Creature Human Soldier
+PT:2/1
+K:Trample
+T:Mode$ Attacks | CheckSVar$ X | SVarCompare$ GE2 | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ Whenever CARDNAME attacks, , if it’s modified in two or more different ways, create that many tapped and attacking 1/1 red and green Misbegotten creature token with “This creature can’t attack or block unless you control a nontoken creature.” (Equipment, Auras you control, and counters are modifications.)
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScript$ rg_1_1_Misbegotten | TokenOwner$ You | TokenTapped$ True | TokenAttacking$ True
+SVar:X:Count$ModifiedWays
+Oracle:Trample\nWhenever this creature attacks, if it’s modified in two or more different ways, create that many tapped and attacking 1/1 red and green Misbegotten creature token with “This creature can’t attack or block unless you control a nontoken creature.” (Equipment, Auras you control, and counters are modifications.)

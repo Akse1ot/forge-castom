@@ -1,0 +1,7 @@
+Name:Misbegotten Token
+ManaCost:no cost
+Colors:red,green
+Types:Creature Misbegotten
+PT:1/1
+S:Mode$ CantAttack,CantBlock | ValidCard$ Card.Self | IsPresent$ Creature.!token+YouCtrl | PresentCompare$ EQ0 | Description$ CARDNAME can't attack or block unless a nontoken creature.
+Oracle:This creature can’t attack or block unless you control a nontoken creature.

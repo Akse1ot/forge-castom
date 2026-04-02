@@ -1,0 +1,13 @@
+Name:Redmane Freyja
+ManaCost:2 R
+Types:Legendary Creature Human Soldier
+PT:3/2
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X | Description$ This creature gets +1/+1 for each different way it is modified.
+SVar:X:Count$ModifiedWays
+S:Mode$ Continuous | Affected$ Card.Self+equipped | AddKeyword$ First Strike | Description$ As long as CARDNAME is equipped, it has first strike.
+SVar:EquipMe:Once
+S:Mode$ Continuous | Affected$ Card.Self+enchanted | AddKeyword$ Trample | Description$ As long as CARDNAME is enchanted, it has trample.
+SVar:EnchantMe:Once
+S:Mode$ ReduceCost | ValidCard$ Card | ValidSpell$ Activated.Equip | Activator$ You | Amount$ 1 | Description$ Equip abilities you activate cost {1} less to activate.
+Oracle:This creature gets +1/+1 for each different way it is modified.\nAs long as this creature is equipped, it has first strike.\nAs long as this creature is enchanted, it has trample.\nEquip abilities you activate cost {1} less to activate.
+

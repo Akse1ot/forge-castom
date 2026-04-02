@@ -1,0 +1,13 @@
+Name:Furnace Golem
+ManaCost:4 R R
+Types:Artifact Creature Golem
+PT:6/5
+K:Trample
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDestroy | TriggerDescription$ When CARDNAME enters, ravage up to one target nonbasic land.
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Land.nonBasic | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Choose target land. | RememberLKI$ True | SubAbility$ DBToken | SpellDescription$ Ravage target land. (Destroy that land. When you do, if its controller doesn’t control the most lands, that player creates a tapped Wastes token.)
+SVar:DBToken:DB$ Token | ConditionDefined$ RememberedLKI | ConditionPresent$ Card | ConditionCompare$ GE1 | ConditionCheckSVar$ CtrlLands | ConditionSVarCompare$ LTMostLands | TokenScript$ c_Wastes | TokenAmount$ 1 | TokenTapped$ True | TokenOwner$ TargetedController | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:CtrlLands:TargetedController$Valid Land.YouCtrl
+SVar:MostLands:PlayerCountPlayers$HighestValid Land.YouCtrl
+K:TypeCycling:Mountain:2
+Oracle:Trample\nWhen this creature enters, ravage up to one target nonbasic land.(Destroy that land. When you do, if its controller doesn’t control the most lands, that player creates a tapped Ruins token.)\nMountaincycling {2} ({2}, Discard this card: Search your library for a Mountain card, reveal it, put it into your hand, then shuffle.)

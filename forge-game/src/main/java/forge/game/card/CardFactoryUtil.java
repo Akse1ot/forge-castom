@@ -3262,8 +3262,9 @@ public class CardFactoryUtil {
             newSA.setAlternativeCost(AlternativeCost.Overload);
             inst.addSpellAbility(newSA);
         } else if (keyword.startsWith("Spirit Ash")) {
-            final String[] kw = keyword.split(":", 2);
+            final String[] kw = keyword.split(":", 3);
             final String costStr = kw.length > 1 ? kw[1].trim() : "";
+            final String extra = kw.length > 2 && !kw[2].trim().isEmpty() ? " | " + kw[2].trim() : "";
 
             final String effect =
                     "AB$ CopyPermanent | Cost$ " + costStr + " ExileFromGrave<1/CARDNAME> " +
@@ -3271,7 +3272,8 @@ public class CardFactoryUtil {
                             "| RemoveCost$ True | AddTypes$ Enchantment Spirit" +
                             "| PrecostDesc$ Spirit Ash | CostDesc$ " + costStr + " | Defined$ Self " +
                             "| StackDescription$ Spirit Ash - CARDNAME " +
-                            "| SpellDescription$ (" + inst.getReminderText() + ")";
+                            "| SpellDescription$ (" + inst.getReminderText() + ")" +
+                            extra;
 
             final SpellAbility sa = AbilityFactory.getAbility(effect, card);
             sa.setIntrinsic(intrinsic);

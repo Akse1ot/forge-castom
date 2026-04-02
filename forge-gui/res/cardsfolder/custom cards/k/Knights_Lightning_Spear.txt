@@ -1,0 +1,9 @@
+Name:Knights Lightning Spear
+ManaCost:2 R
+Types:Instant
+K:Multikicker:R
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 4 | SubAbility$ MoreDamage | SpellDescription$ CARDNAME deals 4 damage to any target.
+SVar:MoreDamage:DB$ DealDamage | ValidTgts$ Any | TargetMin$ TargetsNum | TargetMax$ TargetsNum | TgtPrompt$ Select up to two other targets | TargetUnique$ True | NumDmg$ 2 | SubAbility$ DBDamageResolve
+SVar:DBDamageResolve:DB$ DamageResolve
+SVar:TargetsNum:Count$TimesKicked
+Oracle:Multikicker {R} (You may pay an additional {R} any number of times as you cast this spell.)\nKnight’s Lightning Spear deals 4 damage to any target. It deals 2 damage to a number of other targets equal to the amount of times this spell was kicked.

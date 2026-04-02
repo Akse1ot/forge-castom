@@ -1,0 +1,9 @@
+Name:Grave Warden Duelist
+ManaCost:2 B
+Types:Creature Human Warrior
+PT:3/2
+K:Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTargetAuraEquip | TriggerDescription$ When CARDNAME enters, you may attach target Aura or Equipment you control to it.
+SVar:TrigTargetAuraEquip:DB$ Pump | ValidTgts$ Equipment.YouCtrl,Aura.YouCtrl | TgtPrompt$ Select target Aura or Equipment attached to a creature you control | SubAbility$ DBAttach | StackDescription$ None
+SVar:DBAttach:DB$ Attach | Object$ ParentTarget | ValidTgts$ Card.Self
+Oracle:Reach\nWhen this creature enters, you may attach target Aura or Equipment you control to it.

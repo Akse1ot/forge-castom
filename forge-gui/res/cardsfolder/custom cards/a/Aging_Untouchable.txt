@@ -5,6 +5,6 @@ PT:3/4
 K:Ward:Discard<1/Card>
 K:Menace
 T:Mode$ DiscardedAll | ValidPlayer$ Player | ValidCard$ Card | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever a player discards one or more cards, you may pay {B} and 1 life. If you do, draw a card.
-SVar:TrigDraw:DB$ Draw | Cost$ B PayLife<1>
+SVar:TrigDraw:AB$ Draw | Cost$ B PayLife<1>
 K:Madness:1 B B PayLife<2>
 Oracle:Ward—Discard a card.\nMenace\nWhenever a player discards one or more cards, you may pay {B} and 1 life. If you do, draw a card.\nMadness—{1}{B} {B} , Pay 2 life.(If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

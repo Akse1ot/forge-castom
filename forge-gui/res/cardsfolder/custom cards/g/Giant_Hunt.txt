@@ -1,0 +1,9 @@
+Name:Giant Hunt
+ManaCost:2 R
+Types:Enchantment Aura
+K:Kicker:2 R
+K:Ash of War
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigDealDamage | TriggerDescription$ When CARDNAME enters, if it was kicked, it deals 6 damage to up to one target creature.
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature | TgtPrompt$ Select up to one target creature | TargetMin$ 0 | TargetMax$ 1 | NumDmg$ 6
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 3 | Description$ Enchanted creature gets +2/+0.
+Oracle:Ash of War\nKicker {R}2{R} (You may pay an additional {R}2{R} as you cast this spell.)\nWhen this enchantment enters, if it was kicked, it deals 6 damage to up to one target creature.\nEnchanted creature gets +3/+0.

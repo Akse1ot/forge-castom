@@ -1,0 +1,9 @@
+Name:Mad pumpkin Head
+ManaCost:3 R
+Types:Creature Giant Berserker
+PT:4/3
+K:Menace
+K:Madness:2 R
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigToken | CombatDamage$ True | OptionalDecider$ You | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, create a Blood Token. (It’s an artifact with “{1}, {T}, Discard a card, Sacrifice this artifact: Draw a card.”)
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_blood_draw
+Oracle:Menace\nWhenever this creature deals combat damage to a player, create a Blood Token. (It’s an artifact with “{1}, {T}, Discard a card, Sacrifice this artifact: Draw a card.”)\nMadness {2}{R} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

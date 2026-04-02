@@ -1,0 +1,8 @@
+Name:Rivers of Blood
+ManaCost:1 R
+Types:Legendary Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 1 | AddTrigger$ TrigDamageDone | Description$ Equipped creature gets +2/+1 and has "Whenever this creature deals combat damage to a player, create a Blood token."
+SVar:TrigDamageDone:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Planeswalker | CombatDamage$ True | Execute$ TrigToken | TriggerZones$ Battlefield | TriggerDescription$ Whenever this creature deals combat damage to a player, create a Blood token.
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_blood_draw | TokenOwner$ You
+Oracle:Equipped creature gets +2/+1 and has trample and "Whenever this creature deals combat damage to a player, create a Blood token."\nEquip {2}

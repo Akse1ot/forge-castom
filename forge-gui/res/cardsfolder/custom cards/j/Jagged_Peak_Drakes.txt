@@ -1,0 +1,8 @@
+Name:Jagged Peak Drakes
+ManaCost:4 R
+Types:Creature Dragon
+PT:3/3
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMana | TriggerDescription$ Whenever CARDNAME attacks, add {R}. Until end of turn, you don't lose this mana as steps and phases end.
+SVar:TrigMana:DB$ Mana | Produced$ R R | PersistentMana$ True
+Oracle:Flying\nWhenever this creature attacks, add {R}{R}. Until end of turn, you don't lose this mana as steps and phases end.
