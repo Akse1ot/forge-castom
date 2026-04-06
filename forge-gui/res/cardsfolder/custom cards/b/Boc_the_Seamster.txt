@@ -1,0 +1,7 @@
+Name:Boc the Seamster
+ManaCost:G
+Types:Legendary Creature Demi-Human
+PT:1/1
+T:Mode$ ChangesZone | ValidCard$ Creature.Other+Legendary+YouCtrl,Planeswalker.YouCtrl | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever CARDNAME or another legendary creature you control enters, create a Rune token. (It’s an artifact with “{T}, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac
+Oracle:Whenever another legendary creature or planeswalker you control enters, create a Rune token. (It’s an artifact with “{T}, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)

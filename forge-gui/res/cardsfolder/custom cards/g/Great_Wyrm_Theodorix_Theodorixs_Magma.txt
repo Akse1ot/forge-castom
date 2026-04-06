@@ -19,7 +19,7 @@ K:Enchant:Creature,Planeswalker:creature or Planeswalker
 SVar:AttachAILogic:Pump
 S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Haste | AddType$ Dragon | Description$ Enchanted permanent has haste and is a Dragon in addition to its other types.
 S:Mode$ Continuous | Affected$ Planeswalker.EnchantedBy | AddAbility$ Plus | Description$ Enchanted planeswalker has "[+1]: This permanent deals 1 damage to any target"
-SVar:Plus:AB$ DealDamage| Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Any | NumDmg$ 1 | SpellDescription$ This permanent deals 1 damage to any target
+SVar:Plus:AB$ DealDamage | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Any | NumDmg$ 1 | SpellDescription$ This permanent deals 1 damage to any target
 S:Mode$ Continuous | Affected$ Planeswalker.EnchantedBy | AddAbility$ Ult | Description$ Enchanted planeswalker has “ [-3]: This permanent deals 2 damage to each creature your opponents control.”
 SVar:Ult:AB$ DamageAll | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidCards$ Creature.OppCtrl | NumDmg$ 2 | SpellDescription$ This permanent deals 2 damage to each creature your opponents control.
-Oracle:Enchant creature or planeswalker.\nEnchanted permanent has haste and is a Dragon in addition to its other types.\nEnchanted permanent has “ [+1]: This permanent deals 1 damage to any target” and “ [-3]: This permanent deals 2 damage to each creature your opponents control.”
+Oracle:Enchant creature or planeswalker.\nEnchanted permanent has haste and is a Dragon in addition to its other types.\nEnchanted permanent has “[+1]: This permanent deals 1 damage to any target” and “[-3]: This permanent deals 2 damage to each creature your opponents control.”

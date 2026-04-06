@@ -31,6 +31,9 @@ import forge.game.card.Card;
 import forge.game.card.CardCollection;
 import forge.game.card.CardLists;
 import forge.game.card.CardUtil;
+import forge.game.cost.Cost;
+import forge.game.cost.CostPart;
+import forge.game.cost.CostTap;
 import forge.game.mana.Mana;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
@@ -124,6 +127,36 @@ public class TriggerSpellAbilityCastOrCopy extends Trigger {
         }
         if (!matchesValidParam("ValidSAonCard", spellAbility, cast)) {
             return false;
+        }
+
+        if (hasParam("CostCheck")) {
+            final String costCheck = getParam("CostCheck");
+
+            if (!spellAbility.isActivatedAbility()) {
+                return false;
+            }
+
+            final Cost payCosts = spellAbility.getPayCosts();
+            if (payCosts == null) {
+                return false;
+            }
+
+            final List<CostPart> parts = payCosts.getCostParts();
+
+            if ("NotTapOnly".equalsIgnoreCase(costCheck)) {
+                if (parts.isEmpty()) {
+                    return false;
+                }
+                if (parts.size() == 1 && parts.get(0) instanceof CostTap) {
+                    return false;
+                }
+            } else if ("TapOnly".equalsIgnoreCase(costCheck)) {
+                if (parts.size() != 1 || !(parts.get(0) instanceof CostTap)) {
+                    return false;
+                }
+            } else {
+                throw new RuntimeException("Unknown CostCheck value in trigger: " + costCheck);
+            }
         }
 
         if (hasParam("TargetsValid")) {

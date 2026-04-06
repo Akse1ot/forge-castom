@@ -1,0 +1,10 @@
+Name:Golden Hippopotamus
+ManaCost:4 G
+Types:Enchantment Creature Hippopotamus
+PT:4/4
+K:Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerDescription$ When this creature enters, ABILITY
+SVar:TrigCharm:DB$ Charm | Choices$ DBDestroy,DBToken
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment | TgtPrompt$ Select target artifact or enchantment | SpellDescription$ Destroy target artifact or enchantment.
+SVar:DBToken:DB$ Token | TokenScript$ c_a_Rune_sac | SpellDescription$ Create a Rune token. (It’s an artifact with “{T}, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)
+Oracle:Reach\nWhen this creature enters, choose one —\n• Destroy target artifact or enchantment.\n• Create a Rune token. (It’s an artifact with “{T}, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)

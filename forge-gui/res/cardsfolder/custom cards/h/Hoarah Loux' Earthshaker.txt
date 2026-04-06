@@ -1,0 +1,9 @@
+Name:Hoarah Loux' Earthshaker
+ManaCost:2 G
+Types:Enchantment Aura
+K:Ash of War
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigReturn | TriggerDescription$ When CARDNAME enters, you may return target permanent card from your graveyard to your hand.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Permanent.YouOwn | TgtPrompt$ Select target permanent card in your graveyard
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddStaticAbility$ CantBlock | Description$ Enchanted creature gets +2/+1 and has “This creature can’t be blocked by more than one creature.”
+SVar:CantBlock:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLE2 | Description$ CARDNAME can't be blocked by creatures with power 2 or less.
+Oracle:Ash of War (This Aura can enchant creatures or Equipment. If it enchants an Equipment, creatures equipped with that Equipment are treated as if they were enchanted by this Aura.)\nWhen this enchantment enters, you may return target permanent card from your graveyard to your hand.\nEnchanted creature gets +2/+2 and has “This creature can’t be blocked by creatures with power 2 or less.”

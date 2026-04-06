@@ -1,0 +1,11 @@
+Name:Fingercreeper
+ManaCost:X G
+Types:Creature Fungus
+PT:0/0
+K:etbCounter:P1P1:X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DBGainLife | TriggerDescription$ When CARDNAME enters, you gain life equal to its power.
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ Y
+SVar:Y:Count$CardPower
+K:SpiritAsh:X X G:WithCountersType$ P1P1:WithCountersAmount$ X
+SVar:X:Count$xPaid
+Oracle:This creature enters with X +1/+1 counters on it.\nWhen this creature enters, you gain life equal to its power.\nSpirit Ash {X}{X}{G}. The token enters with X +1/+1 counters on it.

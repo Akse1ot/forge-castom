@@ -1,0 +1,10 @@
+Name:Full-Grown Fallingstar Beast
+ManaCost:5 G
+Types:Creature Insect Beast
+PT:6/6
+K:Trample
+R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen | Description$ This spell can't be countered.
+S:Mode$ MinMaxBlocker | ValidCard$ Card.Self | Max$ 1 | Description$ CARDNAME can't be blocked by more than one creature.
+T:Mode$ Attacks | ValidCard$ Creature.withFlying | Execute$ TrigDebuff | TriggerZones$ Battlefield | TriggerDescription$ Whenever a creature with flying attacks, it loses flying until end of turn.
+SVar:TrigDebuff:DB$ Debuff | Defined$ TriggeredAttackerLKICopy | Keywords$ Flying
+Oracle:This spell can’t be countered.\nTrample\nThis creature can’t be blocked by more than one creature.\nWhenever a creature with flying attacks, it loses flying until end of turn.

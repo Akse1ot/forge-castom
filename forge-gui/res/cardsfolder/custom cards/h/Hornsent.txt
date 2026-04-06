@@ -1,0 +1,9 @@
+Name:Hornsent
+ManaCost:2 G
+Types:Legendary Creature Hornsent Warrior
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever an enchantment you control enters, create a Rune token.
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Enchantment.YouCtrl,Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigFight | TriggerDescription$ Whenever a land or enchantment you control is put into a graveyard from the battlefield, this creature fights up to one target creature.
+SVar:TrigFight:DB$ Fight | Defined$ Self | ValidTgts$ Creature.YouDontCtrl | TgtPrompt$ Choose up to one target creature you don't control | TargetMin$ 0 | TargetMax$ 1
+Oracle:Whenever an enchantment you control enters, create a Rune token.\nWhenever a land or enchantment you control is put into a graveyard from the battlefield, this creature fights up to one target creature.

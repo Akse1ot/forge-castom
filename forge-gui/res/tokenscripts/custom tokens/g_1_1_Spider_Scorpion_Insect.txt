@@ -1,0 +1,6 @@
+Name:Spider Scorpion Insect Token
+ManaCost:no cost
+Colors:green
+Types:Creature Spider Scorpion Insect
+PT:1/1
+Oracle:

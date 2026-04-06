@@ -1,0 +1,8 @@
+Name:Kindred of Rots Exultation
+ManaCost:2 G G
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Insect.YouCtrl | AddAbility$ AnyMana | Description$
+SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1 | SpellDescription$ Add one mana of any color.
+T:Mode$ AbilityCast | ValidActivatingPlayer$ Player | ValidSA$ Activated.ManaAbility | CostCheck$ NotTapOnly | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever a player activates a mana ability, if a cost other than “{T}” was paid to activate that ability, gain 1 life and create a 1/1 green Insect creature token.
+SVar:TrigToken:DB$ Token | TokenScript$ g_1_1_insect
+Oracle:Insects you control have “{T}: Add one mana of any color.”\nWhenever a player activates a mana ability, if a cost other than “{T}” was paid to activate that ability, gain 1 life and create a 1/1 green Insect creature token.

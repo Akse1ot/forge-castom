@@ -1,0 +1,7 @@
+Name:Grafted Scion
+ManaCost:3 G
+Types:Creature Spider Horror Noble
+PT:0/0
+K:Graft:4
+K:Vigilance
+Oracle:Graft 4 (This creature enters with four +1/+1 counters on it. Whenever another creature enters, you may move a +1/+1 counter from this creature onto it.)\nVigilance

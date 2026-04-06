@@ -1,0 +1,12 @@
+Name:Tanith of the Volcano Manor
+ManaCost:1 R R
+Types:Legendary Creature Human Noble
+PT:0/2
+K:Defender
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield |  ValidPlayer$ You | Execute$ TrigToken | TriggerDescription$ At the beginning of combat on your turn, create a 2/1 red Warrior creature token.
+SVar:TrigToken:DB$ Token | TokenScript$ r_2_1_Warrior
+S:Mode$ Continuous | Affected$ Creature.token+YouCtrl | AddKeyword$ Haste | Description$ Creature tokens you control have haste.
+SVar:PlayMain1:TRUE
+A:AB$ Pump | Cost$ 5 R R T  | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Choose target creature you control | AILogic$ Fight | SpellDescription$ Target creature you control fights target creature you don't control. | SubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl | TgtPrompt$ Select target creature you don't control
+Oracle:Defender\nAt the beginning of combat on your turn, create a 2/1 red Warrior creature token.\nCreature tokens you control have haste.\n{5}{R}{R},{T} Target creature you control fights target creature you don't control.

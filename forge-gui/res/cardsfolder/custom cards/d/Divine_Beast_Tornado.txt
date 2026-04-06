@@ -1,0 +1,10 @@
+Name:Divine Beast Tornado
+ManaCost:3 G
+Types:Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ Count$Compare Y GE2.4.1 | Choices$ DBExileArtifact,DBExileEnchantment,DBExileFlying,DBRunes | AdditionalDescription$ Choose one. If you control two or more enchantments as you cast this spell, choose one or more instead.
+SVar:DBExileArtifact:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Artifact | TgtPrompt$ Select target artifact | SpellDescription$ Exile target artifact.
+SVar:DBExileEnchantment:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Enchantment | TgtPrompt$ Select target enchantment | SpellDescription$ Exile target enchantment.
+SVar:DBExileFlying:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.withFlying | TgtPrompt$ Select target creature with flying | SpellDescription$ Exile target creature with flying.
+SVar:DBRunes:DB$ Token | TokenAmount$ 2 | TokenScript$ c_a_Rune_sac | SpellDescription$ Create two Rune tokens.
+SVar:Y:Count$Valid Enchantment.YouCtrl
+Oracle:Choose one. If you control two or more enchantments as you cast this spell, choose one or more instead.\n• Exile target artifact.\n• Exile target enchantment.\n• Exile target creature with flying.\n• Create two Rune tokens.

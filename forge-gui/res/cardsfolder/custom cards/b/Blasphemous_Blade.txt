@@ -1,0 +1,10 @@
+Name:Blasphemous Blade
+ManaCost:1 G
+Types:Legendary Artifact Equipment
+K:Equip:1 G
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ X | AddToughness$ X | Description$ Equipped creature gets +X/+X, where X is the number of creatures you control plus the number of creature cards in your graveyard.
+SVar:X:Count$Valid Creature.YouCtrl/Plus.Y
+SVar:Y:Count$ValidGraveyard Creature.YouOwn
+T:Mode$ DamageDone | ValidSource$ Creature.AttachedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken | TriggerZones$ Battlefield | TriggerDescription$ Whenever equipped creature deals combat damage to a player, draw two cards. Then discard two cards unless you discard a Pirate card.
+SVar:TrigToken:DB$ Token | TokenScript$ r_2_1_Warrior
+Oracle:Equipped creature gets +X/+X, where X is the number of creatures you control plus the number of creature cards in your graveyard.\nWhenever equipped creature deals combat damage to a player, create a 2/1 red Warrior creature token.\nEquip {1}{G}.

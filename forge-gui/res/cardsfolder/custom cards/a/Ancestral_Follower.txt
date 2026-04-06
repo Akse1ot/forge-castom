@@ -1,0 +1,11 @@
+Name:Ancestral Follower
+ManaCost:1 G
+Types:Enchantment Creature Spirit Shaman
+PT:1/1
+A:AB$ Mana | Cost$ T | Produced$ G | SpellDescription$ Add {G}.
+A:AB$ Mana | Cost$ 1 T | Produced$ Any | SubAbility$ DBGainLife | SpellDescription$ Add one mana of any color.
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigUntap | ActivationLimit$ 1 | TriggerDescription$ Whenever an enchantment you control enters, untap CARDNAME. This ability triggers only once each turn. (Targeting opponents, anything they control, and/or cards in their graveyards is a crime.)
+SVar:TrigUntap:DB$ Untap | Defined$ Self
+K:Spirit Ash:4 G
+Oracle:{T}: Add {G}.\n{1}, {T}: Add one mana of any color. Gain 1 life.\nWhenever an enchantment you control enters, untap this creature. This ability triggers only once each turn. (Targeting opponents, anything they control, and/or cards in their graveyards is a crime.)\nSpirit Ash {4}{G} 

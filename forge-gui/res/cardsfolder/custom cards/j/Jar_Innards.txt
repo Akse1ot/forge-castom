@@ -1,0 +1,11 @@
+Name:Jar Innards
+ManaCost:2 G
+Types:Enchantment Creature Horror
+PT:3/3
+A:SP$ PermanentCreature | Cost$ 5 B Sac<X/Artifact;Enchantment> | XMax$ 1 | AILogic$ SacToReduceCost | SpellDescription$ As an additional cost to cast this spell, you may sacrifice an artifact or enchantment. This spell costs {1} less to cast if you do.
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All | Relative$ True
+SVar:X:Count$xPaid
+SVar:AIPreference:SacCost$ Artifact.token+Blood,Artifact.token+Food,Artifact.token+nonLegendary,Enchantment.token+nonLegendary,Artifact.token+Rune,Artifact.cmcLE2,Enchantment.cmcLE2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When this creature dies, create a Rune token. (It’s an artifact with “{T}, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac
+Oracle:As an additional cost to cast this spell, you may sacrifice an artifact or enchantment. If you do, this spell costs {1} less to cast.\nWhen this creature dies, create a Rune token. (It’s an artifact with “{T}, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)

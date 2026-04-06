@@ -1,0 +1,27 @@
+Name:Elder Dragon Greyoll
+ManaCost:1 G G G
+Types:Legendary Creature Elder Dragon
+PT:*/*
+K:Affinity:Dragon
+K:Multikicker:2
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When you cast this spell, create a 3/3 red Dragon creature token for each time it was kicked.
+SVar:TrigToken:DB$ Token | TokenScript$ r_3_3_Dragon | TokenAmount$ TargetsNum
+SVar:TargetsNum:Count$TimesKicked
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ Y | SetToughness$ Y | Description$ CARDNAME's power and toughness are each equal to twice the number of other Dragons you control.
+SVar:Y:Count$Valid Dragon.YouCtrl/Twice
+AlternateMode:Modal
+Oracle:Affinity for Dragons (This spell costs {1} less to cast for each Dragon you control.)\nMultikicker {2} (You may pay an additional {2} any number of times as you cast this spell.)\nWhen you cast this spell, create a 3/3 red Dragon creature token for each time it was kicked.\nThis creature’s power and toughness is equal to twice the number of other Dragons you control.
+
+ALTERNATE
+
+Name:Greyoll's Roar
+ManaCost:1 G
+Types:Enchantment Aura
+K:Enchant:Creature,Planeswalker:creature or Planeswalker
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Trample | AddType$ Dragon | Description$ Enchanted permanent has trample and is a Dragon in addition to its other types.
+S:Mode$ Continuous | Affected$ Planeswalker.EnchantedBy | AddAbility$ Plus | Description$ Enchanted planeswalker has "[+1]: This permanent deals 1 damage to any target"
+SVar:Plus:AB$ PumpAll | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidCards$ Dragon.YouCtrl | AddPower$ 1 | AddToughness$ 1 | SpellDescription$ Each Dragon you control gets +1/+1 until end of turn.
+S:Mode$ Continuous | Affected$ Planeswalker.EnchantedBy | AddAbility$ Ult | Description$ Enchanted planeswalker has “ [-3]: Create a 3/3 red Dragon creature token.”
+SVar:Ult:AB$ Token | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | TokenScript$ r_3_3_Dragon | SpellDescription$ Create a 3/3 red Dragon creature token.
+Oracle:Enchant creature or planeswalker.\nEnchanted permanent has trample and is a Dragon in addition to its other types.\nEnchanted permanent has “[+1]: Each Dragon you control gets +1/+1 until end of turn.” and “[-3]: Create a 3/3 red Dragon creature token.”

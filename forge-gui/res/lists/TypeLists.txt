@@ -85,6 +85,7 @@ Dalek:Daleks
 Detective:Detectives
 Dauthi:Dauthis
 Demigod:Demigods
+Demi-Human:Demi-Humans
 Demon:Demons
 Deserter:Deserters
 Devil:Devils
@@ -148,6 +149,7 @@ Hellion:Hellions
 Hero:Heroes
 Hippo:Hippos
 Hippogriff:Hippogriffs
+Hippopotamus:Hippopotamuses
 Homarid:Homarids
 Homunculus:Homunculi
 Hornsent:Hornsent

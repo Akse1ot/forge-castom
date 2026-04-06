@@ -1,0 +1,18 @@
+Name:Bestial Sling
+ManaCost:1 G
+Types:Instant
+
+A:SP$ Destroy | ValidTgts$ Artifact,Enchantment,Creature.withFlying | ConditionCheckSVar$ X | ConditionSVarCompare$ GE6 | TgtPrompt$ Select target artifact, enchantment or creature with flying | SpellDescription$ Cast this spell only if you control creatures with total power 6 or greater. Destroy target artifact, enchantment or creature with flying.
+SVar:X:Count$Valid Creature.YouCtrl$CardPower
+AlternateMode:Modal
+Oracle:Cast this spell only if you control creatures with total power 6 or greater.\nDestroy target artifact, enchantment, or creature with flying.
+
+ALTERNATE
+
+Name:Stone of Gurranq
+ManaCost:2 G
+Types:Sorcery
+A:SP$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | TgtPrompt$ Select target creature you control to put a +1/+1 counter | CounterNum$ 1 | IsPresent$ Creature.YouCtrl+powerGE4 | SubAbility$ DBDamage | AILogic$ PowerDmg | SpellDescription$ Cast this spell only if you control a creature with power 4 or greater. Put a +1/+1 counter on target creature you control. Then that creature deals damage equal to its power to target creature or planeswalker you don’t control.
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature.OppCtrl,Planeswalker.OppCtrl | TgtPrompt$ Select target creature or planeswalker an opponent controls | NumDmg$ X | DamageSource$ ParentTarget | AILogic$ PowerDmg
+SVar:X:ParentTargeted$CardPower
+Oracle:Cast this spell only if you control a creature with power 4 or greater.\nPut a +1/+1 counter on target creature you control. Then that creature deals damage equal to its power to target creature or planeswalker you don’t control.

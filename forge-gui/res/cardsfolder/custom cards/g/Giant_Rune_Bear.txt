@@ -1,0 +1,8 @@
+Name:Giant Rune Bear
+ManaCost:5 G
+Types:Creature Bear Dragon
+PT:6/5
+K:Reach
+T:Mode$ BecomesTarget | ValidSource$ SpellAbility.OppCtrl | ValidTarget$ Card.Self,Bear.Other+YouCtrl,Dragon.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever CARDNAME becomes the target of a spell or ability an opponent controls, you may draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Trample\nWhenever this creature or another Bear or Dragon you control becomes the target of a spell or ability an opponent controls, draw a card.

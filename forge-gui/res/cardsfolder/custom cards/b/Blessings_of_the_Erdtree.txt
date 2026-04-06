@@ -1,0 +1,12 @@
+Name:Blessings of the Erdtree
+ManaCost:3 G G
+Types:Sorcery
+A:SP$ Charm | Choices$ DBToken,DBDraw,DBChangeZone,DBChangeZone2 | CharmNum$ 2
+SVar:DBToken:DB$ Token | TokenScript$ c_a_Rune_sac | TokenAmount$ X | SpellDescription$ Create a Rune token for each creature you control.
+SVar:X:Count$Valid Creature.YouCtrl
+SVar:DBDraw:DB$ Draw | NumCards$ Y | SpellDescription$ Draw a card for each creature you control with a +1/+1 counter on it.
+SVar:Y:Count$Valid Creature.YouCtrl+counters_GE1_P1P1
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land | ChangeTypeDesc$ land | Tapped$ True | ChangeNum$ 1 | SpellDescription$ Search your library for a land card, put it onto the battlefield tapped, then shuffle.
+SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TgtPrompt$ Choose target permanent card in your graveyard | ValidTgts$ Permanent.YouCtrl | SubAbility$ DBGainLife | SpellDescription$ Return target permanent card from your graveyard to your hand. You gain 3
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3
+Oracle:Choose two —\n• Create a Rune token for each creature you control.\n• Draw a card for each creature you control with a +1/+1 counter on it.\n• Search your library for a land card, put it onto the battlefield tapped, then shuffle.\n• Return target permanent card from your graveyard to your hand. You gain 3 life.
