@@ -18,7 +18,8 @@
 package forge.game.spellability;
 
 import com.google.common.collect.Iterables;
-import forge.card.ColorSet;
+import forge.card.mana.ManaAtom;
+import forge.game.mana.Mana;
 import forge.game.Game;
 import forge.game.GameObject;
 import forge.game.GameObjectPredicates;
@@ -481,13 +482,13 @@ public class SpellAbilityCondition extends SpellAbilityVariables {
             if (castSa == null) {
                 return false;
             }
-            if (!castSa.getPayingColors().hasAllColors(ColorSet.fromNames(getManaSpent().split(" ")).getColor())) {
+            if (!manaSpentMatches(castSa, getManaSpent())) {
                 return false;
             }
         }
         if (StringUtils.isNotEmpty(getManaNotSpent())) {
             SpellAbility castSa = host.getCastSA();
-            if (castSa != null && castSa.getPayingColors().hasAllColors(ColorSet.fromNames(getManaNotSpent().split(" ")).getColor())) {
+            if (castSa != null && manaSpentMatches(castSa, getManaNotSpent())) {
                 return false;
             }
         }
@@ -509,6 +510,30 @@ public class SpellAbilityCondition extends SpellAbilityVariables {
             }
         }
 
+        return true;
+    }
+
+    private static boolean manaSpentMatches(final SpellAbility castSa, final String requirement) {
+        final Map<Byte, Integer> requiredCounts = new HashMap<>();
+        for (final String part : requirement.split(" ")) {
+            if (part == null || part.isEmpty()) {
+                continue;
+            }
+            final byte color = ManaAtom.fromName(part);
+            requiredCounts.merge(color, 1, Integer::sum);
+        }
+
+        final Map<Byte, Integer> paidCounts = new HashMap<>();
+        for (final Mana mana : castSa.getPayingMana()) {
+            final byte color = mana.getColor();
+            paidCounts.merge(color, 1, Integer::sum);
+        }
+
+        for (final Map.Entry<Byte, Integer> e : requiredCounts.entrySet()) {
+            if (paidCounts.getOrDefault(e.getKey(), 0) < e.getValue()) {
+                return false;
+            }
+        }
         return true;
     }
 

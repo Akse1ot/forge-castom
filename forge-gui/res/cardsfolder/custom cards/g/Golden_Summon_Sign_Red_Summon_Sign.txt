@@ -1,7 +1,7 @@
 Name:Golden Summon Sign
 ManaCost:1 G
 Types:Sorcery
-A:SP$ Dig | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature,Land,Planeswalker | ForceRevealToController$ True | SpellDescription$ Look at the top three cards of your library. You may reveal a creature or land card from among them and put it into your hand. Put the rest on the bottom of your library in any order.
+A:SP$ Dig | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature,Land,Planeswalker | ForceRevealToController$ True | RestRandomOrder$ True | SpellDescription$ Look at the top three cards of your library. You may reveal a creature or land card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.
 AlternateMode:Modal
 Oracle:Look at the top four cards of your library. You may reveal a land card, a creature card or a planeswalker card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.
 

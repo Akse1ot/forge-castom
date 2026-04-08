@@ -287,6 +287,30 @@ public abstract class CardTraitBase implements GameObject, IHasCardView, IHasSVa
         return this.suppressed;
     }
 
+    private static boolean manaSpentMatches(final SpellAbility castSA, final String requirement) {
+        final Map<Byte, Integer> requiredCounts = Maps.newHashMap();
+        for (final String part : requirement.split(" ")) {
+            if (StringUtils.isBlank(part)) {
+                continue;
+            }
+            final byte color = ManaAtom.fromName(part);
+            requiredCounts.merge(color, 1, Integer::sum);
+        }
+
+        final Map<Byte, Integer> paidCounts = Maps.newHashMap();
+        for (final forge.game.mana.Mana mana : castSA.getPayingMana()) {
+            final byte color = mana.getColor();
+            paidCounts.merge(color, 1, Integer::sum);
+        }
+
+        for (final Map.Entry<Byte, Integer> e : requiredCounts.entrySet()) {
+            if (paidCounts.getOrDefault(e.getKey(), 0) < e.getValue()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     protected boolean meetsCommonRequirements(Map<String, String> params) {
         Player hostController = this.getHostCard().getController();
         final Game game = hostController.getGame();
@@ -506,14 +530,14 @@ public abstract class CardTraitBase implements GameObject, IHasCardView, IHasSVa
             if (castSA == null) {
                 return false;
             }
-            if (!castSA.getPayingColors().hasAllColors(ManaAtom.fromName(params.get("ManaSpent")))) {
+            if (!manaSpentMatches(castSA, params.get("ManaSpent"))) {
                 return false;
             }
         }
 
         if (params.containsKey("ManaNotSpent")) {
             SpellAbility castSA = getHostCard().getCastSA();
-            if (castSA != null && castSA.getPayingColors().hasAllColors(ManaAtom.fromName(params.get("ManaNotSpent")))) {
+            if (castSA != null && manaSpentMatches(castSA, params.get("ManaNotSpent"))) {
                 return false;
             }
         }
