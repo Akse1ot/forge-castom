@@ -1,0 +1,8 @@
+Name:Monstrous Dog
+ManaCost:2 G
+Types:Creature Dog Beast
+PT:3/2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield | CheckSVar$ PackTactics | SVarCompare$ GE6 | NoResolvingCheck$ True | TriggerDescription$ Pack tactics — Whenever CARDNAME attacks, if you attacked with creatures with total power 6 or greater this combat, this creature gets +2/+2 until end of turn.
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +2 | NumDef$ +2
+SVar:PackTactics:Count$Valid Creature.attacking$CardPower
+Oracle:K:Trample\nPack tactics — Whenever this creature attacks, if you attacked with creatures with total power 6 or greater this combat, this creature gets +2/+2 until end of turn.

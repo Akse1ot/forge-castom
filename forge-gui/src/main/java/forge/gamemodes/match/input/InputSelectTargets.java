@@ -9,6 +9,7 @@ import forge.game.GameObject;
 import forge.game.ability.ApiType;
 import forge.game.card.Card;
 import forge.game.card.CardView;
+import forge.card.CardStateName;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.TargetRestrictions;
@@ -166,6 +167,13 @@ public final class InputSelectTargets extends InputSyncronizedBase {
             return false;
         }
 
+        final CardStateName chosenState = chooseTargetState(card);
+        if (chosenState == null) {
+            showMessage(sa.getHostCard() + " - Cannot target this card (chosen face is not a legal target).");
+            return false;
+        }
+        sa.getTargets().setTargetedCardState(card, chosenState);
+
         // TODO should use sa.canTarget(card) instead?
         // it doesn't have messages
 
@@ -202,11 +210,12 @@ public final class InputSelectTargets extends InputSyncronizedBase {
         if (sa.hasParam("MaxTotalTargetCMC")) {
             int maxTotalCMC = tgt.getMaxTotalCMC(sa.getHostCard(), sa);
             if (maxTotalCMC > 0) {
-                int soFar = Aggregates.sum(sa.getTargets().getTargetCards(), Card::getCMC);
+                int soFar = sa.getTargets().getTotalTargetedCMC();
                 if (!sa.isTargeting(card)) {
-                    soFar += card.getCMC();
+                    soFar += sa.getTargets().getTargetedCMC(card);
                 }
                 if (soFar > maxTotalCMC) {
+                    sa.getTargets().clearTargetedCardState(card);
                     showMessage(sa.getHostCard() + " - Cannot target this card (mana value limit exceeded)");
                     return false;
                 }
@@ -274,36 +283,55 @@ public final class InputSelectTargets extends InputSyncronizedBase {
 
         // If all cards must have different mana values
         if (tgt.isDifferentCMC()) {
-            final List<Integer> targetedCMCs = new ArrayList<>();
+            Set<Integer> targetedCMCs = Sets.newHashSet();
             for (final GameObject o : targets) {
-                if (o instanceof Card) {
-                    final Integer cmc = ((Card) o).getCMC();
-                    targetedCMCs.add(cmc);
+                if (o instanceof Card c) {
+                    targetedCMCs.add(sa.getTargets().getTargetedCMC(c));
                 }
             }
-            if (targetedCMCs.contains(card.getCMC())) {
+            if (targetedCMCs.contains(sa.getTargets().getTargetedCMC(card))) {
+                sa.getTargets().clearTargetedCardState(card);
                 showMessage(sa.getHostCard() + " - Cannot target this card (must have different mana values)");
                 return false;
             }
         }
 
         if (tgt.isDifferentNames()) {
+            String chosenName = chosenState == CardStateName.Backside && card.hasState(CardStateName.Backside)
+                    ? card.getState(CardStateName.Backside).getName()
+                    : card.getName();
+
             for (final GameObject o : targets) {
-                if (o instanceof Card c && c.sharesNameWith(card)) {
-                    showMessage(sa.getHostCard() + " - Cannot target this card (must have different names)");
-                    return false;
+                if (o instanceof Card c) {
+                    String targetName = sa.getTargets().getTargetedCardState(c) == CardStateName.Backside && c.hasState(CardStateName.Backside)
+                            ? c.getState(CardStateName.Backside).getName()
+                            : c.getName();
+
+                    if (targetName.equals(chosenName)) {
+                        sa.getTargets().clearTargetedCardState(card);
+                        showMessage(sa.getHostCard() + " - Cannot target this card (must have different names)");
+                        return false;
+                    }
                 }
             }
         }
 
         if (!choices.contains(card)) {
+            sa.getTargets().clearTargetedCardState(card);
             showMessage(sa.getHostCard() + " - The selected card is not " + Lang.nounWithAmount(1, tgt.getValidDesc()) + ".");
+            return false;
+        }
+
+        if (!sa.canTarget(card)) {
+            sa.getTargets().clearTargetedCardState(card);
+            showMessage(sa.getHostCard() + " - Cannot target this card (Shroud? Protection? Restrictions).");
             return false;
         }
 
         if (divisionValues != null && !divisionValues.isEmpty()) {
             Boolean val = onDividedAsYouChoose(card);
             if (val != null) {
+                sa.getTargets().clearTargetedCardState(card);
                 return val;
             }
         }
@@ -380,6 +408,47 @@ public final class InputSelectTargets extends InputSyncronizedBase {
         return null;
     }
 
+    private boolean canTargetCardInState(final Card card, final CardStateName state) {
+        sa.getTargets().setTargetedCardState(card, state);
+        final boolean result = sa.canTarget(card);
+        if (!result) {
+            sa.getTargets().clearTargetedCardState(card);
+        }
+        return result;
+    }
+
+    private CardStateName chooseTargetState(final Card card) {
+        if (!sa.hasParam("TargetEitherFace") || !card.isModal() || !card.hasState(CardStateName.Backside)) {
+            return CardStateName.Original;
+        }
+
+        final boolean frontOk = canTargetCardInState(card, CardStateName.Original);
+        sa.getTargets().clearTargetedCardState(card);
+
+        final boolean backOk = canTargetCardInState(card, CardStateName.Backside);
+        sa.getTargets().clearTargetedCardState(card);
+
+        if (!frontOk && !backOk) {
+            return null;
+        }
+        if (frontOk && !backOk) {
+            return CardStateName.Original;
+        }
+        if (!frontOk) {
+            return CardStateName.Backside;
+        }
+
+        final List<String> options = new ArrayList<>();
+        options.add(card.getName());
+        options.add(card.getState(CardStateName.Backside).getName());
+
+        final String chosen = getController().getGui().oneOrNone("Choose which face to target for " + card.getName(), options);
+        if (chosen == null) {
+            return null;
+        }
+        return chosen.equals(options.get(1)) ? CardStateName.Backside : CardStateName.Original;
+    }
+
     private void addTarget(final GameEntity ge) {
         sa.getTargets().add(ge);
         targets.add(ge);
@@ -407,7 +476,8 @@ public final class InputSelectTargets extends InputSyncronizedBase {
         }
         targets.remove(ge);
         sa.getTargets().remove(ge);
-        if (ge instanceof Card) {
+        if (ge instanceof Card c) {
+            sa.getTargets().clearTargetedCardState(c);
             // try to get last selected card
             lastTarget = Iterables.getLast(IterableUtil.filter(targets, Card.class), null);
         }

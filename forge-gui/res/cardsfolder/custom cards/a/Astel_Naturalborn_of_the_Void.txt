@@ -1,0 +1,9 @@
+Name:Astel Naturalborn of the Void
+ManaCost:5 U B
+Types:Legendary Creature Skeleton Scorpion Horror
+PT:5/7
+K:Flying
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigMayPlay | TriggerDescription$ Whenever this creature deals combat damage to a player, you may cast up to one target instant or sorcery card in a graveyard without paying its mana cost. You may target either face of a double-faced card with this ability. If that spell would be put into a graveyard, exile it instead.
+SVar:TrigMayPlay:DB$ Play | TgtZone$ Graveyard | WithoutManaCost$ True | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Instant,Sorcery | ValidSA$ Spell | TargetEitherFace$ True | TgtPrompt$ Choose target instant or sorcery card from an graveyard | ReplaceGraveyard$ Exile | AILogic$ ReplaySpell
+Oracle:Flying, menace\nWhenever this creature deals combat damage to a player, you may cast up to one target instant or sorcery card in a graveyard without paying its mana cost. You may target either face of a double-faced card with this ability. If that spell would be put into a graveyard, exile it instead.

@@ -1,0 +1,10 @@
+Name:Pest Threads
+ManaCost:1 G
+Types:Instant
+K:Kicker:2 G
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +2 | KW$ Reach | SubAbility$ DBUntap | SpellDescription$ Target creature you control gets +2/+2 and gains reach until end of turn. Untap it. If this spell was kicked, it gets an additional +2/+2 and gains “This creature can block an additional creature each combat” until end of turn.
+SVar:DBUntap:DB$ Untap | Defined$ Targeted | SubAbility$ KickerPump
+SVar:KickerPump:DB$ Pump | Condition$ Kicked | Defined$ Targeted | NumAtt$ +2 | NumDef$ +2 | SubAbility$ DBCanBlock
+SVar:DBCanBlock:DB$ Effect | RememberObjects$ Targeted | StaticAbilities$ CanBlock | EffectOwner$ TargetedOwner
+SVar:CanBlock:Mode$ Continuous | Affected$ Card.IsRemembered | CanBlockAmount$ 1 | Description$ This creature can block an additional creature each combat
+Oracle:Kicker {2}{G} (You may pay an additional {2}{G} as you cast this spell.)\nTarget creature you control gets +2/+2 and gains reach until end of turn. Untap it. If this spell was kicked, it gets an additional +2/+2 and gains “This creature can block an additional creature each combat” until end of turn.

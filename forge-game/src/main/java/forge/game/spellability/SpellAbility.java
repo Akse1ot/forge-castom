@@ -1372,6 +1372,213 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
         return isTrigger() && !isOptionalTrigger();
     }
 
+    private Card getCardForTargetStateCheck(final Card original, final CardStateName state) {
+        if (state == null || state == CardStateName.Original) {
+            return original;
+        }
+        final Card copy = CardCopyService.getLKICopy(original);
+        if (copy == null) {
+            return original;
+        }
+        if (!copy.changeToState(state)) {
+            return original;
+        }
+        return copy;
+    }
+
+    private Card getExistingTargetForComparison(final Card original) {
+        final CardStateName state = getTargets().getTargetedCardState(original);
+        return getCardForTargetStateCheck(original, state == null ? CardStateName.Original : state);
+    }
+
+    private boolean canTargetCardWithState(final Card originalCard, final CardStateName state, final boolean fizzleCheck) {
+        final Card c = getCardForTargetStateCheck(originalCard, state);
+        final TargetRestrictions tr = getTargetRestrictions();
+
+        if (hasParam("TargetsWithDefinedController")) {
+            List<Player> pl = AbilityUtils.getDefinedPlayers(getHostCard(), getParam("TargetsWithDefinedController"), this);
+            if (pl == null || !pl.contains(c.getController())) {
+                return false;
+            }
+        }
+
+        if (hasParam("TargetsWithSharedCardType")) {
+            CardCollection pl = AbilityUtils.getDefinedCards(getHostCard(), getParam("TargetsWithSharedCardType"), this);
+            for (final Card crd : pl) {
+                if (hasParam("TargetsWithSharedTypes")) {
+                    boolean flag = false;
+                    for (final String type : getParam("TargetsWithSharedTypes").split(",")) {
+                        if (c.getType().hasStringType(type) && crd.getType().hasStringType(type)) {
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag) {
+                        return false;
+                    }
+                } else {
+                    if (!c.sharesCardTypeWith(crd)) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        if (hasParam("TargetsWithControllerProperty")) {
+            final String prop = getParam("TargetsWithControllerProperty");
+            if (prop.equals("cmcLECardsInGraveyard")
+                    && c.getCMC() > c.getController().getCardsIn(ZoneType.Graveyard).size()) {
+                return false;
+            } else if (prop.equals("powerLECardsInGraveyard")
+                    && c.getNetPower() > c.getController().getCardsIn(ZoneType.Graveyard).size()) {
+                return false;
+            }
+        }
+
+        if (hasParam("TargetsWithRelatedProperty")) {
+            final String related = getParam("TargetsWithRelatedProperty");
+            Card parentTarget = null;
+            for (GameObject o : getUniqueTargets()) {
+                if (o instanceof Card) {
+                    parentTarget = getExistingTargetForComparison((Card) o);
+                    break;
+                }
+            }
+            if (parentTarget == null) {
+                return false;
+            }
+            switch (related) {
+                case "LEPower":
+                    if (c.getNetPower() > parentTarget.getNetPower()) {
+                        return false;
+                    }
+                    break;
+                case "LECMC":
+                    if (c.getCMC() > parentTarget.getCMC()) {
+                        return false;
+                    }
+                    break;
+            }
+        }
+
+        if (hasParam("TargetingPlayerControls")) {
+            if (!c.getController().equals(getTargetingPlayer())) {
+                return false;
+            }
+        }
+
+        if (hasParam("MaxTotalTargetCMC")) {
+            int soFar = getTargets().getTotalTargetedCMC();
+            if (!isTargeting(originalCard)) {
+                soFar += getTargets().getTargetedCMC(originalCard);
+            }
+            if (soFar > tr.getMaxTotalCMC(getHostCard(), this)) {
+                return false;
+            }
+        }
+
+        if (hasParam("MaxTotalTargetPower")) {
+            int soFar = Aggregates.sum(getTargets().getTargetCards(), Card::getNetPower);
+            if (!isTargeting(originalCard)) {
+                soFar += c.getNetPower();
+            }
+            if (soFar > tr.getMaxTotalPower(getHostCard(), this)) {
+                return false;
+            }
+        }
+
+        if (tr.isEqualToughness()) {
+            for (final Card tc : getTargets().getTargetCards()) {
+                final Card targetCard = getExistingTargetForComparison(tc);
+                if (originalCard != tc && targetCard.getNetToughness() != c.getNetToughness()) {
+                    return false;
+                }
+            }
+        }
+
+        if (tr.isDifferentCMC()) {
+            for (final Card tc : getTargets().getTargetCards()) {
+                if (originalCard != tc && getTargets().getTargetedCMC(tc) == c.getCMC()) {
+                    return false;
+                }
+            }
+        }
+
+        if (tr.isDifferentNames()) {
+            for (final Card tc : getTargets().getTargetCards()) {
+                final Card targetCard = getExistingTargetForComparison(tc);
+                if (originalCard != tc && targetCard.sharesNameWith(c.getName())) {
+                    return false;
+                }
+            }
+        }
+
+        if (tr.isSameController()) {
+            Player newController = c.getController();
+            for (final Card tc : getTargets().getTargetCards()) {
+                if (originalCard != tc && !tc.getController().equals(newController)) {
+                    return false;
+                }
+            }
+        }
+
+        if ((tr.isDifferentControllers() || (tr.isForEachPlayer() && !fizzleCheck))) {
+            Player newController = c.getController();
+            for (Card tc : getTargets().getTargetCards()) {
+                tc = getHostCard().getGame().getChangeZoneLKIInfo(tc);
+                if (originalCard != tc && tc.getController().equals(newController)) {
+                    return false;
+                }
+            }
+        }
+
+        if (tr.isForEachPlayer() && fizzleCheck) {
+            if (getTargets().forEachControllerChanged(originalCard)) {
+                return false;
+            }
+        }
+
+        if (tr.isWithoutSameCreatureType()) {
+            for (final Card tc : getTargets().getTargetCards()) {
+                final Card targetCard = getExistingTargetForComparison(tc);
+                if (originalCard != tc && targetCard.sharesCreatureTypeWith(c)) {
+                    return false;
+                }
+            }
+        }
+
+        if (tr.isWithSameCreatureType()) {
+            for (final Card tc : getTargets().getTargetCards()) {
+                final Card targetCard = getExistingTargetForComparison(tc);
+                if (originalCard != tc && !targetCard.sharesCreatureTypeWith(c)) {
+                    return false;
+                }
+            }
+        }
+
+        if (tr.isWithSameCardType()) {
+            for (final Card tc : getTargets().getTargetCards()) {
+                final Card targetCard = getExistingTargetForComparison(tc);
+                if (originalCard != tc && !targetCard.sharesCardTypeWith(c)) {
+                    return false;
+                }
+            }
+        }
+
+        if (!c.isValid(tr.getValidTgts(), getActivatingPlayer(), getHostCard(), this)) {
+            return false;
+        }
+        if (hasParam("TargetType") && !c.isValid(getParam("TargetType").split(","), getActivatingPlayer(), getHostCard(), this)) {
+            return false;
+        }
+
+        if (originalCard.getZone() != null && !tr.getZone().contains(originalCard.getZone().getZoneType())) {
+            return false;
+        }
+
+        return originalCard.canBeTargetedBy(this);
+    }
+
     public final boolean canTarget(final GameObject entity) {
         return canTarget(entity, false);
     }
@@ -1392,6 +1599,20 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
             final TargetRestrictions tr = getTargetRestrictions();
             if (tr.isUniqueTargets() && getUniqueTargets().contains(entity))
                 return false;
+
+            if (entity instanceof Card card
+                    && hasParam("TargetEitherFace")
+                    && card.isModal()
+                    && card.hasState(CardStateName.Backside)) {
+
+                CardStateName chosenState = getTargets().getTargetedCardState(card);
+                if (chosenState != null) {
+                    return canTargetCardWithState(card, chosenState, fizzleCheck);
+                }
+
+                return canTargetCardWithState(card, CardStateName.Original, fizzleCheck)
+                        || canTargetCardWithState(card, CardStateName.Backside, fizzleCheck);
+            }
 
             // If the cards must have a specific controller
             if (hasParam("TargetsWithDefinedController") && entity instanceof Card) {

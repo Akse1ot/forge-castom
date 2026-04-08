@@ -1,0 +1,36 @@
+Name:Ancient Dragon Lansseax
+ManaCost:2 R R W
+Types:Legendary Creature Elder Dragon
+PT:4/3
+K:Flying
+K:First Strike
+T:Mode$ Attacks | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigDig | TriggerDescription$ Whenever CARDNAME attacks, you may look at the top six cards of your library. You may cast an Aura, Equipment or Dragon card from among them without paying its mana cost. Put the rest on the bottom in a random order.
+SVar:TrigDig:DB$ PeekAndReveal | Defined$ You | PeekAmount$ 6 | NoReveal$ True | RememberPeeked$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | ValidZone$ Library | Valid$ Card.IsRemembered | ValidSA$ Aura,Equipment,Dragon | Controller$ You | WithoutManaCost$ True | Optional$ True | Amount$ 1 | ForgetPlayed$ True | SubAbility$ DBRestRandomOrder
+SVar:DBRestRandomOrder:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Library | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Equipment+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigAttach | OptionalDecider$ You | TriggerDescription$ Whenever an Equipment you control enters, you may attach it to target creature you control.
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Target creature you control | Object$ TriggeredCardLKICopy
+AlternateMode:Modal
+Oracle:Flying, first strike\nWhenever this creature attacks, you may look at the top six cards of your library. You may cast an Aura, Equipment or Dragon card from among them without paying its mana cost. Put the rest on the bottom in a random order.\nWhenever an Equipment you control enters, you may attach it to target creature you control.
+
+ALTERNATE
+
+Name:Lansseax's Lightning Glaive
+ManaCost:1 R W
+Types:Enchantment Aura
+K:Enchant:Creature,Planeswalker:creature or Planeswalker
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy,Planeswalker.EnchantedBy | AddKeyword$ First Strike | AddType$ Dragon | Description$ Enchanted permanent has trample and is a Dragon in addition to its other types.
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy,Planeswalker.EnchantedBy | AddAbility$ Plus | Description$ Enchanted planeswalker has "[+1]: Exile the top two card of your library. Until end of turn, you may play one of those cards"
+SVar:Plus:AB$ Dig | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect | SpellDescription$ Exile the top two card of your library. Until end of turn, you may play one of those cards
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ MayPlay | Triggers$ Play1,Play2 | SubAbility$ DBCleanup
+SVar:MayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True | Description$ Until end of turn, you may play one of those cards.
+SVar:Play1:Mode$ SpellCast | ValidCard$ Card.IsRemembered | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ ExileSelf | Static$ True
+SVar:Play2:Mode$ LandPlayed | ValidCard$ Land.IsRemembered | TriggerZones$ Command | Execute$ ExileSelf | Static$ True
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy,Planeswalker.EnchantedBy | AddAbility$ Ult | Description$ Enchanted planeswalker has “ [-3]: Create a 3/3 red Dragon creature token.”
+SVar:Ult:AB$ Pump | Cost$ SubCounter<2/LOYALTY> | ValidTgts$ Aura.YouCtrl,Equipment.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select up to one target Aura or Equipment you control | SubAbility$ DBAttach | SpellDescription$ Attach up to one target Aura or Equipment you control to this permanent.
+SVar:DBAttach:DB$ Attach | Object$ ParentTarget | Defined$ Self
+Oracle:Enchant creature or planeswalker.\nEnchanted permanent has First Strike and is a Dragon in addition to its other types.\nEnchanted permanent has “[+1]: Exile the top two card of your library. Until end of turn, you may play one of those cards” and “[-2]: Attach up to one target Aura or Equipment you control to this permanent.”

@@ -1,0 +1,10 @@
+Name:Torrent the Spectral Steed
+ManaCost:1 G
+Types:Legendary Enchantment Creature Horse Spirit
+PT:2/2
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCantBlock | TriggerZones$ Battlefield | CheckSVar$ PackTactics | SVarCompare$ GE6 | NoResolvingCheck$ True | TriggerDescription$ Pack tactics — Whenever CARDNAME attacks, if you attacked with creatures with total power 6 or greater this combat, each creature you control can’t be blocked by creatures with power 2 or less this turn.
+SVar:TrigCantBlock:DB$ Effect | EffectOwner$ TriggeredSourceController | StaticAbilities$ CantBlockSmall
+SVar:CantBlockSmall:Mode$ CantBlockBy | ValidAttacker$ Creature.YouCtrl | ValidBlocker$ Creature.powerLE2 | Description$ Creatures you control can't be blocked by creatures with power 2 or less this turn.
+SVar:PackTactics:Count$Valid Creature.attacking$CardPower
+Oracle:Haste\nPack tactics — Whenever this creature attacks, if you attacked with creatures with total power 6 or greater this combat, each creature you control can't be blocked by creatures with power 2 or less this turn.

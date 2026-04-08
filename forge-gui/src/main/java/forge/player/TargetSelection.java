@@ -19,6 +19,7 @@ package forge.player;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import forge.card.CardStateName;
 import forge.game.*;
 import forge.game.card.Card;
 import forge.game.card.CardCollection;
@@ -68,6 +69,29 @@ public class TargetSelection {
     private boolean isMandatory() {
         // even if its an optionalTrigger, the targeting is still mandatory
         return ability.isTrigger() || getTgt().getMandatory();
+    }
+
+    private CardStateName getAutoTargetState(final Card card) {
+        if (!ability.hasParam("TargetEitherFace") || !card.isModal() || !card.hasState(CardStateName.Backside)) {
+            return CardStateName.Original;
+        }
+
+        ability.getTargets().setTargetedCardState(card, CardStateName.Original);
+        final boolean frontOk = ability.canTarget(card);
+        ability.getTargets().clearTargetedCardState(card);
+
+        ability.getTargets().setTargetedCardState(card, CardStateName.Backside);
+        final boolean backOk = ability.canTarget(card);
+        ability.getTargets().clearTargetedCardState(card);
+
+        // If both faces are legal, don't auto-target: player must choose the face.
+        if (frontOk && backOk) {
+            return null;
+        }
+        if (backOk && !frontOk) {
+            return CardStateName.Backside;
+        }
+        return CardStateName.Original;
     }
 
     public final boolean chooseTargets(Integer numTargets, Collection<Integer> divisionValues, Predicate<GameObject> filter, boolean optional, boolean canFilterMustTarget) {
@@ -167,13 +191,22 @@ public class TargetSelection {
             }
         }
         else if (validTargets.size() == 1 && minTargets != 0 && ability.isTrigger() && !tgt.canTgtPlayer()) {
-            //if only one valid target card for triggered ability, auto-target that card
-            //only do this for triggered abilities to prevent auto-targeting when user chooses
-            //to play a spell or activate an ability
-            if (ability.isDividedAsYouChoose()) {
-                ability.addDividedAllocation(validTargets.get(0), ability.getStillToDivide());
+            // if only one valid target card for triggered ability, auto-target that card
+            // only do this for triggered abilities to prevent auto-targeting when user chooses
+            // to play a spell or activate an ability
+            final Card onlyTarget = validTargets.get(0);
+            final CardStateName autoState = getAutoTargetState(onlyTarget);
+
+            // If both faces are legal, don't auto-target: let InputSelectTargets ask which face to target.
+            if (autoState != null) {
+                if (autoState != CardStateName.Original) {
+                    ability.getTargets().setTargetedCardState(onlyTarget, autoState);
+                }
+                if (ability.isDividedAsYouChoose()) {
+                    ability.addDividedAllocation(onlyTarget, ability.getStillToDivide());
+                }
+                return ability.getTargets().add(onlyTarget);
             }
-            return ability.getTargets().add(validTargets.get(0));
         }
         final Map<PlayerView, Object> playersWithValidTargets = Maps.newHashMap();
         for (Card card : validTargets) {

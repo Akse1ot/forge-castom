@@ -18,10 +18,10 @@ Name:Bayle's Tyranny
 ManaCost:2 R R
 Types:Enchantment Aura
 K:Enchant:Creature,Planeswalker:creature or Planeswalker
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Menace | AddType$ Dragon | Description$ Enchanted permanent has menace and is a Dragon in addition to its other types.
-S:Mode$ Continuous | Affected$ Planeswalker.EnchantedBy | AddAbility$ Plus | Description$ Enchanted planeswalker has "[+1]: This permanent deals 1 damage to each other creature and planeswalker."
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy,Planeswalker.EnchantedBy | AddKeyword$ Menace | AddType$ Dragon | Description$ Enchanted permanent has menace and is a Dragon in addition to its other types.
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy,Planeswalker.EnchantedBy | AddAbility$ Plus | Description$ Enchanted planeswalker has "[+1]: This permanent deals 1 damage to each other creature and planeswalker."
 SVar:Plus:AB$ DamageAll | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidCards$ Creature.Other,Planeswalker.Other | NumDmg$ 1 | SpellDescription$ This permanent deals 1 damage to each other creature and planeswalker.
-S:Mode$ Continuous | Affected$ Planeswalker.EnchantedBy | AddAbility$ Ult | Description$ Enchanted planeswalker has “[-3]: Ravage target land. (Destroy that land. When you do, if its controller doesn’t control the most lands, that player creates a tapped Wastes token.)”
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy,Planeswalker.EnchantedBy | AddAbility$ Ult | Description$ Enchanted planeswalker has “[-3]: Ravage target land. (Destroy that land. When you do, if its controller doesn’t control the most lands, that player creates a tapped Wastes token.)”
 SVar:Ult:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Land | TgtPrompt$ Choose target land. | RememberLKI$ True | SubAbility$ DBToken | SpellDescription$ Ravage target land. (Destroy that land. When you do, if its controller doesn’t control the most lands, that player creates a tapped Wastes token.)
 SVar:DBToken:DB$ Token | ConditionDefined$ RememberedLKI | ConditionPresent$ Card | ConditionCompare$ GE1 | ConditionCheckSVar$ CtrlLands | ConditionSVarCompare$ LTMostLands | TokenScript$ c_Wastes | TokenAmount$ 1 | TokenTapped$ True | TokenOwner$ TargetedController | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

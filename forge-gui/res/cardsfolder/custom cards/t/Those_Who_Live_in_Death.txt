@@ -1,0 +1,10 @@
+Name:Those Who Live in Death
+ManaCost:4 B B
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigReturnFromGraveyard | TriggerDescription$ When CARDNAME enters, return target creature card from your graveyard to the battlefield. It's a Skeleton in addition to its other types.
+SVar:TrigReturnFromGraveyard:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouCtrl | TargetEitherFace$ True | StaticEffect$ Animate | RememberChanged$ True | SubAbility$ DBCleanup | TgtPrompt$ Select target creature card from your graveyard
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Skeleton
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever a nontoken creature you control dies, create a 2/1 black Skeleton creature token with “This creature can’t block.”
+SVar:TrigToken:DB$ Token | TokenScript$ b_2_1_skeleton_noblock
+Oracle:When this enchantment enters, return target creature card from your graveyard to the battlefield. You may choose either face of a double-faced card for this ability’s targets. It’s a Skeleton in addition to its other types.\nWhenever a nontoken creature you control dies, create a 2/1 black Skeleton creature token with “This creature can’t block.”

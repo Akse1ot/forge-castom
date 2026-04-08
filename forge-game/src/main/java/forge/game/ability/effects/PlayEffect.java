@@ -273,7 +273,10 @@ public class PlayEffect extends SpellAbilityEffect {
                 }
             }
 
-            CardStateName state = CardStateName.Original;
+            CardStateName state = sa.getTargets().getTargetedCardState(tgtCard);
+            if (state == null) {
+                state = CardStateName.Original;
+            }
 
             if (sa.hasParam("CastTransformed")) {
                 if (!tgtCard.changeToState(CardStateName.Backside)) {
@@ -286,6 +289,14 @@ public class PlayEffect extends SpellAbilityEffect {
             }
 
             List<SpellAbility> sas = AbilityUtils.getSpellsFromPlayEffect(tgtCard, controller, state, !altCost);
+
+            if (sa.hasParam("TargetEitherFace")) {
+                final CardStateName targetedState = sa.getTargets().getTargetedCardState(tgtCard);
+                if (targetedState != null) {
+                    sas.removeIf(sp -> sp.getCardStateName() != targetedState);
+                }
+            }
+
             if (sa.hasParam("ValidSA")) {
                 final String valid[] = sa.getParam("ValidSA").split(",");
                 sas.removeIf(sp -> !sp.isValid(valid, controller , source, sa));

@@ -25,6 +25,8 @@ import java.util.Objects;
 import com.google.common.collect.Lists;
 
 import forge.card.CardType;
+import forge.card.CardStateName;
+import forge.game.card.CardCopyService;
 import forge.game.Game;
 import forge.game.GameEntity;
 import forge.game.ability.AbilityUtils;
@@ -515,6 +517,36 @@ public class TargetRestrictions {
      *            the sa
      * @return a boolean.
      */
+
+    private Card getCardForTargetStateCheck(final Card original, final CardStateName state) {
+        if (state == null || state == CardStateName.Original) {
+            return original;
+        }
+        final Card copy = CardCopyService.getLKICopy(original);
+        if (copy == null) {
+            return original;
+        }
+        if (!copy.changeToState(state)) {
+            return original;
+        }
+        return copy;
+    }
+
+    private boolean isValidTargetCandidate(final SpellAbility sa, final Card c) {
+        final Card srcCard = sa.getHostCard();
+
+        if (c.isValid(this.validTgts, sa.getActivatingPlayer(), srcCard, sa)) {
+            return true;
+        }
+
+        if (sa.hasParam("TargetEitherFace") && c.isModal() && c.hasState(CardStateName.Backside)) {
+            final Card back = getCardForTargetStateCheck(c, CardStateName.Backside);
+            return back.isValid(this.validTgts, sa.getActivatingPlayer(), srcCard, sa);
+        }
+
+        return false;
+    }
+
     public final boolean hasCandidates(final SpellAbility sa) {
         final Card srcCard = sa.getHostCard(); // should there be OrginalHost at any moment?
         final Game game = srcCard.getGame();
@@ -539,7 +571,7 @@ public class TargetRestrictions {
             return true;
         }
         for (final Card c : game.getCardsIn(this.tgtZone)) {
-            if (!c.isValid(this.validTgts, sa.getActivatingPlayer(), srcCard, sa)) {
+            if (!isValidTargetCandidate(sa, c)) {
                 continue;
             }
             if (!sa.canTarget(c)) {
@@ -601,7 +633,7 @@ public class TargetRestrictions {
         final Card srcCard = sa.getHostCard(); // should there be OrginalHost at any moment?
 
         for (final Card c : game.getCardsIn(this.tgtZone)) {
-            if (c.isValid(this.validTgts, sa.getActivatingPlayer(), srcCard, sa)
+            if (isValidTargetCandidate(sa, c)
                     && (!isTargeted || sa.canTarget(c))
                     && !sa.getTargets().contains(c)) {
                 candidates.add(c);

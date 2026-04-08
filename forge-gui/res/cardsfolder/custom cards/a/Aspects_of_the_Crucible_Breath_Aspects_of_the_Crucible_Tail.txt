@@ -1,0 +1,20 @@
+Name:Aspects of the Crucible Breath
+ManaCost:R R
+Types:Enchantment Aura
+K:Ash of War
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddAbility$ PumpSelf | Description$ Enchanted creature gets +2/+0 and has “{1}{R}, Discard a card: This creature gets +2/+0 until end of turn.”
+SVar:PumpSelf:AB$ Pump | Cost$ 1 R Discard<1/Card> | Defined$ Self | NumAtt$ +2 | SpellDescription$ This creature gets +2/+0 until end of turn.
+AlternateMode:Modal
+Oracle:Ash of War (This Aura can enchant creatures or Equipment. If it enchants an Equipment, creatures equipped with that Equipment are treated as if they were enchanted by this Aura.)\nEnchanted creature gets +2/+0 and has “{1}{R}, Discard a card: This creature gets +2/+0 until end of turn.”
+
+ALTERNATE
+
+Name:Aspects of the Crucible Wings
+ManaCost:1 W W
+Types:Enchantment Aura
+K:Flash
+K:Ash of War
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, it deals 3 damage to target attacking or blocking creature.
+SVar:TrigToken:DB$ DealDamage | ValidTgts$ Creature.attacking,Creature.blocking | TgtPrompt$ Select target attacking or blocking creature | NumDmg$ 3
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 2 | Description$ Enchanted creature gets +1/+2.
+Oracle:Flash\nAsh of War (This Aura can enchant creatures or Equipment. If it enchants an Equipment, creatures equipped with that Equipment are treated as if they were enchanted by this Aura.)\nWhen this enchantment enters, it deals 3 damage to target attacking or blocking creature.\nEnchanted creature gets +1/+2.

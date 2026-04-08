@@ -547,6 +547,7 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
             }
 
             final Card gameCard = game.getCardState(tgtC, null);
+            final CardStateName targetedState = sa.getTargets().getTargetedCardState(tgtC);
             // gameCard is LKI in that case, the card is not in game anymore
             // or the timestamp did change
             // this should check Self too
@@ -579,6 +580,15 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
             AbilityKey.addCardZoneTableParams(moveParams, triggerList);
 
             if (destination.equals(ZoneType.Battlefield)) {
+                if (gameCard.isModal() && gameCard.hasState(CardStateName.Backside)) {
+                    if (targetedState == CardStateName.Backside) {
+                        gameCard.setBackSide(true);
+                        gameCard.changeToState(CardStateName.Backside);
+                    } else {
+                        gameCard.setBackSide(false);
+                        gameCard.changeToState(CardStateName.Original);
+                    }
+                }
                 moveParams.put(AbilityKey.SimultaneousETB, tgtCards);
                 if (sa.isReplacementAbility()) {
                     ReplacementEffect re = sa.getReplacementEffect();

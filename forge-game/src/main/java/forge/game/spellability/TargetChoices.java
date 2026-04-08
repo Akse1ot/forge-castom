@@ -25,6 +25,7 @@ import com.google.common.collect.ForwardingList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 
+import forge.card.CardStateName;
 import forge.game.GameEntity;
 import forge.game.GameObject;
 import forge.game.card.Card;
@@ -50,10 +51,41 @@ public class TargetChoices extends ForwardingList<GameObject> implements Cloneab
 
     private final Map<GameObject, Integer> dividedMap = Maps.newHashMap();
 
+    private final Map<Card, CardStateName> targetedCardStates = Maps.newHashMap();
+
+    private int getCMCForState(final Card c, final CardStateName state) {
+        if (state == CardStateName.Backside && c.isModal() && c.hasState(CardStateName.Backside)) {
+            if (c.getState(CardStateName.Backside).getManaCost() != null) {
+                return c.getState(CardStateName.Backside).getManaCost().getCMC();
+            }
+        }
+        return c.getCMC();
+    }
+
+    public final void setTargetedCardState(final Card c, final CardStateName state) {
+        if (c == null || state == null) {
+            targetedCardStates.remove(c);
+        } else {
+            targetedCardStates.put(c, state);
+        }
+    }
+
+    public final CardStateName getTargetedCardState(final Card c) {
+        return targetedCardStates.get(c);
+    }
+
+    public final void clearTargetedCardState(final Card c) {
+        targetedCardStates.remove(c);
+    }
+
+    public final int getTargetedCMC(final Card c) {
+        return getCMCForState(c, targetedCardStates.getOrDefault(c, CardStateName.Original));
+    }
+
     public final int getTotalTargetedCMC() {
         int totalCMC = 0;
         for (Card c : IterableUtil.filter(targets, Card.class)) {
-            totalCMC += c.getCMC();
+            totalCMC += getTargetedCMC(c);
         }
         return totalCMC;
     }
@@ -89,6 +121,9 @@ public class TargetChoices extends ForwardingList<GameObject> implements Cloneab
         for (Object e : collection) {
             this.cardControllers.remove(e);
         }
+        for (Object e : collection) {
+            this.targetedCardStates.remove(e);
+        }
         return result;
     }
 
@@ -97,6 +132,7 @@ public class TargetChoices extends ForwardingList<GameObject> implements Cloneab
         boolean result = super.remove(object);
         dividedMap.remove(object);
         cardControllers.remove(object);
+        targetedCardStates.remove(object);
         return result;
     }
 
@@ -141,8 +177,17 @@ public class TargetChoices extends ForwardingList<GameObject> implements Cloneab
     }
 
     public final void replaceTargetCard(final Card old, final CardCollectionView replace) {
+        CardStateName oldState = targetedCardStates.remove(old);
+
         targets.remove(old);
         targets.addAll(replace);
+
+        for (Card c : replace) {
+            cardControllers.put(c, c.getController());
+            if (oldState != null) {
+                targetedCardStates.put(c, oldState);
+            }
+        }
     }
 
     @Override
@@ -151,6 +196,7 @@ public class TargetChoices extends ForwardingList<GameObject> implements Cloneab
         tc.targets.addAll(targets);
         tc.dividedMap.putAll(dividedMap);
         tc.cardControllers.putAll(cardControllers);
+        tc.targetedCardStates.putAll(targetedCardStates);
         return tc;
     }
     @Override

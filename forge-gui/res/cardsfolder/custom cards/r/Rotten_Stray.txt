@@ -1,0 +1,7 @@
+Name:Rotten Stray
+ManaCost:G
+Types:Creature Dog
+PT:1/1
+K:Deathtouch
+K:Spirit Ash:4 G
+Oracle:Deathtouch\nSpirit Ash {4}{G} ({4}{G}, Exile this card from your graveyard: Create a token that’s a copy of this creature, except it’s a Spirit enchantment creature in addition to its other types. Activate only as a sorcery.)
