@@ -1,0 +1,8 @@
+Name:Guidance of Grace
+ManaCost:G W
+Types:Enchantment
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a Rune token. (It’s an artifact with “{T}, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+counters_GE1_P1P1 | AddAbility$ AnyMana | Description$ Each creature you control with one or more +1/+1 counters on it has “{T}: Add one mana of any color.”
+SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1 | SpellDescription$ Add one mana of any color.
+Oracle:When this enchantment enters, create a Rune token. (It’s an artifact with “{T}, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)\nEach creature you control with one or more +1/+1 counters on it has “{T}: Add one mana of any color.”

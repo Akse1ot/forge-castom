@@ -1,0 +1,24 @@
+Name:Elden Stars
+ManaCost:3 W W
+Types:Legendary Enchantment
+K:Lifelink
+T:Mode$ Attacks | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigRemoveCounters | TriggerDescription$ Whenever a creature an opponent controls attacks or blocks, you may remove any number of +1/+1 counters from creatures you control. If you do, this enchantment deals that much damage to that creature.
+T:Mode$ Blocks | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigRemoveCounters | Secondary$ True | TriggerDescription$ Whenever a creature an opponent controls attacks or blocks, you may remove any number of +1/+1 counters from creatures you control. If you do, this enchantment deals that much damage to that creature.
+SVar:TrigRemoveCounters:DB$ RemoveCounter | Choices$ Creature.YouCtrl+counters_GE1_P1P1 | ChoiceOptional$ True | CounterType$ P1P1 | CounterNum$ Any | RememberAmount$ True | SubAbility$ DBDealDamage
+SVar:DBDealDamage:DB$ DealDamage | Defined$ TriggeredCard | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedNumber
+AlternateMode:Modal
+Oracle:Lifelink\n
+Whenever a creature an opponent controls attacks or blocks, you may remove any number of +1/+1 counters from creatures you control. If you do, this enchantment deals that much damage to that creature.
+
+ALTERNATE
+
+Name:Marika's Minor Erdtree
+ManaCost:G G G
+Types:Legendary Enchantment
+T:Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ At the beginning of your precombat main phase, gain 1 life, create a Rune token and add one mana of any color.
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_Rune_sac | SubAbility$ DBMana
+SVar:DBMana:DB$ Mana | Produced$ Any
+Oracle:At the beginning of your precombat main phase, gain 1 life, create a Rune token and add one mana of any color.

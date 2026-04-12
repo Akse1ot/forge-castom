@@ -1,0 +1,24 @@
+Name:Hyetta, Lightseeker
+ManaCost:R R
+Types:Legendary Creature Human Cleric
+PT:0/2
+A:AB$ PutCounter | Cost$ 2 R T Or(Discard<1/Card>~Sac<1/Artifact>) | CounterType$ GRAPE | CounterNum$ 1 | SubAbility$ DBDraw | SpellDescription$ Put a grape counter on CARDNAME and draw a card.
+SVar:DBDraw:DB$ Draw
+T:Mode$ DiscardedAll | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMana | ActivationLimit$ 1 | TriggerDescription$ Whenever you discard one or more cards, add {R} for each grape counter on this creature. This ability triggers only once each turn.
+SVar:TrigMana:DB$ Mana | Produced$ R | Amount$ X
+SVar:X:Count$CardCounters.GRAPE
+K:Madness:R
+AlternateMode:Modal
+Oracle:{2}{R}, {T}, Discard a card or sacrifice an artifact: Put a grape counter on this creature and draw a card.\nWhenever you discard one or more cards, add {R} for each grape counter on this creature. This ability triggers only once each turn.\nMadness {R}
+
+ALTERNATE
+
+Name:Irina of Morne
+ManaCost:B B
+Types:Legendary Creature Human Noble
+PT:0/2
+K:Defender
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When this creature dies, create a 2/1 red Warrior creature token and a Blood token. (It’s an artifact with “{1}, {T}, Discard a card, Sacrifice this artifact: Draw a card.”)
+SVar:TrigToken:DB$ Token | TokenScript$ r_2_1_Warrior | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_blood_draw
+Oracle:Defender\nWhen this creature dies, create a 2/1 red Warrior creature token and a Blood token. (It’s an artifact with “{1}, {T}, Discard a card, Sacrifice this artifact: Draw a card.”)

@@ -1,0 +1,19 @@
+Name:Guard Counter
+ManaCost:1 W
+Types:Instant
+A:SP$ Effect | ValidTgts$ Creature.blocking+YouCtrl | TgtPrompt$ Select target blocking creature you control | ReplacementEffects$ RPrevent | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | Duration$ UntilEndOfCombat | SpellDescription$ Prevent all combat damage that would be dealt to target blocking creature you control this combat. If damage is prevented this way, that creature deals that much damage to target creature or planeswalker.
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | DamageSource$ Remembered | NumDmg$ X
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | IsCombat$ True | ValidTarget$ Card.IsRemembered | ReplaceWith$ DBDamage | Description$ Prevent all combat damage that would be dealt to target blocking creature you control this combat.
+SVar:X:ReplaceCount$DamageAmount
+AlternateMode:Modal
+Oracle:Prevent all combat damage that would be dealt to target blocking creature you control this combat. If damage is prevented this way, that creature deals that much damage to target creature or planeswalker.
+
+ALTERNATE
+
+Name:Backstab
+ManaCost:1 B
+Types:Instant
+A:SP$ Animate | ValidTgts$ Creature.YouCtrl | Triggers$ TrigDamage | SpellDescription$ Until end of turn, target creature you control gains “When this creature deals combat damage to a player, destroy target creature or planeswalker that player controls.” 
+SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | Execute$ TrigDestroy | CombatDamage$ True | TriggerDescription$ Whenever this creature deals combat damage to a player, destroy target creature or planeswalker that player controls.
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.ControlledBy TriggeredTarget,Planeswalker.ControlledBy TriggeredTarget | TgtPrompt$ Select target creature or planeswalker damaged player controls
+Oracle:Until end of turn, target creature you control gains “When this creature deals combat damage to a player, destroy target creature or planeswalker that player controls.”

@@ -1,0 +1,17 @@
+Name:Litany of Proper Death
+ManaCost:1 W W
+Types:Sorcery
+A:SP$ Destroy | ValidTgts$ Creature.tapped | TgtPrompt$ Select target tapped creature | RememberObjects$ Targeted | SpellDescription$ Destroy target tapped creature. When you do, if that creature was black, exile it from its owner’s graveyard.
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ConditionDefined$ Remembered | ConditionPresent$ Card.Black | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:Modal
+Oracle:Destroy target tapped creature. When you do, if that creature was black, exile it from its owner’s graveyard.
+
+ALTERNATE
+
+Name:Tibia's Summons
+ManaCost:3 B B B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ 3 | MaxTotalTargetCMC$ 6 | ValidTgts$ Creature.YouOwn | TargetEitherFace$ True | TgtPrompt$ Select up to three target creature cards with total mana value 3 or less | Tapped$ True | StaticEffect$ Animate | SpellDescription$ Return up to three target creature cards with total mana value 6 or less from your graveyard to the battlefield tapped. Those creatures become Skeletons is addition to their other types.
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Skeleton
+Oracle:You may choose either face of a double-faced card for this spell’s targets.\nReturn up to three target creature cards with total mana value 6 or less from your graveyard to the battlefield tapped. Those creatures become Skeletons is addition to their other types.

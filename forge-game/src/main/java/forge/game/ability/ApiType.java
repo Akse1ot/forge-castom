@@ -55,6 +55,7 @@ public enum ApiType {
     ChoosePlayer (ChoosePlayerEffect.class),
     ChooseSector (ChooseSectorEffect.class),
     ChooseSource (ChooseSourceEffect.class),
+    ChooseSpellAbility (ChooseSpellAbilityEffect.class),
     ChooseType (ChooseTypeEffect.class),
     ClaimThePrize (ClaimThePrizeEffect.class),
     Clash (ClashEffect.class),

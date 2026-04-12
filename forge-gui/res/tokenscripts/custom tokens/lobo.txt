@@ -1,0 +1,9 @@
+Name:Lobo
+ManaCost:no cost
+Colors:blue
+Types:Token Enchantment Creature Wolf Spirit
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X | Description$ CARDNAME's power and toughness are each equal to twice the number of other Dragons you control.
+S:Mode$ Continuous | Affected$ Card.namedLatenna_the_Albinauric+YouCtrl | RemoveKeyword$ Defender | Description$ As long as you control CARDNAME, Latenna doesn't have defender.
+SVar:X:Count$Valid Enchantment.YouCtrl
+Oracle:This creature’s power and toughness are each equal to the number of enchantments you control.\nAs long as you control this creature, Latenna doesn’t have defender.

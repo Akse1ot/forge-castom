@@ -1,0 +1,31 @@
+Name:Gurranq, Beast Clergyman
+ManaCost:2 W
+Types:Legendary Creature Wolf Cleric
+PT:2/2
+K:Vigilance
+K:Lifelink
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigExile | TriggerDescription$ At the beginning of your upkeep, you may exile target creature or planeswalker card from a graveyard. If you do, create a Rune token, gain 1 life and draw a card.
+SVar:TrigExile:AB$ ChangeZone | ValidTgts$ Creature,Planeswalker | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_Rune_sac | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | Defined$ You | LifeAmount$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:Modal
+Oracle:Vigilance, lifelink\nAt the beginning of your upkeep, you may exile target creature or planeswalker card from a graveyard. If you do, create a Rune token, gain 1 life and draw a card.
+
+ALTERNATE
+
+Name:Maliketh, the Black Blade
+ManaCost:4 B B
+Types:Legendary Creature Wolf Shade
+PT:7/5
+K:Menace
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExileGraveyards | TriggerDescription$ When CARDNAME enters, exile all graveyards until CARDNAME leaves the battlefield.
+SVar:TrigExileGraveyards:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | Hidden$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigReturnExiled | TriggerDescription$ When CARDNAME leaves the battlefield, return the exiled cards to their owners' graveyards.
+SVar:TrigReturnExiled:DB$ ChangeZoneAll | Origin$ Exile | Destination$ Graveyard | ChangeType$ Card.IsRemembered | Hidden$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.DamagedBy | TriggerZones$ Battlefield | Execute$ TrigExileDamaged | TriggerDescription$ When a creature dealt damage by CARDNAME this turn dies, exile it from its owner's graveyard.
+SVar:TrigExileDamaged:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Exile
+Oracle:Menace, deathtouch\nWhen this creature enters, exile all graveyards until this creature leaves the battlefield.\nWhen a creature dealt damage by this creature this turn dies, exile it from its owner’s graveyard.

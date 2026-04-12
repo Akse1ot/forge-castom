@@ -139,6 +139,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
     private EnumMap<AbilityKey, Object> replacingObjects = AbilityKey.newMap();
     private final Supplier<List<String>> pipsToReduce = Suppliers.memoize(ArrayList::new);
     private List<AbilitySub> chosenList = null;
+    private List<SpellAbility> chosenSpellAbilities = null;
     private final Supplier<CardCollection> tappedForConvoke = Suppliers.memoize(CardCollection::new);
     private Card sacrificedAsOffering;
     private Card sacrificedAsEmerge;
@@ -174,6 +175,24 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
     private Map<Player, Integer> loseLifeMap;
 
     private String name = "";
+
+    public List<SpellAbility> getChosenSpellAbilities() {
+        return chosenSpellAbilities;
+    }
+
+    public void setChosenSpellAbilities(final List<SpellAbility> list) {
+        if (list == null) {
+            chosenSpellAbilities = null;
+        } else {
+            chosenSpellAbilities = Lists.newArrayList(list);
+        }
+    }
+
+    public void clearChosenSpellAbilities() {
+        if (chosenSpellAbilities != null) {
+            chosenSpellAbilities.clear();
+        }
+    }
 
     public CardCollection getLastStateBattlefield() {
         return lastStateBattlefield;
@@ -1002,6 +1021,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
             resetTargets();
         }
         resetTriggeringObjects();
+        clearChosenSpellAbilities();
 
         if (isActivatedAbility()) {
             setXManaCostPaid(null);

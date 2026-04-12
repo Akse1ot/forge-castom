@@ -1,0 +1,12 @@
+Name:Cleanrot Knight Finlay
+ManaCost:1 B G
+Types:Legendary Creature — Human Knight
+PT:2/3
+K:Lifelink
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When this creature enters, each player creates a colorless land token named Rot with “{T}, Pay 2 life: Add {C}.”
+SVar:TrigToken:DB$ Token | TokenScript$ c_Rot | TokenOwner$ Player
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | ConditionCheckSVar$ LifePaid | ConditionSVarCompare$ GE2 | Execute$ TrigReturn | TriggerDescription$ At the beginning of each player’s end step, if that player paid two or more life this turn, return target permanent card from your graveyard to your hand.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TgtPrompt$ Choose target permanent card in your graveyard | ValidTgts$ Permanent.YouCtrl
+SVar:LifePaid:PlayerCountDefinedActivePlayer$LifePaidThisTurn
+Oracle:Lifelink, deathtouch\nWhen this creature enters, each player creates a colorless land token named Rot with “{T}, Pay 2 life: Add {C}.”\nAt the beginning of each player’s end step, if that player paid two or more life this turn, return target permanent card from your graveyard to your hand.

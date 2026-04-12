@@ -1,0 +1,19 @@
+Name:Demi Human Chief
+ManaCost:1 R R
+Types:Creature Demi-Human
+PT:2/2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield | CheckSVar$ PackTactics | SVarCompare$ GE6 | NoResolvingCheck$ True | TriggerDescription$ Pack tactics — When this creature attacks, if you attacked with creatures with total power 6 or greater this combat, this creature gains double strike until end of turn.
+SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ Double Strike
+SVar:PackTactics:Count$Valid Creature.attacking$CardPower
+AlternateMode:Modal
+Oracle:Pack tactics — When this creature attacks, if you attacked with creatures with total power 6 or greater this combat, this creature gains double strike until end of turn.
+
+ALTERNATE
+
+Name:Demi Human Queen
+ManaCost:1 G G
+Types:Creature Demi-Human
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$
+SVar:TrigToken:DB$ Token | TokenScript$ rg_1_1_demi_human_cant_attack_or_block | TokenAmount$ 2
+Oracle:When this creature enters, create two 1/1 red and green Demi-Human creature tokens with “This creature can’t attack or block unless you control a nontoken creature.”

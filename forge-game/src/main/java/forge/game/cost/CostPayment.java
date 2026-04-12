@@ -127,6 +127,8 @@ public class CostPayment extends ManaConversionMatrix {
             // Clear lists to prevent accumulation across multiple cancelled activations
             if (part instanceof CostPartWithList) {
                 ((CostPartWithList) part).resetLists();
+            } else if (part instanceof CostOr) {
+                ((CostOr) part).resetNestedLists();
             }
         }
 
@@ -167,6 +169,8 @@ public class CostPayment extends ManaConversionMatrix {
         for (final CostPart part : this.paidCostParts) {
             if (part instanceof CostPartWithList listCost) {
                 listCost.resetLists();
+            } else if (part instanceof CostOr orCost) {
+                orCost.resetNestedLists();
             }
         }
 
@@ -214,6 +218,8 @@ public class CostPayment extends ManaConversionMatrix {
             // abilities care what was used to pay for them
             if (part instanceof CostPartWithList) {
                 ((CostPartWithList) part).resetLists();
+            } else if (part instanceof CostOr) {
+                ((CostOr) part).resetNestedLists();
             }
 
             game.costPaymentStack.pop(); // cost is resolved

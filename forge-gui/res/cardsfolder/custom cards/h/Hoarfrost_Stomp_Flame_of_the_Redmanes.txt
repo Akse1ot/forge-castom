@@ -1,0 +1,23 @@
+Name:Hoarfrost Stomp
+ManaCost:1 U U
+Types:Enchantment Aura
+K:Kicker:1 U
+K:Ash of War
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap | TriggerDescription$ When CARDNAME enters, tap up to two target creatures. If this spell was kicked, put a stun counter on each of those creatures.
+SVar:TrigTap:DB$ Tap | TgtPrompt$ Select up to two target creatures | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | SubAbility$ DBCounter | SpellDescription$ Tap up to two target creatures. If this spell was kicked, put a stun counter on each of those creatures. (If a permanent with a stun counter on it would become untapped, remove one from it instead.)
+SVar:DBCounter:DB$ PutCounter | Condition$ Kicked | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Vigilance | Description$ Enchanted creature gets +1/+1 and has vigilance.
+AlternateMode:Modal
+Oracle:Kicker {1}{U} (You may pay an additional {1}{U} as you cast this spell.)\nAsh of War\nWhen this enchantment enters, tap up to two target creatures. If this spell was kicked, put a stun counter on each of those creatures.\nEnchanted creature gets +1/+1 and has vigilance.
+
+ALTERNATE
+
+Name:Flame of the Redmanes
+ManaCost:1 R R
+Types:Enchantment Aura
+K:Kicker:1 R
+K:Ash of War
+T:Mode$ ChangesZone | ValidCard$ Card.Self+kicked | Origin$ Any | Destination$ Battlefield | Execute$ TrigDamage | TriggerDescription$ When CARDNAME enters, if it was kicked, it deals 3 damage to up to one target creature or planeswalker.
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ 3 | TargetMin$ 0 | TargetMax$ 1
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | Description$ Enchanted creature gets +2/+2.
+Oracle:Kicker {1}{R} (You may pay an additional {1}{R} as you cast this spell.)\nAsh of War\nWhen this enchantment enters, if it was kicked, it deals 3 damage to up to one target creature or planeswalker.\nEnchanted creature gets +2/+2.

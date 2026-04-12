@@ -1,0 +1,20 @@
+Name:Depraved Perfumer
+ManaCost:1 B B
+Types:Creature Human Shaman
+PT:2/2
+A:AB$ Mana | Cost$ T Sac<1/Creature> PayLife<2>  | Produced$ B B | SpellDescription$ Add {B}{B}.
+A:AB$ Pump | Cost$ 1 B PayLife<1> | Defined$ Self | NumAtt$ +1 | NumDef$ +1 | SpellDescription$ CARDNAME gets +1/+1 until end of turn.
+A:AB$ Token | Cost$ 1 B PayLife<1> | TokenScript$ c_a_blood_draw | SpellDescription$ Create a Blood token. (It’s an artifact with “{1}, {T}, Discard a card, Sacrifice this artifact: Draw a card.”)
+AlternateMode:Modal
+Oracle:{T}, Sacrifice a creature, Pay 2 life: Add {B}{B}\n{1}{B}, Pay 1 life: This creature gets +1/+1 until end of turn.\n{1}{B}, Pay 1 life: Create a Blood token. (It’s an artifact with “{1}, {T}, Discard a card, Sacrifice this artifact: Draw a card.”)
+
+ALTERNATE
+
+Name:Perfumer of Leyndell
+ManaCost:1 G G
+Types:Creature Human Shaman
+PT:1/2
+A:AB$ Mana | Cost$ T | Produced$ Any | SpellDescription$ Add one mana of any color.
+A:AB$ GainLife | Cost$ G T | Defined$ You | LifeAmount$ 2 | SpellDescription$ You gain 2 life.
+A:AB$ Pump | Cost$ 6 G T | Defined$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | KW$ Indestructible | SorcerySpeed$ True | SpellDescription$ Creatures you control get +1/+1 and gain indestructible until end of turn. Activate only as a sorcery.
+Oracle:{T}: Add one mana of any color.\n{G}, {T}: You gain 2 life.\n{6}{G}, {T}: Creatures you control get +1/+1 and gain indestructible until end of turn. Activate only as a sorcery.

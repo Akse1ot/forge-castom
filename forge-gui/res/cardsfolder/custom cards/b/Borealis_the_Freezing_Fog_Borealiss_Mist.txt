@@ -18,7 +18,7 @@ K:Enchant:Creature,Planeswalker:creature or Planeswalker
 SVar:AttachAILogic:Pump
 S:Mode$ Continuous | Affected$ Creature.EnchantedBy,Planeswalker.EnchantedBy | AddKeyword$ Vigilance | AddType$ Dragon | Description$ Enchanted permanent has vigilance is a Dragon in addition to its other types.
 S:Mode$ Continuous | Affected$ Creature.EnchantedBy,Planeswalker.EnchantedBy | AddAbility$ Plus | Description$ Enchanted planeswalker has "[+1]: Tap target creature an opponent controls."
-SVar:Plus:AB$ Tap| Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.OppCtrl | TgtPrompt$ Select target creature an opponent controls | SpellDescription$ Tap target creature an opponent controls.
+SVar:Plus:AB$ Tap | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.OppCtrl | TgtPrompt$ Select target creature an opponent controls | SpellDescription$ Tap target creature an opponent controls.
 S:Mode$ Continuous | Affected$ Creature.EnchantedBy,Planeswalker.EnchantedBy | AddAbility$ Ult | Description$ Enchanted planeswalker has “ [-3]: Destroy target tapped creature.”
 SVar:Ult:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.tapped | TgtPrompt$ Select target tapped creature | SpellDescription$ Destroy target tapped creature.
 Oracle:Enchant creature or planeswalker.\nEnchanted permanent has vigilance is a Dragon in addition to its other types.\nEnchanted permanent has “ [+1]: Tap target creature an opponent controls.” and “ [-3]: Destroy target tapped creature.”

@@ -1,0 +1,29 @@
+Name:Malenia, Blade of Miquella
+ManaCost:3 R W
+Types:Legendary Creature Demigod
+PT:2/4
+K:Lifelink
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self+modified | TriggerZones$ Battlefield | Execute$ TrigUntap | FirstAttack$ True | TriggerDescription$ Waterfowl Dance — When this creature attacks for the first time on a turn, if it’s modified, it gains double strike until end of turn. Then if it is modified in two or more different ways, untap all modified creatures you control. After this phase, there is an additional combat phase.
+SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ Double Strike | SubAbility$ DBUntap
+SVar:DBUntap:DB$ UntapAll | ValidCards$ Creature.YouCtrl+modified | CheckSVar$ X | SVarCompare$ GE2 | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | CheckSVar$ X | SVarCompare$ GE2 | ExtraPhase$ Combat | AfterPhase$ EndCombat
+SVar:X:Count$ModifiedWays
+AlternateMode:Modal
+Oracle:Lifelink, haste\n
+Waterfowl Dance — When this creature attacks for the first time on a turn, if it’s modified, it gains double strike until end of turn. Then if it is modified in two or more different ways, untap all modified creatures you control. After this phase, there is an additional combat phase.
+
+ALTERNATE
+
+Name:Malenia, Goddess of Rot
+ManaCost:4 B R G
+Types:Legendary Creature God
+PT:4/7
+K:Flying
+K:Deathtouch
+K:Lifelink
+K:Haste
+T:Mode$ TapsForMana | ValidCard$ Land | Activator$ You | Execute$ TrigMana | TriggerZones$ Battlefield | Static$ True | TriggerDescription$ Whenever you tap a land for mana, add one mana of any type that land produced.
+SVar:TrigMana:DB$ ManaReflected | ColorOrType$ Type | ReflectProperty$ Produced | Defined$ You
+S:Mode$ RaiseCost | Type$ Ability | ValidSpell$ Activated.ManaAbility | ValidCard$ Land | Cost$ PayLife<1> | EffectZone$ All | Description$ Mana abilities of CARDNAME cost an additional 1 life to activate.
+Oracle:Flying, deathtouch, lifelink, haste\nWhenever you tap a land for mana, add one mana of any color that land could produce.\nEach land has “As an additional cost to activate this land’s abilities, pay 1 life.”

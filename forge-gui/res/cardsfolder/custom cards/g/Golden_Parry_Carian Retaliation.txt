@@ -1,0 +1,16 @@
+Name:Golden Parry
+ManaCost:1 W
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | KW$ Indestructible | SpellDescription$ Target creature you control gains indestructible until end of turn.
+AlternateMode:Modal
+Oracle:Target creature you control gains indestructible until end of turn.
+
+ALTERNATE
+
+Name:Carian Retaliation
+ManaCost:1 U U
+Types:Instant
+
+A:SP$ Counter | TargetType$ Spell,Activated,Triggered | TgtPrompt$ Select target spell or ability that targets a creature you control | ValidTgts$ Card,Emblem | TargetValidTargeting$ Creature.YouCtrl+inRealZoneBattlefield | UnlessCost$ 2 | UnlessPayer$ TargetedController | UnlessResolveSubs$ WhenPaid | SubAbility$ DBToken | SpellDescription$ Counter target spell or ability targeting a creature you control unless its controller pays {2}. If you do, create three blue enchantment tokens named Glintblade with “Sacrifice this enchantment: Target creature gets -1/-0 until end of turn.”
+SVar:DBToken:DB$ Token | TokenScript$ u_e_Glintblade_sac | TokenAmount$ 3
+Oracle:Counter target spell or ability targeting a creature you control unless its controller pays {2}. If you do, create three blue enchantment tokens named Glintblade with “Sacrifice this enchantment: Target creature gets -1/-0 until end of turn.”

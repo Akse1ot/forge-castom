@@ -3,9 +3,9 @@ ManaCost:G U R
 Types:Legendary Creature Albinauric Knight
 PT:4/4
 K:Multikicker:1
-K:etbCounter:TRAMPLE:1:ManaSpent$ G G:This creature enters with a trample counter on it if two or more {G} was spent to cast it.
-K:etbCounter:FLYING:1:ManaSpent$ U U:This creature enters with a flying counter on it if two or more {U} was spent to cast it.
-K:etbCounter:HASTE:1:ManaSpent$ R R:This creature enters with a haste counter on it if two or more {R} was spent to cast it.
+K:etbCounter:Trample:1:ManaSpent$ G G:This creature enters with a trample counter on it if two or more {G} was spent to cast it.
+K:etbCounter:Flying:1:ManaSpent$ U U:This creature enters with a flying counter on it if two or more {U} was spent to cast it.
+K:etbCounter:Haste:1:ManaSpent$ R R:This creature enters with a haste counter on it if two or more {R} was spent to cast it.
 K:etbCounter:P1P1:X:no Condition:This creature enters with a +1/+1 counter on it for each time it was kicked.
-SVar:X:Count$Kicked
+SVar:X:Count$TimesKicked
 Oracle:Multikicker {1}\nThis creature enters with a trample counter on it if two or more {G} was spent to cast it, a flying counter on it if two or more {U} was spent to cast it, a haste counter on it if two or more {R} was spent to cast it, and a +1/+1 counter on it for each time it was kicked.

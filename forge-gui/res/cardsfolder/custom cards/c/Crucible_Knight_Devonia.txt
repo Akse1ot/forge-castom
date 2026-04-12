@@ -1,0 +1,13 @@
+Name:Crucible Knight Devonia
+ManaCost:3 G U
+Types:Legendary Creature Human Knight
+PT:4/4
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDig | TriggerDescription$ Whenever an enchantment you control enters, reveal the top card of your library. If it’s a land card, put it onto the battlefield tapped. If it’s an enchantment card, draw a card. If it’s a nonland, nonenchantment card, create a Rune token.
+SVar:TrigDig:DB$ PeekAndReveal | RememberRevealed$ True | NoPeek$ True | SubAbility$ MoveBattlefield
+SVar:MoveBattlefield:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Battlefield | ConditionDefined$ Remembered | ConditionPresent$ Card.Land | Tapped$ True | SubAbility$ MoveHand
+SVar:MoveHand:DB$ Draw | Defined$ You | ConditionDefined$ Remembered | ConditionPresent$ Card.Enchantment | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | ConditionDefined$ Remembered | ConditionPresent$ Card.nonEnchantment+nonLand | TokenScript$ c_a_Rune_sac | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ ReduceCost | ValidTarget$ Card.Self | ValidCard$ Aura | Type$ Spell | Activator$ You | Amount$ 2 | Description$ Aura spells you cast that target this creature cost {2} less to cast.
+Oracle:Trample\nWhenever an enchantment you control enters, reveal the top card of your library. If it’s a land card, put it onto the battlefield tapped. If it’s an enchantment card, draw a card. If it’s a nonland, nonenchantment card, create a Rune token.\nAura spells you cast that target this creature cost {2} less to cast.

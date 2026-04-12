@@ -249,7 +249,12 @@ public class Cost implements Serializable {
             } else if ("Mandatory".equals(part)) {
                 this.isMandatory = true;
             } else {
-                CostPart cp = parseCostPart(part, tapCost, untapCost);
+                CostPart cp;
+                if (part.startsWith("Or(")) {
+                    cp = parseOrCostPart(part, bAbility, intrinsic, tapCost, untapCost);
+                } else {
+                    cp = parseCostPart(part, tapCost, untapCost);
+                }
                 if (null != cp)
                     if (cp instanceof CostPartMana p) {
                         parsedMana = p;
@@ -601,6 +606,44 @@ public class Cost implements Serializable {
             return new CostTap();
         }
         return null;
+    }
+
+    private static CostPart parseOrCostPart(final String parse, final boolean bAbility, final boolean intrinsic,
+                                            final boolean tapCost, final boolean untapCost) {
+        final int startPos = parse.indexOf('(') + 1;
+        final int endPos = parse.lastIndexOf(')');
+        if (startPos <= 0 || endPos <= startPos) {
+            throw new RuntimeException("Invalid Or cost: " + parse);
+        }
+
+        final String inner = parse.substring(startPos, endPos);
+        final String[] branches = splitOrBranches(inner);
+        if (branches.length != 2) {
+            throw new RuntimeException("Invalid Or cost branches: " + parse);
+        }
+
+        final Cost left = new Cost(branches[0].trim(), bAbility, intrinsic);
+        final Cost right = new Cost(branches[1].trim(), bAbility, intrinsic);
+
+        return new CostOr(left, right);
+    }
+
+    private static String[] splitOrBranches(final String inner) {
+        int depth = 0;
+        for (int i = 0; i < inner.length(); i++) {
+            final char ch = inner.charAt(i);
+            if (ch == '<') {
+                depth++;
+            } else if (ch == '>') {
+                depth--;
+            } else if (ch == '~' && depth == 0) {
+                return new String[] {
+                        inner.substring(0, i),
+                        inner.substring(i + 1)
+                };
+            }
+        }
+        return new String[0];
     }
 
     /**

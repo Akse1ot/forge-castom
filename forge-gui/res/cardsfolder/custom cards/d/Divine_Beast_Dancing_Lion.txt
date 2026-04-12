@@ -1,0 +1,11 @@
+Name:Divine Beast Dancing Lion
+ManaCost:2 G G U U
+Types:Legendary Enchantment Creature Beast God
+PT:6/6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Aura.YouCtrl+Other | TriggerZones$ Battlefield | CheckSVar$ SameNameCount | SVarCompare$ EQ0 | Execute$ TrigCopyAura | TriggerDescription$ Whenever another enchantment you control enters, if you control no other enchantments with the same name, create a token that's a copy of that enchantment, except it isn't legendary. If it's an Aura, attach it to a permanent you control.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl+nonAura+Other | TriggerZones$ Battlefield | CheckSVar$ SameNameCount | SVarCompare$ EQ0 | Execute$ TrigCopyNonAura | TriggerDescription$ Whenever another enchantment you control enters, if you control no other enchantments with the same name, create a token that's a copy of that enchantment, except it isn't legendary. If it's an Aura, attach it to a permanent you control.
+SVar:TrigCopyAura:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | NonLegendary$ True | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Choose a permanent you control | AttachedTo$ Targeted
+SVar:TrigCopyNonAura:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | NonLegendary$ True
+SVar:SameNameCount:Count$Valid Enchantment.YouCtrl+Other+sharesNameWith TriggeredCard
+SVar:BuffedBy:Enchantment
+Oracle:Whenever another enchantment you control enters, if you control no other enchantments with the same name, create a token that’s a copy of that enchantment, except it isn’t legendary. If it’s an Aura, attach it to a permanent you control.

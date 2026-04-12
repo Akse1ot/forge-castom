@@ -407,6 +407,7 @@ Ashiok
 B.O.B.
 Bahamut
 Basri
+Bernahl
 Boggart
 Bolas
 Calix
@@ -429,11 +430,13 @@ Ellywick
 Elminster
 Elspeth
 Estrid
+Fia
 Freyalise
 Garruk
 Gideon
 Grist
 Guff
+Godfrey
 Goldmask
 Huatli
 Inzerva
@@ -477,6 +480,7 @@ Teyo
 Tezzeret
 Tibalt
 Thiollier
+Tarnished
 Tyvar
 Ugin
 Urza
@@ -485,6 +489,7 @@ Veila
 Vivien
 Vraska
 Vronos
+Vyke
 Will
 Windgrace
 Wrenn

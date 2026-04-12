@@ -1,0 +1,14 @@
+Name:The Nameless Tarnished
+ManaCost:W U B R G
+Types:Legendary Planeswalker Tarnished
+Loyalty:5
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigRune | TriggerDescription$ Whenever a creature an opponent controls dies, create a Rune token.
+SVar:TrigRune:DB$ Token | TokenAmount$ 1 | TokenScript$ c_a_Rune_sac | TokenOwner$ You
+A:AB$ PutCounterAll | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | ValidCards$ Planeswalker.YouCtrl | CounterType$ LOYALTY | CounterNum$ 1 | SpellDescription$ Put a loyalty counter on each planeswalker you control.
+A:AB$ ChooseSpellAbility | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Planeswalker | TgtPrompt$ Choose target planeswalker | ValidSA$ Activated.Loyalty | ChoiceTitle$ Choose a loyalty ability | SubAbility$ DBGainChosen | SpellDescription$ Choose a loyalty ability of target planeswalker. The Nameless Tarnished gains that ability.
+SVar:DBGainChosen:DB$ Effect | CopyChosenSpellAbility$ True | ImprintCards$ Self | StaticAbilities$ GainChosenLoyalty | Duration$ Permanent
+SVar:GainChosenLoyalty:Mode$ Continuous | Affected$ Card.IsImprinted | GainsAbilitiesOfDefined$ Self | GainsValidAbilities$ Activated.Loyalty
+A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — The Nameless Tarnished | Image$ emblem_The_Nameless_Tarnished | StaticAbilities$ EmblemAnim | Duration$ Permanent | SpellDescription$ You gain an emblem with “Planeswalkers you control are creatures with base power and toughness equal to the number of loyalty counters on them and have indestructible.” (They aren’t planeswalkers. Loyalty abilities can still be activated.)
+SVar:EmblemAnim:Mode$ Continuous | Affected$ Planeswalker.YouCtrl | AddType$ Creature | RemoveType$ Planeswalker | SetPower$ AffectedLoyalty | SetToughness$ AffectedLoyalty | AddKeyword$ Indestructible | Description$ Planeswalkers you control are creatures with base power and toughness equal to the number of loyalty counters on them and have indestructible.
+SVar:AffectedLoyalty:Count$CardCounters.LOYALTY
+Oracle:Whenever a creature an opponent controls dies, create a Rune token.\n[0]: Put a loyalty counter on each planeswalker you control.\n[-1]: Choose a loyalty ability of target planeswalker. The Nameless Tarnished gains that ability.\n[-7]: You gain an emblem with “Planeswalkers you control are creatures with base power and toughness equal to the number of loyalty counters on them and have indestructible.” (They aren’t planeswalkers. Loyalty abilities can still be activated.)

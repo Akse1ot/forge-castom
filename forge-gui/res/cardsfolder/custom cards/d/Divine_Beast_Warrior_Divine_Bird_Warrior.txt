@@ -1,0 +1,21 @@
+Name:Divine Beast Warrior
+ManaCost:2 G G
+Types:Enchantment Creature Beast Warrior
+PT:2/2
+K:Vigilance
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X | Description$ This creature gets +1/+1 for each other enchantment you control.
+SVar:X:Count$Valid Enchantment.Other+YouCtrl
+AlternateMode:Modal
+Oracle:Vigilance\n
+This creature gets +1/+1 for each other enchantment you control.
+
+ALTERNATE
+
+Name:Divine Bird Warrior
+ManaCost:1 U U
+Types:Enchantment Creature Bird Warrior
+PT:2/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Enchantment.Other+YouCtrl | Execute$ TrigSurveil | TriggerDescription$ Whenever CARDNAME or another enchantment you control enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)
+SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+Oracle:Flying\nWhenever this creature or another enchantment you control enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)

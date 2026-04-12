@@ -51,6 +51,7 @@ public class EffectEffect extends SpellAbilityEffect {
         FCollection<GameObject> rememberList = null;
         String effectImprinted = null;
         String noteCounterDefined = null;
+        boolean copyChosenSpellAbility = false;
         final String duration = sa.getParam("Duration");
 
         if (!checkValidDuration(duration, sa)) {
@@ -71,6 +72,10 @@ public class EffectEffect extends SpellAbilityEffect {
 
         if (sa.hasParam("ReplacementEffects")) {
             effectReplacementEffects = sa.getParam("ReplacementEffects").split(",");
+        }
+
+        if (sa.hasParam("CopyChosenSpellAbility")) {
+            copyChosenSpellAbility = true;
         }
 
         if (sa.hasParam("RememberSpell")) {
@@ -183,6 +188,30 @@ public class EffectEffect extends SpellAbilityEffect {
                     final SpellAbility grantedAbility = AbilityFactory.getAbility(eff, s, sa);
                     eff.addSpellAbility(grantedAbility);
                     grantedAbility.setIntrinsic(true);
+                }
+            }
+
+            if (copyChosenSpellAbility) {
+                final SpellAbility root = sa.getRootAbility();
+                System.out.println("TARNISHED EFFECT 1: current sa = " + sa);
+                System.out.println("TARNISHED EFFECT 2: root sa = " + root);
+
+                final List<SpellAbility> chosen = root == null ? null : root.getChosenSpellAbilities();
+                System.out.println("TARNISHED EFFECT 3: chosen list = " + chosen);
+
+                if (chosen != null) {
+                    for (final SpellAbility chosenSa : chosen) {
+                        System.out.println("TARNISHED EFFECT 4: chosenSa = " + chosenSa);
+                        if (chosenSa == null) {
+                            continue;
+                        }
+
+                        final SpellAbility copied = chosenSa.copy(eff, sa.getActivatingPlayer(), false, true);
+                        copied.setIntrinsic(true);
+                        eff.addSpellAbility(copied);
+
+                        System.out.println("TARNISHED EFFECT 5: copied added to effect = " + copied);
+                    }
                 }
             }
 

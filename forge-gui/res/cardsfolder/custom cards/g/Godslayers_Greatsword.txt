@@ -1,0 +1,11 @@
+Name:Godslayer's Greatsword
+ManaCost:W B
+Types:Legendary Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Deathtouch | AddAbility$ ChangeZone | Description$ Equipped creature has deathtouch and “{1}{B}: Exile target creature or planeswalker card from a graveyard. Target creature gets -1/-1 until end of turn.”
+SVar:ChangeZone:AB$ ChangeZone | ValidTgts$ Creature,Planeswalker | Cost$ 1 B | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBPump | SpellDescription$ Exile target creature or planeswalker card from a graveyard. Target creature gets -1/-1 until end of turn.
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ -1 | NumDef$ -1
+T:Mode$ ChangesZone | Origin$ Graveyard | Destination$ Any | TriggerZones$ Battlefield | ValidCard$ Card.God,Card.Demigod | Execute$ TrigLoseLife | TriggerDescription$ Whenever a God or Demigod card leaves a graveyard, each opponent loses 3 life and you gain 3 life.
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 3 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3
+K:Equip:2
+Oracle:Equipped creature has deathtouch and “{1}{B}: Exile target creature or planeswalker card from a graveyard. Target creature gets -1/-1 until end of turn.”\nWhenever a God or Demigod card leaves a graveyard, each opponent loses 3 life and you gain 3 life.\nEquip {2}

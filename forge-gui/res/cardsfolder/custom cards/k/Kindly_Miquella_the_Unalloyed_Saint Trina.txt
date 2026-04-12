@@ -1,0 +1,30 @@
+Name:Kindly Miquella, the Unalloyed
+ManaCost:W W U
+Types:Legendary Enchantment Creature Demigod
+PT:1/3
+K:Kicker:4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | TriggerZones$ Battlefield | Execute$ TrigKick | TriggerDescription$ When CARDNAME enters, if it was kicked, return target creature card from a graveyard to the battlefield. CARDNAME becomes a legendary Aura enchantment attached to that creature.
+SVar:TrigKick:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature | TgtPrompt$ Select target creature card in a graveyard | RememberChanged$ True | SubAbility$ DBBecomeAura
+SVar:DBBecomeAura:DB$ Animate | Defined$ Self | Types$ Legendary,Enchantment,Aura | RemoveCardTypes$ True | Keywords$ Enchant:Creature | Duration$ Permanent | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ Self | Defined$ Remembered
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.Self,Creature.EnchantedBy | ValidTarget$ Creature,Planeswalker | IsCombat$ True | PreventionEffect$ True | ReplaceWith$ DBCapture | Description$ If CARDNAME or enchanted creature would deal combat damage to a creature or planeswalker, prevent that damage, then gain control of that permanent until CARDNAME leaves the battlefield.
+SVar:DBCapture:DB$ ReplaceDamage | Amount$ AllDamage | SubAbility$ DBGainControl
+SVar:DBGainControl:DB$ GainControl | Defined$ ReplacedTarget | LoseControl$ LeavesPlay
+SVar:AllDamage:ReplaceCount$DamageAmount
+AlternateMode:Modal
+Oracle:Kicker {4}\nWhen this creature enters, if it was kicked, return target creature card from a graveyard to the battlefield. This creature becomes a legendary Aura enchantment attached to that creature.\nIf this creature or enchanted creature would deal combat damage to a creature or planeswalker, prevent that damage, then gain control of that permanent until this creature leaves the battlefield.
+
+ALTERNATE
+
+Name:Saint Trina
+ManaCost:2 U
+Types:Legendary Enchantment Creature Demigod
+PT:0/5
+K:Defender
+T:Mode$ AttackerBlockedByCreature | ValidCard$ Creature | ValidBlocker$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigStunBlocked | TriggerDescription$ Whenever CARDNAME blocks, put six stun counters on blocked creature.
+SVar:TrigStunBlocked:DB$ PutCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ STUN | CounterNum$ 6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Enchantment.YouCtrl+Other | TriggerZones$ Battlefield | Execute$ TrigTapStun | TriggerDescription$ Whenever CARDNAME or another enchantment enters under your control, tap up to one target creature, then put a stun counter on it.
+SVar:TrigTapStun:DB$ Tap | ValidTgts$ Creature | TgtPrompt$ Select up to one target creature | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBStun
+SVar:DBStun:DB$ PutCounter | Defined$ Targeted | CounterType$ STUN | CounterNum$ 1 | ConditionDefined$ Targeted | ConditionPresent$ Card | ConditionCompare$ GE1
+A:AB$ Mana | Cost$ T | Produced$ U | RestrictValid$ Spell.Enchantment,Ability.SpiritAsh | SpellDescription$ Add {U}. Spend this mana only to cast an enchantment spell or activate a Spirit Ash ability.
+Oracle:Defender\nWhenever this creature blocks, put six stun counters on blocked creature.\nWhenever Saint Trina or another enchantment enters under your control, tap up to one target creature, then put a stun counter on it.\n{T}: Add {U}. Spend this mana only to cast an enchantment spell or activate a Spirit Ash ability.

@@ -1,0 +1,26 @@
+Name:Lichdragon Fortissax
+ManaCost:3 B B B
+Types:Legendary Creature Dragon Skeleton
+PT:5/5
+K:Flying
+A:SP$ PermanentCreature | Cost$ 3 B B B ExileFromGrave<1/Creature;Planeswalker> | SpellDescription$ As an additional cost to cast this spell, exile a creature or planeswalker card from your graveyard.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigReturn | TriggerDescription$ When CARDNAME dies, you may pay life equal to the exiled card’s mana value. If you do, put that card onto the battlefield under your control. It becomes a Skeleton in addition to its other types.
+SVar:TrigReturn:AB$ ChangeZone | Cost$ PayLife<X> | Defined$ ExiledWith | Origin$ Exile | Destination$ Battlefield | GainControl$ True | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ExiledWith | Types$ Skeleton | Duration$ Permanent
+SVar:X:Count$ExiledWith$CardManaCost
+AlternateMode:Modal
+Oracle:Flying\nAs an additional cost to cast this spell, exile a creature or planeswalker card from your graveyard.\nWhen this creature dies, you may pay life equal to the exiled card’s mana value. If you do, put that card onto the battlefield under your control. It becomes a Skeleton in addition to its other types.
+
+ALTERNATE
+
+Name:Fortissax's Lightning Spear
+ManaCost:3 R R
+Types:Enchantment Aura
+K:Enchant:Creature,Planeswalker:creature or Planeswalker
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy,Planeswalker.EnchantedBy | AddKeyword$ Double Strike | AddType$ Dragon | Description$ Enchanted permanent has double strike is a Dragon in addition to its other types.
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy,Planeswalker.EnchantedBy | AddAbility$ Plus | Description$ Enchanted planeswalker has "[+1]: This permanent deals 2 damage divided as you choose among one or two targets"
+SVar:Plus:AB$ DealDamage | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Any | TgtPrompt$ Select any target to distribute damage to | NumDmg$ 2 | TargetMin$ 1 | TargetMax$ 2 | DividedAsYouChoose$ 2 | SpellDescription$ CARDNAME deals 2 damage divided as you choose among one or two targets.
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy,Planeswalker.EnchantedBy | AddAbility$ Ult | Description$ Enchanted planeswalker has “ [-3]: Target opponent sacrifices a permanent.”
+SVar:Ult:AB$ Sacrifice | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Opponent | SacValid$ Permanent | SpellDescription$ Target opponent sacrifices a permanent.
+Oracle:Enchant creature or planeswalker.\nEnchanted permanent has double strike is a Dragon in addition to its other types.\nEnchanted permanent has “ [+1]: This permanent deals 2 damage divided as you choose among one or two targets.” and “ [-3]: Target opponent sacrifices a permanent.”

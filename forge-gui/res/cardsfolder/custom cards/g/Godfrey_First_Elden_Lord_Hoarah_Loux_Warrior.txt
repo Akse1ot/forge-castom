@@ -1,0 +1,23 @@
+Name:Godfrey, First Elden Lord
+ManaCost:3 G W
+Types:Legendary Planeswalker Godfrey
+Loyalty:5
+A:AB$ Token | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True |  TokenScript$ c_a_Rune_sac | TokenAmount$ X | SpellDescription$ Create a Rune token for each creature you control.
+SVar:X:Count$Valid Creature.YouCtrl
+A:AB$ Token | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | TokenScript$ serrosh | SpellDescription$ Create Serrosh, a legendary 3/3 green Cat Spirit enchantment creature token with vigilance and “Planeswalkers you control have ward {2}.”
+A:AB$ PutCounterAll | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBTriple | SpellDescription$ Put a +1/+1 counter on each creature you control, then triple the number of +1/+1 counters on each creature you control.
+SVar:DBTriple:DB$ MultiplyCounter | Defined$ Creature.YouCtrl | CounterType$ P1P1 | Multiplier$ 3
+AlternateMode:Modal
+Oracle:[+2]: Create a Rune token for each creature you control.\n[-3]: Create Serrosh, a legendary 3/3 green Cat Spirit enchantment creature token with vigilance and “Planeswalkers you control have ward {2}.”\n[-10]: Put a +1/+1 counter on each creature you control, then triple the number of +1/+1 counters on each creature you control.
+
+ALTERNATE
+
+Name:Hoarah Loux, Warrior
+ManaCost:1 R G
+Types:Legendary Planeswalker Godfrey
+Loyalty:4
+A:AB$ RepeatEach | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Player | TgtPrompt$ Select target player | RepeatCards$ Planeswalker.YouCtrl | RepeatSubAbility$ DBDealDamage | DamageMap$ True | SpellDescription$ Each planeswalker you control deals 2 damage to target player.
+SVar:DBDealDamage:DB$ DealDamage | DamageSource$ Remembered | Defined$ Targeted | NumDmg$ 2 | StackDescription$ None
+A:AB$ Token | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | TokenScript$ r_2_1_Warrior | SpellDescription$ Create a 2/1 red Warrior creature token.
+A:AB$ DamageAll | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | NumDmg$ 3 | ValidTgts$ Player | TgtPrompt$ Select a player | ValidCards$ Creature,Planeswalker | ValidPlayers$ Targeted | ValidDescription$ target player and each creature and planeswalker they control. | SpellDescription$ CARDNAME deals 3 damage to target player and each creature and planeswalker they control.
+Oracle:[+1]: Each planeswalker you control deals 2 damage to target player.\n[0]: Create a 2/1 red Warrior creature token.\n[-6]: Hoarah Loux, Warrior deals 3 damage to target player and each creature and planeswalker they control.

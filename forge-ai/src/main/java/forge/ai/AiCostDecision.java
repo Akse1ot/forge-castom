@@ -28,6 +28,61 @@ public class AiCostDecision extends CostDecisionMakerBase {
     private final CardCollection discarded;
     private final CardCollection tapped;
 
+    private List<PaymentDecision> collectNestedDecisions(final Cost cost) {
+        final List<PaymentDecision> nested = new ArrayList<>();
+        for (final CostPart part : cost.getCostPartsWithZeroMana()) {
+            final PaymentDecision pd = part.accept(this);
+            if (pd == null) {
+                return null;
+            }
+            nested.add(pd);
+        }
+        return nested;
+    }
+
+    @Override
+    public PaymentDecision visit(final CostOr cost) {
+        final boolean canLeft = cost.getLeftCost().canPay(ability, player, isEffect());
+        final boolean canRight = cost.getRightCost().canPay(ability, player, isEffect());
+
+        if (!canLeft && !canRight) {
+            return null;
+        }
+
+        List<PaymentDecision> leftNested = null;
+        List<PaymentDecision> rightNested = null;
+
+        if (canLeft) {
+            leftNested = collectNestedDecisions(cost.getLeftCost());
+        }
+        if (canRight) {
+            rightNested = collectNestedDecisions(cost.getRightCost());
+        }
+
+        if (leftNested == null && rightNested == null) {
+            return null;
+        }
+        if (leftNested != null && rightNested == null) {
+            return PaymentDecision.orBranch("Left", leftNested);
+        }
+        if (leftNested == null) {
+            return PaymentDecision.orBranch("Right", rightNested);
+        }
+
+        boolean rightIsSac = false;
+        for (CostPart part : cost.getRightCost().getCostParts()) {
+            if (part instanceof CostSacrifice) {
+                rightIsSac = true;
+                break;
+            }
+        }
+        if (rightIsSac) {
+            return PaymentDecision.orBranch("Right", rightNested);
+        }
+
+        return PaymentDecision.orBranch("Left", leftNested);
+    }
+
     public AiCostDecision(Player ai0, SpellAbility sa, final boolean effect) {
         this(ai0, sa, effect, false);
     }

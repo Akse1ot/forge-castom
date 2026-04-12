@@ -1,0 +1,22 @@
+Name:Godskin Apostle
+ManaCost:1 B B
+Types:Creature Human Snake Cleric
+PT:1/3
+K:Deathtouch
+A:AB$ Draw | Cost$ 1 B T Sac<1/Creature.Other/another creature> | SubAbility$ DBDebuff | SpellDescription$ Draw a card. If a God or Demigod was sacrificed this way, up to one target creature gets -3/-3 until end of turn.
+SVar:DBDebuff:DB$ Pump  | ConditionDefined$ Sacrificed | ConditionPresent$ Card.God,Card.Demigod | ConditionCompare$ GE1 | ValidTgts$ Creature | TgtPrompt$ Select up to one target creature | TargetMin$ 0 | TargetMax$ 1 | NumAtt$ -3 | NumDef$ -3 | IsCurse$ True
+AlternateMode:Modal
+Oracle:Deathtouch\n{1}{B}, {T}, Sacrifice another creature: Draw a card. If a God or Demigod was sacrificed this way, up to one target creature gets -3/-3 until end of turn.
+
+ALTERNATE
+
+Name:Godskin Noble
+ManaCost:3 W W
+Types:Creature Human Beast Noble
+PT:3/3
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE1 | Execute$ TrigPump | TriggerDescription$ At the beginning of combat on your turn, if a creature or planeswalker card left a graveyard this turn, this creature gets +2/+2 and gains first strike until end of turn. Then if a God or Demigod card left a graveyard this turn, create two Rune tokens.
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +2 | NumDef$ +2 | KW$ First Strike | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_Rune_sac | TokenAmount$ 2 | ConditionCheckSVar$ Y | ConditionSVarCompare$ GE1
+SVar:X:Count$LeftGraveyardThisTurn Card.Creature+YouOwn,Card.Planeswalker+YouOwn
+SVar:Y:Count$LeftGraveyardThisTurn Card.God+YouOwn,Card.Demigod+YouOwn
+Oracle:At the beginning of combat on your turn, if a creature or planeswalker card left a graveyard this turn, this creature gets +2/+2 and gains first strike until end of turn. Then if a God or Demigod card left a graveyard this turn, create two Rune tokens.

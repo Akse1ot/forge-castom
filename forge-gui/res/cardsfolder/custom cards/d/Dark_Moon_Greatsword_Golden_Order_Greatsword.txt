@@ -1,0 +1,24 @@
+Name:Dark Moon Greatsword
+ManaCost:2 U U
+Types:Legendary Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Prowess | Description$ Equipped creature gets +2/+2 and has prowess
+T:Mode$ Attacks | ValidCard$ Creature.EquippedBy | Execute$ TrigCast | TriggerDescription$ Whenever equipped creature attacks, you may cast an instant or sorcery card from your hand or graveyard without paying its mana cost. If that spell would be put into a graveyard, exile it instead.
+SVar:TrigCastFromYard:DB$ Play | Valid$ Card.YouOwn | ValidSA$ Instant,Sorcery | ValidZone$ Hand,Graveyard | Optional$ True | WithoutManaCost$ True | Amount$ 1 | Controller$ You | ReplaceGraveyard$ Exile
+K:Equip:3 U
+AlternateMode:Modal
+Oracle:Equipped creature gets +2/+2 and has prowess\nWhenever equipped creature attacks, you may cast an instant or sorcery card from your hand or graveyard without paying its mana cost. If that spell would be put into a graveyard, exile it instead.\nEquip {3}{U}
+
+ALTERNATE
+
+Name:Golden Order Greatsword
+ManaCost:1 W W
+Types:Legendary Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddStaticAbility$ LegendaryPump | Description$ Equipped creature gets +2/+2 and has lifelink and “Other legendary creatures you control get +1/+1.”
+SVar:LegendaryPump:Mode$ Continuous | Affected$ Creature.Legendary+YouCtrl | AddPower$ 1 | AddToughness$ 1 | Description$ Other legendary creatures you control get +1/+1.
+T:Mode$ Attacks | ValidCard$ Creature.EquippedBy | Execute$ TrigDealDamage | TriggerDescription$
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ X
+SVar:X:Count$Valid Creature.Legendary+YouCtrl
+K:Equip:2 W
+Oracle:Equipped creature gets +2/+2 and has lifelink and “Other legendary creatures you control get +1/+1.”\n
+Whenever equipped creature attacks, it deals damage equal to the number of legendary creatures you control to target creature or planeswalker.\n
+Equip {2}{W}

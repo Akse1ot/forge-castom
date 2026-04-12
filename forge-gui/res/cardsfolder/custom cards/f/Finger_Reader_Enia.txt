@@ -1,0 +1,14 @@
+Name:Finger Reader Enia
+ManaCost:W B
+Types:Legendary Creature Human Shaman
+PT:0/1
+K:Defender
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Permanent.YouOwn | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigExile | TriggerDescription$ Whenever a legendary permanent is put into a graveyard from the battlefield, you may exile it.
+SVar:TrigExile:AB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Exile
+T:Mode$ ChangesZoneAll | ValidCards$ Card.YouOwn | Origin$ Graveyard | Destination$ Any | Remember TriggerZones$ Battlefield | Execute$ TrigDrain | TriggerDescription$ Whenever one or more cards leave a graveyard, each opponent loses 1 life and you gain 1 life. If there was a legendary card among those cards, you draw a card.
+SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ LegAmong | ConditionSVarCompare$ GE1
+SVar:LegAmong:Count$TriggerObjectsCards/Valid Card.Legendary
+Oracle:Defender\nWhenever a legendary permanent is put into a graveyard from the battlefield, you may exile it.\n
+Whenever one or more cards leave a graveyard, each opponent loses 1 life and you gain 1 life. If there was a legendary card among those cards, you draw a card.

@@ -11,6 +11,7 @@ import forge.game.spellability.SpellAbility;
 import forge.util.TextUtil;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class PaymentDecision {
     public int c = 0;
@@ -25,6 +26,14 @@ public class PaymentDecision {
     // used for CostRemoveAnyCounter
     public final GameEntityCounterTable counterTable;
     public ManaConversionMatrix matrix = null;
+
+    public List<PaymentDecision> nested;
+
+    public static PaymentDecision orBranch(String branch, List<PaymentDecision> nested) {
+        PaymentDecision pd = new PaymentDecision(branch);
+        pd.nested = nested == null ? null : new ArrayList<>(nested);
+        return pd;
+    }
 
     public PaymentDecision(int cnt) {
         this(null, null, null, null, null);

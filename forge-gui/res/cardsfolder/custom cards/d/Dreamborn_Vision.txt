@@ -2,6 +2,6 @@ Name:Dreamborn Vision
 ManaCost:3 U
 Types:Sorcery
 A:SP$ Charm | Choices$ DBDraw,DBTokens
-SVar:DBDraw:DB$ Draw |  NumCards$ 2 | Defined$ You | SpellDescription$ Draw two cards.
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | Defined$ You | SpellDescription$ Draw two cards.
 SVar:DBTokens:DB$ Token | TokenAmount$ 1 | TokenScript$ u_2_2_illusion_flying | TokenOwner$ You | SpellDescription$ Create a 2/2 blue Illusion creature token with flying.
 Oracle:Choose one —\n• Draw two cards.\n• Create a 2/2 blue Illusion creature token with flying.

@@ -1,0 +1,9 @@
+Name:Gowry Sage of Rot
+ManaCost:B
+Types:Legendary Creature Insect Wizard
+PT:0/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, each player creates a colorless land token named Rot with “{T}, Pay 2 life: Add {C}.”
+SVar:TrigToken:DB$ Token | TokenScript$ c_Rot | TokenOwner$ Player
+T:Mode$ PayLife | ValidPlayer$ Player | Execute$ TrigMayDraw | TriggerDescription$ Whenever a player pays one or more life, you may pay {1}{B}. If you do, draw a card.
+SVar:TrigMayDraw:AB$ Draw | Cost$ 1 B | Defined$ You | NumCards$ 1
+Oracle:When this creature enters, each player creates a colorless land token named Rot with “{T}, Pay 2 life: Add {C}.”\nWhenever a player pays one or more life, you may pay {1}{B}. If you do, draw a card.

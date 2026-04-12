@@ -2389,6 +2389,12 @@ public class AbilityUtils {
         if (sq[0].contains("LifeYouLostThisTurn")) {
             return doXMath(player.getLifeLostThisTurn(), expr, c, ctb);
         }
+        if (sq[0].contains("LifeYouPaidThisTurn")) {
+            return doXMath(player.getLifePaidThisTurn(), expr, c, ctb);
+        }
+        if (sq[0].contains("LifeYouPaidLastTurn")) {
+            return doXMath(player.getLifePaidLastTurn(), expr, c, ctb);
+        }
         if (sq[0].contains("LifeYouGainedThisTurn")) {
             return doXMath(player.getLifeGainedThisTurn(), expr, c, ctb);
         }
@@ -3569,6 +3575,13 @@ public class AbilityUtils {
         }
         if (value.contains("LifeLostLastTurn")) {
             return doXMath(player.getLifeLostLastTurn(), m, source, ctb);
+        }
+
+        if (value.contains("LifePaidThisTurn")) {
+            return doXMath(player.getLifePaidThisTurn(), m, source, ctb);
+        }
+        if (value.contains("LifePaidLastTurn")) {
+            return doXMath(player.getLifePaidLastTurn(), m, source, ctb);
         }
 
         if (value.contains("LifeGainedThisTurn")) {

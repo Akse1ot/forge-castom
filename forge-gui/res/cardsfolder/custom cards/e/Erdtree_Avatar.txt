@@ -1,0 +1,8 @@
+Name:Erdtree Avatar
+ManaCost:1 G W
+Types:Creature Treefolk Avatar
+PT:3/3
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Landfall — Whenever a land you control enters, create two Rune tokens. (They’re artifacts with “{T}, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac | TokenAmount$ 2
+Oracle:Vigilance\nLandfall — Whenever a land enters under your control, create two Rune tokens. (They’re artifacts with “{T}, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)

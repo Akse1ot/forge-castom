@@ -1,0 +1,12 @@
+Name:Knight Bernahl
+ManaCost:2 R W
+Types:Legendary Planeswalker Bernahl
+Loyalty:4
+A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenScript$ r_2_1_Warrior | SpellDescription$ Create a  2/1 red Warrior creature token.
+A:AB$ Pump | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | ValidTgts$ Equipment.YouCtrl | TgtPrompt$ Select target equipment you control | SubAbility$ WindwalkerAttach | StackDescription$ None | SpellDescription$ Attach target Equipment you control to target creature you control.
+SVar:WindwalkerAttach:DB$ Attach | Object$ ParentTarget | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control
+A:AB$ Pump | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | ValidTgts$ Aura.YouCtrl | TgtPrompt$ Select target Aura you control | SubAbility$ WindwalkerAttach | StackDescription$ None | SpellDescription$ Attach target Aura you control to target creature you control.
+SVar:WindwalkerAttach:DB$ Attach | Object$ ParentTarget | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control
+A:AB$ Pump | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Ultimate$ True |  ValidTgts$ Creature.modified+YouCtrl | TgtPrompt$ Select target modified creature you control | SubAbility$ DBFight | SpellDescription$ Target modified creature you control fights target creature you don’t control.
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl | TgtPrompt$ Choose target creature you don't control
+Oracle:[+1]: Create a  2/1 red Warrior creature token.\n[0]: Attach target Equipment you control to target creature you control.\n[0]: Creatures you control with +1/+1 counters on them get lifelink and indestructible until end of turn.\n[-3]: Target modified creature you control fights target creature you don’t control.

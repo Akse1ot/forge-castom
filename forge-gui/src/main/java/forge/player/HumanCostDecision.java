@@ -37,6 +37,54 @@ public class HumanCostDecision extends CostDecisionMakerBase {
     }
 
     @Override
+    public PaymentDecision visit(final CostOr cost) {
+        final boolean canLeft = cost.getLeftCost().canPay(ability, player, isEffect());
+        final boolean canRight = cost.getRightCost().canPay(ability, player, isEffect());
+
+        if (!canLeft && !canRight) {
+            return null;
+        }
+
+        String chosenBranch;
+        Cost chosenCost;
+
+        if (canLeft && !canRight) {
+            chosenBranch = "Left";
+            chosenCost = cost.getLeftCost();
+        } else if (!canLeft) {
+            chosenBranch = "Right";
+            chosenCost = cost.getRightCost();
+        } else {
+            final List<String> options = Arrays.asList(
+                    cost.getLeftCost().toSimpleString(),
+                    cost.getRightCost().toSimpleString()
+            );
+            final String chosen = SGuiChoose.oneOrNone("Choose a cost", options);
+            if (chosen == null) {
+                return null;
+            }
+            if (chosen.equals(options.get(0))) {
+                chosenBranch = "Left";
+                chosenCost = cost.getLeftCost();
+            } else {
+                chosenBranch = "Right";
+                chosenCost = cost.getRightCost();
+            }
+        }
+
+        final List<PaymentDecision> nested = new ArrayList<>();
+        for (final CostPart part : chosenCost.getCostPartsWithZeroMana()) {
+            final PaymentDecision pd = part.accept(this);
+            if (pd == null) {
+                return null;
+            }
+            nested.add(pd);
+        }
+
+        return PaymentDecision.orBranch(chosenBranch, nested);
+    }
+
+    @Override
     public PaymentDecision visit(final CostAddMana cost) {
         return PaymentDecision.number(cost.getAbilityAmount(ability));
     }

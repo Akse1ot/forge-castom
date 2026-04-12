@@ -1,0 +1,22 @@
+Name:Commander O'Neil
+ManaCost:2 R R
+Types:Legendary Creature Human Soldier
+PT:2/2
+K:Multikicker:R
+K:Battle cry
+A:SP$ Token | TokenAmount$ X | TokenScript$ r_1_1_enchantment_spirit_haste | TokenOwner$ You | SpellDescription$ For each time this spell was kicked, create a 1/1 red enchantment Spirit creature token with haste.
+SVar:X:Count$TimesKicked
+AlternateMode:Modal
+Oracle:Multikicker {R} (You may pay an additional {R} any number of times as you cast this spell.)\nBattle cry (Whenever this creature attacks, each other attacking creature gets +1/+0 until end of turn.)\nFor each time this spell was kicked, create a 1/1 red enchantment Spirit creature token with haste.
+
+ALTERNATE
+
+Name:Commander Niall
+ManaCost:2 U U
+Types:Legendary Creature Human Soldier
+PT:2/2
+K:Vigilance
+T:Mode$ SpellCast | ValidCard$ Card.kicked | ValidActivatingPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield | TriggerDescription$ Whenever you cast a kicked spell, create a 2/2 blue Spirit Knight enchantment creature token with vigilance for each time that spell was kicked.
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScript$ b_2_2_enchantment_spirit_knight | TokenOwner$ You
+SVar:X:TriggeredSpellAbility$TimesKicked
+Oracle:Vigilance\nWhenever you cast a kicked spell, create a 2/2 blue Spirit Knight enchantment creature token with vigilance for each time that spell was kicked.

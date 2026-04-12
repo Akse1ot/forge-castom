@@ -85,6 +85,8 @@ public class Player extends GameEntity implements Comparable<Player> {
     private int lifeStartedThisTurnWith = startingLife;
     private int lifeLostThisTurn;
     private int lifeLostLastTurn;
+    private int lifePaidThisTurn;
+    private int lifePaidLastTurn;
     private int lifeGainedThisTurn;
     private int lifeGainedTimesThisTurn;
     private int lifeGainedByTeamThisTurn;
@@ -630,20 +632,24 @@ public class Player extends GameEntity implements Comparable<Player> {
             replaceParams.putAll(cause.getReplacingObjects());
         }
         switch (getGame().getReplacementHandler().run(ReplacementType.PayLife, replaceParams)) {
-        case Replaced:
-            return true;
-        case Prevented:
-        case Skipped:
-            return false;
-        default:
-            break;
+            case Replaced:
+                return true;
+            case Prevented:
+            case Skipped:
+                return false;
+            default:
+                break;
         }
 
         final int lost = loseLife(lifePayment, false, false);
-        cause.setPaidLife(lifePayment);
+        cause.setPaidLife(lost);
+
+        if (lost > 0) {
+            lifePaidThisTurn += lost;
+        }
 
         final Map<AbilityKey, Object> runParams = AbilityKey.mapFromPlayer(this);
-        runParams.put(AbilityKey.LifeAmount, lifePayment);
+        runParams.put(AbilityKey.LifeAmount, lost);
         game.getTriggerHandler().runTrigger(TriggerType.PayLife, runParams, false);
 
         if (lost > 0) { // Run triggers if player actually lost life
@@ -2417,6 +2423,20 @@ public class Player extends GameEntity implements Comparable<Player> {
         lifeLostLastTurn = n;
     }
 
+    public final int getLifePaidThisTurn() {
+        return lifePaidThisTurn;
+    }
+    public final void setLifePaidThisTurn(final int n) {
+        lifePaidThisTurn = n;
+    }
+
+    public final int getLifePaidLastTurn() {
+        return lifePaidLastTurn;
+    }
+    public final void setLifePaidLastTurn(final int n) {
+        lifePaidLastTurn = n;
+    }
+
     public final int getNumManaShards() {
         return numManaShards;
     }
@@ -2552,6 +2572,8 @@ public class Player extends GameEntity implements Comparable<Player> {
         resetSpellsCastThisTurn();
         setLifeLostLastTurn(getLifeLostThisTurn());
         setLifeLostThisTurn(0);
+        setLifePaidLastTurn(getLifePaidThisTurn());
+        setLifePaidThisTurn(0);
         setLifeGainedThisTurn(0);
         lifeGainedTimesThisTurn = 0;
         lifeGainedByTeamThisTurn = 0;

@@ -1,0 +1,8 @@
+Name:Serrosh
+ManaCost:no cost
+Colors:green
+Types:Legendary Creature Cat Spirit
+PT:3/3
+K:Vigilance
+S:Mode$ Continuous | Affected$ Planeswalker.YouCtrl | AddKeyword$ Ward:2 | Description$ Planeswalkers you control have ward {2}.
+Oracle:Vigilance\nPlaneswalkers you control have ward {2}.

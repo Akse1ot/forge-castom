@@ -1,0 +1,19 @@
+Name:Lunar Princess Ranni
+ManaCost:2 U B
+Types:Legendary Planeswalker Ranni
+Loyalty:4
+S:Mode$ IgnoreHexproof | ValidEntity$ Creature.OppCtrl | Description$ Creatures your opponents control lose hexproof and indestructible and can't have or gain hexproof or indestructible. Ward abilities of those creatures don't trigger.
+S:Mode$ DisableTriggers | Secondary$ True | ValidTrigger$ Triggered.Ward | ValidCard$ Creature.OppCtrl+inZoneBattlefield
+S:Mode$ Continuous | Affected$ Creature.OppCtrl | RemoveKeyword$ Hexproof | CantHaveKeyword$ Hexproof
+S:Mode$ Continuous | Affected$ Creature.OppCtrl | RemoveKeyword$ Indestructible | CantHaveKeyword$ Indestructible
+A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenScript$ b_1_1_Assassin_deathtouch_surveil | SpellDescription$ Create a 1/1 black Assassin creature token with deathtouch and "When this creature deals combat damage to a player, surveil 1."
+A:AB$ Destroy | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature,Planeswalker | TgtPrompt$ Select target creature or planeswalker | RememberDestroyed$ True | SubAbility$ DBDraw | SpellDescription$ Destroy target creature or planeswalker. If that permanent was legendary, draw a card.
+SVar:DBDraw:DB$ Draw | Defined$ You | Num$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ GE1 | SubAbility$ DBCleanup2
+SVar:DBCleanup2:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Permanent.Legendary
+A:AB$ ChangeZoneAll | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Origin$ Library,Graveyard,Hand | UseAllOriginZones$ True | Destination$ Exile | ChangeType$ Card.Legendary | RememberChanged$ True | Shuffle$ True | SubAbility$ DBExilePermanents | SpellDescription$ Search each player's graveyard, hand, and library for all legendary cards and exile them, then exile each legendary permanent. You may play cards exiled this way, and you may spend mana as though it were mana of any type to cast them.
+SVar:DBExilePermanents:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Permanent.Legendary | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ MayPlay | SubAbility$ DBCleanup | Duration$ Permanent
+SVar:MayPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreColor$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | Description$ You may play cards exiled this way, and you may spend mana as though it were mana of any type to cast them.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Creatures your opponents control lose hexproof and indestructible and can't have or gain hexproof or indestructible. Ward abilities of those creatures don't trigger.\n[+1]: Create a 1/1 black Assassin creature token with deathtouch and "When this creature deals combat damage to a player, surveil 1."\n[-3]: Destroy target creature or planeswalker. If that permanent was legendary, draw a card.\n[-7]: Search each player's graveyard, hand, and library for all legendary cards and exile them, then exile each legendary permanent. You may play cards exiled this way, and you may spend mana as though it were mana of any type to cast them.
