@@ -34,6 +34,7 @@ import forge.game.mana.ManaConversionMatrix;
 import forge.game.mana.ManaCostBeingPaid;
 import forge.game.mana.ManaPool;
 import forge.game.mana.ManaRefundService;
+import forge.game.spellability.AlternativeCostCastProcessor;
 import forge.game.spellability.OptionalCostValue;
 import forge.game.spellability.ResonanceHelper;
 import forge.game.spellability.SpellAbility;
@@ -637,6 +638,8 @@ public class PlaySpellAbility {
         if (ability.isSpell() && !c.isCopiedSpell()) {
             ability = GameActionUtil.addExtraKeywordCost(ability);
         }
+
+        ability = AlternativeCostCastProcessor.process(ability);
 
         Cost abCost = ability.getPayCosts();
         CostPayment payment = new CostPayment(abCost, ability);

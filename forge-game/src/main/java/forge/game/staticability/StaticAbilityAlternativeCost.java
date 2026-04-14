@@ -10,6 +10,7 @@ import forge.game.card.Card;
 import forge.game.card.CardCollection;
 import forge.game.cost.Cost;
 import forge.game.player.Player;
+import forge.game.spellability.AlternativeCost;
 import forge.game.spellability.OptionalCost;
 import forge.game.spellability.SpellAbility;
 import forge.game.zone.ZoneType;
@@ -50,6 +51,10 @@ public class StaticAbilityAlternativeCost {
 
                 if (stAb.hasParam("ManaRestriction")) {
                     newSA.putParam("ManaRestriction", stAb.getParam("ManaRestriction"));
+                }
+
+                if (stAb.hasParam("AlternativeCost")) {
+                    newSA.setAlternativeCost(AlternativeCost.valueOf(stAb.getParam("AlternativeCost")));
                 }
 
                 if (!stAb.getHostCard().isImmutable()) {
@@ -105,6 +110,23 @@ public class StaticAbilityAlternativeCost {
         }
         if (!stAb.matchesValidParam("ValidPlayer", pl)) {
             return false;
+        }
+
+        if (stAb.hasParam("AltCost")) {
+            if (!sa.isSpell()) {
+                return false;
+            }
+            final AlternativeCost required = AlternativeCost.valueOf(stAb.getParam("AltCost"));
+            if (!sa.isAlternativeCost(required)) {
+                return false;
+            }
+        }
+
+        if (stAb.hasParam("RequiredSpellParam")) {
+            final String required = stAb.getParam("RequiredSpellParam");
+            if (!sa.hasParam(required)) {
+                return false;
+            }
         }
 
         return true;

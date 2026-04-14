@@ -1,0 +1,15 @@
+Name:Shabriri Chaos Incarnate
+ManaCost:1 B R
+Types:Legendary Enchantment Creature Avatar
+PT:2/2
+K:Kicker:1 B R
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | TriggerZones$ Battlefield | Execute$ TrigKick | TriggerDescription$ When CARDNAME enters, if it was kicked, return target creature card from a graveyard to the battlefield. CARDNAME becomes a legendary Aura enchantment attached to that creature.
+SVar:TrigKick:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature | TgtPrompt$ Select target creature card in a graveyard | RememberChanged$ True | SubAbility$ DBBecomeAura
+SVar:DBBecomeAura:DB$ Animate | Defined$ Self | Types$ Legendary,Enchantment,Aura | RemoveCardTypes$ True | Keywords$ Enchant:Creature | Duration$ Permanent | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ Self | Defined$ Remembered
+S:Mode$ Continuous | EffectZone$ Battlefield | AltCostVariant$ True | AltCost$ Madness | ValidSA$ Spell | ValidCard$ Card | ValidPlayer$ You | VariantDescription$ discard a card | VariantAppendCost$ Discard<1/Card> | VariantReduceMana$ 1 B R | Description$ As an additional cost to cast a spell for its madness cost, you may discard a card. If you do, reduce its madness cost by {1}{B}{R}.
+K:Madness:B R Discard<1/Card>
+Oracle:Kicker {1}{B}{R}
+When this creature enters, if it was kicked, return target creature card from a graveyard to the battlefield. This creature becomes a legendary Aura enchantment attached to that creature.
+As an additional cost to cast a spell for its madness cost, you may discard a card. If you do, reduce its madness cost by {1}{B}{R}.
+Madness—{B}{R}, Discard a card.
