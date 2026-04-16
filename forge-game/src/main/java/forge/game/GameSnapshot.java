@@ -338,6 +338,12 @@ public class GameSnapshot {
         for (Card newCard : toGame.getCardsIn(ZoneType.Battlefield)) {
             Card fromCard = fromGame.findById(newCard.getId());
 
+            // This can happen during rollback/snapshot restore when the copied game
+            // still contains a battlefield card that no longer exists in the source game state.
+            if (fromCard == null) {
+                continue;
+            }
+
             if (fromCard.isAttachedToEntity()) {
                 Card fromAttachedTo = fromCard.getAttachedTo();
                 Card newAttachedTo = fromAttachedTo == null ? null : toGame.findById(fromAttachedTo.getId());

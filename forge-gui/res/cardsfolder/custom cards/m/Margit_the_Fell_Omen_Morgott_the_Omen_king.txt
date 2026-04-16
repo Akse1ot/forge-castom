@@ -1,0 +1,24 @@
+Name:Margit the Fell Omen
+ManaCost:G W
+Types:Legendary Creature Demigod
+PT:3/2
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Creature.Other | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever another creature dies, create a Rune token.
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac
+AlternateMode:Modal
+Oracle:Vigilance\nWhenever another creature dies, create a Rune token. (It’s an artifact with “{T}, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)
+
+ALTERNATE
+
+Name:Morgott the Omen king
+ManaCost:1 W B G
+Types:Legendary Creature Demigod
+PT:4/3
+K:Vigilance
+K:Menace
+T:Mode$ CounterAddedOnce | ValidCard$ Creature.Other+inZoneBattlefield | ValidSource$ You | TriggerZones$ Battlefield | CounterType$ P1P1 | Execute$ TrigPutCounter | TriggerDescription$ Whenever you put one or more +1/+1 counters on another creature you control, put a +1/+1 counter on NICKNAME.
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Rune.YouCtrl | Execute$ TrigLoseLife | TriggerZones$ Battlefield | TriggerDescription$ Whenever you sacrifice a Rune, each opponent loses 2 life and you gain 2 life.
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ TriggeredCardController | LifeAmount$ 2
+Oracle:Vigilance, menace\nWhenever you put one or more +1/+1 counters on another creature you control, put a +1/+1 counter on this creature.\nWhenever you sacrifice a Rune, each opponent loses 2 life and you gain 2 life.

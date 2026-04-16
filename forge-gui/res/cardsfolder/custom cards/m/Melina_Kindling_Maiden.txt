@@ -1,0 +1,18 @@
+Name:Melina, Kindling Maiden
+ManaCost:R W B
+Types:Legendary Enchantment Creature Demigod Spirit
+PT:3/2
+K:First Strike
+K:Lifelink
+T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Rune.YouCtrl | Execute$ TrigCharm | TriggerZones$ Battlefield | TriggerDescription$ Whenever you sacrifice a Rune token, ABILITY
+SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounter,DBPutLoyalty
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.Other+YouCtrl | TgtPrompt$ Select another target creature you control | CounterType$ P1P1 | CounterNum$ 1 | SpellDescription$ Put a +1/+1 counter on another target creature you control.
+SVar:DBPutLoyalty:DB$ PutCounter | ValidTgts$ Planeswalker.YouCtrl | CounterType$ LOYALTY | CounterNum$ 1 | SpellDescription$ Put a loyalty counter on target planeswalker you control.
+A:AB$ Destroy | Cost$ Sac<1/CARDNAME> | ValidTgts$ Land.Legendary | TargetMin$ 0 | TargetMax$ MaxTargets | TgtPrompt$ Choose target legendary lands. | RememberDestroyed$ True | SubAbility$ DBRepeat | SpellDescription$ Sacrifice CARDNAME: Ravage any number of target legendary lands. (Destroy that land. When you do, if its controller doesn’t control the most lands, that player creates a tapped Wastes token.)
+SVar:DBRepeat:DB$ RepeatEach | UseImprinted$ True | DefinedCards$ DirectRemembered | RepeatSubAbility$ DBToken | SubAbility$ DBCleanup
+SVar:DBToken:DB$ Token | ConditionCheckSVar$ CtrlLands | ConditionSVarCompare$ LTMostLands | TokenScript$ c_Wastes | TokenAmount$ 1 | TokenTapped$ True | TokenOwner$ ImprintedController
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:CtrlLands:PlayerCountDefinedImprintedController$Valid Land.YouCtrl
+SVar:MostLands:PlayerCountPlayers$HighestValid Land.YouCtrl
+SVar:MaxTargets:Count$Valid Land.Legendary
+Oracle:First strike, Lifelink\nWhenever you sacrifice a Rune token, choose one—\n• Put a +1/+1 counter on another target creature you control.\n• Put a loyalty counter on target planeswalker you control.\nSacrifice this creature: Ravage any number of target legendary lands. (Destroy that land. When you do, if its controller doesn’t control the most lands, that player creates a tapped Wastes token.)

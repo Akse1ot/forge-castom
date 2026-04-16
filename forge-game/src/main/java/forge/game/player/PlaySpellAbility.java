@@ -34,6 +34,7 @@ import forge.game.mana.ManaConversionMatrix;
 import forge.game.mana.ManaCostBeingPaid;
 import forge.game.mana.ManaPool;
 import forge.game.mana.ManaRefundService;
+import forge.game.spellability.AlternativeCostVariantBuilder;
 import forge.game.spellability.AlternativeCostCastProcessor;
 import forge.game.spellability.OptionalCostValue;
 import forge.game.spellability.ResonanceHelper;
@@ -142,10 +143,18 @@ public class PlaySpellAbility {
     static SpellAbility chooseOptionalAdditionalCosts(Player p, final SpellAbility original) {
         PlayerController c = p.getController();
 
-        // choose alternative additional cost
         final List<SpellAbility> abilities = GameActionUtil.getAdditionalCostSpell(original);
 
-        final SpellAbility choosen = c.getAbilityToPlay(original.getHostCard(), abilities);
+        // if the spell is already being cast via a concrete AlternativeCost SA
+        // (e.g. Madness / Flashback / Escape path), expand selectable alt-cost variants here too.
+        final List<SpellAbility> expandedAbilities =
+                AlternativeCostVariantBuilder.expandAlternativeCosts(
+                        abilities,
+                        original.getHostCard(),
+                        p
+                );
+
+        final SpellAbility choosen = c.getAbilityToPlay(original.getHostCard(), expandedAbilities);
 
         List<OptionalCostValue> list = GameActionUtil.getOptionalCostValues(choosen);
         if (!list.isEmpty()) {
