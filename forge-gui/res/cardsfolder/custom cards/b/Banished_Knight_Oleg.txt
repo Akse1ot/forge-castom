@@ -6,5 +6,5 @@ K:Spirit Ash:4 W ExileFromGrave<1/Creature.Other;Planeswalker.Other/another crea
 S:Mode$ Continuous | Affected$ Card.Self | CheckSVar$ X | SVarCompare$ GE2 | AddKeyword$ Double Strike | Description$ As long as this creature is modified in two or more different ways, it has double strike. 
 SVar:X:Count$ModifiedWays
 T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Graveyard | Destination$ Any | Execute$ TrigToken | TriggerDescription$ When CARDNAME leaves your graveyard, create a 2/2 blue Spirit Knight enchantment creature token with vigilance.
-SVar:TrigToken:DB$ Token | TokenAmount$ 1 | TokenScript$ b_2_2_enchantment_spirit_knight | TokenOwner$ You
+SVar:TrigToken:DB$ Token | TokenAmount$ 1 | TokenScript$ u_2_2_enchantment_spirit_knight_vigilance | TokenOwner$ You
 Oracle:As long as this creature is modified in two or more different ways, it has double strike.\nWhen this creature card leaves your graveyard, create a 2/2 blue Spirit Knight enchantment creature token with vigilance.\nSpirit Ash—{4}{W}, Exile another creature or planeswalker cards from your graveyard.

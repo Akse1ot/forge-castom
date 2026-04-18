@@ -36,6 +36,7 @@ import forge.game.cost.CostPart;
 import forge.game.cost.CostTap;
 import forge.game.mana.Mana;
 import forge.game.player.Player;
+import forge.game.spellability.AlternativeCost;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.TargetChoices;
 import forge.util.Expressions;
@@ -127,6 +128,29 @@ public class TriggerSpellAbilityCastOrCopy extends Trigger {
         }
         if (!matchesValidParam("ValidSAonCard", spellAbility, cast)) {
             return false;
+        }
+
+        if (hasParam("AltCost")) {
+            boolean matched = false;
+
+            for (final String altNameRaw : getParam("AltCost").split(",")) {
+                final String altName = altNameRaw.trim();
+                final AlternativeCost required;
+                try {
+                    required = AlternativeCost.valueOf(altName);
+                } catch (IllegalArgumentException e) {
+                    throw new RuntimeException("Unknown AltCost value in trigger: " + altName, e);
+                }
+
+                if (spellAbility.isAlternativeCost(required)) {
+                    matched = true;
+                    break;
+                }
+            }
+
+            if (!matched) {
+                return false;
+            }
         }
 
         if (hasParam("CostCheck")) {

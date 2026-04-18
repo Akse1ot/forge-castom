@@ -1,0 +1,7 @@
+Name:Wizard Token
+ManaCost:no cost
+Colors:blue
+Types:Creature Wizard
+PT:0/1
+S:Mode$ Continuous | Affected$ Creature.Wizard+YouCtrl+Legendary | AddToughness$ 1 | AddKeyword$ Ward:1 | Description$ Legendary Wizards you control get +0/+1 and have ward {1}.
+Oracle:Legendary Wizards you control get +0/+1 and have ward {1}.

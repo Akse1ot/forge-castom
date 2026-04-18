@@ -1,0 +1,6 @@
+Name:Knight Spirit Token
+ManaCost:no cost
+Colors:blue
+Types:Enchantment Creature Knight Spirit
+PT:2/2
+Oracle:

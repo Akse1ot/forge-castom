@@ -1,0 +1,8 @@
+Name:Horror Wizard
+ManaCost:no cost
+Colors:blue,black
+Types:Creature Horror Wizard
+PT:3/3
+K:Vigilance
+K:Prowess
+Oracle:Vigilance, prowess

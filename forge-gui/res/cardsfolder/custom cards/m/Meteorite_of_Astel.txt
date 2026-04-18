@@ -1,0 +1,11 @@
+Name:Meteorite of Astel
+ManaCost:U R
+Types:Legendary Sorcery
+K:Multikicker:2
+A:SP$ DealDamage | ValidTgts$ Any | TargetMin$ 0 | TargetMax$ X | NumDmg$ 3 | SubAbility$ DBDraw | SpellDescription$ CARDNAME deals 3 damage to up to X targets. Draw X cards, then discard X cards. X is one plus the number of times this spell was kicked.
+SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ X
+SVar:X:Count$TimesKicked/Plus.1
+Oracle:(You may cast a legendary sorcery only if you control a legendary creature or planeswalker.)
+Multikicker {2}
+Meteorite of Astel deals 3 damage to up to X targets. Draw X cards, then discard X cards. X is one plus the number of times this spell was kicked.

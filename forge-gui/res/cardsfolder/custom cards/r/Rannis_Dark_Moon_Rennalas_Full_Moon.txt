@@ -1,0 +1,23 @@
+Name:Ranni's Dark Moon
+ManaCost:1 B B
+Types:Legendary Instant
+Text:(You may cast a legendary instant only if you control a legendary creature or planeswalker.)
+K:AlternateAdditionalCost:PayLife<3>:Discard<1/Card>
+A:SP$ Destroy | ValidTgts$ Creature,Enchantment,Planeswalker | TgtPrompt$ Select target creature, enchantment, or planeswalker | SpellDescription$ Destroy target creature, planeswalker or enchantment.
+AlternateMode:Modal
+Oracle:(You may cast a legendary instant only if you control a legendary creature or planeswalker.)\n
+As an additional cost to cast this spell, pay 3 life or discard a card.\n
+Destroy target creature, planeswalker or enchantment.
+
+ALTERNATE
+
+Name:Rennala's Full Moon
+ManaCost:1 U U
+Types:Legendary Instant
+Text:(You may cast a legendary instant only if you control a legendary creature or planeswalker.)
+A:SP$ Counter | TargetType$ Spell | TgtPrompt$ Select target spell | ValidTgts$ Card | SpellDescription$ Counter target spell.
+A:SP$ Draw | SpellDescription$ Draw a card, then discard a card. | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+Oracle:(You may cast a legendary instant only if you control a legendary creature or planeswalker.)\n
+Counter target spell.\n
+Draw a card, then discard a card.

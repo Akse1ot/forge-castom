@@ -1,0 +1,31 @@
+Name:Queen Marika the Eternal
+ManaCost:3 W B G
+Types:Legendary Creature God
+PT:1/8
+K:Defender
+K:Ward:Sac<1/Land>
+A:AB$ ChangeZone | Cost$ Sac<1/Land> | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn,Enchantment.YouOwn | TgtPrompt$ Select target creature or enchantment card in your graveyard | RememberChanged$ True | SubAbility$ DBToken | SpellDescription$ Sacrifice a land: Return target creature or enchantment card from your graveyard to your hand. If that card was legendary, create two Rune tokens.
+SVar:DBToken:DB$ Token  | ConditionDefined$ Remembered | ConditionPresent$ Card.Legendary | TokenAmount$ 2 | TokenScript$ c_a_Rune_sac | SubAbility$ DBCleanup | StackDescription$ If that card was legendary, create two Rune tokens.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Rune.YouCtrl | Execute$ TrigLoseLife | TriggerZones$ Battlefield | TriggerDescription$ Whenever you sacrifice a Rune, each opponent loses 1 life and you gain 1 life. Then if that Rune was legendary, draw a card.
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ TriggeredCard | ConditionPresent$ Card.Legendary | StackDescription$ If that Rune was legendary, draw a card.
+AlternateMode:Modal
+Oracle:Defender\nWard—Sacrifice a land.\nSacrifice a land: Return target creature or enchantment card from your graveyard to your hand. If that card was legendary, create two Rune tokens.\nWhenever you sacrifice a Rune, each opponent loses 1 life and you gain 1 life. Then if that Rune was legendary, draw a card.
+
+ALTERNATE
+
+Name:Radagon of the Golden Order
+ManaCost:2 W W
+Types:Legendary Creature God
+PT:3/3
+K:Vigilance
+K:Ward:3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig | TriggerDescription$ When this creature enters, look at the top six cards of your library. You may reveal an artifact or Aura card from among them and put it into your hand. Put the rest on the bottom of your library in a random order. If you didn’t put a card into your hand this way, create a Rune token.
+SVar:TrigDig:DB$ Dig | DigNum$ 6 | ChangeNum$ 1 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Card.Artifact,Card.Aura | RestRandomOrder$ True | RememberChanged$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Token | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | TokenScript$ c_a_Rune_sac | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigReturn | TriggerDescription$ Whenever this creature attacks, return up to one target artifact or Aura card from your graveyard to your hand.
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Artifact.YouOwn,Aura.YouOwn | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select target artifact or Aura | Origin$ Graveyard | Destination$ Hand
+Oracle:Vigilance, ward {3}\nWhen this creature enters, look at the top six cards of your library. You may reveal an artifact or Aura card from among them and put it into your hand. Put the rest on the bottom of your library in a random order. If you didn’t put a card into your hand this way, create a Rune token.\nWhenever this creature attacks, return up to one target artifact or Aura card from your graveyard to your hand.

@@ -1,0 +1,7 @@
+Name:Dragon Spirit Token
+ManaCost:no cost
+Colors:blue
+Types:Enchantment Creature Dragon Spirit
+PT:4/4
+K:Flying
+Oracle:Flying

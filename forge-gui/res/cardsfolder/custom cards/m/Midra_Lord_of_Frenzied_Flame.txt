@@ -1,0 +1,12 @@
+Name:Midra Lord of Frenzied Flame
+ManaCost:1 B R
+Types:Legendary Creature Avatar
+PT:2/3
+K:Lifelink
+T:Mode$ Discarded | TriggerZones$ Battlefield | Execute$ TrigMana | TriggerDescription$ Whenever a player discards a card, add {B} or {R}.
+SVar:TrigMana:DB$ Mana | Produced$ Combo B R
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | AltCost$ Madness | Execute$ TrigDraw | TriggerDescription$ Whenever you cast a spell for its madness cost, draw a card and lose 1 life.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1
+K:Madness:B R Sac<1/Creature;Planeswalker/creature or planeswalker>
+Oracle:Lifelink\nWhenever a player discards a card, add {B} or {R}.\nWhenever you cast a spell for its madness cost, draw a card and lose 1 life.\nMadness—{B}{R}, Sacrifice a creature or planeswalker. (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

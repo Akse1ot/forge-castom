@@ -359,6 +359,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     private final ActivationTable numberTurnActivations = new ActivationTable();
     private final ActivationTable numberGameActivations = new ActivationTable();
     private final ActivationTable numberAbilityResolved = new ActivationTable();
+    private final Map<String, ActivationTable> numberAbilityResolvedGroups = Maps.newHashMap();
 
     private final Map<SpellAbility, List<String>> chosenModesTurn = Maps.newHashMap();
     private final Map<SpellAbility, List<String>> chosenModesGame = Maps.newHashMap();
@@ -7875,9 +7876,23 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     public int getAbilityResolvedThisTurn(SpellAbility ability) {
         return numberAbilityResolved.get(ability);
     }
+    public int getAbilityResolvedGroupThisTurn(String groupName) {
+        if (StringUtils.isBlank(groupName)) {
+            return 0;
+        }
+        ActivationTable table = numberAbilityResolvedGroups.get(groupName);
+        return table == null ? 0 : table.getTotal();
+    }
 
     public void addAbilityResolved(SpellAbility ability) {
         numberAbilityResolved.add(ability);
+    }
+    public void addAbilityResolvedGroup(String groupName, SpellAbility ability) {
+        if (StringUtils.isBlank(groupName) || ability == null) {
+            return;
+        }
+        ActivationTable table = numberAbilityResolvedGroups.computeIfAbsent(groupName, k -> new ActivationTable());
+        table.add(ability);
     }
     public List<Player> getAbilityResolvedThisTurnActivators(SpellAbility ability) {
         return numberAbilityResolved.getActivators(ability);
@@ -7885,6 +7900,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
 
     public void resetAbilityResolvedThisTurn() {
         numberAbilityResolved.clear();
+        numberAbilityResolvedGroups.clear();
     }
 
     public List<String> getChosenModes(SpellAbility ability, String type) {

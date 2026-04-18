@@ -1,0 +1,11 @@
+Name:Starscourge Radahn
+ManaCost:4 G U R
+Types:Legendary Creature Demigod Warrior
+PT:6/5
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage | TriggerDescription$ When this creature enters, it deals damage equal to its power to each player and each other creature and planeswalker.
+SVar:TrigDamage:DB$ DamageAll | ValidCards$ Creature,Planeswalker | ValidPlayers$ Player | NumDmg$ X
+SVar:X:Count$CardPower
+A:AB$ Pump | Cost$ 1 U | Defined$ Self | KW$ Flying | SpellDescription$ This creature gains flying until end of turn.
+A:AB$ Pump | Cost$ 1 G | KW$ HIDDEN CARDNAME must be blocked if able. | SpellDescription$ This creature must be blocked this turn, if able.
+Oracle:Trample\nWhen this creature enters, it deals damage equal to its power to each player and each other creature and planeswalker.\n{1}{U}: This creature gains flying until end of turn.\n{1}{G}: This creature must be blocked this turn, if able.

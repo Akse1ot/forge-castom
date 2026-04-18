@@ -458,10 +458,12 @@ Minsc
 Mordenkainen
 Nahiri
 Narset
+Nepheli
 Niko
 Nissa
 Nixilis
 Oko
+Ofnir
 Quintorius
 Ral
 Rogier

@@ -1,0 +1,10 @@
+Name:The Crucible of Life
+ManaCost:1 G U
+Types:Legendary Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigCharm | TriggerDescription$ Whenever another enchantment you control enters, ABILITY
+SVar:TrigCharm:DB$ Charm | Choices$ DBGainLife,DBDraw,DBMana,DBToken | ChoiceRestriction$ ThisTurn
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3 | SpellDescription$ You gain 3 life.
+SVar:DBDraw:DB$ Draw | SpellDescription$ Draw a card.
+SVar:DBMana:DB$ Mana | Produced$ Any | SpellDescription$ Add one mana of any color.
+SVar:DBToken:DB$ Token | TokenScript$ c_a_Rune_sac | SpellDescription$ Create a Rune token.
+Oracle:Whenever another enchantment you control enters, choose one that hasn’t been chosen this turn—\n• Gain 3 life.\n• Draw a card.\n• Add one mana of any color.\n• Create a Rune token.

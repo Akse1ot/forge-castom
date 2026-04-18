@@ -1,0 +1,20 @@
+Name:Quickstep
+ManaCost:1 U
+Types:Instant
+A:SP$ Charm | Choices$ DBPump1,DBPump2
+SVar:DBPump1:DB$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | KW$ Hexproof | SpellDescription$ Target creature gains hexproof until end of turn.
+SVar:DBPump2:DB$ Pump | ValidTgts$ Creature |  RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | StackDescription$ {c:Targeted} can't be blocked this turn. | SpellDescription$ Target creature can’t be blocked until end of turn.
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered | Description$ This creature can't be blocked this turn.
+AlternateMode:Modal
+Oracle:Choose one —\n• Target creature gains hexproof until end of turn.\n• Target creature can’t be blocked until end of turn.
+
+ALTERNATE
+
+Name:Raptor of the Mists
+ManaCost:1 B
+Types:Instant
+A:SP$ Animate | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | Triggers$ OutTrigCZ | SpellDescription$ Until end of turn, target creature you control gains “When this creature dies, return it to the battlefield tapped under its owner’s control and surveil 2.”
+SVar:OutTrigCZ:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ OutChangeZone | TriggerController$ TriggeredCardController | TriggerDescription$ When this creature dies, return it to the battlefield tapped under its owner’s control and surveil 2.
+SVar:OutChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredNewCardLKICopy | Tapped$ True | SubAbility$ DBSurveil
+SVar:DBSurveil:DB$ Surveil | Amount$ 2
+Oracle:Until end of turn, target creature you control gains “When this creature dies, return it to the battlefield tapped under its owner’s control and surveil 2.”

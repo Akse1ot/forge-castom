@@ -1332,6 +1332,15 @@ public class AbilityUtils {
             final Card host = sa.getHostCard();
             if (host != null) {
                 host.addAbilityResolved(sa);
+
+                // grouped resolve tracking is opt-in and only counts entry/root abilities,
+                // not sub-abilities in the same resolving chain
+                if (sa.getParent() == null) {
+                    final String resolveGroup = getResolveGroup(sa);
+                    if (StringUtils.isNotBlank(resolveGroup)) {
+                        host.addAbilityResolvedGroup(resolveGroup, sa);
+                    }
+                }
             }
         }
 
@@ -1344,6 +1353,24 @@ public class AbilityUtils {
             return;
         }
         resolveApiAbility(sa, game);
+    }
+
+    private static String getResolveGroup(final SpellAbility sa) {
+        if (sa == null) {
+            return null;
+        }
+
+        final SpellAbility root = sa.getRootAbility();
+
+        if (root.hasParam("ResolveGroup")) {
+            return root.getParam("ResolveGroup");
+        }
+
+        if (root.isTrigger() && root.getTrigger() != null && root.getTrigger().hasParam("ResolveGroup")) {
+            return root.getTrigger().getParam("ResolveGroup");
+        }
+
+        return null;
     }
 
     private static void resolvePreAbilities(final SpellAbility sa, final Game game) {
@@ -1888,6 +1915,36 @@ public class AbilityUtils {
                     return doXMath(sa.getResolvedThisTurn(), expr, c, ctb);
                 }
 
+                if (sq[0].equals("ResolvedGroupThisTurn")) {
+                    if (sq.length < 2) {
+                        return doXMath(0, expr, c, ctb);
+                    }
+                    return doXMath(c.getAbilityResolvedGroupThisTurn(sq[1]), expr, c, ctb);
+                }
+
+                if (sq[0].equals("CycleStage")) {
+                    if (sq.length < 3) {
+                        return doXMath(0, expr, c, ctb);
+                    }
+
+                    final int steps;
+                    try {
+                        steps = Integer.parseInt(sq[sq.length - 1]);
+                    } catch (NumberFormatException e) {
+                        return doXMath(0, expr, c, ctb);
+                    }
+
+                    if (steps <= 0) {
+                        return doXMath(0, expr, c, ctb);
+                    }
+
+                    final String baseCountExpr = StringUtils.join(Arrays.copyOfRange(sq, 1, sq.length - 1), ".");
+                    final int baseCount = xCount(c, baseCountExpr, ctb);
+
+                    final int stage = baseCount <= 0 ? 0 : ((baseCount - 1) % steps) + 1;
+                    return doXMath(stage, expr, c, ctb);
+                }
+
                 if (sq[0].startsWith("TotalManaSpent ")) {
                     if (sa.getRootAbility().getPayingMana() == null) {
                         return doXMath(0, expr, c, ctb);
@@ -1927,6 +1984,36 @@ public class AbilityUtils {
                 }
 
             } // end SpellAbility
+
+            if (sq[0].equals("ResolvedGroupThisTurn")) {
+                if (sq.length < 2) {
+                    return doXMath(0, expr, c, ctb);
+                }
+                return doXMath(c.getAbilityResolvedGroupThisTurn(sq[1]), expr, c, ctb);
+            }
+
+            if (sq[0].equals("CycleStage")) {
+                if (sq.length < 3) {
+                    return doXMath(0, expr, c, ctb);
+                }
+
+                final int steps;
+                try {
+                    steps = Integer.parseInt(sq[sq.length - 1]);
+                } catch (NumberFormatException e) {
+                    return doXMath(0, expr, c, ctb);
+                }
+
+                if (steps <= 0) {
+                    return doXMath(0, expr, c, ctb);
+                }
+
+                final String baseCountExpr = StringUtils.join(Arrays.copyOfRange(sq, 1, sq.length - 1), ".");
+                final int baseCount = xCount(c, baseCountExpr, ctb);
+
+                final int stage = baseCount <= 0 ? 0 : ((baseCount - 1) % steps) + 1;
+                return doXMath(stage, expr, c, ctb);
+            }
 
             if (sq[0].equals("CastTotalManaSpent")) {
                 return doXMath(c.getCastSA() != null ? c.getCastSA().getTotalManaSpent() : 0, expr, c, ctb);

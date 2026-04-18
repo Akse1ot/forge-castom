@@ -1,0 +1,15 @@
+Name:Rellana Twin Moon Knight
+ManaCost:1 U R
+Types:Legendary Creature Human Knight Wizard
+PT:1/3
+K:Double Strike
+K:Prowess
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl+kicked+Red | TriggerZones$ Battlefield | Execute$ TrigRed | OptionalDecider$ You | TriggerDescription$ Whenever you cast a kicked red spell, draw a card for each time that spell was kicked, then discard a card.
+SVar:TrigRed:DB$ Draw | NumCards$ X | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl+kicked+Blue | TriggerZones$ Battlefield | Execute$ TrigBlue | OptionalDecider$ You | TriggerDescription$
+SVar:TrigBlue:DB$ Token | TokenScript$ c_a_Rune_sac | TokenAmount$ X
+SVar:X:TriggeredSpellAbility$TimesKicked
+Oracle:Double strike, prowess\n
+Whenever you cast a kicked red spell, draw a card for each time that spell was kicked, then discard a card.\n
+Whenever you cast a kicked blue spell, create a Rune token for each time that spell was kicked.

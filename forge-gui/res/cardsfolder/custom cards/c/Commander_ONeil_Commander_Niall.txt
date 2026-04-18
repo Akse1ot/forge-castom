@@ -17,6 +17,6 @@ Types:Legendary Creature Human Soldier
 PT:2/2
 K:Vigilance
 T:Mode$ SpellCast | ValidCard$ Card.kicked | ValidActivatingPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield | TriggerDescription$ Whenever you cast a kicked spell, create a 2/2 blue Spirit Knight enchantment creature token with vigilance for each time that spell was kicked.
-SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScript$ b_2_2_enchantment_spirit_knight | TokenOwner$ You
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScript$ u_2_2_enchantment_spirit_knight_vigilance | TokenOwner$ You
 SVar:X:TriggeredSpellAbility$TimesKicked
 Oracle:Vigilance\nWhenever you cast a kicked spell, create a 2/2 blue Spirit Knight enchantment creature token with vigilance for each time that spell was kicked.

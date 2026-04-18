@@ -1,0 +1,6 @@
+Name:Giant Spirit Token
+ManaCost:no cost
+Colors:blue
+Types:Enchantment Creature Giant Spirit
+PT:3/3
+Oracle:
