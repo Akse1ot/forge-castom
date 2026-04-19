@@ -2846,7 +2846,7 @@ public class CardFactoryUtil {
             // Epic does modify existing SA, and does not add new one
 
             // Add the Epic effect as a subAbility
-            String dbStr = "DB$ Effect | Triggers$ EpicTrigger | StaticAbilities$ EpicCantBeCast | Duration$ Permanent | Epic$ True";
+            String dbStr = "DB$ Effect | Triggers$ EpicTrigger | StaticAbilities$ EpicCantBeCast | Duration$ Permanent | ConditionDefined$ Self | ConditionPresent$ Card.hasKeywordEpic";
 
             final AbilitySub newSA = (AbilitySub) AbilityFactory.getAbility(dbStr, card);
 
@@ -3271,6 +3271,25 @@ public class CardFactoryUtil {
             newSA.setIntrinsic(intrinsic);
             newSA.setAlternativeCost(AlternativeCost.Overload);
             inst.addSpellAbility(newSA);
+        } else if (keyword.equals("Paradigm")) {
+            // Paradigm does modify existing SA, and does not add new one
+
+            // Add the Paradigm effect as a subAbility
+            String abExile = "DB$ ChangeZone | Defined$ Self | Origin$ Stack | Destination$ Exile";
+            final AbilitySub saExile = (AbilitySub) AbilityFactory.getAbility(abExile, card);
+
+            String dbStr = "DB$ Effect | Triggers$ ParadigmTrigger | Duration$ Permanent | ConditionDefined$ Self | ConditionPresent$ Card.hasKeywordParadigm";
+            final AbilitySub newSA = (AbilitySub) AbilityFactory.getAbility(dbStr, card);
+
+            newSA.setSVar("ParadigmTrigger", "Mode$ Phase | Phase$ Main1 | ValidPlayer$ You | OptionalDecider$ You | Execute$ ParadigmCopy | TriggerDescription$ Paradigm (" + inst.getReminderText() + ")");
+            newSA.setSVar("ParadigmCopy", "DB$ Play | Defined$ EffectSource | ValidSA$ Spell | ZoneRegardless$ True | WithoutManaCost$ True | Optional$ True | CopyCard$ True | Paradigm$ True");
+
+            saExile.setSubAbility(newSA);
+
+            final SpellAbility origSA = card.getFirstSpellAbility();
+
+            // append to original SA
+            origSA.appendSubAbility(saExile);
         } else if (keyword.startsWith("Spirit Ash")) {
             final String[] kw = keyword.split(":", 3);
             final String costStr = kw.length > 1 ? kw[1].trim() : "";
@@ -3428,19 +3447,15 @@ public class CardFactoryUtil {
                         final Cost resonanceCost = new Cost(cost, false);
                         final SpellAbility resonanceSA =
                                 base.copyWithManaCostReplaced(host.getController(), resonanceCost);
-
                         // 3) помечаем как альтернативную стоимость Resonance
                         resonanceSA.setAlternativeCost(AlternativeCost.Resonance);
-
                         // 4) флаг — проверяется в MagicStack.resolveStack()
                         resonanceSA.setSVar("ResonanceCast", "True");
-
                         // 5) текст
                         final StringBuilder desc = new StringBuilder();
                         desc.append("Resonance ").append(cost).append(" (")
                                 .append(inst.getReminderText()).append(")");
                         resonanceSA.setDescription(desc.toString());
-
                         resonanceSA.setIntrinsic(intrinsic);
 
                         // 6) добавляем альтернативную SpellAbility к карте
@@ -3450,7 +3465,27 @@ public class CardFactoryUtil {
                 } else {
                     System.err.println("Resonance allowed only on Instant or Sorcery: " + card.getName());
                 }
+
+
+                    } else if (keyword.startsWith("Reinforce") && inst instanceof KeywordWithCostAndAmount reinforce) {
+            final String n = reinforce.getAmountString();
+            final String manacost = reinforce.getCostString();
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("AB$ PutCounter | CounterType$ P1P1 | ActivationZone$ Hand | ValidTgts$ Creature ");
+            sb.append("| Cost$ ").append(manacost).append(" Discard<1/CARDNAME>");
+            sb.append("| CounterNum$ ").append(n);
+            sb.append("| CostDesc$ ").append(ManaCostParser.parse(manacost)); // to hide the Discard from the cost
+            sb.append("| PrecostDesc$ ").append(reinforce.getTitleWithoutCost());
+            sb.append("| SpellDescription$ (").append(inst.getReminderText()).append(")");
+
+            final SpellAbility sa = AbilityFactory.getAbility(sb.toString(), card);
+            sa.setIntrinsic(intrinsic);
+
+            if (n.equals("X")) {
+                sa.setSVar("X", "Count$xPaid");
             }
+            inst.addSpellAbility(sa);
         } else if (keyword.startsWith("Saddle")) {
             final String[] k = keyword.split(":");
             final String power = k[1];

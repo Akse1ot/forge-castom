@@ -11,6 +11,7 @@ import forge.gamemodes.match.LobbySlotType;
 import forge.gamemodes.match.input.InputSynchronized;
 import forge.gamemodes.net.CompatibleObjectDecoder;
 import forge.gamemodes.net.CompatibleObjectEncoder;
+import forge.gamemodes.net.NetworkLogConfig;
 import forge.util.IHasForgeLog;
 import forge.gamemodes.net.event.*;
 import forge.gui.GuiBase;
@@ -225,6 +226,7 @@ public final class FServerManager implements IHasForgeLog {
         }
         isHosting = false;
         UPnPMapped = false;
+        NetworkLogConfig.deactivateNetworkLogging();
         // create new EventLoopGroups for potential restart
         bossGroup = new NioEventLoopGroup(1);
         workerGroup = new NioEventLoopGroup();
@@ -370,8 +372,8 @@ public final class FServerManager implements IHasForgeLog {
 
     public void unsetReady() {
         if (this.localLobby != null && this.localLobby.getSlot(0) != null) {
-                this.localLobby.getSlot(0).setIsReady(false);
-                updateLobbyState();
+            this.localLobby.getSlot(0).setIsReady(false);
+            updateLobbyState();
         }
     }
 
