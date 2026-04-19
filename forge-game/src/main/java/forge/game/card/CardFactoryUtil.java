@@ -3279,7 +3279,7 @@ public class CardFactoryUtil {
             final String effect =
                     "AB$ CopyPermanent | Cost$ " + costStr + " ExileFromGrave<1/CARDNAME> " +
                             "| ActivationZone$ Graveyard | SorcerySpeed$ True " +
-                            "| RemoveCost$ True | AddTypes$ Enchantment Spirit" +
+                            "| RemoveCost$ True | AddTypes$ Enchantment & Spirit" +
                             "| PrecostDesc$ Spirit Ash | CostDesc$ " + costStr + " | Defined$ Self " +
                             "| StackDescription$ Spirit Ash - CARDNAME " +
                             "| SpellDescription$ (" + inst.getReminderText() + ")" +

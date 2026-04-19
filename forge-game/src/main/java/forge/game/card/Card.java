@@ -355,6 +355,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
 
     private int planeswalkerAbilityActivated;
     private boolean planeswalkerActivationLimitUsed;
+    private final Set<SpellAbility> planeswalkerAbilitiesActivatedThisTurn = Sets.newHashSet();
 
     private final ActivationTable numberTurnActivations = new ActivationTable();
     private final ActivationTable numberGameActivations = new ActivationTable();
@@ -7854,6 +7855,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
 
         if (ability.isPwAbility()) {
             addPlaneswalkerAbilityActivated();
+            addActivatedThisLoyaltyAbilityThisTurn(ability);
         }
     }
 
@@ -8008,9 +8010,30 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         return planeswalkerActivationLimitUsed;
     }
 
+    private SpellAbility getPlaneswalkerAbilityTrackKey(final SpellAbility ability) {
+        if (ability == null) {
+            return null;
+        }
+        final SpellAbility original = ability.getOriginalAbility();
+        return original != null ? original : ability;
+    }
+
+    public boolean hasActivatedThisLoyaltyAbilityThisTurn(final SpellAbility ability) {
+        final SpellAbility key = getPlaneswalkerAbilityTrackKey(ability);
+        return key != null && planeswalkerAbilitiesActivatedThisTurn.contains(key);
+    }
+
+    public void addActivatedThisLoyaltyAbilityThisTurn(final SpellAbility ability) {
+        final SpellAbility key = getPlaneswalkerAbilityTrackKey(ability);
+        if (key != null) {
+            planeswalkerAbilitiesActivatedThisTurn.add(key);
+        }
+    }
+
     public void resetActivationsPerTurn() {
         planeswalkerAbilityActivated = 0;
         planeswalkerActivationLimitUsed = false;
+        planeswalkerAbilitiesActivatedThisTurn.clear();
         numberTurnActivations.clear();
     }
 

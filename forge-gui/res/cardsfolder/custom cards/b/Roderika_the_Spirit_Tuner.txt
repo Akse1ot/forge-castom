@@ -1,0 +1,9 @@
+Name:Roderika the Spirit Tuner
+ManaCost:W U
+Types:Legendary Planeswalker Roderika
+Loyalty:2
+A:AB$ PutCounter | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True |  ValidTgts$ Creature.Spirit+YouCtrl | TgtPrompt$ Select target Spirit you control | CounterType$ P1P1 | SpellDescription$ Put a +1/+1 counter on target Spirit you control.
+A:AB$ Token | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | TokenScript$ u_1_1_enchantment_spirit | SpellDescription$ Create a 1/1 blue Spirit enchantment creature token.
+A:AB$ Effect | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Roderika the Spirit Tuner | Image$ emblem_roderika_the_spirit_tuner | StaticAbilities$ PumpAll | Duration$ Permanent | SpellDescription$ You gain an emblem with “Spirits you control get +2/+2 and have flying.”
+SVar:PumpAll:Mode$ Continuous | Affected$ Creature.Spirit+YouCtrl | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Flying | Description$ Spirits you control get +2/+2 and have flying.
+Oracle:[+1]: Put a +1/+1 counter on target Spirit you control.\n[-1]: Create a 1/1 blue Spirit enchantment creature token.\n[-5]: You gain an emblem with “Spirits you control get +2/+2 and have flying.”

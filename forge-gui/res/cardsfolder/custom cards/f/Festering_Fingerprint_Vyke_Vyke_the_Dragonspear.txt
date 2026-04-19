@@ -1,0 +1,29 @@
+Name:Festering Fingerprint Vyke
+ManaCost:B R
+Types:Legendary Planeswalker Vyke
+Loyalty:3
+K:Madness:Sac<1/Creature;Planeswalker/creature or planeswalker>
+A:AB$ Discard | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | RememberDiscarded$ True | SubAbility$ DBDraw | SpellDescription$ Discard a card. If you do, draw a card.
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Token | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | TokenScript$ r_1_1_enchantment_spirit_haste | SpellDescription$ Create a 1/1 red enchantment Spirit creature token with haste.
+A:AB$ Discard | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | Mode$ Hand | Defined$ Player |RememberDiscarded$ True | SubAbility$ DBEachDraw | SpellDescription$ Each player discards their hand, then draws seven cards. Add {B} or {R} for each card discarded this way.
+SVar:DBEachDraw:DB$ Draw | Defined$ Player | NumCards$ 7
+SVar:DBAddMana:DB$ Mana | Produced$ Combo B R | Amount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+AlternateMode:Modal
+Oracle:Madness—Sacrifice a creature or planeswalker.\n[+1]: Discard a card. If you do, draw a card.\n[0]: Create a 1/1 red enchantment Spirit creature token with haste.\n[-5]: Each player discards their hand, then draws seven cards. Add {B} or {R} for each card discarded this way.
+
+ALTERNATE
+
+Name:Vyke the Dragonspear
+ManaCost:2 R R
+Types:Legendary Planeswalker Vyke
+Loyalty:4
+S:Mode$ NumLoyaltyAct | ValidCard$ Card.Self | EachAbilityOnce$ True | Description$ You may activate each loyalty ability of this planeswalker once each turn.
+A:AB$ PutCounter | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | TgtPrompt$ Select target creature you control | SpellDescription$ Put a +1/+1 counter on target creature you control.
+A:AB$ DealDamage | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Any | NumDmg$ 1 | SpellDescription$ This planeswalker deals 1 damage to any target.
+A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Vyke the Dragonspear | Image$ emblem_vyke_the_dragonspear | StaticAbilities$ ReduceCost | Duration$ Permanent | SpellDescription$ You gain an emblem with “Dragon and Aura spells you cast cost {2} less to cast.”
+SVar:ReduceCost:Mode$ ReduceCost | ValidCard$ Dragon.YouCtrl,Aura.YouCtrl | Type$ Spell | Activator$ You | Amount$ 2 | Description$ Dragon and Aura spells you cast cost {2} less to cast.
+Oracle:You may activate each loyalty ability of this planeswalker once each turn.\n[+1]: Put a +1/+1 counter on target creature you control.\n[+1]: This planeswalker deals 1 damage to any target.\n[-8]: You gain an emblem with “Dragon and Aura spells you cast cost {2} less to cast.”

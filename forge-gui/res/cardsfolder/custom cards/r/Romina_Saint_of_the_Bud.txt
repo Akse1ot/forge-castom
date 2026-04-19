@@ -1,0 +1,12 @@
+Name:Romina Saint of the Bud
+ManaCost:2 B G
+Types:Legendary Creature Insect Scorpion
+PT:3/3
+K:Flying
+K:Vigilance
+K:Deathtouch
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | ConditionCheckSVar$ LifePaid | ConditionSVarCompare$ GE1 | Execute$ TrigToken | TriggerDescription$ At the beginning of each player’s end step, if that player paid one or more life this turn, create a colorless land token named Rot with “{T}, Pay 2 life: Add {C}.”
+SVar:TrigToken:DB$ Token | TokenScript$ c_Rot
+SVar:LifePaid:PlayerCountDefinedActivePlayer$LifePaidThisTurn
+A:AB$ Draw | Cost$ T Sac<1/Land> PayLife<1> | SpellDescription$ Draw a card.
+Oracle:Flying, vigilance, deathtouch\nAt the beginning of each player’s end step, if that player paid one or more life this turn, create a colorless land token named Rot with “{T}, Pay 2 life: Add {C}.”\n{T}, Sacrifice a land, Pay 1 life: Draw a card.

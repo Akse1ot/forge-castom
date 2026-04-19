@@ -2,6 +2,7 @@ Name:Flame of the Fell God
 ManaCost:R R
 Types:Legendary Sorcery
 K:Kicker:2 R
+Text:(You may cast a legendary sorcery only if you control a legendary creature or planeswalker.)
 A:SP$ DamageAll | ValidCards$ Creature | NumDmg$ 2 | ConditionCheckSVar$ NotKicked | ConditionSVarCompare$ GE1 | SubAbility$ DBKicked | SpellDescription$ CARDNAME deals 2 damage to each creature. If this spell was kicked, it deals 4 damage to each creature, player, and planeswalker instead.
 SVar:DBKicked:DB$ DamageAll | Condition$ Kicked | ValidCards$ Creature,Planeswalker | ValidPlayers$ Player | NumDmg$ 4
 SVar:NotKicked:Count$Kicked.0.1

@@ -6,9 +6,9 @@ K:Defender
 K:Flying
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When this creature enters, create three 0/1 blue Wizard creature tokens with “legendary Wizards you control get +0/+1 and have ward .”
 SVar:TrigToken:DB$ Token | TokenScript$ u_0_1_wizard_pump | TokenAmount$ 3
-S:Mode$ ReduceCost | AltCost$ Spirit Ash | Type$ Spell | Activator$ You | Amount$ 2 | Description$ Each spell you cast for its Awaken cost costs {4} less to cast.
+S:Mode$ ReduceCost | ValidCard$ Card | ValidSpell$ Activated.SpiritAsh | Activator$ You | Amount$ 2 | Description$ Spirit Ash abilities of creature cards in your graveyard cost {2} less to activate.
 AlternateMode:Modal
-Oracle:Defender, Flying\nWhen this creature enters, create three 0/1 blue Wizard creature tokens with “legendary Wizards you control get +0/+1 and have ward .”\nSpirit ash abilities of creature cards in your graveyard cost {2} less to activate.
+Oracle:Defender, Flying\nWhen this creature enters, create three 0/1 blue Wizard creature tokens with “legendary Wizards you control get +0/+1 and have ward .”\nSpirit Ash abilities of creature cards in your graveyard cost {2} less to activate.
 
 ALTERNATE
 
@@ -17,7 +17,7 @@ ManaCost:3 U U
 Types:Legendary Enchantment Creature Spirit Wizard
 PT:5/3
 T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | ResolveGroup$ SpiritTokenCycle | Execute$ TrigToken | TriggerDescription$ Whenever you cast an instant or sorcery spell or activate a spirit ash ability, create an enchantment creature token with the following characteristics, depending on this cycle's current stage.
-T:Mode$ SpellCast | AltCost$ Spirit Ash | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | ResolveGroup$ SpiritTokenCycle | Execute$ TrigToken | TriggerDescription$ Whenever you cast an instant or sorcery spell or activate a spirit ash ability, create an enchantment creature token with the following characteristics, depending on this cycle's current stage.
+T:Mode$ AbilityCast | ValidSA$ Activated.SpiritAsh | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | ResolveGroup$ SpiritTokenCycle | Execute$ TrigToken | TriggerDescription$ Whenever you cast an instant or sorcery spell or activate a spirit ash ability, create an enchantment creature token with the following characteristics, depending on this cycle's current stage.
 SVar:TrigToken:DB$ Token | ConditionCheckSVar$ Stage | ConditionSVarCompare$ EQ1 | TokenScript$ u_1_1_enchantment_wolf_spirit | SubAbility$ DBToken2
 SVar:DBToken2:DB$ Token | ConditionCheckSVar$ Stage | ConditionSVarCompare$ EQ2 | TokenScript$ u_2_2_enchantment_knight_spirit | SubAbility$ DBToken3
 SVar:DBToken3:DB$ Token | ConditionCheckSVar$ Stage | ConditionSVarCompare$ EQ3 | TokenScript$ u_3_3_enchantment_giant_spirit | SubAbility$ DBToken4
