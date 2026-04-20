@@ -1,0 +1,22 @@
+Name:Dragonlord Placidusax
+ManaCost:2 W U B R G
+Types:Legendary Creature Elder Dragon God
+PT:4/7
+K:Flying
+K:Double Strike
+K:Ward:3
+T:Mode$ SpellCast | ValidCard$ Card.ModalDoubleFaced | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopyOppositeFace | TriggerDescription$ Whenever you cast a double-faced spell, you may create a copy of that spell’s opposite face. You may choose new targets for the copy.
+SVar:TrigCopyOppositeFace:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Controller$ You | Optional$ True | CopyOppositeFace$ True | MayChooseTarget$ True
+AlternateMode:Modal
+Oracle:Flying, Double strike, ward {3}\nWhenever you cast a double-faced spell, you may create a copy of that spell’s opposite face. You may choose new targets for the copy.
+
+ALTERNATE
+
+Name:Placidusax's Ruin
+ManaCost:W U B R G
+Types:Legendary Enchantment Aura
+K:Enchant:Creature,Planeswalker:creature or Planeswalker
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy,Planeswalker.EnchantedBy | AddPower$ 5 | AddType$ Dragon | Description$ Enchanted permanent gets +5/+0 and is a Dragon in addition to its other types.
+T:Mode$ AbilityCast | ValidCard$ Creature.EquippedBy+inRealZoneBattlefield | ValidSA$ SpellAbility | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigCopyAbility | TriggerDescription$ Whenever you activate an ability of enchanted permanent, you may copy that ability. You may choose new targets for the copy.
+SVar:TrigCopyAbility:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+Oracle:Enchant creature or planeswalker\nEnchanted permanent gets +5/+0 and is a Dragon in addition to its other types.\nWhenever you activate an ability of enchanted permanent, you may copy that ability. You may choose new targets for the copy.

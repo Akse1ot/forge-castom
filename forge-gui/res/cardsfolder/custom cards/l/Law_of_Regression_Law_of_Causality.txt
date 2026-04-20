@@ -1,0 +1,18 @@
+Name:Law of Regression
+ManaCost:1 W
+Types:Sorcery
+Text:You may choose either face of a double-faced card for this spell’s targets.
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetEitherFace$ True | ChangeType$ Creature.YouOwn+cmcLE3,Planeswalker.YouOwn+cmcLE3 | SpellDescription$ Return target creature or planeswalker card with mana value 3 or less from your graveyard to the battlefield.
+AlternateMode:Modal
+Oracle:You may choose either face of a double-faced card for this spell’s targets.\nReturn target creature or planeswalker card with mana value 3 or less from your graveyard to the battlefield.
+
+ALTERNATE
+
+Name:Law of Causality
+ManaCost:4 W
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ NonlandPermanent.sharesCardTypeWith ExiledCards | TgtPrompt$ Select target nonland permanent | Origin$ Battlefield | Destination$ Exile | SpellDescription$ Exile target nonland permanent that shares a card type with the exiled cards.
+S:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Cost$ ExileFromGrave<1+/Permanent+withSharedCardType/permanent cards> | EffectZone$ All | Description$ As an additional cost to cast this spell, exile one or more permanent cards that share a card type from your graveyard. This spell costs {1} less to cast for each card exiled this way.
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Exiled | EffectZone$ All | Relative$ True | Secondary$ True | Description$ This spell costs {1} less to cast for each card exiled this way.
+SVar:Exiled:Number$0
+Oracle:As an additional cost to cast this spell, exile one or more permanent cards that share a card type from your graveyard. This spell costs  less to cast for each card exiled this way.\nExile target nonland permanent that shares a card type with the exiled cards.

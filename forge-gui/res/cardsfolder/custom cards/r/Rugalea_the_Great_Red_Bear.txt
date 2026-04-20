@@ -1,0 +1,10 @@
+Name:Rugalea the Great Red Bear
+ManaCost:2 R G
+Types:Legendary Creature Bear God
+PT:3/3
+K:Trample
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield | CheckSVar$ PackTactics | SVarCompare$ GE6 | NoResolvingCheck$ True | TriggerDescription$ Pack tactics — Whenever CARDNAME attacks, if you attacked with creatures with total power 6 or greater this combat, each creature you control gets +2/+2 until end of turn.
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +2
+SVar:PackTactics:Count$Valid Creature.attacking$CardPower
+Oracle:Trample, haste\nPack tactics — Whenever this creature attacks, if you attacked with creatures with total power 6 or greater this combat, each creature you control gets +2/+2 until end of turn.

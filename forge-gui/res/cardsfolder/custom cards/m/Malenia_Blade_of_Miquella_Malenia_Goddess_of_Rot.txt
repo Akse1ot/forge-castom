@@ -25,5 +25,5 @@ K:Lifelink
 K:Haste
 T:Mode$ TapsForMana | ValidCard$ Land | Activator$ You | Execute$ TrigMana | TriggerZones$ Battlefield | Static$ True | TriggerDescription$ Whenever you tap a land for mana, add one mana of any type that land produced.
 SVar:TrigMana:DB$ ManaReflected | ColorOrType$ Type | ReflectProperty$ Produced | Defined$ You
-S:Mode$ RaiseCost | Type$ Ability | ValidSpell$ Activated.ManaAbility | ValidCard$ Land | Cost$ PayLife<1> | EffectZone$ All | Description$ Mana abilities of CARDNAME cost an additional 1 life to activate.
+S:Mode$ RaiseCost | Type$ Ability | ValidSpell$ Activated.ManaAbility | ValidCard$ Land | Cost$ PayLife<1> | EffectZone$ All | Description$ Each land has “As an additional cost to activate this land’s abilities, pay 1 life.”
 Oracle:Flying, deathtouch, lifelink, haste\nWhenever you tap a land for mana, add one mana of any color that land could produce.\nEach land has “As an additional cost to activate this land’s abilities, pay 1 life.”

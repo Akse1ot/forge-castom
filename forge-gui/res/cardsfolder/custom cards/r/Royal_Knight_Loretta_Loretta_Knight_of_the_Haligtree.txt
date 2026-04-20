@@ -1,0 +1,21 @@
+Name:Royal Knight Loretta
+ManaCost:1 U U
+Types:Legendary Enchantment Creature Spirit Knight
+PT:1/2
+K:Vigilance
+K:Prowess
+T:Mode$ ChangesZoneAll | ValidCards$ Spirit.Other+YouCtrl | Destination$ Battlefield | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigToken | TriggerDescription$ Whenever one or more other Spirits you control enter, create two blue enchantment tokens named Glintblade with “Sacrifice this enchantment: Target creature gets -1/-0 until end of turn.”
+SVar:TrigToken:DB$ Token | TokenScript$ u_e_Glintblade_sac
+AlternateMode:Modal
+Oracle:Vigilance, prowess\nWhenever one or more other Spirits you control enter, create two blue enchantment tokens named Glintblade with “Sacrifice this enchantment: Target creature gets -1/-0 until end of turn.”
+
+ALTERNATE
+
+Name:Loretta, Knight of the Haligtree
+ManaCost:2 W W
+Types:Legendary Creature Albinauric Knight
+PT:2/3
+K:Vigilance
+K:Prowess
+S:Mode$ Continuous | Affected$ Creature.Spirit+YouCtrl | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Vigilance | Description$ Each Spirit you control gets +1/+1 and has vigilance.
+Oracle:Vigilance, prowess\nEach Spirit you control gets +1/+1 and has vigilance.

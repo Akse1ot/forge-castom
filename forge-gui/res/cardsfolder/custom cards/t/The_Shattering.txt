@@ -1,0 +1,11 @@
+Name:The Shattering
+ManaCost:4 B
+Types:Legendary Battle War
+Defense:5
+Text:(Any player may attack a War. Any player other than attacking player may block creatures attacking a War.)
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigChoose | TriggerDescription$ At the beginning of each player’s upkeep, that player chooses a creature they control, then sacrifices each other creature and planeswalker they control. If the chosen creature was legendary, that player creates a Rune token.
+SVar:TrigChoose:DB$ ChooseCard | Defined$ TriggeredPlayer | ChoiceZone$ Battlefield | Choices$ Creature | ChoiceTitle$ Choose creature to keep | Mandatory$ True | ControlledByPlayer$ Chooser | SubAbility$ DBSacCreature
+SVar:DBSacCreature:DB$ SacrificeAll | ValidCards$ Creature.nonChosenCard,Planeswalker | Controller$ TriggeredPlayer | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_Rune_sac | TokenOwner$ TriggeredPlayer | ConditionDefined$ ChosenCard | ConditionPresent$ Creature.Legendary | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+Oracle:(Any player may attack a War. Any player other than attacking player may block creatures attacking a War.)\nAt the beginning of each player’s upkeep, that player chooses a creature they control, then sacrifices each other creature and planeswalker they control. If the chosen creature was legendary, that player creates a Rune token.

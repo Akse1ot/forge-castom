@@ -1,0 +1,14 @@
+Name:The Ever Brilliant Goldmask
+ManaCost:2 W
+Types:Legendary Planeswalker Goldmask
+Loyalty:3
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ Player.Each | NumCards$ 1 | SubAbility$ DBDrawExtra | SpellDescription$ Each player draws a card. If you don’t have the most cards in your hand, draw an additional card.
+SVar:DBDrawExtra:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionCheckSVar$ Y | ConditionSVarCompare$ LTX
+SVar:X:PlayerCountPlayers$HighestCardsInHand
+SVar:Y:Count$ValidHand Card.YouOwn
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Origin$ Library | Destination$ Battlefield | ChangeType$ Plains | ChangeNum$ 1 | Tapped$ True | ConditionCheckSVar$ CtrlLands | ConditionSVarCompare$ LTMostLands | SpellDescription$ If you don’t control the most lands, search your library for a Plains card, put it onto the battlefield tapped, then shuffle.
+SVar:CtrlLands:Count$Valid Land.YouCtrl
+SVar:MostLands:PlayerCountPlayers$HighestValid Land.YouCtrl
+A:AB$ Effect | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — The Ever Brilliant Goldmask | Image$ emblem_the_ever_brilliant_goldmask | StaticAbilities$ CantBeCast | Duration$ Permanent | SpellDescription$ You gain an emblem with “Your opponents can’t cast legendary spells.”
+SVar:CantBeCast:Mode$ CantBeCast | ValidCard$ Card.Legendary | Caster$ Opponent | Description$ Your opponents can’t cast legendary spells.
+Oracle:[+1]: Each player draws a card. If you don’t have the most cards in your hand, draw an additional card.\n[-3]: If you don’t control the most lands, search your library for a Plains card, put it onto the battlefield tapped, then shuffle.\n[-6]: You gain an emblem with “Your opponents can’t cast legendary spells.”

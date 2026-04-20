@@ -44,7 +44,9 @@ public class ChoosePlayerEffect extends SpellAbilityEffect {
                 continue;
             }
             Player chosen;
-            if (random) {
+            if (sa.hasParam("ProtectWar")) {
+                chosen = forge.game.WarBattleUtil.getDesignatedProtector(game);
+            } else if (random) {
                 chosen = choices.isEmpty() ? null : Aggregates.random(choices);
             } else {
                 chosen = choices.isEmpty() ? null : p.getController().chooseSingleEntityForEffect(choices, sa, choiceDesc, sa.hasParam("Optional"), null);
@@ -52,6 +54,8 @@ public class ChoosePlayerEffect extends SpellAbilityEffect {
             if (null != chosen) {
                 if (secret) {
                     card.setSecretChosenPlayer(chosen);
+                } else if (sa.hasParam("ProtectWar")) {
+                    forge.game.WarBattleUtil.assignControllerAndProtector(game.getAction(), card, chosen);
                 } else if (sa.hasParam("Protect")) {
                     card.setProtectingPlayer(chosen);
                 } else {

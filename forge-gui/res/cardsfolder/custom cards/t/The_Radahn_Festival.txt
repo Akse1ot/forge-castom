@@ -1,0 +1,16 @@
+Name:The Radahn Festival
+ManaCost:R G
+Types:Legendary Battle War
+Defense:3
+Text:(Any player may attack a War. Any player other than attacking player may block creatures attacking a War.)
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigDigUntil | TriggerDescription$ At the beginning of combat on each player's turn, that player exiles cards from the top of their library until they exile a creature card, then puts the rest on the bottom of their library in a random order. That player may cast that spell. When a spell is cast this way, it gains "This spell can't be countered" and it enters with a +1/+1 counter and a haste counter on it.
+SVar:TrigDigUntil:DB$ DigUntil | Defined$ TriggeredPlayer | Valid$ Creature | ValidDescription$ creature card | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | RememberRevealed$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | Controller$ TriggeredPlayer | ValidZone$ Exile | Valid$ Creature.IsRemembered | ValidSA$ Spell | Optional$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Card | ForgetOnMoved$ Stack | ReplacementEffects$ AntiMagic,ETBCreat | SubAbility$ DBRestRandomOrder
+SVar:AntiMagic:Event$ Counter | ValidCard$ Card.IsRemembered | ValidSA$ Spell | Layer$ CantHappen | Description$ That spell can't be countered.
+SVar:ETBCreat:Event$ Moved | Origin$ Stack | Destination$ Battlefield | ValidCard$ Card.IsRemembered | ReplaceWith$ DBPutP1P1 | ReplacementResult$ Updated | Description$ That creature enters with a +1/+1 counter and a haste counter on it.
+SVar:DBPutP1P1:DB$ PutCounter | Defined$ ReplacedCard | CounterType$ P1P1 | ETB$ True | CounterNum$ 1 | SubAbility$ DBPutHaste
+SVar:DBPutHaste:DB$ PutCounter | Defined$ ReplacedCard | CounterType$ Haste | ETB$ True | CounterNum$ 1
+SVar:DBRestRandomOrder:DB$ ChangeZoneAll | ChangeType$ Card.IsRemembered | Origin$ Exile | Destination$ Library | LibraryPosition$ -1 | RandomOrder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:(Any player may attack a War. Any player other than attacking player may block creatures attacking a War.)\nAt the beginning of combat on each player’s turn, that player exiles cards from the top of their library until they exile a creature card, then puts the rest on the bottom in a random order. That player may cast that spell. When a spell is cast this way, it gains “This spell can’t be countered” and it enters with a +1/+1 counter and a haste counter on it.

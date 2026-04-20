@@ -1,0 +1,8 @@
+Name:Scarlet Aeonia
+ManaCost:3 B B G G
+Types:Legendary Enchantment
+S:Mode$ RaiseCost | Type$ Ability | ValidSpell$ Activated.ManaAbility | ValidCard$ Land | Cost$ PayLife<1> | EffectZone$ All | Description$ Each land has “As an additional cost to activate this land’s abilities, pay 1 life.”
+T:Mode$ PayLife | ValidPlayer$ Opponent | Execute$ TrigGainLife | TriggerDescription$ Whenever an opponent pays life, you gain that much life.
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggerCount$LifeAmount
+Oracle:Each land has “As an additional cost to activate this land’s abilities, pay 1 life.”\nWhenever an opponent pays life, you gain that much life.

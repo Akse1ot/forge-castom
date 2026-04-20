@@ -1038,6 +1038,18 @@ public class GameAction {
         game.getTriggerHandler().clearSuppression(TriggerType.ChangesZone);
     }
 
+    public boolean reassignWarBattles() {
+        boolean changed = false;
+
+        for (final Card c : game.getCardsIn(forge.game.zone.ZoneType.Battlefield)) {
+            if (forge.game.WarBattleUtil.isWar(c)) {
+                changed |= forge.game.WarBattleUtil.assignControllerAndProtector(this, c);
+            }
+        }
+
+        return changed;
+    }
+
     // Temporarily disable (if mode = true) actively checking static abilities.
     private void setHoldCheckingStaticAbilities(boolean mode) {
         holdCheckingStaticAbilities = mode;
@@ -1678,6 +1690,9 @@ public class GameAction {
     }
 
     private boolean stateBasedAction_Battle(Card c, CardCollection removeList) {
+        if (forge.game.WarBattleUtil.isWar(c)) {
+            return forge.game.WarBattleUtil.assignControllerAndProtector(this, c);
+        }
         boolean checkAgain = false;
         if (!c.isBattle()) {
             return checkAgain;

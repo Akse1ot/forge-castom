@@ -3432,17 +3432,13 @@ public class CardFactoryUtil {
                 System.err.println("Invalid Resonance keyword on card: " + card.getName());
             } else {
                 final String cost = k[1].trim();
-
                 // реальная карта-хост
                 final forge.game.card.Card hostCard = card.getCard();
-
                 // Resonance имеет смысл только на Instant/Sorcery
                 if (hostCard.getType().isInstant() || hostCard.getType().isSorcery()) {
-
                     // 1) базовая SpellAbility
                     final SpellAbility base = card.getFirstSpellAbilityWithFallback();
                     if (base != null) {
-
                         // 2) альтернативная стоимость
                         final Cost resonanceCost = new Cost(cost, false);
                         final SpellAbility resonanceSA =
@@ -3457,18 +3453,15 @@ public class CardFactoryUtil {
                                 .append(inst.getReminderText()).append(")");
                         resonanceSA.setDescription(desc.toString());
                         resonanceSA.setIntrinsic(intrinsic);
-
                         // 6) добавляем альтернативную SpellAbility к карте
                         inst.addSpellAbility(resonanceSA);
                     }
-
                 } else {
                     System.err.println("Resonance allowed only on Instant or Sorcery: " + card.getName());
                 }
-
-
-                    } else if (keyword.startsWith("Reinforce") && inst instanceof KeywordWithCostAndAmount reinforce) {
-            final String n = reinforce.getAmountString();
+            }
+        } else if (keyword.startsWith("Reinforce") && inst instanceof KeywordWithCostAndAmount reinforce) {
+                final String n = reinforce.getAmountString();
             final String manacost = reinforce.getCostString();
 
             StringBuilder sb = new StringBuilder();
@@ -4136,6 +4129,18 @@ public class CardFactoryUtil {
         exileAbility.setSubAbility(castAbility);
         defeatedTrigger.setOverridingAbility(exileAbility);
         card.addTrigger(defeatedTrigger);
+    }
+
+    public static void setupWarAbilities(Card card) {
+        StringBuilder chooseSB = new StringBuilder();
+        chooseSB.append("Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | BattleProtector$ True");
+        chooseSB.append(" | Description$ (As a War enters, the nonactive player becomes its protector. In multiplayer, the next player after the active player becomes its protector.)");
+
+        String chooseProtector = "DB$ ChoosePlayer | Defined$ You | ProtectWar$ True | DontNotify$ True";
+
+        ReplacementEffect re = ReplacementHandler.parseReplacement(chooseSB.toString(), card, true);
+        re.setOverridingAbility(AbilityFactory.getAbility(chooseProtector, card));
+        card.addReplacementEffect(re);
     }
 
     public static ReplacementEffect setupAdventureAbility(CardState card) {

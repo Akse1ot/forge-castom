@@ -2,6 +2,7 @@ package forge.game.ability.effects;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import forge.card.CardStateName;
 import forge.game.Game;
 import forge.game.GameEntity;
 import forge.game.GameObjectPredicates;
@@ -98,9 +99,14 @@ public class CopySpellAbilityEffect extends SpellAbilityEffect {
                     continue;
                 }
 
+                final SpellAbility spellToCopy = getSpellAbilityToCopy(sa, chosenSA);
+                if (spellToCopy == null) {
+                    continue;
+                }
+
                 // CR 707.10d
                 if (sa.hasParam("CopyForEachCanTarget")) {
-                    SpellAbility targetedSA = getTargetedSA(chosenSA);
+                    SpellAbility targetedSA = getTargetedSA(spellToCopy);
                     if (targetedSA == null) {
                         continue;
                     }
@@ -112,14 +118,14 @@ public class CopySpellAbilityEffect extends SpellAbilityEffect {
                     if (sa.hasParam("ChooseOnlyOne")) { // Beamsplitter Mage
                         GameEntity choice = controller.getController().chooseSingleEntityForEffect(all, sa, Localizer.getInstance().getMessage("lblChooseOne"), null);
                         if (choice != null) {
-                            SpellAbility copy = CardFactory.copySpellAbilityAndPossiblyHost(sa, chosenSA, controller);
+                            SpellAbility copy = CardFactory.copySpellAbilityAndPossiblyHost(sa, spellToCopy, controller);
                             if (changeToLegalTarget(copy, choice, targetedSA)) {
                                 copies.add(copy);
                             }
                         }
                     } else {
                         for (final GameEntity ge : all) {
-                            SpellAbility copy = CardFactory.copySpellAbilityAndPossiblyHost(sa, chosenSA, controller);
+                            SpellAbility copy = CardFactory.copySpellAbilityAndPossiblyHost(sa, spellToCopy, controller);
                             resetFirstTargetOnCopy(copy, ge, targetedSA);
                             copies.add(copy);
                         }
@@ -129,7 +135,7 @@ public class CopySpellAbilityEffect extends SpellAbilityEffect {
                     if (tgts.isEmpty()) {
                         continue;
                     }
-                    SpellAbility targetedSA = getTargetedSA(chosenSA);
+                    SpellAbility targetedSA = getTargetedSA(spellToCopy);
                     if (targetedSA == null) {
                         continue;
                     }
@@ -146,14 +152,14 @@ public class CopySpellAbilityEffect extends SpellAbilityEffect {
                     }
 
                     for (GameEntity e : newTgts) {
-                        SpellAbility copy = CardFactory.copySpellAbilityAndPossiblyHost(sa, chosenSA, controller);
+                        SpellAbility copy = CardFactory.copySpellAbilityAndPossiblyHost(sa, spellToCopy, controller);
                         if (changeToLegalTarget(copy, e, targetedSA)) {
                             copies.add(copy);
                         }
                     }
                 } else {
                     for (int i = 0; i < amount; i++) {
-                        SpellAbility copy = CardFactory.copySpellAbilityAndPossiblyHost(sa, chosenSA, controller);
+                        SpellAbility copy = CardFactory.copySpellAbilityAndPossiblyHost(sa, spellToCopy, controller);
                         if (sa.hasParam("IgnoreFreeze")) {
                             copy.putParam("IgnoreFreeze", "True");
                         }
@@ -176,7 +182,7 @@ public class CopySpellAbilityEffect extends SpellAbilityEffect {
 
                 int addAmount = copies.size();
                 final Map<AbilityKey, Object> repParams = AbilityKey.mapFromAffected(controller);
-                repParams.put(AbilityKey.SpellAbility, chosenSA);
+                repParams.put(AbilityKey.SpellAbility, spellToCopy);
                 repParams.put(AbilityKey.Amount, addAmount);
 
                 switch (game.getReplacementHandler().run(ReplacementType.CopySpell, repParams)) {
@@ -195,7 +201,7 @@ public class CopySpellAbilityEffect extends SpellAbilityEffect {
                 }
                 int extraAmount = addAmount - copies.size();
                 for (int i = 0; i < extraAmount; i++) {
-                    SpellAbility copy = CardFactory.copySpellAbilityAndPossiblyHost(sa, chosenSA, controller);
+                    SpellAbility copy = CardFactory.copySpellAbilityAndPossiblyHost(sa, spellToCopy, controller);
                     // extra copies added with CopySpellReplacenment currently always has new choose targets
                     copy.setMayChooseNewTargets(true);
                     copies.add(copy);
@@ -208,6 +214,68 @@ public class CopySpellAbilityEffect extends SpellAbilityEffect {
                 card.addRemembered(copies);
             }
         }
+    }
+
+    private SpellAbility getSpellAbilityToCopy(final SpellAbility sourceSA, final SpellAbility chosenSA) {
+        if (chosenSA == null) {
+            return null;
+        }
+
+        if (!sourceSA.hasParam("CopyOppositeFace")) {
+            return chosenSA;
+        }
+
+        if (!chosenSA.isSpell()) {
+            return chosenSA;
+        }
+
+        final Card host = chosenSA.getHostCard();
+        if (host == null) {
+            return null;
+        }
+
+        // Not a modal MDFC: keep original behavior unchanged.
+        if (!host.isModal() || !host.hasState(CardStateName.Backside)) {
+            return chosenSA;
+        }
+
+        // Modal MDFC: copy opposite face only; if that fails, create nothing.
+        return getOppositeFaceSpellAbility(chosenSA);
+    }
+
+    private SpellAbility getOppositeFaceSpellAbility(final SpellAbility chosenSA) {
+        final Card host = chosenSA.getHostCard();
+        if (host == null) {
+            return null;
+        }
+
+        // Strictly modal MDFC only.
+        if (!host.isModal() || !host.hasState(CardStateName.Backside)) {
+            return null;
+        }
+
+        final CardStateName currentState = chosenSA.getCardStateName();
+        final CardStateName oppositeState;
+
+        if (currentState == CardStateName.Original) {
+            oppositeState = CardStateName.Backside;
+        } else if (currentState == CardStateName.Backside) {
+            oppositeState = CardStateName.Original;
+        } else {
+            return null;
+        }
+
+        if (!host.hasState(oppositeState)) {
+            return null;
+        }
+
+        for (final SpellAbility candidate : host.getState(oppositeState).getSpellAbilities()) {
+            if (candidate != null && candidate.isSpell() && candidate.getCardStateName() == oppositeState) {
+                return candidate;
+            }
+        }
+
+        return null;
     }
 
     private boolean changeToLegalTarget(SpellAbility copy, GameEntity tgt, SpellAbility targetedSA) {

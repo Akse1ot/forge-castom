@@ -505,6 +505,7 @@ Zariel
 Undercity
 [BattleTypes]
 Siege
+War
 [PlanarTypes]
 Androzani Minor
 Alara

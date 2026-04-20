@@ -4,6 +4,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import forge.StaticData;
 import forge.card.CardDb;
+import forge.card.CardStateName;
 import forge.card.ColorSet;
 import forge.card.MagicColor;
 import forge.card.mana.ManaCost;
@@ -127,6 +128,12 @@ public class CardProperty {
             if (!card.isDoubleFaced()) {
                 return false;
             }
+
+        } else if (property.equals("ModalDoubleFaced")) {
+            if (!card.isModal() || !card.hasState(CardStateName.Backside)) {
+                return false;
+            }
+
         } else if (property.equals("FrontSide")) {
             if (card.isBackSide()) {
                 return false;

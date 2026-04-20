@@ -1,0 +1,26 @@
+Name:Rya the Scout
+ManaCost:G G
+Types:Legendary Creature Human Snake Scout
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig | TriggerDescription$ When this creature enters, look at the top four cards of your library. You may reveal a creature or planeswalker card from among them and add it to your hand. Put the rest on the bottom in a random order. If you didn’t put a card into your hand this way, create a 2/1 red Warrior creature token
+SVar:TrigDig:DB$ Dig | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Creature,Planeswalker | RememberChanged$ True | RestRandomOrder$ True | ForceRevealToController$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | TokenScript$ r_2_1_Warrior | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:Modal
+Oracle:When this creature enters, look at the top four cards of your library. You may reveal a creature or planeswalker card from among them and add it to your hand. Put the rest on the bottom in a random order. If you didn’t put a card into your hand this way, create a 2/1 red Warrior creature token
+
+ALTERNATE
+
+Name:Zorayas the Scout
+ManaCost:2 R R
+Types:Legendary Creature Snake Scout
+PT:3/2
+K:Menace
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDig | TriggerZones$ Battlefield | CheckSVar$ PackTactics | SVarCompare$ GE6 | NoResolvingCheck$ True | TriggerDescription$ Pack tactics — Whenever this creature attacks, if you attacked with creatures with total power 6 or greater this combat, Exile the top three cards of your library and choose one. Until end of turn, you may play the chosen card.
+SVar:TrigDig:DB$ Dig | Defined$ You | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Choices$ Card.IsRemembered | ChoiceZone$ Exile | Mandatory$ True | ForgetOtherRemembered$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ ChosenCard | StaticAbilities$ Play | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.ChosenCard | AffectedZone$ Exile | Description$ You may play that card this turn.
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:PackTactics:Count$Valid Creature.attacking$CardPower
+Oracle:Menace\nPack tactics — Whenever this creature attacks, if you attacked with creatures with total power 6 or greater this combat, Exile the top three cards of your library and choose one. Until end of turn, you may play the chosen card.

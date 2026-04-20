@@ -5,7 +5,7 @@ Loyalty:1
 A:AB$ Untap | Cost$ AddCounter<1/LOYALTY> | TgtPrompt$ Choose target permanent you control | ValidTgts$ Permanent.YouCtrl | SpellDescription$ Untap target permanent you control.
 A:AB$ Tap | Cost$ SubCounter<1/LOYALTY> | ValidTgts$ Creature | TgtPrompt$ Choose target creature to tap. | Planeswalker$ True | SubAbility$ DBPutCounter | SpellDescription$ Tap target creature. Put two stun counters on it.
 SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 2
-A:AB$ Effect | Cost$ SubCounter<4/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Thiollier | Image$ emblem_Thiollier | ReplacementEffects$ STThiollier | Duration$ Permanent | SpellDescription$ You gain an emblem with “Each creature your opponents control enters the battlefield tapped with two stun counters on it.”
+A:AB$ Effect | Cost$ SubCounter<4/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Thiollier | Image$ emblem_thiollier | ReplacementEffects$ STThiollier | Duration$ Permanent | SpellDescription$ You gain an emblem with “Each creature your opponents control enters the battlefield tapped with two stun counters on it.”
 SVar:STThiollier:Event$ Moved | ValidCard$ Creature.OppCtrl | Destination$ Battlefield | ReplaceWith$ ETBTapped | ReplacementResult$ Updated | ActiveZones$ Battlefield | Description$ Each creature your opponents control enters the battlefield tapped with two stun counters on it.
 SVar:ETBTapped:DB$ Tap | ETB$ True  | Defined$ ReplacedCard | SubAbility$ DBCounter
 SVar:DBCounter:DB$ PutCounter | Defined$ ReplacedCard | CounterType$ Stun | CounterNum$ 2

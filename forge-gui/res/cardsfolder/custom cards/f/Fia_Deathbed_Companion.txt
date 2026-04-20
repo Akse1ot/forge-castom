@@ -11,7 +11,7 @@ SVar:DBDraw:DB$ Draw | Defined$ You | ConditionDefined$ Remembered | ConditionPr
 SVar:DBAddLoyalty:DB$ PutCounter | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | Defined$ Self | CounterType$ LOYALTY | CounterNum$ X  | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 SVar:X:Sacrificed$CardManaCost/Plus.1
-A:AB$ ChangeZone | Cost$ SubCounter<X/LOYALTY>  | Planeswalker$ True | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature,Planeswalker+cmcEQX | TargetEitherFace$ True | StaticEffect$ Animate | RememberChanged$ True | SubAbility$ DBCleanup | TgtPrompt$ Select target creature or planeswalker card with mana value X from your graveyard | SubAbility$ | SpellDescription$ Sacrifice a creature or planeswalker. If you do, draw a card and put X loyalty counters on Fia, where X is one plus the sacrificed creature’s mana value. 
+A:AB$ ChangeZone | Cost$ SubCounter<X/LOYALTY>  | Planeswalker$ True | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+cmcEQX,Planeswalker.YouOwn+cmcEQX | TargetEitherFace$ True | StaticEffect$ Animate | RememberChanged$ True | SubAbility$ DBCleanup | TgtPrompt$ Select target creature or planeswalker card with mana value X from your graveyard | SubAbility$ | SpellDescription$ Sacrifice a creature or planeswalker. If you do, draw a card and put X loyalty counters on Fia, where X is one plus the sacrificed creature’s mana value.
 SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Skeleton
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 SVar:X:Count$xPaid

@@ -4,6 +4,6 @@ Types:Legendary Planeswalker Nepheli
 Loyalty:3
 A:AB$ PumpAll | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | TokenAmount$ 1 |  NumAtt$ +1 | ValidCards$ Creature.YouCtrl | SpellDescription$ Each creature you control gets +1/+0 until end of turn.
 A:AB$ Token | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | TokenAmount$ 1 | TokenScript$ r_2_1_Warrior | TokenOwner$ You | SpellDescriptio$ Create a 2/1 red Warrior creature token.
-A:AB$ Effect | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Nepheli Loux | Image$ emblem_Nepheli_Loux | StaticAbilities$ PumpAll | Duration$ Permanent | SpellDescription$ You gain an emblem with “Creatures you control have double strike.”
+A:AB$ Effect | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Nepheli Loux Warrior | Image$ emblem_nepheli_loux_warrior | StaticAbilities$ PumpAll | Duration$ Permanent | SpellDescription$ You gain an emblem with “Creatures you control have double strike.”
 SVar:PumpAll:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Double Strike | Description$ Creatures you control have double strike.
 Oracle:[+1]: Each creature you control gets +1/+0 until end of turn.\n[-1]: Create a 2/1 red Warrior creature token.\n[-6]: You gain an emblem with “Creatures you control have double strike.”
