@@ -1,0 +1,9 @@
+Name:Martial Cleric
+ManaCost:RW RW
+Types:Creature Insect Samurai
+PT:2/2
+K:First Strike
+K:Martyr:RW
+T:Mode$ BecomesMartyr | ValidCard$ Card.Self | Execute$ TrigMartyr | TriggerDescription$ When CARDNAME becomes a martyr, creatures you control gain first strike until end of turn.
+SVar:TrigMartyr:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ First Strike
+Oracle:First Strike\nMartyr {RW} (Whenever this creature becomes blocked, you may sacrifice it and pay {RW}.)\nWhen Martial Cleric becomes a martyr, creatures you control gain first strike until end of turn.

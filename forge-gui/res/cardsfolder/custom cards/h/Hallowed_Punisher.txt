@@ -1,0 +1,8 @@
+Name:Hallowed Punisher
+ManaCost:3 R
+Types:Creature Insect Cleric
+PT:4/3
+K:Martyr:R
+T:Mode$ BecomesMartyr | ValidCard$ Card.Self | Execute$ TrigMartyr | TriggerDescription$ When CARDNAME becomes a martyr, you may discard a card. If you do, draw a card.
+SVar:TrigMartyr:DB$ Draw | Cost$ Discard<1/Card>
+Oracle:Martyr {R} (Whenever this creature becomes blocked, you may sacrifice it and pay {R}.)\nWhen Hallowed Punisher becomes a martyr, you may discard a card. If you do, draw a card.

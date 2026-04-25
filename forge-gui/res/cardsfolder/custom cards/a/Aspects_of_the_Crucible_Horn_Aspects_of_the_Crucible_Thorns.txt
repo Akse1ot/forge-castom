@@ -2,6 +2,7 @@ Name:Aspects of the Crucible Horn
 ManaCost:2 G
 Types:Enchantment Aura
 K:Ash of War
+K:Enchant:Equipment,Creature:creatures or Equipment
 S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 1 | AddStaticAbility$ MinMaxBlocker | Description$ Enchanted creature gets +2/+1 and has “This creature can’t be blocked by more than one creature.”
 SVar:MinMaxBlocker:Mode$ MinMaxBlocker | ValidCard$ Card.Self | Max$ 1 | Description$ CARDNAME can't be blocked by more than one creature.
 AlternateMode:Modal
@@ -13,6 +14,7 @@ Name:Aspects of the Crucible Thorns
 ManaCost:3 G
 Types:Enchantment Aura
 K:Ash of War
+K:Enchant:Equipment,Creature:creatures or Equipment
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage | TriggerDescription$ When CARDNAME enters, if you control enchanted creature, it deals damage equal to its power to target creature or planeswalker you don't control.
 SVar:TrigDamage:DB$ DealDamage | ConditionDefined$ Enchanted | ConditionPresent$ Card.YouCtrl | ConditionCompare$ GE1 | DamageSource$ Enchanted | ValidTgts$ Creature.OppCtrl,Planeswalker.OppCtrl | TgtPrompt$ Choose target creature or planeswalker you don't control | NumDmg$ X
 SVar:X:Enchanted$CardPower

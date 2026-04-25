@@ -2,6 +2,7 @@ Name:Aspects of the Crucible Bloom
 ManaCost:1 G G
 Types:Enchantment Aura
 K:Ash of War
+K:Enchant:Equipment,Creature:creatures or Equipment
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a Rune token.
 SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac
 S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddAbility$ AnyMana | Description$ Enchanted creature has "{T}: Add one mana of any color."
@@ -15,6 +16,7 @@ Name:Aspects of the Crucible Wings
 ManaCost:W W
 Types:Enchantment Aura
 K:Ash of War
+K:Enchant:Equipment,Creature:creatures or Equipment
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a Rune token.
 SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac
 T:Mode$ Attacks | ValidCard$ Card.EnchantedBy | Execute$ TrigPump | TriggerZones$ Battlefield | TriggerDescription$ Whenever enchanted creature attacks, it gets +X/+0 until end of turn, where X is your devotion to red.

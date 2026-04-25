@@ -3,7 +3,7 @@ ManaCost:5 G G
 Types:Creature Treefolk
 PT:6/7
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a colorless land token named Rot with “{T}, Pay 2 life: Add {C}.”
-SVar:TrigToken:AB$ Token | TokenScript$ c_Rot
+SVar:TrigToken:DB$ Token | TokenScript$ c_Rot
 K:TypeCycling:Forest:2
 Oracle:When this creature enters, create a colorless land token named Rot with “{T}, Pay 2 life: Add {C}.”\n
 Forestcycling {2} ({2}, Discard this card: Search your library for a Forest card, reveal it, put it into your hand, then shuffle.)

@@ -1,0 +1,9 @@
+Name:Inciting Warchanter
+ManaCost:2 R R
+Types:Creature Insect Cleric
+PT:4/3
+K:Martyr:3 R R
+T:Mode$ BecomesMartyr | ValidCard$ Card.Self | Execute$ TrigMartyr | TriggerDescription$ When CARDNAME becomes a martyr, untap all creatures you control. After this phase, there is an additional combat phase.
+SVar:TrigMartyr:DB$ UntapAll | ValidCards$ Creature.YouCtrl | SubAbility$ DBAddCombat | SpellDescription$ Untap all creatures you control. After this phase, there is an additional combat phase.
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat
+Oracle:Martyr {3}{R}{R} (Whenever this creature becomes blocked, you may sacrifice it and pay {3}{R}{R}.)\nWhen Inciting Warchanter becomes a martyr, untap all creatures you control. After this phase, there is an additional combat phase.

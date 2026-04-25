@@ -1,8 +1,8 @@
 Name:Royal Knights Resolve
 ManaCost:2 W
 Types:Enchantment Aura
-K:Enchant:Equipment,Creature:creatures or Equipment
 K:Ash of War
+K:Enchant:Equipment,Creature:creatures or Equipment
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy | TriggerDescription$ When CARDNAME enters, destroy up to one target creature with toughness 4 or greater.
 SVar:TrigDestroy:DB$ Destroy | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.toughnessGE4 | TgtPrompt$ Select target creature with toughness 4 or greater
 S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X | Description$ Enchanted creature gets +1/+1 for each different way it is modified.

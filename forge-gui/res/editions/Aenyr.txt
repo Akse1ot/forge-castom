@@ -16,7 +16,8 @@ Base=Common:fromSheet("AENR cards")
 Base=Uncommon:fromSheet("AENR cards")
 
 [RareMythic]
-Base=RareMythic:fromSheet("AENR cards")
+Base=Rare:fromSheet("AENR cards")
+Replace=.15F Mythic:fromSheet("AENR cards")
 
 [AnyLand]
 Base=Land:fromSheet("AENR cards")
@@ -24,9 +25,9 @@ Replace=.60F BasicLand
 
 [Wildcard]
 Base=Uncommon:fromSheet("AENR cards")
-Replace=.25F Rare:fromSheet("AENR cards")
+Replace=.20F Rare:fromSheet("AENR cards")
 Replace=.10F Mythic:fromSheet("AENR cards")
-Replace=.15F Common:fromSheet("AENR cards")
+Replace=.10F Common:fromSheet("AENR cards")
 
 [cards]
 

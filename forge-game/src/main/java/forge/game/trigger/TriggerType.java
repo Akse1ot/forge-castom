@@ -28,6 +28,7 @@ public enum TriggerType {
     AttackerUnblocked(TriggerAttackerUnblocked.class),
     AttackerUnblockedOnce(TriggerAttackerUnblockedOnce.class),
     Attacks(TriggerAttacks.class),
+    BecomesMartyr(TriggerBecomesMartyr.class),
     BecomeMonarch(TriggerBecomeMonarch.class),
     BecomeMonstrous(TriggerBecomeMonstrous.class),
     BecomeRenowned(TriggerBecomeRenowned.class),

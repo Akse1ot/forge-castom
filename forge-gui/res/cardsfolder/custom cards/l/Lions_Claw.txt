@@ -3,5 +3,6 @@ ManaCost:1 G G
 Types:Enchantment — Aura
 K:Flash
 K:Ash of War
+K:Enchant:Equipment,Creature:creatures or Equipment
 S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Trample | Description$ Enchanted creature gets +2/+2 and has trample.
 Oracle:Flash\nAsh of War (This Aura can enchant creatures or Equipment. If it enchants an Equipment, creatures equipped with that Equipment are treated as if they were enchanted by this Aura.)\nEnchanted creature gets +2/+2 and has trample.

@@ -1,0 +1,11 @@
+Name:Blazing Commander
+ManaCost:R W
+Types:Creature Insect Cleric Samurai
+PT:2/2
+K:Haste
+K:Lifelink
+K:Martyr:X R W
+T:Mode$ BecomesMartyr | ValidCard$ Card.Self | Execute$ TrigMartyr | TriggerDescription$ When CARDNAME becomes a martyr, up to X target creatures get +X/+0 and gain trample and indestructible until end of turn.
+SVar:TrigMartyr:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ X | TgtPrompt$ Select up to X target creature | NumAtt$ +X | KW$ Indestructible & Trample
+SVar:X:Count$xPaid
+Oracle:Haste, Lifelink\nMartyr {X}{R}{W} (Whenever this creature becomes blocked, you may sacrifice it and pay {X}{R}{W}.)\nWhen Blazing Commander becomes a martyr, up to X target creatures get +X/+0 and gain trample and indestructible until end of turn.

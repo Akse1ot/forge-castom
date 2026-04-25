@@ -1,0 +1,291 @@
+//Rank|Name|Rarity|Set
+#1|Dragonlord Placidusax|M|ERLB
+#2|God-Devouring Serpent|M|ERLB
+#3|Godfrey, First Elden Lord|M|ERLB
+#4|Godrick the Grafted|M|ERLB
+#5|Gurranq, Beast Clergyman|M|ERLB
+#6|Kindly Miquella, the Unalloyed|M|ERLB
+#7|Lunar Princess Ranni|M|ERLB
+#8|Malenia, Blade of Miquella|M|ERLB
+#9|Margit the Fell Omen|M|ERLB
+#10|Melina, Kindling Maiden|M|ERLB
+#11|Messmer the Impaler|M|ERLB
+#12|Mimic Tear|M|ERLB
+#13|Mohg, The Omen|M|ERLB
+#14|Queen Marika the Eternal|M|ERLB
+#15|Rennala, Birthing Anew|M|ERLB
+#16|Shabriri Chaos Incarnate|M|ERLB
+#17|Starscourge Radahn|M|ERLB
+#18|The Elden Ring|M|ERLB
+#19|The Nameless Tarnished|M|ERLB
+#20|Ancient Dragon Lansseax|R|ERLB
+#21|Astel Naturalborn of the Void|R|ERLB
+#22|Bayle the Dread|R|ERLB
+#23|Black Knife Tiche|R|ERLB
+#24|Blaidd the Half-Wolf|R|ERLB
+#25|Blasphemous Blade|R|ERLB
+#26|Blessings of the Erdtree|R|ERLB
+#27|Burning the Erdtree|R|ERLB
+#28|Comet Azur|R|ERLB
+#29|Commander Gaius|R|ERLB
+#30|Crucible Knight Devonia|R|ERLB
+#31|D, Hunter of the Dead|R|ERLB
+#32|Dark Moon Greatsword|R|ERLB
+#33|Destined Death|R|ERLB
+#34|Divest From Grace|R|ERLB
+#35|Divine Beast Dancing Lion|R|ERLB
+#36|Divine Tower|R|ERLB
+#37|Dragon Communion|R|ERLB
+#38|Erdtrees Favor|R|ERLB
+#39|Festering Fingerprint Vyke|R|ERLB
+#40|Fia Deathbed Companion|R|ERLB
+#41|Finger Reader Enia|R|ERLB
+#42|Fire Giant|R|ERLB
+#43|Forge of the Giants|R|ERLB
+#44|Four Belfries|R|ERLB
+#45|Gate of Divinity|R|ERLB
+#46|Godricks Great Rune|R|ERLB
+#47|Godwyn Prince of Death|R|ERLB
+#48|Grand Lift|R|ERLB
+#49|Great Rune of the Unborn|R|ERLB
+#50|Guard Counter|R|ERLB
+#51|Knights Lightning Spear|R|ERLB
+#52|Leyndell|R|ERLB
+#53|Lichdragon Fortissax|R|ERLB
+#54|Malenias Great Rune|R|ERLB
+#55|Marika's Soreseal|R|ERLB
+#56|Metyr Mother of Fingers|R|ERLB
+#57|Midra Lord of Frenzied Flame|R|ERLB
+#58|Miquellas Great Rune|R|ERLB
+#59|Mohgs Great Rune|R|ERLB
+#60|Moon of Nokstella|R|ERLB
+#61|Morgotts Great Rune|R|ERLB
+#62|Needle Knight Leda|R|ERLB
+#63|Night of Black Knives|R|ERLB
+#64|Phase Change|R|ERLB
+#65|Putrescent Knight|R|ERLB
+#66|Radagon Icon|R|ERLB
+#67|Radahns Great Rune|R|ERLB
+#68|Rannis Great Rune|R|ERLB
+#69|Raya Lucaria|R|ERLB
+#70|Regal Ancestor Spirit|R|ERLB
+#71|Rellana Twin Moon Knight|R|ERLB
+#72|Rivers of Blood|R|ERLB
+#73|Romina Saint of the Bud|R|ERLB
+#74|Roundtable Hold|R|ERLB
+#75|Rykards Great Rune|R|ERLB
+#76|Sacred Relic Sword|R|ERLB
+#77|Scadutree Avatar|R|ERLB
+#78|Sir Ansbach Pureblood Knight|R|ERLB
+#79|Sir Gideon Ofnir the All Knowing|R|ERLB
+#80|Spiritcaller Snail|R|ERLB
+#81|Sword of Night and Flame|R|ERLB
+#82|The Erdtree|R|ERLB
+#83|The Ever Brilliant Goldmask|R|ERLB
+#84|The Loathsome Dung Eater|R|ERLB
+#85|The Radahn Festival|R|ERLB
+#86|The Scadutree|R|ERLB
+#87|The Shattering|R|ERLB
+#88|Trusty Patches|R|ERLB
+#89|Two Fingers|R|ERLB
+#90|Ymir Mother of Fingers|R|ERLB
+#91|Aged Ones Exultation|U|ERLB
+#92|Aging Untouchable|U|ERLB
+#93|Banished Knight Oleg|U|ERLB
+#94|Bestial Sling|U|ERLB
+#95|Black Flame Ritual|U|ERLB
+#96|Blackguard Big Boggart|U|ERLB
+#97|Bloodboon|U|ERLB
+#98|Boc the Seamster|U|ERLB
+#99|Borealis the Freezing Fog|U|ERLB
+#100|Brother Corhyn|U|ERLB
+#101|Caria Manor|U|ERLB
+#102|Cherishing Fingers|U|ERLB
+#103|Cleanrot Knight Finlay|U|ERLB
+#104|Commander O'Neil|U|ERLB
+#105|Commanders Standard|U|ERLB
+#106|Crucible Knight Ordovis|U|ERLB
+#107|Crumbling Farum Azula|U|ERLB
+#108|Death Rite Bird|U|ERLB
+#109|Decaying Ekzykes|U|ERLB
+#110|Deeproot Depths|U|ERLB
+#111|Divine Beast Tornado|U|ERLB
+#112|Dragoncrest Greatshield Talisman|U|ERLB
+#113|Dragonkin Soldier of Nokstella|U|ERLB
+#114|Dryleaf Dane|U|ERLB
+#115|Elden Stars|U|ERLB
+#116|Elder Dragon Greyoll|U|ERLB
+#117|Elemer of the Briar|U|ERLB
+#118|Erdtree Avatar|U|ERLB
+#119|Euporia|U|ERLB
+#120|Fire Knight Queelign|U|ERLB
+#121|Flame Grant me Strength|U|ERLB
+#122|Flame of the Fell God|U|ERLB
+#123|Flask of Crimson Tears|U|ERLB
+#124|Flask of Wondrous Physick|U|ERLB
+#125|Founding Rain of Stars|U|ERLB
+#126|Full-Grown Fallingstar Beast|U|ERLB
+#127|Giant Chariot|U|ERLB
+#128|Glintstone Dragon Adula|U|ERLB
+#129|Godfrey Icon|U|ERLB
+#130|Godskin Apostle|U|ERLB
+#131|Godslayer's Greatsword|U|ERLB
+#132|Golden Vow|U|ERLB
+#133|Gowry Sage of Rot|U|ERLB
+#134|Grafted Blade Greatsword|U|ERLB
+#135|Great Wyrm Theodorix|U|ERLB
+#136|Guardian Golem|U|ERLB
+#137|Guidance of Grace|U|ERLB
+#138|Hoarah Loux' Earthshaker|U|ERLB
+#139|Hornsent|U|ERLB
+#140|Hyetta, Lightseeker|U|ERLB
+#141|Igon Drake Warrior|U|ERLB
+#142|Inescapable Frenzy|U|ERLB
+#143|Iron Fist Alexander|U|ERLB
+#144|Jagged Peak|U|ERLB
+#145|Kindred of Rots Exultation|U|ERLB
+#146|Knight Bernahl|U|ERLB
+#147|Latenna the Albinauric|U|ERLB
+#148|Law of Regression|U|ERLB
+#149|Lord of Bloods Exultation|U|ERLB
+#150|Merchant Kale|U|ERLB
+#151|Meteorite of Astel|U|ERLB
+#152|Millicent Prosthesis Wearer|U|ERLB
+#153|Mine, and Mine Alone|U|ERLB
+#154|Minor Erdtree|U|ERLB
+#155|Miquella's Charm|U|ERLB
+#156|Miranda the Blighted Bloom|U|ERLB
+#157|Miriel Pastor of Vows|U|ERLB
+#158|Mohgwyn Palace|U|ERLB
+#159|Moore of the Forager Brood|U|ERLB
+#160|Nepheli Loux Warrior|U|ERLB
+#161|Pest Threads|U|ERLB
+#162|Preceptor Seluvis|U|ERLB
+#163|Ranni's Dark Moon|U|ERLB
+#164|Redmane Freyja|U|ERLB
+#165|Revered Spirit Ash|U|ERLB
+#166|Rick, Soldier of God|U|ERLB
+#167|Roderika the Spirit Tuner|U|ERLB
+#168|Royal Knight Loretta|U|ERLB
+#169|Royal Knights Resolve|U|ERLB
+#170|Royal Revenant|U|ERLB
+#171|Rugalea the Great Red Bear|U|ERLB
+#172|Ruins Greatsword|U|ERLB
+#173|Rya the Scout|U|ERLB
+#174|Scarlet Aeonia|U|ERLB
+#175|Shadow Keep|U|ERLB
+#176|Shatter the Elden Ring|U|ERLB
+#177|Smithing Master Hewg|U|ERLB
+#178|Sorcerer Thops|U|ERLB
+#179|Sorceress Sellen|U|ERLB
+#180|Spellblade Rogier|U|ERLB
+#181|Spirit Calling Bell|U|ERLB
+#182|St Trinas Smile|U|ERLB
+#183|Stars of Ruin|U|ERLB
+#184|Swamp of Aeonia|U|ERLB
+#185|Swordhand of Night Jolan|U|ERLB
+#186|Tanith of the Volcano Manor|U|ERLB
+#187|The Crucible of Life|U|ERLB
+#188|The Haligtree|U|ERLB
+#189|The Moonveil|U|ERLB
+#190|Thiollier|U|ERLB
+#191|Those Who Live in Death|U|ERLB
+#192|Tibia Mariner|U|ERLB
+#193|Torrent the Spectral Steed|U|ERLB
+#194|Tree Sentinel|U|ERLB
+#195|Unendurable Frenzy|U|ERLB
+#196|Volcano Manor|U|ERLB
+#197|Walking Mausoleum|U|ERLB
+#198|War Counselor Iji|U|ERLB
+#199|White Mask Varre|U|ERLB
+#200|Witch hunter Jerren|U|ERLB
+#201|Abductor Virgin|C|ERLB
+#202|Alabaster Lord|C|ERLB
+#203|Ancestral Follower|C|ERLB
+#204|Ancient Hero of Zamor|C|ERLB
+#205|Aspects of the Crucible Bloom|C|ERLB
+#206|Aspects of the Crucible Breath|C|ERLB
+#207|Aspects of the Crucible Horn|C|ERLB
+#208|Assassins Gambit|C|ERLB
+#209|Beastman of Farum Azula|C|ERLB
+#210|Black Flame|C|ERLB
+#211|Bloodfiend Hexer|C|ERLB
+#212|Bloodhound Knight|C|ERLB
+#213|Bloodhounds Fang|C|ERLB
+#214|Briars of Sin|C|ERLB
+#215|Cemetery Shade|C|ERLB
+#216|Chanting Winged Dame|C|ERLB
+#217|Crystalian|C|ERLB
+#218|Demi Human Chief|C|ERLB
+#219|Depraved Perfumer|C|ERLB
+#220|Discus of Light|C|ERLB
+#221|Divine Beast Warrior|C|ERLB
+#222|Erdtree Burial Watchdog|C|ERLB
+#223|Eternal Darkness|C|ERLB
+#224|Evergaol|C|ERLB
+#225|Fanged Imps|C|ERLB
+#226|Finger Maiden|C|ERLB
+#227|Finger Severer|C|ERLB
+#228|Fingercreeper|C|ERLB
+#229|Flame Chariot|C|ERLB
+#230|Foreboding Bloodstain|C|ERLB
+#231|Frenzied Burst|C|ERLB
+#232|Frenzied Giant Rat|C|ERLB
+#233|Furnace Golem|C|ERLB
+#234|Ghostflame Dragon|C|ERLB
+#235|Giant Hunt|C|ERLB
+#236|Giant Rune Bear|C|ERLB
+#237|Giant Spider Scorpion|C|ERLB
+#238|Glintstone Sorcerer|C|ERLB
+#239|Golden Halberd|C|ERLB
+#240|Golden Hippopotamus|C|ERLB
+#241|Golden Parry|C|ERLB
+#242|Golden Summon Sign|C|ERLB
+#243|Grafted Scion|C|ERLB
+#244|Grave Warden Duelist|C|ERLB
+#245|Gravebird|C|ERLB
+#246|Greatblade Phalanx|C|ERLB
+#247|Hoarfrost Stomp|C|ERLB
+#248|Horned Shaman|C|ERLB
+#249|Jagged Peak Drakes|C|ERLB
+#250|Jar Innards|C|ERLB
+#251|Kindred of Rot|C|ERLB
+#252|Leonine Misbegotten|C|ERLB
+#253|Lion Guardian|C|ERLB
+#254|Lions Claw|C|ERLB
+#255|Litany of Proper Death|C|ERLB
+#256|Liurnian Giant Crab|C|ERLB
+#257|Lone Wolves|C|ERLB
+#258|Lorettas Greatbow|C|ERLB
+#259|Mad pumpkin Head|C|ERLB
+#260|Man-Serpent|C|ERLB
+#261|Messmer's Black Knight|C|ERLB
+#262|Monstrous Crow|C|ERLB
+#263|Monstrous Dog|C|ERLB
+#264|Myriad Dungeons|C|ERLB
+#265|Nagakiba|C|ERLB
+#266|Night Maidens Mist|C|ERLB
+#267|Nightmaiden and Swordstress|C|ERLB
+#268|Nights Cavalry|C|ERLB
+#269|Oracle Envoy|C|ERLB
+#270|Overrun Ruins|C|ERLB
+#271|Quickstep|C|ERLB
+#272|Red Wolf of Radagon|C|ERLB
+#273|Rotten Stray|C|ERLB
+#274|Rune Arc|C|ERLB
+#275|Sages Rise|C|ERLB
+#276|Search for Nokron|C|ERLB
+#277|Second-Generation Albinauric|C|ERLB
+#278|Seppuku|C|ERLB
+#279|Site of Grace|C|ERLB
+#280|Skeletal Militiamen|C|ERLB
+#281|Spirit Jellyfish|C|ERLB
+#282|Ulcerated Tree Spirit|C|ERLB
+#283|Valiant Gargoyle|C|ERLB
+#284|Warhawk|C|ERLB
+#285|Wormface|C|ERLB
+#286|Forest|L|ERLB
+#287|Island|L|ERLB
+#288|Mountain|L|ERLB
+#289|Plains|L|ERLB
+#290|Swamp|L|ERLB

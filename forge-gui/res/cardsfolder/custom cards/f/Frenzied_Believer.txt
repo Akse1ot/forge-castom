@@ -1,0 +1,9 @@
+Name:Frenzied Believer
+ManaCost:2 R
+Types:Creature Insect Cleric
+PT:3/1
+K:Haste
+K:Martyr:R
+T:Mode$ BecomesMartyr | ValidCard$ Card.Self | Execute$ TrigMartyr | TriggerDescription$ When CARDNAME becomes a martyr, target creature you control gets +4/+0 until end of turn.
+SVar:TrigMartyr:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ +4
+Oracle:Haste\nMartyr {R} (Whenever this creature becomes blocked, you may sacrifice it and pay {R}.)\nWhen Frenzied Believer becomes a martyr, target creature you control gets +4/+0 until end of turn.

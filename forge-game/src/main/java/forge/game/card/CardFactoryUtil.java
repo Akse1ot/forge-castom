@@ -1454,6 +1454,25 @@ public class CardFactoryUtil {
             parsedTrigger.setOverridingAbility(playSA);
 
             inst.addTrigger(parsedTrigger);
+        } else if (keyword.startsWith("Martyr")) {
+            final String[] k = keyword.split(":");
+            final Cost cost = new Cost(k[1], false);
+            final String costDesc = cost.isOnlyManaCost()
+                    ? cost.toSimpleString()
+                    : "—" + cost.toSimpleString();
+
+            final String trigStr = "Mode$ AttackerBlocked | ValidCard$ Card.Self | Secondary$ True"
+                    + " | TriggerDescription$ Martyr " + costDesc + " (" + inst.getReminderText() + ")";
+
+            final String effect = "AB$ Sacrifice | Cost$ " + k[1]
+                    + " | SacValid$ Self | SpellDescription$ Martyr";
+
+            final Trigger trigger = TriggerHandler.parseTrigger(trigStr, card, intrinsic);
+            final SpellAbility sa = AbilityFactory.getAbility(effect, card);
+            sa.setIntrinsic(intrinsic);
+            trigger.setOverridingAbility(sa);
+
+            inst.addTrigger(trigger);
         } else if (keyword.equals("Melee")) {
             final String trigStr = "Mode$ Attacks | ValidCard$ Card.Self | Secondary$ True " +
                     " | TriggerDescription$ Melee (" + inst.getReminderText() + ")";
@@ -3295,11 +3314,22 @@ public class CardFactoryUtil {
             final String costStr = kw.length > 1 ? kw[1].trim() : "";
             final String extra = kw.length > 2 && !kw[2].trim().isEmpty() ? " | " + kw[2].trim() : "";
 
+            final Cost cost = new Cost(costStr, true);
+            final StringBuilder costDesc = new StringBuilder();
+            if (!cost.isOnlyManaCost()) {
+                costDesc.append("—");
+            } else {
+                costDesc.append(" ");
+            }
+            costDesc.append(cost.toSimpleString());
+
             final String effect =
                     "AB$ CopyPermanent | Cost$ " + costStr + " ExileFromGrave<1/CARDNAME> " +
                             "| ActivationZone$ Graveyard | SorcerySpeed$ True " +
                             "| RemoveCost$ True | AddTypes$ Enchantment & Spirit" +
-                            "| PrecostDesc$ Spirit Ash | CostDesc$ " + costStr + " | Defined$ Self " +
+                            "| PrecostDesc$ Spirit Ash" +
+                            " | CostDesc$ " + costDesc +
+                            " | Defined$ Self " +
                             "| StackDescription$ Spirit Ash - CARDNAME " +
                             "| SpellDescription$ (" + inst.getReminderText() + ")" +
                             extra;

@@ -1,0 +1,8 @@
+Name:Selfless Cadet
+ManaCost:W
+Types:Creature Insect Samurai
+PT:1/2
+K:Martyr:0
+T:Mode$ BecomesMartyr | ValidCard$ Card.Self | Execute$ TrigMartyr | TriggerDescription$ When CARDNAME becomes a martyr, target creature gets +1/+2 until end of turn.
+SVar:TrigMartyr:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ +1 | NumDef$ +2
+Oracle:Martyr {0} (Whenever this creature becomes blocked, you may sacrifice it and pay {0}.)\nWhen Selfless Cadet becomes a martyr, target creature gets +1/+2 until end of turn.

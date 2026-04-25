@@ -4,6 +4,6 @@ Types:Creature Cleric
 PT:2/2
 K:Spirit Ash:2 W W ExileFromGrave<1/Card.Legendary/legendary card>
 T:Mode$ SpellCast | ValidCard$ Card.Legendary | ValidActivatingPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield | TriggerDescription$ Whenever you cast a legendary spell, create a Rune token.
-T:Mode$ ChangesZoneAll | ValidCard$ Card.Legendary | Origin$ Graveyard | Destination$ Any | TriggerZones$ Battlefield | Execute$  TrigToken | TriggerDescription$ Whenever one or more legendary cards leave a graveyard, create a Rune token.
-SVar:TrigUntap:DB$ Token | TokenScript$ c_a_Rune_sac | TokenAmount$ 1 | TokenOwner$ You
+T:Mode$ ChangesZoneAll | ValidCard$ Card.Legendary | Origin$ Graveyard | Destination$ Any | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever one or more legendary cards leave a graveyard, create a Rune token.
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac
 Oracle:Whenever you cast a legendary spell, create a Rune token.\nWhenever one or more legendary cards leave a graveyard, create a Rune token.\nSpirit Ash—{2}{W}{W}, Exile a legendary card from your graveyard.({2}{W}{W}, Exile a legendary card from your graveyard, Exile this card from your graveyard: Create a token that’s a copy of this creature, except it’s a Spirit enchantment creature in addition to its other types. Activate only as a sorcery.)

@@ -1,0 +1,11 @@
+Name:The Loathsome Dung Eater
+ManaCost:1 B G
+Types:Legendary Planeswalker Dung Eater
+Loyalty:4
+A:AB$ Token | Cost$ AddCounter<2/LOYALTY> Sac<1/Creature;Planeswalker/creature or planeswalker> | Planeswalker$ True | TokenScript$ c_Rot  | SpellDescription$ Sacrifice a creature or planeswalker. If you do, create a land token named Rot with “{T}, Pay 2 life: Add {C}.”
+A:AB$ Destroy | Cost$ SubCounter<4/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent.nonLand | TgtPrompt$ Select target nonland permanent | SubAbility$ DBToken | SpellDescriptio$ Destroy target nonland permanent. Its controller creates a land token named Rot with “{T}, Pay 2 life: Add {C}.”
+SVar:DBToken:DB$ Token | TokenScript$ c_Rot | TokenOwner$ TargetedController
+DeckHas:Ability$Token
+A:AB$ Effect | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — The Loathsome Dung Eater | Image$ emblem_the_loathsome_dung_eater | StaticAbilities$ RaiseCostManaAbility | Duration$ Permanent | SpellDescription$ You gain an emblem with “Creatures you control have double strike.”
+SVar:RaiseCostManaAbility:Mode$ RaiseCost | Type$ Ability | ValidSpell$ Activated.ManaAbility | ValidCard$ Land | Cost$ PayLife<1> | EffectZone$ All | Description$ Each land has ‘As an additional cost to activate this land’s abilities, pay 1 life.’”
+Oracle:[+2]: Sacrifice a creature or planeswalker. If you do, create a land token named Rot with “{T}, Pay 2 life: Add {C}.”\n[-4]: Destroy target nonland permanent. Its controller creates a land token named Rot with “{T}, Pay 2 life: Add {C}.”\n[-10]: You gain an emblem with “Each land has ‘As an additional cost to activate this land’s abilities, pay 1 life.’”

@@ -272,6 +272,41 @@ public class CopyPermanentEffect extends TokenEffectBase {
         }
     }
 
+    private static boolean isCreatureOrPlaneswalkerState(final Card card, final CardStateName state) {
+        if (!card.hasState(state)) {
+            return false;
+        }
+        return card.getState(state).getType().hasStringType("Creature")
+                || card.getState(state).getType().hasStringType("Planeswalker");
+    }
+
+    private static CardStateName getStateToCopy(final SpellAbility sa, final Card original) {
+        CardStateName stateToCopy = original.getCurrentStateName();
+
+        // This patch is intentionally limited to modal double-faced cards only.
+        if (!sa.hasParam("CopyOppositeFace") || !original.isModal() || !original.hasState(CardStateName.Backside)) {
+            return stateToCopy;
+        }
+
+        final CardStateName oppositeState = stateToCopy == CardStateName.Backside
+                ? CardStateName.Original
+                : CardStateName.Backside;
+
+        if (!isCreatureOrPlaneswalkerState(original, oppositeState)) {
+            return stateToCopy;
+        }
+
+        if (sa.getActivatingPlayer().getController().confirmAction(
+                sa,
+                PlayerActionConfirmMode.OptionalChoose,
+                "Have the token become a copy of the opposite face instead?",
+                null)) {
+            return oppositeState;
+        }
+
+        return stateToCopy;
+    }
+
     public static Card getProtoType(final SpellAbility sa, final Card original, final Player newOwner) {
         final Card copy;
         if (sa.hasParam("DefinedName")) {
@@ -289,8 +324,13 @@ public class CopyPermanentEffect extends TokenEffectBase {
             copy = CardFactory.getCard(original.getPaperCard(), newOwner, id, host.getGame());
 
             copy.setStates(CardFactory.getCloneStates(original, copy, sa));
+            final CardStateName stateToCopy = getStateToCopy(sa, original);
+
             // force update the now set State
-            if (original.isTransformable()) {
+            if (original.isModal() && original.hasState(CardStateName.Backside)) {
+                copy.setState(stateToCopy, true, true);
+                copy.setBackSide(stateToCopy == CardStateName.Backside);
+            } else if (original.isTransformable()) {
                 copy.setState(original.isTransformed() ? CardStateName.Backside : CardStateName.Original, true, true);
                 // 707.8a If an effect creates a token that is a copy of a transforming permanent or a transforming double-faced card not on the battlefield,
                 // the resulting token is a transforming token that has both a front face and a back face.

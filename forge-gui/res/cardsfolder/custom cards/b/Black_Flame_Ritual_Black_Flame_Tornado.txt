@@ -18,5 +18,6 @@ ManaCost:1 B B
 Types:Enchantment Aura
 K:Flash
 K:Ash of War
+K:Enchant:Equipment,Creature:creatures or Equipment
 S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Wither | Description$ As long as enchanted creature is black, it gets +1/+1 and has wither. (It deals damage to creatures in the form of -1/-1 counters.)
 Oracle:Flash\nAsh of War (This Aura can enchant creatures or Equipment. If it enchants an Equipment, creatures equipped with that Equipment are treated as if they were enchanted by this Aura.)\nEnchanted creature gets +1/+1 and has wither (This deals damage to creatures in the form of -1/-1 counters.)

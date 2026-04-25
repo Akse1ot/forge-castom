@@ -464,6 +464,31 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
      * @param sa
      *            a {@link forge.game.spellability.SpellAbility} object.
      */
+    private CardStateName chooseReturnFace(final SpellAbility sa, final Card card, final Player decider) {
+        if (!sa.hasParam("ReturnEitherFace") || !card.isModal() || !card.hasState(CardStateName.Backside)) {
+            return null;
+        }
+
+        if (!card.getState(CardStateName.Original).getType().isPermanent()
+                || !card.getState(CardStateName.Backside).getType().isPermanent()) {
+            return null;
+        }
+
+        final List<String> faces = Lists.newArrayList(
+                card.getState(CardStateName.Original).getName(),
+                card.getState(CardStateName.Backside).getName()
+        );
+
+        // Oracle/design intent:
+        // player may choose the alternate permanent face;
+        // declining means: return normally on the original face
+        final String chosen = decider.getController().chooseSomeType("Face", sa, faces, true);
+        if (chosen == null) {
+            return CardStateName.Original;
+        }
+        return chosen.equals(faces.get(1)) ? CardStateName.Backside : CardStateName.Original;
+    }
+
     private void changeKnownOriginResolve(final SpellAbility sa) {
         CardCollectionView tgtCards = getTargetCards(sa);
         final Player activator = sa.getActivatingPlayer();
@@ -580,11 +605,18 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
             AbilityKey.addCardZoneTableParams(moveParams, triggerList);
 
             if (destination.equals(ZoneType.Battlefield)) {
+                CardStateName returnState = targetedState;
+
+                final CardStateName chosenReturnState = chooseReturnFace(sa, gameCard, activator);
+                if (chosenReturnState != null) {
+                    returnState = chosenReturnState;
+                }
+
                 if (gameCard.isModal() && gameCard.hasState(CardStateName.Backside)) {
-                    if (targetedState == CardStateName.Backside) {
+                    if (returnState == CardStateName.Backside) {
                         gameCard.setBackSide(true);
                         gameCard.changeToState(CardStateName.Backside);
-                    } else {
+                    } else if (returnState == CardStateName.Original) {
                         gameCard.setBackSide(false);
                         gameCard.changeToState(CardStateName.Original);
                     }

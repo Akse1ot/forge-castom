@@ -1,0 +1,8 @@
+Name:Frontline Preacher
+ManaCost:1 R
+Types:Creature Insect Cleric
+PT:3/1
+K:Martyr:1 R
+T:Mode$ BecomesMartyr | ValidCard$ Card.Self | Execute$ TrigMartyr | TriggerDescription$ When CARDNAME becomes a martyr, creatures you control get +2/+0 until end of turn.
+SVar:TrigMartyr:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2
+Oracle:Martyr {1}{R} (Whenever this creature becomes blocked, you may sacrifice it and pay {1}{R}.)\nWhen Frontline Preacher becomes a martyr, creatures you control get +2/+0 until end of turn.

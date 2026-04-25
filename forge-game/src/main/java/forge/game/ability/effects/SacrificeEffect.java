@@ -96,8 +96,15 @@ public class SacrificeEffect extends SpellAbilityEffect {
             if (host.getController().equals(activator) && game.getZoneOf(host).is(ZoneType.Battlefield) &&
                     (!optional || activator.getController().confirmAction(sa, null,
                         Localizer.getInstance().getMessage("lblDoYouWantSacrificeThis", host.getDisplayName()), null))) {
-                if (game.getAction().sacrifice(new CardCollection(host), sa, true, params) != null && remSacrificed) {
-                    host.addRemembered(host);
+                Card lKICopy = zoneMovements.getLastStateBattlefield().get(host);
+                CardCollection sacrificed = game.getAction().sacrifice(new CardCollection(host), sa, true, params);
+                if (sacrificed != null) {
+                    if (sa.isKeyword(Keyword.MARTYR) && lKICopy != null) {
+                        game.getTriggerHandler().runTrigger(TriggerType.BecomesMartyr, AbilityKey.mapFromCard(lKICopy), false);
+                    }
+                    if (remSacrificed) {
+                        host.addRemembered(host);
+                    }
                 }
             }
         } else {
@@ -172,6 +179,9 @@ public class SacrificeEffect extends SpellAbilityEffect {
                             final Map<AbilityKey, Object> runParams = AbilityKey.mapFromCard(host);
                             runParams.put(AbilityKey.Exploited, lKICopy);
                             game.getTriggerHandler().runTrigger(TriggerType.Exploited, runParams, false);
+                        }
+                        if (sa.isKeyword(Keyword.MARTYR) && lKICopy != null) {
+                            game.getTriggerHandler().runTrigger(TriggerType.BecomesMartyr, AbilityKey.mapFromCard(lKICopy), false);
                         }
                         if (remSacrificed) {
                             host.addRemembered(lKICopy);

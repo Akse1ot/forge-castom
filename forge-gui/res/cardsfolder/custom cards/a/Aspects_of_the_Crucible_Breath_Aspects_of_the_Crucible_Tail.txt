@@ -2,6 +2,7 @@ Name:Aspects of the Crucible Breath
 ManaCost:R R
 Types:Enchantment Aura
 K:Ash of War
+K:Enchant:Equipment,Creature:creatures or Equipment
 S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddAbility$ PumpSelf | Description$ Enchanted creature gets +2/+0 and has “{1}{R}, Discard a card: This creature gets +2/+0 until end of turn.”
 SVar:PumpSelf:AB$ Pump | Cost$ 1 R Discard<1/Card> | Defined$ Self | NumAtt$ +2 | SpellDescription$ This creature gets +2/+0 until end of turn.
 AlternateMode:Modal
@@ -14,6 +15,7 @@ ManaCost:1 W W
 Types:Enchantment Aura
 K:Flash
 K:Ash of War
+K:Enchant:Equipment,Creature:creatures or Equipment
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, it deals 3 damage to target attacking or blocking creature.
 SVar:TrigToken:DB$ DealDamage | ValidTgts$ Creature.attacking,Creature.blocking | TgtPrompt$ Select target attacking or blocking creature | NumDmg$ 3
 S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 1 | AddToughness$ 2 | Description$ Enchanted creature gets +1/+2.

@@ -1,8 +1,8 @@
 Name:Assassins Gambit
 ManaCost:1 U
 Types:Enchantment Aura
-K:Enchant:Equipment,Creature:creatures or Equipment
 K:Ash of War
+K:Enchant:Equipment,Creature:creatures or Equipment
 SVar:AttachAITgts:Card.YouCtrl,Creature.OppCtrl
 SVar:AttachAILogic:Pump
 S:Mode$ CantBlockBy | ValidAttacker$ Creature.EnchantedBy | Description$ Enchanted creature can't be blocked.
