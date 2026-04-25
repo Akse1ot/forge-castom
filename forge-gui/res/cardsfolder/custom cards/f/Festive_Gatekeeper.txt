@@ -1,0 +1,10 @@
+Name:Festive Gatekeeper
+ManaCost:1 W
+Types:Creature Kithkin
+PT:2/2
+K:Tax
+K:Defender
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigGainLife | TriggerDescription$ When CARDNAME blocks, it becomes a Bird Giant, and it loses defender.
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggeredCard$CardToughness
+Oracle:Tax (When you cast this spell, you may pay 3 life. If you do, it enters the battlefield with a +1/+1 counter on it.)\nDefender (This creature can't attack.)\nWhenever Festive Gatekeeper blocks, you gain life equal to its toughness.

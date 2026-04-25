@@ -2,7 +2,7 @@ Name:Law of Regression
 ManaCost:1 W
 Types:Sorcery
 Text:You may choose either face of a double-faced card for this spell’s targets.
-A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetEitherFace$ True | ChangeType$ Creature.YouOwn+cmcLE3,Planeswalker.YouOwn+cmcLE3 | SpellDescription$ Return target creature or planeswalker card with mana value 3 or less from your graveyard to the battlefield.
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetEitherFace$ True | ValidTgts$ Creature.YouOwn+cmcLE3,Planeswalker.YouOwn+cmcLE3 | SpellDescription$ Return target creature or planeswalker card with mana value 3 or less from your graveyard to the battlefield.
 AlternateMode:Modal
 Oracle:You may choose either face of a double-faced card for this spell’s targets.\nReturn target creature or planeswalker card with mana value 3 or less from your graveyard to the battlefield.
 

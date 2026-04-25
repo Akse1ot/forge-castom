@@ -91,6 +91,15 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
 
     private int id;
 
+    private boolean taxed = false;
+
+    public final boolean isTax() {
+        return taxed;
+    }
+    public final void setTax(final boolean value) {
+        taxed = value;
+    }
+
     private String originalDescription = "", description = "";
     private String originalStackDescription = "", stackDescription = "";
 

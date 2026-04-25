@@ -3,8 +3,8 @@ ManaCost:2 G
 Types:Legendary Creature Insect Knight
 PT:2/5
 K:Vigilance
-T:Mode$ LifeGained | ValidPlayer$ You | OptionalDecider$ You | Execute$ TrigToken | TriggerZones$ Battlefield | TriggerDescription$ Whenever you gain life, you may pay . If you do, create a 1/1 green Insect creature token.
+T:Mode$ LifeGained | ValidPlayer$ You | OptionalDecider$ You | Execute$ TrigToken | TriggerZones$ Battlefield | TriggerDescription$ Whenever you gain life, you may pay {1}. If you do, create a 1/1 green Insect creature token.
 SVar:TrigToken:AB$ Token | Cost$ 1 | TokenScript$ g_1_1_insect
 T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Insect.YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever one or more Insects you control deal combat damage to a player, draw a card.
 SVar:TrigDraw:DB$ Draw
-Oracle:Vigilance\nWhenever you gain life, you may pay . If you do, create a 1/1 green Insect creature token.\nWhenever one or more Insects you control deal combat damage to a player, draw a card.
+Oracle:Vigilance\nWhenever you gain life, you may pay {1}. If you do, create a 1/1 green Insect creature token.\nWhenever one or more Insects you control deal combat damage to a player, draw a card.

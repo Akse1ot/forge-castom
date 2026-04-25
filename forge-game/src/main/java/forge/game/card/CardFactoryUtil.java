@@ -1903,6 +1903,18 @@ public class CardFactoryUtil {
 
             inst.addTrigger(parsedUpkeepTrig);
             inst.addTrigger(parsedPlayTrigger);
+        } else if (keyword.equals("Tax")) {
+            final String trigStr = "Mode$ SpellCast | ValidCard$ Card.Self | TriggerZones$ Stack | Secondary$ True "
+                    + "| TriggerDescription$ Tax (" + inst.getReminderText() + ")";
+
+            final String effect = "AB$ Tax | Cost$ PayLife<3> | Defined$ TriggeredCard | SpellDescription$ Tax";
+
+            final Trigger taxTrigger = TriggerHandler.parseTrigger(trigStr, card, intrinsic);
+            final SpellAbility taxSA = AbilityFactory.getAbility(effect, card);
+            taxSA.setIntrinsic(intrinsic);
+            taxTrigger.setOverridingAbility(taxSA);
+
+            inst.addTrigger(taxTrigger);
         } else if (keyword.equals("Training")) {
             final String trigStr = "Mode$ Attacks | ValidCard$ Card.Self | Secondary$ True | " +
                     "IsPresent$ Creature.attacking+Other+powerGTX | NoResolvingCheck$ True | TriggerDescription$ Training (" +
@@ -2514,6 +2526,22 @@ public class CardFactoryUtil {
 
             final ReplacementEffect re = makeEtbCounter(sb.toString(), card, intrinsic);
             re.getOverridingAbility().setSVar("Sunburst", "Count$Converge");
+
+            inst.addReplacement(re);
+        } else if (keyword.equals("Tax")) {
+            final String effect = "DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | ETB$ True "
+                    + "| SpellDescription$ If CARDNAME was taxed, it enters with a +1/+1 counter on it.";
+
+            final ReplacementEffect re = createETBReplacement(
+                    card,
+                    ReplacementLayer.Other,
+                    effect,
+                    false,
+                    true,
+                    intrinsic,
+                    "Card.Self+taxed",
+                    ""
+            );
 
             inst.addReplacement(re);
         } else if (keyword.startsWith("Tribute")) {
@@ -3460,28 +3488,30 @@ public class CardFactoryUtil {
                 System.err.println("Invalid Resonance keyword on card: " + card.getName());
             } else {
                 final String cost = k[1].trim();
-                // реальная карта-хост
                 final forge.game.card.Card hostCard = card.getCard();
-                // Resonance имеет смысл только на Instant/Sorcery
+
                 if (hostCard.getType().isInstant() || hostCard.getType().isSorcery()) {
-                    // 1) базовая SpellAbility
                     final SpellAbility base = card.getFirstSpellAbilityWithFallback();
                     if (base != null) {
-                        // 2) альтернативная стоимость
                         final Cost resonanceCost = new Cost(cost, false);
                         final SpellAbility resonanceSA =
                                 base.copyWithManaCostReplaced(host.getController(), resonanceCost);
-                        // 3) помечаем как альтернативную стоимость Resonance
+
                         resonanceSA.setAlternativeCost(AlternativeCost.Resonance);
-                        // 4) флаг — проверяется в MagicStack.resolveStack()
                         resonanceSA.setSVar("ResonanceCast", "True");
-                        // 5) текст
+
+                        if (host.isInstant() || host.isSorcery()) {
+                            resonanceSA.putParam("Secondary", "True");
+                        }
+                        resonanceSA.putParam("PrecostDesc", "Resonance");
+                        resonanceSA.putParam("CostDesc", ManaCostParser.parse(cost));
+
                         final StringBuilder desc = new StringBuilder();
-                        desc.append("Resonance ").append(cost).append(" (")
-                                .append(inst.getReminderText()).append(")");
+                        desc.append(resonanceSA.getCostDescription());
+                        desc.append("(").append(inst.getReminderText()).append(")");
                         resonanceSA.setDescription(desc.toString());
+
                         resonanceSA.setIntrinsic(intrinsic);
-                        // 6) добавляем альтернативную SpellAbility к карте
                         inst.addSpellAbility(resonanceSA);
                     }
                 } else {

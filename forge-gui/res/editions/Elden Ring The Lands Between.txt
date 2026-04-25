@@ -1,0 +1,376 @@
+[metadata]
+Code=ERLB
+Date=2025-01-23
+Name=Elden Ring: The Lands Between
+Type=CUSTOM_SET
+ScryfallCode=ERLB
+BoosterSlots=Common,Uncommon,RareMythic,AnyLand,Wildcard
+Booster=8 Common, 3 Uncommon, 1 RareMythic, 1 AnyLand, 1 Wildcard
+Prerelease=6 Boosters, 1 RareMythic+
+BoosterBox=36
+
+[Common]
+Base=Common:fromSheet("ERLB cards")
+
+[Uncommon]
+Base=Uncommon:fromSheet("ERLB cards")
+
+[RareMythic]
+Base=RareMythic:fromSheet("ERLB cards")
+
+[AnyLand]
+Base=Land:fromSheet("ERLB cards")
+Replace=.60F BasicLand
+
+[Wildcard]
+Base=Uncommon:fromSheet("ERLB cards")
+Replace=.20F Rare:fromSheet("ERLB cards")
+Replace=.15F Mythic:fromSheet("ERLB cards")
+Replace=.10F Common:fromSheet("ERLB cards")
+
+[cards]
+1 C Ancient Hero of Zamor
+2 U Banished Knight Oleg
+3 U Borealis the Freezing Fog
+4 U Brother Corhyn
+5 R D, Hunter of the Dead
+6 C Discus of Light
+7 R Divest From Grace
+8 U Dryleaf Dane
+9 M The Elden Ring
+10 U Elden Stars
+11 U Euporia
+12 R The Ever Brilliant Goldmask
+13 C Evergaol
+14 C Finger Maiden
+15 U Fire Knight Queelign
+16 C Golden Parry
+17 U Golden Vow
+18 R Guard Counter
+19 M Gurranq, Beast Clergyman
+20 C Horned Shaman
+21 U Law of Regression
+22 C Lion Guardian
+23 C Litany of Proper Death
+24 C Lone Wolves
+25 R Marika's Soreseal
+26 C Messmer's Black Knight
+27 C Nagakiba
+28 R Needle Knight Leda
+29 C Oracle Envoy
+30 U Rick, Soldier of God
+31 U Royal Knights Resolve
+32 R Sacred Relic Sword
+33 U Shatter the Elden Ring
+34 U Smithing Master Hewg
+35 C Spirit Jellyfish
+36 U Tree Sentinel
+37 C Valiant Gargoyle
+38 C Warhawk
+39 C Alabaster Lord
+40 C Assassins Gambit
+41 R Blaidd the Half-Wolf
+42 C Chanting Winged Dame
+43 U Cherishing Fingers
+44 R Comet Azur
+45 U Crucible Knight Ordovis
+46 C Crystalian
+47 R Dark Moon Greatsword
+48 C Eternal Darkness
+49 U Founding Rain of Stars
+50 U Glintstone Dragon Adula
+51 C Glintstone Sorcerer
+52 C Greatblade Phalanx
+53 C Hoarfrost Stomp
+54 C Liurnian Giant Crab
+55 C Lorettas Greatbow
+56 M Mimic Tear
+57 U Miquella's Charm
+58 C Monstrous Crow
+59 R Moon of Nokstella
+60 U The Moonveil
+61 C Nightmaiden and Swordstress
+62 R Phase Change
+63 U Preceptor Seluvis
+64 C Quickstep
+65 R Radagon Icon
+66 U Royal Knight Loretta
+67 C Search for Nokron
+68 C Second-Generation Albinauric
+69 U Sorcerer Thops
+70 U Spellblade Rogier
+71 U St Trinas Smile
+72 U Swordhand of Night Jolan
+73 U Thiollier
+74 U War Counselor Iji
+75 R Ymir Mother of Fingers
+76 U Aging Untouchable
+77 C Black Flame
+78 U Black Flame Ritual
+79 R Black Knife Tiche
+80 U Blackguard Big Boggart
+81 C Bloodfiend Hexer
+82 C Briars of Sin
+83 C Cemetery Shade
+84 U Death Rite Bird
+85 U Decaying Ekzykes
+86 C Depraved Perfumer
+87 C Foreboding Bloodstain
+88 C Frenzied Giant Rat
+89 C Ghostflame Dragon
+90 U Godskin Apostle
+91 R Godwyn Prince of Death
+92 U Gowry Sage of Rot
+93 C Gravebird
+94 C Kindred of Rot
+95 R Lichdragon Fortissax
+96 U Lord of Bloods Exultation
+97 U Millicent Prosthesis Wearer
+98 U Mine, and Mine Alone
+99 C Night Maidens Mist
+100 R Night of Black Knives
+101 C Nights Cavalry
+102 R Putrescent Knight
+103 U Ranni's Dark Moon
+104 U Royal Revenant
+105 C Seppuku
+106 R The Shattering
+107 R Sir Ansbach Pureblood Knight
+108 C Skeletal Militiamen
+109 U Those Who Live in Death
+110 R Trusty Patches
+111 U Unendurable Frenzy
+112 C Wormface
+113 U Aged Ones Exultation
+114 C Aspects of the Crucible Breath
+115 R Bayle the Dread
+116 C Beastman of Farum Azula
+117 U Bloodboon
+118 C Bloodhound Knight
+119 C Bloodhounds Fang
+120 R Burning the Erdtree
+121 U Commander O'Neil
+122 C Demi Human Chief
+123 R Dragon Communion
+124 U Elemer of the Briar
+125 R Fire Giant
+126 C Flame Chariot
+127 U Flame Grant me Strength
+128 U Flame of the Fell God
+129 C Frenzied Burst
+130 C Furnace Golem
+131 C Giant Hunt
+132 C Grave Warden Duelist
+133 U Great Wyrm Theodorix
+134 U Hyetta, Lightseeker
+135 U Igon Drake Warrior
+136 U Inescapable Frenzy
+137 C Jagged Peak Drakes
+138 R Knights Lightning Spear
+139 C Leonine Misbegotten
+140 C Mad pumpkin Head
+141 C Man-Serpent
+142 M Mohg, The Omen
+143 C Red Wolf of Radagon
+144 U Redmane Freyja
+145 R Rivers of Blood
+146 U Ruins Greatsword
+147 U Tanith of the Volcano Manor
+148 U Witch hunter Jerren
+149 C Ancestral Follower
+150 C Aspects of the Crucible Bloom
+151 C Aspects of the Crucible Horn
+152 U Bestial Sling
+153 R Blasphemous Blade
+154 R Blessings of the Erdtree
+155 U Boc the Seamster
+156 U Divine Beast Tornado
+158 U Elder Dragon Greyoll
+157 C Divine Beast Warrior
+159 C Fingercreeper
+160 U Full-Grown Fallingstar Beast
+161 C Giant Rune Bear
+162 C Giant Spider Scorpion
+163 C Golden Hippopotamus
+164 C Golden Summon Sign
+165 C Grafted Scion
+166 U Hoarah Loux' Earthshaker
+167 U Hornsent
+168 C Jar Innards
+169 U Kindred of Rots Exultation
+170 C Lions Claw
+171 R Metyr Mother of Fingers
+172 U Miranda the Blighted Bloom
+173 U Miriel Pastor of Vows
+174 C Monstrous Dog
+175 U Moore of the Forager Brood
+176 U Pest Threads
+177 R Regal Ancestor Spirit
+178 C Rotten Stray
+179 U Rya the Scout
+180 R Scadutree Avatar
+181 U Torrent the Spectral Steed
+182 C Ulcerated Tree Spirit
+183 M Kindly Miquella, the Unalloyed
+184 U Revered Spirit Ash
+185 U Roderika the Spirit Tuner
+186 R Spiritcaller Snail
+187 R Astel Naturalborn of the Void
+188 M Lunar Princess Ranni
+189 U Sorceress Sellen
+190 U Stars of Ruin
+191 R Festering Fingerprint Vyke
+192 U Merchant Kale
+193 R Midra Lord of Frenzied Flame
+194 M Shabriri Chaos Incarnate
+195 U White Mask Varre
+196 M God-Devouring Serpent
+197 U Nepheli Loux Warrior
+198 R The Radahn Festival
+199 U Rugalea the Great Red Bear
+200 U Erdtree Avatar
+201 R Erdtrees Favor
+202 M Godfrey, First Elden Lord
+203 U Guidance of Grace
+204 M Margit the Fell Omen
+205 R Two Fingers
+206 R Fia Deathbed Companion
+207 R Finger Reader Enia
+208 U Godslayer's Greatsword
+209 U Tibia Mariner
+210 U Dragonkin Soldier of Nokstella
+211 U Meteorite of Astel
+212 R Rellana Twin Moon Knight
+213 R Sword of Night and Flame
+214 U Cleanrot Knight Finlay
+215 M Godrick the Grafted
+216 R The Loathsome Dung Eater
+217 R Romina Saint of the Bud
+218 U Scarlet Aeonia
+219 R Ancient Dragon Lansseax
+220 U Commanders Standard
+221 U Knight Bernahl
+222 M Malenia, Blade of Miquella
+223 M Messmer the Impaler
+224 R Crucible Knight Devonia
+225 U The Crucible of Life
+226 R Divine Beast Dancing Lion
+227 U Latenna the Albinauric
+228 M Rennala, Birthing Anew
+229 R Commander Gaius
+230 M Dragonlord Placidusax
+231 M Melina, Kindling Maiden
+232 M The Nameless Tarnished
+233 M Queen Marika the Eternal
+234 R Sir Gideon Ofnir the All Knowing
+235 M Starscourge Radahn
+236 C Abductor Virgin
+237 R Destined Death
+238 U Dragoncrest Greatshield Talisman
+239 C Erdtree Burial Watchdog
+240 C Fanged Imps
+241 C Finger Severer
+242 U Flask of Crimson Tears
+243 U Flask of Wondrous Physick
+244 U Giant Chariot
+245 U Godfrey Icon
+246 R Godricks Great Rune
+247 C Golden Halberd
+248 U Grafted Blade Greatsword
+249 R Great Rune of the Unborn
+250 U Guardian Golem
+251 U Iron Fist Alexander
+252 R Malenias Great Rune
+253 R Miquellas Great Rune
+254 R Mohgs Great Rune
+255 R Morgotts Great Rune
+256 R Radahns Great Rune
+257 R Rannis Great Rune
+258 C Rune Arc
+259 R Rykards Great Rune
+260 U Spirit Calling Bell
+261 U Walking Mausoleum
+262 U Caria Manor
+263 U Crumbling Farum Azula
+264 U Deeproot Depths
+265 R Divine Tower
+266 R The Erdtree
+267 R Forge of the Giants
+268 R Four Belfries
+269 R Gate of Divinity
+270 R Grand Lift
+271 U The Haligtree
+272 U Jagged Peak
+273 R Leyndell
+274 U Minor Erdtree
+275 U Mohgwyn Palace
+276 C Myriad Dungeons
+277 C Overrun Ruins
+278 R Raya Lucaria
+279 R Roundtable Hold
+280 C Sages Rise
+281 R The Scadutree
+282 U Shadow Keep
+283 C Site of Grace
+284 U Swamp of Aeonia
+285 U Volcano Manor
+286 L Plains
+287 L Island
+288 L Swamp
+289 L Mountain
+290 L Forest
+
+[Lands]
+1 Plains|ERLB|1
+1 Island|ERLB|1
+1 Swamp|ERLB|1
+1 Mountain|ERLB|1
+1 Forest|ERLB|1
+
+[tokens]
+1 b_1_1_Assassin_deathtouch_surveil
+2 u_1_1_enchantment_wolf_spirit
+3 b_2_1_skeleton_noblock
+4 u_2_2_enchantment_spirit_knight_vigilance
+5 b_2_2_Knight
+6 c_a_blood_draw
+7 c_a_food_sac
+8 c_a_Rune_sac
+9 c_Rot
+10 c_Wastes
+11 g_0_0_Fungus
+12 g_1_1_insect
+13 r_2_1_Warrior
+14 r_3_3_Dragon
+15 Ruins
+16 u_1_4_Artifact_Golem_flying
+17 u_1_4_Artifact_Golem_Prowess
+18 u_e_Glintblade_sac
+19 w_1_1_Samurai
+20 w_2_2_Knight_vigilance
+21 rg_1_1_Misbegotten
+22 g_1_1_Spider_Scorpion_Insect
+23 r_1_1_enchantment_spirit_haste
+24 u_3_3_knight_vigilance
+25 rg_1_1_demi_human_cant_attack_or_block
+26 serrosh
+27 lobo
+28 ub_3_3_horror_wizard_vigilance_prowess
+29 u_0_1_wizard_pump
+30 u_2_2_enchantment_knight_spirit
+31 u_3_3_enchantment_giant_spirit
+32 u_4_4_enchantment_dragon_spirit_flying
+33 u_1_1_enchantment_spirit
+
+[other]
+34 emblem_brother_corhyn
+33 emblem_spellblade_rogier
+36 emblem_thiollier
+37 emblem_blackguard_big_boggart
+38 emblem_vyke_the_dragonspear
+39 emblem_the_nameless_tarnished
+40 emblem_nepheli_loux_warrior
+41 emblem_sir_gideon_ofnir_the_all_knowing
+42 emblem_roderika_the_spirit_tuner
+43 emblem_the_ever_brilliant_goldmask
+44 emblem_the_loathsome_dung_eater

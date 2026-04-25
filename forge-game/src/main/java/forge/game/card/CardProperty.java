@@ -1828,6 +1828,14 @@ public class CardProperty {
             if (!card.isRenowned()) {
                 return false;
             }
+        } else if (property.equals("taxed")) {
+            if (card.getCastSA() == null) {
+                return false;
+            }
+            if (AbilityUtils.isUnlinkedFromCastSA(spellAbility, card)) {
+                return false;
+            }
+            return card.getCastSA().isTax();
         } else if (property.equals("IsSolved")) {
             if (!card.isSolved()) {
                 return false;

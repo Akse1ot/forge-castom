@@ -2588,7 +2588,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
                         || keyword.equals("Split second") || keyword.equals("Sunburst") || keyword.equals("Riot")
                         || keyword.equals("Soulbond") || keyword.equals("Retrace")
                         || keyword.equals("Double team") || keyword.equals("Living metal")
-                        || keyword.equals("Foretell") // for the ones without cost
+                        || keyword.equals("Foretell") || keyword.equals("Tax") // for the ones without cost
                         || keyword.equals("Ascend") || keyword.equals("Umbra armor")
                         || keyword.equals("Battle cry") || keyword.equals("Devoid")
                         || keyword.equals("Daybound") || keyword.equals("Nightbound")
@@ -3276,7 +3276,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
                         || keyword.startsWith("Escape") || keyword.startsWith("Foretell:")
                         || keyword.startsWith("Disturb") || keyword.startsWith("Overload")
                         || keyword.startsWith("Plot") || keyword.startsWith("Mayhem")
-                        || keyword.startsWith("Splice")) {
+                        || keyword.startsWith("Splice") || keyword.equals("Tax")) {
                     sbAfter.append(inst.getTitle()).append(" (").append(inst.getReminderText()).append(")");
                     sbAfter.append("\r\n");
                 } else if (keyword.equals("Gift")) {
@@ -3313,6 +3313,13 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
                         sbBefore.append(" You may choose new targets for the copies.");
                     }
                     sbBefore.append(")\r\n");
+                } else if (keyword.startsWith("Resonance")) {
+                    final String[] n = keyword.split(":");
+                    final Cost cost = new Cost(n[1], false);
+
+                    sbAfter.append("Resonance ").append(cost.toSimpleString());
+                    sbAfter.append(" (").append(inst.getReminderText()).append(")");
+                    sbAfter.append("\r\n");
                 } else if (keyword.equals("Assist")) {
                     sbBefore.append(keyword).append(" (").
                     append(String.format(inst.getReminderText(), "{" + getManaCost().getGenericCost() + "}"))

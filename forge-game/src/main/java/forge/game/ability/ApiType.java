@@ -198,6 +198,7 @@ public enum ApiType {
     TapAll (TapAllEffect.class),
     TapOrUntap (TapOrUntapEffect.class),
     TapOrUntapAll (TapOrUntapAllEffect.class),
+    Tax (TaxEffect.class),
     TimeTravel (TimeTravelEffect.class),
     Token (TokenEffect.class),
     TwoPiles (TwoPilesEffect.class),

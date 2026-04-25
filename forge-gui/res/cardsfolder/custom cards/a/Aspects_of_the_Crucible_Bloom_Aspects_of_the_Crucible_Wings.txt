@@ -19,6 +19,6 @@ K:Ash of War
 K:Enchant:Equipment,Creature:creatures or Equipment
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a Rune token.
 SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac
-T:Mode$ Attacks | ValidCard$ Card.EnchantedBy | Execute$ TrigPump | TriggerZones$ Battlefield | TriggerDescription$ Whenever enchanted creature attacks, it gets +X/+0 until end of turn, where X is your devotion to red.
+T:Mode$ Attacks | ValidCard$ Card.EnchantedBy | Execute$ TrigPump | TriggerZones$ Battlefield | TriggerDescription$ Whenever enchanted creature attacks, it gets +1/+0 and gains flying until end of turn.
 SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +1 | KW$ Flying
 Oracle:Ash of War (This Aura can enchant creatures or Equipment. If it enchants an Equipment, creatures equipped with that Equipment are treated as if they were enchanted by this Aura.)\nWhen this enchantment enters, create a Rune token.\nWhenever enchanted creature attacks, it gets +1/+0 and gains flying until end of turn.
