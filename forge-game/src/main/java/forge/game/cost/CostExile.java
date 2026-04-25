@@ -236,7 +236,7 @@ public class CostExile extends CostPartWithList {
         }
 
         int amount = this.getAbilityAmount(ability);
-
+        
         if (sharedType) {
             if (list.size() < amount) {
                 return false;

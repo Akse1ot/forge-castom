@@ -422,32 +422,6 @@ public class HumanCostDecision extends CostDecisionMakerBase {
 
     // Inputs
 
-    private boolean sharesCommonCoreType(final Iterable<Card> cards) {
-        boolean foundAny = false;
-
-        for (CardType.CoreType coreType : CardType.CoreType.values()) {
-            boolean allHaveType = true;
-            boolean sawCard = false;
-
-            for (final Card card : cards) {
-                sawCard = true;
-                if (!card.getType().hasType(coreType)) {
-                    allHaveType = false;
-                    break;
-                }
-            }
-
-            if (sawCard) {
-                foundAny = true;
-                if (allHaveType) {
-                    return true;
-                }
-            }
-        }
-
-        return !foundAny;
-    }
-
     private PaymentDecision exileFromSame(final CostExile cost, final CardCollectionView list, final int nNeeded, final List<Player> payableZone) {
         if (nNeeded == 0) {
             return PaymentDecision.number(0);
@@ -571,10 +545,9 @@ public class HumanCostDecision extends CostDecisionMakerBase {
 
             @Override
             protected boolean onCardSelected(final Card c, final List<Card> otherCardsToSelect, final ITriggerEvent triggerEvent) {
-                for (final Card selectedCard : this.selected) {
-                    if (!selectedCard.sharesCardTypeWith(c)) {
-                        return false;
-                    }
+                final Card firstSelected = Iterables.getFirst(this.selected, null);
+                if (firstSelected != null && !firstSelected.sharesCardTypeWith(c)) {
+                    return false;
                 }
                 return super.onCardSelected(c, otherCardsToSelect, triggerEvent);
             }
@@ -590,9 +563,6 @@ public class HumanCostDecision extends CostDecisionMakerBase {
 
         final CardCollection chosen = new CardCollection(inp.getSelected());
         if (chosen.size() < nNeeded) {
-            return null;
-        }
-        if (!sharesCommonCoreType(chosen)) {
             return null;
         }
 
