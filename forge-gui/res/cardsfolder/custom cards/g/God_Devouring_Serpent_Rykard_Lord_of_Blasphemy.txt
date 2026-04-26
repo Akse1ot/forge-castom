@@ -8,7 +8,6 @@ S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Y | EffectZone
 SVar:X:Count$xPaid
 SVar:Y:SVar$X/Times.2
 SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE2
-A:AB$ Sacrifice | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | SacValid$ Creature,Planeswalker | SacMessage$ creature or planeswalker | Optional$ True | RememberSacrificed$ True | SubAbility$
 A:SP$ PermanentCreature | Cost$ 8 R G Sac<3/Creature> | ActivationZone$ Graveyard | Secondary$ True | SpellDescription$ You may cast this spell from your graveyard by sacrificing three creatures in addition to paying its other costs.
 AlternateMode:Modal
 Oracle:Trample\nAs an additional cost to cast this spell, you may sacrifice any number of creatures. This spell costs {2} less to cast for each creature sacrificed this way.\nYou can cast this spell from your graveyard by sacrificing three creatures in addition to paying its other costs.
@@ -23,5 +22,5 @@ K:Menace
 K:Trample
 K:Ward:3
 K:Devour:3
-S:Mode$ Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLE2 | Description$ This creature can’t be blocked by creatures with power 2 or less
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLE2 | Description$ This creature can’t be blocked by creatures with power 2 or less
 Oracle:Menace, trample, ward {3}\nDevour 3 (As this enters, you may sacrifice any number of creatures. This creature enters with three times that many +1/+1 counters on it.)\nThis creature can’t be blocked by creatures with power 2 or less.

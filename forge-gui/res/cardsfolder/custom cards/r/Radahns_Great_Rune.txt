@@ -4,6 +4,6 @@ Types:Legendary Artifact Rune
 A:AB$ Mana | Cost$ T | Produced$ Combo U R | SpellDescription$ Add {U} or {R}.
 T:Mode$ SpellCast | ValidCard$ Card.kicked | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDealDamage | TriggerDescription$ Whenever you cast a kicked spell, this artifact deals 1 damage to any target.
 SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1
-A:AB$ PutCounter | Cost$ T Sac<1/CARDNAME> | ActivationZone$ Battlefield | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 3 | SorcerySpeed$ True | SpellDescription$ Put three +1/+1 counters on target creature you control. Activate only as a sorcery.
+A:AB$ PutCounter | Cost$ T Sac<1/CARDNAME> | ActivationZone$ Battlefield | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 3 | SorcerySpeed$ True | AIActivateLast$ True | SpellDescription$ Put three +1/+1 counters on target creature you control. Activate only as a sorcery.
 DeckNeeds:Color$Red|Green
 Oracle:{T}: Add {U} or {R}.\nWhenever you cast a kicked spell, this artifact deals 1 damage to any target.\n{T}, Sacrifice this artifact: Put three +1/+1 counters on target creature you control. Activate only as a sorcery.

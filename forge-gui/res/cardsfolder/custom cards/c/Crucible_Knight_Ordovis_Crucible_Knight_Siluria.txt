@@ -5,7 +5,7 @@ PT:3/3
 K:Vigilance
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill | TriggerDescription$ When CARDNAME enters, mill four cards. If there was an enchantment card or a creature card with a Spirit Ash ability among the milled cards, create a 3/3 blue Knight creature token with vigilance. (To mill a card, put the top card of your library into your graveyard.)
 SVar:TrigMill:DB$ Mill | NumCards$ 4 | Defined$ You | RememberChanged$ True | SubAbility$ DBToken
-SVar:DBToken:Token | ConditionDefined$ Remembered | ConditionPresent$ Enchantment,Creature.withSpirit Ash | TokenScript$ u_3_3_knight_vigilance | SubAbility$ DBCleanup
+SVar:DBToken:DB$ Token | ConditionDefined$ Remembered | ConditionPresent$ Enchantment,Creature.withSpirit Ash | TokenScript$ u_3_3_knight_vigilance | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 S:Mode$ ReduceCost | ValidTarget$ Card.Self | ValidCard$ Aura | Type$ Spell | Activator$ You | Amount$ 1 | Description$ Aura spells you cast that target this creature cost {1} less to cast.
 AlternateMode:Modal
@@ -22,7 +22,7 @@ PT:3/3
 K:Vigilance
 K:Reach
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn | TriggerDescription$ When CARDNAME enters, return target land card, enchantment card, or creature card with a Spirit Ash ability from your graveyard to your hand.
-SVar:TrigReturn:DB$ ChangesZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Land.YouOwn,Enchantment.YouOwn,Creature.withSpirit Ash+YouOwn
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Land.YouOwn,Enchantment.YouOwn,Creature.withSpirit Ash+YouOwn
 S:Mode$ ReduceCost | ValidTarget$ Card.Self | ValidCard$ Aura | Type$ Spell | Activator$ You | Amount$ 1 | Description$ Aura spells you cast that target this creature cost {1} less to cast.
 Oracle:Vigilance, reach
 When this creature enters, return target land card, enchantment card, or creature card with a Spirit Ash ability from your graveyard to your hand.

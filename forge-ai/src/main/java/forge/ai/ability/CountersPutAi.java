@@ -464,7 +464,7 @@ public class CountersPutAi extends CountersAi {
                 // don't put the counter on the dead creature
                 if (sacSelf && c.equals(source)) {
                     return false;
-                } else if (hasSacCost && !ComputerUtil.shouldSacrificeThreatenedCard(ai, c, sa)) {
+                } else if (hasSacCost && !sacSelf && !ComputerUtil.shouldSacrificeThreatenedCard(ai, c, sa)) {
                     return false;
                 }
                 if ("NoCounterOfType".equals(sa.getParam("AILogic"))) {
@@ -480,7 +480,7 @@ public class CountersPutAi extends CountersAi {
             // Filter AI-specific targets if provided
             list = ComputerUtil.filterAITgts(sa, ai, list, false);
 
-            if (abCost.hasSpecificCostType(CostSacrifice.class)) {
+            if (hasSacCost && !sacSelf) {
                 Card sacTarget = ComputerUtil.getCardPreference(ai, source, "SacCost", list);
                 // this card is planned to be sacrificed during cost payment, so don't target it
                 // (otherwise the AI can cheat by activating this SA and not paying the sac cost, e.g. Extruder)

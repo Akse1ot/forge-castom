@@ -2,7 +2,7 @@ Name:Black Flame
 ManaCost:1 B B
 Types:Instant
 K:Kicker:Discard<1/Card>
-A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -X | NumDef$ -X | IsCurse$ True | StackDescription$ REP Target creature_{c:Targeted} | SpellDescription$ Target creature gets -2/-2 until end of turn. If this spell was kicked, that creature gets -6/-6 until end of turn instead.
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -X | NumDef$ -X | IsCurse$ True | StackDescription$ REP Target creature_{c:Targeted} | SpellDescription$ Target creature gets -3/-3 until end of turn. If this spell was kicked, that creature gets -6/-6 until end of turn instead.
 SVar:X:Count$Kicked.5.3
 AlternateMode:Modal
 Oracle:Kicker—Discard a card (You may discard a card in addition to any other costs as you cast this spell.)

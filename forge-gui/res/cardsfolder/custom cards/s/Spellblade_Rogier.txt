@@ -2,9 +2,9 @@ Name:Spellblade Rogier
 ManaCost:1 U
 Types:Legendary Planeswalker Rogier
 Loyalty:2
-A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | SubAbility$ DBDiscard | SpellDescription$ Draw a card, then discard a card.
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | SubAbility$ DBDiscard | SpellDescription$ Draw a card, then discard a card.
 SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose
-A:AB$ Token | Cost$ SubCounter<1/LOYALTY> | TokenAmount$ 2 | TokenScript$ u_e_Glintblade_sac | TokenOwner$ You | SpellDescription$ Create two blue enchantment tokens named Glintblade with “Sacrifice this enchantment: Target creature gets -1/-0 until end of turn.”
+A:AB$ Token | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | TokenAmount$ 2 | TokenScript$ u_e_Glintblade_sac | TokenOwner$ You | AIActivateLast$ True | SpellDescription$ Create two blue enchantment tokens named Glintblade with “Sacrifice this enchantment: Target creature gets -1/-0 until end of turn.”
 A:AB$ Effect | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Spellblade Rogier | Image$ emblem_spellblade_rogier | Triggers$ SpellCast | Duration$ Permanent | SpellDescription$ You gain an emblem with “Whenever you cast a noncreature spell, draw two cards.”
 SVar:SpellCast:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | Execute$ TrigDraw | TriggerDescription$ Whenever you cast a noncreature spell, draw two cards.
 SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2

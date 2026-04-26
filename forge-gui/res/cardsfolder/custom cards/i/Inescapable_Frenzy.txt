@@ -4,8 +4,8 @@ Types:Sorcery
 K:Kicker:1 R
 K:Madness:1 R
 A:SP$ GainControl | ValidTgts$ Creature | Untap$ True | LoseControl$ EOT | SubAbility$ DBPump | SpellDescription$ Gain control of target creature until end of turn. Untap it. It gains trample and haste until end of turn.
-SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Haste | SubAbility$ DBDiscard
-SVar:DBDiscard:DB$ Discard | Condition$ Kicked | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | RememberDiscarded$ True | SpellDescription$ If this spell was kicked, discard a card. If you do, draw two cards. | SubAbility$ DBDiscard
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Trample & Haste | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Condition$ Kicked | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | RememberDiscarded$ True | SpellDescription$ If this spell was kicked, discard a card. If you do, draw two cards. | SubAbility$ DBDraw
 SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | NumCards$ 2 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 Oracle:Kicker {1}{R}\nGain control of target creature until end of turn. Untap it. It gains trample and haste until end of turn.\nIf this spell was kicked, discard a card. If you do, draw two cards.\nMadness {1}{R}
