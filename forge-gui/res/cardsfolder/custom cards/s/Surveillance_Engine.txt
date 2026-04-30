@@ -1,0 +1,8 @@
+Name:Surveillance Engine
+ManaCost:3 W
+Types:Artifact Creature Bird
+PT:2/4
+K:Vigilance
+K:Rig:1 W
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Vigilance | Description$ Equipped creature gets +2/+4 and has vigilance.
+Oracle:Flying, double strike\nRig {1}{W} ({1}{W}: This stops being a creature and becomes an Equipment until your next upkeep. Attach it to target creature you control. Rig only as a sorcery.)\nEquipped creature gets +2/+4 and has vigilance.

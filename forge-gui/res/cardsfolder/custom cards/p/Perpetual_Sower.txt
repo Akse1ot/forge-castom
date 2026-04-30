@@ -1,0 +1,8 @@
+Name:Perpetual Sower
+ManaCost:3 W
+Types:Creature Dryad Elder
+PT:2/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever a land enters the battlefield under your control, replenish. (Create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_food_canovol_sac
+A:AB$ GainLife | Cost$ Sac<3/Token/tokens> | Defined$ You | LifeAmount$ 1 | SpellDescription$ You gain 9 life.
+Oracle:Whenever a land enters the battlefield under your control, replenish. (Create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)\nSacrifice three tokens: You gain 9 life.

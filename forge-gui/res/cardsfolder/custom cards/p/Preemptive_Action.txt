@@ -1,0 +1,6 @@
+Name:Preemptive Action
+ManaCost:2 W W
+Types:Sorcery
+A:SP$ ChangeZone | ValidTgts$ Artifact,Creature.tapped | TgtPrompt$ Select target artifact or tapped creature | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBDraw | SpellDescription$ Exile target artifact or tapped creature. If you control an artifact, draw a card.
+SVar:DBDraw:DB$ Draw | ConditionPresent$ Artifact.YouCtrl | ConditionCompare$ GE1
+Oracle:Exile target artifact or tapped creature. If you control an artifact, draw a card.

@@ -3075,6 +3075,62 @@ public class CardFactoryUtil {
             foretell.getRestrictions().setZone(ZoneType.Hand);
             foretell.setIntrinsic(intrinsic);
             inst.addSpellAbility(foretell);
+        } else if (keyword.equals("Focus")) {
+            final SpellAbility focus = new AbilityStatic(card.getCard(), new Cost(card.getManaCost(), false), null) {
+                @Override
+                public boolean canPlay() {
+                    getRestrictions().setZone(ZoneType.Hand);
+                    getRestrictions().setSorcerySpeed(true);
+
+                    if (!getRestrictions().canPlay(getHostCard(), this)) {
+                        return false;
+                    }
+
+                    return true;
+                }
+
+                @Override
+                public void resolve() {
+                    final Game game = getHostCard().getGame();
+                    Map<AbilityKey, Object> moveParams = AbilityKey.newMap();
+                    CardZoneTable zoneMovements = AbilityKey.addCardZoneTableParams(moveParams, this);
+
+                    final Card c = game.getAction().exile(getHostCard(), this, moveParams);
+                    zoneMovements.triggerChangesZoneAll(game, this);
+
+                    c.setFocused(true);
+
+                    final String delTrig = "DB$ DelayedTrigger"
+                            + " | Mode$ Phase"
+                            + " | Phase$ Upkeep"
+                            + " | ValidPlayer$ You"
+                            + " | RememberObjects$ Self"
+                            + " | TriggerDescription$ At the beginning of your next upkeep, cast "
+                            + c.toString()
+                            + " without paying its mana cost.";
+
+                    final String play = "DB$ Play"
+                            + " | Defined$ DelayTriggerRememberedLKI"
+                            + " | WithoutManaCost$ True"
+                            + " | Focus$ True";
+
+                    final SpellAbility delayed = AbilityFactory.getAbility(delTrig, c);
+                    final AbilitySub playSub = (AbilitySub) AbilityFactory.getAbility(play, c);
+
+                    delayed.setAdditionalAbility("Execute", playSub);
+                    delayed.setActivatingPlayer(getActivatingPlayer());
+
+                    AbilityUtils.resolve(delayed);
+                }
+            };
+
+            focus.setDescription("Focus (" + inst.getReminderText() + ")");
+            focus.putParam("Secondary", "True");
+
+            focus.setCardState(card);
+            focus.setIntrinsic(intrinsic);
+
+            inst.addSpellAbility(focus);
         } else if (keyword.startsWith("Fortify")) {
             String[] k = keyword.split(":");
             // Get cost string
@@ -3536,6 +3592,51 @@ public class CardFactoryUtil {
             if (n.equals("X")) {
                 sa.setSVar("X", "Count$xPaid");
             }
+            inst.addSpellAbility(sa);
+        } else if (keyword.startsWith("Rig")) {
+            if (!keyword.contains(":")) {
+                System.err.println("Malformed Rig entry! - Card: " + card.toString());
+                return;
+            }
+
+            final String[] k = keyword.split(":");
+            final String rigCost = k[1];
+
+            final Cost cost = new Cost(rigCost, true);
+            final StringBuilder costDesc = new StringBuilder();
+            costDesc.append(cost.isOnlyManaCost() ? " " : "—");
+            costDesc.append(cost.toSimpleString());
+
+            final StringBuilder abilityStr = new StringBuilder();
+            abilityStr.append("AB$ Attach | Cost$ ").append(rigCost);
+            abilityStr.append(" | ValidTgts$ Creature.YouCtrl+Other");
+            abilityStr.append(" | TgtPrompt$ Select target creature you control");
+            abilityStr.append(" | SorcerySpeed$ True");
+            abilityStr.append(" | AILogic$ Pump");
+            abilityStr.append(" | PrecostDesc$ Rig");
+            abilityStr.append(" | CostDesc$ ").append(costDesc);
+            abilityStr.append(" | StackDescription$ SpellDescription");
+            abilityStr.append(" | SpellDescription$ (").append(inst.getReminderText()).append(")");
+
+            final SpellAbility sa = AbilityFactory.getAbility(abilityStr.toString(), card);
+
+            final AbilitySub animate = (AbilitySub) AbilityFactory.getAbility(
+                    "DB$ Animate | Defined$ Self"
+                            + " | Types$ Equipment"
+                            + " | RemoveTypes$ Creature"
+                            + " | Duration$ UntilYourNextUpkeep",
+                    card
+            );
+
+            final AbilitySub attach = (AbilitySub) AbilityFactory.getAbility(
+                    "DB$ Attach | Defined$ ParentTarget",
+                    card
+            );
+
+            animate.setSubAbility(attach);
+            sa.setSubAbility(animate);
+
+            sa.setIntrinsic(intrinsic);
             inst.addSpellAbility(sa);
         } else if (keyword.startsWith("Saddle")) {
             final String[] k = keyword.split(":");
@@ -4060,6 +4161,20 @@ public class CardFactoryUtil {
             inst.addStaticAbility(StaticAbility.create(effect, state.getCard(), state, intrinsic));
         } else if (keyword.startsWith("Impending")) {
             String effect = "Mode$ Continuous | Affected$ Card.Self+impended+counters_GE1_TIME | RemoveType$ Creature | Secondary$ True";
+            inst.addStaticAbility(StaticAbility.create(effect, state.getCard(), state, intrinsic));
+        } else if (keyword.startsWith("Immunity")) {
+            final String[] k = keyword.split(":");
+            final String manacost = k[1];
+            final Cost cost = new Cost(manacost, false);
+
+            StringBuilder sb = new StringBuilder("Immunity");
+            if (!cost.isOnlyManaCost()) {
+                sb.append("—");
+            } else {
+                sb.append(" ");
+            }
+            sb.append(cost.toSimpleString());
+            String effect = "Mode$ RaiseCost | ValidCard$ Card | ValidTarget$ Card.Self | Type$ Spell | Activator$ Opponent | Cost$ " + manacost + " | EffectZone$ Battlefield | Secondary$ True | Description$ " + sb.toString() + " (" + inst.getReminderText() + ")";
             inst.addStaticAbility(StaticAbility.create(effect, state.getCard(), state, intrinsic));
         } else if (keyword.equals("Intimidate")) {
             String effect = "Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.nonArtifact+!SharesColorWith | Secondary$ True " +

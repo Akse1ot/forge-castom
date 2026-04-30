@@ -1,0 +1,7 @@
+Name:Nomadic Necessity
+ManaCost:3 W
+Types:Sorcery
+A:SP$ Token | TokenAmount$ 2 | TokenScript$ w_2_2_insect_cleric | TokenOwner$ You | SpellDescription$ Create two 2/2 white Insect Cleric creature tokens.
+A:SP$ GainLife | Defined$ You | LifeAmount$ X | SpellDescription$ You gain 1 life for each creature token you control.
+SVar:X:Count$Valid Creature.YouCtrl+token
+Oracle:Create two 2/2 white Insect Cleric creature tokens.\nYou gain 1 life for each creature token you control.

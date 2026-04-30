@@ -1,0 +1,9 @@
+Name:Frontline Armor
+ManaCost:3 W W
+Types:Artifact Creature Bird
+PT:2/2
+K:Flying
+K:Double Strike
+K:Rig:1 W W
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Flying & Double Strike | Description$ Equipped creature gets +2/+2 and has flying and double strike.
+Oracle:Flying, double strike\nRig {1}{W}{W} ({1}{W}{W}: This stops being a creature and becomes an Equipment until your next upkeep. Attach it to target creature you control. Rig only as a sorcery.)\nEquipped creature gets +2/+2 and has flying and double strike.

@@ -10,7 +10,7 @@ Oracle:Ash of War (This Aura can enchant creatures or Equipment. If it enchants 
 
 ALTERNATE
 
-Name:Aspects of the Crucible Wings
+Name:Aspects of the Crucible Tail
 ManaCost:1 W W
 Types:Enchantment Aura
 K:Flash

@@ -1,0 +1,7 @@
+Name:Contemplate
+ManaCost:2 U
+Types:Instant
+K:Focus
+A:SP$ Draw | NumCards$ 2 | SpellDescription$ Draw two cards. If this spell wasn’t focused, discard a card. | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Condition$ NotFocused | Mode$ TgtChoose
+Oracle:Focus (During your main phase, you may exile this card from your hand and pay its mana cost. At the beginning of your next upkeep, cast it without paying its mana cost.)\nDraw two cards. If this spell wasn’t focused, discard a card.

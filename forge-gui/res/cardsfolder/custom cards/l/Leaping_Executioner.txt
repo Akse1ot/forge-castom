@@ -1,0 +1,7 @@
+Name:Leaping Executioner
+ManaCost:1 W
+Types:Creature Insect Samurai
+PT:1/2
+K:Flying
+K:First Strike
+Oracle:Flying, first strike

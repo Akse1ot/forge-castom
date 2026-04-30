@@ -60,6 +60,8 @@ public class SpellAbilityCondition extends SpellAbilityVariables {
      * Constructor for SpellAbility_Condition.
      * </p>
      */
+    private boolean focused = false;
+    private boolean notFocused = false;
     public SpellAbilityCondition() {
     }
 
@@ -119,6 +121,14 @@ public class SpellAbilityCondition extends SpellAbilityVariables {
 
             if (value.equals("Foretold")) {
                 this.foretold = true;
+            }
+
+            if (value.equals("Focused")) {
+                this.focused = true;
+            }
+
+            if (value.equals("NotFocused")) {
+                this.notFocused = true;
             }
 
             if (params.containsKey("ConditionOptionalPaid")) {
@@ -276,6 +286,8 @@ public class SpellAbilityCondition extends SpellAbilityVariables {
         if (this.surgeCostPaid && !sa.isSurged()) return false;
         if (this.bargain && !sa.isBargained()) return false;
         if (this.foretold && !sa.isForetold()) return false;
+        if (this.focused && !sa.isFocused()) return false;
+        if (this.notFocused && sa.isFocused()) return false;
 
         if (this.optionalCostPaid && this.optionalBoolean && !sa.isOptionalCostPaid(OptionalCost.Generic)) return false;
         if (this.optionalCostPaid && !this.optionalBoolean && sa.isOptionalCostPaid(OptionalCost.Generic)) return false;

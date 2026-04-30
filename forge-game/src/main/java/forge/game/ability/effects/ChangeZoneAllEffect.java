@@ -97,7 +97,7 @@ public class ChangeZoneAllEffect extends SpellAbilityEffect {
         final int libraryPos = sa.hasParam("LibraryPosition") ? Integer.parseInt(sa.getParam("LibraryPosition")) : 0;
 
         if (!random && !sa.hasParam("Shuffle")) {
-            if (movingToDeck && cards.size() >= 2) {
+            if (movingToDeck && cards.size() >= 2 && sa.hasParam("DefinedPlayer")) {
                 Player p = AbilityUtils.getDefinedPlayers(source, sa.getParam("DefinedPlayer"), sa).get(0);
                 cards = (CardCollection) p.getController().orderMoveToZoneList(cards, destination, sa);
             } else {

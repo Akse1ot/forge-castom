@@ -1,0 +1,6 @@
+Name:Insect Cleric Token
+ManaCost:no cost
+Colors:white
+Types:Creature Insect Cleric
+PT:2/2
+Oracle:

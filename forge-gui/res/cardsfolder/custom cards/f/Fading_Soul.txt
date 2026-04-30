@@ -1,0 +1,7 @@
+Name:Fading Soul
+ManaCost:4 U
+Types:Creature Djinn
+PT:6/6
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigAetherise | TriggerDescription$ Whenever CARDNAME becomes the target of a spell or ability, etherise it. (Put the aetherised card on top of its owner’s library.)
+SVar:TrigAetherise:DB$ Aetherise | Defined$ Self
+Oracle:Whenever Fading Soul becomes the target of a spell or ability, aetherise it. (Put the aetherised card on top of its owner’s library.)

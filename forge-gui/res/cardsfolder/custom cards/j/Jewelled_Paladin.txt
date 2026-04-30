@@ -1,0 +1,7 @@
+Name:Jewelled Paladin
+ManaCost:2 W W
+Types:Creature Kithkin Knight
+PT:2/2
+K:Tax
+K:Double Strike
+Oracle:Tax (When you cast this spell, you may pay 3 life. If you do, it enters the battlefield with a +1/+1 counter on it.)\nDouble strike

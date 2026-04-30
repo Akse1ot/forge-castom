@@ -427,6 +427,11 @@ public class PlayEffect extends SpellAbilityEffect {
                 tgtSA.setAlternativeCost(AlternativeCost.Madness);
             }
 
+            if (sa.hasParam("Focus")) {
+                tgtSA.setFocused(true);
+                tgtSA.getHostCard().setFocused(false);
+            }
+
             if (sa.hasParam("CastTransformed")) {
                 tgtSA.putParam("CastTransformed", "True");
             }

@@ -1,0 +1,8 @@
+Name:Allocator of Arms
+ManaCost:1 U U
+Types:Creature Bird Soldier
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Artifact.YouCtrl | IsPresent$ Card.Self | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigLoot | TriggerDescription$ Whenever an artifact enters the battlefield under your control, you may draw a card. If you do, discard a card.
+SVar:TrigLoot:AB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | Cost$ Draw<1/You>
+Oracle:Flying\nWhenever an artifact enters the battlefield under your control, you may draw a card. If you do, discard a card.

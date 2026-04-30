@@ -2,10 +2,10 @@ Name:Putrescent Knight
 ManaCost:3 B
 Types:Legendary Creature Skeleton Knight
 PT:4/7
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump | TriggerDescription$ Whenever CARDNAME enters or attacks, you may pay X life. If you do, exile target card in your graveyard with mana value X and copy it. You may cast the copy. Activate only if there are seven or more cards in your graveyard.
-T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigPump | Secondary$ True | TriggerDescription$ Whenever CARDNAME enters or attacks, you may pay X life. If you do, exile target card in your graveyard with mana value X and copy it. You may cast the copy. Activate only if there are seven or more cards in your graveyard.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | TriggerDescription$ Whenever CARDNAME enters or attacks, you may pay X life. If you do, exile target card in your graveyard with mana value X and copy it. You may cast the copy. Activate only if there are seven or more cards in your graveyard.
+T:Mode$ Attacks | ValidCard$ Creature.Self | Execute$ TrigExile | Secondary$ True | TriggerDescription$ Whenever CARDNAME enters or attacks, you may pay X life. If you do, exile target card in your graveyard with mana value X and copy it. You may cast the copy. Activate only if there are seven or more cards in your graveyard.
 SVar:TrigExile:DB$ ChangeZone | Cost$ PayLife<X> | Activation$ Threshold | Origin$ Graveyard | Destination$ Exile | TgtPrompt$ Select target card with mana value X in your graveyard | ValidTgts$ Card.YouOwn+cmcEQX | RememberChanged$ True | SubAbility$ DBPlay
-SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | Controller$ You | CopyCard$ True | ValidSA$ Spell | Optional$ True | SubAbility$ DBCleanup
+SVar:TrigPlay:DB$ Play | Valid$ Card.IsRemembered | ValidZone$ Exile | Controller$ You | CopyCard$ True | ValidSA$ Spell | Optional$ True | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ Truer
 SVar:X:Count$xPaid
 A:AB$ ChangeZone | Cost$ 5 B B | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | Tapped$ True | SpellDescription$ Return CARDNAME from your graveyard to the battlefield tapped.

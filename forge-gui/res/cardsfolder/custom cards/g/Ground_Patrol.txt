@@ -1,0 +1,8 @@
+Name:Ground Patrol
+ManaCost:2 W
+Types:Creature Bird Soldier
+PT:3/2
+S:Mode$ Continuous | Affected$ Card.Self+equipped,Card.Self+enchanted | AddKeyword$ First Strike | Description$ As long as CARDNAME iis enchanted or equipped, it has first strike.
+SVar:EquipMe:Once
+SVar:EnchantMe:Once
+Oracle:As long as Ground Patrol is enchanted or equipped, it has first strike.

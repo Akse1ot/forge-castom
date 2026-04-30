@@ -1,0 +1,8 @@
+Name:Drifting Marksman
+ManaCost:2 U
+Types:Creature Bird Soldier
+PT:1/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigChange | TriggerDescription$ When CARDNAME enters, you may search your library for a card named Avarax, reveal it, put it into your hand, then shuffle.
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.Artifact+cmcLE2 | ShuffleNonMandatory$ True
+Oracle:Flying\nWhen Drifting Marksman enters the battlefield, you may search your library for an artifact card with converted mana cost 2 or less, reveal it and put it into your hand. Then shuffle your library.

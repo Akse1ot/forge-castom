@@ -1,0 +1,6 @@
+Name:Force of Mind
+ManaCost:1 U
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | TgtPrompt$ Select target spell | ValidTgts$ Card | UnlessCost$ X | SpellDescription$ Counter target spell unless its controller pays {1} plus an additional {1} for each instant and sorcery card in your graveyard.
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn/Plus.1
+Oracle:Counter target spell unless its controller pays {1} plus an additional {1} for each instant and sorcery card in your graveyard.

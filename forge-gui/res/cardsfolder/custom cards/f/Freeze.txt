@@ -1,0 +1,7 @@
+Name:Freeze
+ManaCost:1 U
+Types:Instant
+K:Focus
+A:SP$ Tap | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | SubAbility$ TrigPump | SpellDescription$ Tap up to two target creatures. If this spell was focused, those creatures don’t untap during their controller’s next untap step.
+SVar:TrigPump:DB$ Pump | Condition$ Focused | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+Oracle:Focus (During your main phase, you may exile this card from your hand and pay its mana cost. At the beginning of your next upkeep, cast it without paying its mana cost.)\nTap up to two target creatures. If this spell was focused, those creatures don’t untap during their controller’s next untap step.

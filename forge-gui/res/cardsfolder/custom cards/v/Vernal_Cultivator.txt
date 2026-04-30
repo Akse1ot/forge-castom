@@ -1,0 +1,7 @@
+Name:Vernal Cultivator
+ManaCost:2 W
+Types:Creature Dryad
+PT:2/4
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters the battlefield, replenish. (Create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_food_canovol_sac
+Oracle:When Vernal Cultivator enters the battlefield, replenish. (Create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)

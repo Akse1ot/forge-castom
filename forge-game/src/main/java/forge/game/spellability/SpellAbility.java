@@ -100,6 +100,21 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
         taxed = value;
     }
 
+    private boolean focused = false;
+
+    public final boolean isFocused() {
+        if (focused) {
+            return true;
+        }
+
+        final SpellAbility parent = getParent();
+        return parent != null && parent.isFocused();
+    }
+
+    public final void setFocused(final boolean value) {
+        focused = value;
+    }
+
     private String originalDescription = "", description = "";
     private String originalStackDescription = "", stackDescription = "";
 

@@ -221,6 +221,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     private boolean foretoldCostByEffect;
 
     private boolean plotted;
+    private boolean focused;
 
     private Set<CardStateName> unlockedRooms = EnumSet.noneOf(CardStateName.class);
     private Map<CardStateName, SpellAbility> unlockAbilities = Maps.newEnumMap(CardStateName.class);
@@ -2689,6 +2690,15 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
                     sbLong.append(onlyMana ? "" : ".");
                     sbLong.append(" (").append(inst.getReminderText()).append(")");
                     sbLong.append("\r\n");
+                } else if (keyword.startsWith("Rig")) {
+                    final String[] k = keyword.split(":");
+                    final Cost cost = new Cost(k[1], false);
+                    final boolean onlyMana = cost.isOnlyManaCost();
+
+                    sbLong.append(k[0]).append(onlyMana ? " " : "—").append(cost.toSimpleString());
+                    sbLong.append(onlyMana ? "" : ".");
+                    sbLong.append(" (").append(inst.getReminderText()).append(")");
+                    sbLong.append("\r\n");
                 } else if (keyword.startsWith("Ward")) {
                     final String[] k = keyword.split(":");
                     final Cost cost = new Cost(k[1], false);
@@ -2862,6 +2872,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         final StringBuilder sb = new StringBuilder();
 
         if (plotted) sb.append("Plotted\r\n");
+        if (focused) sb.append("Focused\r\n");
 
         if (type.isInstant() || type.isSorcery()) {
             sb.append(abilityTextInstantSorcery(state));
@@ -6715,6 +6726,23 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
             final Map<AbilityKey, Object> runParams = AbilityKey.mapFromCard(this);
             game.getTriggerHandler().runTrigger(TriggerType.BecomesPlotted, runParams, false);
         }
+        return true;
+    }
+
+    public final boolean isFocused() {
+        if (this.isInZone(ZoneType.Exile)) {
+            return this.focused;
+        }
+
+        if (this.getCastSA() != null) {
+            return this.getCastSA().isFocused();
+        }
+
+        return false;
+    }
+
+    public final boolean setFocused(final boolean focused) {
+        this.focused = focused;
         return true;
     }
 
