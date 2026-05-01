@@ -18,6 +18,7 @@
 package forge.game.spellability;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 import com.google.common.collect.*;
 
@@ -175,6 +176,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
 
     private boolean isCopied = false;
     private boolean mayChooseNewTargets = false;
+    private List<GameObject> forbiddenNewTargets = Lists.newArrayList();
 
     private boolean isCastFromPlayEffect = false;
 
@@ -1281,6 +1283,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
 
             // always set this to false, it is only set in CopyEffect
             clone.mayChooseNewTargets = false;
+            clone.forbiddenNewTargets = Lists.newArrayList();
 
             clone.triggeringObjects = AbilityKey.newMap(this.triggeringObjects);
             if (!lki) {
@@ -1992,6 +1995,19 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
         mayChooseNewTargets = value;
     }
 
+    public void addForbiddenNewTarget(final GameObject target) {
+        if (target != null) {
+            forbiddenNewTargets.add(target);
+        }
+    }
+
+    private Predicate<GameObject> getForbiddenNewTargetsFilter() {
+        if (forbiddenNewTargets.isEmpty()) {
+            return null;
+        }
+        return target -> !forbiddenNewTargets.contains(target);
+    }
+
     /**
      * Returns whether variable was present in the announce list.
      */
@@ -2375,7 +2391,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
         do {
             if (currentAbility.usesTargeting()) {
                 TargetChoices oldTargets = currentAbility.getTargets();
-                if (forceTargetingPlayer.getController().chooseNewTargetsFor(currentAbility, null, true) == null) {
+                if (forceTargetingPlayer.getController().chooseNewTargetsFor(currentAbility, getForbiddenNewTargetsFilter(), true) == null) {
                     currentAbility.setTargets(oldTargets);
                 }
             }

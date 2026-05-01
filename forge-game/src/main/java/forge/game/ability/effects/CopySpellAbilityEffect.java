@@ -165,6 +165,7 @@ public class CopySpellAbilityEffect extends SpellAbilityEffect {
                         }
                         if (sa.hasParam("MayChooseTarget")) {
                             copy.setMayChooseNewTargets(true);
+                            addForbiddenNewTargets(copy, sa);
                         }
 
                         // extra case for Epic to remove the keyword and the last part of the SpellAbility
@@ -213,6 +214,19 @@ public class CopySpellAbilityEffect extends SpellAbilityEffect {
             if (sa.hasParam("RememberCopies")) {
                 card.addRemembered(copies);
             }
+        }
+    }
+
+    private void addForbiddenNewTargets(final SpellAbility copy, final SpellAbility sourceSA) {
+        if (!sourceSA.hasParam("NewTargetCantBe")) {
+            return;
+        }
+
+        for (final GameEntity e : AbilityUtils.getDefinedEntities(
+                sourceSA.getHostCard(),
+                sourceSA.getParam("NewTargetCantBe"),
+                sourceSA)) {
+            copy.addForbiddenNewTarget(e);
         }
     }
 

@@ -1,0 +1,9 @@
+Name:Frostscale Monster
+ManaCost:3 U U
+Types:Creature Lizard
+PT:3/3
+K:Immunity:3
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | Description$ CARDNAME can't be blocked.
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | OptionalDecider$ You | TriggerZones$ Battlefield | Execute$ TrigCopy | TriggerDescription$ Whenever CARDNAME becomes the target of a spell or ability, you may copy that spell or ability and choose a new target for it that isn’t CARDNAME.
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSourceSA | Controller$ You | MayChooseTarget$ True | NewTargetCantBe$ Self
+Oracle:Immunity 3 (Spells your opponents cast that target this creature cost {3} more to cast.)\nFrostscale Monster can’t be blocked.\nWhenever Frostscale Monster becomes the target of a spell or ability, you may copy that spell or ability and choose a new target for it that isn’t Frostscale Monster.

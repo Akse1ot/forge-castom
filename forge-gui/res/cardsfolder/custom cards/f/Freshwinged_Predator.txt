@@ -1,0 +1,9 @@
+Name:Freshwinged Predator
+ManaCost:3 U
+Types:Creature Lizard
+PT:2/2
+K:Flying
+K:Immunity:2
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever CARDNAME attacks, another target creature you control gains flying until end of turn.
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl+Other | TgtPrompt$ Select another target creature you control | KW$ Flying
+Oracle:Flying (This creature can't be blocked except by creatures with flying or reach.)\nImmunity 2 (Spells your opponents cast that target this creature cost {2} more to cast.)\nWhenever Freshwinged Predator attacks, another target creature you control gains flying until end of turn.
