@@ -1,0 +1,10 @@
+Name:Stataira
+ManaCost:2 U U
+Types:Legendary Creature Human
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | TriggerDescription$ When CARDNAME enters, you may gain control of target creature with toughness three or less until Stataira leaves the battlefield.
+SVar:TrigChange:DB$ GainControl | ValidTgts$ Creature.toughnessLE3 | Duration$ UntilHostLeavesPlay
+A:AB$ Scry | Cost$ 2 U U | ScryNum$ 3 | SpellDescription$ Scry 3.
+SVar:PlayMain1:TRUE
+Oracle:When Stataira enters the battlefield, you may gain control of target creature with toughness three or less until Stataira leaves the battlefield.\n
+{2}{U}{U}: Scry 3.

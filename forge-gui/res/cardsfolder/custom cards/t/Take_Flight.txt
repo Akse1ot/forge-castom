@@ -1,0 +1,7 @@
+Name:Take Flight
+ManaCost:U
+Types:Instant
+A:SP$ Charm | Choices$ DBReturn,DBFlying
+SVar:DBReturn:DB$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand | SpellDescription$ Return target creature to its owner's hand.
+SVar:DBFlying:DB$ Pump | KW$ Flying | ValidTgts$ Creature | SpellDescription$ Target creature gains flying until end of turn.
+Oracle:Choose one —\n• Return target creature to its owner’s hand.\n• Target creature gains flying until end of turn.

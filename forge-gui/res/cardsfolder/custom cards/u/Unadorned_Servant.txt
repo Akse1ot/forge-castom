@@ -1,0 +1,6 @@
+Name:Unadorned Servant
+ManaCost:2 B
+Types:Creature Kithkin Serf
+PT:2/3
+K:Tax
+Oracle:Tax (When you cast this spell, you may pay 3 life. If you do, it enters the battlefield with a +1/+1 counter on it.)

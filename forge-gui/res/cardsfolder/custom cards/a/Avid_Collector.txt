@@ -1,0 +1,8 @@
+Name:Avid Collector
+ManaCost:2 B
+Types:Creature Spider
+PT:1/1
+K:Reanimate
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters, you may return target creature to its owner's hand.
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Graveyard | ChangeType$ Creature | ChangeNum$ 1
+Oracle:When Avid Collector enters the battlefield, search your library for a creature card and put it into your graveyard. Then shuffle your library.\nReanimate (You may cast this card from your graveyard by sacrificing a creature in addition to paying its other costs.)

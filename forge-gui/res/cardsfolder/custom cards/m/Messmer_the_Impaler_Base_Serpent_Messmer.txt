@@ -27,7 +27,7 @@ K:Menace
 K:Trample
 T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, create that many tapped Treasure tokens.
 SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac | TokenAmount$ X | SubAbility$ DBDestroy
-SVar:DBDestroy:AB$ Destroy | ValidTgts$ Land.ControlledBy TriggeredTarget | TgtPrompt$ Choose target land damaged player controls | RememberLKI$ True | SubAbility$ DBToken | SpellDescription$ Ravage target land. (Destroy that land. When you do, if its controller doesn’t control the most lands, that player creates a tapped Wastes token.)
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Land.ControlledBy TriggeredTarget | TgtPrompt$ Choose target land damaged player controls | RememberLKI$ True | SubAbility$ DBToken | SpellDescription$ Ravage target land. (Destroy that land. When you do, if its controller doesn’t control the most lands, that player creates a tapped Wastes token.)
 SVar:DBToken:DB$ Token | ConditionDefined$ RememberedLKI | ConditionPresent$ Card | ConditionCompare$ GE1 | ConditionCheckSVar$ CtrlLands | ConditionSVarCompare$ LTMostLands | TokenScript$ c_Wastes | TokenAmount$ 1 | TokenTapped$ True | TokenOwner$ TargetedController | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 SVar:CtrlLands:TargetedController$Valid Land.YouCtrl

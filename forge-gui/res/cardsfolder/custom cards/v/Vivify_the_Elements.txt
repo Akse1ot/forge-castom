@@ -1,0 +1,7 @@
+Name:Vivify the Elements
+ManaCost:2 U U
+Types:Sorcery
+K:Focus
+A:SP$ Token | TokenAmount$ 2 | TokenScript$ u_2_2_drake_illusion_flying | SubAbility$ DBFocused | SpellDescription$ Create two 2/2 blue Drake Illusion creature tokens with flying. If this spell was focused, instead create a 5/5 blue Dragon Illusion creature token with flying.
+SVar:DBFocused:DB$ Token | TokenScript$ u_5_5_dragon_illusion_flying | Condition$ Focused
+Oracle:Focus (During your main phase, you may exile this card from your hand and pay its mana cost. At the beginning of your next upkeep, cast it without paying its mana cost.)\nCreate two 2/2 blue Drake Illusion creature tokens with flying. If this spell was focused, instead create a 5/5 blue Dragon Illusion creature token with flying.

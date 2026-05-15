@@ -1,0 +1,8 @@
+Name:Arbitrary Punishment
+ManaCost:B
+Types:Enchantment
+T:Mode$ PayLife | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife | TriggerDescription$ Whenever you pay life, discard a card, or sacrifice a permanent, target opponent loses 1 life.
+T:Mode$ Sacrificed | ValidCard$ Creature.YouCtrl | Execute$ TrigLoseLife | OptionalDecider$ You | TriggerZones$ Battlefield | TriggerDescription$ Whenever you pay life, discard a card, or sacrifice a permanent, target opponent loses 1 life.
+T:Mode$ Discarded | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife | TriggerDescription$ Whenever you pay life, discard a card, or sacrifice a permanent, target opponent loses 1 life.
+SVar:TrigLoseLife:DB$ LoseLife | LifeAmount$ 1 | ValidTgts$ Opponent | TgtPrompt$ Select target opponent
+Oracle:Whenever you pay life, discard a card, or sacrifice a permanent, target opponent loses 1 life.

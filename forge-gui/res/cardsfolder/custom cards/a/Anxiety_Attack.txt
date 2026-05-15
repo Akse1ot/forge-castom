@@ -1,0 +1,7 @@
+Name:Anxiety Attack
+ManaCost:2 B
+Types:Sorcery
+A:SP$ Discard | ValidTgts$ Player | NumCards$ 1 | Mode$ TgtChoose | SubAbility$ DBDiscard | SpellDescription$ Target player discards a card, then discards an additional card for each card named Anxiety Attack in your graveyard.
+SVar:DBDiscard:DB$ Discard | ValidTgts$ Player | NumCards$ X | Mode$ TgtChoose
+SVar:X:Count$ValidGraveyard Card.namedAnxiety Attack
+Oracle:Target player discards a card, then discards an additional card for each card named Anxiety Attack in your graveyard.

@@ -4,7 +4,7 @@ Types:Legendary Creature Fungus Avatar
 PT:5/5
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Enchantment.Other+YouCtrl | Execute$ TrigDraw | TriggerDescription$ Whenever CARDNAME or another enchantment you control enters, draw a card.
 SVar:TrigDraw:DB$ Draw
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Enchantment.Other+YouCtrl | Execute$ TrigGainLife | TriggerDescription$ Whenever this creature or another enchantment you control is put into a graveyard from the battlefield, gain life equal to its mana value.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Enchantment.Other+YouCtrl | Execute$ TrigGainLife | TriggerDescription$ Whenever CARDNAME or another enchantment you control is put into a graveyard from the battlefield, gain life equal to its mana value.
 SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X
 SVar:X:TriggeredCard$CardManaCost
 K:Spirit Ash:G G G Sac<3/Enchantment>

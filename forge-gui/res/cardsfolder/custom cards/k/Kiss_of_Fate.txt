@@ -1,0 +1,10 @@
+Name:Kiss of Fate
+ManaCost:3 B B
+Types:Enchantment Aura
+K:Enchant creature
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigSacrifice | TriggerDescription$ At the beginning of your upkeep, enchanted creature's controller sacrifices it.
+SVar:TrigSacrifice:DB$ Sacrifice | Defined$ EnchantedController | SacValid$ Card.AttachedBy
+T:Mode$ ChangesZone | ValidCard$ Creature.EnchantedBy | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigReturn | TriggerDescription$ When enchanted creature dies, return it to the battlefield under your control. It's a Spider in addition to its other types.
+SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | SubAbility$ DBSpider
+SVar:DBSpider:DB$ Animate | Defined$ TriggeredCard | Types$ Spider | Duration$ Permanent
+Oracle:Enchant creature\nAt the beginning of your upkeep, enchanted creature's controller sacrifices it.\nWhen enchanted creature dies, return it to the battlefield under your control. It's a Spider in addition to its other types.

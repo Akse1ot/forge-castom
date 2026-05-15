@@ -4,7 +4,7 @@ Types:Legendary Creature Dragon Skeleton
 PT:5/5
 K:Flying
 A:SP$ PermanentCreature | Cost$ 3 B B B ExileFromGrave<1/Creature;Planeswalker> | SpellDescription$ As an additional cost to cast this spell, exile a creature or planeswalker card from your graveyard.
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigReturn | TriggerDescription$ When CARDNAME dies, you may pay life equal to the exiled card’s mana value. If you do, put that card onto the battlefield under your control. It becomes a Skeleton in addition to its other types.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | TriggerZones$ Battlefield | OptionalDecider$ TriggeredCardController | Execute$ TrigReturn | TriggerDescription$ When CARDNAME dies, you may pay life equal to the exiled card’s mana value. If you do, put that card onto the battlefield under your control. It becomes a Skeleton in addition to its other types.
 SVar:TrigReturn:AB$ ChangeZone | Cost$ PayLife<X> | Defined$ ExiledWith | Origin$ Exile | Destination$ Battlefield | GainControl$ True | SubAbility$ DBAnimate
 SVar:DBAnimate:DB$ Animate | Defined$ ExiledWith | Types$ Skeleton | Duration$ Permanent
 SVar:X:Count$ExiledWith$CardManaCost

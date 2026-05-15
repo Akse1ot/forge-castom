@@ -1,0 +1,8 @@
+Name:Persistent Stalker
+ManaCost:3 B
+Types:Creature Djinn
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigAetherise | TriggerDescription$ When CARDNAME dies, aetherise it. (Put the aetherised card on top of its owner’s library.)
+SVar:TrigAetherise:DB$ Aetherise | Defined$ Self
+Oracle:Flying\nWhen Persistent Stalker dies, aetherise it. (Put the aetherised card on top of its owner’s library.)

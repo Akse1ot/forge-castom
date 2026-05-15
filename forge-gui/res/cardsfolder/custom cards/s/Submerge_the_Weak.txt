@@ -1,0 +1,5 @@
+Name:Submerge the Weak
+ManaCost:3 U U
+Types:Sorcery
+A:SP$ ChangeZoneAll | ValidTgts$ Player | Origin$ Battlefield | Destination$ Hand | ChangeType$ Creature | SpellDescription$ Return all creatures target player controls to their owner's hands.
+Oracle:Return all creatures target player controls to their owner's hands.

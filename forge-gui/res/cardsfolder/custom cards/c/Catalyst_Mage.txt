@@ -1,0 +1,8 @@
+Name:Catalyst Mage
+ManaCost:1 R
+Types:Creature Human Berserker
+PT:2/1
+K:Haste
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | TriggerController$ TriggeredCardController | Execute$ TrigPlay | TriggerDescription$ When CARDNAME dies, you may cast target instant or sorcery card with mana value 3 or less from your hand without paying its mana cost.
+SVar:TrigPlay:DB$ Play | TgtZone$ Hand | ValidTgts$ Instant.YouCtrl+cmcLE3,Sorcery.YouCtrl+cmcLE3 | ValidSA$ Spell | TgtPrompt$ Choose target instant or sorcery card with mana value 3 or less from your hand | WithoutManaCost$ True | Optional$ True
+Oracle:Haste\nWhen Catalyst Mage dies, you may cast target instant or sorcery card with converted mana cost 3 or less from your hand without paying its mana cost.

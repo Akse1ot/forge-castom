@@ -1,0 +1,8 @@
+Name:Exothermicity
+ManaCost:R
+Types:Sorcery
+A:SP$ Mill | Defined$ You | RememberMilled$ True | SubAbility$ DBMana1
+SVar:DBMana:DB$ Mana1 | Produced$ R R R | ConditionDefined$ Remembered | ConditionPresent$ Card.Instant,Card.Sorcery | ConditionCompare$ GE1 | SubAbility$ DBMana2
+SVar:DBMana:DB$ Mana2 | Produced$ R | ConditionDefined$ Remembered | ConditionPresent$ Card.nonInstant+nonSorcery | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Mill a card. If it’s a land card, add {R}{R}{R}. Otherwise add {R}.

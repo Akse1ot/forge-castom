@@ -1,8 +1,8 @@
 Name:Bloodboon
 ManaCost:R R
 Types:Instant
-A:AB$ Token | TokenScript$ c_a_blood_draw | TokenAmount$ 1 | TokenOwner$ You | SubAbility$ DBCharm | SpellDescription$ Create a Blood token. ABILITY
-SVar:DBCharm:SP$ Charm | Choices$ DBDealDamage,DBChangeTargets,DBDestroy
+A:SP$ Token | TokenScript$ c_a_blood_draw | TokenAmount$ 1 | TokenOwner$ You | SubAbility$ DBCharm | SpellDescription$ Create a Blood token. ABILITY
+SVar:DBCharm:DB$ Charm | Choices$ DBDealDamage,DBChangeTargets,DBDestroy
 SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ X | SpellDescription$ CARDNAME deals equal to the number of Blood tokens you control to target creature or planeswalker.
 SVar:X:Count$Valid Blood.YouCtrl
 SVar:DBChangeTargets:DB$ ChangeTargets | TargetType$ SpellAbility.singleTarget | ValidTgts$ Card,Emblem | TgtPrompt$ Select target spell or ability with a single target | SpellDescription$ Change the target of target spell or ability with a single target.

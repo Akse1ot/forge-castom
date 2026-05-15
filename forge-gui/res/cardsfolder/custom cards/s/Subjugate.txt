@@ -1,0 +1,9 @@
+Name:Subjugate
+ManaCost:3 U U
+Types:Instant
+A:SP$ Charm | Choices$ DBAetheriseSpell,DBAetheriseCreature,DBAetheriseCard
+SVar:DBAetheriseSpell:DB$ Aetherise | ValidTgts$ Spell | SpellDescription$ Aetherise target spell.
+SVar:DBAetheriseCreature:DB$ Aetherise | ValidTgts$ Creature.tapped | SpellDescription$ Aetherise target tapped creature.
+SVar:DBAetheriseCard:DB$ Aetherise | Origin$ Graveyard | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | SpellDescription$ Aetherise target instant or sorcery card in your graveyard.
+Text:(Put the aetherised card on top of its owner’s library.)
+Oracle:Choose one —\n• Aetherise target spell.\n• Aetherise target tapped creature.\n• Aetherise target instant or sorcery card in your graveyard.\n(Put the aetherised card on top of its owner’s library.)

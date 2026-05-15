@@ -3,7 +3,7 @@ ManaCost:3 W B
 Types:Creature Spirit
 PT:4/4
 K:Flying
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigPlayer | TriggerDescription$ When CARDNAME dies, exile all nonland cards from target player’s graveyard. For each card exiled this way, search that player’s hand and library for any number of cards with the same name as that card and exile them. Then that player shuffles their library.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | TriggerController$ TriggeredCardController | Execute$ TrigPlayer | TriggerDescription$ When CARDNAME dies, exile all nonland cards from target player’s graveyard. For each card exiled this way, search that player’s hand and library for any number of cards with the same name as that card and exile them. Then that player shuffles their library.
 SVar:TrigPlayer:DB$ Effect | ValidTgts$ Player | SubAbility$ ExileYardAll
 SVar:ExileYardAll:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | DefinedPlayer$ TargetedPlayer | ChangeType$ Card.nonLand | RememberChanged$ True | SubAbility$ DBRepeat | StackDescription$ None
 SVar:DBRepeat:DB$ RepeatEach | UseImprinted$ True | RepeatCards$ Card.IsRemembered | Zone$ Exile | RepeatSubAbility$ ExileHand | SubAbility$ ShuffleAndCleanup

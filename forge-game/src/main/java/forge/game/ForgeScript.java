@@ -244,6 +244,8 @@ public class ForgeScript {
             return sa.isMutate();
         } else if (property.equals("Ninjutsu")) {
             return sa.isNinjutsu();
+        } else if (property.equals("Reanimate")) {
+            return sa.isReanimate();
         } else if (property.equals("Sneak")) {
             return sa.isSneak();
         } else if (property.equals("Foretelling")) {

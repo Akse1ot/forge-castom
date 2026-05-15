@@ -1,0 +1,7 @@
+Name:Unbodied Guardians
+ManaCost:3 U U
+Types:Creature Djinn
+PT:4/3
+K:Flying
+A:AB$ Aetherise | Cost$ U | Defined$ Self | SpellDescription$ Aetherise CARDNAME. (Put the aetherised card on top of its owner’s library.)
+Oracle:Flying\n{U}: Aetherise Unbodied Guardians. (Put the aetherised card on top of its owner’s library.)

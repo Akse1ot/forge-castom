@@ -1,0 +1,8 @@
+Name:Flamefist Warrior
+ManaCost:2 R
+Types:Creature Orc Shaman
+PT:3/2
+K:Territorial
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+territorial | Execute$ TrigDamage | TriggerDescription$ When CARDNAME enters the battlefield, if it's territorial, it deals 3 damage to target creature.
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 3
+Oracle:Territorial (As this enters the battlefield, you may exile a land card from your hand or graveyard. When this leaves the battlefield, return the exiled card to your hand.)\nWhen Flamefist Warrior enters the battlefield, if it’s territorial, it deals 3 damage to target creature.

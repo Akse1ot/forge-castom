@@ -1,0 +1,6 @@
+Name:Faceless Dread
+ManaCost:B
+Types:Creature Elemental Nightmare
+PT:1/2
+K:Derange
+Oracle:Derange (Whenever this creature attacks, you may mill a card. If you do, defending player loses 1 life.)

@@ -286,8 +286,8 @@ public class SpellAbilityCondition extends SpellAbilityVariables {
         if (this.surgeCostPaid && !sa.isSurged()) return false;
         if (this.bargain && !sa.isBargained()) return false;
         if (this.foretold && !sa.isForetold()) return false;
-        if (this.focused && !sa.isFocused()) return false;
-        if (this.notFocused && sa.isFocused()) return false;
+        if (this.focused && !sa.isFocused() && !host.isFocused()) return false;
+        if (this.notFocused && (sa.isFocused() || host.isFocused())) return false;
 
         if (this.optionalCostPaid && this.optionalBoolean && !sa.isOptionalCostPaid(OptionalCost.Generic)) return false;
         if (this.optionalCostPaid && !this.optionalBoolean && sa.isOptionalCostPaid(OptionalCost.Generic)) return false;

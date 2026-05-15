@@ -1,0 +1,6 @@
+Name:Heart for a Heart
+ManaCost:2 B
+Types:Sorcery
+A:SP$ Sacrifice | SacValid$ Creature | Defined$ Player | SuAbility$ DBReturn | SpellDescription$ Each player sacrifices a creature, then returns a creature card from their graveyard to the battlefield.
+SVar:DBReturn:DB$ ChangeZone | Defined$ Player | ChangeType$ Creature | Origin$ Graveyard | Destination$ Battlefield
+Oracle:Each player sacrifices a creature, then returns a creature card from their graveyard to the battlefield.

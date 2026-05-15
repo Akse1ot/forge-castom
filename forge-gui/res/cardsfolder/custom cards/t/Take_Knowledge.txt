@@ -1,0 +1,6 @@
+Name:Take Knowledge
+ManaCost:U
+Types:Instant
+A:SP$ Draw | NumCards$ 3 | SubAbility$ DBAetheriseHand | SpellDescription$ Draw three cards, then aetherise two cards from your hand. (Put the aetherised cards on top of their owner’s library in any order.)
+SVar:DBAetheriseHand:DB$ Aetherise | Origin$ Hand | DefinedPlayer$ You | ChangeType$ Card | ChangeNum$ 2
+Oracle:Draw three cards, then aetherise two cards from your hand. (Put the aetherised cards on top of their owner’s library in any order.)

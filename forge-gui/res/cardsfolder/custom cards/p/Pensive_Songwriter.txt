@@ -2,7 +2,7 @@ Name:Pensive Songwriter
 ManaCost:1 U R
 Types:Creature Human Bard
 PT:2/1
-T:Mode$ ChangesZone | ValidCard$ Card.Self+wasCastByYou | Destination$ Battlefield | Execute$ DBReveal | OptionalDecider$ You | TriggerDescription$ Pensive Songwriter enters the battlefield, if you cast it, you may reveal an instant or sorcery card with converted mana cost 2 or less from your hand. If you do, copy that card and cast the copy without paying its mana cost.
+T:Mode$ ChangesZone | ValidCard$ Card.Self+wasCastByYou | Destination$ Battlefield | Execute$ DBReveal | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters the battlefield, if you cast it, you may reveal an instant or sorcery card with converted mana cost 2 or less from your hand. If you do, copy that card and cast the copy without paying its mana cost.
 SVar:DBReveal:DB$ Reveal | RevealValid$ Instant.YouCtrl+cmcLE2,Sorcery.YouCtrl+cmcLE2 | RememberRevealed$ True | SubAbility$ DBPlay
 SVar:DBPlay:DB$ Play | Valid$ Card.IsRemembered | Controller$ You | CopyCard$ True | WithoutManaCost$ True | ValidSA$ Spell | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True

@@ -729,6 +729,10 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
         return isAlternativeCost(AlternativeCost.Prowl);
     }
 
+    public final boolean isReanimate() {
+        return isAlternativeCost(AlternativeCost.Reanimate);
+    }
+
     public final boolean isSneak() {
         return isAlternativeCost(AlternativeCost.Sneak);
     }

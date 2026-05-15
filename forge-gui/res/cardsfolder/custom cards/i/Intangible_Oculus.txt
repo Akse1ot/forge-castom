@@ -1,0 +1,7 @@
+Name:Intangible Oculus
+ManaCost:2 U
+Types:Creature Djinn
+PT:1/4
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigAetherise | TriggerDescription$ When CARDNAME enters the battlefield, you may pay {4}. If you do, aetherise target permanent. (Put the aetherised card on top of its owner’s library.)
+SVar:TrigAetherise:DB$ Aetherise | Cost$ 4 | ValidTgts$ Permanent
+Oracle:When Intangible Oculus enters the battlefield, you may pay {4}. If you do, aetherise target permanent. (Put the aetherised card on top of its owner’s library.)

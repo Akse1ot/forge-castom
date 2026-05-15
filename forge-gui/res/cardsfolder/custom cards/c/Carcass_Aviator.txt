@@ -1,0 +1,6 @@
+Name:Carcass Aviator
+ManaCost:2 B B
+Types:Creature Spider Horror
+PT:2/5
+A:AB$ Pump | Cost$ Mill<4> | Defined$ Self | KW$ Flying & Deathtouch | ActivationLimit$ 1 | SpellDescription$ CARDNAME gains flying and deathtouch until end of turn. Activate this ability only once per turn.
+Oracle:Mill four cards: Carcass Aviator gains flying and deathtouch until end of turn. Activate this ability only once per turn.

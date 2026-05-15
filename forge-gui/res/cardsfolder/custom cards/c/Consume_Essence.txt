@@ -1,0 +1,7 @@
+Name:Consume Essence
+ManaCost:3 B B
+Types:Instant
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBExileCreature,DBExileCard
+SVar:DBExileCreature:DB$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | SpellDescription$ Exile target creature.
+SVar:DBExileCard:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature | SpellDescription$ Exile target creature card from a graveyard.
+Oracle:Choose one or both —\n• Exile target creature.\n• Exile target creature card from a graveyard.

@@ -3,7 +3,7 @@ ManaCost:W B
 Types:Creature Vampire
 PT:2/2
 T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME dies, create a 1/1 white Human Warrior creature token.
-SVar:TrigToken:DB$ Token | TokenAmount$ 1 | TokenScript$ w_1_1_spirit_flying | TokenOwner$ You
+SVar:TrigToken:DB$ Token | TokenAmount$ 1 | TokenScript$ w_1_1_spirit_flying
 SVar:SacMe:2
 DeckHas:Ability$Token
 Oracle:When Nefarious Noble dies, create a 1/1 white Spirit creature token with flying.

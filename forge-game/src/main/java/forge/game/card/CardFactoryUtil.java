@@ -967,6 +967,38 @@ public class CardFactoryUtil {
             trigger.setOverridingAbility(youCopy);
 
             inst.addTrigger(trigger);
+        } else if (keyword.equals("Derange")) {
+            final String trigStr = "Mode$ Attacks | ValidCard$ Card.Self | Secondary$ True"
+                    + " | TriggerDescription$ Derange (" + inst.getReminderText() + ")";
+
+            final String millStr = "DB$ Mill"
+                    + " | Defined$ You"
+                    + " | NumCards$ 1"
+                    + " | Optional$ True"
+                    + " | ForgetOtherRemembered$ True"
+                    + " | RememberMilled$ True";
+
+            final String loseLifeStr = "DB$ LoseLife"
+                    + " | Defined$ TriggeredDefendingPlayer"
+                    + " | LifeAmount$ 1"
+                    + " | ConditionDefined$ Remembered"
+                    + " | ConditionPresent$ Card"
+                    + " | ConditionCompare$ GE1";
+
+            final String cleanupStr = "DB$ Cleanup | ClearRemembered$ True";
+
+            final Trigger trigger = TriggerHandler.parseTrigger(trigStr, card, intrinsic);
+
+            final SpellAbility millSA = AbilityFactory.getAbility(millStr, card);
+            final AbilitySub loseLifeSA = (AbilitySub) AbilityFactory.getAbility(loseLifeStr, card);
+            final AbilitySub cleanupSA = (AbilitySub) AbilityFactory.getAbility(cleanupStr, card);
+
+            loseLifeSA.setSubAbility(cleanupSA);
+            millSA.setSubAbility(loseLifeSA);
+            millSA.setIntrinsic(intrinsic);
+
+            trigger.setOverridingAbility(millSA);
+            inst.addTrigger(trigger);
         } else if (keyword.equals("Dethrone")) {
             final StringBuilder trigScript = new StringBuilder(
                     "Mode$ Attacks | ValidCard$ Card.Self | Attacked$ Player.withMostLife | Secondary$ True | "
@@ -1915,6 +1947,16 @@ public class CardFactoryUtil {
             taxTrigger.setOverridingAbility(taxSA);
 
             inst.addTrigger(taxTrigger);
+        } else if (keyword.equals("Territorial")) {
+            final String trigStr = "Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Card.Self | Secondary$ True | TriggerDescription$ When this permanent leaves the battlefield, return the exiled card to your hand.";
+            final String effect = "DB$ ChangeZone | Defined$ ExiledWith.Land+inZoneExile | Origin$ Exile | Destination$ Hand";
+
+            final Trigger trigger = TriggerHandler.parseTrigger(trigStr, card, intrinsic);
+            final SpellAbility sa = AbilityFactory.getAbility(effect, card);
+            sa.setIntrinsic(intrinsic);
+            trigger.setOverridingAbility(sa);
+
+            inst.addTrigger(trigger);
         } else if (keyword.equals("Training")) {
             final String trigStr = "Mode$ Attacks | ValidCard$ Card.Self | Secondary$ True | " +
                     "IsPresent$ Creature.attacking+Other+powerGTX | NoResolvingCheck$ True | TriggerDescription$ Training (" +
@@ -2542,6 +2584,12 @@ public class CardFactoryUtil {
                     "Card.Self+taxed",
                     ""
             );
+
+            inst.addReplacement(re);
+        } else if (keyword.equals("Territorial")) {
+            final String effect = "DB$ ChangeZone | Origin$ Hand,Graveyard | Destination$ Exile | ChangeType$ Land.YouOwn | ChangeNum$ 1 | Hidden$ True | Optional$ True | SpellDescription$ Territorial";
+
+            final ReplacementEffect re = createETBReplacement(card, ReplacementLayer.Other, effect, false, true, intrinsic, "Card.Self", "");
 
             inst.addReplacement(re);
         } else if (keyword.startsWith("Tribute")) {
@@ -3574,6 +3622,30 @@ public class CardFactoryUtil {
                     System.err.println("Resonance allowed only on Instant or Sorcery: " + card.getName());
                 }
             }
+        } else if (keyword.equals("Reanimate")) {
+            final Cost reanimateCost = new Cost(
+                    card.getManaCost().getShortString() + " Sac<1/Creature.YouCtrl>",
+                    false
+            );
+
+            final SpellAbility newSA = card.getFirstSpellAbilityWithFallback()
+                    .copyWithManaCostReplaced(host.getController(), reanimateCost);
+
+            newSA.getRestrictions().setZone(ZoneType.Graveyard);
+            newSA.setAlternativeCost(AlternativeCost.Reanimate);
+
+            if (host.isInstant() || host.isSorcery()) {
+                newSA.putParam("Secondary", "True");
+            }
+
+            newSA.putParam("PrecostDesc", "Reanimate");
+            newSA.putParam("CostDesc", reanimateCost.toSimpleString());
+
+            newSA.setDescription("Reanimate (" + inst.getReminderText() + ")");
+            newSA.setStackDescription(card.getName() + " (Reanimate)");
+
+            newSA.setIntrinsic(intrinsic);
+            inst.addSpellAbility(newSA);
         } else if (keyword.startsWith("Reinforce") && inst instanceof KeywordWithCostAndAmount reinforce) {
                 final String n = reinforce.getAmountString();
             final String manacost = reinforce.getCostString();

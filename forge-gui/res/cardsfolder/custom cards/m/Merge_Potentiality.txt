@@ -1,0 +1,7 @@
+Name:Merge Potentiality
+ManaCost:3 U U
+Types:Sorcery
+A:SP$ Draw | NumCards$ 4 | SubAbility$ DBShuffles | SpellDescription$ Draw four cards, then target player shuffles up to four cards from their graveyard into their library.
+SVar:DBShuffles:DB$ Pump | ValidTgts$ Player | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 4 | TargetsWithDefinedController$ ParentTarget | Origin$ Graveyard | Destination$ Library | Shuffle$ True | ValidTgts$ Card
+Oracle:Draw four cards, then target player shuffles up to four cards from their graveyard into their library.

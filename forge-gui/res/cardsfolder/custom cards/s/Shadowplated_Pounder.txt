@@ -1,0 +1,7 @@
+Name:Shadowplated Pounder
+ManaCost:5 B
+Types:Creature Djinn
+PT:6/4
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | OptionalDecider$ TriggeredCardController | Execute$ TrigChange | TriggerDescription$ When CARDNAME dies, you may aetherise another target creature or artifact card in your graveyard. (Put the aetherised card on top of its owner’s library.)
+SVar:TrigChange:DB$ Aetherise | Origin$ Graveyard | ValidTgts$ Creature.Other+YouOwn,Artifact.YouOwn
+Oracle:When Shadowplated Pounder dies, you may aetherise another target creature or artifact card in your graveyard. (Put the aetherised card on top of its owner’s library.)

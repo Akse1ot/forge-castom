@@ -1,0 +1,10 @@
+Name:Glacial Guardian
+ManaCost:1 U
+Types:Creature Human Monk
+PT:0/2
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounters | TriggerDescription$ Whenever you cast a instant or sorcery spell, put a +1/+1 counter on CARDNAME, then create a 1/1 blue Goat Illusion creature token.
+SVar:TrigCounters:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ u_1_1_illusion_goat
+SVar:BuffedBy:Instant,Sorcery
+DeckHints:Type$Instant|Sorcery
+Oracle:Whenever you cast an instant or sorcery spell, put a +1/+1 counter on Glacial Guardian, then create a 1/1 blue Goat Illusion creature token.

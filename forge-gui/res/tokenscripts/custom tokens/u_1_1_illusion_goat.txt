@@ -1,0 +1,6 @@
+Name:Illusion Goat Token
+ManaCost:no cost
+Colors:blue
+Types:Creature Illusion Goat
+PT:1/1
+Oracle:

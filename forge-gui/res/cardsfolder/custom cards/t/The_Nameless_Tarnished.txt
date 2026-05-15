@@ -3,7 +3,7 @@ ManaCost:W U B R G
 Types:Legendary Planeswalker Tarnished
 Loyalty:5
 T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigRune | TriggerDescription$ Whenever a creature an opponent controls dies, create a Rune token.
-SVar:TrigRune:DB$ Token | TokenAmount$ 1 | TokenScript$ c_a_Rune_sac | TokenOwner$ You
+SVar:TrigRune:DB$ Token | TokenAmount$ 1 | TokenScript$ c_a_Rune_sac
 A:AB$ PutCounterAll | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | ValidCards$ Planeswalker.YouCtrl | CounterType$ LOYALTY | CounterNum$ 1 | SpellDescription$ Put a loyalty counter on each planeswalker you control.
 A:AB$ ChooseSpellAbility | Cost$ SubCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Planeswalker | TgtPrompt$ Choose target planeswalker | ValidSA$ Activated.Loyalty | ChoiceTitle$ Choose a loyalty ability | SubAbility$ DBGainChosen | SpellDescription$ Choose a loyalty ability of target planeswalker. The Nameless Tarnished gains that ability.
 SVar:DBGainChosen:DB$ Effect | CopyChosenSpellAbility$ True | ImprintCards$ Self | StaticAbilities$ GainChosenLoyalty | Duration$ Permanent

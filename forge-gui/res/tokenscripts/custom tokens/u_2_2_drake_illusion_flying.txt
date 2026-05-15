@@ -1,0 +1,7 @@
+Name:Drake Illusion Token
+ManaCost:no cost
+Colors:blue
+Types:Creature Drake Illusion
+PT:2/2
+K:Flying
+Oracle:Flying

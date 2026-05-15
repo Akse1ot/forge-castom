@@ -1,0 +1,6 @@
+Name:Sinister Scheme
+ManaCost:2 B B
+Types:Instant
+A:SP$ Aetherise | Cost$ Discard<X/Card> 2 B B | Origin$ Library | DefinedPlayer$ You | ChangeType$ Card | ChangeNum$ X | Shuffle$ True | Mandatory$ True | SpellDescription$ As an additional cost to cast this spell, discard X cards. Search your library for X cards. Then shuffle your library and aetherise those cards.
+SVar:X:Count$xPaid
+Oracle:As an additional cost to cast this spell, discard X cards.\nSearch your library for X cards. Then shuffle your library and aetherise those cards. (Put the aetherised cards on top of their owner's library in any order.)

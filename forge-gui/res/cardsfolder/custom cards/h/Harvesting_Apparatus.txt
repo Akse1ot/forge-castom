@@ -1,0 +1,7 @@
+Name:Harvesting Apparatus
+ManaCost:U
+Types:Artifact Creature Bird
+PT:0/3
+K:Rig:1
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddToughness$ 3 | Description$ EEquipped creature gets +0/+3.
+Oracle:Flying, double strike\nRig {1} ({1}: This stops being a creature and becomes an Equipment until your next upkeep. Attach it to target creature you control. Rig only as a sorcery.)\nEquipped creature gets +0/+3.

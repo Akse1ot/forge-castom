@@ -1,0 +1,10 @@
+Name:Airborne Punisher
+ManaCost:3 B B
+Types:Creature Kithkin Noble
+PT:3/3
+K:Tax
+K:Flying
+T:Mode$ PayLife | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ Whenever you pay life or sacrifice a creature, put a +1/+1 counter on CARDNAME.
+T:Mode$ Sacrificed | ValidCard$ Creature.YouCtrl | Execute$ TrigPutCounter | OptionalDecider$ You | TriggerZones$ Battlefield | TriggerDescription$ Whenever you pay life or sacrifice a creature, put a +1/+1 counter on CARDNAME.
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1
+Oracle:Tax (When you cast this spell, you may pay 3 life. If you do, it enters the battlefield with a +1/+1 counter on it.)\nFlying\nWhenever you pay life or sacrifice a creature, put a +1/+1 counter on Airborne Punisher.

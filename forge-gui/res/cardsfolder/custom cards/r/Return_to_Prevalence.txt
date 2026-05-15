@@ -1,0 +1,7 @@
+Name:Return to Prevalence
+ManaCost:2 B
+Types:Instant
+A:SP$ Aetherise | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | TargetMin$ 0 | TargetMax$ X | SubAbility$ DBDraw | SpellDescription$ Aetherise any number of creature cards in your graveyard, then draw a card. (Put the aetherised cards on top of their owner’s library in any order.)
+SVar:DBDraw:DB$ Draw
+SVar:X:Count$ValidGraveyard Creature.YouOwn
+Oracle:Aetherise any number of creature cards in your graveyard, then draw a card. (Put the aetherised cards on top of their owner’s library in any order.)

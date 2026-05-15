@@ -1835,6 +1835,41 @@ public class CardProperty {
                 return false;
             }
             return card.getCastSA().isTax();
+        } else if (property.equals("territorial")) {
+            Card check = lki != null ? lki : card;
+            boolean found = false;
+
+            for (Card exiled : check.getExiledCards()) {
+                if (exiled == null) {
+                    continue;
+                }
+
+                Card exiledState = game.getCardState(exiled);
+                if (exiledState == null) {
+                    continue;
+                }
+
+                if (!exiledState.isInZone(ZoneType.Exile)) {
+                    continue;
+                }
+
+                if (!exiledState.isLand()) {
+                    continue;
+                }
+
+                if (exiledState.getExiledWith() == null) {
+                    continue;
+                }
+
+                if (exiledState.getExiledWith().equalsWithGameTimestamp(check)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                return false;
+            }
         } else if (property.equals("IsSolved")) {
             if (!card.isSolved()) {
                 return false;

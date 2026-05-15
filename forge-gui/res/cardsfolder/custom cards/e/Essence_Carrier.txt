@@ -1,0 +1,8 @@
+Name:Essence Carrier
+ManaCost:B
+Types:Creature Kithkin Serf
+PT:1/0
+K:Tax
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigLoseLife | TriggerDescription$ When CARDNAME dies, each opponent loses 3 life.
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 3
+Oracle:Tax (When you cast this spell, you may pay 3 life. If you do, it enters the battlefield with a +1/+1 counter on it.)\nWhen Essence Carrier dies, each opponent loses 3 life.

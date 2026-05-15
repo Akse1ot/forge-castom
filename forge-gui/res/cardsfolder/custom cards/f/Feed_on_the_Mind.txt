@@ -1,0 +1,5 @@
+Name:Feed on the Mind
+ManaCost:2 B B
+Types:Sorcery
+A:SP$ Aetherise | Origin$ Hand | DefinedPlayer$ Targeted | ChangeType$ Card | ChangeNum$ 2 | SpellDescription$ Look at target player’s hand and aetherise two cards from it. (Put the aetherised cards on top of their owner’s library in any order.)
+Oracle:Look at target player’s hand and aetherise two cards from it. (Put the aetherised cards on top of their owner’s library in any order.)

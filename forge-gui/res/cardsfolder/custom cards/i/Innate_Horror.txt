@@ -1,0 +1,8 @@
+Name:Innate Horror
+ManaCost:3 B
+Types:Creature Elemental Nightmare
+PT:4/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a 2/2 black Elemental Nightmare creature token for each card named Innate Horror in your graveyard.
+SVar:TrigToken:DB$ Token | TokenScript$ b_2_2_elemental_nightmare | TokenAmount$ X
+SVar:X:Count$ValidGraveyard Card.namedInnate Horror
+Oracle:When Innate Horror enters the battlefield, create a 2/2 black Elemental Nightmare creature token for each card named Innate Horror in your graveyard.

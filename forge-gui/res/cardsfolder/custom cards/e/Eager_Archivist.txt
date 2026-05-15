@@ -1,0 +1,8 @@
+Name:Eager Archivist
+ManaCost:4 B B
+Types:Creature Spider Wizard
+PT:4/7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters, search your library for a card and put it into your hand. Then shuffle your library.
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card | ChangeNum$ 1 | 
+K:Reanimate
+Oracle:When Eager Archivist enters the battlefield, search your library for a card and put it into your hand. Then shuffle your library.\nReanimate (You may cast this card from your graveyard by sacrificing a creature in addition to paying its other costs.)

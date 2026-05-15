@@ -1,0 +1,7 @@
+Name:Induced Meditation
+ManaCost:2 U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | SetPower$ 0 | SetToughness$ 4 | AddKeyword$ Defender | Description$ Enchanted creature has base power and toughness 0/4 and has defender.
+Oracle:Enchant creature\nEnchanted creature has base power and toughness 0/4 and has defender.

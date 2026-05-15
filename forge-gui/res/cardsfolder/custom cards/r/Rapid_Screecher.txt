@@ -1,0 +1,9 @@
+Name:Rapid Screecher
+ManaCost:2 U U
+Types:Creature Bird Soldier
+PT:1/1
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCounter | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters, you may counter target creature spell.
+SVar:TrigCounter:DB$ Counter | TargetType$ Spell | ValidTgts$ Creature | TgtPrompt$ Select target creature spell
+Oracle:Flash, Flying\nWhen Rapid Screecher enters the battlefield, you may counter target creature spell.

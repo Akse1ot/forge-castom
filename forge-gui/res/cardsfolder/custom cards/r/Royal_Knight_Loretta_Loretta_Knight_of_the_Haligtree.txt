@@ -4,8 +4,8 @@ Types:Legendary Enchantment Creature Spirit Knight
 PT:1/2
 K:Vigilance
 K:Prowess
-T:Mode$ ChangesZoneAll | ValidCards$ Spirit.Other+YouCtrl | Destination$ Battlefield | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigToken | TriggerDescription$ Whenever one or more other Spirits you control enter, create two blue enchantment tokens named Glintblade with “Sacrifice this enchantment: Target creature gets -1/-0 until end of turn.”
-SVar:TrigToken:DB$ Token | TokenScript$ u_e_Glintblade_sac
+T:Mode$ ChangesZoneAll | ValidCards$ Spirit.Other+YouCtrl | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever one or more other Spirits you control enter, create two blue enchantment tokens named Glintblade with “Sacrifice this enchantment: Target creature gets -1/-0 until end of turn.”
+SVar:TrigToken:DB$ Token | TokenScript$ u_e_Glintblade_sac | TokenAmount$ 2
 AlternateMode:Modal
 Oracle:Vigilance, prowess\nWhenever one or more other Spirits you control enter, create two blue enchantment tokens named Glintblade with “Sacrifice this enchantment: Target creature gets -1/-0 until end of turn.”
 

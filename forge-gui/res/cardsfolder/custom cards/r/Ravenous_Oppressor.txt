@@ -1,0 +1,11 @@
+Name:Ravenous Oppressor
+ManaCost:3 B B
+Types:Creature Spider Horror
+PT:6/6
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard | TriggerDescription$ When CARDNAME enters, sacrifice it unless you discard a card.
+SVar:TrigDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | Optional$ True | RememberDiscarded$ True | SubAbility$ DBSacrifice
+SVar:DBSacrifice:DB$ Sacrifice | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ0 | SubAbility$ DBCoralCleanup
+SVar:DBCoralCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Reanimate
+Oracle:Trample\nWhen Ravenous Oppressor enters the battlefield, sacrifice it unless you discard a card.\nReanimate (You may cast this card from your graveyard by sacrificing a creature in addition to paying its other costs.)

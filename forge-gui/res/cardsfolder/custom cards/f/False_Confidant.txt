@@ -1,0 +1,11 @@
+Name:False Confidant
+ManaCost:3 B B
+Types:Creature Djinn
+PT:4/4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChoosePlayer | TriggerDescription$ At the beginning of your upkeep, choose a player. That player reveals the top card of their library and puts that card into their hand. They lose life equal to its converted mana cost.
+SVar:TrigChoosePlayer:DB$ ChoosePlayer | Defined$ You | Choices$ Player | RememberChosen$ True | ChoiceTitle$ Choose a player reveals the top card of their library and puts that card into their hand. They lose life equal to its converted mana cost. | SubAbility$ Reveals
+SVar:Reveals:DB$ Dig | Defined$ Remembered | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Hand | Imprint$ True | SubAbility$ EachLose
+SVar:EachLose:DB$ LoseLife | Defined$ Remembered | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+SVar:X:Imprinted$CardManaCost
+Oracle:At the beginning of your upkeep, choose a player. That player reveals the top card of their library and puts that card into their hand. They lose life equal to its converted mana cost.
