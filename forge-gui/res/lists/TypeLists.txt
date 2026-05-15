@@ -456,6 +456,7 @@ Liliana
 Lolth
 Lukka
 Minsc
+Monopoly
 Mordenkainen
 Nahiri
 Narset
