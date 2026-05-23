@@ -1660,9 +1660,22 @@ public class AbilityUtils {
         Iterable<Card> someCards = null;
         final Game game = c.getGame();
 
-        // Count$ModifiedWays и Count$ModifiedWays.Affected
+        // Count$ModifiedWays
+        // Count$ModifiedWays.Equipping
         if (sq[0].equalsIgnoreCase("ModifiedWays")) {
-            return doXMath(c.getModificationTypeCount(), expr, c, ctb);
+            Card modifiedCard = c;
+
+            if (sq.length > 1) {
+                if (sq[1].equalsIgnoreCase("Equipping")) {
+                    modifiedCard = c.getEquipping();
+                }
+            }
+
+            if (modifiedCard == null) {
+                return 0;
+            }
+
+            return doXMath(modifiedCard.getModificationTypeCount(), expr, c, ctb);
         }
 
         // === Imaginarium: Count$ColorsInYourYard (number of distinct colors among cards in your graveyard) ===

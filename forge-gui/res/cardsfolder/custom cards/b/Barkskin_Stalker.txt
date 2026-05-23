@@ -1,0 +1,6 @@
+Name:Barkskin Stalker
+ManaCost:1 G
+Types:Creature Spider
+PT:2/2
+A:AB$ Pump | Cost$ Discard<1/Card> | Defined$ Self | NumAtt$ +2 | NumDef$ +2 | KW$ Reach | ActivationLimit$ 1 | SpellDescription$ CARDNAME gets +2/+2 and gains reach until end of turn. Activate this ability only once per turn.
+Oracle:Discard a card: Barkskin Stalker gets +2/+2 and gains reach until end of turn. Activate this ability only once per turn.

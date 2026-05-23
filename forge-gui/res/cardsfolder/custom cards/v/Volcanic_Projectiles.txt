@@ -1,0 +1,8 @@
+Name:Volcanic Projectiles
+ManaCost:3 R R
+Types:Instant
+K:Focus
+A:SP$ DealDamage | ValidTgts$ Any | TgtPrompt$ Select any target | NumDmg$ 4 | SubAbility$ DBFocusedNoBlock | SpellDescription$ CARDNAME deals 4 damage to any target. If this spell was focused, creatures can't block this turn.
+SVar:DBFocusedNoBlock:DB$ Effect | Condition$ Focused | StaticAbilities$ STNoBlock | Duration$ UntilEOT
+SVar:STNoBlock:Mode$ CantBlock | ValidCreature$ Creature | Description$ Creatures can't block this turn.
+Oracle:Focus (During your main phase, you may exile this card from your hand and pay its mana cost. At the beginning of your next upkeep, cast it without paying its mana cost.)\nVolcanic Projectiles deals 4 damage to any target. If this spell was focused, creatures can't block this turn.

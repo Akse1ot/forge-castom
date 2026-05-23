@@ -1,0 +1,6 @@
+Name:Insect Samurai Token
+ManaCost:no cost
+Colors:red
+Types:Creature Insect Samurai
+PT:1/1
+Oracle:

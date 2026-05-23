@@ -9,6 +9,6 @@ T:Mode$ ChangesZoneAll | ValidCards$ Card | Origin$ Graveyard | Destination$ Any
 SVar:TrigDrain:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
 SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBDraw
 SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ LegAmong | ConditionSVarCompare$ GE1
-SVar:LegAmong:Count$TriggerObjectsCards/Valid Card.Legendary
+SVar:LegAmong:TriggerObjectsCards$Valid Card.Legendary
 Oracle:Defender\nWhenever a legendary permanent is put into a graveyard from the battlefield, you may exile it.\n
 Whenever one or more cards leave a graveyard, each opponent loses 1 life and you gain 1 life. If there was a legendary card among those cards, you draw a card.

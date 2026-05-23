@@ -1,0 +1,8 @@
+Name:Burial Rites
+ManaCost:2 B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever a creature you control dies, replenish. (Create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_food_canovol_sac | TokenOwner$ You
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+counters_GE1_P1P1 | AddKeyword$ Menace | Description$ Each creature you control with a +1/+1 counter on it has menace.
+SVar:PlayMain1:TRUE
+Oracle:Whenever a creature you control dies, replenish. (Create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)\nEach creature you control with a +1/+1 counter on it has menace.

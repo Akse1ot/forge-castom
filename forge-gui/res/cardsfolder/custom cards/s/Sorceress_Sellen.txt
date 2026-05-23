@@ -4,5 +4,5 @@ Types:Legendary Creature Human Wizard
 PT:3/2
 T:Mode$ ChangesZone | ValidCard$ Instant,Sorcery | Origin$ Library,Hand | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigDraw | OptionalDecider$ You | TriggerDescription$ Whenever one or more instant or sorcery cards are put into your graveyard from your hand or library, draw a card.
 SVar:TrigDraw:DB$ Draw
-A:AB$ Token | Cost$ 2 U B T ExileFromGrave<1/Instant;Sorcery> | CostDesc$ {2}{U}{B}, {T}, Exile an instant or sorcery card from your graveyard: | TokenScript$ ub_3_3_horror_wizard_vigilance_prowess | SpellDescription$ Create a 3/3 blue and black Horror Wizard creature token with vigilance and prowess.
+A:AB$ Token | Cost$ 2 U B T Sac<1/Creature.Wizard/creature Wizard> ExileFromGrave<1/Instant;Sorcery> | CostDesc$ {2}{U}{B}, {T}, Sacrifice a Wizard, Exile an instant or sorcery card from your graveyard: | TokenScript$ ub_3_3_horror_wizard_vigilance_prowess | SpellDescription$ Create a 3/3 blue and black Horror Wizard creature token with vigilance and prowess.
 Oracle:Whenever one or more instant or sorcery cards are put into your graveyard from your hand or library, draw a card.\n{2}{U}{B}, {T}, Sacrifice a Wizard, Exile an instant or sorcery card from your graveyard: Create a 3/3 blue and black Horror Wizard creature token with vigilance and prowess.

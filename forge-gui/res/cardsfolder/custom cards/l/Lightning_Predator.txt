@@ -1,0 +1,6 @@
+Name:Lightning Predator
+ManaCost:2 R R
+Types:Creature Orc Barbarian
+PT:4/1
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ R | IsPresent$ Land.YouCtrl | PresentCompare$ EQ1 | Description$ If you control exactly one land, CARDNAME costs {R} to cast.
+Oracle:If you control exactly one land, Lightning Predator costs {R} to cast.

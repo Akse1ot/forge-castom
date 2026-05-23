@@ -1,0 +1,8 @@
+Name:Deformed Colossus
+ManaCost:4 G G
+Types:Creature Spider Horror
+PT:2/8
+K:Trample
+A:AB$ CombatDamageToughness | Cost$ Discard<1/Card> | Defined$ Self | Description$ CARDNAME assigns combat damage equal to its toughness rather than its power until end of turn.
+K:Reanimate
+Oracle:Trample\nDiscard a card: Deformed Colossus assigns combat damage equal to its toughness rather than its power until end of turn.\nReanimate (You may cast this card from your graveyard by sacrificing a creature in addition to paying its other costs.)

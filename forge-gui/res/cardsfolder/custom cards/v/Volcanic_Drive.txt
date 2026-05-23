@@ -1,0 +1,8 @@
+Name:Volcanic Drive
+ManaCost:R
+Types:Sorcery
+K:Focus
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | NumAtt$ +3 | NumDef$ +0 | KW$ Haste & Trample | SubAbility$ DBDelaySac | SpellDescription$ Target creature you control gets +3/+0 and gains haste and trample until end of turn. If this spell wasn't focused, sacrifice it at the beginning of your next end step.
+SVar:DBDelaySac:DB$ DelayedTrigger | Condition$ NotFocused | Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | RememberObjects$ Targeted | Execute$ DBSac | TriggerDescription$ At the beginning of your next end step, sacrifice that creature.
+SVar:DBSac:DB$ Sacrifice | Defined$ DelayTriggerRemembered
+Oracle:Focus (During your main phase, you may exile this card from your hand and pay its mana cost. At the beginning of your next upkeep, cast it without paying its mana cost.)\nTarget creature you control gets +3/+0 and gains haste and trample until end of turn. If this spell wasn't focused, sacrifice it at the beginning of your next end step.

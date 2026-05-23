@@ -5,7 +5,7 @@ PT:5/5
 K:Trample
 T:Mode$ SpellCast | ValidCard$ Card.kicked+nonCreature | ValidActivatingPlayer$ You | Execute$ TrigCopy | TriggerZones$ Battlefield | TriggerDescription$ Whenever you cast a kicked noncreature spell, copy that spell. You may choose new targets for the copy. (Copies of kicked spells are also kicked.)
 SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | AILogic$ Always | MayChooseTarget$ True
-T:Mode$ SpellCast | ValidCard$ Card.kicked+Creature | ValidActivatingPlayer$ You | Execute$ TrigCopyCreature | TriggerZones$ Battlefield | TriggerDescription$
+T:Mode$ SpellCast | ValidCard$ Card.kicked+Creature | ValidActivatingPlayer$ You | Execute$ TrigCopyCreature | TriggerZones$ Battlefield | TriggerDescription$ Whenever you cast a kicked creature spell, copy that spell, except it isn’t legendary and gains haste. Sacrifice that token at the beginning of your end step.
 SVar:TrigCopyCreature:DB$CopyPermanent | Defined$ TriggeredCardLKICopy | NonLegendary$ True | PumpKeywords$ Haste | AtEOT$ Sacrifice | SpellDescription$ Whenever you cast a kicked creature spell, copy that spell, except it isn’t legendary and gains haste. Sacrifice that token at the beginning of your end step.
 AlternateMode:Modal
 Oracle:Trample\nWhenever you cast a kicked noncreature spell, copy that spell. You may choose new targets for the copy. (Copies of kicked spells are also kicked.)\nWhenever you cast a kicked creature spell, copy that spell, except it isn’t legendary and gains haste. Sacrifice that token at the beginning of your end step.

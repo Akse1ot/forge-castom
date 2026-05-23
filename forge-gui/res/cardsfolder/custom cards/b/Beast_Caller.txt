@@ -1,0 +1,8 @@
+Name:Beast Caller
+ManaCost:G
+Types:Creature Dryad
+PT:1/2
+T:Mode$ ChangesZone | ValidCard$ Creature.!token+Other+YouCtrl | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigToken | OptionalDecider$ You | TriggerDescription$ Whenever another nontoken creature enters the battlefield under your control, replenish. (Create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_food_canovol_sac
+A:AB$ Token | Cost$ T Sac<6/Token/tokens> | TokenScript$ g_9_9_beast | SpellDescription$ Create a 9/9 green Beast creature token.
+Oracle:Whenever another nontoken creature enters the battlefield under your control, replenish. (Create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)\n{T}, sacrifice six tokens: Create a 9/9 green Beast creature token.

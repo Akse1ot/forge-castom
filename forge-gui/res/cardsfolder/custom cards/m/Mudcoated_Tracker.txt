@@ -1,0 +1,8 @@
+Name:Mudcoated Tracker
+ManaCost:4 R
+Types:Creature Orc Barbarian
+PT:4/3
+K:Menace
+K:Territorial
+S:Mode$ Continuous | Affected$ Card.Self+territorial | AddPower$ 2 | AddToughness$ 2 | Description$ CARDNAME gets +2/+2 as long as it's territorial.
+Oracle:Menace\nTerritorial (As this enters the battlefield, you may exile a land card from your hand or graveyard. When this leaves the battlefield, return the exiled card to your hand.)\nMudcoated Tracker gets +2/+2 as long as it’s territorial.

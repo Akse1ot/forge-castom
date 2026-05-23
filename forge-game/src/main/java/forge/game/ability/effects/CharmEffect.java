@@ -215,6 +215,7 @@ public class CharmEffect extends SpellAbilityEffect {
 
         // Entwine does use all Choices
         if (sa.isEntwine()) {
+            rememberChosenModes(sa, choices);
             chainAbilities(sa, choices);
             return true;
         }
@@ -240,7 +241,9 @@ public class CharmEffect extends SpellAbilityEffect {
         }
 
         if (sa.hasParam("Random")) {
-            chainAbilities(sa, Aggregates.random(choices, num));
+            List<AbilitySub> chosen = Aggregates.random(choices, num);
+            rememberChosenModes(sa, chosen);
+            chainAbilities(sa, chosen);
             return true;
         }
 
@@ -279,6 +282,7 @@ public class CharmEffect extends SpellAbilityEffect {
                         ctx.allowRepeat
                 );
 
+        rememberChosenModes(sa, chosen);
         chainAbilities(sa, chosen);
 
         // trigger without chosen modes are removed from stack
@@ -289,6 +293,21 @@ public class CharmEffect extends SpellAbilityEffect {
         // for spells and activated abilities it is possible to choose zero if minCharmNum allows it
         return true;
 
+    }
+
+    private static void rememberChosenModes(final SpellAbility sa, final List<AbilitySub> chosen) {
+        if (chosen == null || chosen.isEmpty() || !sa.hasParam("ChoiceRestriction")) {
+            return;
+        }
+
+        final Card source = sa.getHostCard();
+        final boolean yourCombat = "YourLastCombat".equals(sa.getParam("ChoiceRestriction"));
+
+        for (AbilitySub sub : chosen) {
+            source.addChosenModes(sa, sub.getDescription(), yourCombat);
+        }
+
+        source.updateAbilityTextForView();
     }
 
     public static void chainAbilities(SpellAbility sa, List<AbilitySub> chosen) {

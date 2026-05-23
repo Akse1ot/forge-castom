@@ -1,0 +1,9 @@
+Name:Apex Warrior
+ManaCost:3 G G
+Types:Creature Orc Barbarian
+PT:6/4
+K:Trample
+K:Territorial
+S:Mode$ Continuous | Affected$ Card.Self+territorial | AddAbility$ TerritorialIndestructible | Description$ CARDNAME has "{G}: CARDNAME gains indestructible until end of turn." as long as it's territorial.
+SVar:TerritorialIndestructible:AB$ Pump | Cost$ G | Defined$ Self | KW$ Indestructible | SpellDescription$ CARDNAME gains indestructible until end of turn.
+Oracle:Trample\nTerritorial (As this enters the battlefield, you may exile a land card from your hand or graveyard. When this leaves the battlefield, return the exiled card to your hand.)\nApex Warrior has “{G}: Apex Warrior gains indestructible until end of turn.” as long as it’s territorial.

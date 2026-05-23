@@ -393,6 +393,43 @@ public class CountersPutAi extends CountersAi {
             return new AiAbilityDecision(0, AiPlayDecision.CantPlayAi);
         }
 
+        if ("RuneCounter".equals(logic)) {
+            if (!"P1P1".equals(type) || !sa.usesTargeting() || !source.isToken()
+                    || !source.getType().hasSubtype("Rune")
+                    || !abCost.hasSpecificCostType(CostSacrifice.class)) {
+                return new AiAbilityDecision(0, AiPlayDecision.CantPlayAi);
+            }
+
+            if (!ComputerUtilCost.canPayCost(sa, ai, false)) {
+                return new AiAbilityDecision(0, AiPlayDecision.CantAfford);
+            }
+
+            sa.resetTargets();
+
+            CardCollection list = ComputerUtil.getSafeTargets(ai, sa, ai.getCreaturesInPlay());
+            list = CardLists.filter(list, c -> sa.canTarget(c)
+                    && c.canReceiveCounters(CounterEnumType.P1P1)
+                    && !ComputerUtilCard.isUselessCreature(ai, c));
+
+            if (list.isEmpty()) {
+                list = ComputerUtil.getSafeTargets(ai, sa, ai.getCreaturesInPlay());
+                list = CardLists.filter(list, c -> sa.canTarget(c)
+                        && c.canReceiveCounters(CounterEnumType.P1P1));
+            }
+
+            Card runeChoice = chooseBoonTarget(list, type);
+            if (runeChoice == null) {
+                runeChoice = ComputerUtilCard.getBestCreatureAI(list);
+            }
+
+            if (runeChoice == null) {
+                return new AiAbilityDecision(0, AiPlayDecision.TargetingFailed);
+            }
+
+            sa.getTargets().add(runeChoice);
+            return new AiAbilityDecision(100, AiPlayDecision.WillPlay);
+        }
+
         if ("Polukranos".equals(logic)) {
             boolean found = false;
             for (Trigger tr : source.getTriggers()) {

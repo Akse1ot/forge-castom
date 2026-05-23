@@ -1,0 +1,6 @@
+Name:Nightmare Vessel
+ManaCost:4 R
+Types:Creature Elemental Shaman
+PT:6/6
+K:CARDNAME can't attack or block alone.
+Oracle:Nightmare Vessel can’t attack or block alone.

@@ -361,16 +361,17 @@ Replace=.10F Common:fromSheet("ERLB cards")
 31 u_3_3_enchantment_giant_spirit
 32 u_4_4_enchantment_dragon_spirit_flying
 33 u_1_1_enchantment_spirit
+34 rw_1_1_enchantment_spirit_haste
 
 [other]
-34 emblem_brother_corhyn
-33 emblem_spellblade_rogier
-36 emblem_thiollier
-37 emblem_blackguard_big_boggart
-38 emblem_vyke_the_dragonspear
-39 emblem_the_nameless_tarnished
-40 emblem_nepheli_loux_warrior
-41 emblem_sir_gideon_ofnir_the_all_knowing
-42 emblem_roderika_the_spirit_tuner
-43 emblem_the_ever_brilliant_goldmask
-44 emblem_the_loathsome_dung_eater
+35 emblem_brother_corhyn
+36 emblem_spellblade_rogier
+37 emblem_thiollier
+38 emblem_blackguard_big_boggart
+39 emblem_vyke_the_dragonspear
+40 emblem_the_nameless_tarnished
+41 emblem_nepheli_loux_warrior
+42 emblem_sir_gideon_ofnir_the_all_knowing
+43 emblem_roderika_the_spirit_tuner
+44 emblem_the_ever_brilliant_goldmask
+45 emblem_the_loathsome_dung_eater
