@@ -224,6 +224,7 @@ Nox:Nox
 Numen:Numen
 Nymph:Nymphs
 Octopus:Octopi
+Officer:Officers
 Ogre:Ogres
 Ooze:Oozes
 Orb:Orbs
@@ -502,6 +503,7 @@ Wrenn
 Xenagos
 Yanggu
 Yanling
+You
 Zariel
 [DungeonTypes]
 Undercity

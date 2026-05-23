@@ -1121,6 +1121,9 @@ public class Player extends GameEntity implements Comparable<Player> {
                     moved.setSurveilled(true);
                     numToGrave++;
                 }
+                if (cause.hasParam("RememberMoved")) {
+                    cause.getHostCard().addRemembered(toGrave);
+                }
             }
 
             if (toTop != null) {
