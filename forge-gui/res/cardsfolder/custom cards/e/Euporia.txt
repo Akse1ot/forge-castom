@@ -4,6 +4,5 @@ Types:Legendary Artifact Equipment
 K:Equip:1 W
 T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken | TriggerZones$ Battlefield | TriggerDescription$ Whenever equipped creature deals combat damage to a player, create two Rune tokens.
 SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScript$ c_a_Rune_sac | TokenOwner$ You
-A:AB$ DealDamage | Cost$ 2 W SubCounter<All/P1P1/Creature.EquippedBy> | ValidTgts$ Creature.attacking,Creature.blocking | TgtPrompt$ Select target attacking or blocking creature | NumDmg$ X | SpellDescription$ Equipped creature deals damage equal to the amount of removed counters to target attacking or blocking creature.
-SVar:X:SVar$CostCountersRemoved
+A:AB$ DealDamage | Cost$ 2 W SubCounter<All/P1P1/Creature.EquippedBy> | ValidTgts$ Creature.attacking,Creature.blocking | TgtPrompt$ Select target attacking or blocking creature | NumDmg$ CostCountersRemoved | SpellDescription$ Equipped creature deals damage equal to the amount of removed counters to target attacking or blocking creature.
 Oracle:Whenever equipped creature deals combat damage to a player, create two Rune tokens.\n{2}{W}, Remove all +1/+1 counters from equipped creature: Equipped creature deals damage equal to the amount of removed counters to target attacking or blocking creature.

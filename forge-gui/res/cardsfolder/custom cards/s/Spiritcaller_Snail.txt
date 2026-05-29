@@ -4,7 +4,6 @@ Types:Enchantment Creature Snail Spirit
 PT:2/5
 K:Ward:X
 S:Mode$ Continuous | Affected$ Creature.YouOwn | AffectedZone$ Graveyard | AddKeyword$ Spirit Ash:CardManaCost | Description$ Each creature card in your graveyard has spirit ash. The spirit ash cost is equal to its mana cost.
-S:Mode$ Continuous | Affected$ Creature.!token+YouCtrl | AddPower$ AffectedX | AddToughness$ AffectedX | Description$ Each other Spirit you control gets +1/+1.
-SVar:AffectedX:Count$Valid Spirit.Other+YouCtrl
+S:Mode$ Continuous | Affected$ Creature.Spirit+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1 | Description$ Each other Spirit you control gets +1/+1.
 SVar:X:Count$Valid Spirit.YouCtrl
 Oracle:Each creature card in your graveyard has spirit ash. The spirit ash cost is equal to its mana cost.\nEach other Spirit you control gets +1/+1.\nThis creature has ward , where X is the number of Spirits you control.

@@ -5,9 +5,10 @@ PT:2/4
 K:Lifelink
 K:Haste
 T:Mode$ Attacks | ValidCard$ Card.Self+modified | TriggerZones$ Battlefield | Execute$ TrigPump | FirstAttack$ True | TriggerDescription$ Waterfowl Dance — When this creature attacks for the first time on a turn, if it’s modified, it gains double strike until end of turn. Then if it is modified in two or more different ways, untap all modified creatures you control. After this phase, there is an additional combat phase.
-SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ Double Strike | SubAbility$ DBUntap
-SVar:DBUntap:DB$ UntapAll | ValidCards$ Creature.YouCtrl+modified | CheckSVar$ X | SVarCompare$ GE2 | SubAbility$ DBAddCombat
-SVar:DBAddCombat:DB$ AddPhase | CheckSVar$ X | SVarCompare$ GE2 | ExtraPhase$ Combat | AfterPhase$ EndCombat
+SVar:TrigPump:DB$ Pump | Defined$ Self | KW$ Double Strike | SubAbility$ DBCheckModifiedWays
+SVar:DBCheckModifiedWays:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE2 | TrueSubAbility$ DBUntap
+SVar:DBUntap:DB$ UntapAll | ValidCards$ Creature.YouCtrl+modified | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat
 SVar:X:Count$ModifiedWays
 AlternateMode:Modal
 Oracle:Lifelink, haste\nWaterfowl Dance — When this creature attacks for the first time on a turn, if it’s modified, it gains double strike until end of turn. Then if it is modified in two or more different ways, untap all modified creatures you control. After this phase, there is an additional combat phase.

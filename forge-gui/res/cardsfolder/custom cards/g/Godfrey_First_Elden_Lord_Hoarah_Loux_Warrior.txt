@@ -6,7 +6,7 @@ A:AB$ Token | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True |  TokenScript$ c
 SVar:X:Count$Valid Creature.YouCtrl
 A:AB$ Token | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | TokenScript$ serrosh | SpellDescription$ Create Serrosh, a legendary 3/3 green Cat Spirit enchantment creature token with vigilance and “Planeswalkers you control have ward {2}.”
 A:AB$ PutCounterAll | Cost$ SubCounter<10/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBTriple | SpellDescription$ Put a +1/+1 counter on each creature you control, then triple the number of +1/+1 counters on each creature you control.
-SVar:DBTriple:DB$ MultiplyCounter | Defined$ Creature.YouCtrl | CounterType$ P1P1 | Multiplier$ 3
+SVar:DBTriple:DB$ MultiplyCounter | Defined$ Valid Creature.YouCtrl | CounterType$ P1P1 | Multiplier$ 3
 AlternateMode:Modal
 Oracle:[+2]: Create a Rune token for each creature you control.\n[-3]: Create Serrosh, a legendary 3/3 green Cat Spirit enchantment creature token with vigilance and “Planeswalkers you control have ward {2}.”\n[-10]: Put a +1/+1 counter on each creature you control, then triple the number of +1/+1 counters on each creature you control.
 
