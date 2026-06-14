@@ -2733,7 +2733,7 @@ public class GameAction {
         return milled;
     }
 
-    public void dealDamage(final boolean isCombat, final CardDamageMap damageMap, final CardDamageMap preventMap,
+    public void dealDamage(final boolean isCombat, final CardDamageTable damageMap, final CardDamageTable preventMap,
                            final GameEntityCounterTable counterTable, final SpellAbility cause) {
         // Clear assigned damage if is combat
         if (isCombat) {

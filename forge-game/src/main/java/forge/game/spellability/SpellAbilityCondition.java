@@ -112,6 +112,9 @@ public class SpellAbilityCondition extends SpellAbilityVariables {
             if (value.equals("Bargain")) {
                 this.bargain = true;
             }
+            if (value.equals("Teamwork")) {
+                this.teamwork = true;
+            }
             if (value.equals("AltCost"))
                 this.altCostPaid = true;
 
@@ -288,6 +291,7 @@ public class SpellAbilityCondition extends SpellAbilityVariables {
         if (this.foretold && !sa.isForetold()) return false;
         if (this.focused && !sa.isFocused() && !host.isFocused()) return false;
         if (this.notFocused && (sa.isFocused() || host.isFocused())) return false;
+        if (this.teamwork && !sa.isTeamwork()) return false;
 
         if (this.optionalCostPaid && this.optionalBoolean && !sa.isOptionalCostPaid(OptionalCost.Generic)) return false;
         if (this.optionalCostPaid && !this.optionalBoolean && sa.isOptionalCostPaid(OptionalCost.Generic)) return false;

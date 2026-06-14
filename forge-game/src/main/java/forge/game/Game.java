@@ -139,8 +139,9 @@ public class Game {
     private final Match match;
     private GameStage age = GameStage.BeforeMulligan;
     private GameOutcome outcome;
-    private final Game maingame;
+    private DrawOffer drawOffer;
 
+    private final Game maingame;
     private final GameView view;
     private final Tracker tracker = new Tracker();
 
@@ -158,6 +159,13 @@ public class Game {
     }
     public void setStartingPlayer(final Player p) {
         startingPlayer = p;
+    }
+
+    public DrawOffer getDrawOffer() {
+        return drawOffer;
+    }
+    public void setDrawOffer(final DrawOffer drawOffer) {
+        this.drawOffer = drawOffer;
     }
 
     public Player getMonarch() {
@@ -646,7 +654,7 @@ public class Game {
         return getCardsIn(ZoneType.Command).anyMatch(CardPredicates.nameEquals(cardName));
     }
 
-    public CardCollectionView getColoredCardsInPlay(final String color) {
+    public CardCollectionView getColoredCardsInPlay(final byte color) {
         final CardCollection cards = new CardCollection();
         for (Player p : getPlayers()) {
             cards.addAll(p.getColoredCardsInPlay(color));
@@ -1285,7 +1293,7 @@ public class Game {
 
     public int getCounterAddedThisTurn(CounterType cType, String validPlayer, String validCard, Card source, Player sourceController, CardTraitBase ctb) {
         int result = 0;
-        Set<CounterType> types = null;
+        Set<CounterType> types;
         if (cType == null) {
             types = countersAddedThisTurn.rowKeySet();
         } else if (!countersAddedThisTurn.containsRow(cType)) {
@@ -1308,7 +1316,7 @@ public class Game {
     }
     public int getCounterAddedThisTurn(CounterType cType, Card card) {
         int result = 0;
-        Set<CounterType> types = null;
+        Set<CounterType> types;
         if (cType == null) {
             types = countersAddedThisTurn.rowKeySet();
         } else if (!countersAddedThisTurn.containsRow(cType)) {
@@ -1335,7 +1343,6 @@ public class Game {
     public void addCounterRemovedThisTurn(CounterType cType, Card card, Integer value) {
         countersRemovedThisTurn.put(cType, Pair.of(CardCopyService.getLKICopy(card), value));
     }
-
     public void addCounterRemovedThisTurn(CounterType cType, Player player, Integer value) {
         countersRemovedThisTurn.put(cType, Pair.of(player, value));
     }

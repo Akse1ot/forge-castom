@@ -11,7 +11,6 @@ Gate:Gates
 Lair
 Locus
 Mine
-Omenpath
 Planet:Planets
 Power-Plant
 Sphere:Spheres
@@ -55,7 +54,6 @@ Bird:Birds
 Bison:Bisons
 Blinkmoth:Blinkmoths
 Boar:Boars
-Brainiac:Brainiacs
 Bringer:Bringers
 Brushwagg:Brushwaggs
 Camarid:Camarids
@@ -68,18 +66,15 @@ Cat:Cats
 Centaur:Centaurs
 Chimera:Chimeras
 Citizen:Citizens
-Clamfolk:Clamfolk
 Cleric:Clerics
 Clown:Clowns
 Cockatrice:Cockatrices
 Construct:Constructs
-Cow:Cows
 Coward:Cowards
 Coyote:Coyotes
 Crab:Crabs
 Crocodile:Crocodiles
 Cyberman:Cybermen
-Cyborg:Cyborgs
 Cyclops:Cyclopes
 Dalek:Daleks
 Detective:Detectives
@@ -115,7 +110,6 @@ Eternal:Eternals
 Eye:Eyes
 Faerie:Faeries
 Ferret:Ferrets
-Fighter:Fighters
 Fish:Fish
 Flagbearer:Flagbearers
 Fox:Foxes
@@ -163,6 +157,7 @@ Hyena:Hyenas
 Illusion:Illusions
 Imp:Imps
 Incarnation:Incarnations
+Inhuman:Inhumans
 Inkling:Inklings
 Inquisitor:Inquisitors
 Insect:Insects
@@ -172,13 +167,13 @@ Jellyfish:Jellyfishes
 Juggernaut:Juggernauts
 Kangaroo:Kangaroos
 Kavu:Kavu
-Killbot:Killbots
 Kirin:Kirins
 Kithkin:Kithkin
 Knight:Knights
 Kobold:Kobolds
 Kor:Kors
 Kraken:Krakens
+Kree:Kree
 Lamia:Lamias
 Lammasu:Lammasus
 Leech:Leeches
@@ -189,7 +184,6 @@ Licid:Licids
 Lizard:Lizards
 Llama:Llamas
 Lobster:Lobsters
-Mammoth:Mammoths
 Manticore:Manticores
 Masticore:Masticores
 Mercenary:Mercenaries
@@ -381,7 +375,6 @@ Blood
 Bobblehead:Bobbleheads
 Book:Books
 Clue:Clues
-Contraption:Contraptions
 Equipment
 Food:Foods
 Fortification
@@ -389,7 +382,6 @@ Gold
 Incubator:Incubators
 Infinity
 Junk
-Key:Keys
 Lander:Landers
 Map
 Mutagen
@@ -406,7 +398,6 @@ Aminatou
 Angrath
 Arlinn
 Ashiok
-B.O.B.
 Bahamut
 Basri
 Bernahl
@@ -421,14 +412,10 @@ Dack
 Dakkon
 Daretti
 Davriel
-Deb
 Dellian
 Dihada
 Domri
 Dovin
-Duck
-Dung Eater
-Dungeon Master
 Ellywick
 Elminster
 Elspeth
@@ -442,7 +429,6 @@ Guff
 Godfrey
 Goldmask
 Huatli
-Inzerva
 Jace
 Jared
 Jaya
@@ -457,7 +443,6 @@ Liliana
 Lolth
 Lukka
 Minsc
-Monopoly
 Mordenkainen
 Nahiri
 Narset
@@ -478,7 +463,6 @@ Samut
 Sarkhan
 Serra
 Sorin
-Stone
 Szat
 Tamiyo
 Tasha
@@ -503,7 +487,6 @@ Wrenn
 Xenagos
 Yanggu
 Yanling
-You
 Zariel
 [DungeonTypes]
 Undercity
