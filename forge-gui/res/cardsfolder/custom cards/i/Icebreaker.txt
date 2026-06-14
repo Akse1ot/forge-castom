@@ -1,0 +1,7 @@
+Name:Icebreaker
+ManaCost:5 G
+Types:Creature Lizard
+PT:6/5
+K:Vigilance
+K:Immunity:2
+Oracle:Vigilance\nImmunity 2 (Spells your opponents cast that target this creature cost {2} more to cast.)

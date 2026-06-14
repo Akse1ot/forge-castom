@@ -1,0 +1,12 @@
+Name:Airborne Judge
+ManaCost:2 W U
+Types:Creature — Bird Soldier
+PT:3/3
+K:Flash
+K:Flying
+K:Defender
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTapAll | TriggerDescription$ When CARDNAME enters the battlefield, tap all creatures without defender.
+SVar:TrigTapAll:DB$ TapAll | ValidCards$ Creature.withoutDefender
+A:AB$ Effect | Cost$ 1 WU | StaticAbilities$ CanAttack | SpellDescription$ Creatures you control with defender can attack this turn as though they didn't have defender.
+SVar:CanAttack:Mode$ CanAttackDefender | ValidCards$ Creature.YouCtrl+withDefender | Description$ Creatures you control with defender can attack this turn as though they didn't have defender.
+Oracle:Flash, flying, defender\nWhen Airborne Judge enters the battlefield, tap all creatures without defender.\n{1}{WU}: Creatures you control with defender can attack this turn as though they didn’t have defender.

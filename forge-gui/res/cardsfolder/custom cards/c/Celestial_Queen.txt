@@ -1,0 +1,7 @@
+Name:Celestial Queen
+ManaCost:4 R W
+Types:Legendary Creature Insect Queen
+PT:7/4
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Indestructible | Description$ CARDNAME is indestructible.
+A:AB$ Token | Cost$ R W | TokenScript$ r_1_1_insect_samurai | SpellDescription$ Create a 1/1 red Insect Samurai creature token.
+Oracle:Fruitcake Elemental is indestructible.\n{R}{W}: Create a 1/1 red Insect Samurai creature token.

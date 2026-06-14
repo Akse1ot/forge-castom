@@ -1,0 +1,8 @@
+Name:Absence of Gravity
+ManaCost:U R
+Types:Sorcery
+K:Focus
+A:SP$ Pump | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True | TargetMin$ 0 | TargetMax$ 2 | TgtPrompt$ Select up to two target creatures | Condition$ NotFocused | StackDescription$ {c:Targeted} can't block this turn. | SpellDescription$ Up to two target creatures can't block this turn. If this spell was focused, up to two target creatures can't be blocked this turn instead.
+A:SP$ Effect | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | TgtPrompt$ Select up to two target creatures | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ STUnblockable | Condition$ Focused | Secondary$ True | StackDescription$ {c:Targeted} can't be blocked this turn. | SpellDescription$ Up to two target creatures can't be blocked this turn.
+SVar:STUnblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered | Description$ This creature can't be blocked this turn.
+Oracle:Focus (During your main phase, you may exile this card from your hand and pay its mana cost. At the beginning of your next upkeep, cast it without paying its mana cost.)\nUp to two target creatures can't block this turn. If this spell was focused, up to two target creatures can't be blocked this turn instead.

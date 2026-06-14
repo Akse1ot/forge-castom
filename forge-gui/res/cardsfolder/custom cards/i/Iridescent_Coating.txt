@@ -1,0 +1,10 @@
+Name:Iridescent Coating
+ManaCost:G
+Types:Enchantment Aura
+K:Enchant:Creature,Land:creature or land
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut | TriggerDescription$ When CARDNAME enters, put a +1/+1 counter on target permanent you control.
+SVar:TrigPut:DB$ PutCounter | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select target permanent you control | CounterType$ P1P1 | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Permanent.EnchantedBy | AddAbility$ DBMana | Description$ Enchanted permanent has “{T}: Add one mana of any color.”
+SVar:DBMana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1 | SpellDescription$ Add one mana of any color.
+Oracle:Enchant creature or land\nWhen Iridescent Coating enters the battlefield, put a +1/+1 counter on target permanent you control.\nEnchanted permanent has “{T}: Add one mana of any color.”

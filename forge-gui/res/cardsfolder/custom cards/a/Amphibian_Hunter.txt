@@ -1,0 +1,6 @@
+Name:Amphibian Hunter
+ManaCost:2 G U
+Types:Creature Lizard
+PT:3/4
+K:Flash
+Oracle:Flash

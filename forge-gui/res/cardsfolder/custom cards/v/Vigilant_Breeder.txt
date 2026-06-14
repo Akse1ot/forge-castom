@@ -1,0 +1,10 @@
+Name:Vigilant Breeder
+ManaCost:2 G
+Types:Creature Dryad
+PT:3/3
+T:Mode$ ChangesZone | ValidCard$ Creature.!token+Other+YouCtrl | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigToken | OptionalDecider$ You | TriggerDescription$ Whenever another nontoken creature enters the battlefield under your control, replenish. (Create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_food_canovol_sac
+A:AB$ Pump | Cost$ G T | AILogic$ Fight | ValidTgts$ Creature.YouCtrl+counters_GE1_P1P1 | TgtPrompt$ Select target creature you control with a +1/+1 counter | SubAbility$ DBFight | SpellDescription$ Target creature you control with a +1/+1 counter on it fights target creature an opponent controls.
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl | TgtPrompt$ Select target creature you don’t control.
+DeckHints:Ability$Counters
+Oracle:When Vigilant Breeder enters the battlefield, replenish. (Create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)\n{G}, {T}: Target creature you control with a +1/+1 counter on it fights target creature you don’t control.

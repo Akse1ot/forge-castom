@@ -1,0 +1,5 @@
+Name:Cease Matter
+ManaCost:4 B G
+Types:Sorcery
+A:SP$ Destroy | ValidTgts$ Permanent | SpellDescription$ Destroy target permanent.
+Oracle:Destroy target permanent.

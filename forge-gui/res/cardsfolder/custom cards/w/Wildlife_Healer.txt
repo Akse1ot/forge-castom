@@ -1,0 +1,7 @@
+Name:Wildlife Healer
+ManaCost:1 G
+Types:Creature Orc Shaman
+PT:1/1
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigDig | TriggerDescription$ When CARDNAME enters, reveal the top three cards of your library. You may put a creature or land card from among them into your hand. Put the rest into your graveyard.
+SVar:TrigDig:DB$ Dig | DigNum$ 3 | ChangeNum$ 1 | Reveal$ True | ChangeType$ Land,Creature | DestinationZone2$ Graveyard
+Oracle:When Wildlife Healer enters the battlefield, reveal the top three cards of your library. You may put a creature or land card from among them into your hand. Put the rest into your graveyard.

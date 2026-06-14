@@ -1,0 +1,8 @@
+Name:Guzzlemouth Beast
+ManaCost:4 G
+Types:Creature Lizard
+PT:5/2
+K:Immunity:2
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLTY | Description$ Creatures with power less than CARDNAME's power can't block it.
+SVar:Y:Count$CardPower
+Oracle:Immunity 2 (Spells your opponents cast that target this creature cost  more to cast.)\nCreatures with power less than Guzzlemouth Beast’s power can’t block it.

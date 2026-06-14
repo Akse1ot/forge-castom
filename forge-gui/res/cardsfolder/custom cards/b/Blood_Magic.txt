@@ -1,0 +1,10 @@
+Name:Blood Magic
+ManaCost:BR BR BR
+Types:Sorcery
+A:SP$ Charm | Choices$ AllMenace,SacCreatureLand,DealDamage
+SVar:AllMenace:DB$ PumpAll | ValidCards$ Creature | KW$ Menace | SpellDescription$ Creatures gain menace until end of turn.
+SVar:SacCreatureLand:DB$ Sacrifice | ValidTgts$ Player | SacValid$ Creature,Land | SpellDescription$ Target player sacrifices a creature or land.
+SVar:DealDamage:DB$ Pump | ValidTgts$ Creature | AILogic$ PowerDmg | TgtPrompt$ Select target creature | SubAbility$ SoulsDamage | StackDescription$ SpellDescription | SpellDescription$ Target creature deals damage equal to its power to its controller.
+SVar:SoulsDamage:DB$ DealDamage | Defined$ TargetedController | DamageSource$ Targeted | NumDmg$ X
+SVar:X:Targeted$CardPower
+Oracle:Choose one —\n• Creatures gain menace until end of turn.\n• Target player sacrifices a creature or land.\n• Target creature deals damage equal to its power to its controller.

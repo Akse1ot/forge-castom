@@ -1,0 +1,9 @@
+Name:Arcane Commander
+ManaCost:1 U B
+Types:Creature Djinn
+PT:2/2
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigMill | TriggerDescription$ Whenever you draw a card, target player mills two cards.
+SVar:TrigMill:DB$ Mill | Defined$ Opponent | NumCards$ 2
+A:AB$ Draw | Cost$ 4 U B | SpellDescription$ Draw a card, then discard a card. | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose
+Oracle:Whenever you draw a card, target player mills two cards.\n{4}{U}{B}: Draw a card, then discard a card.

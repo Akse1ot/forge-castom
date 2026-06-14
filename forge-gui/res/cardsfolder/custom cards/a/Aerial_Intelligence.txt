@@ -1,0 +1,7 @@
+Name:Aerial Intelligence
+ManaCost:W U
+Types:Legendary Enchantment
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl+enlistedThisCombat | TriggerZones$ Battlefield | Execute$ TrigScry | TriggerDescription$ Whenever a creature you control attacks, scry 1.
+SVar:TrigScry:DB$ Scry | ScryNum$ 1
+S:Mode$ CantAttackUnless | ValidCard$ Creature | Target$ You | Cost$ 1 | Description$ Creatures can’t attack you unless their controller pays {1} for each creature they control that’s attacking you.
+Oracle:Whenever a creature you control attacks, scry 1.\nCreatures can’t attack you unless their controller pays {1} for each creature they control that’s attacking you.

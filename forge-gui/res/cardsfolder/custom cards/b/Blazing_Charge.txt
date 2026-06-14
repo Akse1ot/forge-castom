@@ -1,0 +1,10 @@
+Name:Blazing Charge
+ManaCost:RW RW RW RW
+Types:Sorcery
+A:SP$ Charm | Choices$ DestroyArtifacts,DBPump,DestroyGE4
+SVar:DestroyArtifacts:DB$ DestroyAll | ValidCards$ Artifact | SpellDescription$ Destroy all artifacts.
+SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Double Strike | SpellDescription$ Creatures you control gain double strike until end of turn.
+SVar:DBEffect:DB$ Effect | Triggers$ TrigAttacks
+SVar:TrigAttacks:Mode$ Attacks | ValidCard$ Creature.YouCtrl | Execute$ Pump | TriggerDescription$ Whenever a creature attacks this turn, it gets +2/+1 until end of turn.
+SVar:Pump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +2 | NumDef$ +1
+Oracle:Choose two —\n• Destroy all artifacts.\n• Creatures you control gain double strike until end of turn.\n• Whenever a creature attacks this turn, it gets +2/+1 until end of turn.

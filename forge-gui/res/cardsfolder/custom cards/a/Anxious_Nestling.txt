@@ -1,0 +1,6 @@
+Name:Anxious Nestling
+ManaCost:WU
+Types:Creature Bird Soldier
+PT:1/2
+S:Mode$ Continuous | Affected$ Card.Self+attacking | AddKeyword$ Flying | Description$ CARDNAME has flying as long as it's attacking.
+Oracle:Anxious Nestling has flying as long as it’s attacking.

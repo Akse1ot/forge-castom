@@ -1,0 +1,10 @@
+Name:Resource Carrier
+ManaCost:4 G
+Types:Creature Dryad Elemental
+PT:4/3
+R:Event$ AddCounter | ActiveZones$ Battlefield | ValidCard$ Card.Self | ValidCounterType$ P1P1 | ReplaceWith$ AddOneMoreCounters | Description$ If one or more +1/+1 counters would be put on CARDNAME, that many plus one +1/+1 counters are put on it instead.
+SVar:AddOneMoreCounters:DB$ ReplaceCounter | ValidCounterType$ P1P1 | ChooseCounter$ True | Amount$ Y
+SVar:Y:ReplaceCount$CounterNum/Plus.1
+DeckHas:Ability$Counters
+DeckHints:Ability$Counters
+Oracle:If one or more +1/+1 counters would be put on Resource Carrier, that many plus one +1/+1 counters are put on it instead.

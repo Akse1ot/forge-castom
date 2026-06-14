@@ -1,0 +1,10 @@
+Name:Mountainous Chanter
+ManaCost:6 G G
+Types:Creature Orc Barbarian
+PT:8/8
+
+K:Territorial
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters the battlefield, create a number of 4/4 red and green Orc creature tokens equal to the number of land cards you own in exile.
+SVar:TrigToken:DB$ Token | TokenScript$ rg_4_4_orc | TokenAmount$ X
+SVar:X:Count$Valid Land.YouOwn+inZoneExile
+Oracle:Territorial (As this enters the battlefield, you may exile a land card from your hand or graveyard. When this leaves the battlefield, return the exiled card to your hand.)\nWhen Mountainous Chanter enters the battlefield, create a number of 4/4 red and green Orc creature tokens equal to the number of land cards you own in exile.

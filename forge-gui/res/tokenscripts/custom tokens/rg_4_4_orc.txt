@@ -1,0 +1,6 @@
+Name:Orc Token
+ManaCost:no cost
+Colors:red,green
+Types:Creature Orc
+PT:4/4
+Oracle:

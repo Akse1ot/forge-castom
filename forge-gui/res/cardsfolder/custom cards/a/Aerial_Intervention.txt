@@ -1,0 +1,10 @@
+Name:Aerial Intervention
+ManaCost:WU
+Types:Instant
+A:SP$ Charm | Choices$ ReturnArtifact,Counter,Exile
+SVar:ReturnArtifact:DB$ ChangeZone | TgtPrompt$ Choose target artifact card in your graveyard | ValidTgts$ Artifact.YouCtrl | Origin$ Graveyard | Destination$ Hand | SpellDescription$ Return target artifact card from your graveyard to your hand.
+SVar:Counter:DB$ Counter | TargetType$ Spell | TgtPrompt$ Select target spell | ValidTgts$ Card | TargetValidTargeting$ Permanent.YouCtrl+inRealZoneBattlefield,You | SpellDescription$ Counter target spell that targets you or a permanent you control.
+SVar:Exile:DB$ ChangeZone | ValidTgts$ Creature | TgtPrompt$ Select target creature | Origin$ Battlefield | Destination$ Exile | RememberTargets$ True | SubAbility$ DBReturn | StackDescription$ Exile {c:Targeted}, | SpellDescription$ Exile target creature, then return that card to the battlefield under its owner’s control.
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | SubAbility$ DBCleanup | StackDescription$ then return it to the battlefield under its owner's control.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Choose one —\n• Return target artifact card from your graveyard to your hand.\n• Counter target spell that targets you or a permanent you control.\n• Exile target creature, then return that card to the battlefield under its owner’s control.

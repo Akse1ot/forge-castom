@@ -1,0 +1,6 @@
+Name:Lizard Token
+ManaCost:no cost
+Colors:green,blue
+Types:Creature Lizard
+PT:3/3
+Oracle:

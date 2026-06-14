@@ -1,0 +1,7 @@
+Name:Blinded by the Light
+ManaCost:1 RW
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ CantBlock | ValidCard$ Creature.EnchantedBy | Description$ Enchanted creature can’t block.
+Oracle:Enchant creature\nEnchanted creature can’t block.

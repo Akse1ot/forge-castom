@@ -1,0 +1,8 @@
+Name:Rooted Carnivore
+ManaCost:1 G G
+Types:Creature Lizard Plant
+PT:3/4
+K:Defender
+K:Reach
+K:Immunity:2
+Oracle:Defender, reach\nImmunity 2 (Spells your opponents cast that target this creature cost {2} more to cast.)

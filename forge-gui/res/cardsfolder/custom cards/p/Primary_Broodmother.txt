@@ -1,0 +1,8 @@
+Name:Primary Broodmother
+ManaCost:4 G G
+Types:Creature Lizard
+PT:6/6
+K:Immunity:3
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ SpellAbility.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever CARDNAME becomes the target of a spell or ability an opponent controls, create two 3/3 green and blue Lizard creature tokens.
+SVar:TrigToken:DB$ Token | TokenScript$ gb_3_3_lizard | TokenAmount$ 2
+Oracle:Immunity 3 (Spells your opponents cast that target this creature cost {3} more to cast.)\nWhenever Primary Broodmother becomes the target of a spell or ability, create two 3/3 green and blue Lizard creature tokens.

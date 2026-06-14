@@ -1,0 +1,8 @@
+Name:Swamp Elder
+ManaCost:G
+Types:Creature Orc Shaman
+PT:2/2
+K:Territorial
+K:Defender
+S:Mode$ Continuous | Affected$ Card.Self+territorial | RemoveKeyword$ Defender | Description$ CARDNAME loses defender as long as it's territorial.
+Oracle:Defender\nTerritorial (As this enters the battlefield, you may exile a land card from your hand or graveyard. When this leaves the battlefield, return the exiled card to your hand.)\nSwamp Elder loses defender as long as it’s territorial.

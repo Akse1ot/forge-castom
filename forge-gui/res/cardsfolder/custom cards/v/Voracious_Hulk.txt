@@ -1,0 +1,8 @@
+Name:Voracious Hulk
+ManaCost:3 G
+Types:Creature Spider
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Graveyard | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter | TriggerDescription$ When CARDNAME enters the battlefield from a graveyard, put three +1/+1 counters on it.
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterNum$ 3 | CounterType$ P1P1
+K:Reanimate
+Oracle:When Voracious Hulk enters the battlefield from a graveyard, put three +1/+1 counters on it.\nReanimate (You may cast this card from your graveyard by sacrificing a creature in addition to paying its other costs.)

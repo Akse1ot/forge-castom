@@ -1,0 +1,8 @@
+Name:Ardent Converter
+ManaCost:3 R W
+Types:Creature Insect Cleric Samurai
+PT:7/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | TriggerDescription$ When CARDNAME enters, gain control of target creature until end of turn. It gains haste and first strike until end of turn.
+SVar:TrigChange:DB$ GainControl | TgtPrompt$ Choose target creature an opponent controls | ValidTgts$ Creature.OppCtrl | LoseControl$ EOT | Untap$ True | AddKWs$ Haste & First Strike | SpellDescription$ Gain control of target creature until end of turn. It gains haste and first strike until end of turn
+SVar:PlayMain1:OPPONENTCREATURES
+Oracle:When Ardent Converter enters the battlefield, gain control of target creature until end of turn. It gains haste and first strike until end of turn.

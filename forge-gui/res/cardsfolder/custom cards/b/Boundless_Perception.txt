@@ -1,0 +1,6 @@
+Name:Boundless Perception
+ManaCost:U R
+Types:Legendary Enchantment
+S:Mode$ Continuous | Affected$ Card.TopLibrary | AffectedZone$ Library | MayLookAt$ Player | Description$ Each player plays with the top card of their library revealed.
+S:Mode$ Continuous | Affected$ Card.TopLibrary+YouCtrl+Instant,Card.TopLibrary+YouCtrl+Sorcery | AffectedZone$ Library | MayPlay$ You | Description$ ou may cast the top card of your library if it’s an instant or sorcery card.
+Oracle:Each player plays with the top card of their library revealed.\nYou may cast the top card of your library if it’s an instant or sorcery card.

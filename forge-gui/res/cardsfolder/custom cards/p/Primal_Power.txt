@@ -1,0 +1,8 @@
+Name:Primal Power
+ManaCost:G
+Types:Instant
+S:Mode$ OptionalCost | EffectZone$ All | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ Sac<1/Land> | Description$ As an additional cost to cast this spell, you may sacrifice a land.
+A:SP$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ +X | NumDef$ +X | SpellDescription$ Target creature gets +2/+2 until end of turn. If you sacrificed a land, it gets +4/+4 instead.
+SVar:X:Count$Compare Y GE1.4.2
+SVar:Y:Sacrificed$Amount
+Oracle:As an additional cost to cast this spell, you may sacrifice a land.\nTarget creature gets +2/+2 until end of turn. If you sacrificed a land, it gets +4/+4 instead.

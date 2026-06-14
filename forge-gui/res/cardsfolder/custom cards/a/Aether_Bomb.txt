@@ -1,0 +1,9 @@
+Name:Aether Bomb
+ManaCost:UB UB UB
+Types:Instant
+A:SP$ Charm | Choices$ DBSacrifice,DBCounter,DBMill
+SVar:DBSacrifice:DB$ Sacrifice | Defined$ You | SacValid$ Permanent | SpellDescription$ Sacrifice a permanent, then draw two cards. | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 2
+SVar:DBCounter:DB$ Counter | TargetType$ Spell | TgtPrompt$ Select target creature spell | ValidTgts$ Creature | UnlessCost$ PayLife<5> | SpellDescription$ Counter target creature spell unless its owner pays 5 life.
+SVar:DBMill:DB$ Mill | NumCards$ 7 | ValidTgts$ Player | SpellDescription$ Target player mills seven cards.
+Oracle:Choose two —\n• Sacrifice a permanent: Draw two cards.\n• Counter target creature spell unless its owner pays 5 life.\n• Target player mills seven cards.

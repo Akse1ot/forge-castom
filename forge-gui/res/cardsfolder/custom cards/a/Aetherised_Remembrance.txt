@@ -1,0 +1,6 @@
+Name:Aetherised Remembrance
+ManaCost:2 U B
+Types:Instant
+A:SP$ Dig | ValidTgts$ Player | DigNum$ 4 | ChangeNum$ Any | DestinationZone$ Graveyard | SubAbility$ DBDraw | SpellDescription$ Look at the top four cards of target player’s library. Put any number of them into that player’s graveyard and the rest back on top of that player’s library in any order. Draw two cards.
+SVar:DBDraw:DB$ Draw | NumCards$ 2
+Oracle:Look at the top four cards of target player’s library. Put any number of them into that player’s graveyard and the rest back on top of that player’s library in any order.\nDraw two cards.

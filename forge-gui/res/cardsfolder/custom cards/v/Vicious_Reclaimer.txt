@@ -1,0 +1,8 @@
+Name:Vicious Reclaimer
+ManaCost:2 G
+Types:Creature Spider Shaman
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters, you may return target land card from your graveyard to the battlefield.
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Land.YouCtrl
+K:Reanimate
+Oracle:When Vicious Reclaimer enters the battlefield, you may return target land card from your graveyard to the battlefield.\nReanimate (You may cast this card from your graveyard by sacrificing a creature in addition to paying its other costs.)
