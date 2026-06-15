@@ -1,0 +1,9 @@
+Name:Change of Perspective
+ManaCost:3 U R
+Types:Instant
+K:Focus
+A:SP$ GainControl | ValidTgts$ Creature | TgtPrompt$ Select target creature | Duration$ UntilEOT | Condition$ NotFocused | SubAbility$ DBUntap | SpellDescription$ Gain control of target creature until end of turn. Untap that creature. It gains haste until end of turn. If this spell was focused, gain control of target creature instead.
+SVar:DBUntap:DB$ Untap | Defined$ Targeted | SubAbility$ DBHaste
+SVar:DBHaste:DB$ Pump | Defined$ Targeted | KW$ Haste
+A:SP$ GainControl | ValidTgts$ Creature | TgtPrompt$ Select target creature | Duration$ Permanent | Condition$ Focused | Secondary$ True | SpellDescription$ Gain control of target creature.
+Oracle:Focus (During your main phase, you may exile this card from your hand and pay its mana cost. At the beginning of your next upkeep, cast it without paying its mana cost.)\nGain control of target creature until end of turn. Untap that creature. It gains haste until end of turn. If this spell was focused, gain control of target creature instead.

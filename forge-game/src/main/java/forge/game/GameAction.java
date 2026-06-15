@@ -317,6 +317,9 @@ public class GameAction {
             repParams.put(AbilityKey.Cause, cause);
             repParams.put(AbilityKey.Origin, zoneFrom != null ? zoneFrom.getZoneType() : null);
             repParams.put(AbilityKey.Destination, zoneTo.getZoneType());
+            if (zoneTo.is(ZoneType.Library) && position != null) {
+                repParams.put(AbilityKey.LibraryPosition, position);
+            }
             if (toBattlefield) {
                 repParams.put(AbilityKey.EffectOnly, true);
                 repParams.put(AbilityKey.CounterTable, table);
@@ -495,6 +498,9 @@ public class GameAction {
                     repParams.put(AbilityKey.Cause, cause);
                     repParams.put(AbilityKey.Origin, zoneFrom != null ? zoneFrom.getZoneType() : null);
                     repParams.put(AbilityKey.Destination, zoneTo.getZoneType());
+                    if (zoneTo.is(ZoneType.Library) && position != null) {
+                        repParams.put(AbilityKey.LibraryPosition, position);
+                    }
 
                     if (params != null) {
                         repParams.putAll(params);

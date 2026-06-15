@@ -1,0 +1,8 @@
+Name:Erase from Existence
+ManaCost:2 W B
+Types:Sorcery
+A:SP$ ChangeZone | SubAbility$ ExileYard | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand | TgtPrompt$ Select target nonland permanent | SpellDescription$ Exile target nonland permanent. Search its controller’s graveyard and hand for any number of cards with the same name as that permanent and exile them.
+SVar:ExileYard:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | Defined$ TargetedController | ChangeType$ TargetedCard.sameName | SubAbility$ ExileHand | StackDescription$ None
+SVar:ExileHand:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | DefinedPlayer$ TargetedController | ChangeType$ TargetedCard.sameName | ChangeNum$ NumInHand | Chooser$ You | StackDescription$ None
+SVar:NumInHand:TargetedController$CardsInHand
+Oracle:Exile target nonland permanent. Search its controller’s graveyard and hand for any number of cards with the same name as that permanent and exile them.

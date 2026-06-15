@@ -84,6 +84,7 @@ public enum AbilityKey {
     IndividualCostPaymentInstance("IndividualCostPaymentInstance"),
     LastStateBattlefield("LastStateBattlefield"),
     LastStateGraveyard("LastStateGraveyard"),
+    LibraryPosition("LibraryPosition"),
     LifeAmount("LifeAmount"), //TODO confirm that this and LifeGained can be merged
     LifeGained("LifeGained"),
     LoseReason("LoseReason"),

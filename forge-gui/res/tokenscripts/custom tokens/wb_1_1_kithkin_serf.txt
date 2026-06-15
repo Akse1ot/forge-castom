@@ -1,0 +1,6 @@
+Name:Kithkin Serf Token
+ManaCost:no cost
+Colors:white,black
+Types:Creature Kithkin Serf
+PT:1/1
+Oracle:

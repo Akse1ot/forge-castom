@@ -1,0 +1,8 @@
+Name:Commander's Compass
+ManaCost:1 WU
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Artifact.YouCtrl | IsPresent$ Card.Self | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigScry | TriggerDescription$ Whenever an artifact enters the battlefield under your control, Scry 1.
+SVar:TrigScry:DB$ Scry | ScryNum$ 1
+S:Mode$ Continuous | Affected$ Creature.withFlying+YouCtrl | AddPower$ 1 | Description$ Creatures you control with flying get +1/+0.
+Oracle:Whenever an artifact enters the battlefield under your control, Scry 1.\n
+Creatures you control with flying get +1/+0.

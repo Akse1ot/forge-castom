@@ -1,0 +1,6 @@
+Name:Cinmund Virtuoso
+ManaCost:1 B R
+Types:Creature Elemental Shaman
+PT:2/2
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+Other | AddPower$ 1 | AddToughness$ -1 | AddKeyword$ Menace | Description$ Other creatures you control get +1/-1 and have menace.
+Oracle:Other creatures you control get +1/-1 and have menace.

@@ -1,0 +1,11 @@
+Name:Cleanse Essence
+ManaCost:UR UR UR
+Types:Instant
+A:SP$ Charm | Choices$ DBDestroy,DBExile,DBSearch
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature.attacking,Creature.blocking | TgtPrompt$ Select target attacking or blocking creature | SubAbility$ DBBolster | SpellDescription$ Destroy target attacking or blocking creature.
+SVar:DBExile:DB$ ChangeZoneAll | ChangeType$ Card | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBToken | SpellDescription$ Exile all cards in all graveyards. You gain 1 life for each card exiled this way.
+SVar:DBToken:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Enchantment.YouOwn+cmcLE3 | SpellDescription$ Search your library for an enchantment card with converted mana cost 3 or less and put that card into your hand. Then shuffle your library.
+Oracle:Choose one —\n• Destroy target attacking or blocking creature.\n• Switch the power and toughness of each of up to two target creatures until end of turn.\n• Search your library for an enchantment card with converted mana cost 3 or less and put that card into your hand. Then shuffle your library.

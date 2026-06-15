@@ -1,0 +1,7 @@
+Name:Channel the Surge
+ManaCost:X B R
+Types:Sorcery
+A:SP$ Draw | NumCards$ X | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ Player
+SVar:X:Count$xPaid
+Oracle:Draw X cards. Each player loses X life. 

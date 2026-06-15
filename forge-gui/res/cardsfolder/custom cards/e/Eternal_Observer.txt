@@ -1,0 +1,7 @@
+Name:Eternal Observer
+ManaCost:U B
+Types:Creature Djinn
+PT:2/2
+R:Event$ Moved | ActiveZones$ Battlefield | ValidCard$ Card | Destination$ Library | LibraryPosition$ 0 | Optional$ True | OptionalDecider$ You | ReplaceWith$ DBGraveInstead | Description$ If a card would be put on top of a player's library, you may put it into that player's graveyard instead.
+SVar:DBGraveInstead:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ All | Destination$ Graveyard
+Oracle:If a card would be put on top of a player’s library, you may put it into that player’s graveyard instead.

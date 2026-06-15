@@ -35,6 +35,16 @@ public class ReplaceMoved extends ReplacementEffect {
             }
         }
 
+        if (hasParam("LibraryPosition")) {
+            if (!runParams.containsKey(AbilityKey.LibraryPosition)) {
+                return false;
+            }
+            final Integer pos = (Integer) runParams.get(AbilityKey.LibraryPosition);
+            if (pos == null || !getParam("LibraryPosition").equals(String.valueOf(pos))) {
+                return false;
+            }
+        }
+
         if (hasParam("Origin")) {
             ZoneType zt = (ZoneType) runParams.get(AbilityKey.Origin);
             if (!ZoneType.listValueOf(getParam("Origin")).contains(zt)) {

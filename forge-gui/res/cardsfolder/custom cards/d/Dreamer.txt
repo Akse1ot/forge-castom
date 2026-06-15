@@ -1,0 +1,9 @@
+Name:Dreamer
+ManaCost:B R
+Types:Legendary Creature Elemental Shaman
+PT:3/3
+S:Mode$ MustAttack | ValidCreature$ Card.Self | Description$ CARDNAME attacks each combat if able.
+A:AB$ DealDamage | Cost$ X B R T | ValidTgts$ Creature | NumDmg$ X | SubAbility$ DBDealDamage | SpellDescription$ CARDNAME deals X damage to target creature and X damage to you.
+SVar:DBDealDamage:DB$ DealDamage | Defined$ You | NumDmg$ X
+SVar:X:Count$xPaid
+Oracle:Berserking Monk attacks each turn if able.\n{X}{B}{R}, {T}: Dreamer deals X damage to target creature and X damage to you.

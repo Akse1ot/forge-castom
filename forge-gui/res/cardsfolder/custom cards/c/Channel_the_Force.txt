@@ -1,0 +1,9 @@
+Name:Channel the Force
+ManaCost:UR UR UR
+Types:Instant
+A:SP$ Charm | Choices$ DBTap,DBSwitch,DBCopy
+SVar:DBTap:DB$ Tap | TargetMin$ 0 | TargetMax$ 3 | ValidTgts$ Land | SubAbility$ TrigPump | SpellDescription$ Up to three target lands don’t untap during their controller’s next untap step.
+SVar:TrigPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+SVar:DBSwitch:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | KW$ HIDDEN CARDNAME's power and toughness are switched | SpellDescription$ Switch the power and toughness of each of up to two target creatures until end of turn.
+SVar:DBCopy:DB$ CopySpellAbility | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | TargetType$ Spell | TgtPrompt$ Select target instant or sorcery spell you control | MayChooseTarget$ True | SpellDescription$ Copy target instant or sorcery spell you control. You may choose new targets for the copy.
+Oracle:Choose one —\n• Up to three target lands don’t untap during their controller’s next untap step.\n• Switch the power and toughness of each of up to two target creatures until end of turn.\n• Copy target instant or sorcery spell you control. You may choose new targets for the copy.

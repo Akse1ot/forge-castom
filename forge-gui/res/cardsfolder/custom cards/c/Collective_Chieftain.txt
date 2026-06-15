@@ -1,0 +1,10 @@
+Name:Collective Chieftain
+ManaCost:1 R G
+Types:Creature Orc Shaman
+PT:2/2
+S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl | AddAbility$ Mana | Description$ Other creatures you control have: “{T}: Add {G} or {R}.”
+SVar:Mana:AB$ Mana | Cost$ T | Produced$ Combo G R | SpellDescription$ Add {G} or {R}.
+T:Mode$ ChangesZoneAll | ValidCards$ Land.YouOwn+!token | Origin$ Any | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever one or more land cards are put into a graveyard from anywhere, create a 1/1 green Plant creature token.
+SVar:TrigToken:DB$ Token | TokenScript$ g_1_1_plant | TokenOwner$ You
+Oracle:Other creatures you control have: “{T}: Add {G} or {R}.”\n
+Whenever one or more land cards are put into a graveyard from anywhere, create a 1/1 green Plant creature token.

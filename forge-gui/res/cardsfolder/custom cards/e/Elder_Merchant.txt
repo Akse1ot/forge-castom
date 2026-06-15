@@ -1,0 +1,10 @@
+Name:Elder Merchant
+ManaCost:3 WB
+Types:Creature Kithkin
+PT:3/3
+K:Tax
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigPutCounter | TriggerDescription$ When CARDNAME dies, you may move its counters onto another target creature you control.
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | CounterType$ EachFromSource | EachFromSource$ TriggeredCardLKICopy
+SVar:SacMe:2
+DeckHas:Ability$Counters
+Oracle:Tax (When you cast this spell, you may pay 3 life. If you do, it enters the battlefield with a +1/+1 counter on it.)\nWhen Elder Merchant dies, you may move its counters onto another target creature you control.

@@ -1,0 +1,7 @@
+Name:Divine Destroyer
+ManaCost:R W
+Types:Creature Insect Samurai
+PT:1/2
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Hand | OptionalDecider$ You | Execute$ TrigChangeZone | TriggerDescription$ At the beginning of combat on your turn, you may put CARDNAME from your hand onto the battlefield, tapped and attacking. If you do, sacrifice it at the beginning of the next end step.
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | Tapped$ True | Attacking$ True | AtEOT$ Sacrifice 
+Oracle:At the beginning of combat on your turn, you may put Divine Destroyer from your hand onto the battlefield, tapped and attacking. If you do, sacrifice it at the beginning of the next end step.

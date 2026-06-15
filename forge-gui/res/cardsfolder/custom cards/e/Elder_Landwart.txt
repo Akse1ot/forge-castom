@@ -1,0 +1,8 @@
+Name:Elder Landwart
+ManaCost:2 G W
+Types:Creature Dryad Elder
+PT:4/4
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters the battlefield, replenish twice. (To replenish, create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_food_canovol_sac | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_food_canovol_sac
+Oracle:When Elder Landwart enters the battlefield, replenish twice. (To replenish, create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)\nEach other creature you control with a +1/+1 counter on it has indestructible.

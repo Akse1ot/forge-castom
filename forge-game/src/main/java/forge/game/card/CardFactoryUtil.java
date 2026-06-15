@@ -922,36 +922,21 @@ public class CardFactoryUtil {
 
             inst.addTrigger(trigger);
         } else if (keyword.equals("Derange")) {
-            final String trigStr = "Mode$ Attacks | ValidCard$ Card.Self | Secondary$ True"
-                    + " | TriggerDescription$ Derange (" + inst.getReminderText() + ")";
-
-            final String millStr = "DB$ Mill"
-                    + " | Defined$ You"
-                    + " | NumCards$ 1"
-                    + " | Optional$ True"
-                    + " | ForgetOtherRemembered$ True"
-                    + " | RememberMilled$ True";
-
-            final String loseLifeStr = "DB$ LoseLife"
-                    + " | Defined$ TriggeredDefendingPlayer"
-                    + " | LifeAmount$ 1"
-                    + " | ConditionDefined$ Remembered"
-                    + " | ConditionPresent$ Card"
-                    + " | ConditionCompare$ GE1";
-
+            final String trigStr = "Mode$ Attacks | ValidCard$ Card.Self | Secondary$ True | TriggerDescription$ Derange (" + inst.getReminderText() + ")";
+            final String millStr = "DB$ Mill | Defined$ You | NumCards$ 1 | Optional$ True | ForgetOtherRemembered$ True | RememberMilled$ True";
+            final String loseLifeStr = "DB$ LoseLife | Defined$ TriggeredDefendingPlayer | LifeAmount$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1";
             final String cleanupStr = "DB$ Cleanup | ClearRemembered$ True";
 
             final Trigger trigger = TriggerHandler.parseTrigger(trigStr, card, intrinsic);
+            final SpellAbility mill = AbilityFactory.getAbility(millStr, card);
+            final AbilitySub loseLife = (AbilitySub) AbilityFactory.getAbility(loseLifeStr, card);
+            final AbilitySub cleanup = (AbilitySub) AbilityFactory.getAbility(cleanupStr, card);
 
-            final SpellAbility millSA = AbilityFactory.getAbility(millStr, card);
-            final AbilitySub loseLifeSA = (AbilitySub) AbilityFactory.getAbility(loseLifeStr, card);
-            final AbilitySub cleanupSA = (AbilitySub) AbilityFactory.getAbility(cleanupStr, card);
+            loseLife.setSubAbility(cleanup);
+            mill.setSubAbility(loseLife);
+            mill.setIntrinsic(intrinsic);
+            trigger.setOverridingAbility(mill);
 
-            loseLifeSA.setSubAbility(cleanupSA);
-            millSA.setSubAbility(loseLifeSA);
-            millSA.setIntrinsic(intrinsic);
-
-            trigger.setOverridingAbility(millSA);
             inst.addTrigger(trigger);
         } else if (keyword.equals("Dethrone")) {
             final StringBuilder trigScript = new StringBuilder(

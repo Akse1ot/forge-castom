@@ -1,0 +1,10 @@
+Name:Elder Explorer
+ManaCost:4 UR UR
+Types:Creature Human Monk
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard | TriggerDescription$ When CARDNAME enters the battlefield, you may discard up to two cards. If you do, draw that many cards.
+SVar:TrigDiscard:DB$ Discard | Defined$ You | NumCards$ 2 | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw | SpellDescription$ You may discard up two cards. If you do, draw that many cards.
+SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$Amount
+Oracle:When Elder Explorer enters the battlefield, you may discard up to two cards. If you do, draw that many cards.

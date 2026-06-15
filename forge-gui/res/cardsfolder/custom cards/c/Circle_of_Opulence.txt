@@ -1,0 +1,12 @@
+Name:Circle of Opulence
+ManaCost:3 W W B B
+Types:Legendary Creature Kithkin Noble
+PT:6/6
+A:AB$ Pump | Cost$ PayLife<4> | Defined$ Self | KW$ Indestructible | SpellDescription$ CARDNAME gains indestructible until end of turn. (Damage and effects that say "destroy" don't destroy it.)
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player | Execute$ TrigBranch | TriggerDescription$ At the beginning of each player's upkeep, remove a +1/+1 counter from a creature that player controls. If you can't, that player sacrifices a creature. Then put two +1/+1 counters on CARDNAME.
+SVar:TrigBranch:DB$ Branch | ConditionZone$ Battlefield | ConditionPresent$ Creature.ControlledByTriggeredPlayer+counters_GE1_P1P1 | TrueSubAbility$ DBRemoveCounter | FalseSubAbility$ DBSacrifice
+SVar:DBRemoveCounter:DB$ RemoveCounter | Choices$ Creature.ControlledByTriggeredPlayer+counters_GE1_P1P1 | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPutCounters
+SVar:DBSacrifice:DB$ Sacrifice | Defined$ TriggeredPlayer | SacValid$ Creature | Amount$ 1 | SubAbility$ DBPutCounters
+SVar:DBPutCounters:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2
+Oracle:Pay 4 life: Circle of Opulence gains indestructible until end of turn.\n
+At the beginning of each player’s upkeep, remove a +1/+1 counter from a creature that player controls. If you can’t, that player sacrifices a creature. Then put two +1/+1 counters on Circle of Opulence.

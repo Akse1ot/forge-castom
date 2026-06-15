@@ -1,0 +1,8 @@
+Name:Crown Warden
+ManaCost:1 G W
+Types:Creature Dryad
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X | Description$ CARDNAME's power and toughness are each equal to the number of nonland permanents you control.
+SVar:X:Count$Valid Permanent.nonLand+YouCtrl
+SVar:NoZeroToughnessAI:True
+Oracle:Crown Warden’s power and toughness are each equal to the number of nonland permanents you control.

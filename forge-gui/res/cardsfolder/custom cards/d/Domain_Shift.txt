@@ -1,0 +1,10 @@
+Name:Domain Shift
+ManaCost:GU GU GU
+Types:Instant
+A:SP$ Charm | Choices$ PumpHexproof,PumpLizard,DamageDraw
+SVar:PumpHexproof:DB$ PumpAll | ValidCards$ Permanent.YouCtrl | KW$ Hexproof | SpellDescription$ Permanents you control gain hexproof until end of turn.
+SVar:PumpLizard:DB$ Animate | ValidTgts$ Land | Power$ 4 | Toughness$ 4 | Types$ Creature,Lizard | RemoveLandTypes$ True | Keywords$ Hexproof | SpellDescription$ Target land becomes a 4/4 Lizard creature with hexproof until end of turn.
+SVar:DamageDraw:DB$ Effect | Triggers$ Damage | SpellDescription$ Until end of turn, whenever a creature you control deals combat damage to a player, draw a card.
+SVar:Damage:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw | TriggerDescription$ Until end of turn, whenever a creature you control deals combat damage to a player, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Choose one —\n• Permanents you control gain hexproof until end of turn.\n• Target land becomes a 4/4 Lizard creature with hexproof until end of turn.\n• Until end of turn, whenever a creature you control deals combat damage to a player, draw a card.
