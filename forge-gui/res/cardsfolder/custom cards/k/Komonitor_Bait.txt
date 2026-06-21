@@ -1,0 +1,7 @@
+Name:Komonitor Bait
+ManaCost:GU
+Types:Creature Lizard
+PT:0/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerDescription$ When CARDNAME enters, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:When Komonitor Bait enters the battlefield, draw a card.

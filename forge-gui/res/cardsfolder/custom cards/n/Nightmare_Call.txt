@@ -1,0 +1,5 @@
+Name:Nightmare Call
+ManaCost:1 B R
+Types:Sorcery
+A:SP$ CopyPermanent | TgtZone$ Graveyard | ValidTgts$ Creature | TgtPrompt$ Select target creature card in graveyard | PumpKeywords$ Haste | AtEOT$ Sacrifice | SpellDescription$ Create a token that’s a copy of target creature card in a graveyard. It gains haste. Sacrifice it at the beginning of the next end step.
+Oracle:Create a token that’s a copy of target creature card in a graveyard. It gains haste. Sacrifice it at the beginning of the next end step.

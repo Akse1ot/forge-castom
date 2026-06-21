@@ -1,0 +1,7 @@
+Name:Green Sentry
+ManaCost:GW
+Types:Creature Dryad
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Permanent.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a permanent you control leaves the battlefield, you gain 1 life.
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+Oracle:Whenever a permanent you control leaves the battlefield, you gain 1 life.

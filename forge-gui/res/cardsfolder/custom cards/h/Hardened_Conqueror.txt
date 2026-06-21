@@ -1,0 +1,6 @@
+Name:Hardened Conqueror
+ManaCost:2 R W
+Types:Creature Insect Samurai
+PT:2/3
+K:Double Strike
+Oracle:Double strike

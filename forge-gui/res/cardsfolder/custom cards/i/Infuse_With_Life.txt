@@ -1,0 +1,8 @@
+Name:Infuse With Life
+ManaCost:GW
+Types:Sorcery
+A:SP$ Charm | Choices$ DBGainLife,DBDestroy,DBToken
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 5 | SpellDescription$ You gain 5 life.
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Enchantment.cmcLE3 | SpellDescription$ Destroy target enchantment with converted mana cost 3 or less.
+SVar:DBToken:DB$ Token | TokenScript$ c_a_food_canovol_sac | SpellDescription$ Replenish. (Create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)
+Oracle:Choose one —\n• You gain 5 life.\n• Destroy target enchantment with converted mana cost 3 or less.\n• Replenish. (Create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)

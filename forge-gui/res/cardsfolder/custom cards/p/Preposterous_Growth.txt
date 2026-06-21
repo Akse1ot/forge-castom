@@ -1,0 +1,6 @@
+Name:Preposterous Growth
+ManaCost:BG BG
+Types:Enchantment
+A:AB$ Token | Cost$ 1 ExileFromGrave<2/Card> | TokenScript$ bg_1_2_spider | TokenOwner$ You | SpellDescription$ Create a 1/2 black and green Spider creature token.
+DeckHas:Ability$Token
+Oracle:{1}, exile two cards from your graveyard: Create a 1/2 black and green Spider creature token.

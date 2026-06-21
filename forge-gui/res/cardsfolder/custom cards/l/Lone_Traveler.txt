@@ -1,0 +1,6 @@
+Name:Lone Traveler
+ManaCost:1 G W
+Types:Creature Dryad
+PT:3/3
+K:Vigilance
+Oracle:Vigilance

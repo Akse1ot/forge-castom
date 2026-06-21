@@ -1,0 +1,7 @@
+Name:Fervent Hunter
+ManaCost:2 RG RG
+Types:Creature Orc Barbarian
+PT:4/4
+K:Territorial
+S:Mode$ Continuous | Affected$ Card.Self+territorial | AddKeyword$ Trample & Haste | Description$ CARDNAME has trample and haste as long as it’s territorial.
+Oracle:Territorial (As this enters the battlefield, you may exile a land card from your hand or graveyard. When this leaves the battlefield, return the exiled card to your hand.)\nFervent Hunter has trample and haste as long as it’s territorial.

@@ -1,0 +1,6 @@
+Name:Spider Token
+ManaCost:no cost
+Colors:black,green
+Types:Creature Spider
+PT:1/2
+Oracle:

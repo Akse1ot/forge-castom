@@ -1,0 +1,6 @@
+Name:Feed the Horrors
+ManaCost:B R
+Types:Instant
+A:SP$ DealDamage | Cost$ B R Sac<1/Creature> | ValidTgts$ Any | NumDmg$ 5 | ExcessSVar$ Excess | SpellDescription$ CARDNAME deals 5 damage to any target.
+SVar:AIPreference:SacCost$Creature.cmcLE1
+Oracle:As an additional cost to cast Feed the Horrors, sacrifice a creature.\nFeed the Horrors deals 5 damage to any target.

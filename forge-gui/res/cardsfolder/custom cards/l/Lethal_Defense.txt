@@ -1,0 +1,7 @@
+Name:Lethal Defense
+ManaCost:W B
+Types:Instant
+A:SP$ Charm | Choices$ DBFirstStrike,DBDeathtouch
+SVar:DBFirstStrike:DB$ Pump | ValidTgts$ Creature | NumAtt$ +1 | NumDef$ +1 | KW$ First Strike | SpellDescription$ Target creature gets +1/+1 and gains first strike until end of turn.
+SVar:DBDeathtouch:DB$ Pump | ValidTgts$ Creature | NumAtt$ +1 | NumDef$ +1 | KW$ Deathtouch | SpellDescription$ Target creature gets +1/+1 and gains deathtouch until end of turn.
+Oracle:Choose one —\n• Target creature gets +1/+1 and gains first strike until end of turn.\n• Target creature gets +1/+1 and gains deathtouch until end of turn.

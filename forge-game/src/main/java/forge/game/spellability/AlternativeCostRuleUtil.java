@@ -31,7 +31,11 @@ final class AlternativeCostRuleUtil {
     }
 
     static Cost buildCost(final String costExpr, final SpellAbility sa, final Card ruleHost) {
-        return new Cost(costExpr, sa.isAbility(), sa.getHostCard().equals(ruleHost));
+        final boolean isAbility = sa != null && sa.isAbility();
+        final Card host = sa == null ? null : sa.getHostCard();
+        final boolean isFromSource = host != null && host.equals(ruleHost);
+
+        return new Cost(costExpr, isAbility, isFromSource);
     }
 
     static Cost replaceCost(final SpellAbility sa, final Card ruleHost, final String costExpr) {
@@ -39,34 +43,52 @@ final class AlternativeCostRuleUtil {
     }
 
     static Cost appendCost(final Cost base, final SpellAbility sa, final Card ruleHost, final String costExpr) {
+        if (base == null) {
+            return buildCost(costExpr, sa, ruleHost);
+        }
+
         final Cost result = base.copy();
         result.add(buildCost(costExpr, sa, ruleHost));
         return result;
     }
 
     static Cost replaceManaPart(final Cost base, final ManaCost newMana) {
+        if (base == null) {
+            return null;
+        }
+
         final Cost result = base.copyWithNoMana();
+        removeManaParts(result);
+
         final CostPartMana oldMana = base.getCostMana();
+        final CostPartMana replacement;
 
         if (oldMana != null && (oldMana.isExiledCreatureCost() || oldMana.isEnchantedCreatureCost() || oldMana.getXMin() > 0)) {
-            final CostPartMana replacement = new CostPartMana(
+            replacement = new CostPartMana(
                     newMana,
                     oldMana.isExiledCreatureCost(),
                     oldMana.isEnchantedCreatureCost(),
                     oldMana.getXMin()
             );
-            replacement.setMaxWaterbend(oldMana.getMaxWaterbend());
-            result.getCostParts().add(replacement);
         } else {
-            final CostPartMana replacement = new CostPartMana(newMana, null);
-            if (oldMana != null) {
-                replacement.setMaxWaterbend(oldMana.getMaxWaterbend());
-            }
-            result.getCostParts().add(replacement);
+            replacement = new CostPartMana(newMana, null);
         }
 
+        if (oldMana != null) {
+            replacement.setMaxWaterbend(oldMana.getMaxWaterbend());
+        }
+
+        result.getCostParts().add(replacement);
         result.sort();
         return result;
+    }
+
+    private static void removeManaParts(final Cost cost) {
+        if (cost == null) {
+            return;
+        }
+
+        cost.getCostParts().removeIf(part -> part instanceof CostPartMana);
     }
 
     static Cost replaceManaPart(final Cost base, final String manaExpr) {
@@ -74,13 +96,25 @@ final class AlternativeCostRuleUtil {
     }
 
     static Cost reduceManaPart(final Cost base, final String manaExpr) {
+        if (base == null) {
+            return null;
+        }
+
         final CostPartMana mana = base.getCostMana();
         if (mana == null) {
             return base.copy();
         }
 
+        final ManaCost reduction = new ManaCost(manaExpr);
+
+        // Do not support reducing X in v1.
+        // ManaCostBeingPaid.subtractManaCost can decrement cntX below zero.
+        if (reduction.countX() > 0) {
+            return base.copy();
+        }
+
         final ManaCostBeingPaid working = new ManaCostBeingPaid(mana.getMana());
-        working.subtractManaCost(new ManaCost(manaExpr));
+        working.subtractManaCost(reduction);
         return replaceManaPart(base, working.toManaCost());
     }
 
@@ -100,9 +134,11 @@ final class AlternativeCostRuleUtil {
     }
 
     static void appendVariantDescription(final SpellAbility derived, final String variantDescription) {
-        if (variantDescription == null || variantDescription.isEmpty()) {
+        if (derived == null || variantDescription == null || variantDescription.isEmpty()) {
             return;
         }
-        derived.setDescription(derived.getDescription() + " (" + variantDescription + ")");
+
+        final String description = derived.getDescription() == null ? "" : derived.getDescription();
+        derived.setDescription(description + " (" + variantDescription + ")");
     }
 }

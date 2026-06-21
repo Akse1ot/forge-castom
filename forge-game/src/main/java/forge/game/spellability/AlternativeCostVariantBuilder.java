@@ -1,10 +1,9 @@
 package forge.game.spellability;
 
 import com.google.common.collect.Lists;
-import forge.game.Game;
 import forge.game.CardTraitBase;
+import forge.game.Game;
 import forge.game.card.Card;
-import forge.game.card.CardCollection;
 import forge.game.cost.Cost;
 import forge.game.player.Player;
 import forge.game.staticability.StaticAbility;
@@ -35,8 +34,8 @@ public final class AlternativeCostVariantBuilder {
                 continue;
             }
 
-            addSelfVariant(candidate, result, activator);
-            addExternalVariants(candidate, result, activator);
+            addSelfVariant(candidate, result, activator, source);
+            addExternalVariants(candidate, result, activator, source);
         }
 
         return result;
@@ -44,12 +43,22 @@ public final class AlternativeCostVariantBuilder {
 
     private static void addSelfVariant(final SpellAbility candidate,
                                        final List<SpellAbility> result,
-                                       final Player activator) {
+                                       final Player activator,
+                                       final Card source) {
+        if (candidate == null || result == null || activator == null || source == null) {
+            return;
+        }
+
         if (!isApplicableSelfVariantRule(candidate)) {
             return;
         }
 
-        final SpellAbility derived = buildDerivedVariant(candidate, activator, candidate.getHostCard(), candidate);
+        final Card ruleHost = getCandidateHost(candidate, source);
+        if (ruleHost == null) {
+            return;
+        }
+
+        final SpellAbility derived = buildDerivedVariant(candidate, activator, ruleHost, candidate);
         if (derived != null) {
             result.add(derived);
         }
@@ -57,14 +66,20 @@ public final class AlternativeCostVariantBuilder {
 
     private static void addExternalVariants(final SpellAbility candidate,
                                             final List<SpellAbility> result,
-                                            final Player activator) {
-        final Game game = candidate.getHostCard().getGame();
-        final CardCollection sources = new CardCollection(candidate.getHostCard());
-        sources.addAll(game.getCardsIn(ZoneType.STATIC_ABILITIES_SOURCE_ZONES));
+                                            final Player activator,
+                                            final Card source) {
+        if (candidate == null || result == null || activator == null || source == null) {
+            return;
+        }
 
-        for (final Card ruleSource : sources) {
+        final Card candidateHost = getCandidateHost(candidate, source);
+        if (candidateHost == null) {
+            return;
+        }
+
+        for (final Card ruleSource : getRuleSources(candidateHost)) {
             for (final StaticAbility st : ruleSource.getStaticAbilities()) {
-                if (!isApplicableExternalVariantRule(st, candidate, activator)) {
+                if (!isApplicableExternalVariantRule(st, candidate, candidateHost, activator)) {
                     continue;
                 }
 
@@ -77,6 +92,9 @@ public final class AlternativeCostVariantBuilder {
     }
 
     private static boolean isApplicableSelfVariantRule(final SpellAbility candidate) {
+        if (candidate == null) {
+            return false;
+        }
         if (!"True".equalsIgnoreCase(candidate.getParam("SelfAltCostVariant"))) {
             return false;
         }
@@ -92,7 +110,11 @@ public final class AlternativeCostVariantBuilder {
 
     private static boolean isApplicableExternalVariantRule(final StaticAbility st,
                                                            final SpellAbility candidate,
+                                                           final Card candidateHost,
                                                            final Player activator) {
+        if (st == null || candidate == null || candidateHost == null || activator == null) {
+            return false;
+        }
         if (!st.checkConditions()) {
             return false;
         }
@@ -106,39 +128,72 @@ public final class AlternativeCostVariantBuilder {
             return false;
         }
 
-        if (!st.matchesValidParam("ValidSA", candidate)) {
-            return false;
-        }
-        if (!st.matchesValidParam("ValidCard", candidate.getHostCard())) {
-            return false;
-        }
-        if (!st.matchesValidParam("ValidPlayer", activator)) {
-            return false;
-        }
-        if (st.hasParam("RequiredSpellParam") && !candidate.hasParam(st.getParam("RequiredSpellParam"))) {
+        return matchesExternalRuleParams(st, candidate, candidateHost, activator)
+                && hasAnyVariantAction(st);
+    }
+
+    private static boolean matchesExternalRuleParams(final StaticAbility st,
+                                                     final SpellAbility candidate,
+                                                     final Card candidateHost,
+                                                     final Player activator) {
+        final Player oldActivatingPlayer = candidate.getActivatingPlayer();
+
+        if (oldActivatingPlayer != null && !oldActivatingPlayer.equals(activator)) {
             return false;
         }
 
-        return hasAnyVariantAction(st);
+        final boolean temporarilySetActivatingPlayer = oldActivatingPlayer == null;
+
+        if (temporarilySetActivatingPlayer) {
+            candidate.setActivatingPlayer(activator);
+        }
+
+        try {
+            if (!st.matchesValidParam("ValidSA", candidate)) {
+                return false;
+            }
+            if (!st.matchesValidParam("ValidCard", candidateHost)) {
+                return false;
+            }
+            if (!st.matchesValidParam("ValidPlayer", activator)) {
+                return false;
+            }
+            if (st.hasParam("RequiredSpellParam") && !candidate.hasParam(st.getParam("RequiredSpellParam"))) {
+                return false;
+            }
+
+            return true;
+        } finally {
+            if (temporarilySetActivatingPlayer) {
+                candidate.setActivatingPlayer(null);
+            }
+        }
     }
 
     private static boolean hasAnyVariantAction(final CardTraitBase rule) {
-        return rule.hasParam("VariantReplaceCost")
-                || rule.hasParam("VariantAppendCost")
-                || rule.hasParam("VariantReplaceMana")
-                || rule.hasParam("VariantReduceMana")
-                || rule.hasParam("VariantRaiseMana");
+        return rule != null && (
+                rule.hasParam("VariantReplaceCost")
+                        || rule.hasParam("VariantAppendCost")
+                        || rule.hasParam("VariantReplaceMana")
+                        || rule.hasParam("VariantReduceMana")
+                        || rule.hasParam("VariantRaiseMana")
+        );
     }
 
     private static SpellAbility buildDerivedVariant(final SpellAbility candidate,
                                                     final Player activator,
                                                     final Card ruleHost,
                                                     final CardTraitBase rule) {
-        final SpellAbility derived = candidate.copy(activator);
-        if (derived == null) {
+        if (candidate == null || activator == null || ruleHost == null || rule == null) {
             return null;
         }
 
+        final SpellAbility derived = candidate.copy(activator);
+        if (derived == null || derived.getPayCosts() == null) {
+            return null;
+        }
+
+        derived.setActivatingPlayer(activator);
         derived.putParam(AlternativeCostRuleUtil.MARK_DERIVED_VARIANT, "True");
         derived.removeParam(AlternativeCostRuleUtil.MARK_POST_PROCESSED);
 
@@ -153,6 +208,10 @@ public final class AlternativeCostVariantBuilder {
                                             final SpellAbility derived,
                                             final Card ruleHost,
                                             final CardTraitBase rule) {
+        if (current == null || derived == null || ruleHost == null || rule == null) {
+            return current;
+        }
+
         if (rule.hasParam("VariantReplaceCost")) {
             current = AlternativeCostRuleUtil.replaceCost(derived, ruleHost, rule.getParam("VariantReplaceCost"));
         }
@@ -168,6 +227,36 @@ public final class AlternativeCostVariantBuilder {
         if (rule.hasParam("VariantRaiseMana")) {
             current = AlternativeCostRuleUtil.raiseManaPart(current, rule.getParam("VariantRaiseMana"));
         }
+
         return current;
+    }
+
+    private static Card getCandidateHost(final SpellAbility candidate, final Card source) {
+        if (candidate != null && candidate.getHostCard() != null) {
+            return candidate.getHostCard();
+        }
+        return source;
+    }
+
+    private static List<Card> getRuleSources(final Card candidateHost) {
+        final List<Card> sources = Lists.newArrayList();
+        addRuleSource(sources, candidateHost);
+
+        final Game game = candidateHost.getGame();
+        if (game == null) {
+            return sources;
+        }
+
+        for (final Card card : game.getCardsIn(ZoneType.STATIC_ABILITIES_SOURCE_ZONES)) {
+            addRuleSource(sources, card);
+        }
+
+        return sources;
+    }
+
+    private static void addRuleSource(final List<Card> sources, final Card card) {
+        if (card != null && !sources.contains(card)) {
+            sources.add(card);
+        }
     }
 }

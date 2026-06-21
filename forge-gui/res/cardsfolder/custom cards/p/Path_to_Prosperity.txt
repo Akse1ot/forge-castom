@@ -1,0 +1,7 @@
+Name:Path to Prosperity
+ManaCost:W B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter | TriggerDescription$ When CARDNAME enters, put a +1/+1 counter on target creature you control.
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | CounterType$ P1P1 | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+counters_GE1_P1P1 | AddKeyword$ Vigilance & Deathtouch | Description$ Each creature you control with a +1/+1 counter on it has vigilance and deathtouch.
+Oracle:When Path to Prosperity enters the battlefield, put a +1/+1 counter on target creature you control.\nEach creature you control with a +1/+1 counter on it has vigilance and deathtouch.

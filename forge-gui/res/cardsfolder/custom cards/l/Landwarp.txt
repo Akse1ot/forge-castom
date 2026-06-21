@@ -1,0 +1,6 @@
+Name:Landwarp
+ManaCost:2 G U
+Types:Sorcery
+A:SP$ Draw | NumCards$ 2 | SpellDescription$ Draw two cards. Untap up to two lands you control. | SubAbility$ DBUntap
+SVar:DBUntap:DB$ Untap | UntapUpTo$ True | UntapType$ Land.YouCtrl | Amount$ 2
+Oracle:Draw two cards. Untap up to two lands you control.

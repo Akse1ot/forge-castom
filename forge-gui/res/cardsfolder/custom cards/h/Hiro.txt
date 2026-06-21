@@ -1,0 +1,13 @@
+Name:Hiro
+ManaCost:2 R W
+Types:Legendary Creature Dryad
+PT:4/4
+K:First Strike
+K:Vigilance
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ Whenever CARDNAME attacks, it deals 1 damage to each player with the most cards in hand.
+SVar:TrigDamage:DB$ RepeatEach | RepeatPlayers$ Player.HasCardsInHand_Card_EQX | RepeatSubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | Defined$ Player.IsRemembered | NumDmg$ 1
+T:Mode$ Blocks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigCounters | TriggerDescription$ Whenever CARDNAME blocks, put a +1/+1 counter on each creature with the lowest toughness.
+SVar:TrigCounters:DB$ PutCounterAll | ValidCards$ Creature.leastToughness | ValidCardsDesc$ creature with the lowest toughness | CounterType$ P1P1 | CounterNum$ 1
+SVar:X:PlayerCountPlayers$HighestCardsInHand
+Oracle:First strike, vigilance\nWhenever Hiro attacks, it deals 1 damage to each player with the most cards in hand.\nWhenever Hiro blocks, put a +1/+1 counter on each creature with the lowest toughness.

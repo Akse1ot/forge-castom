@@ -1,0 +1,7 @@
+Name:Memory Thief
+ManaCost:2 U B
+Types:Creature Djinn
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigAetherise | TriggerDescription$ When CARDNAME enters the battlefield, you may aetherise target creature, instant or sorcery card in your graveyard.
+SVar:TrigAetherise:DB$ Aetherise | Origin$ Graveyard | ValidTgts$ Creature.YouOwn,Instant.YouOwn,Sorcery.YouOwn
+Oracle:When Memory Thief enters the battlefield, you may aetherise target creature, instant or sorcery card in your graveyard. (Put the aetherised card on top of its owner's library.)

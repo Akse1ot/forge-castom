@@ -1,0 +1,5 @@
+Name:Mutilated Memories
+ManaCost:B R
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Player | TgtPrompt$ Select target player | NumDmg$ 4 | UnlessCost$ Discard<2/Card> | UnlessPayer$ Targeted | SpellDescription$ CARDNAME deals 4 damage to target player unless they discard two cards.
+Oracle:Mutilated Memories deals 4 damage to target player unless they discard two cards.

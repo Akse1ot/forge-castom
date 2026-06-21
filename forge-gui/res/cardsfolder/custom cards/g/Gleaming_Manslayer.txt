@@ -1,0 +1,6 @@
+Name:Gleaming Manslayer
+ManaCost:3 B G
+Types:Creature Spider
+PT:4/5
+A:AB$ Pump | Cost$ 2 BG | Defined$ Self | KW$ Indestructible | SpellDescription$ CARDNAME gains indestructible until end of turn.
+Oracle:{2}{BG}: Gleaming Manslayer gains indestructible until end of turn. (Damage and effects that say "destroy" don't destroy it.)

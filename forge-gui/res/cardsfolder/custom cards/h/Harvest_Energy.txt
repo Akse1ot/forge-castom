@@ -1,0 +1,14 @@
+Name:Harvest Energy
+ManaCost:BG BG BG
+Types:Instant
+A:SP$ Charm | Choices$ DBEffect,DBSac,DBMill
+SVar:DBEffect:DB$ Effect | Triggers$ TrigDies
+SVar:TrigDies:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | Execute$ TrigDraw | TriggerDescription$ Whenever a creature you control dies this turn, draw a card.
+SVar:TrigDraw:DB$ Draw
+SVar:DBSac:DB$ Sacrifice | Amount$ 1 | SacValid$ Creature | RememberSacrificed$ True | SubAbility$ DBGainLife | SpellDescription$ Sacrifice a creature, then gain life equal to its toughness.
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$CardToughness
+SVar:DBMill:DB$ Mill | NumCards$ 7 | SubAbility$ DBReturn | SpellDescription$ Mill seven cards,
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType$ Creature.YouOwn | Hidden$ True | SpellDescription$ then return a creature card from your graveyard to your hand. (To mill a card, put the top card of your library into your graveyard.)
+Oracle:Choose one —\n• Whenever a creature dies this turn, draw a card.\n• Sacrifice a creature, then gain life equal to its toughness\n• Mill seven cards, then return a creature card from your graveyard to your hand.

@@ -211,13 +211,22 @@ public class UntapAi extends SpellAbilityAi {
                 if (sa.getSubAbility() != null && sa.getSubAbility().getApi() == ApiType.Animate && !list.isEmpty()
                         && ai.getGame().getPhaseHandler().getPhase().isBefore(PhaseType.COMBAT_DECLARE_ATTACKERS)) {
                     choice = ComputerUtilCard.getWorstPermanentAI(list, false, false, false, false);
-                } else if (!sa.isMinTargetChosen() || sa.isZeroTargets()) {
-                    // check if the cost is acceptable anyway (e.g. Planeswalker +Loyalty)
+                } else if (!sa.isMinTargetChosen()) {
+                    // Check if the cost is acceptable anyway (e.g. Planeswalker +Loyalty).
                     if (ComputerUtil.activateForCost(sa, ai)) {
-                        return true;
+                        if (sa.getMinTargets() == 0) {
+                            return true;
+                        }
+
+                        // A target is still required. If using the ability only for its cost,
+                        // choose any legal safe target instead of approving activation with no targets.
+                        choice = ComputerUtilCard.getWorstPermanentAI(list, false, false, false, false);
                     }
-                    sa.resetTargets();
-                    return false;
+
+                    if (choice == null) {
+                        sa.resetTargets();
+                        return false;
+                    }
                 } else {
                     // TODO is this good enough? for up to amounts?
                     break;

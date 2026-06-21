@@ -1,0 +1,7 @@
+Name:Harvest Call
+ManaCost:2 G W
+Types:Sorcery
+A:SP$ GainLife | LifeAmount$ X | SubAbility$ DBToken | SpellDescription$ You gain X life and replenish X times, where X is the number of lands you control. (To replenish, create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)
+SVar:DBToken:DB$ Token | TokenScript$ c_a_food_canovol_sac | TokenAmount$ X
+SVar:X:Count$Valid Land.YouCtrl
+Oracle:You gain X life and replenish X times, where X is the number of lands you control. (To replenish, create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)

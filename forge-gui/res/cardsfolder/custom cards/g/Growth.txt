@@ -1,0 +1,8 @@
+Name:Growth
+ManaCost:3 B B G G
+Types:Legendary Creature Spider
+PT:7/9
+K:Deathtouch
+A:AB$ PutCounterAll | Cost$ G Sac<1/Creature> | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SpellDescription$ Put a +1/+1 counter on each creature you control.
+A:AB$ PumpAll | Cost$ B SubCounter<1/P1P1/Creature.YouCtrl/a creature you control> | ValidCards$ Card.Creature+YouDontCtrl | NumAtt$ -1 | NumDef$ -1 | SpellDescription$ Creatures you don’t control get -1/-1 until end of turn.
+Oracle:Deathtouch\n{G}, Sacrifice a creature: Put a +1/+1 counter on each creature you control.\n{B}, Remove a +1/+1 counter from a creature you control: Creatures you don’t control get -1/-1 until end of turn.

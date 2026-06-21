@@ -1,0 +1,8 @@
+Name:Portal Guard
+ManaCost:U B
+Types:Creature Djinn
+PT:2/2
+T:Mode$ AttackerBlocked | ValidCard$ Card.Self | Execute$ TrigDiscard | TriggerDescription$ Whenever CARDNAME becomes blocked, defending player aetherises a card from their hand. (Put the aetherised card on top of its owner’s library.)
+SVar:TrigDiscard:DB$ Aetherise | Defined$ TriggeredDefendingPlayer | Origin$ Hand | ChangeType$ Card | ChangeNum$ 1
+SVar:HasAttackEffect:Blocked
+Oracle:Whenever Portal Guard becomes blocked, defending player aetherises a card from their hand. (Put the aetherised card on top of its owner’s library.)

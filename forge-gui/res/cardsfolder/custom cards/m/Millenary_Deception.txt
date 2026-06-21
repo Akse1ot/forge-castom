@@ -1,0 +1,6 @@
+Name:Millenary Deception
+ManaCost:U B
+Types:Legendary Enchantment
+R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ You | Optional$ True | ReplaceWith$ Dig | Description$ If you would draw a card, you may instead look at the top two cards of your library. If you do, put one of them into your hand and the other into your graveyard.
+SVar:Dig:DB$ Dig | DigNum$ 2 | ChangeNum$ 1 | ChangeValid$ Card | DestinationZone2$ Graveyard | NoReveal$ True
+Oracle:If you would draw a card, you may instead look at the top two cards of your library. If you do, put one of them into your hand and the other into your graveyard.

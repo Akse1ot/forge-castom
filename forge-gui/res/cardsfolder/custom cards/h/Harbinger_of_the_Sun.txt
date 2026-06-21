@@ -1,0 +1,8 @@
+Name:Harbinger of the Sun
+ManaCost:1 R W
+Types:Creature Insect Cleric Samurai
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDealDamage | TriggerDescription$ Whenever another creature you control dies, CARDNAME deals 1 damage to any target and you gain 1 life.
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1 | SubAbility$ DBGainLife | SpellDescription$ CARDNAME deals 1 damage to any target and you gain 1 life.
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 1
+Oracle:Whenever another creature you control dies, Harbinger of the Sun deals 1 damage to any target and you gain 1 life.

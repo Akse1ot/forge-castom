@@ -1,0 +1,7 @@
+Name:Passionate Bruiser
+ManaCost:2 R G
+Types:Creature Orc Barbarian
+PT:4/3
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigExchangeDamage | TriggerDescription$ Whenever CARDNAME attacks, it deals damage equal to its power to target creature.
+SVar:TrigExchangeDamage:DB$ DealDamage | ValidTgts$ Creature | TgtPrompt$ Select target creature | DamageSource$ TriggeredAttackerLKICopy | NumDmg$ TriggeredAttacker$CardPower
+Oracle:Whenever Passionate Bruiser attacks, it deals damage equal to its power to target creature.

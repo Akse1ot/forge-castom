@@ -1,0 +1,9 @@
+Name:Mayor of the South
+ManaCost:G W
+Types:Creature Dryad
+PT:2/2
+T:Mode$ ChangesZone | ValidCard$ Creature.Other+YouCtrl | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigCounter | TriggerDescription$ Whenever another creature enters the battlefield under your control, put a +1/+1 counter on CARDNAME and gain 1 life.
+SVar:TrigCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+DeckHas:Ability$Counters
+Oracle:Whenever another creature enters the battlefield under your control, put a +1/+1 counter on Mayor of the South and gain 1 life.

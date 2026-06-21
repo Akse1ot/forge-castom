@@ -54,7 +54,11 @@ public class StaticAbilityAlternativeCost {
                 }
 
                 if (stAb.hasParam("AlternativeCost")) {
-                    newSA.setAlternativeCost(AlternativeCost.valueOf(stAb.getParam("AlternativeCost")));
+                    final AlternativeCost alternativeCost = parseAlternativeCost(stAb.getParam("AlternativeCost"));
+                    if (alternativeCost == null) {
+                        continue;
+                    }
+                    newSA.setAlternativeCost(alternativeCost);
                 }
 
                 if (!stAb.getHostCard().isImmutable()) {
@@ -102,34 +106,62 @@ public class StaticAbilityAlternativeCost {
     }
 
     private static boolean apply(final StaticAbility stAb, final SpellAbility sa, final Card source, final Player pl) {
-        if (!stAb.matchesValidParam("ValidSA", sa)) {
-            return false;
-        }
-        if (!stAb.matchesValidParam("ValidCard", source)) {
-            return false;
-        }
-        if (!stAb.matchesValidParam("ValidPlayer", pl)) {
-            return false;
+        final Player oldActivatingPlayer = sa.getActivatingPlayer();
+        final boolean temporarilySetActivatingPlayer = oldActivatingPlayer == null && pl != null;
+
+        if (temporarilySetActivatingPlayer) {
+            sa.setActivatingPlayer(pl);
         }
 
-        if (stAb.hasParam("AltCost")) {
-            if (!sa.isSpell()) {
+        try {
+            if (!stAb.matchesValidParam("ValidSA", sa)) {
                 return false;
             }
-            final AlternativeCost required = AlternativeCost.valueOf(stAb.getParam("AltCost"));
-            if (!sa.isAlternativeCost(required)) {
+            if (!stAb.matchesValidParam("ValidCard", source)) {
                 return false;
+            }
+            if (!stAb.matchesValidParam("ValidPlayer", pl)) {
+                return false;
+            }
+
+            if (stAb.hasParam("AltCost")) {
+                if (!sa.isSpell()) {
+                    return false;
+                }
+                final AlternativeCost required = parseAlternativeCost(stAb.getParam("AltCost"));
+                if (required == null) {
+                    return false;
+                }
+                if (!sa.isAlternativeCost(required)) {
+                    return false;
+                }
+            }
+
+            if (stAb.hasParam("RequiredSpellParam")) {
+                final String required = stAb.getParam("RequiredSpellParam");
+                if (!sa.hasParam(required)) {
+                    return false;
+                }
+            }
+
+            return true;
+        } finally {
+            if (temporarilySetActivatingPlayer) {
+                sa.setActivatingPlayer(null);
             }
         }
+    }
 
-        if (stAb.hasParam("RequiredSpellParam")) {
-            final String required = stAb.getParam("RequiredSpellParam");
-            if (!sa.hasParam(required)) {
-                return false;
-            }
+    private static AlternativeCost parseAlternativeCost(final String value) {
+        if (value == null) {
+            return null;
         }
 
-        return true;
+        try {
+            return AlternativeCost.valueOf(value);
+        } catch (final IllegalArgumentException e) {
+            return null;
+        }
     }
 
 }

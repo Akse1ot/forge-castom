@@ -1,0 +1,7 @@
+Name:Grave Dweller
+ManaCost:1 BG
+Types:Creature Spider
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainCounter | TriggerDescription$ Whenever a creature you control dies, put a +1/+1 counter on CARDNAME.
+SVar:TrigGainCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1
+Oracle:Whenever a creature you control dies, put a +1/+1 counter on Grave Dweller.

@@ -3,6 +3,6 @@ ManaCost:3 U B
 Types:Enchantment
 T:Mode$ ChangesZone | ValidCard$ Creature.!token+YouCtrl | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigExile | OptionalDecider$ You | TriggerDescription$ Whenever a nontoken creature dies, you may exile it. If you do, create a token that’s a copy of that card, except it’s colorless, it’s 1/1, and it’s an artifact in addition to its other types.
 SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBCopy
-SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | SetPower$ 1 | SetToughness$ 1 | SetColor$ Colorless | SubAbility$ DBCleanup
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | SetPower$ 1 | SetToughness$ 1 | SetColor$ Colorless | AddTypes$ Artifact | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 Oracle:Whenever a nontoken creature dies, you may exile it. If you do, create a token that’s a copy of that card, except it’s colorless, it’s 1/1, and it’s an artifact in addition to its other types.

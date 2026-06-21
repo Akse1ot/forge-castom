@@ -1,0 +1,8 @@
+Name:Giant of Harvest
+ManaCost:4 G W
+Types:Creature Dryad Elder
+PT:1/8
+T:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Card.Self | Execute$ TrigGainLife | TriggerDescription$ When CARDNAME deals combat damage, you gain life equal to the total power of creatures you control.
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$Valid Creature.YouCtrl$CardPower
+Oracle:Whenever Giant of Harvest deals combat damage, you gain life equal to the total power of creatures you control.

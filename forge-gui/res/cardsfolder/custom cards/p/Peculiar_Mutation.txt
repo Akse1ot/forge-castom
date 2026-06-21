@@ -1,0 +1,6 @@
+Name:Peculiar Mutation
+ManaCost:G U
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Artifact,Creature,Enchantment | TgtPrompt$ Select target artifact, creature or enchantment | SubAbility$ DBToken | SpellDescription$ Destroy target artifact, creature or enchantment. Its owner creates a 3/3 green and blue Lizard Mutant creature token.
+SVar:DBToken:DB$ Token | TokenScript$ gu_3_3_lizard | TokenOwner$ TargetedController
+Oracle:Destroy target artifact, creature or enchantment. Its owner creates a 3/3 green and blue Lizard Mutant creature token.

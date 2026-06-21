@@ -1,0 +1,6 @@
+Name:Manifested Horror
+ManaCost:1 B R
+Types:Creature Elemental Nightmare
+PT:4/2
+K:Menace
+Oracle:Menace

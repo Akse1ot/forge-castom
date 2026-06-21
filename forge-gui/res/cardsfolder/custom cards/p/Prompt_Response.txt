@@ -1,0 +1,7 @@
+Name:Prompt Response
+ManaCost:X RW RW
+Types:Sorcery
+A:SP$ Token | TokenAmount$ X | TokenScript$ r_1_1_insect_samurai | TokenOwner$ You | SpellDescription$ Create X red 1/1 Insect Samurai creature tokens.
+SVar:X:Count$xPaid
+DeckHas:Type$Insect|Samurai & Ability$Token
+Oracle:Create X red 1/1 Insect Samurai creature tokens.

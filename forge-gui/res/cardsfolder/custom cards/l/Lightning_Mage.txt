@@ -1,0 +1,10 @@
+Name:Lightning Mage
+ManaCost:2 UR UR
+Types:Creature Human Monk Berserker
+PT:*/5
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | Description$ CARDNAME's power is equal to the number of instant and sorcery cards in your graveyard.
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+A:AB$ Pump | Cost$ R | KW$ Haste | Defined$ Self | SpellDescription$ CARDNAME gains haste until end of turn.
+A:AB$ Pump | Cost$ U | KW$ Flying | Defined$ Self | SpellDescription$ CARDNAME gains flying until end of turn.
+DeckHints:Type$Instant|Sorcery
+Oracle:Lightning Mage’s power is equal to the number of instant and sorcery cards in your graveyard.\n{R}: Lightning Mage gains haste until end of turn.\n{U}: Lightning Mage gains flying until end of turn.

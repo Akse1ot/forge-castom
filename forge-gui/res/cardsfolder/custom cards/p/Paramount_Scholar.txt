@@ -1,0 +1,8 @@
+Name:Paramount Scholar
+ManaCost:1 W U
+Types:Creature Bird Soldier
+PT:2/2
+S:Mode$ ReduceCost | ValidCard$ Permanent.YouCtrl | Type$ Ability | Amount$ 1 | AffectedZone$ Battlefield | Description$ Activated abilities of lands you control cost {1} less to activate.
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigUntap | TriggerDescription$ Whenever CARDNAME attacks, untap target creature.
+SVar:TrigUntap:DB$ Untap | ValidTgts$ Creature | TgtPrompt$ Select target creature
+Oracle:Activated abilities of permanents you control cost {1} less to activate.\nWhenever Paramount Scholar attacks, untap target creature.

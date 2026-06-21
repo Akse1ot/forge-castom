@@ -1,0 +1,7 @@
+Name:Infernal Dreams
+ManaCost:1 BR BR
+Types:Sorcery
+A:SP$ DealDamage | ValidTgts$ Creature | DamageSource$ Targeted | NumDmg$ X | SubAbility$ DBDebuff | SpellDescription$ Target creature deals damage to itself equal to its power. It loses indestructible until end of turn.
+SVar:DBDebuff:DB$ Debuff | Defined$ Targeted | Keywords$ Indestructible
+SVar:X:Targeted$CardPower
+Oracle:Target creature deals damage to itself equal to its power. It loses indestructible until end of turn.

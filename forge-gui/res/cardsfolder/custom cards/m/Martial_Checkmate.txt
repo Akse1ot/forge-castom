@@ -1,0 +1,5 @@
+Name:Martial Checkmate
+ManaCost:5 W U U
+Types:Sorcery
+A:SP$ CopyPermanent | ValidTgts$ Player | Defined$ Valid Creature.TargetedPlayerCtrl | AddTypes$ Artifact | AILogic$ DuplicatePerms | StackDescription$ SpellDescription | SpellDescription$ For each creature target player controls, create a token that's a copy of that creature.
+Oracle:For each creature target player controls, create a token that’s a copy of that creature. It’s an artifact in addition to its other types.

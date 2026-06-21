@@ -1,0 +1,8 @@
+Name:Fateful Entrance
+ManaCost:W B
+Types:Legendary Enchantment
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a creature you control attacks, you gain 1 life.
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever a nontoken creature you control dies, you may exile it. If you do, create a 1/1 white and black Kithkin Serf creature token.
+SVar:TrigToken:DB$ Token | Cost$ ExileAnyGrave<1/Card.TriggeredNewCard> | TokenScript$ wb_1_1_kithkin_serf
+Oracle:Whenever a creature you control attacks, you gain 1 life.\nWhenever a nontoken creature you control dies, you may exile it. If you do, create a 1/1 white and black Kithkin Serf creature token.

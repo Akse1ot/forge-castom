@@ -1,0 +1,7 @@
+Name:Healing Palms
+ManaCost:WB
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Lifelink | Description$ Enchanted creature has lifelink.
+Oracle:Enchant creature\nEnchanted creature has lifelink.

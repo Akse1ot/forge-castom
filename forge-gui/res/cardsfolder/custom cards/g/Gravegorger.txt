@@ -1,0 +1,11 @@
+Name:Gravegorger
+ManaCost:2 BG BG
+Types:Creature Spider Shaman
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill | TriggerDescription$ When CARDNAME enters, mill three cards, then put a +1/+1 counter on it for each creature card in your graveyard.
+SVar:TrigMill:DB$ Mill | NumCards$ 3 | RememberMilled$ True | SubAbility$ PutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
+SVar:X:Count$ValidGraveyard Creature.YouOwn
+K:Reanimate
+DeckHas:Ability$Mill|Counters
+Oracle:When Gravegorger enters the battlefield, mill three cards, then put a +1/+1 counter on it for each creature card in your graveyard.\nReanimate (You may cast this card from your graveyard by sacrificing a creature in addition to paying its other costs.)

@@ -1,5 +1,5 @@
 Name:Grave Warden Duelist
-ManaCost:2 B
+ManaCost:2 R
 Types:Creature Human Warrior
 PT:3/2
 K:Reach

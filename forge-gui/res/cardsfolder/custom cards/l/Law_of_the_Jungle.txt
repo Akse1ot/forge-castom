@@ -1,0 +1,6 @@
+Name:Law of the Jungle
+ManaCost:R G
+Types:Legendary Enchantment
+S:Mode$ Continuous | Affected$ Creature | RemoveKeyword$ Flying | Description$ All creatures lose flying.
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Haste | Description$ Creatures you control have haste.
+Oracle:All creatures lose flying.\nCreatures you control have haste.

@@ -1,0 +1,10 @@
+Name:Orc Smash
+ManaCost:RG RG RG
+Types:Instant
+A:SP$ Charm | Choices$ DBAntiquate,DBDamageAll,DBAggressive
+SVar:DBAntiquate:DB$ ChangeZone | ValidTgts$ Artifact | TgtPrompt$ Select target artifact | Origin$ Battlefield | Destination$ Exile | SpellDescription$ Exile target artifact.
+SVar:DBDamageAll:DB$ DamageAll | ValidCards$ Creature.withFlying | ValidPlayers$ Player | NumDmg$ 2 | SpellDescription$ CARDNAME deals 2 damage to each creature with flying and each player.
+SVar:DBAggressive:DB$ Pump | ValidTgts$ Creature.YouCtrl | AILogic$ PowerDmg | TgtPrompt$ Select target creature you control | SubAbility$ SoulsDamage | StackDescription$ None | SpellDescription$ Target creature you control deals damage equal to its power to target creature you don't control.
+SVar:SoulsDamage:DB$ DealDamage | ValidTgts$ Creature.YouDontCtrl | AILogic$ PowerDmg | TgtPrompt$ Select target creature you don't control | NumDmg$ X | DamageSource$ ParentTarget
+SVar:X:ParentTargeted$CardPower
+Oracle:Choose one —\n• Exile target artifact.\n• Orc Smash deals 2 damage to each creature with flying and each player.\n• Target creature you control deals damage equal to its power to target creature you don’t control.
