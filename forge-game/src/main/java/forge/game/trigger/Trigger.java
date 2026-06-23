@@ -39,7 +39,7 @@ import forge.util.ITranslatable;
 import forge.util.Lang;
 import forge.util.TextUtil;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 import java.util.*;
 
@@ -351,7 +351,7 @@ public abstract class Trigger extends TriggerReplacementBase {
     public boolean checkResolvedLimit(Player activator) {
         // CR 603.2i
         if (hasParam("ResolvedLimit")) {
-            if (Collections.frequency(getHostCard().getAbilityResolvedThisTurnActivators(getOverridingAbility()), activator)
+            if (getHostCard().getAbilityResolvedThisTurnActivators(getOverridingAbility()).count(activator)
                     >= Integer.parseInt(getParam("ResolvedLimit"))) {
                 return false;
             }
@@ -584,7 +584,6 @@ public abstract class Trigger extends TriggerReplacementBase {
         validPhases = phases;
     }
 
-    //public String getImportantStackObjects(SpellAbility sa) { return ""; };
     abstract public String getImportantStackObjects(SpellAbility sa);
 
     public SpellAbility getSpawningAbility() {
@@ -676,12 +675,23 @@ public abstract class Trigger extends TriggerReplacementBase {
     }
 
     public boolean looksBackInTime() {
-        return TriggerType.Exploited.equals(getMode()) ||
-                TriggerType.Destroyed.equals(getMode()) ||
-                TriggerType.Sacrificed.equals(getMode()) || TriggerType.SacrificedOnce.equals(getMode()) ||
-                ((TriggerType.ChangesZone.equals(getMode()) || TriggerType.ChangesZoneAll.equals(getMode()))
-                        && (StringUtils.contains(getParam("Origin"), "Battlefield") ||
-                        (StringUtils.contains(getParam("Origin"), "Graveyard") && !"Battlefield".equals(getParam("Destination"))) ||
-                        StringUtils.containsAny(getParam("Destination"), "Library", "Hand")));
+        switch (getMode()) {
+            case Exploited:
+            case Destroyed:
+            case Sacrificed:
+            case SacrificedOnce:
+                return true;
+            case ChangesZone:
+            case ChangesZoneAll:
+                if (Strings.CS.contains(getParam("Origin"), "Battlefield")) {
+                    return true;
+                }
+                if (Strings.CS.contains(getParam("Origin"), "Graveyard") && !"Battlefield".equals(getParam("Destination"))) {
+                    return true;
+                }
+                return Strings.CS.containsAny(getParam("Destination"), "Library", "Hand");
+            default:
+                return false;
+        }
     }
 }

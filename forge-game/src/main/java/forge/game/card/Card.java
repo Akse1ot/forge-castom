@@ -7802,7 +7802,6 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
 
         if (ability.isPwAbility()) {
             addPlaneswalkerAbilityActivated();
-            addActivatedThisLoyaltyAbilityThisTurn(ability);
         }
     }
 
@@ -7843,7 +7842,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         ActivationTable table = numberAbilityResolvedGroups.computeIfAbsent(groupName, k -> new ActivationTable());
         table.add(ability);
     }
-    public List<Player> getAbilityResolvedThisTurnActivators(SpellAbility ability) {
+    public Multiset<Player> getAbilityResolvedThisTurnActivators(SpellAbility ability) {
         return numberAbilityResolved.getActivators(ability);
     }
 
