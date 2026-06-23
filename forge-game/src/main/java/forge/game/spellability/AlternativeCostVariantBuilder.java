@@ -222,10 +222,10 @@ public final class AlternativeCostVariantBuilder {
             current = AlternativeCostRuleUtil.appendCost(current, derived, ruleHost, rule.getParam("VariantAppendCost"));
         }
         if (rule.hasParam("VariantReduceMana")) {
-            current = AlternativeCostRuleUtil.reduceManaPart(current, rule.getParam("VariantReduceMana"));
+            AlternativeCostRuleUtil.addManaReduction(derived, rule.getParam("VariantReduceMana"));
         }
         if (rule.hasParam("VariantRaiseMana")) {
-            current = AlternativeCostRuleUtil.raiseManaPart(current, rule.getParam("VariantRaiseMana"));
+            AlternativeCostRuleUtil.addManaRaise(derived, rule.getParam("VariantRaiseMana"));
         }
 
         return current;

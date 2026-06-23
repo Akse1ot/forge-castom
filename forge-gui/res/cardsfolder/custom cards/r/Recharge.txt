@@ -1,0 +1,10 @@
+Name:Recharge
+ManaCost:W U
+Types:Instant
+A:SP$ Scry | Defined$ You | ScryNum$ X | SubAbility$ DBGainLife | SpellDescription$ You scry X and gain X life, where X is the number of artifacts you control, then draw a card.
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ X | Defined$ You | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You
+SVar:X:Count$Valid Artifact.YouCtrl
+SVar:PlayMain1:TRUE
+DeckHints:Type$Artifact
+Oracle:You scry X and gain X life, where X is the number of artifacts you control, then draw a card.

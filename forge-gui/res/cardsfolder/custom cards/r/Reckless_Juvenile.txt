@@ -1,0 +1,6 @@
+Name:Reckless Juvenile
+ManaCost:RG
+Types:Creature Orc
+PT:1/1
+A:AB$ Mana | Cost$ Sac<1/CARDNAME> | Produced$ Combo R G | SpellDescription$ Add {R} or {G}
+Oracle:Sacrifice Reckless Juvenile: Add {R} or {G}.

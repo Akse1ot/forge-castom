@@ -286,45 +286,58 @@ public class PlayEffect extends SpellAbilityEffect {
                 state = CardStateName.Backside;
             }
 
-            List<SpellAbility> sas = AbilityUtils.getSpellsFromPlayEffect(tgtCard, controller, state, !altCost);
-
-            if (sa.hasParam("TargetEitherFace")) {
-                final CardStateName targetedState = sa.getTargets().getTargetedCardState(tgtCard);
-                if (targetedState != null) {
-                    sas.removeIf(sp -> sp.getCardStateName() != targetedState);
-                }
-            }
-
-            if (sa.hasParam("ValidSA")) {
-                final String valid[] = sa.getParam("ValidSA").split(",");
-                sas.removeIf(sp -> !sp.isValid(valid, controller , source, sa));
-            }
-
-            if (altCostManaCost) {
-                sas.removeIf(sp -> sp.getPayCosts().getCostMana().getMana().isNoCost());
-            }
-
-            if (hasTotalCMCLimit) {
-                Iterator<SpellAbility> it = sas.iterator();
-                while (it.hasNext()) {
-                    SpellAbility s = it.next();
-                    if (s.getPayCosts().getTotalMana().getCMC() > totalCMCLimit)
-                        it.remove();
-                }
-            }
-
-            if (sas.isEmpty()) {
-                continue;
-            }
+            final boolean focusIfHasFocus = sa.hasParam("FocusIfHasFocus")
+                    && tgtCard.hasKeyword(Keyword.FOCUS);
 
             SpellAbility tgtSA;
 
-            if (sa.hasParam("CastFaceDown")) {
-                // For Illusionary Mask effect
-                tgtSA = CardFactoryUtil.abilityCastFaceDown(tgtCard.getCurrentState(), false, "Morph");
-                tgtSA.setCastFromPlayEffect(true);
-            } else {
-                tgtSA = controller.getController().getAbilityToPlay(tgtCard, sas);
+            if (focusIfHasFocus) {
+                tgtCard.setFocused(true);
+            }
+
+            try {
+                List<SpellAbility> sas = AbilityUtils.getSpellsFromPlayEffect(tgtCard, controller, state, !altCost);
+
+                if (sa.hasParam("TargetEitherFace")) {
+                    final CardStateName targetedState = sa.getTargets().getTargetedCardState(tgtCard);
+                    if (targetedState != null) {
+                        sas.removeIf(sp -> sp.getCardStateName() != targetedState);
+                    }
+                }
+
+                if (sa.hasParam("ValidSA")) {
+                    final String valid[] = sa.getParam("ValidSA").split(",");
+                    sas.removeIf(sp -> !sp.isValid(valid, controller , source, sa));
+                }
+
+                if (altCostManaCost) {
+                    sas.removeIf(sp -> sp.getPayCosts().getCostMana().getMana().isNoCost());
+                }
+
+                if (hasTotalCMCLimit) {
+                    Iterator<SpellAbility> it = sas.iterator();
+                    while (it.hasNext()) {
+                        SpellAbility s = it.next();
+                        if (s.getPayCosts().getTotalMana().getCMC() > totalCMCLimit)
+                            it.remove();
+                    }
+                }
+
+                if (sas.isEmpty()) {
+                    continue;
+                }
+
+                if (sa.hasParam("CastFaceDown")) {
+                    // For Illusionary Mask effect
+                    tgtSA = CardFactoryUtil.abilityCastFaceDown(tgtCard.getCurrentState(), false, "Morph");
+                    tgtSA.setCastFromPlayEffect(true);
+                } else {
+                    tgtSA = controller.getController().getAbilityToPlay(tgtCard, sas);
+                }
+            } finally {
+                if (focusIfHasFocus) {
+                    tgtCard.setFocused(false);
+                }
             }
 
             // in case player canceled from choice dialog
@@ -425,7 +438,7 @@ public class PlayEffect extends SpellAbilityEffect {
                 tgtSA.setAlternativeCost(AlternativeCost.Madness);
             }
 
-            if (sa.hasParam("Focus")) {
+            if (sa.hasParam("Focus") || focusIfHasFocus) {
                 tgtSA.setFocused(true);
                 tgtSA.getHostCard().setFocused(false);
             }

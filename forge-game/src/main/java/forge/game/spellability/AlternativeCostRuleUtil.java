@@ -4,7 +4,6 @@ import forge.card.mana.ManaCost;
 import forge.game.card.Card;
 import forge.game.cost.Cost;
 import forge.game.cost.CostPartMana;
-import forge.game.mana.ManaCostBeingPaid;
 
 final class AlternativeCostRuleUtil {
 
@@ -59,6 +58,7 @@ final class AlternativeCostRuleUtil {
 
         final Cost result = base.copyWithNoMana();
         removeManaParts(result);
+        result.setMandatory(base.isMandatory());
 
         final CostPartMana oldMana = base.getCostMana();
         final CostPartMana replacement;
@@ -95,42 +95,120 @@ final class AlternativeCostRuleUtil {
         return replaceManaPart(base, new ManaCost(manaExpr));
     }
 
-    static Cost reduceManaPart(final Cost base, final String manaExpr) {
-        if (base == null) {
-            return null;
-        }
-
-        final CostPartMana mana = base.getCostMana();
-        if (mana == null) {
-            return base.copy();
-        }
-
-        final ManaCost reduction = new ManaCost(manaExpr);
-
-        // Do not support reducing X in v1.
-        // ManaCostBeingPaid.subtractManaCost can decrement cntX below zero.
-        if (reduction.countX() > 0) {
-            return base.copy();
-        }
-
-        final ManaCostBeingPaid working = new ManaCostBeingPaid(mana.getMana());
-        working.subtractManaCost(reduction);
-        return replaceManaPart(base, working.toManaCost());
-    }
-
-    static Cost raiseManaPart(final Cost base, final String manaExpr) {
-        final CostPartMana mana = base.getCostMana();
-        final ManaCostBeingPaid working = new ManaCostBeingPaid(mana == null ? ManaCost.ZERO : mana.getMana());
-        working.addManaCost(new ManaCost(manaExpr));
-        return replaceManaPart(base, working.toManaCost());
-    }
-
     /**
      * v1 implementation choice:
      * AltCostSet / SelfAltCostSet are implemented as "set mana-part exactly to this mana cost".
      */
     static Cost setManaPart(final Cost base, final String manaExpr) {
         return replaceManaPart(base, manaExpr);
+    }
+
+    static void addManaReduction(final SpellAbility sa, final String manaExpr) {
+        if (sa == null || manaExpr == null || manaExpr.trim().isEmpty()) {
+            return;
+        }
+
+        // Keep the same v1 limitation as before: reducing X is not supported.
+        if (new ManaCost(manaExpr).countX() > 0) {
+            throw new IllegalArgumentException("Alt-cost mana reduction does not support X: " + manaExpr);
+        }
+
+        if (!sa.hasParam("ReduceCost")) {
+            sa.putParam("ReduceCost", manaExpr);
+            sa.putParam("ReduceAmount", "1");
+            return;
+        }
+
+        final String existingCost = sa.getParam("ReduceCost");
+        final String existingReduction = expandExistingReduction(sa, existingCost);
+        sa.putParam("ReduceCost", joinCostExpressions(existingReduction, manaExpr));
+        sa.putParam("ReduceAmount", "1");
+    }
+
+    static void addManaRaise(final SpellAbility sa, final String manaExpr) {
+        if (sa == null || manaExpr == null || manaExpr.trim().isEmpty()) {
+            return;
+        }
+
+        if (!sa.hasParam("RaiseCost")) {
+            sa.putParam("RaiseCost", manaExpr);
+            return;
+        }
+
+        final String existing = sa.getParam("RaiseCost");
+        if (existing != null && sa.hasSVar(existing)) {
+            throw new IllegalStateException("Cannot combine alt-cost mana raise with dynamic RaiseCost: " + existing);
+        }
+
+        sa.putParam("RaiseCost", joinCostExpressions(existing, manaExpr));
+    }
+
+    private static String expandExistingReduction(final SpellAbility sa, final String existingCost) {
+        if (existingCost == null || existingCost.trim().isEmpty()) {
+            return "";
+        }
+
+        if (!sa.hasParam("ReduceAmount")) {
+            if (isNonNegativeInteger(existingCost)) {
+                return existingCost;
+            }
+            throw new IllegalStateException("Cannot combine alt-cost mana reduction with dynamic ReduceCost: " + existingCost);
+        }
+
+        final String existingAmount = sa.getParam("ReduceAmount");
+        if (!isNonNegativeInteger(existingAmount)) {
+            throw new IllegalStateException("Cannot combine alt-cost mana reduction with dynamic ReduceAmount: " + existingAmount);
+        }
+
+        final int count = Integer.parseInt(existingAmount);
+        if (count <= 0) {
+            return "";
+        }
+
+        return repeatCostExpression(existingCost, count);
+    }
+
+    private static String repeatCostExpression(final String costExpr, final int count) {
+        final StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < count; i++) {
+            if (sb.length() > 0) {
+                sb.append(' ');
+            }
+            sb.append(costExpr.trim());
+        }
+        return sb.toString();
+    }
+
+    private static String joinCostExpressions(final String left, final String right) {
+        final String l = left == null ? "" : left.trim();
+        final String r = right == null ? "" : right.trim();
+
+        if (l.isEmpty()) {
+            return r;
+        }
+        if (r.isEmpty()) {
+            return l;
+        }
+
+        if (isNonNegativeInteger(l) && isNonNegativeInteger(r)) {
+            return Integer.toString(Integer.parseInt(l) + Integer.parseInt(r));
+        }
+
+        return l + " " + r;
+    }
+
+    private static boolean isNonNegativeInteger(final String value) {
+        if (value == null || value.isEmpty()) {
+            return false;
+        }
+
+        for (int i = 0; i < value.length(); i++) {
+            if (!Character.isDigit(value.charAt(i))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     static void appendVariantDescription(final SpellAbility derived, final String variantDescription) {

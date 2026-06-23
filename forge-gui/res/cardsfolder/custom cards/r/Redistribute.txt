@@ -1,0 +1,7 @@
+Name:Redistribute
+ManaCost:1 GW
+Types:Instant
+A:SP$ Effect | StaticAbilities$ SNoCombatDamage | Duration$ UntilEOT | SubAbility$ DBToken | SpellDescription$ Creatures deal no combat damage this turn.
+SVar:SNoCombatDamage:Mode$ AssignNoCombatDamage | ValidCard$ Creature | Description$ Creatures deal no combat damage this turn.
+SVar:DBToken:DB$ Token | TokenScript$ c_a_food_canovol_sac
+Oracle:Creatures deal no combat damage this turn.\nReplenish. (Create a colorless Food artifact token with “, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)

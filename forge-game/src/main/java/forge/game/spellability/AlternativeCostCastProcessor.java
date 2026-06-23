@@ -146,10 +146,10 @@ public final class AlternativeCostCastProcessor {
         }
 
         if (sa.hasParam("SelfAltCostReduce")) {
-            current = AlternativeCostRuleUtil.reduceManaPart(current, sa.getParam("SelfAltCostReduce"));
+            AlternativeCostRuleUtil.addManaReduction(sa, sa.getParam("SelfAltCostReduce"));
         }
-        if (current != null && sa.hasParam("SelfAltCostRaise")) {
-            current = AlternativeCostRuleUtil.raiseManaPart(current, sa.getParam("SelfAltCostRaise"));
+        if (sa.hasParam("SelfAltCostRaise")) {
+            AlternativeCostRuleUtil.addManaRaise(sa, sa.getParam("SelfAltCostRaise"));
         }
         if (current != null && sa.hasParam("SelfAltCostSet")) {
             current = AlternativeCostRuleUtil.setManaPart(current, sa.getParam("SelfAltCostSet"));
@@ -163,7 +163,7 @@ public final class AlternativeCostCastProcessor {
             return current;
         }
 
-        boolean setApplied = false;
+        String setMana = null;
         final Player activator = sa.getActivatingPlayer();
 
         for (final Card ruleSource : getRuleSources(sa.getHostCard())) {
@@ -173,16 +173,19 @@ public final class AlternativeCostCastProcessor {
                 }
 
                 if (st.hasParam("AltCostReduce")) {
-                    current = AlternativeCostRuleUtil.reduceManaPart(current, st.getParam("AltCostReduce"));
+                    AlternativeCostRuleUtil.addManaReduction(sa, st.getParam("AltCostReduce"));
                 }
-                if (current != null && st.hasParam("AltCostRaise")) {
-                    current = AlternativeCostRuleUtil.raiseManaPart(current, st.getParam("AltCostRaise"));
+                if (st.hasParam("AltCostRaise")) {
+                    AlternativeCostRuleUtil.addManaRaise(sa, st.getParam("AltCostRaise"));
                 }
-                if (current != null && !setApplied && st.hasParam("AltCostSet")) {
-                    current = AlternativeCostRuleUtil.setManaPart(current, st.getParam("AltCostSet"));
-                    setApplied = true;
+                if (setMana == null && st.hasParam("AltCostSet")) {
+                    setMana = st.getParam("AltCostSet");
                 }
             }
+        }
+
+        if (setMana != null) {
+            current = AlternativeCostRuleUtil.setManaPart(current, setMana);
         }
 
         return current;

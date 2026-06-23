@@ -1,0 +1,7 @@
+Name:Read the Future
+ManaCost:U R
+Types:Sorcery
+A:SP$ Dig | DigNum$ 3 | Reveal$ True | ChangeNum$ 1 | Optional$ True | ChangeValid$ Card.Instant,Card.Sorcery | DestinationZone$ Library | LibraryPosition$ 0 | RememberChanged$ True | DestinationZone2$ Graveyard | SubAbility$ DBPlay | SpellDescription$ Reveal the top three cards of your library. You may cast an instant or sorcery card from among them. If the card has focus, it is cast as though it was focused. Put the other cards into your graveyard.
+SVar:DBPlay:DB$ Play | ValidZone$ Library | Valid$ Card.IsRemembered | Controller$ You | FocusIfHasFocus$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Reveal the top three cards of your library. You may cast an instant or sorcery card from among them. If the card has focus, it is cast as though it was focused. Put the other cards into your graveyard.

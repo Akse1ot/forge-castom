@@ -1,0 +1,6 @@
+Name:Religion of War
+ManaCost:W R
+Types:Legendary Enchantment
+T:Mode$ Drawn | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ Whenever an opponent draws a card, CARDNAME deals 1 damage to them.
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredPlayer | NumDmg$ 1
+Oracle:Whenever an opponent draws a card, Religion of War deals 1 damage to them.
