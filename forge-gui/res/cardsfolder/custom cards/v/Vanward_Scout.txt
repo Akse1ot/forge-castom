@@ -1,0 +1,6 @@
+Name:Vanward Scout
+ManaCost:W U
+Types:Creature Bird Soldier
+PT:2/2
+K:Flying
+Oracle:Flying

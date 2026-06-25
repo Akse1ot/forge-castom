@@ -2,8 +2,9 @@ Name:Elegant Blade
 ManaCost:3
 Types:Artifact Equipment
 K:Equip:2
-S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddKeyword$ First Strike | Description$ Equipped creature gets +1/+0, has first strike, and has “Whenever this creature attacks, you may pay {R}{W}. If you do, target creature defending player controls untaps and blocks it this turn if able.”
-T:Mode$ Attacks | ValidCard$ Creature.EquippedBy | OptionalDecider$ You | Execute$ TrigUntap | TriggerDescription$ Whenever CARDNAME attacks, you may pay {R}{W}. If you do, target creature defending player controls untaps and blocks it this turn if able.
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddKeyword$ First Strike | AddTrigger$ AttackTrigger | AddSVar$ AE | Description$ Equipped creature gets +1/+0, has first strike, and has “Whenever this creature attacks, you may pay {R}{W}. If you do, target creature defending player controls untaps and blocks it this turn if able.”
+SVar:AttackTrigger:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigUntap | TriggerDescription$ Whenever CARDNAME attacks, you may pay {R}{W}. If you do, target creature defending player controls untaps and blocks it this turn if able.
 SVar:TrigUntap:AB$ Untap | Cost$ R W | ValidTgts$ Creature.DefenderCtrl | TgtPrompt$ Select target creature defending player controls | SubAbility$ DBMustBlock
 SVar:DBMustBlock:DB$ MustBlock | Defined$ Targeted
+SVar:AE:SVar:HasAttackEffect:TRUE
 Oracle:Equipped creature gets +1/+0, has first strike, and has “Whenever this creature attacks, you may pay {R}{W}. If you do, target creature defending player controls untaps and blocks it this turn if able.”\nEquip {2}.

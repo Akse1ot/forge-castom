@@ -1878,7 +1878,7 @@ public class CardFactoryUtil {
             final String trigStr = "Mode$ SpellCast | ValidCard$ Card.Self | TriggerZones$ Stack | Secondary$ True "
                     + "| TriggerDescription$ Tax (" + inst.getReminderText() + ")";
 
-            final String effect = "AB$ Tax | Cost$ PayLife<3> | Defined$ TriggeredCard | SpellDescription$ Tax";
+            final String effect = "AB$ Tax | Cost$ PayLife<3> | CostTag$ Tax | Defined$ TriggeredCard | SpellDescription$ Tax";
 
             final Trigger taxTrigger = TriggerHandler.parseTrigger(trigStr, card, intrinsic);
             final SpellAbility taxSA = AbilityFactory.getAbility(effect, card);

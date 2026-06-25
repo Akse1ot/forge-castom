@@ -1,0 +1,7 @@
+Name:Wistful Anthophile
+ManaCost:1 RG
+Types:Creature Orc Barbarian
+PT:2/2
+T:Mode$ ChangesZoneAll | ValidCards$ Land.YouOwn+!token | Origin$ Any | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigCounters | TriggerDescription$ Whenever one or more land cards are put into a graveyard from anywhere, put a +1/+1 counter on CARDNAME.
+SVar:TrigCounters:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+Oracle:Whenever one or more land cards are put into a graveyard from anywhere, put a +1/+1 counter on Wistful Anthophile.

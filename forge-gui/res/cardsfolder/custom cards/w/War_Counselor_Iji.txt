@@ -3,10 +3,10 @@ ManaCost:2 U
 Types:Legendary Creature Troll Artificer
 K:Kicker:1 U
 PT:2/3
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, if it was kicked, create a 2/2 blue Drake creature token with flying.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, if it was kicked, create a Rune token for each instant or sorcery card in your graveyard.
 SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac | TokenAmount$ X | TokenOwner$ You
 SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
-T:Mode$ SpellCast | ValidCard$ Card.YouCtrl+kicked | Execute$ TrigTok | TriggerZones$ Battlefield | TriggerDescription$ Whenever you cast a kicked spell, create a 2/2 blue Drake creature token with flying.
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl+kicked | Execute$ TrigTok | TriggerZones$ Battlefield | TriggerDescription$ Whenever you cast a kicked spell, create a Rune token for each time that spell was kicked.
 SVar:TrigTok:DB$ Token | TokenScript$ c_a_Rune_sac | TokenAmount$ XKicked | TokenOwner$ You
 SVar:XKicked:TriggeredSpellAbility$TimesKicked
 Oracle:Kicker {1}{U} (You may pay an additional {1}{U} as you cast this spell.)\nWhen this creature enters, if it was kicked, create a Rune token for each instant or sorcery card in your graveyard.\nWhenever you cast a kicked spell, create a Rune token for each time that spell was kicked.

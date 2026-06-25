@@ -1,0 +1,8 @@
+Name:Venal Guardian
+ManaCost:1 W B
+Types:Creature Kithkin Knight
+PT:4/4
+K:Tax
+S:Mode$ Continuous | EffectZone$ All | OptionalCostTag$ Tax | ValidSA$ Spell | ValidCard$ Card | Activator$ You | OptionalCostAlternative$ WB | OptionalCostAIPreference$ Alternative | Description$ When you cast CARDNAME or any other spell with Tax, you may pay {W/B} rather than pay its Tax cost.
+Oracle:When you cast this or any other spell with Tax, you may pay {WB} rather than pay its Tax cost.\n
+Tax (When you cast this spell, you may pay 3 life. If you do, it enters the battlefield with a +1/+1 counter on it.)

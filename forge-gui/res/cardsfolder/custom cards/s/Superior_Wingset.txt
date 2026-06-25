@@ -1,0 +1,13 @@
+Name:Superior Wingset
+ManaCost:W U
+Types:Legendary Artifact Equipment
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Flying | AddTrigger$ AttackTrigger | AddSVar$ AE | Description$ Equipped creature gets +2/+2 and has flying and “whenever this creature attacks, tap target creature an opponent controls. It doesn’t untap during its controllers next untap step.”
+SVar:AttackTrigger:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigTap | TriggerDescription$ Whenever this creature attacks, tap target creature an opponent controls. It doesn’t untap during its controllers next untap step.
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | TgtPrompt$ Choose target creature an opponent controls. | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+A:AB$ Attach | Cost$ 2 | ValidTgts$ Creature.namedWingless Prodigy | SpellDescription$ Attach CARDNAME to Wingless Prodigy.
+K:Equip:2 W U
+SVar:AE:SVar:HasAttackEffect:TRUE
+Oracle:Equipped creature gets +2/+2 and has flying and “whenever this creature attacks, tap target creature an opponent controls. It doesn’t untap during its controllers next untap step.”\n
+{2}: Attach Superior Wingset to Wingless Prodigy.\n
+Equip {2}{W}{U}

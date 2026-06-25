@@ -1,0 +1,11 @@
+Name:Vital Reclaimer
+ManaCost:3 R G
+Types:Creature Orc Shaman
+PT:6/5
+K:Territorial
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | IsPresent$ Card.YouOwn+Forest | PresentZone$ Exile | Execute$ TrigDraw | TriggerDescription$ Whenever a creature enters the battlefield under your control, if you own a Forest card in exile, draw a card. If you own a Mountain card in exile, CARDNAME deals 2 damage to any target.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionCheckSVar$ ForestInExile | ConditionSVarCompare$ GE1 | SubAbility$ DBDamage
+SVar:DBDamage:DB$ DealDamage | NumDmg$ 2 | ValidTgts$ Any | DamageSource$ Self | ConditionCheckSVar$ MountainInExile | ConditionSVarCompare$ GE1
+SVar:ForestInExile:Count$ValidExile Card.YouOwn+Forest/LimitMax.1
+SVar:MountainInExile:Count$ValidExile Card.YouOwn+Mountain/LimitMax.1
+Oracle:Territorial (As this enters the battlefield, you may exile a land card from your hand or graveyard. When this leaves the battlefield, return the exiled card to your hand.)\nWhenever a creature enters the battlefield under your control, if you own a Forest card in exile, draw a card. If you own a Mountain card in exile, Vital Reclaimer deals 2 damage to any target.

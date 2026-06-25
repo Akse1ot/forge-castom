@@ -1,0 +1,6 @@
+Name:Sudden Scales
+ManaCost:GU
+Types:Instant
+A:SP$ Untap | ValidTgts$ Creature | SubAbility$ DBPump | SpellDescription$ Untap target creature. It gets +0/+3 and gains immunity 3 until end of turn. (Spells your opponents cast that target this creature cost {3} more to cast.)
+SVar:DBPump:DB$ Pump | Defined$ Targeted | NumDef$ +3 | KW$ Immunity:3
+Oracle:Untap target creature. It gets +0/+3 and gains immunity 3 until end of turn. (Spells your opponents cast that target this creature cost {3} more to cast.)

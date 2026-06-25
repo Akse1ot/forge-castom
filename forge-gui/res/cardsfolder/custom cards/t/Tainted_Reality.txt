@@ -1,0 +1,6 @@
+Name:Tainted Reality
+ManaCost:B R
+Types:Legendary Enchantment
+S:Mode$ Continuous | Affected$ Creature | RemoveKeywords$ Hexproof & Indestructible | Description$ Creatures lose hexproof and indestructible.
+S:Mode$ CantBlockUnless | ValidCard$ Creature | Cost$ 1 | Description$ Creatures can’t block unless their controller pays  for each blocking creature they control.
+Oracle:Creatures lose hexproof and indestructible.\nCreatures can’t block unless their controller pays  for each blocking creature they control.

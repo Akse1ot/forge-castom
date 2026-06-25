@@ -1,0 +1,8 @@
+Name:Transmuting Entry
+ManaCost:G U
+Types:Legendary Enchantment
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigShuffle | OptionalDecider$ You | TriggerDescription$ Whenever a creature you control attacks, you may have its owner shuffle it into their library. If you do, reveal the top cards of your library until you reveal a permanent card. Put that card on the battlefield, then put the revealed cards on the bottom of your library in a random order.
+SVar:TrigShuffle:DB$ ChangeZone | Defined$ TriggeredAttacker | Origin$ Battlefield | Destination$ Library | Shuffle$ True | RememberChanged$ True | SubAbility$ DBDigUntil
+SVar:DBDigUntil:DB$ DigUntil | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | Valid$ Permanent | ValidDescription$ permanent | FoundDestination$ Battlefield | RevealedDestination$ Library | RevealedLibraryPosition$ -1 | RevealRandomOrder$ True | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Whenever a creature you control attacks, you may have its owner shuffle it into their library. If you do, reveal the top cards of your library until you reveal a permanent card. Put that card on the battlefield, then put the revealed cards on the bottom of your library in a random order.

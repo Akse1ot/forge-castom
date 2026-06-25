@@ -1,0 +1,8 @@
+Name:Unparalleled Symbiosis
+ManaCost:4 G U
+Types:Enchantment
+T:Mode$ Drawn | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever an opponent draws a card, you may draw a cards.
+SVar:TrigDraw:DB$ Draw
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigCounters | TriggerDescription$ Whenever a land enters the battlefield under your control, put a +1/+1 counter on each creature you control.
+SVar:TrigCounters:DB$ PutCounterAll | CounterType$ P1P1 | CounterNum$ 1 | ValidCards$ Creature.YouCtrl
+Oracle:Whenever an opponent draws a card, you may draw a card.\nWhenever a land enters the battlefield under your control, put a +1/+1 counter on each creature you control.

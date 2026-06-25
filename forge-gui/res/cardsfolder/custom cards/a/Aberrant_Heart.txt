@@ -1,0 +1,8 @@
+Name:Aberrant Heart
+ManaCost:3
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+Black,Creature.YouCtrl+Green | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a black or green creature enters the battlefield under your control, you gain 1 life.
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+A:AB$ Mana | Cost$ T | Produced$ Combo B G | SpellDescription$ Add {B} or {G}.
+Oracle:Whenever a black or green creature enters the battlefield under your control, you gain 1 life.
+{T}: Add {B} or {G}.

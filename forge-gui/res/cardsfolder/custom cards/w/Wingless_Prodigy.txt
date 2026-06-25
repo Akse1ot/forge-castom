@@ -1,0 +1,9 @@
+Name:Wingless Prodigy
+ManaCost:W U
+Types:Legendary Creature Bird Soldier
+PT:2/3
+A:AB$ Effect | Cost$ U U | ValidTgts$ Creature.OppCtrl | TgtPrompt$ Select target creature an opponent controls | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ MustAttack | IsCurse$ True | StackDescription$ {c:Targeted} attacks you this turn if able. | SpellDescription$ Target creature an opponent controls attacks you this turn if able.
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Creature.IsRemembered | MustAttack$ You | Description$ This creature attacks you this turn if able.
+A:AB$ Destroy | Cost$ T | ValidTgts$ Creature.dealtDamageToYouThisTurn | TgtPrompt$ Select target creature that dealt damage to you this turn | SpellDescription$ Destroy target creature that dealt damage to you this turn.
+AI:RemoveDeck:All
+Oracle:{U}{U}: Target creature an opponent controls attacks you this turn if able.\n{T}: Destroy target creature that dealt damage to you this turn.

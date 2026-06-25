@@ -1,0 +1,7 @@
+Name:Supernatural Journeyer
+ManaCost:3 U R
+Types:Creature Human Monk Berserker
+PT:1/1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigAddTurn | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, take an extra turn after this one.
+SVar:TrigAddTurn:DB$ AddTurn | Defined$ You | NumTurns$ 1
+Oracle:Whenever Supernatural Journeyer deals combat damage to a player, take an extra turn after this one.

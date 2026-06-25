@@ -35,15 +35,22 @@ import java.util.function.Predicate;
 public class CostAdjustment {
 
     public static Cost adjust(final Cost cost, final SpellAbility sa, boolean effect) {
-        if (sa.isTrigger() || cost == null || effect) {
+        if (cost == null || effect) {
             sa.setMaxWaterbend(cost);
             return cost;
+        }
+
+        final Cost taggedOptionalCost = TaggedOptionalCostAdjustment.adjust(cost, sa);
+
+        if (sa.isTrigger()) {
+            sa.setMaxWaterbend(taggedOptionalCost);
+            return taggedOptionalCost;
         }
 
         final Player activator = sa.getActivatingPlayer();
         final Card host = sa.getHostCard();
         final Game game = activator.getGame();
-        Cost result = cost.copy();
+        Cost result = taggedOptionalCost.copy();
         boolean isStateChangeToFaceDown = false;
 
         if (sa.isSpell()) {

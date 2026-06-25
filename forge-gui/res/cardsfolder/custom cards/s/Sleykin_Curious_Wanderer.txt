@@ -1,0 +1,17 @@
+Name:Sleykin, Curious Wanderer
+ManaCost:2 B G
+Types:Legendary Creature Kithkin Noble
+PT:3/4
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.DamagedBy | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a creature dealt damage by CARDNAME this turn dies, put a +1/+1 counter on CARDNAME.
+SVar:TrigCounters:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigExile | TriggerDescription$ When CARDNAME dies, exile it with three rebirth counters on it. At the beginning of your upkeep, remove a rebirth counter. When the last counter is removed, return CARDNAME to the battlefield.
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ REBIRTH | CounterNum$ 3 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | Triggers$ UpkeepRemove | ExileOnMoved$ Exile | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:UpkeepRemove:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigRemove | TriggerZones$ Command | TriggerDescription$ At the beginning of your upkeep, remove a rebirth counter. When the last counter is removed, return CARDNAME to the battlefield.
+SVar:TrigRemove:DB$ RemoveCounter | CounterType$ REBIRTH | CounterNum$ 1 | Defined$ Remembered | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | ConditionCheckSVar$ X | SVarCompare$ EQ0
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardCounters.REBIRTH
+Oracle:Deathtouch\nWhenever a creature dealt damage by Sleykin this turn dies, put a +1/+1 counter on Sleykin.\nWhen Sleykin dies, exile it with three rebirth counters on it. At the beginning of your upkeep, remove a rebirth counter. When the last counter is removed, return Sleykin to the battlefield.

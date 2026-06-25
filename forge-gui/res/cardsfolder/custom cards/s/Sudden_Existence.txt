@@ -1,0 +1,6 @@
+Name:Sudden Existence
+ManaCost:2 GU GU
+Types:Sorcery
+A:SP$ RepeatEach | RepeatPlayers$ Player | RepeatOptionalForEachPlayer$ True | RepeatOptionalMessage$ Put a permanent card from your hand onto the battlefield? | RepeatSubAbility$ DBPutPermanent | SpellDescription$ Each player may put a permanent card from their hand onto the battlefield.
+SVar:DBPutPermanent:DB$ ChangeZone | DefinedPlayer$ Remembered | Origin$ Hand | Destination$ Battlefield | ChangeType$ Permanent
+Oracle:Each player may put a permanent card from their hand onto the battlefield.

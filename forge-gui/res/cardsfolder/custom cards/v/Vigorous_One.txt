@@ -1,0 +1,8 @@
+Name:Vigorous One
+ManaCost:1 U R
+Types:Creature Human Knight
+PT:3/3
+K:Flash
+K:Haste
+K:First Strike
+Oracle:Flash, haste, first strike

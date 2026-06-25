@@ -1,0 +1,7 @@
+Name:Sensory Arena
+ManaCost:B G
+Types:Legendary Enchantment
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Command | Execute$ TrigDamage | ValidPlayer$ You | TriggerDescription$ At the beginning of your upkeep, each player mill two cards.
+SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ Player
+S:Mode$ CombatDamageBasePowerToughness | ValidCard$ Creature.OppCtrl | Description$ Creatures your opponents control deal combat damage with their base power and toughness.
+Oracle:At the beginning of your upkeep, each player puts the top two cards of their library into their graveyard.\nCreatures your opponents control deal combat damage with their base power and toughness.

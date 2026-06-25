@@ -1,6 +1,6 @@
 Name:Regal Ancestor Spirit
-ManaCost:3 G G
-Types:Legendary Creature Fungus Avatar
+ManaCost:4 G G
+Types:Legendary Enchantment Creature Elk Spirit
 PT:5/5
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Enchantment.Other+YouCtrl | Execute$ TrigDraw | TriggerDescription$ Whenever CARDNAME or another enchantment you control enters, draw a card.
 SVar:TrigDraw:DB$ Draw

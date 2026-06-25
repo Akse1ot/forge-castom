@@ -4620,13 +4620,37 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         return StaticAbilityCombatDamageToughness.combatDamageToughness(this);
     }
 
+    public final boolean basePowerToughnessAssignsCombatDamage() {
+        return StaticAbilityCombatDamageBasePowerToughness.combatDamageBasePowerToughness(this);
+    }
+
     public final boolean assignNoCombatDamage() {
         return StaticAbilityAssignNoCombatDamage.assignNoCombatDamage(this);
     }
 
+    private int getCurrentPowerWithSwitchOnly() {
+        if (getAmountOfKeyword("CARDNAME's power and toughness are switched") % 2 != 0) {
+            return getCurrentToughness();
+        }
+        return getCurrentPower();
+    }
+
+    private int getCurrentToughnessWithSwitchOnly() {
+        if (getAmountOfKeyword("CARDNAME's power and toughness are switched") % 2 != 0) {
+            return getCurrentPower();
+        }
+        return getCurrentToughness();
+    }
+
     // How much combat damage does the card deal
     public final int getNetCombatDamage() {
-        return assignNoCombatDamage() ? 0 : (toughnessAssignsDamage() ? getNetToughnessBreakdown() : getNetPowerBreakdown()).getTotal();
+        if (assignNoCombatDamage()) {
+            return 0;
+        }
+        if (basePowerToughnessAssignsCombatDamage()) {
+            return toughnessAssignsDamage() ? getCurrentToughnessWithSwitchOnly() : getCurrentPowerWithSwitchOnly();
+        }
+        return (toughnessAssignsDamage() ? getNetToughnessBreakdown() : getNetPowerBreakdown()).getTotal();
     }
 
     // for cards like Giant Growth, etc.

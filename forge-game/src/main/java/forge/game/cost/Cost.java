@@ -702,6 +702,25 @@ public class Cost implements Serializable {
         return toRet;
     }
 
+    public static Cost or(final Cost left, final Cost right) {
+        if (left == null) {
+            return right == null ? null : right.copy();
+        }
+        if (right == null) {
+            return left.copy();
+        }
+
+        final Cost result = new Cost();
+        result.isAbility = left.isAbility();
+        result.isMandatory = left.isMandatory();
+
+        result.costParts.add(new CostOr(left.copy(), right.copy()));
+        result.cacheTapCost();
+        result.sort();
+
+        return result;
+    }
+
     public final CostPartMana getCostMana() {
         for (final CostPart part : this.costParts) {
             if (part instanceof CostPartMana) {

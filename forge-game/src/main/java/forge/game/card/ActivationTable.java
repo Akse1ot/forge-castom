@@ -63,7 +63,7 @@ public class ActivationTable extends ForwardingTable<SpellAbility, Optional<Stat
 
     public int getTotal() {
         int total = 0;
-        for (List<Player> activators : values()) {
+        for (Multiset<Player> activators : values()) {
             total += activators.size();
         }
         return total;

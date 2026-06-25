@@ -1,0 +1,10 @@
+Name:The Power of Martyrs
+ManaCost:1 R W
+Types:Enchantment
+T:Mode$ Sacrificed | ValidCard$ Creature.YouCtrl | Execute$ TrigPutCounter | TriggerZones$ Battlefield | TriggerDescription$ Whenever you sacrifice a creature, put a Faith counter on CARDNAME.
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ FAITH | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ X | AddToughness$ X | Description$ Creatures you control get +1/+1 for each Faith counter on CARDNAME.
+SVar:X:Count$CardCounters.FAITH
+AI:RemoveDeck:Random
+Oracle:Whenever you sacrifice a creature, put a Faith counter on The Power of Martyrs.\n
+Creatures you control get +1/+1 for each Faith counter on The Power of Martyrs.

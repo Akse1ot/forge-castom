@@ -1,0 +1,6 @@
+Name:Wearer of a Thousand Faces
+ManaCost:2 U B
+Types:Creature Djinn
+PT:2/2
+A:AB$ Clone | Cost$ PayLife<4> | ValidTgts$ Creature | TgtPrompt$ Select target creature to copy | GainThisAbility$ True | SpellDescription$ CARDNAME becomes a copy of target creature on the battlefield except it has this ability.
+Oracle:Pay 4 life: Wearer of a Thousand Faces becomes the copy of target creature on the battlefield except it has this ability.

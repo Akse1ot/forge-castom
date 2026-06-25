@@ -1,0 +1,6 @@
+Name:Voracious Onslaught
+ManaCost:X X B G
+Types:Sorcery
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Menace | NumAtt$ +X | NumDef$ +X | SpellDescription$ Creatures you control get +X/+X and gain menace until end of turn.
+SVar:X:Count$xPaid
+Oracle:Creatures you control get +X/+X and gain menace until end of turn.

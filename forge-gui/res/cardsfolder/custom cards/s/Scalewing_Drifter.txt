@@ -1,0 +1,8 @@
+Name:Scalewing Drifter
+ManaCost:G U
+Types:Creature Lizard
+PT:1/2
+K:Flying
+K:Vigilance
+K:Immunity:2
+Oracle:Flying, vigilance\nImmunity 2 (Spells your opponents cast that target this creature cost {2} more to cast.)

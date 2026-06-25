@@ -1,0 +1,11 @@
+Name:Touch of Eternity
+ManaCost:4 U B
+Types:Sorcery
+A:SP$ Aetherise | ValidTgts$ Opponent | Origin$ Graveyard | DefinedPlayer$ Targeted | Chooser$ You | ChangeType$ Card | ChangeNum$ 1 | SubAbility$ DBExileTop | SpellDescription$ Aetherise a card in target opponent's graveyard, then exile the top four cards of their library. Until end of turn, you may cast one of those cards without paying its mana cost.
+SVar:DBExileTop:DB$ Dig | Defined$ Targeted | DigNum$ 4 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ MayCast | Triggers$ CastOne | SubAbility$ DBCleanup
+SVar:MayCast:Mode$ Continuous | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile | MayPlay$ True | MayPlayWithoutManaCost$ True | Description$ Until end of turn, you may cast one of those cards without paying its mana cost.
+SVar:CastOne:Mode$ SpellCast | ValidCard$ Card.IsRemembered | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ ExileSelf | Static$ True
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Command | Destination$ Exile
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Aetherise a card in target opponent’s graveyard, then exile the top four cards of their library. Until end of turn, you may cast one of those cards without paying its mana cost.

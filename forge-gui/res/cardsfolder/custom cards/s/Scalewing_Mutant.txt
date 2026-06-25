@@ -1,0 +1,7 @@
+Name:Scalewing Mutant
+ManaCost:5 G U
+Types:Creature Lizard
+PT:7/7
+K:Immunity:2
+S:Mode$ AssignCombatDamageAsUnblocked | ValidCard$ Card.Self | Optional$ True | Description$ You may have CARDNAME assign its combat damage as though it weren't blocked.
+Oracle:Immunity 2 (Spells your opponents cast that target this creature cost {2} more to cast.)\nYou may have Scalewing Mutant deal combat damage to defending player as though it wasn’t blocked.

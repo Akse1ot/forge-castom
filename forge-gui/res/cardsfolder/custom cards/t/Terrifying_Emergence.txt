@@ -1,0 +1,7 @@
+Name:Terrifying Emergence
+ManaCost:3 B R
+Types:Creature Elemental Nightmare
+PT:7/7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard | TriggerDescription$ When CARDNAME enters, discard your hand.
+SVar:TrigDiscard:DB$ Discard | Mode$ Hand | Defined$ You
+Oracle:When Terrifying Emergence enters the battlefield, discard your hand.

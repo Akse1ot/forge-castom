@@ -1,0 +1,6 @@
+Name:Self-Righteous Paladin
+ManaCost:1 W B
+Types:Creature Kithkin Knight
+PT:3/2
+K:Lifelink
+Oracle:Lifelink

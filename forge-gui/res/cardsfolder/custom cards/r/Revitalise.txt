@@ -1,0 +1,6 @@
+Name:Revitalise
+ManaCost:RG RG
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land | ChangeTypeDesc$ land | SubAbility$ DBScry | SpellDescription$ Search your library for a land card, put it into your hand, then shuffle your library. Scry 1.
+SVar:DBScry:DB$ Scry | ScryNum$ 1
+Oracle:Search your library for a land card, put it into your hand, then shuffle your library. Scry 1.

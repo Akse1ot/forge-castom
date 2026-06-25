@@ -1,0 +1,9 @@
+Name:Silent Predator
+ManaCost:1 B G
+Types:Creature Spider Horror
+PT:2/2
+K:Flash
+K:Deathtouch
+K:Reach
+K:Reanimate
+Oracle:Flash, deathtouch, reach\nReanimate (You may cast this card from your graveyard by sacrificing a creature in addition to paying its other costs.)

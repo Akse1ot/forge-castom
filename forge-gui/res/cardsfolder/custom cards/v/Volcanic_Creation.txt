@@ -1,0 +1,6 @@
+Name:Volcanic Creation
+ManaCost:1 R U
+Types:Sorcery
+A:SP$ Sacrifice | SacValid$ Land | Defined$ Player | SubAbility$ DBFetchBasic | SpellDescription$ Each player sacrifices a land. Search your library for a basic land card and put it onto the battlefield tapped. Then shuffle your library.
+SVar:DBFetchBasic:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land | Shuffle$ True
+Oracle:Each player sacrifices a land.\nSearch your library for a basic land card and put it onto the battlefield tapped. Then shuffle your library.
