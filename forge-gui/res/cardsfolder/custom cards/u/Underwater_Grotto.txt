@@ -1,0 +1,6 @@
+Name:Underwater Grotto
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ Mana | Cost$ UB T | Produced$ U B | SpellDescription$ Add {U}{B}.
+Oracle:{T}: Add {C}.\n{UB}, {T}: Add {U}{B}.

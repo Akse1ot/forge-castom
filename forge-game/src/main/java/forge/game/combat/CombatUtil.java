@@ -34,6 +34,7 @@ import forge.game.staticability.StaticAbility;
 import forge.game.staticability.StaticAbilityBlockRestrict;
 import forge.game.staticability.StaticAbilityCantAttackBlock;
 import forge.game.staticability.StaticAbilityMustBlock;
+import forge.game.staticability.StaticAbilityMustBlockAllBut;
 import forge.game.trigger.TriggerType;
 import forge.game.zone.ZoneType;
 import forge.util.TextUtil;
@@ -696,6 +697,11 @@ public class CombatUtil {
                     }
                 }
             }
+        }
+
+        final String mustBlockAllBut = StaticAbilityMustBlockAllBut.validateBlocks(combat, defending, freeBlockers);
+        if (mustBlockAllBut != null) {
+            return mustBlockAllBut;
         }
 
         // Creatures that aren't allowed to block unless certain restrictions are met.

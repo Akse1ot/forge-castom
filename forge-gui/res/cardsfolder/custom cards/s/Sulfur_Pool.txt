@@ -1,0 +1,7 @@
+Name:Sulfur Pool
+ManaCost:3
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+Black,Creature.YouCtrl+Red | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a black or red creature enters the battlefield under your control, you gain 1 life.
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+A:AB$ Mana | Cost$ T | Produced$ Combo B R | SpellDescription$ Add {B} or {R}.
+Oracle:Whenever a black or red creature enters the battlefield under your control, you gain 1 life.\n{T}: Add {B} or {R}.

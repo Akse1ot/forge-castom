@@ -31,6 +31,7 @@ import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityStackInstance;
 import forge.game.spellability.StackItemView;
 import forge.game.spellability.TargetRestrictions;
+import forge.game.spellability.TargetEitherFaceUtil;
 import forge.game.staticability.StaticAbilityMustTarget;
 import forge.game.zone.Zone;
 import forge.game.zone.ZoneType;
@@ -72,26 +73,7 @@ public class TargetSelection {
     }
 
     private CardStateName getAutoTargetState(final Card card) {
-        if (!ability.hasParam("TargetEitherFace") || !card.isModal() || !card.hasState(CardStateName.Backside)) {
-            return CardStateName.Original;
-        }
-
-        ability.getTargets().setTargetedCardState(card, CardStateName.Original);
-        final boolean frontOk = ability.canTarget(card);
-        ability.getTargets().clearTargetedCardState(card);
-
-        ability.getTargets().setTargetedCardState(card, CardStateName.Backside);
-        final boolean backOk = ability.canTarget(card);
-        ability.getTargets().clearTargetedCardState(card);
-
-        // If both faces are legal, don't auto-target: player must choose the face.
-        if (frontOk && backOk) {
-            return null;
-        }
-        if (backOk && !frontOk) {
-            return CardStateName.Backside;
-        }
-        return CardStateName.Original;
+        return TargetEitherFaceUtil.getAutoTargetState(ability, card);
     }
 
     public final boolean chooseTargets(Integer numTargets, Collection<Integer> divisionValues, Predicate<GameObject> filter, boolean optional, boolean canFilterMustTarget) {
@@ -199,7 +181,7 @@ public class TargetSelection {
 
             // If both faces are legal, don't auto-target: let InputSelectTargets ask which face to target.
             if (autoState != null) {
-                if (autoState != CardStateName.Original) {
+                if (TargetEitherFaceUtil.isEnabled(ability) && TargetEitherFaceUtil.isSupportedMDFC(onlyTarget)) {
                     ability.getTargets().setTargetedCardState(onlyTarget, autoState);
                 }
                 if (ability.isDividedAsYouChoose()) {

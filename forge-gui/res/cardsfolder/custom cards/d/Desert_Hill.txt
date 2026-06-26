@@ -1,0 +1,6 @@
+Name:Desert Hill
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ Mana | Cost$ RW T | Produced$ R W | SpellDescription$ Add {R}{W}.
+Oracle:{T}: Add {C}.\n{RW}, {T}: Add {R}{W}.

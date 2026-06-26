@@ -24,6 +24,10 @@ This fork contains custom changes that may include:
 
 Because of that, behavior here may differ from the official Forge project.
 
+## Custom set added to the engine
+
+Custom card sets have been added to the engine, and their mechanics have been fully implemented. More details can be found [here.](Custom_card_sets_and_mechanics.md)
+
 ## Purpose
 
 This repository exists mainly for:

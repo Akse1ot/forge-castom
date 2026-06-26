@@ -586,6 +586,7 @@ public class PlaySpellAbility {
         final Player player = ability.getActivatingPlayer();
         final Game game = player.getGame();
         boolean refreeze = game.getStack().isFrozen();
+        SpellAbility resonanceOriginalTail = null;
 
         if (!skipStack) {
             if (!refreeze) {
@@ -608,6 +609,7 @@ public class PlaySpellAbility {
                     return false;
                 }
             }
+            resonanceOriginalTail = ability.getTailAbility();
             ability = ResonanceHelper.mergeOnCast(game, player, ability);
             ability = AbilityUtils.addSpliceEffects(ability);
         }
@@ -716,12 +718,15 @@ public class PlaySpellAbility {
                 manapool.restoreColorReplacements();
             }
 
+            ResonanceHelper.rollbackUncommittedMerge(ability, resonanceOriginalTail);
+
             return false;
         }
 
         if (isFree || payment.isFullyPaid()) {
             //track when planeswalker ultimates are activated
             player.getAchievementTracker().onSpellAbilityPlayed(ability);
+            ResonanceHelper.commitOnCastSuccess(game, player, ability);
 
             if (skipStack) {
                 AbilityUtils.resolve(ability);

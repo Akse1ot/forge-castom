@@ -1,0 +1,8 @@
+Name:Farming Grounds
+ManaCost:no cost
+Types:Legendary Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ This land enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo W G | SpellDescription$ Add {W} or {G}.
+A:AB$ CopyPermanent | Cost$ 2 W G T | ValidTgts$ Permanent.token+YouCtrl | SpellDescription$ Create a token that’s a copy of a permanent token you control.
+Oracle:Skybound Acropolis enters tapped.\n{T}: Add {W} or {G}.\n{2}{W}{G}, {T}: Create a token that’s a copy of a permanent token you control. 

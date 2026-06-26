@@ -2,7 +2,7 @@ Name:Mental Trauma
 ManaCost:1 UB UB
 Types:Sorcery
 A:SP$ Mill | ValidTgts$ Player | NumCards$ 4 | RememberMilled$ True | SubAbility$ ReturnSelf | SpellDescription$ Target player puts the top four cards of their library into their graveyard. If two or more cards put into a graveyard this way share a color, return CARDNAME to its owner’s hand.
-SVar:ReturnSelf:DB$ ChangeZone | Defined$ Self | Origin$ Stack | Destination$ Hand | ConditionSVar$ X | ConditionCompare$ GE2 | SubAbility$ DBCleanup
+SVar:ReturnSelf:DB$ ChangeZone | Defined$ Parent | Origin$ Stack | Destination$ Hand | ConditionCheckSVar$ X | ConditionSVarCompare$ GE2 | SubAbility$ DBCleanup
 SVar:X:Remembered$Valid Card.SharesColorWithOther Remembered
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 Oracle:Target player puts the top four cards of their library into their graveyard. If two or more cards put into a graveyard this way share a color, return Mental Trauma to its owner’s hand.

@@ -53,33 +53,58 @@ public class TargetChoices extends ForwardingList<GameObject> implements Cloneab
 
     private final Map<Card, CardStateName> targetedCardStates = Maps.newHashMap();
 
-    private int getCMCForState(final Card c, final CardStateName state) {
-        if (state == CardStateName.Backside && c.isModal() && c.hasState(CardStateName.Backside)) {
-            if (c.getState(CardStateName.Backside).getManaCost() != null) {
-                return c.getState(CardStateName.Backside).getManaCost().getCMC();
+    private Card findTargetedCardStateKey(final Card c) {
+        if (c == null) {
+            return null;
+        }
+
+        if (targetedCardStates.containsKey(c)) {
+            return c;
+        }
+
+        for (final Card key : targetedCardStates.keySet()) {
+            if (key != null && key.equalsWithGameTimestamp(c)) {
+                return key;
             }
         }
-        return c.getCMC();
+
+        return null;
     }
 
     public final void setTargetedCardState(final Card c, final CardStateName state) {
-        if (c == null || state == null) {
-            targetedCardStates.remove(c);
-        } else {
-            targetedCardStates.put(c, state);
+        if (c == null) {
+            return;
         }
+
+        final Card key = findTargetedCardStateKey(c);
+        if (state == null) {
+            if (key != null) {
+                targetedCardStates.remove(key);
+            }
+            return;
+        }
+
+        targetedCardStates.put(key == null ? c : key, state);
+    }
+
+    public final boolean hasTargetedCardState(final Card c) {
+        return findTargetedCardStateKey(c) != null;
     }
 
     public final CardStateName getTargetedCardState(final Card c) {
-        return targetedCardStates.get(c);
+        final Card key = findTargetedCardStateKey(c);
+        return key == null ? null : targetedCardStates.get(key);
     }
 
     public final void clearTargetedCardState(final Card c) {
-        targetedCardStates.remove(c);
+        final Card key = findTargetedCardStateKey(c);
+        if (key != null) {
+            targetedCardStates.remove(key);
+        }
     }
 
     public final int getTargetedCMC(final Card c) {
-        return getCMCForState(c, targetedCardStates.getOrDefault(c, CardStateName.Original));
+        return TargetEitherFaceUtil.getCMCForState(c, getTargetedCardState(c));
     }
 
     public final int getTotalTargetedCMC() {
@@ -122,7 +147,11 @@ public class TargetChoices extends ForwardingList<GameObject> implements Cloneab
             this.cardControllers.remove(e);
         }
         for (Object e : collection) {
-            this.targetedCardStates.remove(e);
+            if (e instanceof Card c) {
+                clearTargetedCardState(c);
+            } else {
+                this.targetedCardStates.remove(e);
+            }
         }
         return result;
     }
@@ -132,7 +161,11 @@ public class TargetChoices extends ForwardingList<GameObject> implements Cloneab
         boolean result = super.remove(object);
         dividedMap.remove(object);
         cardControllers.remove(object);
-        targetedCardStates.remove(object);
+        if (object instanceof Card c) {
+            clearTargetedCardState(c);
+        } else {
+            targetedCardStates.remove(object);
+        }
         return result;
     }
 
@@ -177,16 +210,19 @@ public class TargetChoices extends ForwardingList<GameObject> implements Cloneab
     }
 
     public final void replaceTargetCard(final Card old, final CardCollectionView replace) {
-        CardStateName oldState = targetedCardStates.remove(old);
+        final boolean hadOldState = hasTargetedCardState(old);
+        final CardStateName oldState = getTargetedCardState(old);
+        clearTargetedCardState(old);
 
         targets.remove(old);
         targets.addAll(replace);
 
         for (Card c : replace) {
             cardControllers.put(c, c.getController());
-            if (oldState != null) {
-                targetedCardStates.put(c, oldState);
-            }
+        }
+
+        if (hadOldState && replace.size() == 1) {
+            setTargetedCardState(Iterables.getOnlyElement(replace), oldState);
         }
     }
 

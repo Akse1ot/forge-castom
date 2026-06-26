@@ -3573,6 +3573,7 @@ public class CardFactoryUtil {
                         desc.append(resonanceSA.getCostDescription());
                         desc.append("(").append(inst.getReminderText()).append(")");
                         resonanceSA.setDescription(desc.toString());
+                        resonanceSA.setStackDescription(card.getName() + " (Resonance)");
 
                         resonanceSA.setIntrinsic(intrinsic);
                         inst.addSpellAbility(resonanceSA);

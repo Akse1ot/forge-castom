@@ -1417,26 +1417,33 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
     }
 
     private Card getCardForTargetStateCheck(final Card original, final CardStateName state) {
-        if (state == null || state == CardStateName.Original) {
+        if (original == null) {
+            return null;
+        }
+
+        if (state == null) {
             return original;
         }
-        final Card copy = CardCopyService.getLKICopy(original);
-        if (copy == null) {
+
+        if (!TargetEitherFaceUtil.isSupportedMDFC(original)) {
             return original;
         }
-        if (!copy.changeToState(state)) {
-            return original;
-        }
-        return copy;
+
+        return TargetEitherFaceUtil.createStateCheckCard(original, state);
     }
 
     private Card getExistingTargetForComparison(final Card original) {
-        final CardStateName state = getTargets().getTargetedCardState(original);
-        return getCardForTargetStateCheck(original, state == null ? CardStateName.Original : state);
+        final CardStateName state = TargetEitherFaceUtil.getTargetedStateOrOriginal(this, original);
+        final Card check = getCardForTargetStateCheck(original, state);
+        return check == null ? original : check;
     }
 
     private boolean canTargetCardWithState(final Card originalCard, final CardStateName state, final boolean fizzleCheck) {
         final Card c = getCardForTargetStateCheck(originalCard, state);
+        if (c == null) {
+            return false;
+        }
+
         final TargetRestrictions tr = getTargetRestrictions();
 
         if (hasParam("TargetsWithDefinedController")) {
@@ -1645,17 +1652,16 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
                 return false;
 
             if (entity instanceof Card card
-                    && hasParam("TargetEitherFace")
-                    && card.isModal()
-                    && card.hasState(CardStateName.Backside)) {
+                    && TargetEitherFaceUtil.isEnabled(this)
+                    && TargetEitherFaceUtil.isSupportedMDFC(card)) {
 
-                CardStateName chosenState = getTargets().getTargetedCardState(card);
+                final CardStateName chosenState = TargetEitherFaceUtil.getTargetedStateOrNull(this, card);
                 if (chosenState != null) {
                     return canTargetCardWithState(card, chosenState, fizzleCheck);
                 }
 
-                return canTargetCardWithState(card, CardStateName.Original, fizzleCheck)
-                        || canTargetCardWithState(card, CardStateName.Backside, fizzleCheck);
+                return TargetEitherFaceUtil.canTargetInState(this, card, CardStateName.Original)
+                        || TargetEitherFaceUtil.canTargetInState(this, card, CardStateName.Backside);
             }
 
             // If the cards must have a specific controller

@@ -1,0 +1,8 @@
+Name:Skybound Acropolis
+ManaCost:no cost
+Types:Legendary Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ This land enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo W U | SpellDescription$ Add {W} or {U}.
+A:AB$ Pump | Cost$ 2 W U T | ValidTgts$ Creature | KW$ Defender | SpellDescription$ Target creature gains defender until end of turn.
+Oracle:Skybound Acropolis enters tapped.\n{T}: Add {W} or {U}.\n{2}{W}{U}, {T}: Target creature gains defender until end of turn.

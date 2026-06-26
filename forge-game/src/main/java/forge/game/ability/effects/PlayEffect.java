@@ -37,6 +37,7 @@ import forge.game.spellability.AlternativeCost;
 
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityPredicates;
+import forge.game.spellability.TargetEitherFaceUtil;
 import forge.game.zone.Zone;
 import forge.game.zone.ZoneType;
 import forge.item.PaperCard;
@@ -182,7 +183,7 @@ public class PlayEffect extends SpellAbilityEffect {
             return;
         }
 
-        if (sa.hasParam("ValidSA")) {
+        if (sa.hasParam("ValidSA") && !TargetEitherFaceUtil.isEnabled(sa)) {
             final String valid[] = sa.getParam("ValidSA").split(",");
             final List<Card> invalid = tgtCards.stream().filter(c -> !IterableUtil.any(AbilityUtils.getBasicSpellsFromPlayEffect(c, controller), SpellAbilityPredicates.isValid(valid, controller, source, sa))).collect(Collectors.toList());
             if (!invalid.isEmpty())
@@ -219,8 +220,17 @@ public class PlayEffect extends SpellAbilityEffect {
         while (!tgtCards.isEmpty() && amount > 0 && totalCMCLimit >= 0) {
             if (hasTotalCMCLimit) {
                 // filter out cards with mana value greater than limit
-                final String [] valid = {"Spell.cmcLE" + totalCMCLimit};
-                final List<Card> invalid = tgtCards.stream().filter(c -> !IterableUtil.any(AbilityUtils.getBasicSpellsFromPlayEffect(c, controller), SpellAbilityPredicates.isValid(valid, controller, c, sa))).collect(Collectors.toList());
+                final int currentTotalCMCLimit = totalCMCLimit;
+                final List<Card> invalid;
+                if (TargetEitherFaceUtil.isEnabled(sa)) {
+                    invalid = tgtCards.stream()
+                            .filter(c -> TargetEitherFaceUtil.getCMCForState(c,
+                                    TargetEitherFaceUtil.getTargetedStateOrOriginal(sa, c)) > currentTotalCMCLimit)
+                            .collect(Collectors.toList());
+                } else {
+                    final String [] valid = {"Spell.cmcLE" + currentTotalCMCLimit};
+                    invalid = tgtCards.stream().filter(c -> !IterableUtil.any(AbilityUtils.getBasicSpellsFromPlayEffect(c, controller), SpellAbilityPredicates.isValid(valid, controller, c, sa))).collect(Collectors.toList());
+                }
                 if (!invalid.isEmpty())
                     tgtCards.removeAll(invalid);
                 if (tgtCards.isEmpty())
@@ -257,6 +267,10 @@ public class PlayEffect extends SpellAbilityEffect {
                 tgtCards.remove(tgtCard);
             }
 
+            final Card originalTarget = tgtCard;
+            CardStateName state = TargetEitherFaceUtil.getTargetedStateOrOriginal(sa, originalTarget);
+            final boolean explicitState = TargetEitherFaceUtil.hasExplicitTargetedState(sa, originalTarget);
+
             if (sa.hasParam("CopyCard")) {
                 final Card original = tgtCard;
                 final Zone zone = tgtCard.getZone();
@@ -266,14 +280,16 @@ public class PlayEffect extends SpellAbilityEffect {
                 tgtCard.setZone(zone);
                 // to fix the CMC
                 tgtCard.setCopiedPermanent(original);
+                if (explicitState && TargetEitherFaceUtil.isSupportedMDFC(tgtCard)) {
+                    tgtCard.setBackSide(state == CardStateName.Backside);
+                    if (!tgtCard.setState(state, true, true)) {
+                        System.err.println("TargetEitherFace state apply failed for copied card '" + tgtCard + "'.");
+                        continue;
+                    }
+                }
                 if (zone != null) {
                     zone.add(tgtCard);
                 }
-            }
-
-            CardStateName state = sa.getTargets().getTargetedCardState(tgtCard);
-            if (state == null) {
-                state = CardStateName.Original;
             }
 
             if (sa.hasParam("CastTransformed")) {
@@ -298,11 +314,9 @@ public class PlayEffect extends SpellAbilityEffect {
             try {
                 List<SpellAbility> sas = AbilityUtils.getSpellsFromPlayEffect(tgtCard, controller, state, !altCost);
 
-                if (sa.hasParam("TargetEitherFace")) {
-                    final CardStateName targetedState = sa.getTargets().getTargetedCardState(tgtCard);
-                    if (targetedState != null) {
-                        sas.removeIf(sp -> sp.getCardStateName() != targetedState);
-                    }
+                if (explicitState && TargetEitherFaceUtil.isEnabled(sa)) {
+                    final CardStateName spellState = state;
+                    sas.removeIf(sp -> sp.getCardStateName() != spellState);
                 }
 
                 if (sa.hasParam("ValidSA")) {

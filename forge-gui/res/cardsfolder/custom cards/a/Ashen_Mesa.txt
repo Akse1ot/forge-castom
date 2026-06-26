@@ -1,0 +1,6 @@
+Name:Ashen Mesa
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ Mana | Cost$ BR T | Produced$ B R | SpellDescription$ Add {B}{R}.
+Oracle:{T}: Add {C}.\n{B/R}, {T}: Add {B}{R}.

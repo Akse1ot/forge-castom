@@ -1,0 +1,9 @@
+Name:Home of Nightmares
+ManaCost:no cost
+Types:Legendary Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ This land enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo B R | SpellDescription$ Add {B} or {R}.
+A:AB$ Pump | Cost$ 2 B R T ExileFromGrave<1/Card> | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | NumAtt$ +X | SpellDescription$ Target creature you control gets +X/+0 until end of turn, where X is the exiled card’s converted mana cost.
+SVar:X:Exiled$CardManaCost
+Oracle:Skybound Acropolis enters tapped.\n{T}: Add {B} or {R}.\n{2}{B}{R}, Exile a card from your graveyard: Target creature you control gets +X/+0 until end of turn, where X is the exiled card’s converted mana cost.

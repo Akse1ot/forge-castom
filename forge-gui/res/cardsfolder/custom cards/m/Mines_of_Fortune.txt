@@ -1,0 +1,9 @@
+Name:Mines of Fortune
+ManaCost:no cost
+Types:Legendary Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ This land enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo W B | SpellDescription$ Add {W} or {B}.
+A:AB$ Token | Cost$ W B T PayLife<1> | TokenScript$ wb_1_1_kithkin_serf | SpellDescription$ Create a 1/1 white and black Kithkin Serf creature token.
+Oracle:Skybound Acropolis enters tapped.\n{T}: Add {W} or {B}.\n{W}{B}, {T}, Pay 1 life: Create a 1/1 white and black Kithkin Serf creature token. 
+

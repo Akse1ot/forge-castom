@@ -1,0 +1,7 @@
+Name:Replenishing Rock
+ManaCost:3
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+White,Creature.YouCtrl+Green | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a white or green creature enters the battlefield under your control, you gain 1 life.
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+A:AB$ Mana | Cost$ T | Produced$ Combo G W | SpellDescription$ Add {G} or {W}.
+Oracle:Whenever a white or green creature enters the battlefield under your control, you gain 1 life.\n{T}: Add {G} or {W}.

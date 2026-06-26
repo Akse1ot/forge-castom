@@ -1,0 +1,6 @@
+Name:Grey Eyrie
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ Mana | Cost$ WU T | Produced$ W U | SpellDescription$ Add {W}{U}.
+Oracle:{T}: Add {C}.\n{WU}, {T}: Add {W}{U}.

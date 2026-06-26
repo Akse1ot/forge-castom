@@ -17,6 +17,7 @@ public enum TriggerType {
     AbilityResolves(TriggerAbilityResolves.class),
     AbilityTriggered(TriggerAbilityTriggered.class),
     Adapt(TriggerAdapt.class),
+    Aetherised(TriggerAetherised.class),
     Airbend(TriggerElementalbend.class),
     Always(TriggerAlways.class),
     Attached(TriggerAttached.class),

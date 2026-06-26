@@ -1,0 +1,8 @@
+Name:Canovol, Soul of the World
+ManaCost:no cost
+Types:Legendary Land
+A:AB$ Mana | Cost$ T | Produced$ Any | SubAbility$ DBPain | SpellDescription$ Add one mana of any color. CARDNAME deals 1 damage to you.
+SVar:DBPain:DB$ DealDamage | NumDmg$ 1 | Defined$ You
+A:AB$ DamageAll | Cost$ 8 T Sac<1/CARDNAME>  | NumDmg$ 6 | ValidCards$ Creature | ValidPlayers$ Player | ValidDescription$ each creature and each player. | SpellDescription$ CARDNAME deals 6 damage to each creature and each player.
+Oracle:{T}: Add one mana of any color. Canovol deals 1 damage to you.
+{8}, {T}, Sacrifice Canovol: Canovol deals 6 damage to each creature and each player.

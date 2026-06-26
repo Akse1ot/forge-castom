@@ -1,0 +1,9 @@
+Name:Eye of Evolution
+ManaCost:no cost
+Types:Legendary Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ This land enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo G U | SpellDescription$ Add {G} or {U}.
+A:AB$ Effect | Cost$ 4 G U T | StaticAbilities$ SAllButOneBlocked | Duration$ UntilEOT | SpellDescription$ All creatures you control except one must be blocked this turn, if able.
+SVar:SAllButOneBlocked:Mode$ MustBlockAllBut | ValidAttacker$ Creature.YouCtrl | ExceptAmount$ 1 | Description$ All creatures you control except one must be blocked this turn, if able.
+Oracle:Skybound Acropolis enters tapped.\n{T}: Add {G} or {U}.\n{4}{G}{U}, {T}: All creatures you control except one must be blocked this turn, if able.

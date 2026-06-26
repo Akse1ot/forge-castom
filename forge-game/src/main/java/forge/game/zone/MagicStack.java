@@ -319,9 +319,6 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
             }
         }
 
-        // RESONANCE: merge BEFORE target-check
-        ResonanceHelper.maybeMerge(game, activator, sp);
-
         // NextSpellColor
         if (sp.isSpell() && !sp.isCopied()) {
             NextSpellColorHelper.tagSpellOnCast(activator, sp);
@@ -719,15 +716,15 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
 
             Player activator = sa.getActivatingPlayer();
 
-            if ("True".equals(sa.getSVar("ResonanceCast"))) {
+            if ("True".equals(sa.getSVar("ResonanceCast")) && !fizzle) {
                 source.setSVar("WasCastWithResonance", "True");
 
-                game.getAction().moveTo(ZoneType.Exile, source, -1, sa, params);
+                Card exiled = game.getAction().moveTo(ZoneType.Exile, source, -1, sa, params);
                 System.out.println("[Resonance] " + source.getName()
                         + " moved to Exile after resolving with Resonance.");
 
-                if (activator != null) {
-                    activator.addPendingResonance(source);
+                if (activator != null && exiled != null && exiled.isInZone(ZoneType.Exile)) {
+                    activator.addPendingResonance(exiled);
                 }
             } else {
                 game.getAction().moveToGraveyard(source, sa, params);

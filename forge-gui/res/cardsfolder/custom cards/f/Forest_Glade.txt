@@ -1,0 +1,6 @@
+Name:Forest Glade
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ Mana | Cost$ GW T | Produced$ G W | SpellDescription$ Add {G}{W}.
+Oracle:{T}: Add {C}.\n{GW}, {T}: Add {G}{W}.

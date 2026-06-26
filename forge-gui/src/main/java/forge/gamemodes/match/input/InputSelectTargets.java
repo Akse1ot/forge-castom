@@ -13,6 +13,7 @@ import forge.card.CardStateName;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.TargetRestrictions;
+import forge.game.spellability.TargetEitherFaceUtil;
 import forge.gui.FThreads;
 import forge.localinstance.properties.ForgeConstants;
 import forge.localinstance.properties.ForgePreferences;
@@ -169,6 +170,11 @@ public final class InputSelectTargets extends InputSyncronizedBase {
             return false;
         }
 
+        if (!choices.contains(card)) {
+            showMessage(sa.getHostCard() + " - The selected card is not " + Lang.nounWithAmount(1, tgt.getValidDesc()) + ".");
+            return false;
+        }
+
         final CardStateName chosenState = chooseTargetState(card);
         if (chosenState == null) {
             showMessage(sa.getHostCard() + " - Cannot target this card (chosen face is not a legal target).");
@@ -182,29 +188,34 @@ public final class InputSelectTargets extends InputSyncronizedBase {
         if (sa.isSpell() && sa.getHostCard().isAura()) {
             String msg = card.cantBeAttachedMsg(sa.getHostCard(), sa);
             if (msg != null) {
+                sa.getTargets().clearTargetedCardState(card);
                 showMessage(sa.getHostCard() + " - " + msg);
                 return false;
             }
         }
         //If the card is not a valid target
         if (!card.canBeTargetedBy(sa)) {
+            sa.getTargets().clearTargetedCardState(card);
             showMessage(sa.getHostCard() + " - Cannot target this card (Shroud? Protection? Restrictions).");
             return false;
         }
 
         // If the cards can't share a creature type
         if (tgt.isWithoutSameCreatureType() && lastTarget != null && card.sharesCreatureTypeWith(lastTarget)) {
+            sa.getTargets().clearTargetedCardState(card);
             showMessage(sa.getHostCard() + " - Cannot target this card (should not share a creature type)");
             return false;
         }
         // If the cards share a creature type
         if (tgt.isWithSameCreatureType() && lastTarget != null && !card.sharesCreatureTypeWith(lastTarget)) {
+            sa.getTargets().clearTargetedCardState(card);
             showMessage(sa.getHostCard() + " - Cannot target this card (should share a creature type)");
             return false;
         }
 
         // If the cards share a card type
         if (tgt.isWithSameCardType() && lastTarget != null && !card.sharesCardTypeWith(lastTarget)) {
+            sa.getTargets().clearTargetedCardState(card);
             showMessage(sa.getHostCard() + " - Cannot target this card (should share a Card type)");
             return false;
         }
@@ -232,6 +243,7 @@ public final class InputSelectTargets extends InputSyncronizedBase {
                     soFar += card.getNetPower();
                 }
                 if (soFar > maxTotalPower) {
+                    sa.getTargets().clearTargetedCardState(card);
                     showMessage(sa.getHostCard() + " - Cannot target this card (power limit exceeded)");
                     return false;
                 }
@@ -248,6 +260,7 @@ public final class InputSelectTargets extends InputSyncronizedBase {
                 }
             }
             if (!targetedControllers.isEmpty() && !targetedControllers.contains(card.getController())) {
+                sa.getTargets().clearTargetedCardState(card);
                 showMessage(sa.getHostCard() + " - Cannot target this card (must have same controller)");
                 return false;
             }
@@ -263,6 +276,7 @@ public final class InputSelectTargets extends InputSyncronizedBase {
                 }
             }
             if (targetedControllers.contains(card.getController())) {
+                sa.getTargets().clearTargetedCardState(card);
                 showMessage(sa.getHostCard() + " - Cannot target this card (must have different controllers)");
                 return false;
             }
@@ -278,6 +292,7 @@ public final class InputSelectTargets extends InputSyncronizedBase {
                 }
             }
             if (!tgtTs.isEmpty() && !tgtTs.contains(card.getNetToughness())) {
+                sa.getTargets().clearTargetedCardState(card);
                 showMessage(sa.getHostCard() + " - Cannot target this card (must have equal toughness)");
                 return false;
             }
@@ -299,15 +314,12 @@ public final class InputSelectTargets extends InputSyncronizedBase {
         }
 
         if (tgt.isDifferentNames()) {
-            String chosenName = chosenState == CardStateName.Backside && card.hasState(CardStateName.Backside)
-                    ? card.getState(CardStateName.Backside).getName()
-                    : card.getName();
+            final String chosenName = TargetEitherFaceUtil.getNameForState(card, chosenState);
 
             for (final GameObject o : targets) {
                 if (o instanceof Card c) {
-                    String targetName = sa.getTargets().getTargetedCardState(c) == CardStateName.Backside && c.hasState(CardStateName.Backside)
-                            ? c.getState(CardStateName.Backside).getName()
-                            : c.getName();
+                    final CardStateName targetState = TargetEitherFaceUtil.getTargetedStateOrOriginal(sa, c);
+                    final String targetName = TargetEitherFaceUtil.getNameForState(c, targetState);
 
                     if (targetName.equals(chosenName)) {
                         sa.getTargets().clearTargetedCardState(card);
@@ -316,12 +328,6 @@ public final class InputSelectTargets extends InputSyncronizedBase {
                     }
                 }
             }
-        }
-
-        if (!choices.contains(card)) {
-            sa.getTargets().clearTargetedCardState(card);
-            showMessage(sa.getHostCard() + " - The selected card is not " + Lang.nounWithAmount(1, tgt.getValidDesc()) + ".");
-            return false;
         }
 
         if (!sa.canTarget(card)) {
@@ -429,16 +435,11 @@ public final class InputSelectTargets extends InputSyncronizedBase {
     }
 
     private boolean canTargetCardInState(final Card card, final CardStateName state) {
-        sa.getTargets().setTargetedCardState(card, state);
-        final boolean result = sa.canTarget(card);
-        if (!result) {
-            sa.getTargets().clearTargetedCardState(card);
-        }
-        return result;
+        return TargetEitherFaceUtil.canTargetInState(sa, card, state);
     }
 
     private CardStateName chooseTargetState(final Card card) {
-        if (!sa.hasParam("TargetEitherFace") || !card.isModal() || !card.hasState(CardStateName.Backside)) {
+        if (!TargetEitherFaceUtil.isEnabled(sa) || !TargetEitherFaceUtil.isSupportedMDFC(card)) {
             return CardStateName.Original;
         }
 
@@ -459,8 +460,8 @@ public final class InputSelectTargets extends InputSyncronizedBase {
         }
 
         final List<String> options = new ArrayList<>();
-        options.add(card.getName());
-        options.add(card.getState(CardStateName.Backside).getName());
+        options.add(TargetEitherFaceUtil.getNameForState(card, CardStateName.Original));
+        options.add(TargetEitherFaceUtil.getNameForState(card, CardStateName.Backside));
 
         final String chosen = getController().getGui().oneOrNone("Choose which face to target for " + card.getName(), options);
         if (chosen == null) {

@@ -11,7 +11,6 @@ import forge.game.card.CardState;
 import forge.game.player.Player;
 import forge.game.player.PlayerActionConfirmMode;
 import forge.game.zone.ZoneType;
-import forge.util.collect.FCollectionView;
 
 import java.util.*;
 
@@ -24,6 +23,115 @@ public final class ResonanceHelper {
     // =====================================================================
     private static final String SVAR_RESONANCE_COLORS = "ResonanceColors";
     private static final String SVAR_RESONANCE_COLOR_TS = "ResonanceColorTS";
+    private static final String SVAR_RESONANCE_COMMIT_IDS = "ResonanceCommitIds";
+
+    private static void appendTargetPromptContext(final SpellAbility sa, final String context) {
+        if (sa == null) {
+            return;
+        }
+
+        final String suffix = " for " + context;
+
+        for (SpellAbility cur = sa; cur != null; cur = cur.getSubAbility()) {
+            final TargetRestrictions tgt = cur.getTargetRestrictions();
+            if (tgt == null) {
+                continue;
+            }
+
+            final String current = tgt.getVTSelection();
+            if (current == null || current.isEmpty()) {
+                tgt.setVTSelection("Select target" + suffix);
+            } else if (!current.contains(suffix)) {
+                tgt.setVTSelection(current + suffix);
+            }
+        }
+    }
+
+    private static void markForCommit(final SpellAbility root, final Card resCard) {
+        if (root == null || resCard == null) {
+            return;
+        }
+
+        final String id = Integer.toString(resCard.getId());
+        final String existing = root.getSVar(SVAR_RESONANCE_COMMIT_IDS);
+
+        if (existing == null || existing.isEmpty()) {
+            root.setSVar(SVAR_RESONANCE_COMMIT_IDS, id);
+            return;
+        }
+
+        for (final String part : existing.split(",")) {
+            if (id.equals(part)) {
+                return;
+            }
+        }
+
+        root.setSVar(SVAR_RESONANCE_COMMIT_IDS, existing + "," + id);
+    }
+
+    private static Set<Integer> getCommitIds(final SpellAbility root) {
+        final Set<Integer> result = new HashSet<>();
+        if (root == null) {
+            return result;
+        }
+
+        final String raw = root.getSVar(SVAR_RESONANCE_COMMIT_IDS);
+        if (raw == null || raw.isEmpty()) {
+            return result;
+        }
+
+        for (final String part : raw.split(",")) {
+            try {
+                result.add(Integer.parseInt(part));
+            } catch (NumberFormatException ignored) {
+            }
+        }
+
+        return result;
+    }
+
+    public static void commitOnCastSuccess(final Game game, final Player activator, final SpellAbility root) {
+        if (game == null || activator == null || root == null) {
+            return;
+        }
+
+        final Set<Integer> ids = getCommitIds(root);
+        if (ids.isEmpty()) {
+            return;
+        }
+
+        for (final Card resCard : new ArrayList<>(activator.getPendingResonance())) {
+            if (!ids.contains(resCard.getId())) {
+                continue;
+            }
+
+            activator.removePendingResonance(resCard);
+
+            if (resCard.isInZone(ZoneType.Exile)) {
+                game.getAction().moveTo(ZoneType.Graveyard, resCard, -1, root, null);
+            }
+        }
+
+        root.setSVar(SVAR_RESONANCE_COMMIT_IDS, "");
+    }
+
+    public static void rollbackUncommittedMerge(final SpellAbility root, final SpellAbility originalTail) {
+        if (root == null) {
+            return;
+        }
+
+        if (getCommitIds(root).isEmpty()) {
+            return;
+        }
+
+        if (originalTail != null) {
+            originalTail.setSubAbility(null);
+        }
+
+        root.setSVar(SVAR_RESONANCE_COMMIT_IDS, "");
+        root.setSVar(SVAR_RESONANCE_COLORS, "");
+        root.setSVar(SVAR_RESONANCE_COLOR_TS, "");
+    }
 
     // =====================================================================
     // COMPAT HELPER
@@ -37,7 +145,7 @@ public final class ResonanceHelper {
     // =====================================================================
     public static SpellAbility mergeOnCast(Game game, Player activator, SpellAbility root) {
 
-        if (root == null || !root.isSpell()) return root;
+        if (root == null || !root.isSpell() || root.isCopied()) return root;
 
         final Card host = root.getHostCard();
         if (host == null) return root;
@@ -46,6 +154,8 @@ public final class ResonanceHelper {
 
         List<Card> pending = new ArrayList<>(activator.getPendingResonance());
         if (pending.isEmpty()) return root;
+
+        boolean originalTargetPromptAdjusted = false;
 
         System.out.println("[Resonance] mergeOnCast for " + host.getName());
 
@@ -56,22 +166,13 @@ public final class ResonanceHelper {
                 continue;
             }
 
-            FCollectionView<SpellAbility> allSA_view = resCard.getSpellAbilities();
-            if (allSA_view.isEmpty()) {
-                activator.removePendingResonance(resCard);
-                game.getAction().moveTo(ZoneType.Graveyard, resCard, -1, root, null);
-                continue;
-            }
-
             List<SpellAbility> allSA = new ArrayList<>();
-            for (SpellAbility sa : allSA_view) {
-                if ("True".equals(sa.getSVar("ResonanceCast"))) continue;
+            for (SpellAbility sa : resCard.getBasicSpells()) {
                 allSA.add(sa);
             }
 
             if (allSA.isEmpty()) {
-                activator.removePendingResonance(resCard);
-                game.getAction().moveTo(ZoneType.Graveyard, resCard, -1, root, null);
+                markForCommit(root, resCard);
                 continue;
             }
 
@@ -85,9 +186,13 @@ public final class ResonanceHelper {
             );
 
             if (!apply) {
-                activator.removePendingResonance(resCard);
-                game.getAction().moveTo(ZoneType.Graveyard, resCard, -1, root, null);
+                markForCommit(root, resCard);
                 continue;
+            }
+
+            if (!originalTargetPromptAdjusted) {
+                appendTargetPromptContext(root, host.getName() + " (original spell)");
+                originalTargetPromptAdjusted = true;
             }
 
             final CardState hostState = host.getCurrentState();
@@ -127,8 +232,14 @@ public final class ResonanceHelper {
                     continue;
                 }
 
+                if (!(subSa instanceof AbilitySub)) {
+                    System.err.println("[Resonance] Built ability is not a sub-ability for " + resCard.getName());
+                    continue;
+                }
+
                 AbilitySub sub = (AbilitySub) subSa;
                 sub.setActivatingPlayer(activator);
+                appendTargetPromptContext(sub, "Resonance from " + resCard.getName());
                 root.appendSubAbility(sub);
             }
 
@@ -153,8 +264,7 @@ public final class ResonanceHelper {
                 }
             }
 
-            activator.removePendingResonance(resCard);
-            game.getAction().moveTo(ZoneType.Graveyard, resCard, -1, root, null);
+            markForCommit(root, resCard);
 
             System.out.println("[Resonance] Applied " + resCard.getName()
                     + " to " + host.getName());

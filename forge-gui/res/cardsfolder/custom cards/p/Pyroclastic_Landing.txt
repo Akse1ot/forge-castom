@@ -1,0 +1,7 @@
+Name:Pyroclastic Landing
+ManaCost:3
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+White,Creature.YouCtrl+Blue | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a white or blue creature enters the battlefield under your control, you gain 1 life.
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+A:AB$ Mana | Cost$ T | Produced$ Combo W U | SpellDescription$ Add {W} or {U}.
+Oracle:Whenever a white or blue creature enters the battlefield under your control, you gain 1 life.\n{T}: Add {W} or {U}.

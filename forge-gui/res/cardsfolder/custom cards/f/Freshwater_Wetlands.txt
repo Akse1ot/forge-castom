@@ -1,0 +1,6 @@
+Name:Freshwater Wetlands
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ Mana | Cost$ GU T | Produced$ G U | SpellDescription$ Add {G}{U}.
+Oracle:{T}: Add {C}.\n{GU}, {T}: Add {G}{U}.

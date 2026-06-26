@@ -23,6 +23,9 @@ import forge.util.TextUtil;
 
 public class ChangeZoneAllEffect extends SpellAbilityEffect {
 
+    protected void onCardMoved(final SpellAbility sa, final Card movedCard, final Zone originZone, final ZoneType destination) {
+    }
+
     @Override
     public void buildSpellAbility(SpellAbility sa) {
         super.buildSpellAbility(sa);
@@ -161,6 +164,8 @@ public class ChangeZoneAllEffect extends SpellAbilityEffect {
             }
 
             if (!movedCard.getZone().equals(originZone)) {
+                onCardMoved(sa, movedCard, originZone, destination);
+
                 if (remember != null && (remember.equalsIgnoreCase("True") ||
                         movedCard.isValid(remember, sa.getActivatingPlayer(), source, sa))) {
                     if (!source.isRemembered(movedCard)) {

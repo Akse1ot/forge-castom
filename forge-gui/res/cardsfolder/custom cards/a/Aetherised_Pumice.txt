@@ -1,0 +1,8 @@
+Name:Aetherised Pumice
+ManaCost:3
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+Blue,Creature.YouCtrl+Black | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a blue or black creature enters the battlefield under your control, you gain 1 life.
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+A:AB$ Mana | Cost$ T | Produced$ Combo U B | SpellDescription$ Add {U} or {B}.
+Oracle:Whenever a blue or black creature enters the battlefield under your control, you gain 1 life.\n
+{T}: Add {U} or {B}.

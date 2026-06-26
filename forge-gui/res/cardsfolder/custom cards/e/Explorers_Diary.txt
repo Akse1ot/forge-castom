@@ -1,0 +1,7 @@
+Name:Explorer's Diary
+ManaCost:3
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+Blue,Creature.YouCtrl+Red | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a blue or red creature enters the battlefield under your control, you gain 1 life.
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+A:AB$ Mana | Cost$ T | Produced$ Combo U R | SpellDescription$ Add {U} or {R}.
+Oracle:Whenever a blue or red creature enters the battlefield under your control, you gain 1 life.\n{T}: Add {U} or {R}.

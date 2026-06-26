@@ -1,0 +1,10 @@
+Name:Library of Memories
+ManaCost:no cost
+Types:Legendary Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ This land enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo U B | SpellDescription$ Add {U} or {B}.
+A:AB$ ChangeZone | Cost$ 2 U B T | Origin$ Hand | Destination$ Library | ChangeType$ Creature.YouOwn | ChangeNum$ 1 | LibraryPosition$ -1 | Mandatory$ True | SubAbility$ DBReturn | SpellDescription$ Put a creature card from your hand on the bottom of your library. Return target instant or sorcery card from your graveyard to your hand.
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | TgtPrompt$ Select target instant or sorcery card from your graveyard
+Oracle:Skybound Acropolis enters tapped.\n{T}: Add {U} or {B}.\n{2}{U}{B}, {T}: Put a creature card from your hand on the bottom of your library. Return target instant or sorcery card from your graveyard to your hand.
+

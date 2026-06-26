@@ -1,0 +1,6 @@
+Name:Barren Tundra
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ Mana | Cost$ WB T | Produced$ W B | SpellDescription$ Add {W}{B}.
+Oracle:{T}: Add {C}.\n{WB}, {T}: Add {W}{B}.

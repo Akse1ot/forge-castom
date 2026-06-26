@@ -1,0 +1,8 @@
+Name:Holy Passage
+ManaCost:no cost
+Types:Legendary Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ This land enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo W R | SpellDescription$ Add {W} or {R}.
+A:AB$ Destroy | Cost$ 2 W R Sac<1/CARDNAME> | ValidTgts$ Creature.blocking | TgtPrompt$ Select target blocking creature | AITgts$ BetterThanSource | SpellDescription$ Destroy target blocking creature.
+Oracle:Skybound Acropolis enters tapped.\n{T}: Add {W} or {R}.\n{2}{W}{R}, Sacrifice Holy Passage: Destroy target blocking creature.
