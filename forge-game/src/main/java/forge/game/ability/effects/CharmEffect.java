@@ -3,6 +3,7 @@ package forge.game.ability.effects;
 import java.util.Comparator;
 import java.util.List;
 
+import forge.util.Expressions;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Lists;
@@ -241,10 +242,24 @@ public class CharmEffect extends SpellAbilityEffect {
         }
 
         if (sa.hasParam("Random")) {
-            List<AbilitySub> chosen = Aggregates.random(choices, num);
-            rememberChosenModes(sa, chosen);
-            chainAbilities(sa, chosen);
-            return true;
+            if (sa.getParam("Random").equals("Compare")) {
+                // RandomCompareSVar$ Y | RandomCompare$ LT1
+                String svar = sa.getParam("RandomCompareSVar");
+                String compare = sa.getParam("RandomCompare");
+                int value = AbilityUtils.calculateAmount(source, sa.getSVar(svar), sa);
+
+                if (Expressions.compare(value, compare.substring(0, 2), Integer.parseInt(compare.substring(2)))) {
+                    List<AbilitySub> chosen = Aggregates.random(choices, num);
+                    rememberChosenModes(sa, chosen);
+                    chainAbilities(sa, chosen);
+                    return true;
+                }
+            } else {
+                List<AbilitySub> chosen = Aggregates.random(choices, num);
+                rememberChosenModes(sa, chosen);
+                chainAbilities(sa, chosen);
+                return true;
+            }
         }
 
         Player chooser = sa.getActivatingPlayer();
@@ -292,7 +307,6 @@ public class CharmEffect extends SpellAbilityEffect {
 
         // for spells and activated abilities it is possible to choose zero if minCharmNum allows it
         return true;
-
     }
 
     private static void rememberChosenModes(final SpellAbility sa, final List<AbilitySub> chosen) {

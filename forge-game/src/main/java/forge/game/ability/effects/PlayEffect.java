@@ -1,6 +1,7 @@
 package forge.game.ability.effects;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
 
@@ -183,14 +184,17 @@ public class PlayEffect extends SpellAbilityEffect {
             return;
         }
 
-        if (sa.hasParam("ValidSA") && !TargetEitherFaceUtil.isEnabled(sa)) {
-            final String valid[] = sa.getParam("ValidSA").split(",");
-            final List<Card> invalid = tgtCards.stream().filter(c -> !IterableUtil.any(AbilityUtils.getBasicSpellsFromPlayEffect(c, controller), SpellAbilityPredicates.isValid(valid, controller, source, sa))).collect(Collectors.toList());
-            if (!invalid.isEmpty())
-                tgtCards.removeAll(invalid);
+        Predicate<SpellAbility> validSA;
+        if (sa.hasParam("ValidSA")) {
+            validSA = SpellAbilityPredicates.isValid(sa.getParam("ValidSA").split(","), controller, source, sa);
+            tgtCards.removeIf(c -> AbilityUtils.getSpellsFromPlayEffect(c, controller,
+                    TargetEitherFaceUtil.isEnabled(sa) ? TargetEitherFaceUtil.getTargetedStateOrOriginal(sa, c) : CardStateName.Original,
+                    false, validSA).isEmpty());
             if (tgtCards.isEmpty()) {
                 return;
             }
+        } else {
+            validSA = null;
         }
 
         int amount = 1;
@@ -292,6 +296,8 @@ public class PlayEffect extends SpellAbilityEffect {
                 }
             }
 
+            CardStateName state = CardStateName.Original;
+
             if (sa.hasParam("CastTransformed")) {
                 if (!tgtCard.changeToState(CardStateName.Backside)) {
                     // Failed to transform. In the future, we might need to just remove this option and continue
@@ -312,16 +318,11 @@ public class PlayEffect extends SpellAbilityEffect {
             }
 
             try {
-                List<SpellAbility> sas = AbilityUtils.getSpellsFromPlayEffect(tgtCard, controller, state, !altCost);
+                List<SpellAbility> sas = AbilityUtils.getSpellsFromPlayEffect(tgtCard, controller, state, !altCost, validSA);
 
                 if (explicitState && TargetEitherFaceUtil.isEnabled(sa)) {
                     final CardStateName spellState = state;
                     sas.removeIf(sp -> sp.getCardStateName() != spellState);
-                }
-
-                if (sa.hasParam("ValidSA")) {
-                    final String valid[] = sa.getParam("ValidSA").split(",");
-                    sas.removeIf(sp -> !sp.isValid(valid, controller , source, sa));
                 }
 
                 if (altCostManaCost) {

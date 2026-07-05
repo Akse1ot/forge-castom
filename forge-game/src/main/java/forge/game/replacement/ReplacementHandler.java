@@ -25,6 +25,7 @@ import forge.game.phase.PhaseType;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Multiset;
 import com.google.common.collect.Sets;
 
 import forge.game.CardTraitBase;
@@ -86,7 +87,7 @@ public class ReplacementHandler {
 
             // need to apply Counters to check its future state on the battlefield
             @SuppressWarnings("unchecked")
-            Map<Optional<Player>, Map<CounterType, Integer>> etbCounters = (Map<Optional<Player>, Map<CounterType, Integer>>) runParams.get(AbilityKey.CounterMap);
+            Map<Optional<Player>, Multiset<CounterType>> etbCounters = (Map<Optional<Player>, Multiset<CounterType>>) runParams.get(AbilityKey.CounterMap);
             affectedLKI.putEtbCounters(etbCounters);
             preList.add(affectedLKI);
             game.getAction().checkStaticAbilities(false, Sets.newHashSet(), preList);
@@ -909,24 +910,21 @@ public class ReplacementHandler {
      * @return true if there is some resolved fog effect
      */
     public final boolean isPreventCombatDamageThisTurn() {
-        final List<ReplacementEffect> list = Lists.newArrayList();
-        game.forEachCardInGame(new Visitor<Card>() {
-            @Override
-            public boolean visit(Card c) {
-                for (final ReplacementEffect re : c.getReplacementEffects()) {
-                    if (re.getMode() == ReplacementType.DamageDone
-                            && re.getLayer() == ReplacementLayer.Other
-                            && re.hasParam("Prevent") && re.getParam("Prevent").equals("True")
-                            && re.hasParam("IsCombat") && re.getParam("IsCombat").equals("True")
-                            && !re.hasParam("ValidSource") && !re.hasParam("ValidTarget")
-                            && re.zonesCheck(game.getZoneOf(c))) {
-                        list.add(re);
-                    }
+        // a fog effect can only be active from a zone in STATIC_ABILITIES_SOURCE_ZONES
+        // (zonesCheck below rejects other zones), so don't scan libraries and hands
+        for (final Card c : game.getCardsIn(ZoneType.STATIC_ABILITIES_SOURCE_ZONES)) {
+            for (final ReplacementEffect re : c.getReplacementEffects()) {
+                if (re.getMode() == ReplacementType.DamageDone
+                        && re.getLayer() == ReplacementLayer.Other
+                        && "True".equals(re.getParam("Prevent"))
+                        && "True".equals(re.getParam("IsCombat"))
+                        && !re.hasParam("ValidSource") && !re.hasParam("ValidTarget")
+                        && re.zonesCheck(game.getZoneOf(c))) {
+                    return true;
                 }
-                return true;
             }
-        });
-        return !list.isEmpty();
+        }
+        return false;
     }
 
     public boolean isReplacing() {
