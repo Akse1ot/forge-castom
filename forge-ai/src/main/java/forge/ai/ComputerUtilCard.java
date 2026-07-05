@@ -1205,7 +1205,86 @@ public class ComputerUtilCard {
             //chosen.add(MagicColor.Constant.GREEN);
             chosen.add(getMostProminentColor(ai.getAllCards(), colorChoices));
         }
-        return chosen;
+        if (ApiType.ChooseColorsForNextSpell.equals(sa.getApi()) && max > 1) {
+            addMostProminentColors(
+                    chosen,
+                    getColorByProminence(CardLists.filterControlledBy(game.getCardsInGame(), ai)),
+                    colorChoices,
+                    max
+            );
+        }
+
+        return normalizeColorChoiceList(chosen, colorChoices, min, max);
+    }
+
+    private static void addMostProminentColors(final List<String> chosen, final List<String> prominence,
+                                               final List<String> colorChoices, final int max) {
+        for (final String color : prominence) {
+            if (chosen.size() >= max) {
+                return;
+            }
+            addColorChoice(chosen, color, colorChoices, max);
+        }
+    }
+
+    private static List<String> normalizeColorChoiceList(final List<String> chosen, final List<String> colorChoices,
+                                                         final int min, final int max) {
+        final int maxChoices = Math.max(0, Math.min(max, colorChoices.size()));
+        final int minChoices = Math.max(0, Math.min(min, maxChoices));
+
+        final List<String> result = new ArrayList<>();
+        for (final String color : chosen) {
+            addColorChoice(result, color, colorChoices, maxChoices);
+        }
+
+        if (result.isEmpty() && maxChoices > 0) {
+            result.add(colorChoices.get(0));
+        }
+
+        for (final String color : colorChoices) {
+            if (result.size() >= minChoices) {
+                break;
+            }
+            addColorChoice(result, color, colorChoices, maxChoices);
+        }
+
+        return result;
+    }
+
+    private static void addColorChoice(final List<String> chosen, final String color,
+                                       final List<String> colorChoices, final int max) {
+        if (chosen.size() >= max) {
+            return;
+        }
+
+        final String allowed = getAllowedColorChoice(colorChoices, color);
+        if (allowed == null || containsColorChoice(chosen, allowed)) {
+            return;
+        }
+
+        chosen.add(allowed);
+    }
+
+    private static String getAllowedColorChoice(final List<String> colorChoices, final String color) {
+        if (color == null) {
+            return null;
+        }
+
+        for (final String choice : colorChoices) {
+            if (choice.equalsIgnoreCase(color)) {
+                return choice;
+            }
+        }
+        return null;
+    }
+
+    private static boolean containsColorChoice(final List<String> colors, final String color) {
+        for (final String existing : colors) {
+            if (existing.equalsIgnoreCase(color)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static boolean useRemovalNow(final SpellAbility sa, final Card c, final int dmg, ZoneType destination) {

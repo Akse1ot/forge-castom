@@ -55,9 +55,6 @@ import org.tinylog.Logger;
 import org.tinylog.TaggedLogger;
 
 import java.util.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 import java.util.function.Predicate;
 
 /**
@@ -302,8 +299,22 @@ public class Game {
     private int zoneChangeBatchDepth = 0;
     private UUID currentZoneChangeBatchId = null;
 
-    // key -> first batch UUID in this turn
-    private final Map<String, UUID> firstThisTurnBatchByKey = new HashMap<>();
+    private final List<ZoneChangeBatchRecord> zoneChangeBatchRecordsThisTurn = Lists.newArrayList();
+
+    private static final class ZoneChangeBatchRecord {
+        private final ZoneType origin;
+        private final ZoneType destination;
+        private final Card card;
+        private final UUID batchId;
+
+        private ZoneChangeBatchRecord(final ZoneType origin, final ZoneType destination,
+                                      final Card card, final UUID batchId) {
+            this.origin = origin;
+            this.destination = destination;
+            this.card = card;
+            this.batchId = batchId;
+        }
+    }
 
     public void addLeftBattlefieldThisTurn(Card lki) {
         leftBattlefieldThisTurn.add(lki);
@@ -1222,9 +1233,14 @@ public class Game {
     }
 
     public void endZoneChangeBatch() {
-        zoneChangeBatchDepth--;
         if (zoneChangeBatchDepth <= 0) {
             zoneChangeBatchDepth = 0;
+            currentZoneChangeBatchId = null;
+            return;
+        }
+
+        zoneChangeBatchDepth--;
+        if (zoneChangeBatchDepth == 0) {
             currentZoneChangeBatchId = null;
         }
     }
@@ -1233,24 +1249,42 @@ public class Game {
         return currentZoneChangeBatchId;
     }
 
-    /**
-     * Returns true if (key) is happening in the first batch of this turn.
-     * On first call with a non-null batchId, locks the first batch for this key until cleanup.
-     */
-    public boolean isFirstBatchThisTurn(final String key, final UUID batchId) {
-        if (key == null || key.isEmpty() || batchId == null) {
-            return false;
+    public void recordZoneChangeBatch(final ZoneType origin, final ZoneType destination, final Card card) {
+        if (destination == null || card == null || currentZoneChangeBatchId == null) {
+            return;
         }
-        final UUID first = firstThisTurnBatchByKey.get(key);
-        if (first == null) {
-            firstThisTurnBatchByKey.put(key, batchId);
-            return true;
-        }
-        return first.equals(batchId);
+        zoneChangeBatchRecordsThisTurn.add(new ZoneChangeBatchRecord(origin, destination, card, currentZoneChangeBatchId));
     }
 
-    public void clearFirstThisTurnBatchByKey() {
-        firstThisTurnBatchByKey.clear();
+    /**
+     * Returns true if the current batch is the first batch this turn that contains
+     * a matching zone-change event.
+     */
+    public boolean isFirstBatchThisTurn(final ZoneType destination, final ZoneType origin,
+                                        final String validFilter, final UUID batchId, final Player player,
+                                        final Card source, final CardTraitBase ctb) {
+        if (destination == null || validFilter == null || validFilter.isEmpty() || batchId == null) {
+            return false;
+        }
+
+        final String[] valid = validFilter.split(",");
+        for (final ZoneChangeBatchRecord record : zoneChangeBatchRecordsThisTurn) {
+            if (record.destination != destination) {
+                continue;
+            }
+            if (origin != null && record.origin != origin) {
+                continue;
+            }
+            if (record.card.isValid(valid, player, source, ctb)) {
+                return batchId.equals(record.batchId);
+            }
+        }
+
+        return false;
+    }
+
+    public void clearZoneChangeBatchRecordsThisTurn() {
+        zoneChangeBatchRecordsThisTurn.clear();
     }
 
 
@@ -1272,7 +1306,7 @@ public class Game {
         for (final Card card : getCardsInGame()) {
             card.resetActivationsPerTurn();
         }
-        clearFirstThisTurnBatchByKey();
+        clearZoneChangeBatchRecordsThisTurn();
 
         // safety: also reset batch state at end of turn
         zoneChangeBatchDepth = 0;

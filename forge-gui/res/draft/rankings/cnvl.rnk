@@ -1,0 +1,301 @@
+//Rank|Name|Rarity|Set
+#1|Beast Caller|M|CNVL
+#2|Canovol, Soul of the World|M|CNVL
+#3|Celestial Queen|M|CNVL
+#4|Circle of Opulence|M|CNVL
+#5|Dreamer|M|CNVL
+#6|Enlightened One|M|CNVL
+#7|Giant of Harvest|M|CNVL
+#8|Growth|M|CNVL
+#9|Hiro|M|CNVL
+#10|Scalewing Climber|M|CNVL
+#11|Sleykin, Curious Wanderer|M|CNVL
+#12|Stataira|M|CNVL
+#13|Superior Wingset|M|CNVL
+#14|Supernatural Journeyer|M|CNVL
+#15|Touch of Eternity|M|CNVL
+#16|Unparalleled Symbiosis|M|CNVL
+#17|Vital Reclaimer|M|CNVL
+#18|Wingless Prodigy|M|CNVL
+#19|Aerial Intelligence|R|CNVL
+#20|Aetherised Remembrance|R|CNVL
+#21|Airborne Judge|R|CNVL
+#22|Airborne Punisher|R|CNVL
+#23|Allocator of Arms|R|CNVL
+#24|Apex Warrior|R|CNVL
+#25|Arachtog|R|CNVL
+#26|Ardent Converter|R|CNVL
+#27|Astral Elder|R|CNVL
+#28|Blazing Commander|R|CNVL
+#29|Boundless Perception|R|CNVL
+#30|Catalyst Mage|R|CNVL
+#31|Channel the Surge|R|CNVL
+#32|Cinmund Fanatic|R|CNVL
+#33|Circular Rage|R|CNVL
+#34|Deformed Colossus|R|CNVL
+#35|Eager Archivist|R|CNVL
+#36|Earth Shatterer|R|CNVL
+#37|Edit History|R|CNVL
+#38|Enchanted Mountainpass|R|CNVL
+#39|Erase from Existence|R|CNVL
+#40|Eternal Observer|R|CNVL
+#41|Eye of Evolution|R|CNVL
+#42|False Confidant|R|CNVL
+#43|Farming Grounds|R|CNVL
+#44|Fateful Entrance|R|CNVL
+#45|Feeding Turf|R|CNVL
+#46|Frostscale Monster|R|CNVL
+#47|Glacial Guardian|R|CNVL
+#48|Harvest Call|R|CNVL
+#49|Holy Passage|R|CNVL
+#50|Home of Nightmares|R|CNVL
+#51|Inciting Warchanter|R|CNVL
+#52|Jewelled Paladin|R|CNVL
+#53|Law of the Jungle|R|CNVL
+#54|Library of Memories|R|CNVL
+#55|Martial Checkmate|R|CNVL
+#56|Mayor of the South|R|CNVL
+#57|Millenary Deception|R|CNVL
+#58|Mines of Fortune|R|CNVL
+#59|Mountainous Chanter|R|CNVL
+#60|Mutilated Memories|R|CNVL
+#61|Nightmare Collector|R|CNVL
+#62|Passionate Bruiser|R|CNVL
+#63|Primary Broodmother|R|CNVL
+#64|Pyroclastic Plating|R|CNVL
+#65|Religion of War|R|CNVL
+#66|Retired Commander|R|CNVL
+#67|Revolution|R|CNVL
+#68|Sacred Hunting Grounds|R|CNVL
+#69|Sensory Arena|R|CNVL
+#70|Sinister Scheme|R|CNVL
+#71|Skybound Acropolis|R|CNVL
+#72|Subjugate|R|CNVL
+#73|Submerge the Weak|R|CNVL
+#74|Sudden Existence|R|CNVL
+#75|Summoner of Rage|R|CNVL
+#76|Tainted Reality|R|CNVL
+#77|Terrifying Emergence|R|CNVL
+#78|The Power of Martyrs|R|CNVL
+#79|Transmuting Entry|R|CNVL
+#80|Vigilant Breeder|R|CNVL
+#81|Vigorous One|R|CNVL
+#82|Vivify the Elements|R|CNVL
+#83|Volcanic Creation|R|CNVL
+#84|Volcanic Springs|R|CNVL
+#85|Voracious Onslaught|R|CNVL
+#86|Wearer of a Thousand Faces|R|CNVL
+#87|Absence of Gravity|U|CNVL
+#88|Aerial Intervention|U|CNVL
+#89|Aether Bomb|U|CNVL
+#90|Aether Wings|U|CNVL
+#91|Arcane Commander|U|CNVL
+#92|Ashen Mesa|U|CNVL
+#93|Astute One|U|CNVL
+#94|Award Prestige|U|CNVL
+#95|Barren Tundra|U|CNVL
+#96|Berserking Monk|U|CNVL
+#97|Blazing Charge|U|CNVL
+#98|Blinding Prophet|U|CNVL
+#99|Blood Magic|U|CNVL
+#100|Burial Rites|U|CNVL
+#101|Callous Healer|U|CNVL
+#102|Change of Perspective|U|CNVL
+#103|Channel the Force|U|CNVL
+#104|Cinmund Virtuoso|U|CNVL
+#105|Cleanse Essence|U|CNVL
+#106|Collective Chieftain|U|CNVL
+#107|Commander's Compass|U|CNVL
+#108|Consuming Monstrosity|U|CNVL
+#109|Crown Warden|U|CNVL
+#110|Desert Hill|U|CNVL
+#111|Disdainful Explorer|U|CNVL
+#112|Disgraced Noble|U|CNVL
+#113|Dispense Vitality|U|CNVL
+#114|Divine Destroyer|U|CNVL
+#115|Diving Suppressor|U|CNVL
+#116|Domain Shift|U|CNVL
+#117|Drifting Marksman|U|CNVL
+#118|Dry Rainforest|U|CNVL
+#119|Essence Carrier|U|CNVL
+#120|Fallen Watchman|U|CNVL
+#121|Feed on the Mind|U|CNVL
+#122|Feel the Drop|U|CNVL
+#123|Fervent Hunter|U|CNVL
+#124|Festival of the Hunt|U|CNVL
+#125|First Guardian|U|CNVL
+#126|Flamefist Warrior|U|CNVL
+#127|Forest Glade|U|CNVL
+#128|Frame Forger|U|CNVL
+#129|Freshwater Wetlands|U|CNVL
+#130|Freshwinged Predator|U|CNVL
+#131|Frontline Armor|U|CNVL
+#132|Glacier Cave|U|CNVL
+#133|Gravegorger|U|CNVL
+#134|Grey Eyrie|U|CNVL
+#135|Gross Enlargement|U|CNVL
+#136|Guzzlemouth Beast|U|CNVL
+#137|Hallowed Punisher|U|CNVL
+#138|Hands of Cremation|U|CNVL
+#139|Harbinger of the Sun|U|CNVL
+#140|Harvest Energy|U|CNVL
+#141|Infernal Dreams|U|CNVL
+#142|Infuse With Life|U|CNVL
+#143|Kiss of Fate|U|CNVL
+#144|Lightning Mage|U|CNVL
+#145|Lightning Predator|U|CNVL
+#146|Martial Cleric|U|CNVL
+#147|Master of Rites|U|CNVL
+#148|Memory Thief|U|CNVL
+#149|Merge Potentiality|U|CNVL
+#150|Nightmare Call|U|CNVL
+#151|Nimble Harvester|U|CNVL
+#152|Orc Smash|U|CNVL
+#153|Paramount Scholar|U|CNVL
+#154|Path to Prosperity|U|CNVL
+#155|Peculiar Mutation|U|CNVL
+#156|Perpetual Sower|U|CNVL
+#157|Persistent Stalker|U|CNVL
+#158|Prompt Response|U|CNVL
+#159|Rapid Screecher|U|CNVL
+#160|Ravenous Oppressor|U|CNVL
+#161|Read the Future|U|CNVL
+#162|Recharge|U|CNVL
+#163|Rooted Change|U|CNVL
+#164|Ruthless Mother|U|CNVL
+#165|Scalewing Mutant|U|CNVL
+#166|Secret Observatory|U|CNVL
+#167|Sentient Swarmleader|U|CNVL
+#168|Shrewd Mentor|U|CNVL
+#169|Silent Predator|U|CNVL
+#170|Soar from the Sands|U|CNVL
+#171|Sudden Growth|U|CNVL
+#172|Twisted Forest|U|CNVL
+#173|Unbodied Guardians|U|CNVL
+#174|Underwater Grotto|U|CNVL
+#175|Venal Guardian|U|CNVL
+#176|Vicious Reclaimer|U|CNVL
+#177|Volcanic Drive|U|CNVL
+#178|Wildlife Healer|U|CNVL
+#179|Winged Explorer|U|CNVL
+#180|Zealous Gamekeeper|U|CNVL
+#181|Aberrant Heart|C|CNVL
+#182|Aether Grip|C|CNVL
+#183|Aetherised Pumice|C|CNVL
+#184|Amphibian Hunter|C|CNVL
+#185|Anguish Weaver|C|CNVL
+#186|Anxiety Attack|C|CNVL
+#187|Anxious Nestling|C|CNVL
+#188|Arbitrary Punishment|C|CNVL
+#189|Avid Collector|C|CNVL
+#190|Avid Seeker|C|CNVL
+#191|Barkskin Stalker|C|CNVL
+#192|Blinded by the Light|C|CNVL
+#193|Bold Standard-bearer|C|CNVL
+#194|Cane of Evolution|C|CNVL
+#195|Carcass Aviator|C|CNVL
+#196|Caveborn Elder|C|CNVL
+#197|Cease Matter|C|CNVL
+#198|Churn Existence|C|CNVL
+#199|Connected Agony|C|CNVL
+#200|Consume Essence|C|CNVL
+#201|Contemplate|C|CNVL
+#202|Disposable Servant|C|CNVL
+#203|Distorter of Senses|C|CNVL
+#204|Elder Explorer|C|CNVL
+#205|Elder Landwart|C|CNVL
+#206|Elder Merchant|C|CNVL
+#207|Enter Berserk|C|CNVL
+#208|Eternal Furnace|C|CNVL
+#209|Excavation Site|C|CNVL
+#210|Exothermicity|C|CNVL
+#211|Explorer's Diary|C|CNVL
+#212|Explosive Brawl|C|CNVL
+#213|Faceless Dread|C|CNVL
+#214|Fading Soul|C|CNVL
+#215|Famished Contest|C|CNVL
+#216|Feed the Horrors|C|CNVL
+#217|Festive Gatekeeper|C|CNVL
+#218|Force of Mind|C|CNVL
+#219|Freeze|C|CNVL
+#220|Frenzied Believer|C|CNVL
+#221|Frontline Preacher|C|CNVL
+#222|Gleaming Manslayer|C|CNVL
+#223|Grave Dweller|C|CNVL
+#224|Green Sentry|C|CNVL
+#225|Ground Patrol|C|CNVL
+#226|Hardened Conqueror|C|CNVL
+#227|Harvesting Apparatus|C|CNVL
+#228|Healing Palms|C|CNVL
+#229|Heart for a Heart|C|CNVL
+#230|Herald of Pain|C|CNVL
+#231|Hunting Gear|C|CNVL
+#232|Icebreaker|C|CNVL
+#233|Incautious Agent|C|CNVL
+#234|Induced Meditation|C|CNVL
+#235|Innate Horror|C|CNVL
+#236|Inquirer of Knowledge|C|CNVL
+#237|Intangible Oculus|C|CNVL
+#238|Iridescent Coating|C|CNVL
+#239|Keeper of Songs|C|CNVL
+#240|Knight of Diamonds|C|CNVL
+#241|Komonitor Bait|C|CNVL
+#242|Landwarp|C|CNVL
+#243|Leaping Executioner|C|CNVL
+#244|Lethal Defense|C|CNVL
+#245|Lone Prophet|C|CNVL
+#246|Lone Traveler|C|CNVL
+#247|Manifested Horror|C|CNVL
+#248|Meditating Warrior|C|CNVL
+#249|Mirrorscale Mutation|C|CNVL
+#250|Mistbringer|C|CNVL
+#251|Mudcoated Tracker|C|CNVL
+#252|Newborn Arachnid|C|CNVL
+#253|Nightmare Neophyte|C|CNVL
+#254|Nightmare Vessel|C|CNVL
+#255|Nomadic Necessity|C|CNVL
+#256|Plagued by Nightmares|C|CNVL
+#257|Portal Guard|C|CNVL
+#258|Preemptive Action|C|CNVL
+#259|Preposterous Growth|C|CNVL
+#260|Primal Fury|C|CNVL
+#261|Primal Power|C|CNVL
+#262|Purposeful One|C|CNVL
+#263|Pyroclastic Landing|C|CNVL
+#264|Pyroclastic Wings|C|CNVL
+#265|Reckless Juvenile|C|CNVL
+#266|Redistribute|C|CNVL
+#267|Replenishing Rock|C|CNVL
+#268|Resource Carrier|C|CNVL
+#269|Return to Prevalence|C|CNVL
+#270|Return To The Sun|C|CNVL
+#271|Revitalise|C|CNVL
+#272|Rooted Carnivore|C|CNVL
+#273|Scalewing Drifter|C|CNVL
+#274|Self-Righteous Paladin|C|CNVL
+#275|Selfless Cadet|C|CNVL
+#276|Shadowplated Pounder|C|CNVL
+#277|Silver Diamond|C|CNVL
+#278|Standard Responder|C|CNVL
+#279|Stern Guardian|C|CNVL
+#280|Sudden Scales|C|CNVL
+#281|Sulfur Pool|C|CNVL
+#282|Sunlight Orb|C|CNVL
+#283|Surveillance Engine|C|CNVL
+#284|Swamp Elder|C|CNVL
+#285|Swarm Strike|C|CNVL
+#286|Swellskin Diver|C|CNVL
+#287|Swift Response|C|CNVL
+#288|Tagteam Tactics|C|CNVL
+#289|Take Flight|C|CNVL
+#290|Take Knowledge|C|CNVL
+#291|Terramorph|C|CNVL
+#292|Trader of Wisdom|C|CNVL
+#293|Treetop Giant|C|CNVL
+#294|Unadorned Servant|C|CNVL
+#295|Vanward Scout|C|CNVL
+#296|Vernal Cultivator|C|CNVL
+#297|Volcanic Projectiles|C|CNVL
+#298|Voracious Hulk|C|CNVL
+#299|Wistful Anthophile|C|CNVL
+#300|Young Huntress|C|CNVL

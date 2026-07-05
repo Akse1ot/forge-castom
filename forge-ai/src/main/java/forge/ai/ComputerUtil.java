@@ -45,6 +45,7 @@ import forge.game.replacement.ReplacementEffect;
 import forge.game.replacement.ReplacementLayer;
 import forge.game.replacement.ReplacementType;
 import forge.game.spellability.AbilitySub;
+import forge.game.spellability.NextSpellColorHelper;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityStackInstance;
 import forge.game.spellability.TargetRestrictions;
@@ -106,13 +107,17 @@ public class ComputerUtil {
 
         sa = GameActionUtil.addExtraKeywordCost(sa);
 
+        NextSpellColorHelper.prepareSpellColor(ai, sa);
+
         if (sa.getApi() == ApiType.Charm && !CharmEffect.makeChoices(sa)) {
             // 603.3c If no mode is chosen, the ability is removed from the stack.
+            NextSpellColorHelper.rollbackPreparedSpellColor(sa);
             return false;
         }
         if (chooseTargets != null) {
             chooseTargets.run();
             if (!sa.isTargetNumberValid()) {
+                NextSpellColorHelper.rollbackPreparedSpellColor(sa);
                 return false;
             }
         }
@@ -124,11 +129,16 @@ public class ComputerUtil {
         final CostPayment pay = new CostPayment(cost, sa);
         if (pay.payComputerCosts(new AiCostDecision(ai, sa, false))) {
             game.getStack().addAndUnfreeze(sa);
+            NextSpellColorHelper.commitPreparedSpellColor(ai, sa);
+
             if (sa.getSplicedCards() != null && !sa.getSplicedCards().isEmpty()) {
                 game.getAction().reveal(sa.getSplicedCards(), ai, true, "Computer reveals spliced cards from ");
             }
             return true;
         }
+
+        NextSpellColorHelper.rollbackPreparedSpellColor(sa);
+
         // FIXME: Should not arrive here, though the card seems to be stuck on stack zone and invalidated and nowhere to be found, try to put back to original zone and maybe try to cast again if possible at later time?
         System.out.println("[" + sa.getActivatingPlayer() + "] AI failed to play " + sa.getHostCard() + " [" + sa.getHostCard().getZone() + "]");
         sa.setSkip(true);
@@ -232,6 +242,8 @@ public class ComputerUtil {
             sa = GameActionUtil.addExtraKeywordCost(sa);
         }
 
+        NextSpellColorHelper.prepareSpellColor(ai, sa);
+
         final Cost cost = sa.getPayCosts();
         final CostPayment pay = new CostPayment(cost, sa);
 
@@ -245,6 +257,7 @@ public class ComputerUtil {
             game.getStack().add(sa);
             return true;
         }
+        NextSpellColorHelper.rollbackPreparedSpellColor(sa);
         return false;
     }
 

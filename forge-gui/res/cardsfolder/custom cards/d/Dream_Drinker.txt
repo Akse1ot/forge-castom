@@ -1,5 +1,5 @@
 Name:Dream Drinker
-ManaCost:1 B
+ManaCost:4 B
 Types:Creature Vampire Wizard
 PT:4/4
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill | TriggerDescription$ When CARDNAME enters the battlefield, target player puts the top X cards of their library into their graveyard and you gain X life, where X is the number of colors among cards in your graveyard.

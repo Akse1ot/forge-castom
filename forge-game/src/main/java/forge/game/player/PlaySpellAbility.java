@@ -35,6 +35,7 @@ import forge.game.mana.ManaCostBeingPaid;
 import forge.game.mana.ManaPool;
 import forge.game.mana.ManaRefundService;
 import forge.game.spellability.AlternativeCostCastProcessor;
+import forge.game.spellability.NextSpellColorHelper;
 import forge.game.spellability.OptionalCostValue;
 import forge.game.spellability.ResonanceHelper;
 import forge.game.spellability.SpellAbility;
@@ -642,6 +643,10 @@ public class PlaySpellAbility {
 
         ability = AlternativeCostCastProcessor.process(ability);
 
+        if (!skipStack) {
+            NextSpellColorHelper.prepareSpellColor(player, ability);
+        }
+
         Cost abCost = ability.getPayCosts();
         CostPayment payment = new CostPayment(abCost, ability);
 
@@ -737,6 +742,7 @@ public class PlaySpellAbility {
             } else {
                 ensureAbilityHasDescription(ability);
                 game.getStack().addAndUnfreeze(ability);
+                NextSpellColorHelper.commitPreparedSpellColor(player, ability);
             }
 
             if (manaColorConversion) {

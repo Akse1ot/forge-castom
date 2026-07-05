@@ -66,6 +66,20 @@ public class CardProperty {
             if (!card.sharesNameWith(name)) {
                 return false;
             }
+        } else if (property.startsWith("nameHasWord")) {
+            String word = TextUtil.fastReplace(property.substring(11), "_", " ");
+
+            if (word.isEmpty()) {
+                return false;
+            }
+
+            final String regex = "(?iu)(^|[^\\p{L}\\p{N}])"
+                    + java.util.regex.Pattern.quote(word)
+                    + "($|[^\\p{L}\\p{N}])";
+
+            if (!card.getName().matches(".*" + regex + ".*")) {
+                return false;
+            }
         } else if (property.equals("NamedCard")) {
             boolean found = false;
             for (String name : source.getNamedCards()) {

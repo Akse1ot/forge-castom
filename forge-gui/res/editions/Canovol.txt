@@ -1,0 +1,360 @@
+[metadata]
+Code=CNVL
+Date=2025-01-23
+Name=Canovol
+Type=CUSTOM_SET
+ScryfallCode=CNVL
+BoosterSlots=Common,Uncommon,RareMythic,AnyLand,Wildcard
+Booster=8 Common, 3 Uncommon, 1 RareMythic, 1 AnyLand, 1 Wildcard
+Prerelease=6 Boosters, 1 RareMythic+
+BoosterBox=36
+
+[Common]
+Base=Common:fromSheet("CNVL cards")
+
+[Uncommon]
+Base=Uncommon:fromSheet("CNVL cards")
+
+[RareMythic]
+Base=RareMythic:fromSheet("CNVL cards")
+
+[AnyLand]
+Base=Land:fromSheet("CNVL cards")
+Replace=.60F BasicLand
+
+[Wildcard]
+Base=Uncommon:fromSheet("CNVL cards")
+Replace=.20F Rare:fromSheet("CNVL cards")
+Replace=.15F Mythic:fromSheet("CNVL cards")
+Replace=.10F Common:fromSheet("CNVL cards")
+
+[cards]
+1 R Astral Elder
+2 U Award Prestige
+3 U Blinding Prophet
+4 U Callous Healer
+5 U Diving Suppressor
+6 C Festive Gatekeeper
+7 U Frontline Armor
+8 C Ground Patrol
+9 R Jewelled Paladin
+10 C Keeper of Songs
+11 C Knight of Diamonds
+12 C Leaping Executioner
+13 C Nomadic Necessity
+14 U Perpetual Sower
+15 C Preemptive Action
+16 R Retired Commander
+17 C Return To The Sun
+18 U Rooted Change
+19 C Selfless Cadet
+20 C Standard Responder
+21 C Stern Guardian
+22 C Surveillance Engine
+23 C Swift Response
+24 C Vernal Cultivator
+25 U Winged Explorer
+26 C Aether Grip
+27 R Allocator of Arms
+28 U Astute One
+29 C Churn Existence
+30 C Contemplate
+31 U Drifting Marksman
+32 C Fading Soul
+33 C Force of Mind
+34 U Frame Forger
+35 C Freeze
+36 U Freshwinged Predator
+37 R Frostscale Monster
+38 R Glacial Guardian
+39 C Harvesting Apparatus
+40 C Induced Meditation
+41 C Intangible Oculus
+42 U Merge Potentiality
+43 C Mistbringer
+44 U Rapid Screecher
+45 M Stataira
+46 R Subjugate
+47 R Submerge the Weak
+48 C Swellskin Diver
+49 C Take Flight
+50 C Take Knowledge
+51 U Unbodied Guardians
+52 R Vivify the Elements
+53 R Airborne Punisher
+54 C Anxiety Attack
+55 C Arbitrary Punishment
+56 C Avid Collector
+57 C Carcass Aviator
+58 C Consume Essence
+59 U Disdainful Explorer
+60 U Disgraced Noble
+61 R Eager Archivist
+62 U Essence Carrier
+63 C Faceless Dread
+64 R False Confidant
+65 U Feed on the Mind
+66 U Feel the Drop
+67 U Gross Enlargement
+68 C Heart for a Heart
+69 C Innate Horror
+70 C Inquirer of Knowledge
+71 U Kiss of Fate
+72 R Nightmare Collector
+73 U Persistent Stalker
+74 C Plagued by Nightmares
+75 U Ravenous Oppressor
+76 C Return to Prevalence
+77 C Shadowplated Pounder
+78 R Sinister Scheme
+79 C Unadorned Servant
+80 U Berserking Monk
+81 C Bold Standard-bearer
+82 R Catalyst Mage
+83 R Cinmund Fanatic
+84 R Circular Rage
+85 C Connected Agony
+86 R Earth Shatterer
+87 C Enter Berserk
+88 C Exothermicity
+89 C Explosive Brawl
+90 U Flamefist Warrior
+91 C Frenzied Believer
+92 C Frontline Preacher
+93 U Hallowed Punisher
+94 U Hands of Cremation
+95 C Herald of Pain
+96 R Inciting Warchanter
+97 U Lightning Predator
+98 C Mudcoated Tracker
+99 C Nightmare Vessel
+100 C Primal Fury
+101 C Purposeful One
+102 R Summoner of Rage
+103 C Swarm Strike
+104 U Volcanic Drive
+105 C Volcanic Projectiles
+106 R Apex Warrior
+107 C Barkskin Stalker
+108 M Beast Caller
+109 U Burial Rites
+110 C Caveborn Elder
+111 R Deformed Colossus
+112 U Dispense Vitality
+113 C Famished Contest
+114 U Festival of the Hunt
+115 U Guzzlemouth Beast
+116 C Hunting Gear
+117 C Icebreaker
+118 C Iridescent Coating
+119 U Master of Rites
+120 R Mountainous Chanter
+121 C Primal Power
+122 R Primary Broodmother
+123 C Resource Carrier
+124 C Rooted Carnivore
+125 U Sudden Growth
+126 C Swamp Elder
+127 C Trader of Wisdom
+128 U Vicious Reclaimer
+129 R Vigilant Breeder
+130 C Voracious Hulk
+131 U Wildlife Healer
+132 C Young Huntress
+133 U Absence of Gravity
+134 R Aerial Intelligence
+135 R Aetherised Remembrance
+136 R Airborne Judge
+137 C Amphibian Hunter
+138 R Arachtog
+139 U Arcane Commander
+140 R Ardent Converter
+141 C Avid Seeker
+142 R Blazing Commander
+143 R Boundless Perception
+144 C Cease Matter
+145 M Celestial Queen
+146 U Change of Perspective
+147 R Channel the Surge
+148 U Cinmund Virtuoso
+149 M Circle of Opulence
+150 U Collective Chieftain
+151 U Consuming Monstrosity
+152 U Crown Warden
+153 C Distorter of Senses
+154 U Divine Destroyer
+155 M Dreamer
+156 R Edit History
+157 C Elder Landwart
+158 R Enchanted Mountainpass
+159 M Enlightened One
+160 R Erase from Existence
+161 R Eternal Observer
+162 R Fateful Entrance
+163 C Feed the Horrors
+164 U First Guardian
+165 M Giant of Harvest
+166 C Gleaming Manslayer
+167 M Growth
+168 U Harbinger of the Sun
+169 C Hardened Conqueror
+170 R Harvest Call
+171 M Hiro
+172 C Landwarp
+173 R Law of the Jungle
+174 C Lethal Defense
+175 C Lone Traveler
+176 C Manifested Horror
+177 R Martial Checkmate
+178 R Mayor of the South
+179 U Memory Thief
+180 R Millenary Deception
+181 C Mirrorscale Mutation
+182 R Mutilated Memories
+183 U Nightmare Call
+184 U Paramount Scholar
+185 R Passionate Bruiser
+186 U Path to Prosperity
+187 U Peculiar Mutation
+188 C Portal Guard
+189 R The Power of Martyrs
+190 R Pyroclastic Plating
+191 U Recharge
+192 R Religion of War
+193 U Ruthless Mother
+194 M Scalewing Climber
+195 C Scalewing Drifter
+196 U Scalewing Mutant
+197 C Self-Righteous Paladin
+198 R Sensory Arena
+199 U Sentient Swarmleader
+200 U Shrewd Mentor
+201 U Silent Predator
+202 M Sleykin, Curious Wanderer
+203 U Soar from the Sands
+204 M Superior Wingset
+205 M Supernatural Journeyer
+206 R Tainted Reality
+207 C Terramorph
+208 R Terrifying Emergence
+209 M Touch of Eternity
+210 R Transmuting Entry
+211 C Treetop Giant
+212 M Unparalleled Symbiosis
+213 C Vanward Scout
+214 U Venal Guardian
+215 R Vigorous One
+216 M Vital Reclaimer
+217 R Volcanic Creation
+218 R Voracious Onslaught
+219 R Wearer of a Thousand Faces
+220 M Wingless Prodigy
+221 U Aerial Intervention
+222 U Aether Bomb
+223 U Aether Wings
+224 C Anguish Weaver
+225 C Anxious Nestling
+226 U Blazing Charge
+227 C Blinded by the Light
+228 U Blood Magic
+229 U Channel the Force
+230 U Cleanse Essence
+231 U Commander's Compass
+232 C Disposable Servant
+233 U Domain Shift
+234 C Elder Explorer
+235 C Elder Merchant
+236 U Fallen Watchman
+237 U Fervent Hunter
+238 C Grave Dweller
+239 U Gravegorger
+240 C Green Sentry
+241 U Harvest Energy
+242 C Healing Palms
+243 C Incautious Agent
+244 U Infernal Dreams
+245 U Infuse With Life
+246 C Komonitor Bait
+247 U Lightning Mage
+248 C Lone Prophet
+249 U Martial Cleric
+250 C Meditating Warrior
+251 C Newborn Arachnid
+252 C Nightmare Neophyte
+253 U Nimble Harvester
+254 U Orc Smash
+255 C Preposterous Growth
+256 U Prompt Response
+257 C Pyroclastic Wings
+258 U Read the Future
+259 C Reckless Juvenile
+260 C Redistribute
+261 C Revitalise
+262 R Revolution
+263 R Sudden Existence
+264 C Sudden Scales
+265 C Tagteam Tactics
+266 C Wistful Anthophile
+267 U Zealous Gamekeeper
+268 C Aberrant Heart
+269 C Aetherised Pumice
+270 C Cane of Evolution
+271 C Eternal Furnace
+272 C Excavation Site
+273 C Explorer's Diary
+274 C Pyroclastic Landing
+275 C Replenishing Rock
+276 U Secret Observatory
+277 C Silver Diamond
+278 C Sulfur Pool
+279 C Sunlight Orb
+280 U Ashen Mesa
+281 U Barren Tundra
+282 M Canovol, Soul of the World
+283 U Desert Hill
+284 U Dry Rainforest
+285 R Eye of Evolution
+286 R Farming Grounds
+287 R Feeding Turf
+288 U Forest Glade
+289 U Freshwater Wetlands
+290 U Glacier Cave
+291 U Grey Eyrie
+292 R Holy Passage
+293 R Home of Nightmares
+294 R Library of Memories
+295 R Mines of Fortune
+296 R Sacred Hunting Grounds
+297 R Skybound Acropolis
+298 U Twisted Forest
+299 U Underwater Grotto
+300 R Volcanic Springs
+301 L Plains
+302 L Island
+303 L Swamp
+304 L Mountain
+305 L Forest
+
+[Lands]
+1 Plains|CNVL|1
+1 Island|CNVL|1
+1 Swamp|CNVL|1
+1 Mountain|CNVL|1
+1 Forest|CNVL|1
+
+[tokens]
+1 c_a_food_canovol_sac
+2 u_1_1_illusion_goat
+3 w_2_2_insect_cleric
+4 u_2_2_drake_illusion_flying
+5 u_5_5_dragon_illusion_flying
+6 b_2_2_elemental_nightmare
+7 r_1_1_insect_samurai
+8 g_9_9_beast
+9 rg_4_4_orc
+10 gu_3_3_lizard
+11 g_1_1_plant
+12 wb_1_1_kithkin_serf
+13 bg_1_2_spider
+
+[other]

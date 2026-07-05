@@ -3,5 +3,5 @@ ManaCost:no cost
 Types:Artifact Decree
 K:ETBReplacement:Other:DBNameCard
 SVar:DBNameCard:DB$ NameCard | Defined$ You | SpellDescription$ As CARDNAME enters, choose a card name.
-A:AB$ Counter | Sac<1/CARDNAME/this token> | TargetType$ Spell | TgtPrompt$ Select target spell with the chosen name | ValidTgts$ Card.NamedCard | SpellDescription$ Counter target spell with the chosen name.
+A:AB$ Counter | Cost$ Sac<1/CARDNAME/this token> | TargetType$ Spell | TgtPrompt$ Select target spell with the chosen name | ValidTgts$ Card.NamedCard | SpellDescription$ Counter target spell with the chosen name.
 Oracle:As this artifact enters the battlefield, choose a card name.\nSacrifice this artifact: Counter target spell with the chosen name.

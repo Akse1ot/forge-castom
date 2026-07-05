@@ -319,16 +319,12 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
             }
         }
 
-        // NextSpellColor
-        if (sp.isSpell() && !sp.isCopied()) {
-            NextSpellColorHelper.tagSpellOnCast(activator, sp);
-        }
-
         // CHECK TARGETING
         if (!sp.isCopied() && !hasLegalTargeting(sp)) {
             String str = source + " - [Couldn't add to stack, failed to target] - " + sp.getDescription();
             System.err.println(str + sp.getAllTargetChoices());
             game.fireEvent(new GameEventAddLog(GameLogEntryType.STACK_ADD, str));
+            NextSpellColorHelper.clearDirectColorOverrideForSpellCast(sp);
             return;
         }
 
@@ -394,11 +390,6 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
 
             // ===== Resonance: make spell multicolored BEFORE SpellCast triggers =====
             ResonanceHelper.applyDirectColorOverrideForSpellCast(sp);
-
-            // ===== NextSpellColor: make spell multicolored BEFORE SpellCast triggers =====
-            if (sp.isSpell() && !sp.isCopied()) {
-                NextSpellColorHelper.applyDirectColorOverrideForSpellCast(sp);
-            }
 
             // Run SpellCast triggers
             if (sp.isSpell()) {
@@ -801,6 +792,8 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
     }
 
     public final void remove(final SpellAbilityStackInstance si) {
+        NextSpellColorHelper.clearDirectColorOverrideForSpellCast(si.getSpellAbility());
+
         stack.remove(si);
         frozenStack.remove(si);
         game.updateStackForView();

@@ -1,5 +1,5 @@
 Name:Reconceptualize
 ManaCost:3 G G
 Types:Sorcery
-A:SP$ ChangeZone | TargetMin$ 2 | TargetMax$ 2 | ValidTgts$ Permanent.nonLand | TargetsWithSameController$ True | TgtPrompt$ Select two target nonland permanents with the same controller | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 0 | SpellDescription$ Put two target nonland permanents with the same controller on top of their owner’s library in any order.
+A:SP$ ChangeZone | TargetMin$ 2 | TargetMax$ 2 | ValidTgts$ Permanent.nonLand | TargetsWithSameController$ True | TgtPrompt$ Select two target nonland permanents with the same controller | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 0 | Chooser$ You | SpellDescription$ Put two target nonland permanents with the same controller on top of their owner’s library in any order.
 Oracle:Put two target nonland permanents with the same controller on top of their owner’s library in any order.

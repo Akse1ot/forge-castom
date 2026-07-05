@@ -7,11 +7,12 @@ import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
 
 public class ChooseColorsForNextSpellEffect extends SpellAbilityEffect {
-
     @Override
     public void resolve(final SpellAbility sa) {
-        final Player p = sa.getActivatingPlayer();
-        if (p == null) return;
+        final Player player = sa.getActivatingPlayer();
+        if (player == null) {
+            return;
+        }
 
         final ColorSet options = ColorSet.fromMask(
                 MagicColor.WHITE
@@ -21,7 +22,7 @@ public class ChooseColorsForNextSpellEffect extends SpellAbilityEffect {
                         | MagicColor.GREEN
         );
 
-        final ColorSet chosen = p.getController().chooseColors(
+        final ColorSet chosen = player.getController().chooseColors(
                 "Choose one or more colors",
                 sa,
                 1,
@@ -29,7 +30,10 @@ public class ChooseColorsForNextSpellEffect extends SpellAbilityEffect {
                 options
         );
 
-        if (chosen == null || chosen.isColorless()) return;
-        p.setNextSpellAddColors(chosen);
+        if (chosen == null || chosen.isColorless()) {
+            return;
+        }
+
+        player.setNextSpellAddColors(chosen);
     }
 }

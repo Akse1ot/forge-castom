@@ -5,72 +5,98 @@ import forge.game.card.Card;
 import forge.game.player.Player;
 
 public final class NextSpellColorHelper {
-
     private NextSpellColorHelper() {}
 
-    // Аналогично Resonance
-    private static final String SVAR_NEXT_COLORS = "NextSpellAddColors";
-    private static final String SVAR_NEXT_COLOR_TS = "NextSpellAddColorTS";
+    private static final String SVAR_NEXT_COLOR_MASK = "_NextSpellAddColorMask";
+    private static final String SVAR_NEXT_COLOR_TS = "_NextSpellAddColorTS";
 
-    // =====================================================
-    // ONLY tag SpellAbility with colors (NO addColor here)
-    // =====================================================
-    public static void tagSpellOnCast(final Player caster, final SpellAbility sp) {
-        if (caster == null || sp == null || !sp.isSpell()) return;
-        if (!caster.hasNextSpellAddColors()) return;
-
-        final ColorSet colors = caster.consumeNextSpellAddColors();
-        if (colors == null || colors.isColorless()) return;
-
-        sp.setSVar(SVAR_NEXT_COLORS, Integer.toString(colors.getColor()));
-
+    private static boolean hasValue(final SpellAbility sa, final String key) {
+        final String value = sa == null ? null : sa.getSVar(key);
+        return value != null && !value.isEmpty();
     }
 
-    // =====================================================
-    // APPLY color — ONLY from MagicStack.add()
-    // =====================================================
-    public static void applyDirectColorOverrideForSpellCast(final SpellAbility sp) {
-        if (sp == null || !sp.isSpell()) return;
-
-        final String colors = sp.getSVar(SVAR_NEXT_COLORS);
-        if (colors == null || colors.isEmpty()) return;
-
-        final String tsExisting = sp.getSVar(SVAR_NEXT_COLOR_TS);
-        if (tsExisting != null && !tsExisting.isEmpty()) return;
-
-        int mask;
-        try {
-            mask = Integer.parseInt(colors);
-        } catch (NumberFormatException e) {
+    /**
+     * Prepare the next spell color effect before target selection.
+     *
+     * This does NOT consume the player's pending effect. The pending effect is
+     * consumed only after the spell was successfully cast.
+     */
+    public static void prepareSpellColor(final Player caster, final SpellAbility sa) {
+        if (caster == null || sa == null || !sa.isSpell() || sa.isCopied()) {
+            return;
+        }
+        if (!caster.hasNextSpellAddColors()) {
+            return;
+        }
+        if (hasValue(sa, SVAR_NEXT_COLOR_TS)) {
             return;
         }
 
-        final Card host = sp.getHostCard();
-        if (host == null || host.getGame() == null) return;
-
-        final long ts = host.getGame().getNextTimestamp();
-        host.addColor(ColorSet.fromMask(mask), true, ts, null);
-
-        sp.setSVar(SVAR_NEXT_COLOR_TS, Long.toString(ts));
-    }
-
-    // =====================================================
-    // Cleanup when leaving stack
-    // =====================================================
-    public static void clearDirectColorOverrideForSpellCast(final SpellAbility sp) {
-        if (sp == null) return;
-
-        final String tsStr = sp.getSVar(SVAR_NEXT_COLOR_TS);
-        if (tsStr == null || tsStr.isEmpty()) return;
-
-        final Card host = sp.getHostCard();
-        if (host != null) {
-            try {
-                host.removeColor(Long.parseLong(tsStr), 0L);
-            } catch (Exception ignored) {}
+        final ColorSet colors = caster.getNextSpellAddColors();
+        if (colors == null || colors.isColorless()) {
+            return;
         }
 
-        sp.setSVar(SVAR_NEXT_COLOR_TS, null);
-        sp.setSVar(SVAR_NEXT_COLORS, null);
+        final Card host = sa.getHostCard();
+        if (host == null || host.getGame() == null) {
+            return;
+        }
+
+        final long timestamp = host.getGame().getNextTimestamp();
+        host.addColor(colors, true, timestamp, null);
+
+        sa.setSVar(SVAR_NEXT_COLOR_MASK, Integer.toString(colors.getColor()));
+        sa.setSVar(SVAR_NEXT_COLOR_TS, Long.toString(timestamp));
+    }
+
+    /**
+     * Commit the prepared next-spell color effect after successful casting.
+     *
+     * The color remains on the spell while it is on the stack. Only the pending
+     * player effect is cleared here.
+     */
+    public static void commitPreparedSpellColor(final Player caster, final SpellAbility sa) {
+        if (caster == null || sa == null) {
+            return;
+        }
+        if (!hasValue(sa, SVAR_NEXT_COLOR_MASK)) {
+            return;
+        }
+
+        caster.clearNextSpellAddColors();
+    }
+
+    /**
+     * Roll back a prepared color effect when casting fails or is cancelled.
+     *
+     * This does NOT clear the player's pending effect, because the spell was not
+     * successfully cast.
+     */
+    public static void rollbackPreparedSpellColor(final SpellAbility sa) {
+        clearDirectColorOverrideForSpellCast(sa);
+    }
+
+    /**
+     * Remove the temporary color override when the spell leaves the stack.
+     */
+    public static void clearDirectColorOverrideForSpellCast(final SpellAbility sa) {
+        if (sa == null) {
+            return;
+        }
+
+        final String tsStr = sa.getSVar(SVAR_NEXT_COLOR_TS);
+        if (tsStr != null && !tsStr.isEmpty()) {
+            final Card host = sa.getHostCard();
+            if (host != null) {
+                try {
+                    host.removeColor(Long.parseLong(tsStr), 0L);
+                } catch (NumberFormatException ignored) {
+                    // Ignore malformed internal state and still clear the markers below.
+                }
+            }
+        }
+
+        sa.setSVar(SVAR_NEXT_COLOR_TS, null);
+        sa.setSVar(SVAR_NEXT_COLOR_MASK, null);
     }
 }

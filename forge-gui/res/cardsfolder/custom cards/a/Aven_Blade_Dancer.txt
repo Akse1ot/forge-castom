@@ -1,5 +1,5 @@
 Name:Aven Blade-Dancer
-ManaCost:1 U
+ManaCost:1 W U
 Types:Creature Bird Soldier
 PT:2/3
 K:Flying
