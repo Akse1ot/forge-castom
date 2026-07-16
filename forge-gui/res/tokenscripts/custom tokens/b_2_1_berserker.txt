@@ -1,0 +1,6 @@
+Name:Berserker Token
+ManaCost:no cost
+Colors:black
+Types:Creature Berserker
+PT:2/1
+Oracle:

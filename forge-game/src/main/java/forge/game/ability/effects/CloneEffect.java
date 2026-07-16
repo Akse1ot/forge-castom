@@ -68,53 +68,32 @@ public class CloneEffect extends SpellAbilityEffect {
         Card cardToCopy = null;
 
         if (sa.hasParam("Choices")) {
-            // --- ChoiceZone may be a single zone or a comma-separated list (e.g. "Battlefield,Graveyard")
+        // ChoiceZone may be a single zone or a comma-separated list.
+        // For replacement clone effects, Battlefield and Graveyard must use last-state
+        // collections so the entering object does not see itself or other objects that
+        // were not legal choices before the replacement event.
             final String czRaw = sa.hasParam("ChoiceZone") ? sa.getParam("ChoiceZone") : ZoneType.Battlefield.name();
-            final String[] czParts = czRaw.split(",");
 
             CardCollection choices = new CardCollection();
-            CardCollection bfChoices = null;
-            CardCollection gyChoices = null;
 
-            for (String p : czParts) {
-                final String zoneName = p.trim();
+            for (String part : czRaw.split(",")) {
+                final String zoneName = part.trim();
                 if (zoneName.isEmpty()) {
                     continue;
                 }
-                final ZoneType z = ZoneType.smartValueOf(zoneName);
-                final CardCollection zCards = new CardCollection(game.getCardsIn(z));
-                choices.addAll(zCards);
 
-                // Keep per-zone collections for replacement last-state filtering
-                if (sa.isReplacementAbility()) {
-                    if (z.equals(ZoneType.Battlefield)) {
-                        bfChoices = zCards;
-                    } else if (z.equals(ZoneType.Graveyard)) {
-                        gyChoices = zCards;
-                    }
-                }
-            }
+                final ZoneType zone = ZoneType.smartValueOf(zoneName);
+                CardCollection zoneChoices;
 
-            // choices need to be filtered by LastState Battlefield or Graveyard
-            // if a Clone enters the field as other cards it could clone,
-            // the clone should not be able to clone them
-            // but do that only for Replacement Effects
-            if (sa.isReplacementAbility()) {
-                CardCollection filtered = new CardCollection();
-
-                if (bfChoices != null) {
-                    bfChoices.retainAll(sa.getLastStateBattlefield());
-                    filtered.addAll(bfChoices);
-                }
-                if (gyChoices != null) {
-                    gyChoices.retainAll(sa.getLastStateGraveyard());
-                    filtered.addAll(gyChoices);
+                if (sa.isReplacementAbility() && zone.equals(ZoneType.Battlefield)) {
+                    zoneChoices = new CardCollection(sa.getLastStateBattlefield());
+                } else if (sa.isReplacementAbility() && zone.equals(ZoneType.Graveyard)) {
+                    zoneChoices = new CardCollection(sa.getLastStateGraveyard());
+                } else {
+                    zoneChoices = new CardCollection(game.getCardsIn(zone));
                 }
 
-                // If neither bfChoices nor gyChoices were present (some other zone), keep the unfiltered "choices"
-                if (!filtered.isEmpty()) {
-                    choices = filtered;
-                }
+                choices.addAll(zoneChoices);
             }
 
             choices = CardLists.getValidCards(choices, sa.getParam("Choices"), activator, host, sa);

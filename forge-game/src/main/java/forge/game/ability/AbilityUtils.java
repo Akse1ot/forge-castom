@@ -421,6 +421,24 @@ public class AbilityUtils {
             return val * multiplier;
         }
 
+        // Custom invoke support:
+        // If an invoked Skill refers to plain X and defines SVar:InvokedX,
+        // use that dynamic value instead of paid X. This must stay before the
+        // ordinary SVar lookup, because many card scripts use "X" as the amount key.
+        if ("X".equals(amount) && ability instanceof SpellAbility sa) {
+            final SpellAbility root = sa.getRootAbility();
+            if (root != null && root.isInvoked()) {
+                final Card invokedHost = root.getHostCard();
+                final Card amountHost = invokedHost == null ? card : invokedHost;
+
+                if (StringUtils.isNotBlank(root.getSVar("InvokedX"))
+                        || StringUtils.isNotBlank(amountHost.getSVar("InvokedX"))) {
+                    int val = calculateAmount(amountHost, "InvokedX", root, maxto);
+                    return val * multiplier;
+                }
+            }
+        }
+
         // Try to fetch variable, try ability first, then card.
         String svarval = null;
         if (amount.indexOf('$') > 0) { // when there is a dollar sign, it's not a reference, it's a raw value!

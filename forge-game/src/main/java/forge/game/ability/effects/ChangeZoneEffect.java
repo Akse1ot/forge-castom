@@ -1078,15 +1078,14 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                 fetchList = new CardCollection(player.getCardsIn(origin));
                 if (origin.contains(ZoneType.Library) && !sa.hasParam("NoLooking") && !sa.hasParam("OriginLibraryPosition")) {
 
-                    Map<AbilityKey, Object> repParams = AbilityKey.newMap();
-                    repParams.put(AbilityKey.Affected, source); // host card of the effect
+                    Map<AbilityKey, Object> repParams = AbilityKey.mapFromAffected(decider);
                     repParams.put(AbilityKey.Player, decider);
                     repParams.put(AbilityKey.Cause, sa);
 
                     if (game.getReplacementHandler()
                             .run(ReplacementType.SearchLibrary, repParams)
                             != ReplacementResult.NotReplaced) {
-                        continue; // поиск полностью заменён
+                        continue; // search is fully replaced
                     }
 
                     searchedLibrary = true;

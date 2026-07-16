@@ -15,23 +15,19 @@ public class ReplaceSearchLibrary extends ReplacementEffect {
 
     @Override
     public boolean canReplace(final Map<AbilityKey, Object> runParams) {
-        // игрок, который ищет
-        Object player = runParams.get(AbilityKey.Player);
-        if (!(player instanceof Player)) {
+        final Object affected = runParams.get(AbilityKey.Affected);
+        if (!(affected instanceof Player)) {
             return false;
         }
 
-        // ValidPlayer$ check (как у ReplaceScry)
-        if (!matchesValidParam("ValidPlayer", player)) {
-            return false;
-        }
-
-        return true;
+        return matchesValidParam("ValidPlayer", affected);
     }
 
     @Override
     public void setReplacingObjects(final Map<AbilityKey, Object> runParams, final SpellAbility sa) {
-        final Object p = runParams.get(AbilityKey.Player); // игрок, который ищет
-        sa.setReplacingObject(AbilityKey.Affected, p);     // <-- сюда
+        final Object affected = runParams.get(AbilityKey.Affected);
+
+        sa.setReplacingObject(AbilityKey.Player, affected);
+        sa.setReplacingObject(AbilityKey.Affected, affected);
     }
 }

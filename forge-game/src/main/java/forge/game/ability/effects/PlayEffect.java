@@ -296,8 +296,6 @@ public class PlayEffect extends SpellAbilityEffect {
                 }
             }
 
-            CardStateName state = CardStateName.Original;
-
             if (sa.hasParam("CastTransformed")) {
                 if (!tgtCard.changeToState(CardStateName.Backside)) {
                     // Failed to transform. In the future, we might need to just remove this option and continue

@@ -354,6 +354,7 @@ Arcane
 Chorus
 Lesson
 Omen
+Skill
 Trap
 [EnchantmentTypes]
 Aura:Auras

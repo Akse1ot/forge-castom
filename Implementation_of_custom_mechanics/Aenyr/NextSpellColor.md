@@ -36,22 +36,49 @@ Card.addColor(ColorSet colors, true, timestamp, null)
 * `MagicStack` — cleanup при уходе со стека.
 
 
-# Пример скрипта карты
+# Применение в скриптах
+
+## Основной параметр
+
+```text
+ChooseColorsForNextSpell
+```
+
+## Дополнительные параметры:
+
+```text
+MinColors$ N — минимальное количество выбираемых цветов. По умолчанию 1.
+MaxColors$ N — максимальное количество выбираемых цветов. По умолчанию 5.
+NumColors$ N — выбрать ровно N цветов. Перекрывает MinColors/MaxColors.
+```
+
+### Ровно один цвет
+
+```text
+A:SP$ ChooseColorsForNextSpell | NumColors$ 1 | SpellDescription$ Choose a color. The next spell you cast this turn is the chosen color in addition to its other colors.
+```
+### Один или два цвета
+
+```text
+A:SP$ ChooseColorsForNextSpell | MinColors$ 1 | MaxColors$ 2 | SpellDescription$ Choose one or two colors. The next spell you cast this turn is the chosen colors in addition to its other colors.
+```
+
+### Один или больше цветов
 
 ```text
 A:AB$ ChooseColorsForNextSpell | Cost$ T | SpellDescription$ Choose one or more colors. The next spell you cast this turn is the chosen color or colors in addition to its other colors.
 ```
 
-Для spell-эффекта без активационной стоимости:
+### Для spell-эффекта без активационной стоимости:
 
 ```text
 A:SP$ ChooseColorsForNextSpell | SpellDescription$ Choose one or more colors. The next spell you cast this turn is the chosen color or colors in addition to its other colors.
 ```
-
-
 ---
 
-# 1. Helper для применения цвета к заклинанию
+# Реализация
+
+## 1. Helper для применения цвета к заклинанию
 
 **Новый файл:**
 
@@ -166,7 +193,7 @@ public final class NextSpellColorHelper {
 
 ---
 
-# 2. Effect: выбор цветов
+## 2. Effect: выбор цветов
 
 **Новый файл:**
 
@@ -199,11 +226,22 @@ public class ChooseColorsForNextSpellEffect extends SpellAbilityEffect {
                         | MagicColor.GREEN
         );
 
+        int min = getColorCountParam(sa, "MinColors", 1);
+        int max = getColorCountParam(sa, "MaxColors", 5);
+
+        if (sa.hasParam("NumColors")) {
+            min = getColorCountParam(sa, "NumColors", 1);
+            max = min;
+        }
+
+        min = Math.max(1, Math.min(min, 5));
+        max = Math.max(min, Math.min(max, 5));
+
         final ColorSet chosen = player.getController().chooseColors(
-                "Choose one or more colors",
+                max == 1 ? "Choose a color" : "Choose one or more colors",
                 sa,
-                1,
-                5,
+                min,
+                max,
                 options
         );
 
@@ -213,12 +251,24 @@ public class ChooseColorsForNextSpellEffect extends SpellAbilityEffect {
 
         player.setNextSpellAddColors(chosen);
     }
+
+    private static int getColorCountParam(final SpellAbility sa, final String param, final int defaultValue) {
+        if (!sa.hasParam(param)) {
+            return defaultValue;
+        }
+
+        try {
+            return Integer.parseInt(sa.getParam(param));
+        } catch (NumberFormatException ignored) {
+            return defaultValue;
+        }
+    }
 }
 ```
 
 ---
 
-# 3. Регистрация эффекта в ApiType
+## 3. Регистрация эффекта в ApiType
 
 **Файл:**
 
@@ -241,13 +291,13 @@ ChooseDirection (ChooseDirectionEffect.class),
 
 ---
 
-# 4. Изменения в Player.java
+## 4. Изменения в Player.java
 
 **Файл:**
 
 `forge-game/src/main/java/forge/game/player/Player.java`
 
-## 4.1. Добавить хранение pending-цветов
+### 4.1. Добавить хранение pending-цветов
 
 **Место вставки:**
 
@@ -284,7 +334,7 @@ Pending-эффект нельзя очищать в момент подгото�
 
 ---
 
-## 4.2. Очистка в cleanup
+### 4.2. Очистка в cleanup
 
 В `Player.java` найти метод:
 
@@ -312,7 +362,7 @@ public void onCleanupPhase() {
 
 ---
 
-# 5. Изменения в PlaySpellAbility.java
+## 5. Изменения в PlaySpellAbility.java
 
 **Файл:**
 
@@ -324,7 +374,7 @@ public void onCleanupPhase() {
 
 ---
 
-## 5.1. Добавить импорт
+### 5.1. Добавить импорт
 
 В блок импортов добавить:
 
@@ -343,7 +393,7 @@ import forge.game.spellability.SpellAbility;
 
 ---
 
-## 5.2. Подготовить цвет до выбора целей
+### 5.2. Подготовить цвет до выбора целей
 
 В методе:
 
@@ -382,7 +432,7 @@ CostPayment payment = new CostPayment(abCost, ability);
 
 ---
 
-## 5.3. Зафиксировать pending-эффект после успешного каста
+### 5.3. Зафиксировать pending-эффект после успешного каста
 
 В том же методе найти блок:
 
@@ -421,7 +471,7 @@ Rollback при неудачном cast-flow будет выполнен чер�
 
 ---
 
-# 6. Изменения в GameActionUtil.java
+## 6. Изменения в GameActionUtil.java
 
 **Файл:**
 
@@ -439,7 +489,7 @@ import forge.game.spellability.*;
 
 ---
 
-## 6.1. Добавить rollback цвета
+### 6.1. Добавить rollback цвета
 
 Найти начало метода:
 
@@ -467,7 +517,7 @@ public static void rollbackAbility(SpellAbility ability, final Zone fromZone, fi
 
 ---
 
-# 7. Изменения в ComputerUtil.java
+## 7. Изменения в ComputerUtil.java
 
 **Файл:**
 
@@ -477,7 +527,7 @@ AI имеет отдельные cast-flow, поэтому helper нужно п�
 
 ---
 
-## 7.1. Добавить импорт
+### 7.1. Добавить импорт
 
 В блок импортов добавить:
 
@@ -496,7 +546,7 @@ import forge.game.spellability.TargetRestrictions;
 
 ---
 
-## 7.2. Исправить handlePlayingSpellAbility(...)
+### 7.2. Исправить handlePlayingSpellAbility(...)
 
 Найти в методе:
 
@@ -544,7 +594,7 @@ if (chooseTargets != null) {
 
 ---
 
-## 7.3. Commit после успешной оплаты и добавления на стек
+### 7.3. Commit после успешной оплаты и добавления на стек
 
 Найти ниже:
 
@@ -574,7 +624,7 @@ if (pay.payComputerCosts(new AiCostDecision(ai, sa, false))) {
 
 ---
 
-## 7.4. Rollback при failed payment
+### 7.4. Rollback при failed payment
 
 Ниже найти:
 
@@ -600,7 +650,7 @@ System.out.println("[" + sa.getActivatingPlayer() + "] AI failed to play " + sa.
 
 ---
 
-## 7.5. Исправить playStack(...)
+### 7.5. Исправить playStack(...)
 
 В методе:
 
@@ -670,7 +720,7 @@ if (!sa.checkRestrictions(ai)) {
 
 ---
 
-# 8. Изменения в MagicStack.java
+## 8. Изменения в MagicStack.java
 
 **Файл:**
 
@@ -686,7 +736,7 @@ if (!sa.checkRestrictions(ai)) {
 
 ---
 
-## 8.1. Добавить импорт
+### 8.1. Добавить импорт
 
 В блок импортов добавить:
 
@@ -698,7 +748,7 @@ import forge.game.spellability.NextSpellColorHelper;
 
 ---
 
-## 8.2. Не добавлять применение цвета в MagicStack.add(...)
+### 8.2. Не добавлять применение цвета в MagicStack.add(...)
 
 В метод:
 
@@ -714,7 +764,7 @@ public final void add(SpellAbility sp, SpellAbilityStackInstance si, int id)
 
 ---
 
-## 8.3. Safety-cleanup при failed targeting в add(...)
+### 8.3. Safety-cleanup при failed targeting в add(...)
 
 В методе:
 
@@ -749,7 +799,7 @@ if (!sp.isCopied() && !hasLegalTargeting(sp)) {
 
 ---
 
-## 8.4. Cleanup при нормальном уходе со стека
+### 8.4. Cleanup при нормальном уходе со стека
 
 Найти метод:
 
@@ -788,7 +838,7 @@ private void removeCardFromStack(final SpellAbility sa, final SpellAbilityStackI
 
 ---
 
-## 8.5. Cleanup при прямом удалении stack instance
+### 8.5. Cleanup при прямом удалении stack instance
 
 Найти метод:
 
@@ -824,7 +874,7 @@ public final void remove(final SpellAbilityStackInstance si) {
 
 ---
 
-# 9. Изменения в ComputerUtilCard.java
+## 9. Изменения в ComputerUtilCard.java
 
 **Файл:**
 
@@ -834,7 +884,7 @@ AI уже вызывает общий метод выбора нескольки
 
 ---
 
-## 9.1. Изменить финальный return в chooseColor(...)
+### 9.1. Изменить финальный return в chooseColor(...)
 
 Найти метод:
 
@@ -874,7 +924,7 @@ return normalizeColorChoiceList(chosen, colorChoices, min, max);
 
 ---
 
-## 9.2. Добавить helper-методы ниже chooseColor(...)
+### 9.2. Добавить helper-методы ниже chooseColor(...)
 
 Сразу после метода `chooseColor(...)` добавить:
 
@@ -951,36 +1001,6 @@ private static boolean containsColorChoice(final List<String> colors, final Stri
 ```
 
 `ComputerUtilCard.java` уже использует `ArrayList` и `List`, поэтому дополнительных импортов обычно не требуется.
-
----
-
-# 10. Что НЕ менять
-
-## Не менять SpellAbility.canTarget(...)
-
-Не добавлять в `SpellAbility.canTarget(...)` отдельные проверки для этой механики.
-
-Правильная модель: spell уже имеет нужный цвет до выбора целей, поэтому штатный targeting-код сам видит правильный `Card.getColor()`.
-
-## Не менять GameAction.changeZone(...)
-
-Zone-change не должен знать о кастомной механике цвета. Cleanup находится в stack-flow.
-
-## Не менять CounterEffect.java
-
-Counter уже удаляет spell через `MagicStack.remove(si)`. Cleanup добавлен туда.
-
-## Не чистить pending в PlayerControllerHuman / PlayerControllerAi
-
-Не добавлять:
-
-```java
-player.clearNextSpellAddColors();
-```
-
-в `resetAtEndOfTurn()`.
-
-Очистка должна быть в `Player.onCleanupPhase()`.
 
 ---
 

@@ -4,10 +4,9 @@ Date=2025-01-23
 Name=Elden Ring: The Lands Between
 Type=CUSTOM_SET
 ScryfallCode=ERLB
-BoosterSlots=Common,Uncommon,RareMythic,AnyLand,Wildcard
-Booster=8 Common, 3 Uncommon, 1 RareMythic, 1 AnyLand, 1 Wildcard
-Prerelease=6 Boosters, 1 RareMythic+
-BoosterBox=36
+BoosterSlots=Common,Uncommon,RareMythic,Land,Wildcard,BonusWildcard
+Booster=7 Common, 3 Uncommon, 1 RareMythic, 1 Land, 1 Wildcard, 1 BonusWildcard
+BoosterBox=30
 
 [Common]
 Base=Common:fromSheet("ERLB cards")
@@ -16,17 +15,23 @@ Base=Common:fromSheet("ERLB cards")
 Base=Uncommon:fromSheet("ERLB cards")
 
 [RareMythic]
-Base=RareMythic:fromSheet("ERLB cards")
+Base=Rare:fromSheet("ERLB cards")
+Replace=.136F Mythic:fromSheet("ERLB cards")
 
-[AnyLand]
-Base=Land:fromSheet("ERLB cards")
-Replace=.60F BasicLand
+[Land]
+Base=fromSheet("ERLB Lands")
 
 [Wildcard]
 Base=Uncommon:fromSheet("ERLB cards")
-Replace=.20F Rare:fromSheet("ERLB cards")
-Replace=.15F Mythic:fromSheet("ERLB cards")
-Replace=.10F Common:fromSheet("ERLB cards")
+Replace=.18F Common:fromSheet("ERLB cards")
+Replace=.19F Rare:fromSheet("ERLB cards")
+Replace=.02F Mythic:fromSheet("ERLB cards")
+
+[BonusWildcard]
+Base=Common:fromSheet("ERLB cards")
+Replace=.298F Uncommon:fromSheet("ERLB cards")
+Replace=.065F Rare:fromSheet("ERLB cards")
+Replace=.011F Mythic:fromSheet("ERLB cards")
 
 [cards]
 1 C Ancient Hero of Zamor
@@ -185,8 +190,8 @@ Replace=.10F Common:fromSheet("ERLB cards")
 154 R Blessings of the Erdtree
 155 U Boc the Seamster
 156 U Divine Beast Tornado
-158 U Elder Dragon Greyoll
 157 C Divine Beast Warrior
+158 U Elder Dragon Greyoll
 159 C Fingercreeper
 160 U Full-Grown Fallingstar Beast
 161 C Giant Rune Bear

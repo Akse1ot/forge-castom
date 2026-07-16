@@ -4,8 +4,8 @@ Date=2018-12-18
 Name=Aenyr
 Type=CUSTOM_SET
 ScryfallCode=AENR
-BoosterSlots=Common,Uncommon,RareMythic,AnyLand,Wildcard
-Booster=8 Common, 3 Uncommon, 1 RareMythic, 1 AnyLand, 1 Wildcard
+BoosterSlots=Common,Uncommon,RareMythic,NonbasicLand
+Booster=10 Common, 3 Uncommon, 1 RareMythic, 1 NonbasicLand
 Prerelease=6 Boosters, 1 RareMythic+
 BoosterBox=36
 
@@ -17,17 +17,10 @@ Base=Uncommon:fromSheet("AENR cards")
 
 [RareMythic]
 Base=Rare:fromSheet("AENR cards")
-Replace=.15F Mythic:fromSheet("AENR cards")
+Replace=.125F Mythic:fromSheet("AENR cards"):!fromSheet("AENR Lands")
 
-[AnyLand]
-Base=Land:fromSheet("AENR cards")
-Replace=.60F BasicLand
-
-[Wildcard]
-Base=Uncommon:fromSheet("AENR cards")
-Replace=.20F Rare:fromSheet("AENR cards")
-Replace=.10F Mythic:fromSheet("AENR cards")
-Replace=.10F Common:fromSheet("AENR cards")
+[NonbasicLand]
+Base=fromSheet("AENR Lands")
 
 [cards]
 
@@ -164,8 +157,8 @@ Replace=.10F Common:fromSheet("AENR cards")
 131 M Eraser of Thoughts
 132 M Eregon's Masterpiece
 133 R Exquisite Idealon
-135 U Fantasia Wyrm
 134 R Facestealer
+135 U Fantasia Wyrm
 136 U Fearless Feline
 137 R Gloom Tender
 138 R Graceborn Muse
@@ -287,11 +280,20 @@ Replace=.10F Common:fromSheet("AENR cards")
 254 L Forest
 
 [Lands]
-1 Plains|AENR|1
-1 Island|AENR|1
-1 Swamp|AENR|1
-1 Mountain|AENR|1
-1 Forest|AENR|1
+6 Boundless Halls|AENR
+6 City of Wonders|AENR
+6 Deserted Fairgrounds|AENR
+6 Enlightened Valley|AENR
+6 Ethereal Gardens|AENR
+6 Glamor District|AENR
+2 Heart of Inspiration|AENR
+6 Lush Vale|AENR
+6 Mistfire Ridge|AENR
+1 Mount Chromaziel|AENR
+6 Nightmarish Morass|AENR
+6 Sunlit Alley|AENR
+6 Twisted Woodlands|AENR
+3 Vivid Paradise|AENR
 
 [tokens]
 1 u_2_2_illusion_flying

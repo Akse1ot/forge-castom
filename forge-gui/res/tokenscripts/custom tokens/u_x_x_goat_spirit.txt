@@ -1,0 +1,6 @@
+Name:Goat Spirit Token
+ManaCost:no cost
+Colors:blue
+Types:Creature Goat Spirit
+PT:*/*
+Oracle:

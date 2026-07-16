@@ -62,6 +62,9 @@ public class SpellAbilityCondition extends SpellAbilityVariables {
      */
     private boolean focused = false;
     private boolean notFocused = false;
+    private boolean invoked = false;
+    private boolean notInvoked = false;
+
     public SpellAbilityCondition() {
     }
 
@@ -129,6 +132,14 @@ public class SpellAbilityCondition extends SpellAbilityVariables {
 
             if (value.equals("NotFocused")) {
                 this.notFocused = true;
+            }
+
+            if (value.equals("Invoked")) {
+                this.invoked = true;
+            }
+
+            if (value.equals("NotInvoked")) {
+                this.notInvoked = true;
             }
 
             if (params.containsKey("ConditionOptionalPaid")) {
@@ -287,6 +298,8 @@ public class SpellAbilityCondition extends SpellAbilityVariables {
         if (this.foretold && !sa.isForetold()) return false;
         if (this.focused && !sa.isFocused() && !host.isFocused()) return false;
         if (this.notFocused && (sa.isFocused() || host.isFocused())) return false;
+        if (this.invoked && !sa.isInvoked()) return false;
+        if (this.notInvoked && sa.isInvoked()) return false;
         if (this.teamwork && !sa.isTeamwork()) return false;
 
         if (this.optionalCostPaid && this.optionalBoolean && !sa.isOptionalCostPaid(OptionalCost.Generic)) return false;

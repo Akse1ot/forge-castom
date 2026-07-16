@@ -22,11 +22,22 @@ public class ChooseColorsForNextSpellEffect extends SpellAbilityEffect {
                         | MagicColor.GREEN
         );
 
+        int min = getColorCountParam(sa, "MinColors", 1);
+        int max = getColorCountParam(sa, "MaxColors", 5);
+
+        if (sa.hasParam("NumColors")) {
+            min = getColorCountParam(sa, "NumColors", 1);
+            max = min;
+        }
+
+        min = Math.max(1, Math.min(min, 5));
+        max = Math.max(min, Math.min(max, 5));
+
         final ColorSet chosen = player.getController().chooseColors(
-                "Choose one or more colors",
+                max == 1 ? "Choose a color" : "Choose one or more colors",
                 sa,
-                1,
-                5,
+                min,
+                max,
                 options
         );
 
@@ -35,5 +46,17 @@ public class ChooseColorsForNextSpellEffect extends SpellAbilityEffect {
         }
 
         player.setNextSpellAddColors(chosen);
+    }
+
+    private static int getColorCountParam(final SpellAbility sa, final String param, final int defaultValue) {
+        if (!sa.hasParam(param)) {
+            return defaultValue;
+        }
+
+        try {
+            return Integer.parseInt(sa.getParam(param));
+        } catch (NumberFormatException ignored) {
+            return defaultValue;
+        }
     }
 }

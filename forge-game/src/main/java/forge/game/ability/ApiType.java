@@ -118,6 +118,7 @@ public enum ApiType {
     Heist (HeistEffect.class),
     Investigate (InvestigateEffect.class),
     Intensify (IntensifyEffect.class),
+    InvokeSkill (InvokeSkillEffect.class),
     ImmediateTrigger (ImmediateTriggerEffect.class),
     Incubate (IncubateEffect.class),
     Learn (LearnEffect.class),

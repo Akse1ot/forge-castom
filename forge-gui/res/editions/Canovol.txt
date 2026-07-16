@@ -4,10 +4,10 @@ Date=2025-01-23
 Name=Canovol
 Type=CUSTOM_SET
 ScryfallCode=CNVL
-BoosterSlots=Common,Uncommon,RareMythic,AnyLand,Wildcard
-Booster=8 Common, 3 Uncommon, 1 RareMythic, 1 AnyLand, 1 Wildcard
+BoosterSlots=Common,Uncommon,RareMythic,Land,Wildcard,BonusWildcard
+Booster=7 Common, 3 Uncommon, 1 RareMythic, 1 Land, 1 Wildcard, 1 BonusWildcard
 Prerelease=6 Boosters, 1 RareMythic+
-BoosterBox=36
+BoosterBox=30
 
 [Common]
 Base=Common:fromSheet("CNVL cards")
@@ -16,17 +16,23 @@ Base=Common:fromSheet("CNVL cards")
 Base=Uncommon:fromSheet("CNVL cards")
 
 [RareMythic]
-Base=RareMythic:fromSheet("CNVL cards")
+Base=Rare:fromSheet("CNVL cards")
+Replace=.136F Mythic:fromSheet("CNVL cards")
 
-[AnyLand]
-Base=Land:fromSheet("CNVL cards")
-Replace=.60F BasicLand
+[Land]
+Base=fromSheet("CNVL Lands")
 
 [Wildcard]
 Base=Uncommon:fromSheet("CNVL cards")
-Replace=.20F Rare:fromSheet("CNVL cards")
-Replace=.15F Mythic:fromSheet("CNVL cards")
-Replace=.10F Common:fromSheet("CNVL cards")
+Replace=.18F Common:fromSheet("CNVL cards")
+Replace=.19F Rare:fromSheet("CNVL cards")
+Replace=.02F Mythic:fromSheet("CNVL cards")
+
+[BonusWildcard]
+Base=Common:fromSheet("CNVL cards")
+Replace=.298F Uncommon:fromSheet("CNVL cards")
+Replace=.065F Rare:fromSheet("CNVL cards")
+Replace=.011F Mythic:fromSheet("CNVL cards")
 
 [cards]
 1 R Astral Elder
@@ -51,7 +57,7 @@ Replace=.10F Common:fromSheet("CNVL cards")
 20 C Standard Responder
 21 C Stern Guardian
 22 C Surveillance Engine
-23 C Swift Response
+23 C Swift Response CNVL
 24 C Vernal Cultivator
 25 U Winged Explorer
 26 C Aether Grip
@@ -77,7 +83,7 @@ Replace=.10F Common:fromSheet("CNVL cards")
 46 R Subjugate
 47 R Submerge the Weak
 48 C Swellskin Diver
-49 C Take Flight
+49 C Take Flight CNVL
 50 C Take Knowledge
 51 U Unbodied Guardians
 52 R Vivify the Elements
@@ -356,5 +362,3 @@ Replace=.10F Common:fromSheet("CNVL cards")
 11 g_1_1_plant
 12 wb_1_1_kithkin_serf
 13 bg_1_2_spider
-
-[other]

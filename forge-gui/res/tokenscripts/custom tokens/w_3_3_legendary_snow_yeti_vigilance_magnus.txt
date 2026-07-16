@@ -1,0 +1,7 @@
+Name:Magnus Token
+ManaCost:no cost
+Colors:white
+Types:Legendary Snow Creature Yeti
+PT:3/3
+K:Vigilance
+Oracle:Vigilance

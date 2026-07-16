@@ -1,4 +1,4 @@
-Name:Swift Response
+Name:Swift Response CNVL
 ManaCost:1 W
 Types:Instant
 A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | SpellDescription$ Creatures you control get +1/+1 until end of turn.

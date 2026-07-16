@@ -115,6 +115,21 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
         focused = value;
     }
 
+    private boolean invoked = false;
+
+    public final boolean isInvoked() {
+        if (invoked) {
+            return true;
+        }
+
+        final SpellAbility parent = getParent();
+        return parent != null && parent.isInvoked();
+    }
+
+    public final void setInvoked(final boolean value) {
+        invoked = value;
+    }
+
     private String originalDescription = "", description = "";
     private String originalStackDescription = "", stackDescription = "";
 
