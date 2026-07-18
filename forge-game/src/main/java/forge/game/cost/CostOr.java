@@ -4,7 +4,6 @@ import forge.game.card.Card;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CostOr extends CostPart {
