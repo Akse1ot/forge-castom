@@ -170,6 +170,7 @@ public class GameSnapshot {
         newPlayer.setLife(origPlayer.getLife(), null);
         newPlayer.setLifeLostLastTurn(origPlayer.getLifeLostLastTurn());
         newPlayer.setLifeLostThisTurn(origPlayer.getLifeLostThisTurn());
+        newPlayer.setGreatestLifeLostAtOnceThisTurn(origPlayer.getGreatestLifeLostAtOnceThisTurn());
         newPlayer.setLifeGainedThisTurn(origPlayer.getLifeGainedThisTurn());
         newPlayer.setLifeStartedThisTurnWith(origPlayer.getLifeStartedThisTurnWith());
         newPlayer.setDamageReceivedThisTurn(origPlayer.getDamageReceivedThisTurn());

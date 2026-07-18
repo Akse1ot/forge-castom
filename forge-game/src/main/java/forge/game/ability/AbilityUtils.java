@@ -3719,6 +3719,10 @@ public class AbilityUtils {
             return doXMath(player.getLife(), m, source, ctb);
         }
 
+        if (value.contains("GreatestLifeLostAtOnceThisTurn")) {
+            return doXMath(player.getGreatestLifeLostAtOnceThisTurn(), m, source, ctb);
+        }
+
         if (value.contains("LifeLostThisTurn")) {
             return doXMath(player.getLifeLostThisTurn(), m, source, ctb);
         }

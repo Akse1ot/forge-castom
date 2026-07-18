@@ -116,6 +116,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
     }
 
     private boolean invoked = false;
+    private long invokeTargetGroupId = -1L;
 
     public final boolean isInvoked() {
         if (invoked) {
@@ -128,6 +129,47 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
 
     public final void setInvoked(final boolean value) {
         invoked = value;
+    }
+
+    public final void setInvokeTargetGroupId(final long value) {
+        getRootAbility().invokeTargetGroupId = value;
+    }
+
+    private boolean isTargetUsedByInvokeGroup(final GameObject entity) {
+        if (entity == null) {
+            return false;
+        }
+
+        final SpellAbility root = getRootAbility();
+        final long groupId = root.invokeTargetGroupId;
+
+        if (groupId < 0L || root.getHostCard() == null || root.getHostCard().getGame() == null) {
+            return false;
+        }
+
+        for (final SpellAbilityStackInstance stackInstance : root.getHostCard().getGame().getStack()) {
+            final SpellAbility other = stackInstance.getSpellAbility();
+            if (other == null) {
+                continue;
+            }
+
+            final SpellAbility otherRoot = other.getRootAbility();
+
+            // Do not compare the spell with itself when retargeting.
+            if (otherRoot == root) {
+                continue;
+            }
+
+            if (otherRoot.invokeTargetGroupId != groupId) {
+                continue;
+            }
+
+            if (otherRoot.isTargeting(entity)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private String originalDescription = "", description = "";
@@ -1668,6 +1710,10 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
             final TargetRestrictions tr = getTargetRestrictions();
             if (tr.isUniqueTargets() && getUniqueTargets().contains(entity))
                 return false;
+
+            if (!fizzleCheck && isTargetUsedByInvokeGroup(entity)) {
+                return false;
+            }
 
             if (entity instanceof Card card
                     && TargetEitherFaceUtil.isEnabled(this)

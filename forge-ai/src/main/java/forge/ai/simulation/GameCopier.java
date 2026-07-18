@@ -91,6 +91,7 @@ public class GameCopier {
             newPlayer.setLife(origPlayer.getLife(), null);
             newPlayer.setLifeLostLastTurn(origPlayer.getLifeLostLastTurn());
             newPlayer.setLifeLostThisTurn(origPlayer.getLifeLostThisTurn());
+            newPlayer.setGreatestLifeLostAtOnceThisTurn(origPlayer.getGreatestLifeLostAtOnceThisTurn());
             newPlayer.setLifeGainedThisTurn(origPlayer.getLifeGainedThisTurn());
             newPlayer.setCommitedCrimeThisTurn(origPlayer.getCommittedCrimeThisTurn());
             newPlayer.setLifeStartedThisTurnWith(origPlayer.getLifeStartedThisTurnWith());

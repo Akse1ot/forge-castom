@@ -82,6 +82,7 @@ public class Player extends GameEntity implements Comparable<Player> {
     private int startingLife = 20;
     private int lifeStartedThisTurnWith = startingLife;
     private int lifeLostThisTurn;
+    private int greatestLifeLostAtOnceThisTurn;
     private int lifeLostLastTurn;
     private int lifePaidThisTurn;
     private int lifePaidLastTurn;
@@ -586,6 +587,7 @@ public class Player extends GameEntity implements Comparable<Player> {
 
         boolean firstLost = lifeLostThisTurn == 0;
         lifeLostThisTurn += toLose;
+        greatestLifeLostAtOnceThisTurn = Math.max(greatestLifeLostAtOnceThisTurn, toLose);
 
         final Map<AbilityKey, Object> runParams = AbilityKey.mapFromPlayer(this);
         runParams.put(AbilityKey.LifeAmount, toLose);
@@ -2399,6 +2401,13 @@ public class Player extends GameEntity implements Comparable<Player> {
         lifeLostThisTurn = n;
     }
 
+    public final int getGreatestLifeLostAtOnceThisTurn() {
+        return greatestLifeLostAtOnceThisTurn;
+    }
+    public final void setGreatestLifeLostAtOnceThisTurn(final int n) {
+        greatestLifeLostAtOnceThisTurn = n;
+    }
+
     public final int getLifeLostLastTurn() {
         return lifeLostLastTurn;
     }
@@ -2552,6 +2561,7 @@ public class Player extends GameEntity implements Comparable<Player> {
         setSpellsCastLastTurn(getSpellsCastThisTurn());
         setLifeLostLastTurn(getLifeLostThisTurn());
         setLifeLostThisTurn(0);
+        setGreatestLifeLostAtOnceThisTurn(0);
         setLifePaidLastTurn(getLifePaidThisTurn());
         setLifePaidThisTurn(0);
         setLifeGainedThisTurn(0);

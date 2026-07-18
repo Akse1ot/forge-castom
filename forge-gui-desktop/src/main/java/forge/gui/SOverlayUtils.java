@@ -85,6 +85,7 @@ public final class SOverlayUtils {
     }
 
     private static boolean _overlayHasFocus;
+    private static boolean _temporaryHideActive;
     public static boolean overlayHasFocus() {
         return _overlayHasFocus;
     }
@@ -100,10 +101,50 @@ public final class SOverlayUtils {
     }
 
     /**
+     * Temporarily hides the overlay without removing its child components.
+     * The navigation bar remains disabled while the overlay is hidden.
+     */
+    public static void hideOverlayTemporarily() {
+        _temporaryHideActive = true;
+
+        Singletons.getView().getNavigationBar().setEnabled(false);
+        FOverlay.SINGLETON_INSTANCE.getPanel().setVisible(false);
+
+        if (prevFocusOwner != null) {
+            prevFocusOwner.requestFocusInWindow();
+        }
+
+        _overlayHasFocus = false;
+    }
+
+    /**
+     * Shows an overlay that was hidden temporarily.
+     * Unlike showOverlay(), this does not replace the saved focus owner.
+     */
+    public static void showTemporarilyHiddenOverlay() {
+        _temporaryHideActive = false;
+
+        Singletons.getView().getNavigationBar().setEnabled(false);
+        FOverlay.SINGLETON_INSTANCE.getPanel().setVisible(true);
+        FOverlay.SINGLETON_INSTANCE.getPanel().requestFocusInWindow();
+
+        _overlayHasFocus = true;
+    }
+
+    /**
+     * Clears temporary overlay state when the match UI is reset or closed.
+     */
+    public static void clearTemporaryHide() {
+        _temporaryHideActive = false;
+    }
+
+    /**
      * Removes child components and closes overlay.
      */
     public static void hideOverlay() {
-        Singletons.getView().getNavigationBar().setEnabled(true);
+        if (!_temporaryHideActive) {
+            Singletons.getView().getNavigationBar().setEnabled(true);
+        }
         FOverlay.SINGLETON_INSTANCE.getPanel().removeAll();
         FOverlay.SINGLETON_INSTANCE.getPanel().setVisible(false);
         if (null != prevFocusOwner) {

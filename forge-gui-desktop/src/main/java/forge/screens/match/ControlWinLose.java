@@ -35,6 +35,8 @@ public class ControlWinLose {
 
         view.getBtnRestart().addActionListener(e -> actionOnRestart());
 
+        view.getBtnViewBattlefield().addActionListener(e -> actionOnViewBattlefield());
+
         view.getBtnQuit().addActionListener(e -> {
             actionOnQuit();
             ((JButton) e.getSource()).setEnabled(false);
@@ -49,6 +51,11 @@ public class ControlWinLose {
     /** Action performed when "restart" button is pressed in default win/lose UI. */
     public void actionOnRestart() {
         nextGameAction(NextGameDecision.NEW);
+    }
+
+    /** Temporarily shows the final battlefield without advancing the match. */
+    public void actionOnViewBattlefield() {
+        matchUI.showPostGameBattlefield();
     }
 
     /** Action performed when "quit" button is pressed in default win/lose UI. */

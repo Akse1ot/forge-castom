@@ -41,8 +41,13 @@ public class ViewWinLose implements IWinLoseView<FButton> {
     private final ControlWinLose control;
 
     private final FScrollPane scrLog;
-    private final FButton btnContinue, btnRestart, btnQuit;
+    private final FButton btnContinue, btnRestart, btnViewBattlefield, btnQuit;
     private final SkinnedPanel pnlCustom;
+
+    private final JPanel pnlLeft = new JPanel();
+    private final JPanel pnlRight = new JPanel();
+    private final FScrollPane scrCustom = new FScrollPane(false);
+    private final boolean customIsPopulated;
 
     private final SkinnedLabel lblTitle = new SkinnedLabel("WinLoseFrame > lblTitle needs updating.");
     private final SkinnedLabel lblStats = new SkinnedLabel("WinLoseFrame > lblStats needs updating.");
@@ -63,15 +68,11 @@ public class ViewWinLose implements IWinLoseView<FButton> {
     public ViewWinLose(final GameView game0, final CMatchUI matchUI) {
         this.game = game0;
 
-        final JPanel overlay = FOverlay.SINGLETON_INSTANCE.getPanel();
-
-        final JPanel pnlLeft = new JPanel();
-        final JPanel pnlRight = new JPanel();
-        final FScrollPane scrCustom = new FScrollPane(false);
         pnlCustom = new SkinnedPanel();
 
         btnContinue = new FButton();
         btnRestart = new FButton();
+        btnViewBattlefield = new FButton();
         btnQuit = new FButton();
 
         // Control of the win/lose is handled differently for various game
@@ -122,6 +123,8 @@ public class ViewWinLose implements IWinLoseView<FButton> {
         btnContinue.setFont(FSkin.getRelativeFont(22));
         btnRestart.setText(localizer.getMessage("btnStartNewMatch"));
         btnRestart.setFont(FSkin.getRelativeFont(22));
+        btnViewBattlefield.setText(localizer.getMessage("lblShowBattlefield"));
+        btnViewBattlefield.setFont(FSkin.getRelativeFont(22));
         btnQuit.setText(localizer.getMessage("btnQuitMatch"));
         btnQuit.setFont(FSkin.getRelativeFont(22));
         btnContinue.setEnabled(!game0.isMatchOver());
@@ -142,18 +145,13 @@ public class ViewWinLose implements IWinLoseView<FButton> {
         });
 
         // Add all components accordingly.
-        overlay.setLayout(new MigLayout("insets 0, w 100%!, h 100%!"));
         pnlLeft.setLayout(new MigLayout("insets 0, wrap, ax center, ay center"));
         pnlRight.setLayout(new MigLayout("insets 0, wrap"));
         pnlCustom.setLayout(new MigLayout("insets 0, wrap, ax center, ay center"));
 
-        final boolean customIsPopulated = control.populateCustomPanel();
+        customIsPopulated = control.populateCustomPanel();
         if (customIsPopulated) {
-            overlay.add(pnlLeft, "w 40%!, h 100%!");
-            overlay.add(pnlRight, "w 60%!, h 100%!");
             pnlRight.add(scrCustom, "w 100%!, h 100%!");
-        } else {
-            overlay.add(pnlLeft, "w 100%!, h 100%!");
         }
 
         pnlOutcomes.setOpaque(false);
@@ -168,6 +166,7 @@ public class ViewWinLose implements IWinLoseView<FButton> {
         final String constraints = "w 300px!, h 50px!, gap 0 0 20px 0";
         pnlButtons.add(btnContinue, constraints);
         pnlButtons.add(btnRestart, constraints);
+        pnlButtons.add(btnViewBattlefield, constraints);
         pnlButtons.add(btnQuit, constraints);
         pnlLeft.add(pnlButtons, "w 100%!");
 
@@ -184,6 +183,41 @@ public class ViewWinLose implements IWinLoseView<FButton> {
         pnlLeft.add(pnlLog, "w 100%!");
 
         lblTitle.setText(composeTitle(game0));
+        attachToOverlay();
+    }
+
+    private void attachToOverlay() {
+        final JPanel overlay = FOverlay.SINGLETON_INSTANCE.getPanel();
+
+        overlay.removeAll();
+        overlay.setLayout(new MigLayout("insets 0, w 100%!, h 100%!"));
+
+        if (customIsPopulated) {
+            overlay.add(pnlLeft, "w 40%!, h 100%!");
+            overlay.add(pnlRight, "w 60%!, h 100%!");
+        } else {
+            overlay.add(pnlLeft, "w 100%!, h 100%!");
+        }
+
+        overlay.revalidate();
+        overlay.repaint();
+    }
+
+    private void focusBestButton() {
+        if (btnContinue.isEnabled()) {
+            btnContinue.requestFocusInWindow();
+        } else {
+            btnQuit.requestFocusInWindow();
+        }
+    }
+
+    /**
+     * Restores the already populated win/lose overlay without recalculating
+     * rewards or adding outcome components again.
+     */
+    public final void restoreOverlay() {
+        attachToOverlay();
+        SwingUtilities.invokeLater(this::focusBestButton);
     }
 
     public final void show() {
@@ -191,11 +225,7 @@ public class ViewWinLose implements IWinLoseView<FButton> {
             scrLog.getViewport().setViewPosition(new Point(0, 0));
             // populateCustomPanel may have changed which buttons are
             // enabled; focus on the 'best' one
-            if (btnContinue.isEnabled()) {
-                btnContinue.requestFocusInWindow();
-            } else {
-                btnQuit.requestFocusInWindow();
-            }
+            focusBestButton();
         });
 
         showGameOutcomeSummary();
@@ -233,6 +263,13 @@ public class ViewWinLose implements IWinLoseView<FButton> {
     @Override
     public FButton getBtnRestart() {
         return this.btnRestart;
+    }
+
+    /**
+     * @return button that temporarily hides the win/lose overlay
+     */
+    public FButton getBtnViewBattlefield() {
+        return this.btnViewBattlefield;
     }
 
     /**

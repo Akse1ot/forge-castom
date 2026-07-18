@@ -27,9 +27,15 @@ public class InvokeSkillEffect extends SpellAbilityEffect {
     @Override
     public void resolve(final SpellAbility sa) {
         final Card host = sa.getHostCard();
-        final Player controller = sa.getActivatingPlayer();
+        if (host == null) {
+            return;
+        }
 
-        if (host == null || controller == null) {
+        final Player controller = sa.getActivatingPlayer() != null
+                ? sa.getActivatingPlayer()
+                : host.getController();
+
+        if (controller == null) {
             return;
         }
 
@@ -40,28 +46,91 @@ public class InvokeSkillEffect extends SpellAbilityEffect {
 
         final CardState skillState = host.getState(SKILL_STATE);
         if (!isSkillSpellState(skillState)) {
-            System.err.println("InvokeSkill failed: backside of '" + host + "' is not an instant/sorcery Skill.");
+            System.err.println(
+                    "InvokeSkill failed: backside of '" + host
+                            + "' is not an instant/sorcery Skill."
+            );
             return;
+        }
+
+        final int amount = Math.max(
+                0,
+                AbilityUtils.calculateAmount(
+                        host,
+                        sa.getParamOrDefault("Amount", "1"),
+                        sa
+                )
+        );
+
+        if (amount == 0) {
+            return;
+        }
+
+        final boolean differentTargets = sa.hasParam("DifferentTargets")
+                && !"False".equalsIgnoreCase(sa.getParam("DifferentTargets"));
+
+        // Every copy created by this resolution receives the same group ID.
+        // canTarget() uses it to see targets chosen by earlier copies.
+        final long targetGroupId = differentTargets
+                ? host.getGame().getNextTimestamp()
+                : -1L;
+
+        for (int i = 0; i < amount; i++) {
+            final SpellAbility skillSA = createSkillSpell(
+                    host,
+                    controller,
+                    differentTargets ? targetGroupId : -1L
+            );
+
+            if (skillSA == null) {
+                break;
+            }
+
+            // playSaFromPlayEffect performs the ordinary cast flow:
+            // modes, targets, additional costs, legality and stack placement.
+            if (!controller.getController().playSaFromPlayEffect(skillSA)) {
+                // If the current copy cannot legally be cast, later copies
+                // cannot improve the situation when distinct targets are required.
+                break;
+            }
+        }
+    }
+
+    private SpellAbility createSkillSpell(final Card host,
+                                          final Player controller,
+                                          final long targetGroupId) {
+        if (host.getPaperCard() == null) {
+            System.err.println(
+                    "InvokeSkill failed: '" + host + "' has no paper card."
+            );
+            return null;
         }
 
         final Card skillCopy = Card.fromPaperCard(host.getPaperCard(), controller);
 
-        // Same broad model as DB$ Play + CopyCard$ True, but without putting the copy
-        // into the source permanent's real zone. The source permanent must stay untouched.
+        // The copy is a temporary castable card object. It must not be placed
+        // in the battlefield zone occupied by the source permanent.
         skillCopy.setGamePieceType(GamePieceType.TOKEN);
         skillCopy.setCopiedPermanent(host);
         skillCopy.setZone(controller.getZone(ZoneType.None));
-        skillCopy.setBackSide(true);
 
-        final Predicate<SpellAbility> validSkillSpell = sp -> {
-            if (sp == null || !sp.isSpell() || sp.getCardStateName() != SKILL_STATE) {
+        final Predicate<SpellAbility> validSkillSpell = spell -> {
+            if (spell == null
+                    || !spell.isSpell()
+                    || spell.getCardStateName() != SKILL_STATE) {
                 return false;
             }
-            return isSkillSpellState(sp.getCardState());
+
+            return isSkillSpellState(spell.getCardState());
         };
 
-        // Keep the copy in Original state while collecting candidates.
-        // AbilityUtils will add modal Backside spells itself, and this avoids duplicate Backside choices.
+        /*
+         * Keep the temporary card in Original state while collecting spells.
+         * getSpellsFromPlayEffect() adds the modal Backside itself.
+         *
+         * Switching to Backside before this call would cause the Skill spell
+         * to be collected once as the current state and again as modal Backside.
+         */
         final List<SpellAbility> candidates = AbilityUtils.getSpellsFromPlayEffect(
                 skillCopy,
                 controller,
@@ -71,35 +140,49 @@ public class InvokeSkillEffect extends SpellAbilityEffect {
         );
 
         if (candidates.isEmpty()) {
-            System.err.println("InvokeSkill failed: no castable Skill spell found on backside of '" + host + "'.");
-            return;
+            System.err.println(
+                    "InvokeSkill failed: no castable Skill spell found on backside of '"
+                            + host + "'."
+            );
+            return null;
         }
 
-        // Now switch the temporary copy to the Skill side for display/state consistency
-        // before handing it to the normal play/cast flow.
+        // Apply the Skill face before displaying and casting the copy.
+        skillCopy.setBackSide(true);
         if (!skillCopy.setState(SKILL_STATE, true, true)) {
-            System.err.println("InvokeSkill failed: could not apply Skill state to copied card '" + skillCopy + "'.");
-            return;
+            System.err.println(
+                    "InvokeSkill failed: could not apply Skill state to copied card '"
+                            + skillCopy + "'."
+            );
+            return null;
         }
 
-        SpellAbility skillSA = controller.getController().getAbilityToPlay(skillCopy, candidates);
+        SpellAbility skillSA = controller.getController().getAbilityToPlay(
+                skillCopy,
+                candidates
+        );
+
         if (skillSA == null) {
-            return;
+            return null;
         }
 
-        skillSA = skillSA.copyWithNoManaCost(controller);
+        // Current Forge API uses the no-argument version.
+        skillSA = skillSA.copyWithNoManaCost();
         if (skillSA == null) {
-            return;
+            return null;
         }
 
         skillSA.setInvoked(true);
         skillSA.setActivatingPlayer(controller);
 
-        // Invoke is not "you may cast" after the invoke ability has resolved.
-        // This also keeps AI from declining a mandatory invoke cast.
+        // Once an invoke instruction resolves, casting the Skill is mandatory.
         skillSA.getPayCosts().setMandatory(true);
 
-        controller.getController().playSaFromPlayEffect(skillSA);
+        if (targetGroupId >= 0L) {
+            skillSA.setInvokeTargetGroupId(targetGroupId);
+        }
+
+        return skillSA;
     }
 
     private static boolean isSkillSpellState(final CardState state) {

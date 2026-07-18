@@ -161,6 +161,8 @@ public final class CMatchUI
     private final Map<String, String> avatarImages = new HashMap<>();
     private boolean allHands;
     private boolean showOverlay = true;
+    private ViewWinLose winLoseView;
+    private boolean viewingPostGameBattlefield;
     private JPopupMenu openAbilityMenu;
     private CardPanel lastClickedCardPanel;
 
@@ -857,6 +859,9 @@ public final class CMatchUI
 
     @Override
     public void updateButtons(final PlayerView owner, final String label1, final String label2, final boolean enable1, final boolean enable2, final boolean focus1) {
+        if (viewingPostGameBattlefield) {
+            return;
+        }
         final FButton btn1 = view.getBtnOK(), btn2 = view.getBtnCancel();
         final boolean macroReplaying = getGameController() != null && getGameController().macros().isReplaying();
         final boolean actualEnable1 = macroReplaying ? false : enable1;
@@ -961,16 +966,65 @@ public final class CMatchUI
         showOverlay = true;
     }
 
+    /**
+     * Temporarily hides the win/lose overlay and exposes the final battlefield.
+     */
+    public void showPostGameBattlefield() {
+        if (winLoseView == null || viewingPostGameBattlefield) {
+            return;
+        }
+
+        viewingPostGameBattlefield = true;
+
+        cPrompt.enterPostGameBattlefieldMode(this::showPostGameResults);
+        SOverlayUtils.hideOverlayTemporarily();
+
+        view.getBtnOK().requestFocusInWindow();
+    }
+
+    /**
+     * Restores the same win/lose view without recalculating rewards or outcomes.
+     */
+    private void showPostGameResults() {
+        if (!viewingPostGameBattlefield || winLoseView == null) {
+            return;
+        }
+
+        FloatingZone.closeAll();
+
+        viewingPostGameBattlefield = false;
+        cPrompt.exitPostGameBattlefieldMode();
+
+        winLoseView.restoreOverlay();
+        SOverlayUtils.showTemporarilyHiddenOverlay();
+    }
+
+    /**
+     * Clears references and temporary UI state when a game or match view changes.
+     */
+    private void resetPostGameBattlefieldState() {
+        viewingPostGameBattlefield = false;
+        winLoseView = null;
+
+        cPrompt.exitPostGameBattlefieldMode();
+        SOverlayUtils.clearTemporaryHide();
+    }
+
     @Override
     public void finishGame() {
+        resetPostGameBattlefieldState();
         FloatingZone.closeAll(); //ensure floating card areas cleared and closed after the game
+
         if (isNetGame()) {
             writeMatchPreferences();
         }
+
         final GameView gameView = getGameView();
         if (hasLocalPlayers() || gameView.isMatchOver()) {
-            new ViewWinLose(gameView, this).show();
+            winLoseView = new ViewWinLose(gameView, this);
+            winLoseView.show();
         }
+
         if (showOverlay) {
             SOverlayUtils.showOverlay();
         }
@@ -1193,6 +1247,8 @@ public final class CMatchUI
 
     @Override
     public void openView(final TrackableCollection<PlayerView> myPlayers) {
+        resetPostGameBattlefieldState();
+
         final GameView gameView = getGameView();
         gameView.getGameLog().addObserver(cLog);
 
@@ -1292,8 +1348,12 @@ public final class CMatchUI
     @Override
     public void afterGameEnd() {
         super.afterGameEnd();
+        resetPostGameBattlefieldState();
+
         Singletons.getView().getLpnDocument().remove(targetingOverlay.getPanel());
+
         FThreads.invokeInEdtNowOrLater(() -> {
+            SOverlayUtils.hideOverlay();
             Singletons.getView().getNavigationBar().closeTab(screen);
             LinkHandler.clearWeakReferencesNow();
         });

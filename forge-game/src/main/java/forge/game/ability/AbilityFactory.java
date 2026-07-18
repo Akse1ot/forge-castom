@@ -245,7 +245,7 @@ public final class AbilityFactory {
             }
         }
 
-        if (api == ApiType.Charm || api == ApiType.GenericChoice || api == ApiType.AssignGroup || api == ApiType.VillainousChoice || api == ApiType.Vote) {
+        if (api == ApiType.Charm || api == ApiType.GenericChoice || api == ApiType.AssignGroup || api == ApiType.VillainousChoice || api == ApiType.Vote || api == ApiType.Forge) {
             final String key = "Choices";
             if (mapParams.containsKey(key)) {
                 List<String> names = Lists.newArrayList(mapParams.get(key).split(","));

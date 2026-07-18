@@ -41,6 +41,7 @@ import forge.model.FModel;
 import forge.screens.match.CMatchUI;
 import forge.screens.match.views.VPrompt;
 import forge.toolbox.FSkin;
+import forge.util.Localizer;
 
 /**
  * Controls the prompt panel in the match UI.
@@ -63,6 +64,7 @@ public class CPrompt implements ICDoc {
     }
 
     private Component lastFocusedButton = null;
+    private Runnable postGameReturnAction;
 
     private final ActionListener actCancel = evt -> selectButtonCancel();
     private final ActionListener actOK = evt -> selectButtonOk();
@@ -123,6 +125,36 @@ public class CPrompt implements ICDoc {
         _initButton(view.getBtnOK(), actOK);
     }
 
+    /**
+     * Reuses the prompt panel as the only way to return from the final
+     * battlefield view to the win/lose overlay.
+     */
+    public void enterPostGameBattlefieldMode(final Runnable returnAction) {
+        postGameReturnAction = returnAction;
+
+        final Localizer localizer = Localizer.getInstance();
+
+        setMessage(localizer.getMessage("lblViewingPostGameBattlefield"), null);
+
+        view.getBtnOK().setText(localizer.getMessage("btnReturnToResults"));
+        view.getBtnOK().setEnabled(true);
+        view.getBtnOK().setFocusable(true);
+
+        view.getBtnCancel().setText(localizer.getMessage("lblCancel"));
+        view.getBtnCancel().setEnabled(false);
+        view.getBtnCancel().setFocusable(false);
+
+        SDisplayUtil.showTab(view);
+    }
+
+    /**
+     * Removes the temporary prompt action. Normal button state will be supplied
+     * by the game controller when the next game is opened.
+     */
+    public void exitPostGameBattlefieldMode() {
+        postGameReturnAction = null;
+    }
+
     private static Dialog getActiveDialog(boolean modalOnly)
     {
         Window[] windows = Window.getWindows();
@@ -137,10 +169,19 @@ public class CPrompt implements ICDoc {
     }
 
     private void selectButtonOk() {
+        if (postGameReturnAction != null) {
+            postGameReturnAction.run();
+            return;
+        }
+
         matchUI.getGameController().selectButtonOk();
     }
 
     private void selectButtonCancel() {
+        if (postGameReturnAction != null) {
+            return;
+        }
+
         matchUI.getGameController().selectButtonCancel();
     }
 
