@@ -26,6 +26,7 @@ import forge.card.*;
 import forge.game.CardTraitBase;
 import forge.game.Game;
 import forge.game.StaticEffect;
+import forge.game.TriggerReplacementBase;
 import forge.game.ability.AbilityUtils;
 import forge.game.ability.ApiType;
 import forge.game.card.*;
@@ -52,6 +53,12 @@ import java.util.stream.Collectors;
  * The Class StaticAbility_Continuous.
  */
 public final class StaticAbilityContinuous {
+
+    /**
+     * Marks traits granted by GainsAllAbilities so that another instance of
+     * the same effect does not copy them again during the abilities layer.
+     */
+    private static final String GAINED_ALL_ABILITIES_MARKER = "GainedByAllAbilities";
 
     // Private constructor to prevent instantiation
     private StaticAbilityContinuous() {
@@ -132,6 +139,29 @@ public final class StaticAbilityContinuous {
         boolean overwriteColors = false;
 
         Set<Keyword> cantHaveKeyword = null;
+
+        final String gainsAbilitiesParam;
+        if (layer != StaticAbilityLayer.ABILITIES) {
+            gainsAbilitiesParam = null;
+        } else if (params.containsKey("GainsAbilitiesOfDefined")) {
+            gainsAbilitiesParam = "GainsAbilitiesOfDefined";
+        } else if (params.containsKey("GainsAbilitiesOf")) {
+            gainsAbilitiesParam = "GainsAbilitiesOf";
+        } else {
+            gainsAbilitiesParam = null;
+        }
+
+        final CardCollection gainedAbilityCards = gainsAbilitiesParam == null
+                ? new CardCollection()
+                : cardsGainedFrom(gainsAbilitiesParam, params, hostCard, stAb, game);
+
+        final boolean gainsAllAbilities = gainsAbilitiesParam != null
+                && params.containsKey("GainsAllAbilities");
+
+        final List<String> excludedGainedKeywords =
+                gainsAllAbilities && params.containsKey("GainsAbilitiesExcludeKeywords")
+                        ? Arrays.asList(params.get("GainsAbilitiesExcludeKeywords").split(" & "))
+                        : Collections.emptyList();
 
         List<Player> mayLookAt = null;
 
@@ -744,7 +774,7 @@ public final class StaticAbilityContinuous {
             }
 
             // add keywords
-            if ((addKeywords != null && !addKeywords.isEmpty()) || removeKeywords != null || removeAbilities != null) {
+            if ((addKeywords != null && !addKeywords.isEmpty()) || removeKeywords != null || removeAbilities != null || gainsAllAbilities) {
                 List<String> newKeywords = null;
                 if (addKeywords != null) {
                     newKeywords = Lists.newArrayList(addKeywords);
@@ -781,6 +811,29 @@ public final class StaticAbilityContinuous {
 
                 if (newKeywords != null && !newKeywords.isEmpty() && params.containsKey("KeywordMultiplier")) {
                     newKeywords = newKeywords.stream().flatMap(s -> Collections.nCopies(Integer.valueOf(params.get("KeywordMultiplier")), s).stream()).collect(Collectors.toList());
+                }
+
+                if (gainsAllAbilities) {
+                    if (newKeywords == null) {
+                        newKeywords = Lists.newArrayList();
+                    }
+
+                    for (final Card sourceCard : gainedAbilityCards) {
+                        for (final KeywordInterface keyword : sourceCard.getKeywords()) {
+                            // Do not copy keywords that were already granted by another
+                            // GainsAllAbilities effect. This prevents layer-six loops.
+                            final StaticAbility keywordGrantor = keyword.getStatic();
+                            if (keywordGrantor != null && keywordGrantor.hasParam("GainsAllAbilities")) {
+                                continue;
+                            }
+
+                            if (isExcludedGainedKeyword(keyword, excludedGainedKeywords)) {
+                                continue;
+                            }
+
+                            newKeywords.add(keyword.getOriginal());
+                        }
+                    }
                 }
 
                 affectedCard.addChangedCardKeywords(newKeywords, removeKeywords,
@@ -827,26 +880,111 @@ public final class StaticAbilityContinuous {
                     }
                 }
 
-                if (params.containsKey("GainsAbilitiesOf") || params.containsKey("GainsAbilitiesOfDefined")) {
-                    CardCollection cards = cardsGainedFrom(params.containsKey("GainsAbilitiesOfDefined") ?
-                            "GainsAbilitiesOfDefined" : "GainsAbilitiesOf", params, hostCard, stAb, game);
-
-                    for (Card c : cards) {
-                        for (SpellAbility sa : c.getSpellAbilities()) {
-                            if (sa.isActivatedAbility()) {
-                                if (!stAb.matchesValidParam("GainsValidAbilities", sa)) {
-                                    continue;
-                                }
-                                SpellAbility newSA = sa.copy(affectedCard, sa.getActivatingPlayer(), false, true);
-                                if (params.containsKey("GainsAbilitiesLimitPerTurn")) {
-                                    newSA.setRestrictions(sa.getRestrictions());
-                                    newSA.getRestrictions().setLimitToCheck(params.get("GainsAbilitiesLimitPerTurn"));
-                                }
-                                newSA.setOriginalAbility(sa); // need to be set to get the Once Per turn Clause correct
-                                newSA.setGrantorStatic(stAb);
-                                newSA.setIntrinsic(false);
-                                addedAbilities.add(newSA);
+                if (gainsAbilitiesParam != null) {
+                    for (final Card sourceCard : gainedAbilityCards) {
+                        // Activated abilities
+                        for (final SpellAbility sa : sourceCard.getSpellAbilities()) {
+                            if (!sa.isActivatedAbility()) {
+                                continue;
                             }
+
+                            /*
+                             * In full-inheritance mode, keyword traits are supplied by
+                             * the copied keyword itself. Copying them here as well would
+                             * create duplicate abilities.
+                             */
+                            if (gainsAllAbilities
+                                    && (sa.getKeyword() != null
+                                    || sa.hasParam(GAINED_ALL_ABILITIES_MARKER))) {
+                                continue;
+                            }
+
+                            if (!stAb.matchesValidParam("GainsValidAbilities", sa)) {
+                                continue;
+                            }
+
+                            final SpellAbility newSA =
+                                    sa.copy(affectedCard, sa.getActivatingPlayer(), false, true);
+
+                            if (params.containsKey("GainsAbilitiesLimitPerTurn")) {
+                                newSA.setRestrictions(sa.getRestrictions());
+                                newSA.getRestrictions().setLimitToCheck(
+                                        params.get("GainsAbilitiesLimitPerTurn"));
+                            }
+
+                            newSA.setOriginalAbility(sa);
+                            newSA.setGrantorStatic(stAb);
+
+                            if (gainsAllAbilities) {
+                                newSA.putParam(GAINED_ALL_ABILITIES_MARKER, "True");
+                            }
+
+                            setGrantedTraitExtrinsic(newSA);
+                            addedAbilities.add(newSA);
+                        }
+
+                        if (!gainsAllAbilities) {
+                            continue;
+                        }
+
+                        // Triggered abilities
+                        for (final Trigger trigger : sourceCard.getTriggers()) {
+                            if (trigger.getKeyword() != null
+                                    || trigger.hasParam(GAINED_ALL_ABILITIES_MARKER)) {
+                                continue;
+                            }
+
+                            final Trigger newTrigger =
+                                    trigger.copy(affectedCard, false, true);
+
+                            newTrigger.putParam(GAINED_ALL_ABILITIES_MARKER, "True");
+                            setGrantedTraitExtrinsic(newTrigger);
+                            addedTrigger.add(newTrigger);
+                        }
+
+                        // Replacement effects
+                        /*
+                         * rulesHost=false prevents global rules replacements,
+                         * such as shield-counter handling, from being treated
+                         * as abilities of the source permanent.
+                         */
+                        for (final ReplacementEffect replacement :
+                                sourceCard.getCurrentState().getReplacementEffects(false)) {
+                            if (replacement.getKeyword() != null
+                                    || replacement.hasParam(GAINED_ALL_ABILITIES_MARKER)) {
+                                continue;
+                            }
+
+                            final ReplacementEffect newReplacement =
+                                    replacement.copy(affectedCard, false, true);
+
+                            newReplacement.putParam(GAINED_ALL_ABILITIES_MARKER, "True");
+                            setGrantedTraitExtrinsic(newReplacement);
+                            addedReplacementEffects.add(newReplacement);
+                        }
+
+                        // Static abilities
+                        for (final StaticAbility staticAbility :
+                                sourceCard.getStaticAbilities()) {
+                            if (staticAbility.getKeyword() != null
+                                    || staticAbility.hasParam(GAINED_ALL_ABILITIES_MARKER)) {
+                                continue;
+                            }
+
+                            /*
+                             * Copying another full-inheritance effect would make
+                             * it grant copies of itself again in layer six.
+                             */
+                            if (staticAbility.hasParam("GainsAllAbilities")) {
+                                continue;
+                            }
+
+                            final StaticAbility newStatic =
+                                    staticAbility.copy(affectedCard, false, true);
+
+                            newStatic.putParam(GAINED_ALL_ABILITIES_MARKER, "True");
+                            setGrantedTraitExtrinsic(newStatic);
+                            addedStaticAbility.add(newStatic);
                         }
                     }
                 }
@@ -891,8 +1029,7 @@ public final class StaticAbilityContinuous {
                     }
                 }
 
-                if (!addedAbilities.isEmpty() || !addedTrigger.isEmpty() || addReplacements != null || addStatics != null
-                    || removeAbilities != null) {
+                if (!addedAbilities.isEmpty() || !addedTrigger.isEmpty() || !addedReplacementEffects.isEmpty() || !addedStaticAbility.isEmpty() || removeAbilities != null) {
                     affectedCard.addChangedCardTraits(
                         addedAbilities, addedTrigger, addedReplacementEffects, addedStaticAbility, removeAbilities, se.getTimestamp(), stAb.getId(), false
                     );
@@ -1020,6 +1157,44 @@ public final class StaticAbilityContinuous {
         };
         sourceCard.getGame().getEndOfTurn().addUntil(removeIgnore);
         sourceCard.addLeavesPlayCommand(removeIgnore);
+    }
+
+    /**
+     * Marks a copied trait as granted rather than printed.
+     *
+     * Trigger and replacement overriding abilities are nested objects, so
+     * their intrinsic flag must be updated separately.
+     */
+    private static void setGrantedTraitExtrinsic(final CardTraitBase trait) {
+        trait.setIntrinsic(false);
+
+        if (trait instanceof TriggerReplacementBase triggerReplacement) {
+            final SpellAbility overridingAbility =
+                    triggerReplacement.getOverridingAbility();
+
+            if (overridingAbility != null) {
+                overridingAbility.setIntrinsic(false);
+            }
+        }
+    }
+
+    /**
+     * Keyword removal in Forge uses prefix matching, for example "Equip"
+     * also matches "Equip:2". Use the same convention for inherited keywords.
+     */
+    private static boolean isExcludedGainedKeyword(
+            final KeywordInterface keyword,
+            final List<String> excludedKeywords) {
+        final String original = keyword.getOriginal();
+
+        for (final String excluded : excludedKeywords) {
+            final String prefix = excluded.trim();
+            if (!prefix.isEmpty() && original.startsWith(prefix)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static CardCollection cardsGainedFrom(final String param, final Map<String, String> params,
