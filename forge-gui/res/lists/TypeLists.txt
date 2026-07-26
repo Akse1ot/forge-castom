@@ -255,6 +255,7 @@ Ranger:Rangers
 Rat:Rats
 Rebel:Rebels
 Reflection:Reflections
+Reptile:Reptiles
 Rhino:Rhinos
 Rigger:Riggers
 Robot:Robots
@@ -463,6 +464,7 @@ Roselyn
 Rowan
 Saheeli
 Samut
+Sara
 Sarkhan
 Serra
 Sorin

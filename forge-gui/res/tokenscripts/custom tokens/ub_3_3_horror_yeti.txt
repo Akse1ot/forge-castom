@@ -1,0 +1,6 @@
+Name:Yeti Horror Token
+ManaCost:no cost
+Colors:blue,black
+Types:Creature Yeti Horror
+PT:3/3
+Oracle:
