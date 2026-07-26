@@ -194,6 +194,7 @@ public class Player extends GameEntity implements Comparable<Player> {
     private Card monarchEffect;
     private Card initiativeEffect;
     private Card blessingEffect;
+    private Card enlightenedEffect;
     private Card contraptionSprocketEffect;
     private Card radiationEffect;
     private Card keywordEffect;
@@ -2837,7 +2838,7 @@ public class Player extends GameEntity implements Comparable<Player> {
 
     /**
      * Wires this player's field-managed effect cards (keyword, monarch,
-     * initiative, blessing, contraption sprocket, radiation, speed) to their
+     * initiative, blessing, enlightened, contraption sprocket, radiation, speed) to their
      * already-copied counterparts on a snapshot player, the same way
      * copyCommandersToSnapshot wires commanderEffect. Without this, the
      * snapshot's lazy getters re-create the effect card on next use while the
@@ -2849,6 +2850,7 @@ public class Player extends GameEntity implements Comparable<Player> {
         toPlayer.monarchEffect = mapEffectCard(monarchEffect, mapper);
         toPlayer.initiativeEffect = mapEffectCard(initiativeEffect, mapper);
         toPlayer.blessingEffect = mapEffectCard(blessingEffect, mapper);
+        toPlayer.enlightenedEffect = mapEffectCard(enlightenedEffect, mapper);
         toPlayer.contraptionSprocketEffect = mapEffectCard(contraptionSprocketEffect, mapper);
         toPlayer.radiationEffect = mapEffectCard(radiationEffect, mapper);
         toPlayer.speedEffect = mapEffectCard(speedEffect, mapper);
@@ -3748,6 +3750,41 @@ public class Player extends GameEntity implements Comparable<Player> {
         }
 
         this.updateZoneForView(com);
+    }
+
+    public boolean isEnlightened() {
+        return enlightenedEffect != null;
+    }
+
+    public void setEnlightened(final boolean enlightened, final String setCode) {
+        if ((enlightenedEffect != null) == enlightened) {
+            return;
+        }
+
+        final PlayerZone command = getZone(ZoneType.Command);
+
+        if (enlightened) {
+            enlightenedEffect = new Card(game.nextCardId(), null, game);
+            enlightenedEffect.setOwner(this);
+            enlightenedEffect.setImageKey(
+                    StaticData.instance().getOtherImageKey(ImageKeys.ENLIGHTENED_IMAGE, setCode));
+            enlightenedEffect.setName("Enlightened");
+            enlightenedEffect.setGamePieceType(GamePieceType.EFFECT);
+            if (setCode != null) {
+                enlightenedEffect.setSetCode(setCode);
+            }
+
+            enlightenedEffect.updateStateForView();
+            command.add(enlightenedEffect);
+
+            // Effects that depend on the player's enlightened status apply immediately.
+            game.getAction().checkStaticAbilities();
+        } else {
+            command.remove(enlightenedEffect);
+            enlightenedEffect = null;
+        }
+
+        updateZoneForView(command);
     }
 
     public final boolean sameTeam(final Player other) {

@@ -640,6 +640,24 @@ public class CardFactoryUtil {
 
                 inst.addTrigger(trigger);
             }
+        } else if (keyword.equals("Epitome")) {
+            // Like Ascend, permanents use a state trigger while nonpermanent
+            // spells are handled by AbilityUtils.resolvePreAbilities().
+            if (card.isPermanent() || card.isPlane()) {
+                final String trig = "Mode$ Always | TriggerZones$ "
+                        + (card.isPlane() ? "Command" : "Battlefield")
+                        + " | Secondary$ True | Static$ True | Enlightened$ False"
+                        + " | CheckSVar$ EpitomeManaAbilities | SVarCompare$ GE"
+                        + EpitomeHelper.MANA_ABILITY_THRESHOLD
+                        + " | TriggerDescription$ Epitome (" + inst.getReminderText() + ")";
+                final String effect = "DB$ Epitome | Defined$ You";
+
+                final Trigger trigger = TriggerHandler.parseTrigger(trig, card, intrinsic);
+                trigger.setSVar("EpitomeManaAbilities", "Count$ManaAbilitiesYouCtrl");
+                trigger.setOverridingAbility(AbilityFactory.getAbility(effect, card));
+
+                inst.addTrigger(trigger);
+            }
         } else if (keyword.startsWith("Backup")) {
             final String[] k = keyword.split(":");
             String magnitude = k[1];

@@ -94,6 +94,7 @@ public enum ApiType {
     EndCombatPhase (EndCombatPhaseEffect.class),
     EndTurn (EndTurnEffect.class),
     Endure (EndureEffect.class),
+    Epitome (EpitomeEffect.class),
     ExchangeLife (LifeExchangeEffect.class),
     ExchangeLifeVariant (LifeExchangeVariantEffect.class),
     ExchangeControl (ControlExchangeEffect.class),

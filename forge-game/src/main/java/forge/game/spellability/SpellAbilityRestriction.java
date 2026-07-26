@@ -92,6 +92,9 @@ public class SpellAbilityRestriction extends SpellAbilityVariables {
             if (value.equals("Blessing")) {
                 this.setBlessing(true);
             }
+            if (value.equals("Enlightened")) {
+                this.setEnlightened(true);
+            }
             if (value.equals("Solved")) {
                 this.setSolved(true);
             }
@@ -418,6 +421,11 @@ public class SpellAbilityRestriction extends SpellAbilityVariables {
         }
         if (isBlessing()) {
             if (!activator.hasBlessing()) {
+                return false;
+            }
+        }
+        if (isEnlightened()) {
+            if (!activator.isEnlightened()) {
                 return false;
             }
         }

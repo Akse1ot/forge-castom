@@ -16,6 +16,7 @@ import forge.game.ability.AbilityFactory.AbilityRecordType;
 import forge.game.card.*;
 import forge.game.cost.Cost;
 import forge.game.cost.CostAdjustment;
+import forge.game.keyword.EpitomeHelper;
 import forge.game.keyword.Keyword;
 import forge.game.keyword.KeywordInterface;
 import forge.game.keyword.KeywordWithCostAndType;
@@ -1407,6 +1408,12 @@ public class AbilityUtils {
             controller.setBlessing(true, source.getSetCode());
         }
 
+        // Epitome on instants and sorceries is checked as the spell resolves,
+        // before conditions of its main effect are evaluated.
+        if (source.hasKeyword(Keyword.EPITOME) && EpitomeHelper.isThresholdMet(controller)) {
+            controller.setEnlightened(true, source.getSetCode());
+        }
+
         if (source.hasKeyword(Keyword.GIFT) && sa.isGiftPromised()) {
             game.getAction().checkStaticAbilities();
             // Is AdditionalAbility available from anything here?
@@ -2437,6 +2444,12 @@ public class AbilityUtils {
         }
         if (sq[0].equals("Blessing")) {
             return doXMath(calculateAmount(c, sq[player.hasBlessing() ? 1 : 2], ctb), expr, c, ctb);
+        }
+        if (sq[0].equals("Enlightened")) {
+            return doXMath(calculateAmount(c, sq[player.isEnlightened() ? 1 : 2], ctb), expr, c, ctb);
+        }
+        if (sq[0].equals("ManaAbilitiesYouCtrl")) {
+            return doXMath(EpitomeHelper.countManaAbilities(player), expr, c, ctb);
         }
         if (sq[0].equals("Threshold")) {
             return doXMath(calculateAmount(c, sq[player.hasThreshold() ? 1 : 2], ctb), expr, c, ctb);

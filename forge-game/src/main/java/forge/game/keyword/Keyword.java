@@ -70,6 +70,7 @@ public enum Keyword {
     ENLIST("Enlist", SimpleKeyword.class, false, "As this creature attacks, you may tap a nonattacking creature you control without summoning sickness. When you do, add its power to this creature’s until end of turn."),
     ENTWINE("Entwine", KeywordWithCost.class, true, "Choose both if you pay the entwine cost."),
     EPIC("Epic", SimpleKeyword.class, true, "For the rest of the game, you can't cast spells. At the beginning of each of your upkeeps for the rest of the game, copy this spell except for its epic ability. If the spell has any targets, you may choose new targets for the copy."),
+    EPITOME("Epitome", SimpleKeyword.class, true, "If there are eight or more mana abilities among permanents you control, you become enlightened for the rest of the game."),
     EQUIP("Equip", Equip.class, false, "%s: Attach to target %s you control. Equip only as a sorcery."),
     ESCAPE("Escape", KeywordWithCost.class, false, "You may cast this card from your graveyard for its escape cost."),
     ESCALATE("Escalate", KeywordWithCost.class, true, "Pay this cost for each mode chosen beyond the first."),
