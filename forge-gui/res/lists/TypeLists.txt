@@ -54,6 +54,7 @@ Bird:Birds
 Bison:Bisons
 Blinkmoth:Blinkmoths
 Boar:Boars
+Borg:Borg
 Bringer:Bringers
 Brushwagg:Brushwaggs
 Camarid:Camarids
@@ -169,6 +170,7 @@ Kangaroo:Kangaroos
 Kavu:Kavu
 Kirin:Kirins
 Kithkin:Kithkin
+Klingon:Klingons
 Knight:Knights
 Kobold:Kobolds
 Kor:Kors
@@ -248,6 +250,7 @@ Praetor:Praetors
 Primarch:Primarchs
 Prism:Prisms
 Processor:Processors
+Q:Q
 Qu:Qu
 Raccoon:Raccoons
 Rabbit:Rabbits
@@ -319,6 +322,7 @@ Thopter:Thopters
 Thrull:Thrulls
 Tiefling:Tieflings
 Time Lord:Time Lords
+Tosk:Tosks
 Toy:Toys
 Treefolk:Treefolk
 Trilobite:Trilobites
@@ -333,6 +337,7 @@ Varmint:Varmints
 Vedalken:Vedalkens
 Villain:Villains
 Volver:Volvers
+Vulcan:Vulcans
 Wall:Walls
 Warlock:Warlocks
 Warrior:Warriors
@@ -382,6 +387,7 @@ Equipment
 Food:Foods
 Fortification
 Gold
+Heartwood
 Incubator:Incubators
 Infinity
 Junk

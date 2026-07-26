@@ -2,7 +2,10 @@ package forge.game.ability.effects;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
+import forge.game.ability.AbilityKey;
+import forge.game.trigger.TriggerType;
 import forge.util.Expressions;
 import org.apache.commons.lang3.StringUtils;
 
@@ -293,6 +296,11 @@ public class CharmEffect extends SpellAbilityEffect {
 
         rememberChosenModes(sa, chosen);
         chainAbilities(sa, chosen);
+
+        if (chosen != null && !chosen.isEmpty()) {
+            final Map<AbilityKey, Object> runParams = AbilityKey.mapFromPlayer(chooser);
+            chooser.getGame().getTriggerHandler().runTrigger(TriggerType.FacesDilemma, runParams, false);
+        }
 
         // trigger without chosen modes are removed from stack
         if (sa.isTrigger()) {
