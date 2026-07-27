@@ -823,7 +823,13 @@ public class AbilityUtils {
      *            a SpellAbility
      * @return a {@link forge.game.card.CardCollectionView} object.
      */
-    public static CardCollectionView filterListByType(final CardCollectionView list, String type, final SpellAbility sa) {
+    public static CardCollectionView filterListByType(final CardCollectionView list, final String type,
+                                                      final SpellAbility sa) {
+        return filterListByType(list, type, sa, false);
+    }
+
+    public static CardCollectionView filterListByType(final CardCollectionView list, String type,
+                                                      final SpellAbility sa, final boolean validEitherFace) {
         if (type == null) {
             return list;
         }
@@ -936,6 +942,11 @@ public class AbilityUtils {
             String var = sa.getParam("AbilityCount");
             valid = TextUtil.fastReplace(valid, var, Integer.toString(calculateAmount(source, var, sa)));
         }
+        if (validEitherFace) {
+            return TargetEitherFaceUtil.filterValidCardsInEitherFace(
+                    list, valid, sa.getActivatingPlayer(), source, sa);
+        }
+
         return CardLists.getValidCards(list, valid, sa.getActivatingPlayer(), source, sa);
     }
 

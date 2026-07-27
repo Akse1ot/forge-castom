@@ -1,0 +1,7 @@
+Name:Treefolk Token
+ManaCost:no cost
+Colors:black
+Types:Creature Treefolk
+PT:1/1
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1 | SpellDescription$ Add one mana of any color.
+Oracle:{T}: Add one mana of any color.

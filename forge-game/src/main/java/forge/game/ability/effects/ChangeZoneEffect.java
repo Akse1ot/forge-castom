@@ -963,6 +963,7 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
         final boolean chooseFromDef = sa.hasParam("ChooseFromDefined");
         final boolean defined = sa.hasParam("Defined") || chooseFromDef;
         final String changeType = sa.getParamOrDefault("ChangeType", "");
+        final boolean validEitherFace = sa.hasParam("ValidEitherFace");
         boolean mandatory = sa.hasParam("Mandatory");
         Map<Player, HiddenOriginChoices> hiddenChoices = Maps.newHashMap();
 
@@ -999,7 +1000,8 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                 // Currently only used for Mishra, but may be used by other things
                 // Improve how this message reacts for other cards
                 final List<ZoneType> alt = ZoneType.listValueOf(sa.getParam("OriginAlternative"));
-                CardCollectionView altFetchList = AbilityUtils.filterListByType(player.getCardsIn(alt), sa.getParam("ChangeType"), sa);
+                CardCollectionView altFetchList = AbilityUtils.filterListByType(
+                        player.getCardsIn(alt), sa.getParam("ChangeType"), sa, validEitherFace);
 
                 final StringBuilder sb = new StringBuilder();
                 sb.append(Localizer.getInstance().getMessage("lblSearchLibrary")).append(" ");
@@ -1166,7 +1168,8 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
             }
 
             if (!defined && !changeType.isEmpty() && !changeType.startsWith("EACH")) {
-                fetchList = (CardCollection)AbilityUtils.filterListByType(fetchList, sa.getParam("ChangeType"), sa);
+                fetchList = (CardCollection) AbilityUtils.filterListByType(
+                        fetchList, sa.getParam("ChangeType"), sa, validEitherFace);
             }
             fetchList.sort();
 
@@ -1198,7 +1201,8 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                 String[] eachTypes = changeType.substring(5).split(" & ");
                 for (String thisType : eachTypes) {
                     for (int i = 0; i < changeNum; i++) {
-                        CardCollection thisList = (CardCollection) AbilityUtils.filterListByType(fetchList, thisType, sa);
+                        CardCollection thisList = (CardCollection) AbilityUtils.filterListByType(
+                                fetchList, thisType, sa, validEitherFace);
                         if (!chosenCards.isEmpty()) {
                             thisList.removeAll(chosenCards);
                         }

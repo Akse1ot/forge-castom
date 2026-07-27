@@ -1,9 +1,12 @@
 package forge.game.spellability;
 
 import forge.card.CardStateName;
+import forge.game.CardTraitBase;
 import forge.game.card.Card;
+import forge.game.card.CardCollection;
 import forge.game.card.CardCopyService;
 import forge.game.card.CardState;
+import forge.game.player.Player;
 
 import java.util.EnumSet;
 
@@ -172,6 +175,55 @@ public final class TargetEitherFaceUtil {
         }
 
         return check;
+    }
+
+    public static CardCollection filterValidCardsInEitherFace(final Iterable<Card> cards,
+                                                              final String valid, final Player sourceController, final Card source,
+                                                              final CardTraitBase spellAbility) {
+        final CardCollection result = new CardCollection();
+        if (cards == null || valid == null) {
+            return result;
+        }
+
+        final String[] restrictions = valid.split(",");
+        for (final Card card : cards) {
+            if (matchesValidInEitherFace(card, restrictions, sourceController, source, spellAbility)) {
+                result.add(card);
+            }
+        }
+
+        return result;
+    }
+
+    private static boolean matchesValidInEitherFace(final Card card, final String[] restrictions,
+                                                    final Player sourceController, final Card source, final CardTraitBase spellAbility) {
+        if (card == null || restrictions == null) {
+            return false;
+        }
+
+        if (!isSupportedMDFC(card)) {
+            return card.isValid(restrictions, sourceController, source, spellAbility);
+        }
+
+        if (matchesValidInState(card, CardStateName.Original, restrictions,
+                sourceController, source, spellAbility)) {
+            return true;
+        }
+
+        return matchesValidInState(card, CardStateName.Backside, restrictions,
+                sourceController, source, spellAbility);
+    }
+
+    private static boolean matchesValidInState(final Card card, final CardStateName state,
+                                               final String[] restrictions, final Player sourceController, final Card source,
+                                               final CardTraitBase spellAbility) {
+        final Card check = createStateCheckCard(card, state);
+        if (check == null) {
+            return false;
+        }
+
+        check.setController(card.getController(), 0);
+        return check.isValid(restrictions, sourceController, source, spellAbility);
     }
 
     public static int getCMCForState(final Card card, final CardStateName state) {

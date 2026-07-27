@@ -15,6 +15,7 @@ import forge.game.player.DelayedReveal;
 import forge.game.player.Player;
 import forge.game.player.PlayerView;
 import forge.game.spellability.SpellAbility;
+import forge.game.spellability.TargetEitherFaceUtil;
 import forge.game.zone.ZoneType;
 import forge.util.Lang;
 import forge.util.Localizer;
@@ -226,7 +227,12 @@ public class DigEffect extends SpellAbilityEffect {
                     if (changeValid.contains("ChosenType")) {
                         changeValid = changeValid.replace("ChosenType", host.getChosenType());
                     }
-                    valid = CardLists.getValidCards(valid, changeValid, cont, host, sa);
+                    if (sa.hasParam("ValidEitherFace")) {
+                        valid = TargetEitherFaceUtil.filterValidCardsInEitherFace(
+                                valid, changeValid, cont, host, sa);
+                    } else {
+                        valid = CardLists.getValidCards(valid, changeValid, cont, host, sa);
+                    }
                 } else if (!totalCMC && p == chooser && destZone1ChangeNum > 1) {
                     // If all the cards are valid choices, no need for a separate reveal dialog to the chooser
                     delayedReveal = null;
