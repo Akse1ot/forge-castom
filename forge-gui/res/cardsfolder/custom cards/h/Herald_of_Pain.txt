@@ -4,4 +4,6 @@ Types:Creature Elemental Shaman
 PT:3/3
 S:Mode$ MustAttack | ValidCreature$ Card.Self | Description$ CARDNAME attacks each combat if able.
 K:Derange
+DeckHas:Ability$Mill|Graveyard
+DeckHints:Ability$Mill|Graveyard
 Oracle:Herald of Pain attacks each turn if able.\nDerange (Whenever this creature attacks, you may mill a card. If you do, defending player loses 1 life.)

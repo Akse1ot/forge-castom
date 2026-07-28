@@ -8,4 +8,6 @@ T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.S
 SVar:TrigSac:DB$ Sacrifice | Defined$ You | SacValid$ Creature | AILogic$ ExceptSelf
 SVar:NeedsToPlay:Creature.YouCtrl+cmcLE2+powerLE1+toughnessLE2
 K:Derange
+DeckHas:Ability$Mill|Graveyard
+DeckHints:Ability$Mill|Graveyard
 Oracle:Trample, Haste\nWhen Consuming Monstrosity enters the battlefield, sacrifice a creature.\nDerange (Whenever this creature attacks, you may mill a card. If you do, defending player loses 1 life.)

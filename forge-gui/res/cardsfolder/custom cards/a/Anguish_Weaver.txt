@@ -4,4 +4,6 @@ Types:Creature Elemental Shaman
 PT:2/2
 S:Mode$ CantBlock | ValidCard$ Card.Self | Description$ CARDNAME can't block.
 K:Derange
+DeckHas:Ability$Mill|Graveyard
+DeckHints:Ability$Mill|Graveyard
 Oracle:Anguish Weaver can’t block.\nDerange (Whenever this creature attacks, you may mill a card. If you do, defending player loses 1 life.)

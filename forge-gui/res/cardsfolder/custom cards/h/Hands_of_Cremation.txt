@@ -4,4 +4,6 @@ Types:Creature Elemental Shaman
 PT:1/1
 K:Double Strike
 K:Derange
+DeckHas:Ability$Mill|Graveyard
+DeckHints:Ability$Mill|Graveyard
 Oracle:Double strike\nDerange (Whenever this creature attacks, you may mill a card. If you do, defending player loses 1 life.)

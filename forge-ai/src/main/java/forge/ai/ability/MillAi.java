@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import forge.ai.*;
 import forge.game.ability.AbilityUtils;
+import forge.game.ability.AbilityKey;
+import forge.game.ability.AbilityUtils;
 import forge.game.card.Card;
 import forge.game.card.CardCollectionView;
 import forge.game.card.CardLists;
@@ -14,6 +16,8 @@ import forge.game.player.Player;
 import forge.game.player.PlayerActionConfirmMode;
 import forge.game.player.PlayerPredicates;
 import forge.game.spellability.SpellAbility;
+import forge.game.spellability.SpellAbility;
+import forge.game.spellability.SpellAbilityStackInstance;
 import forge.game.zone.ZoneType;
 
 import java.util.Collections;
@@ -21,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MillAi extends SpellAbilityAi {
+    private static final int SAFE_SELF_MILL_LIBRARY_RESERVE = 10;
 
     @Override
     protected boolean checkAiLogic(final Player ai, final SpellAbility sa, final String aiLogic) {
@@ -65,8 +70,10 @@ public class MillAi extends SpellAbilityAi {
          * effect due to possibility of "lose abilities" effect)
          */
 
-        if (("You".equals(sa.getParam("Defined")) || "Player".equals(sa.getParam("Defined")))
-                && ai.getCardsIn(ZoneType.Library).size() < 10) {
+        if (("You".equals(sa.getParam("Defined"))
+                || "Player".equals(sa.getParam("Defined")))
+                && ai.getCardsIn(ZoneType.Library).size()
+                < SAFE_SELF_MILL_LIBRARY_RESERVE) {
             // prevent self and each player mill when library is small
             return new AiAbilityDecision(0, AiPlayDecision.CantPlayAi);
         }
@@ -178,12 +185,83 @@ public class MillAi extends SpellAbilityAi {
      * @see forge.card.ability.SpellAbilityAi#confirmAction(forge.game.player.Player, forge.card.spellability.SpellAbility, forge.game.player.PlayerActionConfirmMode, java.lang.String)
      */
     @Override
-    public boolean confirmAction(Player player, SpellAbility sa, PlayerActionConfirmMode mode, String message, Map<String, Object> params) {
+    public boolean confirmAction(final Player player, final SpellAbility sa,
+                                 final PlayerActionConfirmMode mode, final String message,
+                                 final Map<String, Object> params) {
         if ("TimmerianFiends".equals(sa.getParam("AILogic"))) {
             return SpecialCardAi.TimmerianFiends.consider(player, sa);
         }
 
+        if ("Derange".equals(sa.getParam("AILogic"))) {
+            return shouldUseDerange(player, sa);
+        }
+
         return true;
+    }
+
+    private boolean shouldUseDerange(final Player ai, final SpellAbility sa) {
+        final int numCards = sa.hasParam("NumCards")
+                ? AbilityUtils.calculateAmount(
+                sa.getHostCard(), sa.getParam("NumCards"), sa)
+                : 1;
+
+        if (numCards <= 0) {
+            return false;
+        }
+
+        final int librarySize = ai.getCardsIn(ZoneType.Library).size();
+
+        if (numCards > librarySize) {
+            return false;
+        }
+
+        if (librarySize - numCards >= SAFE_SELF_MILL_LIBRARY_RESERVE) {
+            return true;
+        }
+
+        final Object defendingPlayerObject =
+                sa.getTriggeringObject(AbilityKey.DefendingPlayer);
+
+        if (!(defendingPlayerObject instanceof Player defendingPlayer)
+                || !defendingPlayer.isOpponentOf(ai)
+                || !defendingPlayer.canLoseLife()
+                || defendingPlayer.getLife() <= 0) {
+            return false;
+        }
+
+        final int pendingTriggers =
+                countPendingDerangeTriggers(ai, defendingPlayer);
+        final int affordableTriggers = librarySize / numCards;
+
+        return defendingPlayer.getLife()
+                <= Math.min(pendingTriggers, affordableTriggers);
+    }
+
+    private int countPendingDerangeTriggers(final Player ai,
+                                            final Player defendingPlayer) {
+        int result = 0;
+
+        for (final SpellAbilityStackInstance stackInstance
+                : ai.getGame().getStack()) {
+            final SpellAbility pendingSa =
+                    stackInstance.getSpellAbility();
+
+            if (!"Derange".equals(pendingSa.getParam("AILogic"))) {
+                continue;
+            }
+            if (!ai.equals(pendingSa.getActivatingPlayer())) {
+                continue;
+            }
+            if (!defendingPlayer.equals(
+                    pendingSa.getTriggeringObject(
+                            AbilityKey.DefendingPlayer))) {
+                continue;
+            }
+
+            result++;
+        }
+
+        return result;
     }
 
     /*

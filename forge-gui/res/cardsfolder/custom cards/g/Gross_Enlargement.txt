@@ -6,4 +6,6 @@ K:Flying
 T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill | TriggerDescription$ At the beginning of your end step, mill two cards.
 SVar:TrigMill:DB$ Mill | NumCards$ 4 | Defined$ You
 K:Derange
+DeckHas:Ability$Mill|Graveyard
+DeckHints:Ability$Mill|Graveyard
 Oracle:Flying\nAt the beginning of your end step, mill two cards\n.Derange (Whenever this creature attacks, you may mill a card. If you do, defending player loses 1 life.)
