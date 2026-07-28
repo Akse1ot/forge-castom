@@ -2,5 +2,5 @@ Name:Enter Berserk
 ManaCost:1 R
 Types:Enchantment Aura
 K:Enchant:Creature
-S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Haste | Description$ nchanted creature gets +2/+2 and has trample.
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Trample | Description$ nchanted creature gets +2/+2 and has trample.
 Oracle:Enchant creature\nEnchanted creature gets +2/+2 and has trample.

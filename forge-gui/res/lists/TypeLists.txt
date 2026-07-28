@@ -252,6 +252,7 @@ Prism:Prisms
 Processor:Processors
 Q:Q
 Qu:Qu
+Queen:Queens
 Raccoon:Raccoons
 Rabbit:Rabbits
 Ranger:Rangers

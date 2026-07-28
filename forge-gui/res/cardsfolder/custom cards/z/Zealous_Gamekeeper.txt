@@ -1,11 +1,10 @@
 Name:Zealous Gamekeeper
-ManaCost:2 G W
+ManaCost:1 GW
 Types:Creature Dryad
 PT:2/3
 K:Defender
-T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters the battlefield, replenish twice. (To replenish, create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)
-SVar:TrigToken:DB$ Token | TokenScript$ c_a_food_canovol_sac | SubAbility$ DBToken
-SVar:DBToken:DB$ Token | TokenScript$ c_a_food_canovol_sac
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters the battlefield, replenish. (To replenish, create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_food_canovol_sac
 A:AB$ Effect | Cost$ GW | StaticAbilities$ CanAttack | SpellDescription$ CARDNAME can attack this turn as though it didn't have defender.
 SVar:CanAttack:Mode$ CanAttackDefender | ValidCard$ Card.EffectSource | Description$ EFFECTSOURCE can attack this turn as though it didn't have defender.
 Oracle:Defender\nWhen Zealous Gamekeeper enters the battlefield, replenish. (Create a colorless Food artifact token with “, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)\n{GW}: Zealous Gamekeeper can attack this turn as though it didn’t have defender.

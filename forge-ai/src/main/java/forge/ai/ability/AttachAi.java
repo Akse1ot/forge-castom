@@ -968,6 +968,11 @@ public class AttachAi extends SpellAbilityAi {
                 return new AiAbilityDecision(100, AiPlayDecision.WillPlay);
             }
             return new AiAbilityDecision(0, AiPlayDecision.TargetingFailed);
+        } else if ("ParentTarget".equals(sa.getParam("Defined"))
+                && sa.getRootAbility().isKeyword(Keyword.RIG)
+                && sa.getParent() != null
+                && sa.getParent().getApi() == ApiType.Animate) {
+            return new AiAbilityDecision(100, AiPlayDecision.WillPlay);
         } else if ("Remembered".equals(sa.getParam("Defined")) && sa.getParent() != null
             && sa.getParent().getApi() == ApiType.Token && sa.getParent().hasParam("RememberTokens")) {
             // Living Weapon or similar
@@ -1272,6 +1277,23 @@ public class AttachAi extends SpellAbilityAi {
         return card;
     }
 
+    private static Card getAttachSourceForEvaluation(
+            final SpellAbility sa,
+            final Card attachSource) {
+        if (!sa.isKeyword(Keyword.RIG)) {
+            return attachSource;
+        }
+
+        final SpellAbility animate =
+                sa.findSubAbilityByType(ApiType.Animate);
+        if (animate == null) {
+            return attachSource;
+        }
+
+        animate.setActivatingPlayer(sa.getActivatingPlayer());
+        return AnimateAi.becomeAnimated(attachSource, animate);
+    }
+
     /**
      * Attach to card ai preferences.
      *
@@ -1298,13 +1320,16 @@ public class AttachAi extends SpellAbilityAi {
             }
         }
 
+        final Card evaluatedAttachSource =
+                getAttachSourceForEvaluation(sa, attachSource);
+
         // Don't equip if DontEquip SVar is set
         if (attachSource.hasSVar("DontEquip")) {
             return null;
         }
 
         // is no attachment so no using attach
-        if (!mandatory && !attachSource.isAttachment()) {
+        if (!mandatory && !evaluatedAttachSource.isAttachment()) {
             return null;
         }
 
@@ -1336,12 +1361,12 @@ public class AttachAi extends SpellAbilityAi {
         if (list.isEmpty()) {
             return null;
         }
-        CardCollection prefList = CardLists.filter(list, CardPredicates.canBeAttached(attachSource, sa));
+        CardCollection prefList = CardLists.filter(list, CardPredicates.canBeAttached(evaluatedAttachSource, sa));
 
         // Filter AI-specific targets if provided
         prefList = ComputerUtil.filterAITgts(sa, aiPlayer, prefList, true);
 
-        Card c = attachGeneralAI(aiPlayer, sa, prefList, mandatory, attachSource, sa.getParam("AILogic"));
+        Card c = attachGeneralAI(aiPlayer, sa, prefList, mandatory, evaluatedAttachSource, sa.getParam("AILogic"));
 
         AiController aic = ((PlayerControllerAi)aiPlayer.getController()).getAi();
         if (c != null && attachSource.isEquipment()

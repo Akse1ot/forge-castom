@@ -3,6 +3,7 @@ ManaCost:4 G G
 Types:Creature Spider Horror
 PT:2/8
 K:Trample
-A:AB$ CombatDamageToughness | Cost$ Discard<1/Card> | Defined$ Self | Description$ CARDNAME assigns combat damage equal to its toughness rather than its power until end of turn.
+A:AB$ Effect | Cost$ Discard<1/Card> | RememberObjects$ Self | StaticAbilities$ CombatDamageToughness | ForgetOnMoved$ Battlefield | SpellDescription$ CARDNAME assigns combat damage equal to its toughness rather than its power until end of turn.
+SVar:CombatDamageToughness:Mode$ CombatDamageToughness | ValidCard$ Card.IsRemembered | Description$ This creature assigns combat damage equal to its toughness rather than its power.
 K:Reanimate
 Oracle:Trample\nDiscard a card: Deformed Colossus assigns combat damage equal to its toughness rather than its power until end of turn.\nReanimate (You may cast this card from your graveyard by sacrificing a creature in addition to paying its other costs.)

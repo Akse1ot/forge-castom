@@ -1,7 +1,7 @@
 Name:Blazing Charge
 ManaCost:RW RW RW RW
 Types:Sorcery
-A:SP$ Charm | Choices$ DestroyArtifacts,DBPump,DestroyGE4
+A:SP$ Charm | Choices$ DestroyArtifacts,DBPump,DBEffect
 SVar:DestroyArtifacts:DB$ DestroyAll | ValidCards$ Artifact | SpellDescription$ Destroy all artifacts.
 SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Double Strike | SpellDescription$ Creatures you control gain double strike until end of turn.
 SVar:DBEffect:DB$ Effect | Triggers$ TrigAttacks

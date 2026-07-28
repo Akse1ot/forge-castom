@@ -3,7 +3,7 @@ ManaCost:G
 Types:Enchantment Aura
 K:Enchant:Creature
 SVar:AttachAILogic:Pump
-T:Mode$ ChangesZone | ValidCard$ Creature.!token+Other+YouCtrl | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigToken | OptionalDecider$ You | TriggerDescription$ Whenever another nontoken creature enters the battlefield under your control, replenish. (Create a colorless Food artifact token with “{2}, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever CARDNAME enters the battlefield, replenish. (Create a colorless Food artifact token with “, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)
 SVar:TrigToken:DB$ Token | TokenScript$ c_a_food_canovol_sac
 S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Deathtouch & Reach | Description$ Enchanted creature has deathtouch and reach.
 Oracle:Enchant creature\nEnchanted creature has flying.\nWhen Hunting Gear enters the battlefield, replenish. (Create a colorless Food artifact token with “, Sacrifice this artifact: Put a +1/+1 counter on target creature. Activate this ability only any time you could cast a sorcery.”)\nEnchanted creature has deathtouch and reach.

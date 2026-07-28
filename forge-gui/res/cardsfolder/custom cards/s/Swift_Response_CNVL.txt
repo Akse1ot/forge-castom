@@ -1,6 +1,6 @@
 Name:Swift Response CNVL
 ManaCost:1 W
 Types:Instant
-A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | SpellDescription$ Creatures you control get +1/+1 until end of turn.
-A:SP$ PumpAll | ValidCards$ Creature.YouCtrl+withFlying | KW$ Indestructible | SpellDescription$ Creatures with flying you control gain indestructible until end of turn.
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBPumpAllFlying | SpellDescription$ Creatures you control get +1/+1 until end of turn. Creatures with flying you control gain indestructible until end of turn.
+SVar:DBPumpAllFlying:DB$ PumpAll | ValidCards$ Creature.YouCtrl+withFlying | KW$ Indestructible 
 Oracle:Creatures you control get +1/+1 until end of turn.\nCreatures with flying you control gain indestructible until end of turn.

@@ -1,8 +1,8 @@
 Name:Swarm Strike
 ManaCost:R
 Types:Sorcery
-A:SP$ Token | TokenScript$ r_1_1_insect_samurai | SpellDescription$ Create a 1/1 red Insect Samurai creature token.
-A:SP$ DealDamage | ValidTgts$ Player | NumDmg$ X | SpellDescription$ Strike deals damage to target player equal to the number of creature tokens you control.
+A:SP$ Token | TokenScript$ r_1_1_insect_samurai | SubAbility$ DBDealDamage | SpellDescription$ Create a 1/1 red Insect Samurai creature token. CARDNAME deals damage to target player equal to the number of creature tokens you control.
+SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Player | NumDmg$ X | SpellDescription$ 
 SVar:X:Count$Valid Creature.token+YouCtrl
 DeckHints:Ability$Token
 Oracle:Create a 1/1 red Insect Samurai creature token.\nSwarm Strike deals damage to target player equal to the number of creature tokens you control.

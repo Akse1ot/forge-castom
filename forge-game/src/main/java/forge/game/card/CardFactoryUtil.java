@@ -3659,6 +3659,7 @@ public class CardFactoryUtil {
             abilityStr.append(" | ValidTgts$ Creature.YouCtrl+Other");
             abilityStr.append(" | TgtPrompt$ Select target creature you control");
             abilityStr.append(" | SorcerySpeed$ True");
+            abilityStr.append(" | Secondary$ True");
             abilityStr.append(" | AILogic$ Pump");
             abilityStr.append(" | PrecostDesc$ Rig");
             abilityStr.append(" | CostDesc$ ").append(costDesc);
@@ -3669,7 +3670,7 @@ public class CardFactoryUtil {
 
             final AbilitySub animate = (AbilitySub) AbilityFactory.getAbility(
                     "DB$ Animate | Defined$ Self"
-                            + " | Types$ Equipment"
+                            + " | Types$ Artifact,Equipment"
                             + " | RemoveTypes$ Creature"
                             + " | Duration$ UntilYourNextUpkeep",
                     card
