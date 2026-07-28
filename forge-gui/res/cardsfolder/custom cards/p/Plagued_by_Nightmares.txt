@@ -1,7 +1,8 @@
 Name:Plagued by Nightmares
 ManaCost:1 B
 Types:Enchantment Aura
-K:Enchant creature
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
 T:Mode$ Attacks | ValidCard$ Creature.EnchantedBy | Execute$ TrigDiscardAttack | TriggerDescription$ Whenever enchanted creature attacks, its controller discards a card.
 SVar:TrigDiscardAttack:DB$ Discard | Defined$ TriggeredAttackerController | Mode$ TgtChoose | NumCards$ 1
 T:Mode$ Blocks | ValidCard$ Creature.EnchantedBy | Execute$ TrigDiscardBlock | TriggerDescription$ Whenever enchanted creature blocks, its controller discards a card.

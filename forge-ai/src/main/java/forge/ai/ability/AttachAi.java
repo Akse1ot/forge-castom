@@ -1706,7 +1706,8 @@ public class AttachAi extends SpellAbilityAi {
 
     @Override
     protected Card chooseSingleCard(Player ai, SpellAbility sa, Iterable<Card> options, boolean isOptional, Player targetedPlayer, Map<String, Object> params) {
-        return attachGeneralAI(ai, sa, (List<Card>)options, !isOptional, sa.getHostCard(), sa.getParam("AILogic"));
+        final Card attachSource = getAttachSourceForEvaluation(sa, sa.getHostCard());
+        return attachGeneralAI(ai, sa, (List<Card>)options, !isOptional, attachSource, sa.getParam("AILogic"));
     }
 
     @Override
