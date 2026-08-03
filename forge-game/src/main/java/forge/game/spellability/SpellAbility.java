@@ -222,6 +222,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
     private List<AbilitySub> chosenList = null;
     private List<SpellAbility> chosenSpellAbilities = null;
     private final Supplier<CardCollection> tappedForConvoke = Suppliers.memoize(CardCollection::new);
+    private CardCollection paidByMelody = new CardCollection();
     private Card sacrificedAsOffering;
     private Card sacrificedAsEmerge;
     private Integer maxWaterbend;
@@ -1379,6 +1380,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
             clone.payingMana = Lists.newArrayList(payingMana);
             clone.paidAbilities = Lists.newArrayList();
             clone.setPaidHash(getPaidHash());
+            clone.paidByMelody = new CardCollection(paidByMelody);
 
             if (usesTargeting()) {
                 // the targets need to be cloned, otherwise they might be cleared
@@ -1944,6 +1946,10 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
     public void clearTappedForConvoke() {
         tappedForConvoke.get().clear();
     }
+
+    public CardCollectionView getPaidByMelody() { return paidByMelody; }
+    public void addPaidByMelody(final Card card) { paidByMelody.add(card); }
+    public void clearPaidByMelody() { paidByMelody.clear(); }
 
     public boolean isEmerge() {
         return isAlternativeCost(AlternativeCost.Emerge);

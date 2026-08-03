@@ -1,0 +1,6 @@
+Name:Shaman Token
+ManaCost:no cost
+Colors:red,green
+Types:Creature Shaman
+PT:1/1
+Oracle:

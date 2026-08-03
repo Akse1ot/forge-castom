@@ -6,6 +6,7 @@ import forge.game.card.Card;
 import forge.game.card.CardCopyService;
 import forge.game.combat.Combat;
 import forge.game.event.GameEventSnapshotRestored;
+import forge.game.keyword.MelodyUtil;
 import forge.game.mana.Mana;
 import forge.game.phase.PhaseHandler;
 import forge.game.player.Player;
@@ -368,6 +369,14 @@ public class GameSnapshot {
             if (fromCard.getCopiedPermanent() != null) {
                 newCard.setCopiedPermanent(toGame.findById(fromCard.getCopiedPermanent().getId()));
             }
+
+            MelodyUtil.copyCastData(
+                    fromCard,
+                    newCard,
+                    card -> findBy(toGame, card),
+                    player -> findBy(toGame, player)
+            );
+
             // TODO: Verify that the above relationships are preserved bi-directionally or not.
         }
     }

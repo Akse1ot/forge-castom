@@ -4809,6 +4809,12 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         if (phase != null && hasKeyword("This card doesn't untap during your next untap step.")) {
             return false;
         }
+
+        if (phase != null
+                && MelodyUtil.preventsUntap(this, phase)) {
+            return false;
+        }
+
         Map<AbilityKey, Object> runParams = AbilityKey.mapFromAffected(this);
         runParams.put(AbilityKey.Player, phase);
         return !getGame().getReplacementHandler().cantHappenCheck(ReplacementType.Untap, runParams);

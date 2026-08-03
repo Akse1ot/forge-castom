@@ -14,6 +14,7 @@ import forge.game.card.*;
 import forge.game.keyword.Emerge;
 import forge.game.keyword.Keyword;
 import forge.game.keyword.KeywordInterface;
+import forge.game.keyword.MelodyUtil;
 import forge.game.mana.ManaCostBeingPaid;
 import forge.game.player.Player;
 import forge.game.player.PlayerCollection;
@@ -261,6 +262,8 @@ public class CostAdjustment {
         }
 
         if (sa.isSpell()) {
+            adjustCostByMelody(cost, sa, activator, test);
+
             if (host.hasKeyword(Keyword.ASSIST) && !adjustCostByAssist(cost, sa, test)) {
                 return false;
             }
@@ -310,6 +313,100 @@ public class CostAdjustment {
         return true;
     }
     // GetSpellCostChange
+
+    private static void adjustCostByMelody(
+            final ManaCostBeingPaid cost,
+            final SpellAbility sa,
+            final Player payer,
+            final boolean test) {
+        if (!MelodyUtil.canUseMelody(sa)) {
+            return;
+        }
+
+        if (!test) {
+            sa.clearPaidByMelody();
+        }
+
+        final Map<Card, List<ManaCost>> availablePayments =
+                MelodyUtil.getAvailablePayments(payer);
+
+        if (availablePayments.isEmpty()) {
+            return;
+        }
+
+        final Map<Card, ManaCost> selected =
+                payer.getController().chooseCardsForMelody(
+                        sa,
+                        cost.toManaCost(),
+                        availablePayments
+                );
+
+        final CardCollection tapped = new CardCollection();
+
+        for (final Entry<Card, ManaCost> entry :
+                selected.entrySet()) {
+            final Card card = entry.getKey();
+            final ManaCost payment = entry.getValue();
+
+            if (!isAvailableMelodyPayment(
+                    availablePayments,
+                    card,
+                    payment)) {
+                continue;
+            }
+
+            if (!MelodyUtil.canApplyPayment(cost, payment)) {
+                continue;
+            }
+
+            if (test) {
+                MelodyUtil.applyPayment(cost, payment);
+                continue;
+            }
+
+            if (card.getController() != payer
+                    || !card.canTap()
+                    || !card.tap(true, sa, payer)) {
+                continue;
+            }
+
+            MelodyUtil.applyPayment(cost, payment);
+            sa.addPaidByMelody(card);
+            tapped.add(card);
+        }
+
+        if (!tapped.isEmpty()) {
+            final Map<AbilityKey, Object> runParams =
+                    AbilityKey.newMap();
+            runParams.put(AbilityKey.Cards, tapped);
+
+            payer.getGame().getTriggerHandler().runTrigger(
+                    TriggerType.TapAll,
+                    runParams,
+                    false
+            );
+        }
+    }
+
+    private static boolean isAvailableMelodyPayment(
+            final Map<Card, List<ManaCost>> availablePayments,
+            final Card card,
+            final ManaCost payment) {
+        final List<ManaCost> payments =
+                availablePayments.get(card);
+
+        if (payments == null || payment == null) {
+            return false;
+        }
+
+        for (final ManaCost available : payments) {
+            if (available.toString().equals(payment.toString())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     private static boolean adjustCostByAssist(ManaCostBeingPaid cost, final SpellAbility sa, boolean test) {
         // 702.132a Assist is a static ability that modifies the rules of paying for the spell with assist (see rules 601.2g-h).

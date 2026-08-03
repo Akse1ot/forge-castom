@@ -1,0 +1,6 @@
+Name:Aurochs Token
+ManaCost:no cost
+Colors:green
+Types:Creature Aurochs
+PT:2/2
+Oracle:

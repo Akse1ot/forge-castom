@@ -4,9 +4,9 @@ Types:Legendary Land
 R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ This land enters tapped.
 SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
 A:AB$ Mana | Cost$ T | Produced$ Combo R G | SpellDescription$ Add {R} or {G}.
-A:AB$ Effect | Cost$ R G | Triggers$ TrigDamage | SpellDescription$ Whenever a creature you control deals combat damage to a player this turn, put a +1/+1 counter on it.
+A:AB$ Effect | Cost$ R G T | Triggers$ TrigDamage | SpellDescription$ Whenever a creature you control deals combat damage to a player this turn, put a +1/+1 counter on it.
 SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ DBPutCounter | TriggerDescription$ Whenever a creature you control deals combat damage to a player this turn, put a +1/+1 counter on it.
-SVar:DBPutCounter:DB$ PutCounter | Defined$ TriggeredCardLKICopy | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBPutCounter:DB$ PutCounter | Defined$ TriggeredSourceLKICopy | CounterType$ P1P1 | CounterNum$ 1
 DeckHas:Ability$Counters
 Oracle:Skybound Acropolis enters tapped.\n{T}: Add {R} or {G}.\n{R}{G}, {T}: Whenever a creature you control deals combat damage to a player this turn, put a +1/+1 counter on it.
 

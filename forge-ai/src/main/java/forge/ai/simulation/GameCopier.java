@@ -16,6 +16,7 @@ import forge.game.card.CardFactory;
 import forge.game.card.CounterType;
 import forge.game.card.token.TokenInfo;
 import forge.game.combat.Combat;
+import forge.game.keyword.MelodyUtil;
 import forge.game.mana.Mana;
 import forge.game.phase.PhaseHandler;
 import forge.game.phase.PhaseType;
@@ -288,6 +289,14 @@ public class GameCopier {
                 // TODO would it be safe to simply reuse the prototype?
                 otherCard.setCopiedPermanent(new CardCopyService(card.getCopiedPermanent()).copyCard(false));
             }
+
+            MelodyUtil.copyCastData(
+                    card,
+                    otherCard,
+                    cardMap::get,
+                    playerMap::get
+            );
+
             // TODO: Verify that the above relationships are preserved bi-directionally or not.
         }
     }

@@ -237,6 +237,12 @@ public abstract class PlayerController {
 
     public abstract CardCollectionView chooseCardsToDelve(int genericAmount, CardCollection grave);
     public abstract Map<Card, ManaCostShard> chooseCardsForConvokeOrImprovise(SpellAbility sa, ManaCost manaCost, CardCollectionView untappedCards, boolean artifacts, boolean creatures, Integer maxReduction);
+    public Map<Card, ManaCost> chooseCardsForMelody(
+            final SpellAbility sa,
+            final ManaCost manaCost,
+            final Map<Card, List<ManaCost>> availablePayments) {
+        return Map.of();
+    }
     public abstract List<Card> chooseCardsForSplice(SpellAbility sa, List<Card> cards);
 
     public abstract CardCollectionView chooseCardsToRevealFromHand(int min, int max, CardCollectionView valid);

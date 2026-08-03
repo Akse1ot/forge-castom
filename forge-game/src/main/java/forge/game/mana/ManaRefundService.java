@@ -1,5 +1,6 @@
 package forge.game.mana;
 
+import forge.game.card.Card;
 import forge.game.event.EventValueChangeType;
 import forge.game.event.GameEventZone;
 import forge.game.player.Player;
@@ -35,6 +36,23 @@ public class ManaRefundService {
 
         // start with the most recent
         Collections.reverse(payingAbilities);
+
+        for (final Card melodySource : sa.getPaidByMelody()) {
+            final Card current =
+                    melodySource.getGame().getCardState(
+                            melodySource,
+                            null
+                    );
+
+            // Do not untap a new object that left and returned.
+            if (current == melodySource
+                    && melodySource.isInPlay()) {
+                melodySource.setTapped(false);
+                payers.add(melodySource.getController());
+            }
+        }
+
+        sa.clearPaidByMelody();
 
         for (final SpellAbility am : payingAbilities) {
             // What if am is owned by a different player?

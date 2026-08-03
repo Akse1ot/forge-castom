@@ -21,6 +21,7 @@ import forge.game.combat.Combat;
 import forge.game.cost.*;
 import forge.game.keyword.Keyword;
 import forge.game.keyword.KeywordInterface;
+import forge.game.keyword.MelodyUtil;
 import forge.game.mana.Mana;
 import forge.game.mana.ManaConversionMatrix;
 import forge.game.mana.ManaCostBeingPaid;
@@ -1457,6 +1458,92 @@ public class PlayerControllerAi extends PlayerController {
             }
         }
         return ComputerUtilMana.getConvokeOrImproviseFromList(manaCost, untapped, artifacts, creatures);
+    }
+
+    @Override
+    public Map<Card, ManaCost> chooseCardsForMelody(
+            final SpellAbility sa,
+            final ManaCost manaCost,
+            final Map<Card, List<ManaCost>> availablePayments) {
+        final Map<Card, ManaCost> selected = new LinkedHashMap<>();
+        final ManaCostBeingPaid remaining =
+                new ManaCostBeingPaid(manaCost);
+
+        // Do not lock a permanent when the spell can already be paid normally.
+        if (ComputerUtilMana.canPayManaCost(
+                new ManaCostBeingPaid(remaining),
+                sa,
+                player,
+                false)) {
+            return selected;
+        }
+
+        final List<Card> candidates =
+                new ArrayList<>(availablePayments.keySet());
+
+        // Prefer noncreatures, then cheaper permanents.
+        candidates.sort(
+                Comparator
+                        .comparingInt((Card card) ->
+                                card.isCreature() ? 1 : 0)
+                        .thenComparingInt(Card::getCMC)
+        );
+
+        final Map<Card, Boolean> previousUsedState =
+                new IdentityHashMap<>();
+
+        try {
+            for (final Card card : candidates) {
+                ManaCost bestPayment = null;
+
+                for (final ManaCost payment :
+                        availablePayments.get(card)) {
+                    if (!MelodyUtil.canApplyPayment(
+                            remaining,
+                            payment)) {
+                        continue;
+                    }
+
+                    if (bestPayment == null
+                            || payment.getCMC()
+                            > bestPayment.getCMC()) {
+                        bestPayment = payment;
+                    }
+                }
+
+                if (bestPayment == null) {
+                    continue;
+                }
+
+                previousUsedState.put(
+                        card,
+                        card.isUsedToPay()
+                );
+                card.setUsedToPay(true);
+
+                MelodyUtil.applyPayment(
+                        remaining,
+                        bestPayment
+                );
+                selected.put(card, bestPayment);
+
+                if (ComputerUtilMana.canPayManaCost(
+                        new ManaCostBeingPaid(remaining),
+                        sa,
+                        player,
+                        false)) {
+                    return selected;
+                }
+            }
+
+            selected.clear();
+            return selected;
+        } finally {
+            for (final Map.Entry<Card, Boolean> entry :
+                    previousUsedState.entrySet()) {
+                entry.getKey().setUsedToPay(entry.getValue());
+            }
+        }
     }
 
     @Override

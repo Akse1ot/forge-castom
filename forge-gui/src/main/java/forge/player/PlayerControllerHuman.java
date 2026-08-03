@@ -2685,6 +2685,23 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
     }
 
     @Override
+    public Map<Card, ManaCost> chooseCardsForMelody(
+            final SpellAbility sa,
+            final ManaCost manaCost,
+            final Map<Card, List<ManaCost>> availablePayments) {
+        final InputSelectCardsForMelody input =
+                new InputSelectCardsForMelody(
+                        this,
+                        sa,
+                        manaCost,
+                        availablePayments
+                );
+
+        input.showAndWait();
+        return input.getMelodyPayments();
+    }
+
+    @Override
     public String chooseCardName(final SpellAbility sa, final Predicate<ICardFace> cpp, final String valid,
                                  final String message) {
         while (true) {
