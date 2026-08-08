@@ -206,6 +206,7 @@ Moogle:Moogles
 Moonfolk:Moonfolk
 Mount:Mounts
 Mouse:Mice
+Murloc:Murlocs
 Mutant:Mutants
 Myr:Myrs
 Mystic:Mystics
@@ -501,6 +502,7 @@ Vyke
 Will
 Windgrace
 Wrenn
+Xaelas
 Xenagos
 Yanggu
 Yanling

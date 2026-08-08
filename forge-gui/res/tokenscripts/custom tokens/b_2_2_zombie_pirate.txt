@@ -1,0 +1,6 @@
+Name:Zombie Pirate Token
+ManaCost:no cost
+Colors:black
+Types:Creature Zombie Pirate
+PT:2/2
+Oracle:

@@ -3,7 +3,6 @@ package forge.game.ability.effects;
 import java.util.List;
 
 import forge.game.Game;
-import forge.game.ability.AbilityUtils;
 import forge.game.ability.SpellAbilityEffect;
 import forge.game.card.Card;
 import forge.game.card.CardCollectionView;
@@ -29,7 +28,7 @@ public class ControlExchangeEffect extends SpellAbilityEffect {
             }
         }
         if (sa.hasParam("Defined")) {
-            List<Card> cards = AbilityUtils.getDefinedCards(sa.getHostCard(), sa.getParam("Defined"), sa);
+            List<Card> cards = getTargetCardsWithDuplicates(true, "Defined", sa);
             object2 = cards.isEmpty() ? null : cards.get(0);
             if (cards.size() > 1 && !sa.usesTargeting()) {
                 object1 = cards.get(1);
@@ -63,7 +62,7 @@ public class ControlExchangeEffect extends SpellAbilityEffect {
             }
         }
         if (sa.hasParam("Defined")) {
-            final List<Card> cards = AbilityUtils.getDefinedCards(host, sa.getParam("Defined"), sa);
+            final List<Card> cards = getTargetCardsWithDuplicates(true, "Defined", sa);
             object2 = cards.isEmpty() ? null : cards.get(0);
             if (cards.size() > 1 && !sa.usesTargeting()) {
                 object1 = cards.get(1);

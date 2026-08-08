@@ -84,7 +84,16 @@ public abstract class AnimateEffectBase extends SpellAbilityEffect {
             removeAbilities = Predicate.not(CardTraitBase::isManaAbility);
             removeAllKeywords = true;
         } else if (sa.hasParam("RemoveThisAbility")) {
-            removeAbilities = e -> sa.getOriginalAbility().equals(e);
+            final SpellAbility originalAbility = sa.getOriginalAbility();
+            if (originalAbility != null) {
+                removeAbilities = originalAbility::equals;
+            } else {
+                final SpellAbility rootAbility = sa.getRootAbility();
+                if (rootAbility.isTrigger()) {
+                    final Trigger trigger = rootAbility.getTrigger();
+                    removeAbilities = trigger::equals;
+                }
+            }
         }
 
         if (sa.hasParam("RememberAnimated")) {
