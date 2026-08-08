@@ -59,19 +59,24 @@ public class TriggerLifeLost extends Trigger {
             return false;
         }
 
-        if (hasParam("LifeAmount")) {
-            final String fullParam = getParam("LifeAmount");
-            final String operator = fullParam.substring(0, 2);
-            final int operand = Integer.parseInt(fullParam.substring(2));
-            final int actualAmount = (Integer) runParams.get(AbilityKey.LifeAmount);
-
-            if (!Expressions.compare(actualAmount, operator, operand)) {
-                return false;
-            }
+        // A source dealing exactly 1 damage to you will cause Sahir's last ability to trigger only once, even though you also lose exactly 1 life.
+        // This is because the source dealing you damage isn't what's causing you to lose life. (That's a job for the rules!)
+        if (!matchesValidParam("ValidCause", runParams.get(AbilityKey.Player))) {
+            return false;
         }
 
         if (hasParam("FirstTime")) {
             if (!(boolean) runParams.get(AbilityKey.FirstTime)) {
+                return false;
+            }
+        }
+
+        if (hasParam("LifeAmount")) {
+            final String fullParam = getParam("LifeAmount");
+            final String operator = fullParam.substring(0, 2);
+            int operand = Integer.parseInt(fullParam.substring(2));
+            final int actualAmount = (Integer) runParams.get(AbilityKey.LifeAmount);
+            if (!Expressions.compare(actualAmount, operator, operand)) {
                 return false;
             }
         }

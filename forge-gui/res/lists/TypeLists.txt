@@ -291,6 +291,7 @@ Shaman:Shamans
 Shapeshifter:Shapeshifters
 Shark:Sharks
 Sheep:Sheep
+Shi'ar:Shi'ar
 Siren:Sirens
 Skeleton:Skeletons
 Skrull:Skrulls
@@ -413,6 +414,7 @@ Ajani
 Aminatou
 Angrath
 Arlinn
+Arzakon
 Ashiok
 Bahamut
 Basri
@@ -432,14 +434,17 @@ Dellian
 Dihada
 Domri
 Dovin
+Dyfed
 Ellywick
 Elminster
 Elspeth
 Estrid
 Fia
+Feroz
 Freyalise
 Garruk
 Gideon
+Greensleeves
 Grist
 Guff
 Godfrey
@@ -480,6 +485,7 @@ Samut
 Sara
 Sarkhan
 Serra
+Sifa
 Sorin
 Szat
 Tamiyo
@@ -487,6 +493,7 @@ Tasha
 Teferi
 Teyo
 Tezzeret
+Thomil
 Tibalt
 Thiollier
 Tarnished
@@ -501,6 +508,7 @@ Vronos
 Vyke
 Will
 Windgrace
+Worzel
 Wrenn
 Xaelas
 Xenagos
@@ -521,6 +529,7 @@ Antausia
 Apalapucia
 Arcavios
 Arkhos
+Avishkar
 Azgol
 Belenon
 Bolas's Meditation Realm
@@ -544,7 +553,6 @@ Innistrad
 Iquatana
 Ir
 Ixalan
-Kaladesh
 Kaldheim
 Kamigawa
 Kandoka

@@ -131,7 +131,7 @@ public class CardFactoryUtil {
         if (!cost.isOnlyManaCost()) {
             sbCost.append(" — ");
         }
-        sbCost.append(cost.toString());
+        sbCost.append(cost);
 
         // Cost need to be set later
         StringBuilder sb = new StringBuilder();
@@ -638,6 +638,29 @@ public class CardFactoryUtil {
                 final Trigger trigger = TriggerHandler.parseTrigger(trig, card, intrinsic);
                 trigger.setOverridingAbility(AbilityFactory.getAbility(effect, card));
 
+                inst.addTrigger(trigger);
+            }
+        } else if (keyword.equals("Storied")) {
+            // Storied trigger only for Permanent, as with Ascend
+            if (card.isPermanent()) {
+                final String trig = "Mode$ Always | TriggerZones$ Battlefield"
+                        + " | Secondary$ True | Static$ True | EnduringStory$ False"
+                        + " | IsPresent$ Permanent.YouCtrl+Historic | PresentCompare$ GE3"
+                        + " | TriggerDescription$ Storied (" + inst.getReminderText() + ")";
+
+                final Trigger trigger = TriggerHandler.parseTrigger(trig, card, intrinsic);
+                final SpellAbility gainStory = new AbilityStatic(card, Cost.Zero, null) {
+                    @Override
+                    public void resolve() {
+                        final Player p = getActivatingPlayer();
+                        if (p != null && p.isInGame()) {
+                            p.setEnduringStory(true, getOriginalHost().getSetCode());
+                        }
+                    }
+                };
+                // as AbilityFactory would have done, so getOriginalHost resolves on a copied trait
+                gainStory.setCardState(card.getCurrentState());
+                trigger.setOverridingAbility(gainStory);
                 inst.addTrigger(trigger);
             }
         } else if (keyword.equals("Epitome")) {
@@ -3631,7 +3654,7 @@ public class CardFactoryUtil {
             newSA.setIntrinsic(intrinsic);
             inst.addSpellAbility(newSA);
         } else if (keyword.startsWith("Reinforce") && inst instanceof KeywordWithCostAndAmount reinforce) {
-                final String n = reinforce.getAmountString();
+            final String n = reinforce.getAmountString();
             final String manacost = reinforce.getCostString();
 
             StringBuilder sb = new StringBuilder();

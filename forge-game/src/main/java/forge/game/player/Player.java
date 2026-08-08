@@ -195,6 +195,7 @@ public class Player extends GameEntity implements Comparable<Player> {
     private Card initiativeEffect;
     private Card blessingEffect;
     private Card enlightenedEffect;
+    private Card enduringStoryEffect;
     private Card contraptionSprocketEffect;
     private Card radiationEffect;
     private Card keywordEffect;
@@ -460,16 +461,12 @@ public class Player extends GameEntity implements Comparable<Player> {
     }
 
     public final boolean setLife(final int newLife, final SpellAbility sa) {
+        // CR 119.5
         boolean change = false;
-        // rule 119.5
         if (life > newLife) {
-            change = loseLife(life - newLife, false, false) > 0;
-        }
-        else if (newLife > life) {
+            change = loseLife(life - newLife, false, false, sa) > 0;
+        } else if (newLife > life) {
             change = gainLife(newLife - life, sa == null ? null : sa.getHostCard(), sa);
-        }
-        else { // life == newLife
-            change = false;
         }
         return change;
     }
@@ -543,7 +540,7 @@ public class Player extends GameEntity implements Comparable<Player> {
         return isInGame() && !StaticAbilityCantGainLosePayLife.anyCantGainLife(this);
     }
 
-    public final int loseLife(int toLose, final boolean damage, final boolean manaBurn) {
+    public final int loseLife(int toLose, final boolean damage, final boolean manaBurn, final SpellAbility cause) {
         // Rule 118.4
         // this is for players being able to pay 0 life nothing to do
         // no trigger for lost no life
@@ -590,6 +587,7 @@ public class Player extends GameEntity implements Comparable<Player> {
         final Map<AbilityKey, Object> runParams = AbilityKey.mapFromPlayer(this);
         runParams.put(AbilityKey.LifeAmount, toLose);
         runParams.put(AbilityKey.FirstTime, firstLost);
+        runParams.put(AbilityKey.SpellAbility, cause);
         game.getTriggerHandler().runTrigger(TriggerType.LifeLost, runParams, false);
 
         return toLose;
@@ -627,24 +625,24 @@ public class Player extends GameEntity implements Comparable<Player> {
             replaceParams.putAll(cause.getReplacingObjects());
         }
         switch (getGame().getReplacementHandler().run(ReplacementType.PayLife, replaceParams)) {
-            case Replaced:
-                return true;
-            case Prevented:
-            case Skipped:
-                return false;
-            default:
-                break;
+        case Replaced:
+            return true;
+        case Prevented:
+        case Skipped:
+            return false;
+        default:
+            break;
         }
 
-        final int lost = loseLife(lifePayment, false, false);
-        cause.setPaidLife(lost);
+        final int lost = loseLife(lifePayment, false, false, cause);
+        cause.setPaidLife(lifePayment);
 
         if (lost > 0) {
             lifePaidThisTurn += lost;
         }
 
         final Map<AbilityKey, Object> runParams = AbilityKey.mapFromPlayer(this);
-        runParams.put(AbilityKey.LifeAmount, lost);
+        runParams.put(AbilityKey.LifeAmount, lifePayment);
         game.getTriggerHandler().runTrigger(TriggerType.PayLife, runParams, false);
 
         if (lost > 0) { // Run triggers if player actually lost life
@@ -857,7 +855,7 @@ public class Player extends GameEntity implements Comparable<Player> {
     }
 
     public final int processDamage() {
-        int lost = loseLife(simultaneousDamage, true, false);
+        int lost = loseLife(simultaneousDamage, true, false, null);
         simultaneousDamage = 0;
         return lost;
     }
@@ -2615,7 +2613,6 @@ public class Player extends GameEntity implements Comparable<Player> {
         final IGameEntitiesFactory master = (IGameEntitiesFactory)pl.getLobbyPlayer();
         addController(timestamp, pl, master.createMindSlaveController(pl, this), true);
     }
-
     public void addController(long timestamp, Player pl, PlayerController pc, boolean event) {
         controlledBy.put(timestamp, Pair.of(pl, pc));
         getView().updateMindSlaveMaster(this);
@@ -2625,6 +2622,13 @@ public class Player extends GameEntity implements Comparable<Player> {
         }
     }
 
+    public void removeController(Player p) {
+        for (Entry<Long, Pair<Player, PlayerController>> controller : Sets.newHashSet(controlledBy.entrySet())) {
+            if (controller.getValue().getLeft().equals(p)) {
+                removeController(controller.getKey());
+            }
+        }
+    }
     public void removeController(long timestamp) {
         removeController(timestamp, true);
     }
@@ -2809,22 +2813,36 @@ public class Player extends GameEntity implements Comparable<Player> {
         //Seems like the rest of the logic for copying players should be in this class too.
         //For now, doing this here can retain the links between commander effects and commanders.
 
+        /**
+         * Commander references are kept across zone changes, each of which can hand
+         * the game a new object for the same card (cast for a mutate cost, bounced
+         * to the command zone, ...), so resolve the card the game is actually
+         * holding before asking a snapshot's map for its counterpart.
+         */
+        Function<Card, Card> mapCommander = c -> mapper.apply(game.getCardState(c));
+
         toPlayer.resetCommanderStats();
         toPlayer.commanders.clear();
         for (final Card c : this.getCommanders()) {
-            Card newCommander = mapper.apply(c);
-            if(newCommander == null)
-                throw new RuntimeException("Unable to find commander in game snapshot: " + c);
+            Card newCommander = mapCommander.apply(c);
+            if (newCommander == null) {
+                // An unmapped commander leaves the snapshot incomplete, but throwing
+                // here would end the match instead of just the undo it was taken for.
+                System.err.println("Unable to find commander in game snapshot: " + c);
+                continue;
+            }
             toPlayer.commanders.add(newCommander);
             newCommander.setCommander(true);
         }
         for (Map.Entry<Card, Integer> entry : this.commanderCast.entrySet()) {
             //Have to iterate over this separately in case commanders change mid-game.
-            Card commander = mapper.apply(entry.getKey());
+            Card commander = mapCommander.apply(entry.getKey());
+            if(commander == null) //Ceased to exist?
+                continue;
             toPlayer.commanderCast.put(commander, entry.getValue());
         }
         for (Map.Entry<Card, Integer> entry : this.getCommanderDamage()) {
-            Card commander = mapper.apply(entry.getKey());
+            Card commander = mapCommander.apply(entry.getKey());
             if(commander == null) //Ceased to exist?
                 continue;
             int damage = entry.getValue();
@@ -2838,7 +2856,7 @@ public class Player extends GameEntity implements Comparable<Player> {
 
     /**
      * Wires this player's field-managed effect cards (keyword, monarch,
-     * initiative, blessing, enlightened, contraption sprocket, radiation, speed) to their
+     * initiative, blessing, enlightened, enduring story, contraption sprocket, radiation, speed) to their
      * already-copied counterparts on a snapshot player, the same way
      * copyCommandersToSnapshot wires commanderEffect. Without this, the
      * snapshot's lazy getters re-create the effect card on next use while the
@@ -2851,6 +2869,7 @@ public class Player extends GameEntity implements Comparable<Player> {
         toPlayer.initiativeEffect = mapEffectCard(initiativeEffect, mapper);
         toPlayer.blessingEffect = mapEffectCard(blessingEffect, mapper);
         toPlayer.enlightenedEffect = mapEffectCard(enlightenedEffect, mapper);
+        toPlayer.enduringStoryEffect = mapEffectCard(enduringStoryEffect, mapper);
         toPlayer.contraptionSprocketEffect = mapEffectCard(contraptionSprocketEffect, mapper);
         toPlayer.radiationEffect = mapEffectCard(radiationEffect, mapper);
         toPlayer.speedEffect = mapEffectCard(speedEffect, mapper);
@@ -2918,13 +2937,6 @@ public class Player extends GameEntity implements Comparable<Player> {
         }
         ColorSet identity = ColorSet.fromMask(ci);
         return identity;
-    }
-    public ColorSet getNotCommanderColorID() {
-        if (commanders.isEmpty()) {
-            return null;
-        }
-        ColorSet identity = getCommanderColorID();
-        return identity.inverse();
     }
 
     public int getCommanderCast(Card commander) {
@@ -3747,6 +3759,40 @@ public class Player extends GameEntity implements Comparable<Player> {
         } else {
             com.remove(blessingEffect);
             blessingEffect = null;
+        }
+
+        this.updateZoneForView(com);
+    }
+
+    public boolean hasEnduringStory() {
+        return enduringStoryEffect != null;
+    }
+    public void setEnduringStory(boolean story, String setCode) {
+        // no need to change
+        if ((enduringStoryEffect != null) == story) {
+            return;
+        }
+
+        final PlayerZone com = getZone(ZoneType.Command);
+
+        if (story) {
+            enduringStoryEffect = new Card(game.nextCardId(), null, game);
+            enduringStoryEffect.setOwner(this);
+            enduringStoryEffect.setName("An Enduring Story");
+            enduringStoryEffect.setGamePieceType(GamePieceType.EFFECT);
+            if (setCode != null) {
+                enduringStoryEffect.setSetCode(setCode);
+            }
+
+            enduringStoryEffect.updateStateForView();
+
+            com.add(enduringStoryEffect);
+
+            // as with the city's blessing, continuous effects are reapplied once it is gained
+            game.getAction().checkStaticAbilities();
+        } else {
+            com.remove(enduringStoryEffect);
+            enduringStoryEffect = null;
         }
 
         this.updateZoneForView(com);

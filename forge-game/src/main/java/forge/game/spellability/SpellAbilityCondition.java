@@ -18,6 +18,7 @@
 package forge.game.spellability;
 
 import com.google.common.collect.Iterables;
+import forge.card.ColorSet;
 import forge.card.mana.ManaAtom;
 import forge.game.mana.Mana;
 import forge.game.Game;
@@ -99,6 +100,9 @@ public class SpellAbilityCondition extends SpellAbilityVariables {
             }
             if (value.equals("Enlightened")) {
                 this.setEnlightened(true);
+            }
+            if (value.equals("EnduringStory")) {
+                this.setEnduringStory(true);
             }
             if (value.equals("Kicked")) {
                 this.kicked = true;
@@ -292,6 +296,7 @@ public class SpellAbilityCondition extends SpellAbilityVariables {
         if (this.isRevolt() && !activator.hasRevolt()) return false;
         if (this.isBlessing() && !activator.hasBlessing()) return false;
         if (this.isEnlightened() && !activator.isEnlightened()) return false;
+        if (this.isEnduringStory() && !activator.hasEnduringStory()) return false;
 
         if (this.kicked && !sa.isKicked()) return false;
         if (this.kicked1 && !sa.isOptionalCostPaid(OptionalCost.Kicker1)) return false;
@@ -504,13 +509,13 @@ public class SpellAbilityCondition extends SpellAbilityVariables {
             if (castSa == null) {
                 return false;
             }
-            if (!manaSpentMatches(castSa, getManaSpent())) {
+            if (!castSa.getPayingColors().hasAllColors(ColorSet.fromNames(getManaSpent().split(" ")).getColor())) {
                 return false;
             }
         }
         if (StringUtils.isNotEmpty(getManaNotSpent())) {
             SpellAbility castSa = host.getCastSA();
-            if (castSa != null && manaSpentMatches(castSa, getManaNotSpent())) {
+            if (castSa != null && castSa.getPayingColors().hasAllColors(ColorSet.fromNames(getManaNotSpent().split(" ")).getColor())) {
                 return false;
             }
         }

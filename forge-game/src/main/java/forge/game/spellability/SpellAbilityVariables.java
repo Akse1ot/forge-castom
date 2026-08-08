@@ -92,6 +92,7 @@ public class SpellAbilityVariables implements Cloneable {
     private boolean revolt = false;
     private boolean blessing = false;
     private boolean enlightened = false;
+    private boolean enduringStory = false;
     private boolean solved = false;
 
     /** The s is present. */
@@ -324,6 +325,7 @@ public class SpellAbilityVariables implements Cloneable {
     public void setRevolt(final boolean bRevolt) { revolt = bRevolt; }
     public void setBlessing(final boolean bBlessing) { blessing = bBlessing; }
     public void setEnlightened(final boolean bEnlightened) { enlightened = bEnlightened; }
+    public void setEnduringStory(final boolean bStory) { enduringStory = bStory; }
     public void setSolved(final boolean bSolved) { solved = bSolved; }
 
     /** Optional Costs */
@@ -516,6 +518,8 @@ public class SpellAbilityVariables implements Cloneable {
     public final boolean isBlessing() {     return this.blessing;  }
 
     public final boolean isEnlightened() {  return this.enlightened; }
+
+    public final boolean isEnduringStory() { return this.enduringStory;  }
 
     public final boolean isSolved() {     return this.solved;  }
 
