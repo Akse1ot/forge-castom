@@ -2685,6 +2685,23 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
     }
 
     @Override
+    public Map<Card, ManaCostShard> chooseCardsForSwallow(
+            final SpellAbility sa,
+            final ManaCost manaCost,
+            final CardCollectionView creatures) {
+        final InputSelectCardsForSwallow input =
+                new InputSelectCardsForSwallow(
+                        this,
+                        player,
+                        sa,
+                        manaCost,
+                        creatures);
+
+        input.showAndWait();
+        return input.getSwallowMap();
+    }
+
+    @Override
     public Map<Card, ManaCost> chooseCardsForMelody(
             final SpellAbility sa,
             final ManaCost manaCost,

@@ -26,12 +26,14 @@ import forge.game.ability.AbilityKey;
 import forge.game.card.Card;
 import forge.game.card.CardCollection;
 import forge.game.card.CardZoneTable;
+import forge.game.keyword.Keyword;
 import forge.game.mana.*;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -210,26 +212,112 @@ public class CostPayment extends ManaConversionMatrix {
             decisions.put(part, decision);
         }
 
-        for (final CostPart part : parts) {
-            // wrap the payment and push onto the cost stack
-            try {
-                game.costPaymentStack.push(part, this);
+        final Map<Card, Boolean> swallowReservedSacrifices =
+                new IdentityHashMap<>();
 
-                if (!part.payAsDecided(decisionMaker.getPlayer(), decisions.get(part), this.ability, decisionMaker.isEffect())) {
-                    return false;
-                }
-
-                // abilities care what was used to pay for them
-                if (part instanceof CostPartWithList) {
-                    ((CostPartWithList) part).resetLists();
-                } else if (part instanceof CostOr) {
-                    ((CostOr) part).resetNestedLists();
-                }
-            } finally {
-                game.costPaymentStack.pop(); // cost is resolved
+        if (ability.getHostCard().hasKeyword(Keyword.SWALLOW)) {
+            for (final CostPart part : parts) {
+                reserveSacrificeForSwallow(
+                        part,
+                        decisions.get(part),
+                        swallowReservedSacrifices);
             }
         }
-        return true;
+
+        try {
+            for (final CostPart part : parts) {
+                // wrap the payment and push onto the cost stack
+                try {
+                    game.costPaymentStack.push(part, this);
+
+                    if (!part.payAsDecided(
+                            decisionMaker.getPlayer(),
+                            decisions.get(part),
+                            this.ability,
+                            decisionMaker.isEffect())) {
+                        return false;
+                    }
+
+                    // abilities care what was used to pay for them
+                    if (part instanceof CostPartWithList) {
+                        ((CostPartWithList) part).resetLists();
+                    } else if (part instanceof CostOr) {
+                        ((CostOr) part).resetNestedLists();
+                    }
+                } finally {
+                    game.costPaymentStack.pop(); // cost is resolved
+                }
+            }
+            return true;
+        } finally {
+            for (final Map.Entry<Card, Boolean> entry
+                    : swallowReservedSacrifices.entrySet()) {
+                entry.getKey().setUsedToPay(entry.getValue());
+            }
+        }
+    }
+
+    private static void reserveSacrificeForSwallow(
+            final CostPart part,
+            final PaymentDecision decision,
+            final Map<Card, Boolean> previousUsedState) {
+        if (decision == null) {
+            return;
+        }
+
+        if (part instanceof CostSacrifice) {
+            for (final Card card : decision.cards) {
+                reserveCardForSwallow(
+                        card,
+                        previousUsedState);
+            }
+            return;
+        }
+
+        if (!(part instanceof CostOr orCost)
+                || decision.nested == null
+                || decision.type == null) {
+            return;
+        }
+
+        final Cost chosenCost;
+        if ("Left".equals(decision.type)) {
+            chosenCost = orCost.getLeftCost();
+        } else if ("Right".equals(decision.type)) {
+            chosenCost = orCost.getRightCost();
+        } else {
+            return;
+        }
+
+        final List<CostPart> nestedParts =
+                chosenCost.getCostPartsWithZeroMana();
+
+        if (nestedParts.size() != decision.nested.size()) {
+            return;
+        }
+
+        for (int i = 0; i < nestedParts.size(); i++) {
+            reserveSacrificeForSwallow(
+                    nestedParts.get(i),
+                    decision.nested.get(i),
+                    previousUsedState);
+        }
+    }
+
+    private static void reserveCardForSwallow(
+            final Card card,
+            final Map<Card, Boolean> previousUsedState) {
+        if (card == null || !card.isInPlay()) {
+            return;
+        }
+
+        if (!previousUsedState.containsKey(card)) {
+            previousUsedState.put(
+                    card,
+                    card.isUsedToPay());
+        }
+
+        card.setUsedToPay(true);
     }
 
     /**
@@ -365,6 +453,26 @@ public class CostPayment extends ManaConversionMatrix {
                 game.getAction().sacrifice(new CardCollection(emerge), sa, false, params);
                 sa.setSacrificedAsEmerge(game.getChangeZoneLKIInfo(emerge));
             }
+        }
+        if (!test
+                && !sa.getSacrificedForSwallow().isEmpty()) {
+            final CardCollection swallowed =
+                    new CardCollection(
+                            sa.getSacrificedForSwallow());
+
+            for (final Card card : swallowed) {
+                card.setUsedToPay(false);
+            }
+
+            if (costIsPaid) {
+                game.getAction().sacrifice(
+                        swallowed,
+                        sa,
+                        false,
+                        params);
+            }
+
+            sa.clearSacrificedForSwallow();
         }
         if (!table.isEmpty()) {
             table.triggerChangesZoneAll(sa.getHostCard().getGame(), sa);

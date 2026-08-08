@@ -197,6 +197,7 @@ public enum Keyword {
     SUNBURST("Sunburst", SimpleKeyword.class, false, "This enters with either a +1/+1 or charge counter on it for each color of mana spent to cast it based on whether it's a creature."),
     SURGE("Surge", KeywordWithCost.class, false, "You may cast this spell for its surge cost if you or a teammate has cast another spell this turn."),
     SUSPEND("Suspend", Suspend.class, false, "If you could begin to cast this card by putting it onto the stack from your hand, you may pay %s and exile it with {%d:time counter} on it. At the beginning of your upkeep, remove a time counter. When the last is removed, play it without paying its mana cost. If you cast a creature spell this way, it gains haste until you lose control of the spell or the permanent it becomes."),
+    SWALLOW("Swallow", SimpleKeyword.class, true, "Each creature you sacrifice while casting this spell pays for {1} or one mana of that creature's color."),
     TAX("Tax", SimpleKeyword.class, false, "When you cast this spell, you may pay 3 life. If you do, it enters the battlefield with a +1/+1 counter on it."),
     TEAMWORK("Teamwork", KeywordWithAmount.class, false, "As an additional cost to cast this spell, you may tap any number of creatures you control with total power %d or more."),
     TERRITORIAL("Territorial", SimpleKeyword.class, false, "As this enters the battlefield, you may exile a land card from your hand or graveyard. When this leaves the battlefield, return the exiled card to your hand."),

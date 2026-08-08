@@ -296,6 +296,10 @@ public class CostAdjustment {
             if (host.hasKeyword(Keyword.IMPROVISE)) {
                 adjustCostByConvokeOrImprovise(cost, sa, activator, true, false, test);
             }
+            if (host.hasKeyword(Keyword.SWALLOW)) {
+                adjustCostBySwallow(
+                        cost, sa, activator, test);
+            }
         }
 
         if (sa.hasParam("TapCreaturesForMana")) {
@@ -434,6 +438,61 @@ public class CostAdjustment {
         Integer maxWaterbend = sa.getMaxWaterbend();
         if (maxWaterbend != null && maxWaterbend > 0) {
             adjustCostByConvokeOrImprovise(cost, sa, payer, true, true, test);
+        }
+    }
+
+    private static void adjustCostBySwallow(
+            final ManaCostBeingPaid cost,
+            final SpellAbility sa,
+            final Player payer,
+            final boolean test) {
+        if (!test) {
+            for (final Card card
+                    : sa.getSacrificedForSwallow()) {
+                card.setUsedToPay(false);
+            }
+            sa.clearSacrificedForSwallow();
+        }
+
+        if (cost.isPaid()) {
+            return;
+        }
+
+        final CardCollectionView creatures =
+                CardLists.filter(
+                        payer.getCardsIn(ZoneType.Battlefield),
+                        CardPredicates.CREATURES
+                                .and(CardPredicates.canBeSacrificedBy(sa, false))
+                                .and(card -> !card.isUsedToPay()));
+
+        if (creatures.isEmpty()) {
+            return;
+        }
+
+        final Map<Card, ManaCostShard> payments =
+                payer.getController()
+                        .chooseCardsForSwallow(
+                                sa,
+                                cost.toManaCost(),
+                                creatures);
+
+        for (final Entry<Card, ManaCostShard> entry
+                : payments.entrySet()) {
+            final Card card = entry.getKey();
+            final ManaCostShard shard = entry.getValue();
+
+            if (!creatures.contains(card)
+                    || card.isUsedToPay()
+                    || !cost.payManaViaSwallow(
+                    shard,
+                    card.getColor().getColor())) {
+                continue;
+            }
+
+            if (!test) {
+                card.setUsedToPay(true);
+                sa.addSacrificedForSwallow(card);
+            }
         }
     }
 

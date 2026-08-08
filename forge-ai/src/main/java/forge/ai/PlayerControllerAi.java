@@ -1461,6 +1461,70 @@ public class PlayerControllerAi extends PlayerController {
     }
 
     @Override
+    public Map<Card, ManaCostShard> chooseCardsForSwallow(
+            final SpellAbility sa,
+            final ManaCost manaCost,
+            final CardCollectionView creatures) {
+        final Map<Card, ManaCostShard> selected =
+                new LinkedHashMap<>();
+        final ManaCostBeingPaid remaining =
+                new ManaCostBeingPaid(manaCost);
+
+        if (ComputerUtilMana.canPayManaCost(
+                new ManaCostBeingPaid(remaining),
+                sa,
+                player,
+                false)) {
+            return selected;
+        }
+
+        final CardCollection candidates =
+                new CardCollection(creatures);
+
+        ComputerUtilCard.sortByEvaluateCreature(candidates);
+        Collections.reverse(candidates);
+
+        final Map<Card, Boolean> previousUsedState =
+                new IdentityHashMap<>();
+
+        try {
+            for (final Card card : candidates) {
+                final ManaCostShard shard =
+                        remaining.payManaViaSwallow(
+                                card.getColor().getColor());
+
+                if (shard == null) {
+                    continue;
+                }
+
+                previousUsedState.put(
+                        card,
+                        card.isUsedToPay());
+                card.setUsedToPay(true);
+
+                selected.put(card, shard);
+
+                if (ComputerUtilMana.canPayManaCost(
+                        new ManaCostBeingPaid(remaining),
+                        sa,
+                        player,
+                        false)) {
+                    return selected;
+                }
+            }
+
+            selected.clear();
+            return selected;
+        } finally {
+            for (final Map.Entry<Card, Boolean> entry
+                    : previousUsedState.entrySet()) {
+                entry.getKey().setUsedToPay(
+                        entry.getValue());
+            }
+        }
+    }
+
+    @Override
     public Map<Card, ManaCost> chooseCardsForMelody(
             final SpellAbility sa,
             final ManaCost manaCost,

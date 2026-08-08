@@ -556,6 +556,25 @@ public class PlaySpellAbility {
                 ability.resetSacrificedAsEmerge();
             }
         }
+        if (!ability.getSacrificedForSwallow().isEmpty()) {
+            final CardCollection swallowed =
+                    new CardCollection(
+                            ability.getSacrificedForSwallow());
+
+            for (final Card card : swallowed) {
+                card.setUsedToPay(false);
+            }
+
+            if (!manaInputCancelled) {
+                game.getAction().sacrifice(
+                        swallowed,
+                        ability,
+                        false,
+                        params);
+            }
+
+            ability.clearSacrificedForSwallow();
+        }
         if (!table.isEmpty() && !manaInputCancelled) {
             table.triggerChangesZoneAll(game, ability);
         }

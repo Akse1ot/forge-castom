@@ -243,6 +243,12 @@ public abstract class PlayerController {
             final Map<Card, List<ManaCost>> availablePayments) {
         return Map.of();
     }
+    public Map<Card, ManaCostShard> chooseCardsForSwallow(
+            final SpellAbility sa,
+            final ManaCost manaCost,
+            final CardCollectionView creatures) {
+        return Map.of();
+    }
     public abstract List<Card> chooseCardsForSplice(SpellAbility sa, List<Card> cards);
 
     public abstract CardCollectionView chooseCardsToRevealFromHand(int min, int max, CardCollectionView valid);

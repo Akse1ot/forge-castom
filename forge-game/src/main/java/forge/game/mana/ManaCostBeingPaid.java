@@ -489,6 +489,55 @@ public class ManaCostBeingPaid {
         return tryPayMana(color, IterableUtil.filter(unpaidShards.keySet(), predCanBePaid), (byte)0xFF);
     }
 
+    private static boolean canPayViaSwallow(
+            final ManaCostShard shard,
+            final byte color) {
+        if (shard == ManaCostShard.X
+                || shard == ManaCostShard.COLORLESS
+                || shard.isSnow()) {
+            return false;
+        }
+
+        return shard.canBePaidWithManaOfColor(color);
+    }
+
+    public final ManaCostShard payManaViaSwallow(final byte color) {
+        final Iterable<ManaCostShard> payableShards =
+                IterableUtil.filter(
+                        unpaidShards.keySet(),
+                        shard -> canPayViaSwallow(shard, color));
+
+        final ManaCostShard chosenShard =
+                getShardToPayByPriority(payableShards, color);
+
+        if (chosenShard == null) {
+            return null;
+        }
+
+        return payManaViaSwallow(chosenShard, color)
+                ? chosenShard
+                : null;
+    }
+
+    public final boolean payManaViaSwallow(
+            final ManaCostShard shard,
+            final byte color) {
+        if (shard == null
+                || getUnpaidShards(shard) <= 0
+                || !canPayViaSwallow(shard, color)) {
+            return false;
+        }
+
+        decreaseShard(shard, 1);
+
+        if (shard.isOr2Generic()
+                && (shard.getColorMask() & color) == 0) {
+            increaseGenericMana(1);
+        }
+
+        return true;
+    }
+
     public ManaCostShard getShardToPayByPriority(Iterable<ManaCostShard> payableShards, byte possibleUses) {
         List<ManaCostShard> choice = Lists.newArrayList();
         int priority = Integer.MIN_VALUE;

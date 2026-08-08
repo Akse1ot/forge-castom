@@ -225,6 +225,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
     private CardCollection paidByMelody = new CardCollection();
     private Card sacrificedAsOffering;
     private Card sacrificedAsEmerge;
+    private CardCollection sacrificedForSwallow = new CardCollection();
     private Integer maxWaterbend;
 
     private AbilityManaPart manaPart;
@@ -1381,6 +1382,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
             clone.paidAbilities = Lists.newArrayList();
             clone.setPaidHash(getPaidHash());
             clone.paidByMelody = new CardCollection(paidByMelody);
+            clone.sacrificedForSwallow = new CardCollection(sacrificedForSwallow);
 
             if (usesTargeting()) {
                 // the targets need to be cloned, otherwise they might be cleared
@@ -1950,6 +1952,10 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
     public CardCollectionView getPaidByMelody() { return paidByMelody; }
     public void addPaidByMelody(final Card card) { paidByMelody.add(card); }
     public void clearPaidByMelody() { paidByMelody.clear(); }
+
+    public CardCollectionView getSacrificedForSwallow() { return sacrificedForSwallow; }
+    public void addSacrificedForSwallow(final Card card) { sacrificedForSwallow.add(card); }
+    public void clearSacrificedForSwallow() { sacrificedForSwallow.clear(); }
 
     public boolean isEmerge() {
         return isAlternativeCost(AlternativeCost.Emerge);

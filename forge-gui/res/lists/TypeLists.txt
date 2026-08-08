@@ -67,6 +67,7 @@ Cat:Cats
 Centaur:Centaurs
 Chimera:Chimeras
 Citizen:Citizens
+Clam:Clams
 Cleric:Clerics
 Clown:Clowns
 Cockatrice:Cockatrices
@@ -190,6 +191,7 @@ Manticore:Manticores
 Masticore:Masticores
 Mercenary:Mercenaries
 Merfolk:Merfolk
+Mermaid:Mermaids
 Metathran:Metathrans
 Misbegotten:Misbegotten
 Minion:Minions
@@ -207,6 +209,7 @@ Mouse:Mice
 Mutant:Mutants
 Myr:Myrs
 Mystic:Mystics
+Naga:Nagas
 Nautilus:Nautili
 Necron:Necrons
 Nephilim:Nephilims
@@ -278,6 +281,7 @@ Scorpion:Scorpions
 Scout:Scouts
 Sculpture:Sculptures
 Seal:Seals
+Seahorse:Seahorses
 Serf:Serfs
 Serpent:Serpents
 Servo:Servos
