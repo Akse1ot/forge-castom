@@ -1,0 +1,17 @@
+Name:Expedition Leader
+ManaCost:3 U
+Types:Creature Human Shaman
+PT:2/4
+K:Vigilance
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigInvoke | TriggerDescription$ Whenever CARDNAME attacks, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+SVar:TrigInvoke:DB$ InvokeSkill
+AlternateMode:Modal
+Oracle:Vigilance\nWhenever Expedition Leader attacks, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Fierce Protection
+ManaCost:1 U
+Types:Instant Skill
+A:SP$ PumpAll | ValidCards$ Card.Creature+YouDontCtrl | NumAtt$ -2 | SpellDescription$ Creatures you don’t control get -2/-0 until end of turn.
+Oracle:Creatures you don’t control get -2/-0 until end of turn.

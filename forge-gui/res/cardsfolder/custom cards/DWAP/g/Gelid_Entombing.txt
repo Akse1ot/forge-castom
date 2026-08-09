@@ -1,0 +1,8 @@
+Name:Gelid Entombing
+ManaCost:1 W
+Types:Snow Enchantment Aura
+K:Enchant:Creature,Planeswalker:creature or planeswalker
+SVar:AttachAILogic:Curse
+S:Mode$ CantAttack,CantBlock,CantBeActivated | ValidCard$ Card.EnchantedBy | Description$ Enchanted permanent can't attack or block, and its activated abilities can't be activated.
+A:AB$ ChangeZone | Cost$ 2 S | Defined$ Enchanted | Origin$ Battlefield | Destination$ Exile | SpellDescription$ Exile enchanted permanent.
+Oracle:Enchant creature or planeswalker\nEnchanted permanent can’t attack or block, and it’s activated abilities can’t be activated.\n{2}{S}: Exile enchanted permanent.

@@ -1,0 +1,7 @@
+Name:Battle Brewer
+ManaCost:4 B
+Types:Creature Human Knight
+PT:5/4
+K:Epitome
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Indestructible | ConditionPlayerTurn$ True | Enlightened$ True | Description$ During your turn, CARDNAME has indestructible as long as you’re enlightened.
+Oracle:Epitome (If there are eight or more mana abilities among permanents you control, you become enlightened for the rest of the game.)\nDuring your turn, Battle Brewer has indestructible as long as you’re enlightened.

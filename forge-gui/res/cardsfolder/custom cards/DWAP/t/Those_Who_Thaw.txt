@@ -1,0 +1,8 @@
+Name:Those Who Thaw
+ManaCost:2 U
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ Whenever CARDNAME enters or you cast a spell during a turn other than yours, put a thawing counter on CARDNAME.
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You.NonActive | Execute$ TrigPutCounter | TriggerZones$ Battlefield | Secondary$ True | TriggerDescription$ Whenever CARDNAME enters or you cast a spell during a turn other than yours, put a thawing counter on CARDNAME.
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ THAWING | CounterNum$ 1
+A:AB$ Token | Cost$ SubCounter<3/THAWING> | TokenScript$ ub_3_3_horror_yeti | SpellDescription$ Create a 3/3 blue and black Yeti Horror creature token.
+Oracle:Whenever Those Who Thaw enters or you cast a spell during a turn other than yours, put a thawing counter on Those Who Thaw.\nRemove three thawing counters from Those Who Thaw: Create a 3/3 blue and black Yeti Horror creature token.

@@ -1,0 +1,20 @@
+Name:Tungskul, Gelid Moon
+ManaCost:3 B G U
+Types:Legendary Creature Horror God
+PT:6/6
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Command | PresentZone$ Command | Execute$ TrigInvoke | TriggerDescription$ At the beginning of your upkeep, CARDNAME invokes. (Cast a copy of this creature’s Skill without paying its mana cost.) 
+SVar:TrigInvoke:DB$ InvokeSkill
+T:Mode$ Sacrificed | ValidCard$ Permanent | Execute$ TrigDraw | TriggerZones$ Battlefield | TriggerDescription$ Whenever a player sacrifices a permanent, you draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+AlternateMode:Modal
+Oracle:At the beginning of your upkeep, Tungskul, Gelid Moon invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)\nWhenever a player sacrifices a permanent, you draw a card.
+
+ALTERNATE
+
+Name:Tungskul's Retribution
+ManaCost:B G U
+Types:Instant Skill
+A:SP$ ChooseType | Defined$ You | Type$ Card | InvalidTypes$ Instant,Sorcery,Kindred,Land | SubAbility$ DBRepeatEach | SpellDescription$ Choose a nonland permanent type. Each opponent sacrifices a permanent they control of that type unless they sacrifice two other permanents they control.
+SVar:DBRepeatEach:DB$ RepeatEach | RepeatPlayers$ Opponent | RepeatSubAbility$ DBSacrifice
+SVar:DBSacrifice:DB$ Sacrifice | Defined$ Player.IsRemembered | SacValid$ Permanent.ChosenType | UnlessCost$ Sac<2/Permanent/two other permanents> | UnlessPayer$ Player.IsRemembered
+Oracle:Choose a nonland permanent type. Each opponent sacrifices a permanent they control of that type unless they sacrifice two other permanents they control.

@@ -1,0 +1,8 @@
+Name:Raider's Sabotage
+ManaCost:1 R
+Types:Instant
+K:AlternateAdditionalCost:Sac<1/Creature;Artifact/artifact or creature>:2
+SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE3
+A:SP$ DealDamage | NumDmg$ 5 | ValidTgts$ Creature | ReplaceDyingDefined$ Targeted | SpellDescription$ CARDNAME deals 5 damage to target creature. If that creature would die this turn, exile it instead.
+DeckHas:Ability$Sacrifice
+Oracle:As an additional cost to cast this spell, sacrifice an artifact or creature or pay {2}.\nRaider’s Sabotage deals 5 damage to target creature. If that creature would die this turn, exile it instead.

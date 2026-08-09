@@ -1,0 +1,6 @@
+Name:Underbridge Takeover
+ManaCost:1 B B B
+Types:Sorcery
+A:SP$ Destroy | ValidTgts$ Land.nonBasic | TgtPrompt$ Select up to one target nonbasic land | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBDiscard | SpellDescription$Destroy up to one target nonbasic land. Target player discards two cards.
+SVar:DBDiscard:DB$ Discard | ValidTgts$ Player | NumCards$ 2 | Mode$ TgtChoose
+Oracle:Destroy up to one target nonbasic land.\nTarget player discards two cards.

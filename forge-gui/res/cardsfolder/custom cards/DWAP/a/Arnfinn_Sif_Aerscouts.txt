@@ -1,0 +1,11 @@
+Name:Arnfinn & Sif, Aerscouts
+ManaCost:1 R W
+Types:Legendary Creature Dwarf Griffin Scout
+PT:3/3
+K:Flying
+K:Haste
+T:Mode$ Forged | ValidPlayer$ You | OptionalDecider$ You | Execute$ TrigCreateDwarf | TriggerDescription$ Whenever you forge, you may create a 1/1 white and red Dwarf Warrior creature token with lifelink and haste. If you do, attach that Equipment to it.
+SVar:TrigCreateDwarf:DB$ Token | TokenScript$ rw_1_1_dwarf_warrior_haste_lifelink | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBAttachForged
+SVar:DBAttachForged:DB$ Attach | Object$ TriggeredCards | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Flying, haste\nWhenever you forge, you may create a 1/1 white and red Dwarf Warrior creature token with lifelink and haste. If you do, attach that equipment to it.

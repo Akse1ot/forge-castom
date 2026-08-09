@@ -1,0 +1,16 @@
+Name:Flamespitter Wyrm
+ManaCost:4 R
+Types:Creature Lizard Beast
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvoke | TriggerDescription$ When this creature enters, you may sacrifice another artifact or creature. If you do, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+SVar:TrigInvoke:DB$ InvokeSkill | Cost$ Sac<1/Creature.Other;Artifact.Other/another creature or artifact>
+AlternateMode:Modal
+Oracle:When Flamespitter Wyrm enters, you may sacrifice another artifact or creature. If you do, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Flaming Deterrent
+ManaCost:1 R
+Types:Sorcery Skill
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3 | SpellDescription$ CARDNAME deals 3 damage to any target.
+Oracle:Flaming Deterrent deals 3 damage to any target.

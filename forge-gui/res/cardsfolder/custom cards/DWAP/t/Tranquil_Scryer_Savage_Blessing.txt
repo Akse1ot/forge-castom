@@ -1,0 +1,16 @@
+Name:Tranquil Scryer
+ManaCost:2 U
+Types:Creature Human Shaman
+PT:0/5
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ1 | Execute$ TrigInvoke | TriggerZones$ Battlefield | TriggerDescription$ Whenever you cast your first instant or sorcery spell each turn, CARDNAME invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+SVar:TrigInvoke:DB$ InvokeSkill
+AlternateMode:Modal
+Oracle:Whenever you cast your first instant or sorcery spell each turn, Tranquil Scryer invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Savage Blessing
+ManaCost:1 U
+Types:Instant — Skill
+A:SP$ Animate | ValidTgts$ Creature | Power$ 5 | Toughness$ 5 | SpellDescription$ Target creature has base power and toughness 5/5 until end of turn.
+Oracle:Target creature has base power and toughness 5/5 until end of turn.

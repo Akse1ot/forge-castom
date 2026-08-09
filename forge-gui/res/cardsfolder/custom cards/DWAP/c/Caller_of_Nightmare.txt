@@ -1,0 +1,9 @@
+Name:Caller of Nightmare
+ManaCost:2 U
+Types:Creature Elf Cleric
+PT:2/2
+K:etbCounter:P1P1:1:CheckSVar$ X:CARDNAME enters with a +1/+1 counter on it if you control a creature with power 4 or greater.
+SVar:X:Count$Valid Horror.YouCtrl
+K:ETBReplacement:Other:AddExtraCounter:Mandatory:Battlefield:Creature.Horror+YouCtrl
+SVar:AddExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 1 | SpellDescription$ Each Horror you control enters with an additional +1/+1 counter on it.
+Oracle:Caller of Nightmare enters with a +1/+1 counter on it if you control a Horror.\nEach Horror you control enters with an additional +1/+1 counter on it.

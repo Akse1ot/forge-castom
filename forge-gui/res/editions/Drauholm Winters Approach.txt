@@ -1,0 +1,349 @@
+[metadata]
+Code=DWAP
+Date=2025-06-19
+Name=Drauholm: Winter's Approach
+Type=CUSTOM_SET
+ScryfallCode=DWAP
+BoosterSlots=Common,Uncommon,RareMythic,Land,Wildcard
+Booster=8 Common, 3 Uncommon, 1 RareMythic, 1 Land, 1 Wildcard
+Prerelease=6 Boosters, 1 RareMythic+
+BoosterBox=30
+
+[Common]
+Base=Common:!fromSheet("DWAP Snow Lands"):fromSheet("DWAP cards")
+
+[Uncommon]
+Base=Uncommon:fromSheet("DWAP cards")
+
+[RareMythic]
+Base=Rare:fromSheet("DWAP cards")
+Replace=.136F Mythic:fromSheet("DWAP cards")
+
+[Land]
+Base=fromSheet("DWAP Snow Lands")
+
+[Wildcard]
+Base=Common:!fromSheet("DWAP Snow Lands"):fromSheet("DWAP cards")
+Replace=.25F Uncommon:fromSheet("DWAP cards")
+Replace=.07F Rare:fromSheet("DWAP cards")
+Replace=.01F Mythic:fromSheet("DWAP cards")
+
+[cards]
+1 R Intrepidity
+2 R Ari, Adventure Seeker
+3 R Assembled Procession
+4 U Aurora Weaver
+5 C Avalanche Charge
+6 R Cage the Soul
+7 U Content Furball
+8 U Dawnpeak Herdmaster
+9 R Disciple of Devotion
+10 C Fjord Raptor
+11 U Frostmoon Pathleader
+12 C Frostmoon Priestess
+13 C Gelid Entombing
+14 C Gor-narg's Leadership
+15 R Growing Starlight
+16 M Hammer of Ancestry
+17 U Hammer of the Admired
+18 M Herald of Warming Dawn
+19 U Hopebringer Valkyria
+20 C Huntpack Ambush
+21 C Iskari Floechanter
+22 C Kindly Herder
+23 R Lostwoods Skywarden
+24 C Martyr's Soul
+25 C Protective Hearthsmith
+26 U Raider's Huntmaster
+27 C Raider's Initiate
+28 U Risen Greatwyrm
+29 R Rolling Joysphere
+30 U Sacred Binding
+31 U Snowfield Burdenbeast
+32 U Snowslide
+33 R Star-Herd Ascender
+34 U Steppe Stampede
+35 U Stoneskin
+36 C Take up Blades
+37 C Treetop Hunter
+38 C Van Helsa's Blade
+39 R Van Helsa's Paragon
+40 U Wild Reproach
+41 U Caller of Nightmare
+42 C Cliffwalker Adept
+43 C Collective Repulse
+44 R Crush of Frost
+45 U Curious Imitator
+46 U Direfloe Strix
+47 C Eager Geologist
+48 U Expedition Leader
+49 R Ferros, Encased Thunder
+50 C Fjord Thrasher
+51 U Forbidden Insight
+52 U Freeze Momentum
+53 C Haunt-Pass Charger
+54 C Hilda's Dismissal
+55 U Horrific Reclamation
+56 R Horrific Splintering
+57 U Iceshelf Crasher
+58 R Inherited Talents
+59 M Kaldrbursti, the First Blizzard
+60 C Lostwoods Corruption
+61 M Lostwoods Shapestealer
+62 R Moonbird's Invocation
+63 R Mythweaver Sprite
+64 U Nurture the Lostwoods
+65 C Omenreading
+66 C Ranging Falcon
+67 R Regurgitating Gorger
+68 C Release From Frost
+69 C Render Insignificant
+70 U Rimefield Teachings
+71 U Song of Winter
+72 U Star-Herd Apprentice
+73 R Star-High Dreamer
+74 C Stormbane Strix
+75 R Summit Guardians
+76 U Those Who Thaw
+77 C Totemic Visions
+78 C Tranquil Scryer
+79 U Wandering Sprite
+80 U Aurora Strix
+81 C Battle Brewer
+82 C Berserker's Will
+83 U Blizzard Stalker
+84 R Brunhild, Raider Queen
+85 U Brunhild's Tactics
+86 U Carve a Path
+87 R Consuming Matriarch
+88 C Defiant Sacrifice
+89 R Dire Elimination
+90 C Disturbed Orbweaver
+91 C Dread Scavenger
+92 R Enevenomed Scribe
+93 U Enthralled Huntress
+94 C Foraging Raccoon
+95 R Gelid Vessel
+96 U Glimpse of Winter
+97 R Grave Reckoning
+98 U Grove Sentinel
+99 C Gunvald's Forerunner
+100 M Herald of Chilling Dusk
+101 U Horrific Priest
+102 R Lay the Seeds
+103 C Lethal Chill
+104 C Maddenned Ramblings
+105 U Moonlit Summons
+106 U Persistent Croaker
+107 U Shadowcleave
+108 U Slumbering Warden
+109 U Smithed Legacy
+110 R Solace's Shadow
+111 C Strait-Deep Lurker
+112 R Underbridge Takeover
+113 C Unformed Devourer
+114 C Unhallowed Awakening
+115 C Unto Death
+116 U Wandering Gemcrafter
+117 M Winter's Tomb
+118 C Yeti Youngling
+119 U Adventurous Coercion
+120 R Armament Repurposer
+121 U Artistic Invocator
+122 C Aspirant of the Hunt
+123 C Blaze Scryer
+124 R Blazing Retribution
+125 C Bloodfang Wildcat
+126 U Calamitous Reading
+127 C Call Reinforcements
+128 R Crack the Shells
+129 U Dreamcatcher's Rod
+130 C Excited Artillerist
+131 R Firebaiting
+132 U Firehorn Crusher
+133 C Firmament Channeler
+134 C Flamespitter Wyrm
+135 U Forged in Duty
+136 M Hraungandr, The First Eruption
+137 C Huntpack Guardian
+138 U Jarlorn's Blessed
+139 C Jarlorns Fury
+140 C Kindle Runner
+141 U Lead the Avalanche
+142 R Magni, the Unbreakable
+143 M Peak of Destruction
+144 U Raider's Intimidator
+145 U Raider's Sabotage
+146 C Raze the Halls
+147 C Skadi's Muster
+148 C Skred
+149 U Smithing Instructor
+150 C Smith's Resolve
+151 R Smuggled Firebombs
+152 U Star-Herd Blaze
+153 R Sunbird's Invocation
+154 R Sunfeather Ascetic
+155 R Unrelenting Champion
+156 U Varloch Troublemaker
+157 U Walking Range
+158 R Adaptive Scavenger
+159 U Centaur Omenreader
+160 C Charting Efforts
+161 C Chillbloom Spider
+162 R Cojocar Huntress
+163 U Dangerous Bloom
+164 U Elder Protector
+165 M Elof, Fabled Bulwark
+166 U Expand Horizons
+167 U Fabled Weaponsmith
+168 C Fungal Storyteller
+169 C Iskari Pathleader
+170 C Learn From the Cold
+171 U Learned Ascetic
+172 C Lostwoods Caretaker
+173 R Mountainbreaker Colossus
+174 R Nanna, Small but Mighty
+175 R Overgrown Steelsheell
+176 C Peak Performance
+177 C Primal Rebuke
+178 R Quickstep Wildcaller
+179 C Reed-Crowned Flutist
+180 U Rimefield's Blessing
+181 U Rotroot Hydra
+182 U Selfless Guardianship
+183 C Shamanic Leader
+184 M Skogdrengr, the First Apex
+185 U Snowslide Runner
+186 C Spikeback Hog
+187 R Spiritual Order
+188 C Steadfast Ascetic
+189 U Titanic Odds
+190 U Trapped Trail
+191 C Trumpeting Rampager
+192 C Unexpected Breach
+193 U Unstoppable Behemoth
+194 R Wildform Reclaimer
+195 U Yearling Warrior
+196 R Yeti's Call
+197 M Agnar, Winter's Wrath
+198 R Agnar's Meditation
+199 U Anaru Omenseer
+200 R Arnfinn & Sif, Aerscouts
+201 U Awoken Sapling
+202 U Blazing Valkyria
+203 U Blizzard Bulwark
+204 U Defiant Trapbreaker
+205 R Dritta, Shadewrought
+206 U Flash Freeze
+207 U Frostmoon Vindicator
+208 R Gor-Narg, Iskari Prince
+209 U Gunvald, Unsparing Raider
+210 U Hilda, the Oneiromancer
+211 R Hodur, Varloch Elder
+212 R Hoenir, Reclaimed Might
+213 U Iceshelf Screecher
+214 U Invoke the Stars
+215 M Jarlorn, Storm-Roar
+216 M Keiko, Travelling Trickster
+217 R Keiko's Distraction
+218 U Lostwoods Soulherder
+219 R Malignatus, Prison-Breaker
+220 U Mountainback Ox
+221 M One With the Aurora
+222 M The Original Valkyria
+223 U Posessed Deadwood
+224 U Raider's Spirit
+225 R Rind, Head Priestess
+226 U Runed Headcarver
+227 M Sara Van Helsa, Nightchaser
+228 M Sivfrida, Life-Warden
+229 R Skadi, Fierce Protectress
+230 U Slumbering Snowtoad
+231 U Spinner of Souls
+232 M Steinar, Molten Will
+233 R Sven, Fjord Cliffdancer
+234 M Tungskul, Gelid Moon
+235 U Twisted-horn Flockhand
+236 R Urdie, Inquisite Scholar
+237 R Van Helsa's Aptitude
+238 U Varloch Flamewright
+239 C Blessed Workshop
+240 C Explorers Raft
+241 U Forgesteppe Barrier
+242 C Icicle Snare
+243 U Improvised Juggernaut
+244 U Invoked Protector
+245 C Iron Giant
+246 C Iskari Totem
+247 C Malleable Fae
+248 C Rockspine Drake
+249 R Temple to True Ice
+250 C Alpine Meadow
+251 C Arctic Treeline
+252 C Auroric Landscape
+253 M Cavern of Souls
+254 U Frosted Bastion
+255 U Frosted Grotto
+256 U Frosted River
+257 U Frosted Steppe
+258 U Frosted Village
+259 C Frostmoon Temple
+260 C Glacial Floodplain
+261 C Highland Forest
+262 C Ice Tunnel
+263 U Prismatic Chasm
+264 C Rimewood Falls
+265 C Snowfield Sinkhole
+266 U Steinar's Crucible
+267 C Sulfurous Mire
+268 C Volatile Fjord
+269 C Woodland Chasm
+270 C Snow-Covered Forest
+271 C Snow-Covered Island
+272 C Snow-Covered Mountain
+273 C Snow-Covered Plains
+274 C Snow-Covered Swamp
+275 C Snow-Covered Wastes
+276 L Plains
+277 L Island
+278 L Swamp
+279 L Mountain
+280 L Forest
+281 L Wastes
+
+[Snow Lands]
+5 Snow-Covered Plains|DWAP
+5 Snow-Covered Island|DWAP
+5 Snow-Covered Swamp|DWAP
+5 Snow-Covered Mountain|DWAP
+5 Snow-Covered Forest|DWAP
+2 Snow-Covered Wastes|DWAP
+2 Alpine Meadow|DWAP
+2 Arctic Treeline|DWAP
+2 Glacial Floodplain|DWAP
+2 Highland Forest|DWAP
+2 Ice Tunnel|DWAP
+2 Rimewood Falls|DWAP
+2 Snowfield Sinkhole|DWAP
+2 Sulfurous Mire|DWAP
+2 Volatile Fjord|DWAP
+2 Woodland Chasm|DWAP
+
+[tokens]
+1 w_1_1_snow_gremlin_lifelink
+2 w_3_3_legendary_snow_yeti_vigilance_magnus
+3 u_x_x_goat_spirit
+4 b_2_1_berserker
+5 gu_1_1_spirit
+6 r_3_1_a_demon_haste
+7 forge_equipment
+8 rw_1_1_dwarf_warrior_haste_lifelink
+9 w_0_1_goat
+10 ub_3_3_horror_yeti
+11 b_1_1_treefolk_mana
+12 rg_1_1_shaman
+13 g_2_2_aurochs
+
+
+[other]
+14 enlightened

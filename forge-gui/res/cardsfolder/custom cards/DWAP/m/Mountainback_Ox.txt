@@ -1,0 +1,9 @@
+Name:Mountainback Ox
+ManaCost:8 G W
+Types:Snow Creature Ox Elemental
+PT:12/12
+K:Convoke
+K:Trample
+K:Vigilance
+K:Ward:2
+Oracle:Convoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for  or one mana of that creature’s color.)\nTrample, vigilance, ward {2}

@@ -1,0 +1,10 @@
+Name:Blazing Retribution
+ManaCost:X R R
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ X | SubAbility$ DBDiscard | SpellDescription$ CARDNAME deals X damage to any target. You may discard up to X cards. If you do, draw that many cards.
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ X | Optional$ True | Mode$ TgtChoose | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Y:Remembered$Amount
+SVar:X:Count$xPaid
+Oracle:Blazing Retribution deals X damage to any target. You may discard up to X cards. If you do, draw that many cards.

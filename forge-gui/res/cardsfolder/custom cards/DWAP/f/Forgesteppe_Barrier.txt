@@ -1,0 +1,7 @@
+Name:Forgesteppe Barrier
+ManaCost:2
+Types:Artifact Creature Wall
+PT:0/4
+K:Defender
+A:AB$ Pump | Cost$ 3 | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | TgtPrompt$ Select target creature an opponent controls | IsCurse$ True | ActivationLimit$ 1 | SpellDescription$ Target creature can’t block this turn. Activate only once each turn.
+Oracle:Defender\n{3}: Target creature can’t block this turn. Activate only once each turn.

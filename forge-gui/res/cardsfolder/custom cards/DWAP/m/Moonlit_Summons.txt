@@ -1,0 +1,7 @@
+Name:Moonlit Summons
+ManaCost:3 B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ 2 | MaxTotalTargetCMC$ 4 | ValidTgts$ Creature.YouOwn | TgtPrompt$ Select up to two target creature cards with total mana value 4 or less in your graveyard | SubAbility$ DBPutCounter | StackDescription$ SpellDescription | SpellDescription$ Return up to three target creature cards with total mana value 3 or less from your graveyard to the battlefield. Put a +1/+1 counter on each of them.
+SVar:DBPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1 | Defined$ Targeted
+DeckHas:Ability$Counters|Graveyard
+Oracle:Return up to two target creature cards with total mana value 4 or less from your graveyard to the battlefield. Put a +1/+1 counter on each of them.

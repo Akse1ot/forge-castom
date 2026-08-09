@@ -1,0 +1,12 @@
+Name:Dritta, Shadewrought
+ManaCost:W B
+Types:Legendary Creature Demon Shade
+PT:1/1
+R:Event$ CreateToken | ActiveZones$ Graveyard | ValidPlayer$ You | ReplaceWith$ DBReturn | Optional$ True | Description$ If you would create one or more tokens, you may instead return CARDNAME from your graveyard to the battlefield and put that many +1/+1 counters on it.
+SVar:DBReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield | RememberChanged$ True | SubAbility$ DBPutCounters
+SVar:DBPutCounters:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:ReplaceCount$TokenNum
+S:Mode$ CountersRemain | ValidCard$ Card.Self | EffectZone$ All | Description$ Counters remain on NICKNAME as it moves to any zone other than a player's hand or library.
+DeckHas:Ability$Counters|Graveyard
+Oracle:If you would create one or more tokens, you may instead return Dritta, Shadewrought from your graveyard to the battlefield and put that many +1/+1 counters on it.\nCounters remain on Dritta as it moves to any zone other than a player’s hand or library.

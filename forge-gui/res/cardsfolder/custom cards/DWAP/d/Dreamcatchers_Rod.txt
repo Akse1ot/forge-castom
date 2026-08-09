@@ -1,0 +1,12 @@
+Name:Dreamcatcher's Rod
+ManaCost:3 R
+Types:Artifact Equipment
+K:Equip:1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn | TriggerDescription$ When CARDNAME enters, return up to one target instant card, sorcery card, or card with a Skill from your graveyard to your hand.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Instant.YouOwn+FrontSide,Sorcery.YouOwn+FrontSide,Card.Skill+YouOwn+BackSide | TargetEitherFace$ True | TgtPrompt$ Select up to one target instant card, sorcery card, or card with a Skill from your graveyard
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever you cast an instant or sorcery spell, equipped creature gets +X/+0 until end of turn, where X is that spell's mana value.
+SVar:TrigPump:DB$ Pump | Defined$ Equipped | NumAtt$ +X
+SVar:X:TriggeredSpellAbility$CardManaCostLKI
+SVar:BuffedBy:Instant,Sorcery
+DeckHas:Ability$Graveyard
+Oracle:When Dreamcatcher's Rod enters, return up to one target instant card, sorcery card, or card with a Skill from your graveyard to your hand.\nWhenever you cast an instant or sorcery spell, equipped creature gets +X/+0 until end of turn, where X is that spell's mana value.\nEquip {1}

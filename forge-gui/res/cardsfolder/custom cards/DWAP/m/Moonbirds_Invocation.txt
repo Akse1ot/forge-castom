@@ -1,0 +1,9 @@
+Name:Moonbird's Invocation
+ManaCost:5 U
+Types:Enchantment
+T:Mode$ SpellCast | ValidActivatingPlayer$ You | ValidCard$ Card.YouOwn | Execute$ TrigMill | TriggerZones$ Battlefield | TriggerDescription$ Whenever you cast a spell you own, each opponent mills X cards, where X is that spell's mana value. You may cast a spell with mana value X or less from among cards milled this way without paying its mana cost.
+SVar:TrigMill:DB$ Mill | Defined$ Opponent | NumCards$ X | RememberMilled$ True | ForgetOtherRemembered$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidSA$ Spell | WithTotalCMC$ X | Amount$ 1 | WithoutManaCost$ True | Optional$ True | Controller$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:TriggeredSpellAbility$CardManaCost
+Oracle:Whenever you cast a spell you own, each opponent mills X cards, where X is that spell’s mana value. You may cast a spell with mana value X or less from among cards milled this way without paying its mana cost.

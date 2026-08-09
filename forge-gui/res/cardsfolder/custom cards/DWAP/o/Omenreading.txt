@@ -1,0 +1,5 @@
+Name:Omenreading
+ManaCost:U
+Types:Sorcery
+A:SP$ Dig | DigNum$ 2 | ChangeNum$ 1 | DestinationZone2$ Graveyard | NoReveal$ True
+Oracle:Look at the top two cards of your library. Put up to one into your hand and the rest into your graveyard.

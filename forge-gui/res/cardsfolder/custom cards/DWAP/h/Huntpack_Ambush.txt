@@ -1,0 +1,7 @@
+Name:Huntpack Ambush
+ManaCost:5 W
+Types:Sorcery
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All | ValidTarget$ Creature.tapped | Description$ This spell costs {2} less to cast if it targets a tapped creature.
+K:Convoke
+A:SP$ Destroy | ValidTgts$ Permanent.nonLand | TgtPrompt$ Select target nonland permanent | SpellDescription$ Destroy target nonland permanent.
+Oracle:This spell costs {2} less to cast if it targets a tapped creature.\nConvoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for  or one mana of that creature’s color.)\nDestroy target nonland permanent.

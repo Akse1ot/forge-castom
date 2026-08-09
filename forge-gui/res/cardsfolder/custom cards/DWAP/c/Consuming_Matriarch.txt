@@ -1,0 +1,15 @@
+Name:Consuming Matriarch
+ManaCost:6 B
+Types:Creature Elf Horror
+PT:4/4
+A:SP$ PermanentCreature | Cost$ 6 B Sac<X/Permanent/any number of permanents> | AILogic$ SacToReduceCost | AdditionalDesc$ This spell costs {2} less to cast for each permanent sacrificed this way.
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Y | EffectZone$ All | Relative$ True
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | CheckSVar$ SacrificedPermanentTypes | SVarCompare$ GE2 | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ At the beginning of your end step, if there were two or more types among permanents you've sacrificed this turn, you draw two cards and lose 2 life.
+SVar:TrigDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2
+SVar:X:Count$xPaid
+SVar:Y:SVar$X/Times.2
+SVar:SacrificedPermanentTypes:PlayerCountPropertyYou$SacrificedPermanentTypesThisTurn
+SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE2
+DeckHas:Ability$Sacrifice
+Oracle:As an additional cost to cast this spell, you may sacrifice any number of permanents. This spell costs {2} less to cast for each permanent sacrificed this way.\nAt the beginning of your end step, if there were two or more types among permanents you've sacrificed this turn, you draw two cards and lose 2 life.

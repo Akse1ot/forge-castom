@@ -1,0 +1,8 @@
+Name:Summit Guardians
+ManaCost:4 U
+Types:Snow Creature Dwarf Cat Priest
+PT:2/6
+K:Vigilance
+S:Mode$ CantAttackUnless | ValidCard$ Creature | Target$ You,Planeswalker.YouCtrl | Cost$ X | Description$ Creatures can’t attack you or a planeswalker you control unless their controller pays {X} for each of those creatures, where X is the number of snow permanents you control.
+SVar:X:Count$Valid Permanent.Snow+YouCtrl
+Oracle:Vigilance\nCreatures can’t attack you or a planeswalker you control unless their controller pays {X} for each of those creatures, where X is the number of snow permanents you control.

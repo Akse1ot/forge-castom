@@ -1,0 +1,9 @@
+Name:Fjord Raptor
+ManaCost:3 W W
+Types:Artifact Dinosaur Bird
+PT:3/3
+K:Flying
+T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigPumpAll | TriggerDescription$ Whenever CARDNAME becomes tapped, scry 1. (Look at the top card of your library. You may put that card on the bottom.)
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.StrictlyOther+YouCtrl | NumAtt$ +1 | NumDef$ +1
+K:TypeCycling:Plains:2
+Oracle:Flying\nWhenever Fjord Raptor becomes tapped, other creatures you control get +1/+1 until end of turn.\nPlainscycling {2} ({2}, Discard this card: Search your library for a Plains card, reveal it, put it into your hand, then shuffle.)

@@ -1,0 +1,12 @@
+Name:Regurgitating Gorger
+ManaCost:4 U U
+Types:Creature Horror
+PT:5/5
+K:Flash
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 2 | TriggerZones$ Battlefield | Execute$ TrigExile | TriggerDescription$ Whenever you draw your second card each turn, exile any number of nonland permanents you own and control. Return those cards to the battlefield at the beginning of the next end step.
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ChangeType$ Permanent.nonLand+YouOwn+YouCtrl | SelectPrompt$ Select any number of nonland permanents you own and control | Hidden$ True | ChangeNum$ X | RememberChanged$ True | SubAbility$ DelTrig
+SVar:DelTrig:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ TrigReturn | RememberObjects$ RememberedLKI | TriggerDescription$ Return those cards to the battlefield at the beginning of the next end step. | SubAbility$ DBCleanup
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ DelayTriggerRememberedLKI
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Permanent.nonLand+YouOwn+YouCtrl
+Oracle:Flash\nWhenever you draw your second card each turn, exile any number of nonland permanents you own and control. Return those cards to the battlefield at the beginning of the next end step.

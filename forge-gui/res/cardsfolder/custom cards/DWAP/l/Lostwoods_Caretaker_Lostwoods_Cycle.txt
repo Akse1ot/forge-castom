@@ -1,0 +1,18 @@
+Name:Lostwoods Caretaker
+ManaCost:4 G
+Types:Creature Human Citizen
+PT:5/4
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigMill | TriggerDescription$ When CARDNAME dies, mill four cards. (Put the top four cards of your library into your graveyard.)
+SVar:TrigMill:DB$ Mill | NumCards$ 2 | SubAbility$ TrigInvoke
+SVar:TrigInvoke:DB$ InvokeSkill
+AlternateMode:Modal
+Oracle:When Lostwoods Caretaker dies, mill two cards. Lostwoods Caretaker invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Lostwoods Cycle
+ManaCost:2 G G
+Types:Sorcery Skill
+A:SP$ Token | TokenAmount$ X | TokenScript$ gu_1_1_spirit | TokenOwner$ You | TokenTapped$ True | SpellDescription$ Create a 1/1 green and blue Spirit creature token for each creature card in your graveyard.
+SVar:X:Count$ValidGraveyard Creature.YouOwn
+Oracle:Create a 1/1 green and blue Spirit creature token for each creature card in your graveyard.

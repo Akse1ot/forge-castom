@@ -1,0 +1,13 @@
+Name:Herald of Warming Dawn
+ManaCost:1 W
+Types:Creature Azra Cleric
+PT:2/2
+K:Lifelink
+K:Hexproof:Black
+R:Event$ GainLife | ActiveZones$ Battlefield | ValidPlayer$ You | ReplaceWith$ GainLife | AILogic$ DoubleLife | Description$ If you would gain life, you gain that much life plus 1 instead.
+SVar:GainLife:DB$ ReplaceEffect | VarName$ LifeGained | VarValue$ X
+SVar:X:ReplaceCount$LifeGained/Plus.1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, draw a card if you have 25 or more life.
+SVar:TrigDraw:DB$ Draw | ConditionCheckSVar$ Y | ConditionSVarCompare$ GE25
+SVar:Y:Count$YourLifeTotal
+Oracle:Lifelink, hexproof from black\nIf you would gain life, you gain that much life plus one instead.\nWhenever Herald of Warming Dawn deals combat damage to a player, draw a card if you have 25 or more life.

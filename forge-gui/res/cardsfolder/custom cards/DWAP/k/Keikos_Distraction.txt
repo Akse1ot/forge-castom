@@ -1,0 +1,10 @@
+Name:Keiko's Distraction
+ManaCost:1 U R
+Types:Creature Elf Rogue
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | TriggerDescription$ When CARDNAME enters, search your library and/or graveyard for a Keiko, Travelling Trickster planeswalker card, reveal it, and put it into your hand. If you search your library this way, shuffle.
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | OriginAlternative$ Graveyard | Destination$ Hand | ChangeType$ Planeswalker.YouOwn+namedKeiko; Travelling Trickster | ChangeNum$ 1
+S:Mode$ ReduceCost | ValidCard$ Card.nonCreature | Type$ Spell | Activator$ You | Amount$ 1 | CheckSVar$ YouCastThisTurn | SVarCompare$ GE1 | Description$ Noncreature spells you cast cost {1} less to cast if you've cast a spell this turn.
+SVar:YouCastThisTurn:Count$ThisTurnCast_Card.YouCtrl
+DeckHints:Name$Keiko, Travelling Trickster
+Oracle:When Keiko’s Distraction enters, search your library and/or graveyard for a Keiko planeswalker card, reveal it, and put it into your hand. If you search your library this way, shuffle.\nNoncreature spells you cast cost {1} less to cast if you’ve cast a spell this turn.

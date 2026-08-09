@@ -1,0 +1,18 @@
+Name:Brunhild, Raider Queen
+ManaCost:1 B B
+Types:Legendary Snow Creature Human Noble
+PT:3/3
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+attacking | AddPower$ 1 | AddKeyword$ Deathtouch | Description$ Attacking creatures you control get +1/+0 and have deathtouch.
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigInvoke | TriggerDescription$ At the beginning of your end step, CARDNAME  invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+SVar:TrigInvoke:DB$ InvokeSkill
+AlternateMode:Modal
+Oracle:Attacking creatures you control get +1/+0 and have deathtouch.\nAt the beginning of your end step, Brunhild, Raider Queen invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:For the Fallen!
+ManaCost:1 B
+Types:Snow Instant Skill
+A:SP$ Token | TokenScript$ b_2_1_berserker | TokenAmount$ X
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature.YouCtrl
+Oracle:Create X 2/1 Black Berserker creature tokens, where X is the number of creatures that died under your control this turn.

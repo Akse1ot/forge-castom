@@ -1,0 +1,6 @@
+Name:Armament Repurposer
+ManaCost:R
+Types:Creature Dwarf Artificer
+PT:1/1
+S:Mode$ Continuous | Affected$ Equipment.YouCtrl+!AttachedTo Creature | AddType$ Vehicle | SetPower$ 3 | SetToughness$ 2 | AddKeyword$ Menace & Crew:1 | Description$ Equipment you control not attached to a creature are 3/2 Vehicle artifacts with menace and crew 1.
+Oracle:Equipment you control not attached to a creature are 3/2 vehicle artifacts with menace and crew 1.

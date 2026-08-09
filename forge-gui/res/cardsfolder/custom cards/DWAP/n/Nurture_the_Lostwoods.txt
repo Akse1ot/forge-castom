@@ -1,0 +1,6 @@
+Name:Nurture the Lostwoods
+ManaCost:5 U U
+Types:Instant
+K:Convoke
+A:SP$ Draw | NumCards$ 4 | SpellDescription$ Draw four cards.
+Oracle:Convoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for  or one mana of that creature’s color.)\nDraw four cards.

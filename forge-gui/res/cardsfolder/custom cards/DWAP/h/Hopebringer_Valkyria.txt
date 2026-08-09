@@ -1,0 +1,8 @@
+Name:Hopebringer Valkyria
+ManaCost:3 W W
+Types:Creature Angel Warrior
+PT:4/4
+K:Convoke
+K:Flying
+K:Vigilance
+Oracle:Convoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for  or one mana of that creature’s color.)\nFlying, vigilance

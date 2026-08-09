@@ -1,0 +1,9 @@
+Name:Firebaiting
+ManaCost:2 R
+Types:Enchantment
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigForge | TriggerDescription$ At the beginning of combat on your turn, forge +1/+0. (Create an Equipment artifact token with equip {2} and “Equipped creature has +1/+0.”)
+SVar:TrigForge:DB$ Forge | ForgeAbilities$ ForgeBonus
+SVar:ForgeBonus:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | Description$ Equipped creature gets +1/+0.
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl | Alone$ True | TriggerZones$ Battlefield | Execute$ TrigAttach | OptionalDecider$ You | TriggerDescription$ Whenever a creature you control attacks alone, you may attach each Equipment you control to it.
+SVar:TrigAttach:DB$ Attach | Object$ Valid Equipment.YouCtrl | Defined$ TriggeredAttackerLKICopy
+Oracle:At the beginning of combat on your turn, forge +1/+0. (Create an Equipment artifact token with equip {2} and “Equipped creature has +1/+0.”)\nWhenever a creature you control attacks alone, you may attach each equipment you control to it.

@@ -1,0 +1,19 @@
+Name:Artistic Invocator
+ManaCost:3 R
+Types:Creature Dwarf Shaman
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Shaman.Other+YouCtrl | Execute$ TrigInvoke | TriggerDescription$ Whenever CARDNAME or another Shaman you control dies, CARDNAME invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+SVar:TrigInvoke:DB$ InvokeSkill
+AlternateMode:Modal
+Oracle:Whenever Artistic Invocator or another shaman you control dies, Artistic Invocator invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Draw the Ways
+ManaCost:1 R
+Types:Sorcery Skill
+A:SP$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect | SpellDescription$ Exile the top two cards of your library. Until the end of your next turn, you may play one of those cards.
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayLimit$ 1 | Affected$ Card.IsRemembered | AffectedZone$ Exile | Description$ Until the end of your next turn, you may play the exiled cards.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Exile the top two cards of your library. Until the end of your next turn, you may play one of those cards.

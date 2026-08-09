@@ -1,0 +1,9 @@
+Name:Frosted Grotto
+ManaCost:no cost
+Types:Snow Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ CARDNAME enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ G  | SpellDescription$ Add {G}.
+A:AB$ PutCounter | Cost$ 3 G T Sac<1/CARDNAME> | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | CounterType$ P1P1 | CounterNum$ 3 | SubAbility$ DBPump | SpellDescription$ Put three +1/+1 counters on target creature you control. It gains trample until end of turn.
+SVar:DBPump:DB$ Pump | Defined$ Self | KW$ Trample
+Oracle:Frosted Grotto enters tapped.\n{T}: Add {G}.\n{3}{G}, {T}, Sacrifice Frosted Grotto: Put three +1/+1 counters on target creature you control. It gains trample until end of turn.

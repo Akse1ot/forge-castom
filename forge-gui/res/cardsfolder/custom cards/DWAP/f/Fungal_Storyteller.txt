@@ -1,0 +1,10 @@
+Name:Fungal Storyteller
+ManaCost:1 G
+Types:Creature Fungi Faerie
+PT:1/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigForge | TriggerDescription$ When CARDNAME enters, forge “{T}: Add {G}.” Attach an equipment you control to target creature you control. (Create an equipment artifact token with equip {2} and “Equipped creature gets “{T}: Add {G}.””)
+SVar:TrigForge:DB$ Forge | ForgeAbilities$ ForgeManaStatic | ForgeSVars$ ForgeMana | SubAbility$ DBAttach
+SVar:ForgeManaStatic:Mode$ Continuous | Affected$ Creature.EquippedBy | AddAbility$ ForgeMana | Description$ Equipped creature has "{T}: Add {G}."
+SVar:ForgeMana:AB$ Mana | Cost$ T | Produced$ G | SpellDescription$ Add {G}.
+SVar:DBAttach:DB$ Attach | Choices$ Equipment.YouCtrl | ChoiceTitle$ Choose an Equipment you control | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control
+Oracle:When Fungal Storyteller enters, forge “{T}: Add {G}.” Attach an equipment you control to target creature you control. (Create an equipment artifact token with equip {2} and “Equipped creature gets “{T}: Add {G}.””)

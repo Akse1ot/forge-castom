@@ -1,0 +1,12 @@
+Name:Iskari Pathleader
+ManaCost:1 G
+Types:Creature Troll Scout
+PT:2/2
+K:Epitome
+K:Trample
+T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigPump | TriggerDescription$ Whenever CARDNAME becomes tapped, it gets +1/+1 until end of turn. If you’re enlightened, put a +1/+1 counter on it instead.
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ 1 | NumDef$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBEnlightened
+SVar:DBEnlightened:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1
+SVar:X:Count$Enlightened.1.0
+DeckHas:Ability$Counters
+Oracle:Epitome (If there are eight or more mana abilities among permanents you control, you become enlightened for the rest of the game.)\nTrample\nWhenever Iskari Pathleader becomes tapped, it gets +1/+1 until end of turn. If you’re enlightened, put a +1/+1 counter on it instead.

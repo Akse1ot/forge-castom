@@ -1,0 +1,7 @@
+Name:Crush of Frost
+ManaCost:3 U U
+Types:Snow Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBBounceAllSnow,DBBounceAllNonSnow
+SVar:DBBounceAllSnow:DB$ ChangeZoneAll | ChangeType$ Creature.Snow | Origin$ Battlefield | Destination$ Hand | SpellDescription$ Return all snow creatures to their owners' hands.
+SVar:DBBounceAllNonSnow:DB$ ChangeZoneAll | ChangeType$ Creature.nonSnow | Origin$ Battlefield | Destination$ Hand | SpellDescription$ Return all non-snow creatures to their owners' hands.
+Oracle:Choose one or both —\n• Return all snow creatures to their owner’s hands.\n• Return all non-snow creatures to their owner’s hands.

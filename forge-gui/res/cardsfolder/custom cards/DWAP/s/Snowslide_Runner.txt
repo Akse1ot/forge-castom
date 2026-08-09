@@ -1,0 +1,12 @@
+Name:Snowslide Runner
+ManaCost:4 G
+Types:Snow Creature Human Shaman
+PT:4/4
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ X | SVarCompare$ GE1 | Execute$ TrigFight | TriggerDescription$ When CARDNAME enters, if {S} was spent to cast it or you control another snow creature, it fights up to one target creature you don't control.
+SVar:TrigFight:DB$ Fight | Defined$ Self | ValidTgts$ Creature.YouDontCtrl | TgtPrompt$ Select up to one target creature you don't control | TargetMin$ 0 | TargetMax$ 1
+SVar:X:Count$CastTotalManaSpent Snow/Plus.Y
+SVar:Y:Count$Valid Creature.Snow+YouCtrl+Other
+SVar:AIPreference:ManaFrom$Snow
+DeckNeeds:Type$Snow
+Oracle:Trample\nWhen Snowslide Runner enters, if was {S} spent to cast it or you control another snow creature, it fights up to one target creature you don’t control.

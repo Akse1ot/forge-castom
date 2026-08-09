@@ -1,0 +1,12 @@
+Name:Sunfeather Ascetic
+ManaCost:1 R
+Types:Creature Bird Shaman
+PT:0/2
+K:Flying
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | TriggerDescription$ Whenever CARDNAME attacks, it gets +X/+0 until end of turn, where X is the greatest power among Shamans you control.
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +X
+SVar:X:Count$Valid Shaman.YouCtrl$GreatestCardPower
+SVar:HasAttackEffect:TRUE
+DeckHints:Type$Shaman
+Oracle:Flying, Haste\nWhenever Sunfeather Ascetic attacks, it gets +X/+0 until end of turn, where X is the greatest power among Shamans you control.

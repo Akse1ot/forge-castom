@@ -1,0 +1,8 @@
+Name:Horrific Priest
+ManaCost:2 B
+Types:Creature Horror Cleric
+PT:3/2
+S:Mode$ Continuous | Affected$ Horror.YouCtrl+Other | AddPower$ 1 | AddToughness$ 1 | Description$ Other Horrors you control get +1/+1.
+A:AB$ Pump | Cost$ 1 Sac<1/Artifact;Creature/artifact or creature> | ValidTgts$ Horror.YouCtrl+Other | TgtPrompt$ Select another target Horror you control | KW$ Indestructible | SubAbility$ DBTap | SpellDescription$ Another target Horror you control gains indestructible until end of turn. Tap it.
+SVar:DBTap:DB$ Tap | Defined$ ParentTarget
+Oracle:Other Horrors you control get +1/+1.\n{1}, Sacrifice an artifact or creature: Another target horror you control gains indestructible until end of turn. Tap it.

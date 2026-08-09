@@ -1,0 +1,12 @@
+Name:Rolling Joysphere
+ManaCost:X X W W
+Types:Snow Enchantment
+K:Convoke
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When this enchantment enters, create X 1/1 colorless Hero creature tokens.
+SVar:TrigToken:DB$ Token | TokenAmount$ X | w_1_1_snow_gremlin_lifelink | TokenOwner$ You
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounters | TriggerDescription$ At the beginning of your end step, put a +1/+1 counter on each tapped creature you control. Untap them.
+SVar:TrigPutCounters:DB$ PutCounterAll | ValidCards$ Creature.tapped+YouCtrl | CounterType$ P1P1 | SubAbility$ DBUntapAll
+SVar:DBUntapAll:DB$ UntapAll | ValidCards$ Creature.tapped+YouCtrl
+SVar:X:Count$xPaid
+DeckHas:Ability$Token
+Oracle:Convoke\nWhen Rolling Joysphere enters, create X 1/1 white Snow Gremlin creature tokens with lifelink.\nAt the beginning of your end step, put a +1/+1 counter on each tapped creature you control. Untap them.

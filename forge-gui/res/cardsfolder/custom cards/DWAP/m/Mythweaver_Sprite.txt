@@ -1,0 +1,10 @@
+Name:Mythweaver Sprite
+ManaCost:U
+Types:Creature Faerie
+PT:1/1
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Enchantment | ValidActivatingPlayer$ You | Execute$ TrigCounter | TriggerZones$ Battlefield | TriggerDescription$ Whenever you cast an enchantment spell, put a +1/+1 counter on CARDNAME.
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+S:Mode$ ReduceCost | Type$ Spell | ValidCard$ Enchantment | Activator$ You | Amount$ X | Description$ Enchantment spells you cast cost {1} less to cast for each +1/+1 counter on CARDNAME.
+SVar:X:Count$CardCounters.P1P1
+Oracle:Flying\nWhenever you cast an enchantment spell, put a +1/+1 counter on Mythweaver Sprite.\nEnchantment spells you cast cost {1} less to cast for each +1/+1 counter on Mythweaver Sprite.

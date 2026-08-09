@@ -1,0 +1,9 @@
+Name:Ranging Falcon
+ManaCost:3 U
+Types:Snow Creature Bird
+PT:3/3
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card.Snow | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoot | TriggerDescription$ Whenever you cast a snow spell, you may draw a card. If you do, discard a card.
+SVar:TrigLoot:AB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | Cost$ Draw<1/You>
+DeckNeeds:Type$Snow
+Oracle:Flying\nWhenever you cast a snow spell, you may draw a card. If you do, discard a card.

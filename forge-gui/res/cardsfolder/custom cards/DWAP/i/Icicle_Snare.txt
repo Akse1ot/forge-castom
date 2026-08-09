@@ -1,0 +1,8 @@
+Name:Icicle Snare
+ManaCost:2
+Types:Snow Artifact
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap | TriggerDescription$ When CARDNAME enters, tap up to one target creature. You gain life equal to that creature's power.
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1
+A:AB$ Destroy | Cost$ 5 T Sac<1/CARDNAME> | ValidTgts$ Creature | SpellDescription$ Destroy target creature.
+Oracle:Flash\nWhen Icicle Snare enters, tap up to one target creature.\n{5}, {T}, Sacrifice Icicle Snare: Destroy target creature.

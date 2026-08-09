@@ -1,0 +1,16 @@
+Name:Gelid Vessel
+ManaCost:1 B
+Types:Creature Horror Cleric
+PT:2/1
+S:Mode$ Continuous | Affected$ Creature.Horror+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1 | Description$ Other Horrors you control get +1/+1.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Horror+Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigReveal | TriggerDescription$ Whenever another Horror you control dies, reveal the top card of your library. You lose life equal to its mana value and put it into your hand. If the revealed card is a Horror, each opponent loses that much life instead.
+SVar:TrigReveal:DB$ PeekAndReveal | Defined$ You | PeekAmount$ 1 | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ IsHorror | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBLoseOpp | FalseSubAbility$ DBLoseYou | SubAbility$ DBPutHand
+SVar:DBLoseOpp:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ X
+SVar:DBLoseYou:DB$ LoseLife | LifeAmount$ X
+SVar:DBPutHand:DB$ ChangeZone | Defined$ RememberedLKI | Origin$ Library | Destination$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:IsHorror:RememberedLKI$Valid Card.Horror
+SVar:X:RememberedLKI$CardManaCost
+DeckHints:Type$Horror
+Oracle:Other Horrors you control get +1/+1.\nWhenever another Horror you control dies, reveal the top card of your library. You lose life equal to its mana value and put it into your hand. If the revealed card is a Horror, each opponent loses that much life instead.

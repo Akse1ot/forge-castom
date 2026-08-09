@@ -1,0 +1,5 @@
+Name:Temple to True Ice
+ManaCost:3
+Types:Snow Artifact
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddHiddenKeyword$ Lethal damage dealt to CARDNAME is determined by its power rather than its toughness. | Description$ Lethal damage dealt to creatures you control is determined by their power rather than their toughness.
+Oracle:Lethal damage dealt to creatures you control is determined by their power rather than their toughness.

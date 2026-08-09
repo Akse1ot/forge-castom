@@ -1,0 +1,11 @@
+Name:Fjord Thrasher
+ManaCost:6 U U
+Types:Creature Seal Beast
+PT:5/6
+K:Flash
+K:ETBReplacement:Other:LandTapped
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPlayerTurn$ False | SpellDescription$ CARDNAME enters tapped if it's not your turn.
+K:TypeCycling:Island:2
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+DeckHints:Ability$Graveyard
+Oracle:Flash\nFjord Thrasher enters tapped if it’s not your turn.\nIslandcycling {2} ({2}, Discard this card: Search your library for an Island card, reveal it, put it into your hand, then shuffle.)

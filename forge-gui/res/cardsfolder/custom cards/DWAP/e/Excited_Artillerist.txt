@@ -1,0 +1,13 @@
+Name:Excited Artillerist
+ManaCost:3 R
+Types:Creature Dwarf Artificer
+PT:2/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigForge | TriggerDescription$ When CARDNAME enters, forge +3/+0. (Create an Equipment artifact token with equip {2} and “Equipped creature has +3/+0.”)
+SVar:TrigForge:DB$ Forge | ForgeAbilities$ ForgeBonus
+SVar:ForgeBonus:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 |Description$ Equipped creature gets +3/+0.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Equipment.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigExile | TriggerDescription$ Whenever an Equipment you control enters, exile the top card of your library. Until the end of your next turn, you may play that card.
+SVar:TrigExile:DB$ Dig | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | Duration$ UntilTheEndOfYourNextTurn | StaticAbilities$ Play | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | Description$ Until the end of your next turn, you may play that card.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:When Excited Artillerist enters, forge +3/+0. (Create an Equipment artifact token with equip {2} and “Equipped creature has +3/+0.”)\nWhenever an Equipment you control enters, exile the top card of your library. Until the end of your next turn, you may play that card.

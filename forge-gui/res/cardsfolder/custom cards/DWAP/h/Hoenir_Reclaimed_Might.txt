@@ -1,0 +1,14 @@
+Name:Hoenir, Reclaimed Might
+ManaCost:5 G U
+Types:Legendary Snow Creature Squirrel
+PT:6/6
+K:Trample
+K:Hexproof:Enchantment
+T:Mode$ SpellCast | ValidCard$ Snow | ValidActivatingPlayer$ You | OptionalDecider$ You | Execute$ TrigDraw | TriggerZones$ Battlefield | TriggerDescription$ Whenever you cast a snow spell, you may draw three cards.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 3
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Land.Snow+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ Landfall — Whenever a snow land you control enters, put a +1/+1 counter on target creature you control.
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature+YouCtrl | CounterType$ P1P1 | CounterNum$ 3
+SVar:BuffedBy:Land.Snow
+DeckNeeds:Type$Snow
+DeckHas:Ability$Counters
+Oracle:Trample, hexproof from enchantments.\nWhenever you cast a snow spell, you may draw three cards.\nWhenever a snow land you control enters, put three +1/+1 counters on target creature you control.

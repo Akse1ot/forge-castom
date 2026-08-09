@@ -1,0 +1,7 @@
+Name:Unstoppable Behemoth
+ManaCost:6 G G
+Types:Creature Dinosaur Beast
+PT:7/7
+K:Convoke
+S:Mode$ AssignCombatDamageAsUnblocked | ValidCard$ Card.Self | Optional$ True | Description$ You may have NICKNAME assign its combat damage as though it weren't blocked.
+Oracle:Convoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for  or one mana of that creature’s color.)\nYou may have Unstoppable Behemoth assign its combat damage as though it weren’t blocked.

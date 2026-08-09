@@ -1,0 +1,8 @@
+Name:Reed-Crowned Flutist
+ManaCost:2 G
+Types:Creature Plant Shaman
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a 1/1 red and green Shaman creature token.
+DeckHas:Ability$Token
+SVar:TrigToken:DB$ Token | TokenScript$ rg_1_1_shaman | TokenOwner$ TriggeredCardController
+Oracle:When Reed-Crowned Flutist enters, create a 1/1 red and green Shaman creature token.

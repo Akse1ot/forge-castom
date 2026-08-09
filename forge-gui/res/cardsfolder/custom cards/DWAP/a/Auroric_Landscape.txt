@@ -1,0 +1,5 @@
+Name:Auroric Landscape
+ManaCost:no cost
+Types:Snow Land
+A:AB$ ChangeZone | Cost$ T Sac<1/CARDNAME> | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Snow+hasABasicLandType | ChangeTypeDesc$ snow land with a basic land type | Tapped$ True | ChangeNum$ 1 | SpellDescription$ Search your library for a snow land with a basic land type, put it onto the battlefield tapped, then shuffle.
+Oracle:{T}, Sacrifice Auroric Landscape: Search your library for a snow land with a basic land type, put it onto the battlefield tapped, then shuffle.

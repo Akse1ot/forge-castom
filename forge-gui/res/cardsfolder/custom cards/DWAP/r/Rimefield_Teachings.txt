@@ -1,0 +1,8 @@
+Name:Rimefield Teachings
+ManaCost:2 U
+Types:Sorcery
+A:SP$ Mill | NumCards$ 3 | Defined$ You | SubAbility$ DBChangeZone | SpellDescription$ Mill three cards, then return an instant, sorcery or card with a Skill from your graveyard to your hand.
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Mandatory$ True | ChangeType$ Instant.YouOwn+FrontSide,Sorcery.YouOwn+FrontSide,Card.Skill+YouOwn+BackSide | ValidEitherFace$ True | ChangeNum$ 1 | Hidden$ True
+K:Flashback:5 U U
+DeckHas:Ability$Graveyard
+Oracle:Mill three cards, then return an instant, sorcery or card with a Skill from your graveyard to your hand.\nFlashback {5}{U}{U} (You may cast this card from your graveyard for its flashback cost. Then exile it.)

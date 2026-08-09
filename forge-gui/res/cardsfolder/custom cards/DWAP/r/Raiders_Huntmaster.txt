@@ -1,0 +1,8 @@
+Name:Raider's Huntmaster
+ManaCost:1 W
+Types:Creature Human Berserker
+PT:1/1
+K:Double Strike
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+equipped | AddKeyword$ Double Strike | Description$ Equipped creatures you control have double strike.
+DeckNeeds:Type$Equipment
+Oracle:Double strike\nEquipped creatures you control have double strike.

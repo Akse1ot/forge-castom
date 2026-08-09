@@ -1,0 +1,8 @@
+Name:Smithing Instructor
+ManaCost:R
+Types:Creature Human Artificer
+PT:1/1
+K:First Strike
+A:AB$ Mana | Cost$ T | Produced$ R | Amount$ 1 | RestrictValid$ Spell.Equipment,Activated.Equip | SpellDescription$ Add {R}. Spend this mana only to cast equipment spells or to activate equip abilities.
+DeckNeeds:Type$Equipment
+Oracle:First strike\n{T}: Add {R}. Spend this mana only to cast equipment spells or to activate equip abilities.

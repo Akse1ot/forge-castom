@@ -1,0 +1,9 @@
+Name:Posessed Deadwood
+ManaCost:2 B G
+Types:Creature Treefolk Horror
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X | Description$ CARDNAME's power and toughness are each equal to the number of permanents you control with a mana ability.
+SVar:X:Count$Valid Permanent.YouCtrl+hasManaAbility
+A:AB$ ChangeZone | Cost$ 4 B B G G | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | SorcerySpeed$ True | WithCountersType$ FINALITY | WithCountersAmount$ 1 | SpellDescription$ Return CARDNAME from your graveyard to the battlefield with a finality counter on it. Activate only as a sorcery.
+DeckHas:Ability$Graveyard|Counters
+Oracle:Posessed Deadwood’s power and toughness are each equal to the number of permanents you control with a mana ability.\n{4}{B}{B}{G}{G}: Return Posessed Deadwood from your graveyard to the battlefield with a finality counter. Activate only as a sorcery.

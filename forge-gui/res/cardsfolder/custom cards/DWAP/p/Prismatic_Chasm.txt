@@ -1,0 +1,9 @@
+Name:Prismatic Chasm
+ManaCost:no cost
+Types:Snow Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ DBTap | ReplacementResult$ Updated | Description$ As CARDNAME enters, you may reveal a Snow card from your hand. CARDNAME enters tapped unless you revealed a Snow card this way or you control a Snow permanent.
+SVar:DBTap:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Permanent.Snow+YouCtrl | ConditionCompare$ EQ0 | UnlessCost$ Reveal<1/Card.Snow+Other/snow> | UnlessPayer$ You | StackDescription$ enters tapped.
+K:ETBReplacement:Other:ChooseColor
+SVar:ChooseColor:DB$ ChooseColor | Defined$ You | AILogic$ MostProminentInComputerDeck | SpellDescription$ As CARDNAME enters, choose a color.
+A:AB$ Mana | Cost$ T | Produced$ Chosen | SpellDescription$ Add one mana of the chosen color.
+Oracle:As Prismatic Chasm enters, you may reveal a snow card from your hand. Prismatic Chasm enters tapped unless you revealed a snow card this way or you control a snow permanent.\nAs Prismatic Chasm enters, choose a color.\n{T}: Add one mana of the chosen color.

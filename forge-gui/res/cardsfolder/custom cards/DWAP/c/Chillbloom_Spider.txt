@@ -1,0 +1,9 @@
+Name:Chillbloom Spider
+ManaCost:4 G
+Types:Snow Creature Spider
+PT:3/5
+K:Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife | TriggerDescription$ When CARDNAME enters, you gain 3 life.
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3
+A:AB$ Pump | Cost$ S S | Defined$ Self | NumAtt$ +2 | ActivationLimit$ 1 | SpellDescription$ CARDNAME gets +2/+0 until end of turn. Activate only once each turn.
+Oracle:Reach\nWhen Chillbloom Spider enters, you gain 3 life.\n{S}{S}: Chillbloom Spider gets +2/+0 until end of turn. Activate only once each turn.

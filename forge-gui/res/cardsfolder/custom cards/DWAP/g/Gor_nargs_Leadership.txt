@@ -1,0 +1,7 @@
+Name:Gor-narg's Leadership
+ManaCost:1 W
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumDmg$ X | SpellDescription$ CARDNAME deals damage equal to the number of creatures you control plus the number of Equipment you control to target creature.
+SVar:X:Count$Valid Creature.YouCtrl/Plus.E
+SVar:E:Count$Valid Equipment.YouCtrl
+Oracle:Gor-narg’s Leadership deals damage equal to the number of creatures you control plus the number of Equipment you control to target creature.

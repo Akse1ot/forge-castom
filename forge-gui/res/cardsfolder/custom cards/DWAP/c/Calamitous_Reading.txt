@@ -1,0 +1,7 @@
+Name:Calamitous Reading
+ManaCost:2 R
+Types:Instant
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DamageAllShaman,DamageAllnonShaman
+SVar:DamageAllShaman:DB$ DamageAll | NumDmg$ 2 | ValidCards$ Creature.Shaman | ValidDescription$ each Shaman creature. | SpellDescription$ CARDNAME deals 2 damage to each Shaman creature.
+SVar:DamageAllnonShaman:DB$ DamageAll | NumDmg$ 2 | ValidCards$ Creature.nonShaman | ValidDescription$ each non-Shaman creature. | SpellDescription$ CARDNAME deals 2 damage to each non-Shaman creature.
+Oracle:Choose one or both —\n• Calamitous Reading deals 2 damage to each Shaman creature.\n• Calamitous Reading deals 2 damage to each non-Shaman creature.

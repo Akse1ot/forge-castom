@@ -1,0 +1,9 @@
+Name:Dangerous Bloom
+ManaCost:2 G
+Types:Creature Plant Horror
+PT:5/5
+K:Epitome
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | TriggerDescription$ When CARDNAME enters, return up to one target land card from your graveyard to your hand.
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Land.YouCtrl
+S:Mode$ CantAttack | ValidCard$ Card.Self | Enlightened$ False | Description$ CARDNAME can't attack unless you’re enlightened.
+Oracle:Epitome (If there are eight or more mana abilities among permanents you control, you become enlightened for the rest of the game.)\nWhen Dangerous Bloom enters, return up to one target land card from your graveyard to your hand.\nDangerous Bloom cannot attack unless you’re enlightened.

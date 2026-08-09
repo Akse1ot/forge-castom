@@ -1,0 +1,8 @@
+Name:Jarlorns Fury
+ManaCost:4 R
+Types:Instant
+K:Epitome
+A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | TgtPrompt$ Select target creature or planeswalker | NumDmg$ 6 | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBEnlightened | SpellDescription$ CARDNAME deals 6 damage to target creature or planeswalker. If you’re enlightened, excess damage is dealt to that permanent’s controller.
+SVar:DBEnlightened:DB$ DealDamage | Defined$ Targeted | NumDmg$ 6 | ExcessDamage$ TargetedController | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1
+SVar:X:Count$Enlightened.1.0
+Oracle:Epitome (If there are eight or more mana abilities among permanents you control, you become enlightened for the rest of the game.)\nCARDNAME deals 6 damage to target creature or planeswalker. If you’re enlightened, excess damage is dealt to that permanent’s controller.

@@ -1,0 +1,11 @@
+Name:Iceshelf Crasher
+ManaCost:4 U
+Types:Snow Creature Troll Warrior
+PT:3/5
+T:Mode$ ChangesZone | ValidCard$ Card.Self+wasCast | Origin$ Any | Destination$ Battlefield | Execute$ TrigExcruciator | TriggerDescription$ When CARDNAME enters, if it was cast, tap up to one target creature and put X stun counters on it, where X is the amount of {S} spent to cast this spell.
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature | TgtPrompt$ Select up to one target creature | TargetMin$ 0 | TargetMax$ 1 | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ X
+SVar:X:Count$CastTotalManaSpent Snow
+SVar:AIPreference:ManaFrom$Snow
+DeckHints:Type$Snow
+Oracle:When Iceshelf Crasher enters, if it was cast, tap up to one target creature and put X stun counters on it, where X is the amount of {S} spent to cast this spell.

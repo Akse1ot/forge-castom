@@ -1,0 +1,11 @@
+Name:Yeti's Call
+ManaCost:5 G G
+Types:Snow Sorcery
+A:SP$ Dig | DigNum$ 7 | ChangeNum$ 1 | Optional$ True | ForceRevealToController$ True | ChangeValid$ Creature | PrimaryPrompt$ You may choose a creature card to put onto the battlefield | DestinationZone$ Battlefield | DestinationZone2$ Library | LibraryPosition2$ 0 | SkipReorder$ True | RememberChanged$ True | SubAbility$ DBPutCounter | StackDescription$ SpellDescription | SpellDescription$ Look at the top seven cards of your library. You may put a creature card from among them onto the battlefield. Put a number of +1/+1 counters on it equal to the amount of {S} spent to cast this spell.
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$CastTotalManaSpent Snow
+SVar:AIPreference:ManaFrom$Snow
+DeckHas:Ability$Counters
+DeckNeeds:Type$Creature
+Oracle:Look at the top seven cards of your library. You may put a creature card from among them onto the battlefield. Put a number of +1/+1 counters on it equal to the amount of {S} spent to cast this spell.

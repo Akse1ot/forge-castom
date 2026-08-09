@@ -1,0 +1,9 @@
+Name:Haunt-Pass Charger
+ManaCost:1 U
+Types:Creature Centaur Spirit Horror
+PT:2/3
+K:Defender
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 1 | PlayerTurn$ You | CheckSVar$ YouCastThisTurn | SVarCompare$ EQ0 | Description$ During your turn, CARDNAME gets +1/+0 and may attack as though it didn't have defender as long as you have not cast a spell this turn.
+S:Mode$ CanAttackDefender | ValidCard$ Card.Self | PlayerTurn$ You | CheckSVar$ YouCastThisTurn | SVarCompare$ EQ0
+SVar:YouCastThisTurn:Count$ThisTurnCast_Card.YouCtrl
+Oracle:Defender\nDuring your turn, Haunt-Pass Charger gets +1/+0 and may attack as though it didn’t have defender as long as you have not cast a spell this turn.

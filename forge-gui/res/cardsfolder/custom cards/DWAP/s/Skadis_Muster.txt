@@ -1,0 +1,12 @@
+Name:Skadi's Muster
+ManaCost:1 R
+Types:Enchantment Aura
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDiscard | TriggerDescription$ When CARDNAME enters, you may discard a card. If you do or enchanted creature is a Shaman, draw a card.
+SVar:TrigDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | Optional$ True | RememberDiscardingPlayers$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionCheckSVar$ DidDiscard | ConditionSVarCompare$ GE1 | OrConditionCheckSVar$ EnchantedShaman | OrOtherConditionSVarCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:DidDiscard:PlayerCountPropertyYou$IsRemembered
+SVar:EnchantedShaman:Count$Valid Creature.Shaman+EnchantedBy
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | Description$ Enchanted creature gets +2/+2.
+DeckHas:Ability$Discard
+Oracle:Enchant creature\nWhen Skadi's Muster enters, you may discard a card. If you do or enchanted creature is a Shaman, draw a card.\nEnchanted creature gets +2/+2.

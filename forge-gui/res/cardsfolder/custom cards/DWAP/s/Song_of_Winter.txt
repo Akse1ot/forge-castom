@@ -1,0 +1,7 @@
+Name:Song of Winter
+ManaCost:4 U
+Types:Snow Sorcery
+A:SP$ Dig | DigNum$ X | ChangeNum$ 3 | DestinationZone$ Hand | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True | StackDescription$ SpellDescription | SpellDescription$ Look at the top X cards of your library, where X is three plus the number of snow permanents you control. Put three of those cards into your hand and the rest on the bottom of your library in a random order.
+SVar:X:Count$Valid Permanent.Snow+YouCtrl/Plus.3
+DeckNeeds:Type$Snow
+Oracle:Look at the top X cards of your library, where X is three plus the number of snow permanents you control. Put three of those cards into your hand and the rest on the bottom of your library in a random order.

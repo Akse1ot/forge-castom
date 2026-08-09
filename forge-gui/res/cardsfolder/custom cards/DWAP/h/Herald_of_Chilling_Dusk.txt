@@ -1,0 +1,11 @@
+Name:Herald of Chilling Dusk
+ManaCost:1 B
+Types:Creature Horror Cleric
+PT:2/2
+K:Deathtouch
+K:Hexproof:White
+R:Event$ LifeReduced | ValidPlayer$ Opponent | ReplaceWith$ LosePlusOne | ActiveZones$ Battlefield | Description$ If an opponent would lose life, they lose that much life plus one instead. (Damage causes loss of life.)
+SVar:LosePlusOne:DB$ ReplaceEffect | VarName$ Amount | VarValue$ ReplaceCount$Amount/Plus.1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, draw a card if they have 15 or less life.
+SVar:TrigDraw:DB$ Draw | Defined$ You | ConditionLifeTotal$ TriggeredTarget | ConditionLifeAmount$ LE15
+Oracle:Deathtouch, hexproof from white\nIf an opponent would lose life, they lose that much life plus one instead.\nWhenever Herald of Chilling Dusk deals combat damage to a player, draw a card if they have 15 or less life.

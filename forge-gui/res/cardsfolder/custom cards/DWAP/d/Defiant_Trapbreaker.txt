@@ -1,0 +1,15 @@
+Name:Defiant Trapbreaker
+ManaCost:2 R G
+Types:Creature Lizard Shaman
+PT:3/3
+K:Trample
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | TriggerDescription$ Whenever CARDNAME attacks, target attacking creature gets +1/+1 until end of turn. If you control another Shaman, put a +1/+1 counter on it instead.
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.attacking | TgtPrompt$ Select target attacking creature | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBCounter | FalseSubAbility$ DBPump
+SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ P1P1 | CounterNum$ 1
+SVar:DBPump:DB$ Pump | Defined$ Targeted | NumAtt$ 1 | NumDef$ 1
+SVar:X:Count$Valid Shaman.YouCtrl+Other
+DeckHas:Ability$Counters
+DeckHints:Type$Shaman
+Oracle:Trample, haste\nWhenever Defiant Trapbreaker attacks, target attacking creature gets +1/+1 until end of turn. If you control another Shaman, put a +1/+1 counter on it instead.

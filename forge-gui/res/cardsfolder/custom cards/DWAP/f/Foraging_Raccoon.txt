@@ -1,0 +1,10 @@
+Name:Foraging Raccoon
+ManaCost:B
+Types:Creature Raccoon
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerDescription$ When CARDNAME dies, ABILITY
+SVar:TrigCharm:DB$ Charm | Choices$ DBPump,DBTreasure
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.OppCtrl | TgtPrompt$ Select target creature an opponent controls | IsCurse$ True | NumAtt$ -1 | NumDef$ -1 | SpellDescription$ Target creature an opponent controls gets -1/-1 until end of turn.
+SVar:DBTreasure:DB$ Token | TokenScript$ c_a_treasure_sac | SpellDescription$ Create a Treasure token. (It's an artifact with "{T}, Sacrifice this token: Add one mana of any color.")
+DeckHints:Type$Treasure
+Oracle:When Foraging Raccoon dies, choose one —\n• Target creature an opponent controls gets -1/-1 until end of turn.\n• Create a Treasure token. (It's an artifact with "{T}, Sacrifice this token: Add one mana of any color.")

@@ -1,0 +1,18 @@
+Name:The Original Valkyria
+ManaCost:W U
+Types:Enchantment Creature Saga Angel
+PT:2/2
+K:Flying
+K:Vigilance
+K:Chapter:3:DBExile,DBCombatDraw,DBReturn
+SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.Other+YouCtrl | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select up to one other target creature you control | Duration$ UntilHostLeavesPlay | RememberChanged$ True | SpellDescription$ Exile up to one other target creature you control until CARDNAME leaves the battlefield.
+SVar:DBCombatDraw:DB$ Effect | RememberObjects$ Self | ExileOnMoved$ Battlefield | Triggers$ DamageTrigger | SpellDescription$ Whenever CARDNAME deals combat damage to a player or planeswalker this turn, draw a card. If a creature is exiled with it, draw two cards instead.
+SVar:DamageTrigger:Mode$ DamageDone | ValidSource$ Card.IsRemembered | ValidTarget$ Player,Planeswalker | CombatDamage$ True | Execute$ TrigDrawBranch | TriggerDescription$ Whenever CARDNAME deals combat damage to a player or planeswalker this turn, draw a card. If a creature is exiled with it, draw two cards instead.
+SVar:TrigDrawBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBDrawTwo | FalseSubAbility$ DBDrawOne
+SVar:DBDrawTwo:DB$ Draw | NumCards$ 2
+SVar:DBDrawOne:DB$ Draw
+SVar:X:Count$ValidExile Card.ExiledWithEffectSource
+SVar:DBReturn:DB$ ChangeZone | Defined$ ExiledWith | Origin$ Exile | Destination$ Battlefield | GainControl$ True | WithCountersType$ P1P1 | WithCountersAmount$ 3 | ForgetOtherRemembered$ True | RememberChanged$ True | SubAbility$ DBFlyingCounter | SpellDescription$ Return the exiled creature to the battlefield under your control with three +1/+1 counters and a flying counter on it.
+SVar:DBFlyingCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ Flying | CounterNum$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Exile up to one other target creature you control until The Original Valkyria leaves the battlefield.\nII — Whenever The Original Valkyria deals combat damage to a player or planeswalker this turn, draw a card. If a creature is exiled with it, draw two cards instead.\nIII — Return the exiled creature to the battlefield under your control with three +1/+1 counters and a flying counter on it.\nFlying, vigilance

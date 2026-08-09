@@ -1,0 +1,11 @@
+Name:Smithed Legacy
+ManaCost:1 B
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ ArtifactSacrificed | SVarCompare$ GE1 | Execute$ TrigToken | TriggerDescription$ At the beginning of your end step, if you’ve sacrificed an artifact this turn, create a 2/1 black Berserker creature token. Then if you’ve sacrificed a creature this turn, forge +2/+1. (Create an Equipment artifact token with equip {2} and “Equipped creature has +2/+1.”)
+SVar:TrigToken:DB$ Token | TokenScript$ b_2_1_berserker | SubAbility$ DBForge
+SVar:DBForge:DB$ Forge | ConditionCheckSVar$ CreatureSacrificed | ConditionSVarCompare$ GE1 | ForgeAbilities$ ForgeBonus
+SVar:ForgeBonus:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 1 | Description$ Equipped creature has +2/+1.
+SVar:ArtifactSacrificed:PlayerCountPropertyYou$SacrificedThisTurn Artifact
+SVar:CreatureSacrificed:PlayerCountPropertyYou$SacrificedThisTurn Creature
+DeckHints:Ability$Sacrifice & Type$Clue|Food|Treasure
+Oracle:At the beginning of your end step, if you’ve sacrificed an artifact this turn, create a 2/1 black Berserker creature token. Then if you’ve sacrificed a creature this turn, forge +2/+1. (Create an Equipment artifact token with equip {2} and “Equipped creature has +2/+1.”)

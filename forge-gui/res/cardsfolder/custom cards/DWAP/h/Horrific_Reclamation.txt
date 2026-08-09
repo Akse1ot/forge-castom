@@ -1,0 +1,11 @@
+Name:Horrific Reclamation
+ManaCost:4 U U
+Types:Enchantment Aura
+K:Flash
+K:Enchant:Creature
+SVar:AttachAILogic:GainControl
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | GainControl$ You | Description$ You control enchanted creature.
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap | TriggerDescription$ When CARDNAME enters, untap enchanted creature.
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted
+SVar:PlayMain1:TRUE
+Oracle:Flash\nEnchant creature\nYou control enchanted creature.\nWhen Horrific Reclamation enters, tap enchanted creature.

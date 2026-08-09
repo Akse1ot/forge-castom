@@ -1,0 +1,11 @@
+Name:Aurora Strix
+ManaCost:5 B B
+Types:Creature Bird Spirit
+PT:6/5
+K:AlternateAdditionalCost:Sac<1/Creature;Artifact/creature or artifact>
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoseLife | TriggerDescription$ When CARDNAME enters, each opponent loses 3 life, discards a card and sacrifices a creature.
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 3 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Player.Opponent | SubAbility$ DBSacCreature
+SVar:DBSacCreature:DB$ Sacrifice | SacValid$ Creature | Defined$ Player.Opponent
+Oracle:As an additional cost to cast this spell, sacrifice an artifact or creature.\nFlying\nWhen Aurora Strix enters, each opponent loses 3 life, discards a card and sacrifices a creature.

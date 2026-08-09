@@ -1,0 +1,9 @@
+Name:Forbidden Insight
+ManaCost:1 U
+Types:Sorcery
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigCopy | TriggerDescription$ When you cast this spell, copy it X times. You may choose new targets for the copies.
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Amount$ X | MayChooseTarget$ True
+A:SP$ Surveil | Amount$ 1 | SubAbility$ DBDraw | SpellDescription$ Surveil 1, then draw a card. (To surveil 1, look at the top card of your library. You may put it into your graveyard.)
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:X:Count$Valid Horror.YouCtrl
+Oracle:When you cast this spell, copy it X times, where X is the number of horrors you control.\nSurveil 1, then draw a card.

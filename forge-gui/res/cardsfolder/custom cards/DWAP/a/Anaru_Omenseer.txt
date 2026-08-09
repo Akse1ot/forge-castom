@@ -1,0 +1,10 @@
+Name:Anaru Omenseer
+ManaCost:R G
+Types:Creature Dwarf Shaman
+PT:2/2
+R:Event$ AddCounter | ActiveZones$ Battlefield | ValidCard$ Shaman.YouCtrl+inZoneBattlefield | ValidCounterType$ P1P1 | ReplaceWith$ AddOneMoreCounters | Description$ IIf one or more +1/+1 counters would be put on a Shaman you control, twice that many +1/+1 counters are put on it instead.
+SVar:AddOneMoreCounters:DB$ ReplaceCounter | ValidCounterType$ P1P1 | ChooseCounter$ True | Amount$ Y
+SVar:Y:ReplaceCount$CounterNum/Twice
+DeckHas:Ability$Counters
+DeckHints:Type$Shaman
+Oracle:If one or more +1/+1 counters would be put on a Shaman you control, twice that many +1/+1 counters are put on it instead.

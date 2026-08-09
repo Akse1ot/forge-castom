@@ -1,0 +1,6 @@
+Name:Collective Repulse
+ManaCost:4 U
+Types:Instant
+K:Convoke
+A:SP$ ChangeZone | ValidTgts$ Card.inZoneStack,Permanent.nonLand | TgtPrompt$ Select target spell or nonland permanent | AlternativeDecider$ TargetedOwner | Origin$ Battlefield,Stack | Destination$ Library | LibraryPosition$ 2 | DestinationAlternative$ Library | LibraryPositionAlternative$ -1 | StackDescription$ {p:TargetedOwner} puts {c:Targeted} into their library third from the top or on the bottom. | SpellDescription$ The owner of target spell or nonland permanent puts it into their library third from the top or on the bottom.
+Oracle:The owner of target spell or nonland permanent puts it into their library third from the top or on the bottom.

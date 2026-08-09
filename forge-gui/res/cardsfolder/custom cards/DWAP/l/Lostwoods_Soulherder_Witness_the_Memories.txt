@@ -1,0 +1,24 @@
+Name:Lostwoods Soulherder
+ManaCost:4 U R
+Types:Creature Spirit Shaman
+PT:4/4
+K:Ward:PayLife<4>
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvoke | TriggerDescription$ Whenever CARDNAME enters or attacks you may discard a card. If you do, it invokes.
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigInvoke | TriggerZones$ Battlefield | Secondary$ True | TriggerDescription$ Whenever CARDNAME enters or attacks you may discard a card. If you do, it invokes.
+SVar:TrigInvoke:DB$ InvokeSkill | Cost$ Discard<1/Card>
+DeckHas:Ability$Graveyard
+DeckHints:Type$Instant|Sorcery
+AlternateMode:Modal
+Oracle:Ward—Pay 4 life\nWhenever Lostwoods Soulherder enters or attacks you may discard a card. If you do, it invokes.
+
+ALTERNATE
+
+Name:Witness the Memories
+ManaCost:U R
+Types:Instant Skill
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TgtPrompt$ Choose target instant or sorcery spell from your graveyard | ValidTgts$ Card.Instant+YouOwn+cmcLE3,Card.Sorcery+YouOwn+cmcLE3 | RememberChanged$ True | SubAbility$ DBPlay | SpellDescription$ Exile target instant or sorcery spell with mana value 3 or less from your graveyard. If you do, cast a copy of it without paying its mana cost.
+SVar:DBPlay:DB$ Play | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ EQ1 | Valid$ Card.IsRemembered | ValidZone$ Exile | Controller$ You | CopyCard$ True | WithoutManaCost$ True | ValidSA$ Spell | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Graveyard
+DeckHints:Type$Instant|Sorcery
+Oracle:Exile target instant or sorcery spell with mana value 3 or less from your graveyard. If you do, cast a copy of it without paying its mana cost.

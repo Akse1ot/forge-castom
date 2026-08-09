@@ -1,0 +1,9 @@
+Name:Steinar's Crucible
+ManaCost:no cost
+Types:Land
+K:Epitome
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ Token | Cost$ 3 T Sac<1/CARDNAME> | TokenScript$ r_3_1_a_demon_haste | TokenAmount$ X | TokenOwner$ You | SpellDescription$ Create a 3/1 red Demon artifact creature token with haste. If you’re enlightened, create two of those tokens instead.
+SVar:X:Count$Enlightened.2.1
+DeckHas:Ability$Token
+Oracle:Epitome (If there are eight or more mana abilities among permanents you control, you become enlightened for the rest of the game.)\n{T}: Add {C}.\n{3}, {T}, Sacrifice CARDNAME: Create a 3/1 red Demon artifact creature token with haste. If you’re enlightened, create two of those tokens instead.

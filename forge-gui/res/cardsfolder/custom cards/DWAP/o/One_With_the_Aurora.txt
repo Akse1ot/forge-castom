@@ -1,0 +1,9 @@
+Name:One With the Aurora
+ManaCost:2 W U B R G
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigSearch | TriggerDescription$ At the beginning of your upkeep, you may search your library for an enchantment card with mana value 6 or less. Put it onto the battlefield, then shuffle.
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Enchantment.cmcLE6 | ChangeNum$ 1 | ShuffleNonMandatory$ True
+S:Mode$ Continuous | Affected$ Enchantment.YouCtrl+nonAura+Other | SetPower$ 5 | SetToughness$ 5 | AddType$ Creature & Dragon & Avatar | AddKeyword$ Flying & Hexproof & Lifelink & Trample & Haste | Description$ Other non-Aura enchantments you control are 5/5 Dragon Avatar creatures with flying, hexproof, lifelink, trample and haste in addition to their other types.
+SVar:BuffedBy:Enchantment
+DeckHints:Type$Enchantment
+Oracle:At the beginning of your upkeep, you may search your library for an enchantment card with mana value 6 or less. Put it onto the battlefield, then shuffle.\nOther non-Aura enchantments you control are 5/5 Dragon Avatar creatures with flying, hexproof, lifelink, trample and haste in addition to their other types.

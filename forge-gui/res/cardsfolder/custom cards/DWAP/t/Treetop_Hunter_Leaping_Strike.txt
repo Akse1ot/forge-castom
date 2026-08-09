@@ -1,0 +1,18 @@
+Name:Treetop Hunter
+ManaCost:3 W
+Types:Creature Human Scout
+PT:2/3
+K:Reach
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigInvoke | TriggerDescription$ At the beginning of combat on your turn, CARDNAME invokes (Cast a copy of this creature’s Skill without paying its mana cost.)
+SVar:TrigInvoke:DB$ InvokeSkill
+AlternateMode:Modal
+Oracle:Reach\nAt the beginning of combat on your turn, Treetop Hunter invokes (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Leaping Strike
+ManaCost:W
+Types:Instant Skill
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | SubAbility$ DBUntap | KW$ Flying | TgtPrompt$ Select target creature you control | SpellDescription$ Target creature you control gets +1/+1 and gains flying until end of turn. Untap it.
+SVar:DBUntap:DB$ Untap | Defined$ Targeted
+Oracle:Target creature you control gets +1/+1 and gains flying until end of turn. Untap it.

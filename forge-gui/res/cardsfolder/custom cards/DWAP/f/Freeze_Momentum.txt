@@ -1,0 +1,7 @@
+Name:Freeze Momentum
+ManaCost:1 U U
+Types:Instant
+A:SP$ Charm | Choices$ DBCounterSpell,DBReturn
+SVar:DBCounterSpell:DB$ Counter | TargetType$ Spell | ValidTgts$ Card | TgtPrompt$ Select target spell | SpellDescription$ Counter target spell.
+SVar:DBReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Permanent.nonLand | TgtPrompt$ Select target nonland permanent | AILogic$ Good | SpellDescription$ Return target nonland permanent to its owner's hand.
+Oracle:Choose one or more —\n• Counter target spell.\n• Return target nonland permanent to its owner's hand.

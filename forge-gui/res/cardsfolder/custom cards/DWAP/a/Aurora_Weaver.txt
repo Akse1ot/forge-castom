@@ -1,0 +1,9 @@
+Name:Aurora Weaver
+ManaCost:1 W
+Types:Creature Human Shaman
+PT:2/2
+K:Flash
+K:Convoke
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters, you may return another permanent you control to its owner's hand.
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | AILogic$ BounceOwnTrigger | Mandatory$ True | ChangeType$ Permanent.Other+YouCtrl
+Oracle:Flash\nConvoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for  or one mana of that creature’s color.)\nWhen Aurora Weaver enters, you may return another permanent you control to its owner’s hand.

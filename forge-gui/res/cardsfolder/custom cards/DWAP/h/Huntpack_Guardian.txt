@@ -1,0 +1,7 @@
+Name:Huntpack Guardian
+ManaCost:3 R
+Types:Snow Creature Wolf
+PT:4/3
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigCanNotBlock | TriggerDescription$ Whenever CARDNAME attacks, you may pay {1}{S}. If you do, target creature can’t block this turn.
+SVar:TrigCanNotBlock:AB$ Pump | Cost$ 1 S | ValidTgts$ Creature.OppCtrl | KW$ HIDDEN CARDNAME can't block. | TgtPrompt$ Select target creature an opponent controls | IsCurse$ True
+Oracle:Whenever Huntpack Guardian attacks, you may pay {1}{S}. If you do, target creature can’t block this turn.

@@ -1,0 +1,7 @@
+Name:Blizzard Stalker
+ManaCost:2 B
+Types:Creature Skeleton Horror
+PT:4/1
+K:Menace
+S:Mode$ Continuous | Affected$ Card.Self | MayPlay$ True | AffectedZone$ Graveyard | EffectZone$ Graveyard | RaiseCost$ Sac<1/Artifact;Creature/artifact or creature> | Description$ You may cast this card from your graveyard by sacrificing an artifact or creature in addition to paying its other costs.
+Oracle:Menace\nYou may cast Blizzard Stalker from your graveyard by sacrificing an artifact or creature in addition to paying its other costs.

@@ -1,0 +1,20 @@
+Name:Adaptive Scavenger
+ManaCost:1 G
+Types:Creature Cat Horror
+PT:2/2
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Hexproof:Artifact | IsPresent$ Card.ExiledWithSource+Artifact | PresentZone$ Exile | Description$ CARDNAME has hexproof from each card type among cards exiled with it.
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Hexproof:Battle | IsPresent$ Card.ExiledWithSource+Battle | PresentZone$ Exile
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Hexproof:Creature | IsPresent$ Card.ExiledWithSource+Creature | PresentZone$ Exile
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Hexproof:Enchantment | IsPresent$ Card.ExiledWithSource+Enchantment | PresentZone$ Exile
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Hexproof:Instant | IsPresent$ Card.ExiledWithSource+Instant | PresentZone$ Exile
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Hexproof:Kindred | IsPresent$ Card.ExiledWithSource+Kindred | PresentZone$ Exile
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Hexproof:Land | IsPresent$ Card.ExiledWithSource+Land | PresentZone$ Exile
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Hexproof:Planeswalker | IsPresent$ Card.ExiledWithSource+Planeswalker | PresentZone$ Exile
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Hexproof:Sorcery | IsPresent$ Card.ExiledWithSource+Sorcery | PresentZone$ Exile
+A:AB$ ChangeZone | Cost$ T | ValidTgts$ Card | TgtZone$ Graveyard | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBCheckNewType | SpellDescription$ Exile target card from a graveyard. Put a +1/+1 counter on CARDNAME if it has a type not found among cards exiled with CARDNAME.
+SVar:DBCheckNewType:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GTY | TrueSubAbility$ DBPutCounter | FalseSubAbility$ DBCleanup
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidExile Card.ExiledWithSource$CardTypes
+SVar:Y:Count$ValidExile Card.ExiledWithSource+NotDefinedRemembered$CardTypes
+Oracle:Adaptive Scavenger has hexproof from each card type among exiled cards.\n{T}: Exile target card from a graveyard. Put a +1/+1 counter on Adaptive Scavenger if it has a type not found among cards exiled with Adaptive Scavenger.

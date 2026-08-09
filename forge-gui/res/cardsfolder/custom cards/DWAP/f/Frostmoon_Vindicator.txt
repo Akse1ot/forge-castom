@@ -1,0 +1,11 @@
+Name:Frostmoon Vindicator
+ManaCost:1 W B
+Types:Creature Elf Assassin
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife | TriggerDescription$ When CARDNAME enters, you may sacrifice another creature. If you do, you gain X life and draw X cards, where X is that creature's power.
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Select up to one target creature | TargetMin$ 0 | TargetMax$ 1 | NumAtt$ -X | NumDef$ -X | IsCurse$ True
+SVar:X:Count$Valid Card.token+YouCtrl
+DeckNeeds:Ability$Token
+DeckHas:Ability$LifeGain
+Oracle:When Frostmoon Vindicator enters, you gain X life and up to one target creature gets -X/-X until end of turn, where X is the number of tokens you control.

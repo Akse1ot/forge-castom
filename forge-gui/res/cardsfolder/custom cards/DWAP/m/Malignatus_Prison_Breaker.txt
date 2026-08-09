@@ -1,0 +1,9 @@
+Name:Malignatus, Prison-Breaker
+ManaCost:2 B R
+Types:Legendary Artifact Creature Demon
+PT:4/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters, you may discard your hand. If you do, draw three cards.
+SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Hand> | Defined$ You | NumCards$ 3
+A:AB$ ChangeZone | Cost$ B R Sac<2/Artifact;Creature/artifacts and/or creatures> | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | Tapped$ True | SpellDescription$ Return CARDNAME from your graveyard to the battlefield tapped.
+Oracle:Flying\nWhen Malignatus, Prison-Breaker enters, you may discard your hand. If you do, draw three cards.\n{B}{R}, Sacrifice two artifacts and/or creatures: Return Malignatus from your graveyard to the battlefield tapped.

@@ -1,0 +1,9 @@
+Name:Agnar's Meditation
+ManaCost:2 B G
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | TriggerZones$ Battlefield | TriggerDescription$ When CARDNAME enters, search your library and/or graveyard for an Agnar, Winter's Wrath planeswalker card, reveal it, and put it into your hand. If you search your library this way, shuffle.
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library,Graveyard | Destination$ Hand | ChangeType$ Card.namedAgnar; Winter's Wrath | ChangeNum$ 1
+S:Mode$ Continuous | Affected$ Permanent.nonLegendary+YouCtrl | AddAbility$ ABMana | Description$ Nonlegendary permanents you control have "{T}, Pay 1 life: Add one mana of any color."
+SVar:ABMana:AB$ Mana | Cost$ T PayLife<1> | Produced$ Any | SpellDescription$ Add one mana of any color.
+DeckHints:Name$Agnar, Winter's Wrath
+Oracle:When Agnar's Meditation enters, search your library and/or graveyard for an Agnar, Winter's Wrath planeswalker card, reveal it, and put it into your hand. If you search your library this way, shuffle.\nNonlegendary permanents you control have "{T}, Pay 1 life: Add one mana of any color."

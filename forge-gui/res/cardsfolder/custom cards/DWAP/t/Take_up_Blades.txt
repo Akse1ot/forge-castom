@@ -1,0 +1,8 @@
+Name:Take up Blades
+ManaCost:W
+Types:Instant
+A:SP$ Forge | ForgeAbilities$ ForgeFirstStrike | SpellDescription$ Forge first strike. (Create an Equipment artifact token with equip {2} and “Equipped creature has first strike.”) Attach an equipment you control to up to one target creature you control.
+SVar:ForgeFirstStrike:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ First Strike | SubAbility$ DBPump | Description$ Equipped creature has first strike.
+SVar:DBPump:DB$ Pump | ValidTgts$ Equipment.YouCtrl | TgtPrompt$ Select target equipment you control | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ ParentTarget | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select target creature you control
+Oracle:Forge first strike. (Create an Equipment artifact token with equip {2} and “Equipped creature has first strike.”)\nAttach an equipment you control to up to one target creature you control.

@@ -1,0 +1,6 @@
+Name:Unhallowed Awakening
+ManaCost:4 B
+Types:Sorcery
+A:SP$ Mill | NumCards$ 3 | Defined$ You | Optional$ True | SubAbility$ DBChangeZone | SpellDescription$ Mill three cards. Then return a creature or planeswalker card from your graveyard to the battlefield. (To mill a card, put the top card of your library into your graveyard.)
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.YouOwn,Planeswalker.YouOwn | ChangeTypeDesc$ creature or planeswalker | ChangeNum$ 1 | Hidden$ True | Mandatory$ True
+Oracle:Mill three cards. Then return a creature or planeswalker card from your graveyard to the battlefield.

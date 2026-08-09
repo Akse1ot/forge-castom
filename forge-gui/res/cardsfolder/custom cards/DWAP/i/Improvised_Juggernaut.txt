@@ -1,0 +1,9 @@
+Name:Improvised Juggernaut
+ManaCost:4
+Types:Artifact Vehicle
+PT:5/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a 1/1 white snow Gremlin creature token with lifelink.
+SVar:TrigToken:DB$ Token | TokenScript$ w_1_1_snow_gremlin_lifelink | TokenOwner$ TriggeredCardController
+S:Mode$ MustAttack | ValidCreature$ Card.Self | Description$ NICKNAME attacks each combat if able.
+K:Crew:1
+Oracle:When Improvised Juggernaut enters, create a 1/1 white snow Gremlin creature token with lifelink.\nImprovised Juggernaut must attack each combat if able.\nCrew 1. (Tap any number of creatures you control with total power 1 or more: This Vehicle becomes an artifact creature until end of turn.)

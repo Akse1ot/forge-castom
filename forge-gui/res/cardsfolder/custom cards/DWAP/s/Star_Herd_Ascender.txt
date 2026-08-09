@@ -1,0 +1,10 @@
+Name:Star-Herd Ascender
+ManaCost:2 W
+Types:Creature Azra Cleric
+PT:3/3
+S:Mode$ Continuous | Affected$ Goat.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Flying | Description$ Other goats you control get +1/+1 and have flying.
+R:Event$ CreateToken | ActiveZones$ Battlefield | ValidToken$ Card.YouCtrl | ReplaceWith$ DBReplace | Description$ If one or more tokens would be created under your control, those tokens plus that many 0/1 white Goat creature tokens are created instead.
+SVar:DBReplace:DB$ ReplaceToken | Type$ AddToken | TokenScript$ w_0_1_goat
+DeckHas:Ability$Token
+DeckHints:Type$Goat
+Oracle:Other goats you control get +1/+1 and have flying.\nIf one or more tokens would be created under your control, those tokens plus that many 0/1 white Goat creature tokens are created instead.

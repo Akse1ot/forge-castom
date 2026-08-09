@@ -1,0 +1,20 @@
+Name:Sara Van Helsa, Nightchaser
+ManaCost:RW
+Types:Legendary Planeswalker Sara
+Loyalty:2
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigAttach | TriggerDescription$ At the beginning of combat on your turn,
+SVar:TrigAttach:DB$ Attach | Choices$ Equipment.YouCtrl | ChoiceTitle$ Choose an Equipment you control | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select target creature you control
+A:AB$ Forge | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Choices$ ForgeP1P1,ForgeVigilance,ForgeMenace,ForgeLifelink,ForgeHaste | ChoiceAmount$ 1 | ChoicePrompt$ Choose an ability to forge | SpellDescription$ Forge your choice of +1/+1, vigilance, menace, lifelink or haste.
+SVar:ForgeP1P1:DB$ BlankLine | ForgeAbility$ ForgeStaticP1P1 | ForgeAIWeight$ 20 | SpellDescription$ +1/+1
+SVar:ForgeVigilance:DB$ BlankLine | ForgeAbility$ ForgeStaticVigilance | ForgeAIWeight$ 10 | SpellDescription$ Vigilance
+SVar:ForgeMenace:DB$ BlankLine | ForgeAbility$ ForgeStaticMenace | ForgeAIWeight$ 25 | SpellDescription$ Menace
+SVar:ForgeLifelink:DB$ BlankLine | ForgeAbility$ ForgeStaticLifelink | ForgeAIWeight$ 30 | SpellDescription$ Lifelink
+SVar:ForgeHaste:DB$ BlankLine | ForgeAbility$ ForgeStaticHaste | ForgeAIWeight$ 15 | SpellDescription$ Haste
+SVar:ForgeStaticP1P1:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | Description$ Equipped creature gets +1/+1.
+SVar:ForgeStaticVigilance:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Vigilance | Description$ Equipped creature has vigilance.
+SVar:ForgeStaticMenace:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Menace | Description$ Equipped creature has menace.
+SVar:ForgeStaticLifelink:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Lifelink | Description$ Equipped creature has lifelink.
+SVar:ForgeStaticHaste:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Haste | Description$ Equipped creature has haste.
+A:AB$ ChangeZone | Cost$ SubCounter<X/LOYALTY> | Planeswalker$ True | Origin$ Library | Destination$ Battlefield | ChangeType$ Equipment.cmcLEX | ChangeNum$ 1 | SpellDescription$ Search your library for an Equipment card with mana value X, put it onto the battlefield, then shuffle.
+SVar:X:Count$xPaid
+Oracle:At the beginning of combat on your turn, you may attach an Equipment you control to up to one target creature you control.\n[+1]:Forge your choice of +1/+1, vigilance, menace, lifelink or haste.\n[-X]:Search your library for an Equipment card with mana value X, put it onto the battlefield, then shuffle.

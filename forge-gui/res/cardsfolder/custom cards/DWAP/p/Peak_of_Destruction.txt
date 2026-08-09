@@ -1,0 +1,11 @@
+Name:Peak of Destruction
+ManaCost:4 R
+Types:Enchantment — Aura
+K:Enchant:Creature
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ When CARDNAME enters, enchanted creature deals damage equal to its power to each other creature and each planeswalker.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature,Planeswalker | TriggerZones$ Battlefield | Execute$ TrigCounter | TriggerDescription$ Whenever a creature dies or a planeswalker is put into a graveyard from the battlefield, put a +1/+1 counter on enchanted creature.
+SVar:TrigDamage:DB$ DamageAll | ValidCards$ Creature.NotDefinedEnchanted,Planeswalker | NumDmg$ X | DamageSource$ Enchanted | ConditionDefined$ Enchanted | ConditionPresent$ Creature | ValidDescription$ each other creature and each planeswalker.
+SVar:X:Enchanted$CardPower
+SVar:TrigCounter:DB$ PutCounter | Defined$ Enchanted | CounterType$ P1P1 | CounterNum$ 1
+DeckHas:Ability$Counters
+Oracle:Enchant creature\nWhen Peak of Destruction enters, enchanted creature deals damage equal to its power to each other creature and each planeswalker.\nWhenever a creature dies or a planeswalker is put into a graveyard from the battlefield, put a +1/+1 counter on enchanted creature.

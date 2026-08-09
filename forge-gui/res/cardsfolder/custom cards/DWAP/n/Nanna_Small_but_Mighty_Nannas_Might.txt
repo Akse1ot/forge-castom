@@ -1,0 +1,20 @@
+Name:Nanna, Small but Mighty
+ManaCost:2 G
+Types:Legendary Creature Dwarf Warrior
+PT:1/1
+T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigPut | TriggerDescription$ Whenever CARDNAME becomes tapped, put a +1/+1 counter on target creature you control. Then if there are five or more +1/+1 counters among creatures you control, Nanna, Small but Mighty invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+SVar:TrigPut:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ TrigInvoke
+SVar:TrigInvoke:DB$ InvokeSkill | ConditionCheckSVar$ TotalP1P1Counters | ConditionSVarCompare$ GE5
+SVar:TotalP1P1Counters:Count$Valid Creature.YouCtrl$CardCounters.P1P1
+AlternateMode:Modal
+Oracle:Whenever Nanna, Small but Mighty becomes tapped, put a +1/+1 counter on target creature you control. Then if there are five or more +1/+1 counters among creatures you control, Nanna, Small but Mighty invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Nanna's Might
+ManaCost:2 G
+Types:Instant Skill
+A:SP$ Draw | NumCards$ X | SubAbility$ DBPumpAll | SpellDescription$ Draw a card for each creature you control with a +1/+1 counter on it. Those creatures gain indestructible until end of turn.
+SVar:X:Count$Valid Creature.YouCtrl+counters_GE1_P1P1
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl+counters_GE1_P1P1 | KW$ Indestructible
+Oracle:Draw a card for each creature you control with a +1/+1 counter on it. Those creatures gain indestructible until end of turn.

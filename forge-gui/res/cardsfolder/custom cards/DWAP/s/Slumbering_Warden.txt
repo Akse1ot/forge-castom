@@ -1,0 +1,9 @@
+Name:Slumbering Warden
+ManaCost:1 B
+Types:Artifact Creature Golem
+PT:3/3
+K:Defender
+S:Mode$ CanAttackDefender | Affected$ Card.Self | IsPresent$ Card.token+YouCtrl | Description$ As long as you control a token, CARDNAME may attack as though it didn’t have defender.
+A:AB$ Token | Cost$ 5 B | TokenScript$ ub_3_3_horror_yeti | GameActivationLimit$ 1 | SpellDescription$ Create a 3/3 blue and black Yeti horror creature token. Activate only once.
+DeckHints:Ability$Token
+Oracle:Defender\nAs long as you control a token, Slumbering Warden may attack as though it didn’t have defender.\n{5}{B}: Create a 3/3 blue and black Yeti horror creature token. Activate only once.

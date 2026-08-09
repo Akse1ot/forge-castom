@@ -1,0 +1,10 @@
+Name:Lostwoods Shapestealer
+ManaCost:3 U U
+Types:Creature Reptile Shapeshifter
+PT:0/0
+K:Flash
+R:Event$ Moved | Destination$ Battlefield | ValidCard$ Card.Self | Layer$ Copy | ReplacementResult$ Updated | Optional$ True | ReplaceWith$ DBReturn | Description$ As CARDNAME enters, you may return another target creature, planeswalker or creature or planeswalker spell to its owner's hand. If you do, CARDNAME enters as a copy of that creature or planeswalker.
+SVar:DBReturn:DB$ ChangeZone | ValidTgts$ Creature.Other,Planeswalker.Other | TgtZone$ Battlefield,Stack | Origin$ Battlefield,Stack | Destination$ Hand | RememberChanged$ True | TgtPrompt$ Select another target creature, planeswalker, or creature or planeswalker spell | SubAbility$ DBClone
+SVar:DBClone:DB$ Clone | Defined$ ParentTarget | ConditionDefined$ Remembered | ConditionPresent$ Card.inZoneHand | ConditionCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Flash\nAs Lostwoods Shapestealer enters, you may return another target creature, planeswalker or creature or planeswalker spell to its owner’s hand. If you do, Lostwoods Shapestealer enters as a copy of that creature or planeswalker.

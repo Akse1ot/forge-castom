@@ -1,0 +1,8 @@
+Name:Protective Hearthsmith
+ManaCost:2 W
+Types:Creature Human Artificer
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigForge | TriggerDescription$ When CARDNAME enters, forge +1/+2 and vigilance (Create an Equipment artifact token with equip {2} and “Equipped creature has +1/+2 and vigilance.”)
+SVar:TrigForge:DB$ Forge | ForgeAbilities$ ForgeBonus
+SVar:ForgeBonus:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 2 | AddKeyword$ Vigilance | Description$ Equipped creature gets +1/+2 and has vigilance. 
+Oracle:When Protective Hearthsmith enters, forge +1/+2 and vigilance (Create an Equipment artifact token with equip {2} and “Equipped creature has +1/+2 and vigilance.”)

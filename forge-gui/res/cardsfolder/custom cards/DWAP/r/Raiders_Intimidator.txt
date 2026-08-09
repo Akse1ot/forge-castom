@@ -1,0 +1,11 @@
+Name:Raider's Intimidator
+ManaCost:1 R
+Types:Creature Human Berserker
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigForge | TriggerDescription$ When CARDNAME enters, forge menace and haste (Create an Equipment artifact token with equip {2} and “Equipped creature has menace and haste.”)
+SVar:TrigForge:DB$ Forge | ForgeAbilities$ ForgeBonus
+SVar:ForgeBonus:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Menace & Haste |Description$ Equipped creature has menace and haste.
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ Activated.Equip | TriggerZones$ Battlefield | Execute$ TrigCantBlock | TriggerDescription$ Whenever CARDNAME becomes the target of an equip ability, up to one target creature can't block this turn.
+SVar:TrigCantBlock:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Select up to one target creature | TargetMin$ 0 | TargetMax$ 1 | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
+Oracle:When Raider’s Intimidator enters, forge menace and haste (Create an Equipment artifact token with equip {2} and “Equipped creature has menace and haste.”)\n
+Whenever Raider’s Intimidator becomes the target of an equip ability, up to one target creature can’t block this turn.

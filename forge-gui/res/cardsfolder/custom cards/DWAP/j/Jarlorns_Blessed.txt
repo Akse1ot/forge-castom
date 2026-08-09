@@ -1,0 +1,7 @@
+Name:Jarlorn's Blessed
+ManaCost:2 R
+Types:Creature Human Shaman Warrior
+PT:2/2
+T:Mode$ SpellCast | TriggerZones$ Battlefield | ValidCard$ Shaman,Instant,Sorcery | ValidActivatingPlayer$ You | Execute$ TrigDamage | TriggerDescription$ Whenever you cast an instant, sorcery or shaman spell, CARDNAME deals 1 damage to any target.
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1
+Oracle:Whenever you cast an instant, sorcery or shaman spell, Jarlorn’s Blessed deals 1 damage to any target.

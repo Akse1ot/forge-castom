@@ -1,0 +1,19 @@
+Name:Risen Greatwyrm
+ManaCost:3 W
+Types:Creature Dragon Horror
+PT:3/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvoke | TriggerDescription$ When CARDNAME enters, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+SVar:TrigInvoke:DB$ InvokeSkill
+T:Mode$ ChangesZone | ValidCard$ Creature.tapped | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a tapped creature dies, you gain 2 life.
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 2
+AlternateMode:Modal
+Oracle:Flying\nWhen Risen Greatwyrm enters, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)\nWhenever a tapped creature dies, you gain 2 life.
+
+ALTERNATE
+
+Name:Cull the Weak
+ManaCost:1 W
+Types:Instant Skill
+A:SP$ DealDamage | ValidTgts$ Creature.tapped | NumDmg$ 4 | TgtPrompt$ Select target tapped creature | SpellDescription$ CARDNAME deals 4 damage to target tapped creature.
+Oracle:Cull the Weak deals 4 damage to target tapped creature.

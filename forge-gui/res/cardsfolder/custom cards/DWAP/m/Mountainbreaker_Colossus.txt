@@ -1,0 +1,9 @@
+Name:Mountainbreaker Colossus
+ManaCost:4 G G
+Types:Creature Troll Giant
+PT:7/6
+K:Trample
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigSac | TriggerDescription$ When CARDNAME dies, forge +7/+6 and trample. (Create an Equipment artifact token with equip {2} and “Equipped creature has +7/+6 and trample.”)
+SVar:DBForge:DB$ Forge | ForgeAbilities$ ForgeBonus
+SVar:ForgeBonus:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 7 | AddToughness$ 6 | AddKeyword$ Trample | Description$ Equipped creature has +7/+6 and trample.
+Oracle:Trample\nWhen Mountainbreaker Colossus dies, forge +7/+6 and trample. (Create an Equipment artifact token with equip {2} and “Equipped creature has +7/+6 and trample.”)

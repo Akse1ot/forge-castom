@@ -1,0 +1,9 @@
+Name:Dawnpeak Herdmaster
+ManaCost:2 W
+Types:Creature Azra Citizen
+PT:2/3
+K:Vigilance
+S:Mode$ Continuous | Affected$ Creature.token+YouCtrl | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Vigilance | Description$ Creature tokens you control get +1/+1 and have vigilance.
+SVar:PlayMain1:TRUE
+DeckHints:Ability$Token
+Oracle:Vigilance\nCreature tokens you control get +1/+1 and have vigilance.

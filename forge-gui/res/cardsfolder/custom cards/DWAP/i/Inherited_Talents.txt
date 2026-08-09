@@ -1,0 +1,8 @@
+Name:Inherited Talents
+ManaCost:2 U U
+Types:Instant
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | ValidTarget$ Spell.Skill | EffectZone$ All | Description$ CARDNAME costs {2} less to cast if it targets a Skill.
+S:Mode$ CantBeCopied | ValidCard$ Card.Self | EffectZone$ Stack | Description$ This spell can't be copied.
+A:SP$ CopySpellAbility | ValidTgts$ Instant,Sorcery | Amount$ 2 | AILogic$ Once | MayChooseTarget$ True | SpellDescription$ Copy target instant or sorcery spell twice. You may choose new targets for the copies.
+DeckNeeds:Type$Instant|Sorcery|Skill
+Oracle:This spell costs  less to cast if it targets a Skill.\nThis spell can’t be copied.\nCopy target instant or sorcery spell twice. You may choose new targets for the copies.

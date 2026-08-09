@@ -1,0 +1,9 @@
+Name:Learned Ascetic
+ManaCost:1 G
+Types:Creature Rabbit Elk Shaman
+PT:2/2
+A:AB$ Mana | Cost$ T | Produced$ Any | TriggersWhenSpent$ TrigSpent | SpellDescription$ Add one mana of any color. If this mana is spent to cast a Shaman spell, untap CARDNAME and create a 1/1 red and green Shaman creature token.
+SVar:TrigSpent:Mode$ SpellCast | ValidCard$ Card.Shaman | ValidActivatingPlayer$ You | Execute$ TrigUntap | TriggerDescription$ If this mana is spent to cast a Shaman spell, untap CARDNAME and create a 1/1 red and green Shaman creature token.
+SVar:TrigUntap:DB$ Untap | Defined$ Self | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ rg_1_1_shaman | TokenOwner$ You
+Oracle:{T}: Add one mana of any color. If this mana is spent to cast a Shaman spell, untap Learned Ascetic and create a 1/1 red and green Shaman creature token.

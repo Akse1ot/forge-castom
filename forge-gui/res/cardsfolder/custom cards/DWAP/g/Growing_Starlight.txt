@@ -1,0 +1,9 @@
+Name:Growing Starlight
+ManaCost:1 W
+Types:Enchantment
+K:Flash
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken | CheckSVar$ SpellsCastThisTurn | SVarCompare$ EQ0 | TriggerDescription$ At the beginning of your end step, if you didn’t cast a spell this turn, create an X/X blue Goat Spirit creature token, where X is one plus the number of Goats you control.
+SVar:TrigToken:DB$ Token | TokenPower$ X | TokenToughness$ X | TokenScript$ u_x_x_goat_spirit | TokenOwner$ You
+SVar:SpellsCastThisTurn:Count$ThisTurnCast_Card.YouCtrl
+SVar:AlchemicX:Count$Valid Goat.YouCtrl
+Oracle:Flash\nAt the beginning of your end step, if you didn’t cast a spell this turn, create an X/X blue Goat Spirit creature token, where X is one plus the number of Goats you control.

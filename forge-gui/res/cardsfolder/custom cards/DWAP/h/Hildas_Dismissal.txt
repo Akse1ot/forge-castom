@@ -1,0 +1,6 @@
+Name:Hilda's Dismissal
+ManaCost:U
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBSurveil | SpellDescription$ Return target creature to its owner’s hand. If it’s not your turn, surveil 1.
+SVar:DBSurveil:DB$ Surveil | Amount$ 1 | ConditionPlayerTurn$ False
+Oracle:Return target creature to its owner’s hand. If it’s not your turn, surveil 1.

@@ -1,0 +1,10 @@
+Name:Sacred Binding
+ManaCost:2 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | TriggerDescription$ When CARDNAME enters, exile up to one target nonland permanent you don’t control until CARDNAME leaves the battlefield. Forge lifelink. (Create an Equipment artifact token with equip {2} and “Equipped creature has lifelink.”)
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+YouDontCtrl | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select up to one target nonland permanent you don’t control | Duration$ UntilHostLeavesPlay | SubAbility$ DBForge
+SVar:DBForge:DB$ Forge | ForgeAbilities$ ForgeLifelink
+SVar:ForgeLifelink:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Lifelink | Description$ Equipped creature has lifelink.
+SVar:PlayMain1:TRUE
+SVar:OblivionRing:TRUE
+Oracle:When Sacred Binding enters, exile up to one target nonland permanent you don’t control until Sacred Binding leaves the battlefield. Forge lifelink. (Create an Equipment artifact token with equip {2} and “Equipped creature has lifelink.”)

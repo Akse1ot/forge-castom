@@ -1,0 +1,11 @@
+Name:Trapped Trail
+ManaCost:1 G
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Land.EnchantedBy | AddAbility$ ABMana | Description$ Enchanted land has "{T}: Add {G} and one mana of any color."
+SVar:ABMana:AB$ Mana | Cost$ T | Produced$ G | SubAbility$ DBManaAny | SpellDescription$ Add {G} and one mana of any color.
+SVar:DBManaAny:DB$ Mana | Produced$ Any
+A:AB$ Token | Cost$ 4 G Sac<1/CARDNAME> | TokenScript$ g_2_2_aurochs | TokenOwner$ You | PlayerTurn$ True | SpellDescription$ Create a 2/2 green Aurochs creature token. Activate only during your turn.
+DeckHas:Ability$Token
+Oracle:Enchant land\nEnchanted land has "{T}: Add {G} and one mana of any color."\n{4}{G}, Sacrifice this Aura: Create a 2/2 green Aurochs creature token. Activate only during your turn.

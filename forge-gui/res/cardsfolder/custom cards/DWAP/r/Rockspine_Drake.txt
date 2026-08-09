@@ -1,0 +1,10 @@
+Name:Rockspine Drake
+ManaCost:6
+Types:Snow Artifact Creature Dragon
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | TriggerDescription$ When this creature enters or attacks, exile up to one target card from a graveyard.
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChangeZone | Secondary$ True | TriggerDescription$ Whenever CARDNAME enters or attacks, exile up to one target card from a graveyard.
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select target card in a graveyard to exile
+K:TypeCycling:Basic:2
+Oracle:Flying\nWhenever Rockspine Drake enters or attacks, exile up to one target card from a graveyard.\nBasic landcycling {2} ({2}, Discard this card: Search your library for a basic land card, reveal it, put it into your hand, then shuffle.)

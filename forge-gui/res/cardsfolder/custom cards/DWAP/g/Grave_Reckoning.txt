@@ -1,0 +1,11 @@
+Name:Grave Reckoning
+ManaCost:2 B B B
+Types:Enchantment
+K:Flash
+K:Convoke
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGenericChoice | TriggerDescription$ Whenever a creature you control dies, each opponent loses 3 life unless they discard a card or sacrifice a nonland permanent.
+SVar:TrigGenericChoice:DB$ GenericChoice | ValidTgts$ Opponent | Choices$ PaySac,PayDiscard | FallbackAbility$ LoseLifeFallback | AILogic$ PayUnlessCost
+SVar:PaySac:DB$ LoseLife | LifeAmount$ 3 | Defined$ Targeted | UnlessCost$ Sac<1/Permanent.nonLand/nonland permanent> | UnlessPayer$ Targeted | SpellDescription$ You lose 3 life unless you sacrifice a nonland permanent.
+SVar:PayDiscard:DB$ LoseLife | LifeAmount$ 3 | Defined$ Targeted | UnlessCost$ Discard<1/Card> | UnlessPayer$ Targeted | SpellDescription$ You lose 3 life unless you discard a card.
+SVar:LoseLifeFallback:DB$ LoseLife | Defined$ Targeted | LifeAmount$ 3
+Oracle:Flash\nConvoke\nWhenever a creature you control dies, each opponent loses 3 life unless they discard a card or sacrifice a nonland permanent.

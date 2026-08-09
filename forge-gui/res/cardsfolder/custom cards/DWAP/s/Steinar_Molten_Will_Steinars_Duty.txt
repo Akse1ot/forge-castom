@@ -1,0 +1,33 @@
+Name:Steinar, Molten Will
+ManaCost:1 B B R R
+Types:Legendary Creature Sheep God
+PT:4/4
+T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Permanent | Execute$ TrigReward | TriggerZones$ Battlefield | TriggerDescription$ Whenever you sacrifice a permanent, discard a card or lose 3 or more life, you gain 1 life and draw a card. Then if you’ve done all three this turn, Steinar, Molten Will invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+T:Mode$ Discarded | ValidPlayer$ You | ValidCard$ Card | Execute$ TrigReward | TriggerZones$ Battlefield | Secondary$ True
+T:Mode$ LifeLost | ValidPlayer$ You | LifeAmount$ GE3 | Execute$ TrigReward | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigReward:DB$ GainLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBCheckSacrifice
+SVar:DBCheckSacrifice:DB$ Branch | BranchConditionSVar$ SacrificedThisTurn | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBCheckDiscard
+SVar:DBCheckDiscard:DB$ Branch | BranchConditionSVar$ DiscardedThisTurn | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBCheckLifeLoss
+SVar:DBCheckLifeLoss:DB$ Branch | BranchConditionSVar$ GreatestLifeLossThisTurn | BranchConditionSVarCompare$ GE3 | TrueSubAbility$ DBInvoke
+SVar:DBInvoke:DB$ InvokeSkill
+SVar:SacrificedThisTurn:PlayerCountPropertyYou$SacrificedThisTurn Permanent
+SVar:DiscardedThisTurn:PlayerCountPropertyYou$CardsDiscardedThisTurn
+SVar:GreatestLifeLossThisTurn:PlayerCountPropertyYou$GreatestLifeLostAtOnceThisTurn
+AlternateMode:Modal
+Oracle:Whenever you sacrifice a permanent, discard a card or lose 3 or more life, you gain 1 life and draw a card. Then if you’ve done all three this turn, Steinar, Molten Will invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Steinar's Duty
+ManaCost:B R
+Types:Sorcery Skill
+A:SP$ Branch | BranchConditionSVar$ SacrificedThisTurn | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBTokenTwo | FalseSubAbility$ DBCheckDiscard | SpellDescription$ Create a 3/1 red Demon artifact creature token with haste. If you’ve sacrificed a permanent, discarded a card or lost 3 or more life this turn, create two of those tokens instead.
+SVar:DBCheckDiscard:DB$ Branch | BranchConditionSVar$ DiscardedThisTurn | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBTokenTwo | FalseSubAbility$ DBCheckLifeLoss
+SVar:DBCheckLifeLoss:DB$ Branch | BranchConditionSVar$ GreatestLifeLossThisTurn | BranchConditionSVarCompare$ GE3 | TrueSubAbility$ DBTokenTwo | FalseSubAbility$ DBTokenOne
+SVar:DBTokenOne:DB$ Token | TokenAmount$ 1 | TokenScript$ r_3_1_a_demon_haste
+SVar:DBTokenTwo:DB$ Token | TokenAmount$ 2 | TokenScript$ r_3_1_a_demon_haste
+SVar:SacrificedThisTurn:PlayerCountPropertyYou$SacrificedThisTurn Permanent
+SVar:DiscardedThisTurn:PlayerCountPropertyYou$CardsDiscardedThisTurn
+SVar:GreatestLifeLossThisTurn:PlayerCountPropertyYou$GreatestLifeLostAtOnceThisTurn
+Oracle:Create a 3/1 red Demon artifact creature token with haste. If you’ve sacrificed a permanent, discarded a card or lost 3 or more life this turn, create two of those tokens instead.

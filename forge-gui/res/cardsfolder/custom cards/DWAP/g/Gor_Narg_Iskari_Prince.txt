@@ -1,0 +1,10 @@
+Name:Gor-Narg, Iskari Prince
+ManaCost:4 B G
+Types:Legendary Creature Troll Noble
+PT:7/7
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigDig | TriggerZones$ Battlefield | TriggerDescription$ Whenever you attack, look at the top seven cards of your library. You may put a creature card from among them onto the battlefield tapped and attacking if you’re enlightened. If you don’t, put it into your hand. Put the rest on the bottom of your library in a random order.
+SVar:TrigDig:DB$ Dig | DigNum$ 7 | ChangeNum$ 1 | ChangeValid$ Creature | DestinationZone$ Library | LibraryPosition$ 0 | DestinationZone2$ Library | LibraryPosition2$ -1 | RestRandomOrder$ True | RememberChanged$ True | Reveal$ False | SubAbility$ DBBattlefield
+SVar:DBBattlefield:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Defined$ Remembered | Optional$ True | ForgetChanged$ True | Tapped$ True | Attacking$ True | Enlightened$ True | SubAbility$ DBHand
+SVar:DBHand:DB$ ChangeZone | Origin$ Library | Destination$ Hand | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Epitome (If there are eight or more mana abilities among permanents you control, you become enlightened for the rest of the game.)\nWhenever you attack, look at the top seven cards of your library. You may put a creature card from among them onto the battlefield tapped and attacking if you’re enlightened. If you don’t, put it into your hand. Put the rest on the bottom of your library in a random order.

@@ -1,0 +1,8 @@
+Name:Cliffwalker Adept
+ManaCost:1 U
+Types:Snow Creature Human Scout
+PT:1/3
+A:AB$ Mana | Cost$ T | Produced$ U | RestrictValid$ Spell.Instant,Spell.Sorcery,Spell.Snow | SpellDescription$ Add {U}. Spend this mana only to cast an instant, sorcery or snow spell.
+DeckHints:Type$Instant|Sorcery
+DeckNeeds:Type$Snow
+Oracle:{T}: Add {U}. Spend this mana only to cast an instant, sorcery or snow spell.

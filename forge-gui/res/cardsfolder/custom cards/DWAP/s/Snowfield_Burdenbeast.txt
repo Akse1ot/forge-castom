@@ -1,0 +1,12 @@
+Name:Snowfield Burdenbeast
+ManaCost:2 W W
+Types:Snow Creature Goat
+PT:2/2
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ SnowSpentSelf | SVarCompare$ GE1 | Execute$ TrigPutCounter | TriggerDescription$ When CARDNAME enters or you cast a spell, if {S} was spent to cast it, put a +1/+1 counter on target creature you control.
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | ValidSA$ Spell.ManaFromSnow | Execute$ TrigPutCounter | TriggerZones$ Battlefield | Secondary$ True | TriggerDescription$ When CARDNAME enters or you cast a spell, if {S} was spent to cast it, put a +1/+1 counter on target creature you control.
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | CounterType$ P1P1 | CounterNum$ 1
+SVar:SnowSpentSelf:Count$CastTotalManaSpent Snow
+DeckHints:Type$Snow
+DeckHas:Ability$Counters|LifeGain
+Oracle:Lifelink\nWhenever Snowfield Burdenbeast enters or you cast a spell, if {S} was spent to cast it, put a +1/+1 counter on target creature you control.

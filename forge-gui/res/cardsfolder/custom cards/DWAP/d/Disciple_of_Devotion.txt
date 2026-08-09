@@ -1,0 +1,8 @@
+Name:Disciple of Devotion
+ManaCost:W
+Types:Creature Vampire Cleric
+PT:1/1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | PresentDefined$ Self | IsPresent$ Card.tapped | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ At the beginning of your end step, if Disciple of Devotion is tapped, put a +1/+1 counter on it.
+SVar:TrigPutCounter:DB$ PutCounter | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ PutCounter | Cost$ Sac<1/CARDNAME> | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | CounterType$ EachFromSource | EachFromSource$ Self | SpellDescription$ Put its counters on target creature.
+Oracle:At the beginning of your end step, if Disciple of Devotion is tapped, put a +1/+1 counter on it.\nSacrifice Disciple of Devotion: Put its counters on target creature.

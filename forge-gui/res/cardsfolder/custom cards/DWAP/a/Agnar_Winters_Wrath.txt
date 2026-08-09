@@ -1,0 +1,19 @@
+Name:Agnar, Winter's Wrath
+ManaCost:2 B B G
+Types:Legendary Planeswalker Agnar
+Loyalty:4
+K:Epitome
+A:AB$ Token | Cost$ AddCounter<1/LOYALTY> | TokenAmount$ 1 | TokenScript$ b_1_1_treefolk_mana | TokenOwner$ You | RememberOriginalTokens$ True | SubAbility$ DBTreefolkCounters | Planeswalker$ True | SpellDescription$ Create a 1/1 black Treefolk token with “{T}: Add one mana of any color.” If you’re in an epitome, put two +1/+1 counters on it.
+SVar:DBTreefolkCounters:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ EpitomeCounters | SubAbility$ DBCleanupTreefolk
+SVar:EpitomeCounters:Count$Enlightened.2.0
+SVar:DBCleanupTreefolk:DB$ Cleanup | ClearRemembered$ True
+A:AB$ ChooseCard | Cost$ SubCounter<2/LOYALTY> | ValidTgts$ Permanent.YouOwn | TgtPrompt$ Select target permanent card in your graveyard | TgtZone$ Graveyard | DefinedCards$ Targeted | SubAbility$ DBSacrifice | Planeswalker$ True | SpellDescription$ You may sacrifice a creature. If you do or you’re enlightened, return target permanent card from your graveyard to the battlefield.
+SVar:DBSacrifice:DB$ Sacrifice | Optional$ True | SacValid$ Creature.YouCtrl | SacMessage$ creature | Amount$ 1 | RememberSacrificed$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Targeted | Origin$ Graveyard | Destination$ Battlefield | ConditionCheckSVar$ ReturnCondition | ConditionSVarCompare$ GE1 | SubAbility$ DBCleanupSacrifice
+SVar:SacrificedCount:Count$RememberedSize
+SVar:EnlightenedValue:Count$Enlightened.1.0
+SVar:ReturnCondition:SVar$SacrificedCount/Plus.EnlightenedValue
+SVar:DBCleanupSacrifice:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+A:AB$ DestroyAll | Cost$ SubCounter<4/LOYALTY> | ValidCards$ Permanent.cmcLE4+!canProduceMana | Planeswalker$ True | Ultimate$ True | SpellDescription$ Destroy each permanent with mana value 4 or less and without a mana ability.
+DeckHas:Ability$Counters|Graveyard|Sacrifice
+Oracle:Epitome\n[+1]:Create a 1/1 black Treefolk token with “{T}: Add one mana of any color.” If you’re in an epitome, put two +1/+1 counters on it.\n[-2]:You may sacrifice a creature. If you do or you’re enlightened, return target permanent card from your graveyard to the battlefield.\n[-4]:Destroy each permanent with mana value 4 or less and without a mana ability.

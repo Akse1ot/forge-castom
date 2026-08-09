@@ -1,0 +1,24 @@
+Name:Magni, the Unbreakable
+ManaCost:5 R R
+Types:Legendary Creature Human Berserker
+PT:8/5
+K:Trample
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigExile | TriggerDescription$ Whenever CARDNAME dies, exile it. You may cast it as a Skill until the end of your next turn.
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBPermission
+SVar:DBPermission:DB$ Effect | RememberObjects$ Remembered | Abilities$ CastSkill | Duration$ UntilTheEndOfYourNextTurn | ForgetOnMoved$ Exile
+SVar:CastSkill:AB$ Play | Cost$ 0 | ActivationZone$ Command | SorcerySpeed$ True | Defined$ Remembered | ValidSA$ Sorcery | SpellDescription$ Cast the exiled card as a Skill.
+AlternateMode:Modal
+Oracle:Trample\nWhenever Magni, the Unbreakable dies, exile it. You may cast it as a skill until the end of your next turn
+
+ALTERNATE
+
+Name:Rage of the Ancients
+ManaCost:3 R
+Types:Sorcery — Skill
+A:SP$ DelayedTrigger | ThisTurn$ True | Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigReturn | TriggerDescription$ At the beginning of your next combat phase this turn, return a creature card from your graveyard to the battlefield tapped. It gains haste until end of turn. Rage of the Ancients deals damage to you equal to that creature's power. | SpellDescription$ At the beginning of your next combat phase this turn, return a creature card from your graveyard to the battlefield tapped. It gains haste until end of turn. Rage of the Ancients deals damage to you equal to that creature's power.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.YouOwn | ChangeNum$ 1 | Hidden$ True | Mandatory$ True | Tapped$ True | RememberChanged$ True | SelectPrompt$ Select a creature card from your graveyard | SubAbility$ DBHaste
+SVar:DBHaste:DB$ Pump | Defined$ Remembered | KW$ Haste | Duration$ EndOfTurn | SubAbility$ DBDamage | StackDescription$ None
+SVar:DBDamage:DB$ DealDamage | Defined$ You | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$CardPower
+Oracle:At the beginning of your next combat phase this turn, return a creature card from your graveyard to the battlefield tapped. It gains haste until end of turn. Rage of the Ancients deals damage to you equal to that creature’s power.

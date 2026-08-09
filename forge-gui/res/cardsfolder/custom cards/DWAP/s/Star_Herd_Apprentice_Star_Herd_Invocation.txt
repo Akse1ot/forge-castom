@@ -1,0 +1,21 @@
+Name:Star-Herd Apprentice
+ManaCost:1 U
+Types:Creature Azra Citizen
+PT:0/3
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ1 | Execute$ TrigDraw | TriggerZones$ Battlefield | TriggerDescription$ Whenever you cast your first instant or sorcery spell each turn  draw a card, then discard a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose
+A:AB$ InvokeSkill | Cost$ 4 U | SorcerySpeed$ True | ActivationLimit$ 1 | SpellDescription$ CARDNAME invokes. Activate only once and only as a sorcery. (Cast a copy of this creature's Skill without paying its mana cost.)
+AlternateMode:Modal
+Oracle:Whenever you cast your first instant or sorcery spell each turn draw a card, then discard a card.
+{4}{U}: Star-Herd Apprentice Invokes. Activate only once and only as a sorcery. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Star-Herd Invocation
+ManaCost:2 U U
+Types:Sorcery Skill
+A:SP$ Token | TokenPower$ X | TokenToughness$ X | TokenScript$ u_x_x_goat_spirit | TokenOwner$ You | SpellDescription$ Create an X/X Blue Goat Spirit creature token, where X is twice the number of cards in your hand.
+SVar:X:Count$ValidHand Card.YouOwn/Twice
+DeckHas:Ability$Token
+Oracle:Create an X/X Blue Goat Spirit creature token, where X is twice the number of cards in your hand.

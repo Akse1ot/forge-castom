@@ -1,0 +1,8 @@
+Name:Selfless Guardianship
+ManaCost:1 G
+Types:Instant
+K:Convoke
+A:SP$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPump | SpellDescription$ Put a +1/+1 counter on target creature you control. It gains hexproof until end of turn.
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Hexproof
+DeckHas:Ability$Counters
+Oracle:Convoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for  or one mana of that creature’s color.)\nPut a +1/+1 counter on target creature you control. It gains hexproof until end of turn.

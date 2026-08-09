@@ -1,0 +1,9 @@
+Name:Skadi, Fierce Protectress
+ManaCost:R G
+Types:Legendary Creature Cat Shaman
+PT:3/3
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Creature.Shaman+Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigFight | OptionalDecider$ You | TriggerDescription$ Whenever CARDNAME or another Shaman you control enters, you may pay {R}{G}. If you do, it fights up to one target creature you don't control.
+SVar:TrigFight:AB$ Fight | Cost$ R G | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.YouDontCtrl | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select up to one target creature you don't control
+DeckHints:Type$Shaman
+Oracle:Trample\nWhenever Skadi, Fierce Protectress or another Shaman you control enters, you may pay {R}{G}. If you do, it fights up to one target creature you don't control.

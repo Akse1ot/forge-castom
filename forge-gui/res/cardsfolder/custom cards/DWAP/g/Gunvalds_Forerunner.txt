@@ -1,0 +1,9 @@
+Name:Gunvald's Forerunner
+ManaCost:2 B
+Types:Snow Creature Human Berserker
+PT:2/3
+K:Menace
+A:AB$ Draw | Cost$ 1 S Sac<1/Artifact.Other;Creature.Other/another artifact or creature> | SubAbility$ DBGainLife | SpellDescription$ You draw a card and gain 1 life.
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+DeckHas:Ability$Sacrifice
+Oracle:Menace\n{1}{S}, Sacrifice another artifact or creature: : You draw a card and gain 1 life.

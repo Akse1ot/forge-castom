@@ -1,0 +1,16 @@
+Name:Urdie, Inquisite Scholar
+ManaCost:1 U R
+Types:Legendary Creature Human Cleric
+PT:2/2
+A:AB$ InvokeSkill | Cost$ ExileFromStack<1/Spell.Instant+YouCtrl;Spell.Sorcery+YouCtrl/instant or sorcery spell> | CostDesc$ Exile an instant or sorcery spell you control: | ActivationLimit$ 1 | SpellDescription$ Exile an instant or sorcery spell you control: Urdie, Inquisite Scholar invokes. Activate only once each turn. (Cast a copy of this creature’s Skill without paying its mana cost.)
+AlternateMode:Modal
+Oracle:Exile an instant or sorcery spell you control: Urdie, Inquisite Scholar invokes. Activate only once each turn. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Soul Conduction
+ManaCost:U R
+Types:Instant Skill
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | SubAbility$ DBDraw | SpellDescription$ CARDNAME deals 2 damage to any target. Draw a card.
+SVar:DBDraw:DB$ Draw
+Oracle:Soul Conduction deals 2 damage to any target. Draw a card.

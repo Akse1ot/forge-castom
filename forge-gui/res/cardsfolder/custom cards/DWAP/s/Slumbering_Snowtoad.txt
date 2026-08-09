@@ -1,0 +1,11 @@
+Name:Slumbering Snowtoad
+ManaCost:2 G U
+Types:Snow Creature Frog
+PT:4/4
+K:Vigilance
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Permanent.Snow+Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigTap | TriggerDescription$ Whenever CARDNAME or another snow permanent you control enters, or you cast a snow spell, tap up to one target creature. If it's already tapped, put a stun counter on it instead.
+T:Mode$ SpellCast | ValidCard$ Card.Snow | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTap | Secondary$ True | TriggerDescription$ Whenever CARDNAME or another snow permanent you control enters, or you cast a snow spell, tap up to one target creature. If it's already tapped, put a stun counter on it instead.
+SVar:TrigTap:DB$ PutCounter | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select up to one target creature | CounterType$ STUN | CounterNum$ 1 | ConditionDefined$ Targeted | ConditionPresent$ Creature.tapped | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | Defined$ Targeted | ConditionDefined$ Targeted | ConditionPresent$ Creature.untapped
+DeckNeeds:Type$Snow
+Oracle:Vigilance\nWhenever Slumbering Snowtoad or another snow permanent you control enters, or you cast a snow spell, tap up to one target creature. If it’s already tapped, put a stun counter on it instead.

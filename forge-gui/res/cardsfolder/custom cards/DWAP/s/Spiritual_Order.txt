@@ -1,0 +1,9 @@
+Name:Spiritual Order
+ManaCost:2 G G
+Types:Sorcery
+A:SP$ ChangeZone | Cost$ 2 G G Sac<1/Creature> | Origin$ Library | Destination$ Battlefield | ChangeType$ Creature.sharesCreatureTypeWith Sacrificed | ChangeNum$ 1 | SubAbility$ DBExile | AILogic$ SacAndUpgrade+SacWorst | SpellDescription$ Search your library for a creature card that shares a creature type with the sacrificed creature, put that card onto the battlefield, then shuffle. Exile CARDNAME.
+SVar:DBExile:DB$ ChangeZone | Defined$ Self | Origin$ Stack | Destination$ Exile
+SVar:AIPreference:SacCost$Creature
+DeckHas:Ability$Sacrifice
+DeckNeeds:Type$Creature
+Oracle:As an additional cost to cast this spell, sacrifice a creature.\nSearch your library for a creature card that shares a type with the sacrificed creature, put that card onto the battlefield, then shuffle. Exile Spiritual Order.

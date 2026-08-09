@@ -1,0 +1,7 @@
+Name:Solace's Shadow
+ManaCost:B
+Types:Creature Human Knight
+PT:13/13
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ -X | AddToughness$ -X | Description$ CARDNAME gets -3/-3 for each card in your opponent’s hands.
+SVar:X:Count$ValidHand Card.YouDontOwn/Times.3
+Oracle:Solace’s Shadow gets -3/-3 for each card in your opponent’s hands.

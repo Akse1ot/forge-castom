@@ -1,0 +1,23 @@
+Name:Rind, Head Priestess
+ManaCost:U B
+Types:Legendary Creature Elf Warlock
+PT:2/3
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | Execute$ TrigMill | TriggerZones$ Battlefield | TriggerDescription$ At the beginning of combat on your turn, each opponent mills cards equal to the greatest power among Horror creatures you control. Then if a graveyard has thirteen or more cards in it, Rind, Head Priestess invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+SVar:TrigMill:DB$ Mill | NumCards$ X | Defined$ Opponent | SubAbility$ DBInvoke
+SVar:DBInvoke:DB$ InvokeSkill | ConditionCheckSVar$ GreatestGraveyard | ConditionSVarCompare$ GE13
+SVar:X:Count$Valid Creature.YouCtrl+Horror$GreatestCardPower
+SVar:GreatestGraveyard:PlayerCountPlayers$HighestCardsInGraveyard
+DeckHints:Type$Horror
+AlternateMode:Modal
+Oracle:At the beginning of combat on your turn, each opponent mills cards equal to the greatest power among Horror creatures you control. Then if a graveyard has thirteen or more cards in it, Rind, Head Priestess invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Gelid Invocation
+ManaCost:3 U B
+Types:Sorcery Skill
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ValidTgts$ Creature.OppCtrl | TgtZone$ Graveyard | TgtPrompt$ Select up to one target creature card from each opponent's graveyard | TargetMin$ 0 | TargetMax$ OneEach | TargetsForEachPlayer$ True | RememberChanged$ True | SubAbility$ DBMakeHorrors | SpellDescription$ For each opponent, put up to one target creature card from their graveyard onto the battlefield under your control. They become Horrors in addition to their other types.
+SVar:DBMakeHorrors:DB$ Animate | Defined$ Remembered | Types$ Horror | Duration$ Permanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:OneEach:PlayerCountOpponents$Amount
+Oracle:For each opponent, put up to one target creature card from their graveyard onto the battlefield under your control. They become Horrors in addition to their other types.

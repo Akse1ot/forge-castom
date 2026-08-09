@@ -1,0 +1,8 @@
+Name:Spikeback Hog
+ManaCost:G
+Types:Snow Creature Boar
+PT:1/1
+K:Deathtouch
+A:AB$ Pump | Cost$ 5 S | Defined$ Self | NumAtt$ +X | NumDef$ +X | SpellDescription$ CARDNAME gets +X/+X until end of turn, where X is the number of snow permanents you control.
+SVar:X:Count$Valid Permanent.Snow+YouCtrl
+Oracle:Deathtouch\n{5}{S}: Spikeback Hog gets +X/+X until end of turn, where X is the number of snow permanents you control.

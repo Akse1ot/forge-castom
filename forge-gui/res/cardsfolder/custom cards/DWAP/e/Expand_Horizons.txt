@@ -1,0 +1,5 @@
+Name:Expand Horizons
+ManaCost:3 G
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic,Land.Snow | ChangeNum$ 2 | Tapped$ True | SpellDescription$ Search your library for up to two basic land cards and/or snow land cards, put them onto the battlefield tapped, then shuffle.
+Oracle:Search your library for up to two basic land cards and/or snow land cards, put them onto the battlefield tapped, then shuffle.

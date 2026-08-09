@@ -1,0 +1,12 @@
+Name:Iceshelf Screecher
+ManaCost:1 G U
+Types:Snow Creature Bird Horror
+PT:2/2
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCounter | TriggerDescription$ When CARDNAME enters, counter target spell unless its controller pays {1} for each {S} spent to cast this spell.
+SVar:TrigCounter:DB$ Counter | TargetType$ Spell | ValidTgts$ Card | TgtPrompt$ Select target spell | UnlessCost$ X | UnlessPayer$ TargetedController
+SVar:X:Count$CastTotalManaSpent Snow
+SVar:AIPreference:ManaFrom$Snow
+DeckNeeds:Type$Snow
+Oracle:Flash, Flying\nWhen Iceshelf Screecher enters, counter target spell unless its controller pays {1} for each {S} spent to cast this spell.

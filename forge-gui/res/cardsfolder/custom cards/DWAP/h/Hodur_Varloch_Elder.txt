@@ -1,0 +1,12 @@
+Name:Hodur, Varloch Elder
+ManaCost:3 G W
+Types:Legendary Creature Minotaur Nomad
+PT:4/5
+K:Convoke
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ Whenever CARDNAME enters or attacks, create two 2/2 black Zombie creature tokens.
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | Secondary$ True | TriggerZones$ Battlefield | TriggerDescription$ Whenever CARDNAME enters or attacks, create two 2/2 black Zombie creature tokens.
+SVar:TrigToken:DB$ Token | TokenScript$ u_x_x_goat_spirit | TokenOwner$ You | TokenAmount$ 2
+SVar:X:Count$Valid Creature.tapped+YouCtrl
+DeckHas:Ability$Token
+SVar:HasAttackEffect:TRUE
+Oracle:Convoke\nWhenever Hodur, Varloch Elder enters or attacks, create an X/X Blue Goat Spirit creature token, where X is the number of tapped creatures you control.

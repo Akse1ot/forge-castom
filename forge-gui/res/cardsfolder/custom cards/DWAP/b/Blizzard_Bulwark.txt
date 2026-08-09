@@ -1,0 +1,9 @@
+Name:Blizzard Bulwark
+ManaCost:5 U B
+Types:Snow Creature Yeti Horror
+PT:8/7
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBounce | TriggerDescription$ When CARDNAME enters, return up to one target nonland permanent to its owner's hand. If you control another Horror, that player discards a card.
+SVar:TrigBounce:DB$ ChangeZone | ValidTgts$ Permanent.nonLand | TgtPrompt$ Select up to one target nonland permanent | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ TargetedOwner | NumCards$ 1 | Mode$ TgtChoose | ConditionPresent$ Horror.YouCtrl+Other | ConditionCompare$ GE1
+Oracle:Menace\nWhen Blizzard Bulwark enters, return up to one target nonland permanent to its owner’s hand. If you control another horror, that player discards a card.

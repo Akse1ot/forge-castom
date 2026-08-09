@@ -1,0 +1,9 @@
+Name:Smuggled Firebombs
+ManaCost:1 R
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage | TriggerDescription$ When CARDNAME enters, it deals 3 damage to any target.
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 3
+T:Mode$ DamageDone | ValidSource$ Creature.EquippedBy | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigBounce | TriggerZones$ Battlefield | TriggerDescription$ Whenever equipped creature deals combat damage to a player, return CARDNAME to its owners hand.
+Var:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand
+K:Equip:1 R
+Oracle:When Smuggled Firebombs enters, it deals 3 damage to any target.\nWhenever equipped creature deals combat damage to a player, return Smuggled Firebombs to its owners hand.\nEquip {1}{R}

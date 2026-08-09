@@ -1,0 +1,8 @@
+Name:Iskari Totem
+ManaCost:3
+Types:Snow Artifact
+A:AB$ Mana | Cost$ T | Produced$ Any | SpellDescription$ Add one mana of any color.
+A:AB$ Draw | Cost$ 1 S T Sac<1/CARDNAME> | NumCards$ 2 | SpellDescription$ Draw two cards, then discard a card. | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose
+DeckHas:Ability$Sacrifice
+Oracle:{T}: Add one mana of any color.\n{1}{S}, {T}, Sacrifice Iskari Totem: Draw two cards, then discard a card.

@@ -1,0 +1,8 @@
+Name:Glimpse of Winter
+ManaCost:2 B
+Types:Instant
+A:SP$ Charm | Choices$ DBSacrifice,DBToken
+SVar:DBSacrifice:DB$ Sacrifice | ValidTgts$ Player | SacValid$ Creature,Planeswalker | SpellDescription$ Target player sacrifices a creature or planeswalker of their choice.
+SVar:DBToken:DB$ Token | TokenScript$ ub_3_3_horror_yeti | TokenOwner$ You | SpellDescription$ Create a 3/3 blue and black Yeti Horror creature token.
+DeckHas:Ability$Token
+Oracle:Choose one —\n• Target player sacrifices a creature or planeswalker of their choice.\n• Create a 3/3 blue and black Yeti Horror creature token.

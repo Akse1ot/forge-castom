@@ -1,0 +1,8 @@
+Name:Malleable Fae
+ManaCost:2
+Types:Artifact Creature Food Faerie
+K:Changeling
+A:AB$ Mana | Cost$ 1 | Produced$ Any | ActivationLimit$ 1 | SpellDescription$ Add one mana of any color. Activate only once each turn.
+A:AB$ GainLife | Cost$ 2 T Sac<1/CARDNAME> | LifeAmount$ 3 | SpellDescription$ You gain 3 life.
+DeckHas:Ability$Sacrifice|LifeGain & Type$Artifact|Food
+Oracle:Changeling (This card is every creature type.)\n{1}: Add one mana of any color. Activate only once each turn.\n{2}, {T}, Sacrifice this artifact: You gain 3 life.

@@ -1,0 +1,7 @@
+Name:Flash Freeze
+ManaCost:1 W U
+Types:Snow Enchantment
+K:Flash
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigChangeZone | TriggerDescription$ When CARDNAME enters, exile up to one target creature until CARDNAME leaves the battlefield.
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+YouDontCtrl | TgtPrompt$ Select up to one target nonland permanent you don’t control | TargetMin$ 0 | TargetMax$ 1 | Duration$ UntilHostLeavesPlay
+Oracle:Flash\nWhen Flash Freeze enters, exile up to one target nonland permanent you don’t control until Flash Freeze leaves the battlefield.

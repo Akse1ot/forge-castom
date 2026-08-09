@@ -1,0 +1,19 @@
+Name:Ari, Adventure Seeker
+ManaCost:2 W
+Types:Legendary Creature Human Scout
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When NICKNAME enters,  a legendary 3/3 white Snow Yeti creature token with vigilance.
+SVar:TrigToken:DB$ Token | TokenScript$ w_3_3_legendary_snow_yeti_vigilance_magnus
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.token+YouCtrl | IsPresent$ Permanent.YouCtrl+token$DifferentCardNames | PresentCompare$ GE3 | OptionalDecider$ You | GameActivationLimit$ 1 | TriggerZones$ Battlefield | Execute$ TrigInvoke | TriggerDescription$ Whenever a token you control enters, if you control three or more tokens with different names, you may have Ari invoke. Do this only once. (Cast a copy of this creature’s Skill without paying its mana cost.)
+SVar:TrigInvoke:DB$ InvokeSkill
+AlternateMode:Modal
+Oracle:When Ari, Adventure Seeker enters, create Magnus, a legendary 3/3 white Snow Yeti creature token with vigilance.\nWhenever a token you control enters, if you control three or more tokens with different names, you may have Ari invoke. Do this only once. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Snowball Fight!
+ManaCost:W
+Types:Instant Skill
+A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ X | Description$ CARDNAME deals damage to target creature equal to the number of tokens you control.
+SVar:X:Count$Valid Permanent.YouCtrl+token
+Oracle:Snowball Fight! deals damage to target creature equal to the number of tokens you control.

@@ -1,0 +1,21 @@
+Name:Ferros, Encased Thunder
+ManaCost:4 U
+Types:Legendary Artifact Creature Demon
+PT:0/0
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X | Description$ CARDNAME gets +1/+1 for each artifact you control.
+T:Mode$ ChangesZone | Origin$ Graveyard | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Creature.YouCtrl+Other+nonArtifact,Card.Self | Execute$ TrigInvoke | TriggerDescription$ Whenever CARDNAME or another nonartifact creature you control enters, CARDNAME invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+SVar:TrigInvoke:DB$ InvokeSkill
+AlternateMode:Modal
+Oracle:Ferros, Encased Thunder gets +1/+1 for each artifact you control.\nWhenever Ferros or another nonartifact creature you control enters, Ferros invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Demonic Ionization
+ManaCost:1 U
+Types:Instant Skill
+A:SP$ Animate | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | Types$ Artifact | RemoveTypes$ False | Power$ 0 | Toughness$ 0 | StaticAbilities$ ArtifactPower | Duration$ Permanent | SubAbility$ DBDraw | SpellDescription$ Target creature you control becomes an artifact in addition to its other types, has base power and toughness 0/0 and gains “This creature gets +1/+1 for each artifact you control.” Then if you control seven or more artifacts, draw two cards.
+SVar:ArtifactPower:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X | Description$ This creature gets +1/+1 for each artifact you control.
+SVar:X:Count$Valid Artifact.YouCtrl
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 2 | ConditionSVar$ Y | ConditionCompare$ GE7
+SVar:Y:Count$Valid Artifact.YouCtrl
+Oracle:Target creature you control becomes an artifact in addition to its other types, has base power and toughness 0/0 and gains “This creature gets +1/+1 for each artifact you control.” Then if you control seven or more artifacts, draw two cards.

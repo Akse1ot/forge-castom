@@ -1,0 +1,12 @@
+Name:Intrepidity
+ManaCost:S S S
+Types:Snow Enchantment
+S:Mode$ Continuous | Affected$ Card.Self | CharacteristicDefining$ True | SetColor$ All | Description$ CARDNAME is all colors.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.Snow+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigMana | TriggerDescription$ Whenever a snow land you control enters, add one mana of any color.
+SVar:TrigMana:DB$ Mana | Produced$ Any
+T:Mode$ SpellCast | ValidCard$ Creature.Snow | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig | TriggerDescription$ Whenever you cast a snow creature spell, reveal the top X cards of your library, where X is the number of colors spent to cast it. You may put a snow noncreature card from among them into your hand, then shuffle.
+SVar:TrigDig:DB$ Dig | DigNum$ X | Reveal$ True | ChangeNum$ 1 | Optional$ True | ChangeValid$ Card.Snow+nonCreature | DestinationZone$ Hand | SkipReorder$ True | SubAbility$ DBShuffle
+SVar:DBShuffle:DB$ Shuffle | Defined$ You
+SVar:X:TriggeredSpellAbility$Converge
+DeckNeeds:Type$Snow
+Oracle:Intrepidity is all colors.\nWhenever a snow land you control enters, add one mana of any color.\nWhenever you cast a snow creature spell, reveal the top X cards of your library, where X is the number of colors spent to cast it. You may put a snow noncreature card from among them into your hand, then shuffle.

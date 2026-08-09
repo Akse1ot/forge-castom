@@ -1,0 +1,12 @@
+Name:Twisted-horn Flockhand
+ManaCost:3 G W
+Types:Creature Azra Warrior Citizen
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters,  create three 0/1 white Goat creature tokens.
+SVar:TrigToken:DB$ Token | TokenAmount$ 3 | TokenScript$ w_0_1_goat | TokenOwner$ You
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ At the beginning of combat on your turn,  target creature you control gets +X/+X until end of turn, where X is the number of tapped creatures you control.
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+YouCtrl | TgtPrompt$ Select another target creature you control | NumAtt$ +X | NumDef$ +X
+SVar:X:Count$Valid Creature.tapped+YouCtrl
+DeckHas:Ability$Token
+Oracle:When Twisted-horn Flockhand enters, create three 0/1 white Goat creature tokens.\n
+At the beginning of combat on your turn, target creature you control gets +X/+X until end of turn, where X is the number of tapped creatures you control.

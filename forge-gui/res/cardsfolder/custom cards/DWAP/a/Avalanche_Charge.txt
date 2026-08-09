@@ -1,0 +1,6 @@
+Name:Avalanche Charge
+ManaCost:3 W
+Types:Instant
+A:SP$ Token | TokenAmount$ 3 | TokenScript$ w_1_1_snow_gremlin_lifelink | SpellDescription$ Create three 1/1 white snow Gremlin creature tokens with lifelink
+DeckHas:Ability$Counters|Token
+Oracle:Create three 1/1 white snow Gremlin creature tokens with lifelink

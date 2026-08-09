@@ -1,0 +1,19 @@
+Name:Enthralled Huntress
+ManaCost:3 B
+Types:Creature Elf Horror Assassin
+PT:4/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvoke | TriggerDescription$ When CARDNAME enters or dies, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigInvoke | Secondary$ True | TriggerDescription$ When CARDNAME enters or dies, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+SVar:TrigInvoke:DB$ InvokeSkill
+AlternateMode:Modal
+Oracle:When Enthralled Huntress enters or dies, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Accursed Rain
+ManaCost:X B
+Types:Instant Skill
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -X | NumDef$ -X | IsCurse$ True | SpellDescription$ Target creature gets -X/-X until end of turn. If this spell was invoked, X is the number of Horrors you control.
+SVar:X:Count$xPaid
+SVar:InvokedX:Count$Valid Creature.YouCtrl+Horror
+Oracle:Target creature gets -X/-X until end of turn. If this spell was invoked, X is the number of Horrors you control.

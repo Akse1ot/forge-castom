@@ -1,0 +1,18 @@
+Name:Stormbane Strix
+ManaCost:4 U
+Types:Creature Bird Horror
+PT:3/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvoke | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters, you may have it invoke. (Cast a copy of this creature’s Skill without paying its mana cost.)
+SVar:TrigInvoke:DB$ InvokeSkill
+AlternateMode:Modal
+Oracle:Flying\nWhen Stormbane Strix enters, you may have it invoke. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Shock In Place
+ManaCost:U
+Types:Sorcery Skill
+A:SP$ Tap | ValidTgts$ Creature | TgtPrompt$ Choose target creature to tap. | SubAbility$ DBPutCounter | SpellDescription$ Tap target creature. Put a stun counter on it. (If a permanent with a stun counter would become untapped, remove one from it instead.)
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+Oracle:Tap target creature. Put a stun counter on it.

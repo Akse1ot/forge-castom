@@ -1,0 +1,8 @@
+Name:Yeti Youngling
+ManaCost:1 B
+Types:Creature Yeti
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME dies, create a 6/12 colorless Construct artifact creature token with trample.
+SVar:TrigToken:DB$ Token | TokenScript$ ub_3_3_horror_yeti | TokenOwner$ You
+DeckHas:Ability$Token|Sacrifice
+Oracle:When Yeti Youngling dies, create a 3/3 blue and black Yeti Horror creature token.

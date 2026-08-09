@@ -1,0 +1,8 @@
+Name:Dire Elimination
+ManaCost:2 B B
+Types:Instant
+K:Epitome
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All | Enlightened$ True | Description$ This spell costs {2} less to cast if you’re enlightened.
+A:SP$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | SubAbility$ DBExileAll | SpellDescription$ Exile target creature and each creature its controller controls that shares a type with it.
+SVar:DBExileAll:DB$ ChangeZoneAll | ChangeType$ TargetedCard.Self,Creature.NotDefinedTargeted+sharesCreatureTypeWith Targeted+ControlledBy TargetedController | Origin$ Battlefield | Destination$ Exile
+Oracle:Epitome (If there are eight or more mana abilities among permanents you control, you become enlightened for the rest of the game.)\nThis spell costs {2} less to cast if you’re enlightened.\nExile target creature and each creature its controller controls that shares a type with it.

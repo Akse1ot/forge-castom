@@ -1,0 +1,11 @@
+Name:Unrelenting Champion
+ManaCost:3 R
+Types:Creature Human Shaman Warrior
+PT:3/4
+K:Menace
+T:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigSacrifice | TriggerDescription$ Whenever one or more creatures you control deal combat damage to a player, you may sacrifice one of them. If you do, untap all creatures you control. After this phase, there is an additional combat phase.
+SVar:TrigSacrifice:DB$ Sacrifice | Optional$ True | SacValid$ Card.TriggeredSources | Amount$ 1 | RememberSacrificed$ True | SubAbility$ DBUntap
+SVar:DBUntap:DB$ UntapAll | ValidCards$ Creature.YouCtrl | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBAddCombat
+SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Menace\nWhenever one or more creatures you control deal combat damage to a player, you may sacrifice one of them. If you do, untap all creatures you control. After this phase, there is an additional combat phase.

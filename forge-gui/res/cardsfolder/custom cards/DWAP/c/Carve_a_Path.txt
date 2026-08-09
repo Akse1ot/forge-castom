@@ -1,0 +1,8 @@
+Name:Carve a Path
+ManaCost:1 B B
+Types:Sorcery
+K:Epitome
+A:SP$ PumpAll | ValidCards$ Creature | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBPumpOpp | SpellDescription$ All creatures get -2/-2 until end of turn. If you’re enlightened, creatures you don’t control get -2/-2 until end of turn instead.
+SVar:DBPumpOpp:DB$ PumpAll | ValidCards$ Creature.OppCtrl | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1
+SVar:X:Count$Enlightened.1.0
+Oracle:Epitome (If there are eight or more mana abilities among permanents you control, you become enlightened for the rest of the game.)\nAll creatures get -2/-2 until end of turn. If you’re enlightened, creatures you don’t control get -2/-2 until end of turn instead.

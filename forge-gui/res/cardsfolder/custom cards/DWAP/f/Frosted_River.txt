@@ -1,0 +1,8 @@
+Name:Frosted River
+ManaCost:no cost
+Types:Snow Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ CARDNAME enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ U  | SpellDescription$ Add {U}.
+A:AB$ Dig | Cost$ 2 U T Sac<1/CARDNAME> | DigNum$ 4 | ChangeNum$ 1 | Optional$ True | DestinationZone2$ Graveyard | SpellDescription$ Look at the top four cards of your library. Put up to one into your hand, and the rest into your graveyard.
+Oracle:Frosted River enters tapped.\n{T}: Add {U}.\n{2}{U}, {T}, Sacrifice Frosted River: Look at the top four cards of your library. Put up to one into your hand, and the rest into your graveyard.

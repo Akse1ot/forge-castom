@@ -1,0 +1,10 @@
+Name:Smith's Resolve
+ManaCost:1 R
+Types:Sorcery
+A:SP$ Draw | Cost$ Discard<1/Card> | NumCards$ 2 | SubAbility$ DBForge | SpellDescription$ As an additional cost to cast this spell, discard a card. Draw two cards. Forge +1/+1 and “Whenever this creature becomes blocked, it deals 1 damage to defending player.” (Create an Equipment artifact token with equip {2} and “Equipped creature has the chosen abilities.”)
+SVar:DBForge:DB$ Forge | ForgeAbilities$ ForgeBonus | ForgeSVars$ ForgeBlockedTrigger & ForgeBlockedDamage
+SVar:ForgeBonus:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | AddTrigger$ ForgeBlockedTrigger | Description$ Equipped creature gets +1/+1 and has “Whenever this creature becomes blocked, it deals 1 damage to defending player.”
+SVar:ForgeBlockedTrigger:Mode$ AttackerBlocked | ValidCard$ Card.Self | Execute$ ForgeBlockedDamage | TriggerDescription$ Whenever this creature becomes blocked, it deals 1 damage to defending player.
+SVar:ForgeBlockedDamage:DB$ DealDamage | Defined$ TriggeredDefendingPlayer | NumDmg$ 1
+Oracle:As an additional cost to cast this spell, discard a card.\n
+Draw two cards. Forge +1/+1 and “Whenever this creature becomes blocked, it deals 1 damage to defending player. (Create an Equipment artifact token with equip {2} and “Equipped creature has the chosen abilities”)

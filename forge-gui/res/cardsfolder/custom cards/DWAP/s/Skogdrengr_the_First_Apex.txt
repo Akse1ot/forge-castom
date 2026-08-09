@@ -1,0 +1,11 @@
+Name:Skogdrengr, the First Apex
+ManaCost:8 G G
+Types:Legendary Creature Elder Yeti
+PT:8/8
+K:Convoke
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | TriggerZones$ Battlefield | TriggerDescription$ Whenever CARDNAME attacks, target creature you control gains trample until end of turn. If its power is less than 8, put X +1/+1 counters on it, where X is the difference.
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | KW$ Trample | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ ParentTarget.powerLT8 | CounterType$ P1P1 | CounterNumPerDefined$ X
+SVar:X:Count$CardPower/NMinus.8
+Oracle:Convoke\nTrample\nWhenever Skogdrengr, the First Apex attacks, target creature you control gains trample until end of turn. If its power is less than 8, put X +1/+1 counters on it, where X is the difference.

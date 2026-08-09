@@ -1,0 +1,18 @@
+Name:Walking Range
+ManaCost:4 R R
+Types:Artifact Creature Elemental Giant
+PT:5/5
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvoke | TriggerDescription$ When CARDNAME enters, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+SVar:TrigInvoke:DB$ InvokeSkill
+AlternateMode:Modal
+Oracle:Trample\nWhen Walking Range enters, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Quaking Slam
+ManaCost:3 R
+Types:Sorcery Skill
+A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | TgtPrompt$ Select target creature or planeswalker | NumDmg$ X | SpellDescription$ CARDNAME deals damage to target creature or planeswalker equal to the number of lands you control.
+SVar:X:Count$Valid Land.YouCtrl
+Oracle:Quaking Slam deals damage to target creature or planeswalker equal to the number of lands you control.

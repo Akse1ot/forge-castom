@@ -1,0 +1,12 @@
+Name:Blazing Valkyria
+ManaCost:3 R W
+Types:Creature Angel Warrior
+PT:3/3
+K:Affinity:Equipment
+K:Flying
+K:Haste
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigAttach | TriggerDescription$ Whenever NICKNAME enters, attach up to one target Equipment you control to it.
+SVar:TrigAttach:DB$ Attach | Defined$ Self | Object$ Targeted | ValidTgts$ Equipment.YouCtrl | TgtPrompt$ Select up to one target Equipment you control | TargetMin$ 0 | TargetMax$ 1
+SVar:EquipMe:Once
+DeckNeeds:Type$Equipment
+Oracle:Affinity for equipment (This spell costs {1} less to cast for each equipment you control.)\nFlying, haste\nWhen Blazing Valkyria enters, attach up to one target Equipment you control to it.

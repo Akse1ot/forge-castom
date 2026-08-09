@@ -1,0 +1,23 @@
+Name:Keiko, Travelling Trickster
+ManaCost:7 U R
+Types:Legendary Planeswalker Keiko
+Loyalty:6
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Y | EffectZone$ All | Description$ This spell costs {2} less to cast for each other spell cast this turn.
+SVar:Y:Count$ThisTurnCast_Card/Times.2
+A:AB$ Discard | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | UnlessCost$ Draw<X/You> | UnlessSwitched$ True | UnlessPayer$ You | SpellDescription$ You may draw a card for each spell you've cast this turn. If you do, discard a card.
+SVar:X:Count$ThisTurnCast_Card.YouCtrl
+A:AB$ Animate | Cost$ AddCounter<0/LOYALTY> | Defined$ Self | Power$ 9 | Toughness$ 9 | Keywords$ Hexproof & Trample | Types$ Creature,Fox,Spirit | Planeswalker$ True | SpellDescription$ Until end of turn, Keiko becomes a 9/9 Fox Spirit creature with hexproof and trample.
+A:AB$ InvokeSkill | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | SpellDescription$ Keiko invokes. (Cast a copy of this planeswalker's Skill without paying its mana cost.)
+AlternateMode:Modal
+Oracle:This spell costs {2} less to cast for each other spell cast this turn.\n
+[+1]: You may draw a card for each spell you’ve cast this turn. if you do, discard a card.\n[0]: Until end of turn, Keiko becomes a 9/9 Fox Spirit creature with hexproof and trample.\n[-2]: Keiko invokes. (Cast a copy of this planeswalker's Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Keiko's Frostfire
+ManaCost:1 U R
+Types:Instant Skill
+A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ X | ExcessSVar$ Excess | SubAbility$ DBSurveil | SpellDescription$ CARDNAME deals damage equal to the number of spells you’ve cast this turn plus one to target creature or planeswalker. Surveil X, where X is the amount of excess damage dealt this way.
+SVar:DBSurveil:DB$ Surveil | Amount$ Excess
+SVar:X:Count$ThisTurnCast_Card.YouCtrl/Plus.1
+Oracle:Keiko’s Frostfire deals damage equal to the number of spells you’ve cast this turn plus one to target creature or planeswalker. Surveil X, where X is the amount of excess damage dealt this way.

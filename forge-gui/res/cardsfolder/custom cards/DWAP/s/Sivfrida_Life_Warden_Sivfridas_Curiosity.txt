@@ -1,0 +1,22 @@
+Name:Sivfrida, Life-Warden
+ManaCost:G W U
+Types:Legendary Creature Merfolk God
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a land you control enters, you gain 1 life. If it’s the second time this ability has resolved this turn, draw a card. If it’s the fourth time this ability has resolved this turn, CARDNAME invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionCheckSVar$ LandfallAmount | ConditionSVarCompare$ EQ2 | SubAbility$ DBInvoke
+SVar:DBInvoke:DB$ InvokeSkill | ConditionCheckSVar$ LandfallAmount | ConditionSVarCompare$ EQ3
+SVar:LandfallAmount:Count$ResolvedThisTurn
+SVar:BuffedBy:Land
+DeckHas:Ability$LifeGain
+AlternateMode:Modal
+Oracle:Whenever a land you control enters, you gain 1 life. If it’s the second time this ability has resolved this turn, draw a card. If it’s the fourth time this ability has resolved this turn, Sivfrida, Life-Warden invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Sivfrida's Curiosity
+ManaCost:4 G W U
+Types:Sorcery Skill
+A:SP$ Untap | ValidTgts$ Land.YouCtrl | TargetMin$ 0 | TargetMax$ 3 | SubAbility$ Animate | SpellDescription$ Untap up to three target lands you control. Until end of turn, they become 4/4 Elemental creatures with vigilance, trample and hexproof.
+SVar:Animate:DB$ Animate | Defined$ Targeted | Power$ 4 | Toughness$ 4 | Types$ Creature,Elemental | Keywords$ Vigilance & Trample & Hexproof
+Oracle:Untap up to three target lands you control. Until end of turn, they become 4/4 Elemental creatures with vigilance, trample and hexproof.

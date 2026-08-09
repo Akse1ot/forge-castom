@@ -1,0 +1,9 @@
+Name:Adventurous Coercion
+ManaCost:3 R
+Types:Sorcery
+K:Epitome
+A:SP$ GainControl | ValidTgts$ Creature | TgtPrompt$ Select target creature | Untap$ True | LoseControl$ EOT | SubAbility$ DBPumpNormal | SpellDescription$ Gain control of target creature until end of turn. Untap that creature. It gets +2/+0 and gains haste until end of turn. If you’re enlightened, it gets +4/+0 and gains trample and haste instead.
+SVar:DBPumpNormal:DB$ Pump | Defined$ Targeted | NumAtt$ 2 | KW$ Haste | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBPumpEnlightened
+SVar:DBPumpEnlightened:DB$ Pump | Defined$ Targeted | NumAtt$ 4 | KW$ Trample & Haste | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1
+SVar:X:Count$Enlightened.1.0
+Oracle:Epitome (If there are eight or more mana abilities among permanents you control, you become enlightened for the rest of the game.)\nGain control of target creature until end of turn. Untap that creature. It gets +2/+0 and gains haste until end of turn. If you’re enlightened, it gets +4/+0 and gains trample and haste instead.

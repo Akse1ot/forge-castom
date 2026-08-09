@@ -1,0 +1,9 @@
+Name:Grove Sentinel
+ManaCost:2 B
+Types:Creature Spirit
+PT:2/4
+K:Epitome
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Permanent.YouCtrl+canProduceMana | TriggerZones$ Battlefield | Execute$ TrigSurveil | TriggerDescription$ Whenever a permanent with a mana ability you control enters, surveil 1.
+SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 4 | AddToughness$ 2 | Enlightened$ True | Description$ CARDNAME gets +4/+2 as long as you’re enlightened.
+Oracle:Epitome (If there are eight or more mana abilities among permanents you control, you become enlightened for the rest of the game.)\nWhenever a permanent with a mana ability you control enters, surveil 1.\nGrove Sentinel gets +4/+2 as long as you’re enlightened.

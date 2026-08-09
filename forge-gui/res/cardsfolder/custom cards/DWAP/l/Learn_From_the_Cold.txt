@@ -1,0 +1,5 @@
+Name:Learn From the Cold
+ManaCost:G
+Types:Snow Sorcery
+A:SP$ Dig | DigNum$ 3 | ChangeNum$ 1 | Optional$ True | ChangeValid$ Land,Creature,Snow | DestinationZone$ Hand | DestinationZone2$ Library | LibraryPosition$ -1 | SpellDescription$ Look at the top three cards of your library. You may reveal a snow, creature, or land card from among them and put it into your hand. Put the rest on the bottom of your library in any order.
+Oracle:Look at the top three cards of your library. You may reveal a snow, creature, or land card from among them and put it into your hand. Put the rest on the bottom of your library in any order.

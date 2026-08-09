@@ -1,0 +1,8 @@
+Name:Totemic Visions
+ManaCost:2 U
+Types:Snow Sorcery
+A:SP$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBSurveil | FalseSubAbility$ DBDraw | SpellDescription$ If {S} was spent to cast this spell, surveil 2. Draw two cards.
+SVar:DBSurveil:DB$ Surveil | Amount$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | NumCards$ 2
+SVar:X:Count$CastTotalManaSpent Snow
+Oracle:If {S} was spent to cast this spell, surveil 2.\nDraw two cards.

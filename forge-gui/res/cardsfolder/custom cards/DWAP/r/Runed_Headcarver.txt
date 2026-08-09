@@ -1,0 +1,8 @@
+Name:Runed Headcarver
+ManaCost:B R
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy | TriggerDescription$ When CARDNAME enters, you may sacrifice another artifact or creature. If you do, destroy target artifact or creature.
+SVar:TrigDestroy:AB$ Destroy | Cost$ Sac<1/Creature.Other;Artifact.Other/another creature or artifact> | ValidTgts$ Artifact,Creature
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddKeyword$ Menace | Description$ Equipped creature gets +2/+0 and has menace.
+K:Equip:3
+Oracle:When Runed Headcarver enters, you may sacrifice another artifact or creature. If you do, destroy target artifact or creature.\nEquipped creature gets +2/+0 and has menace.\nEquip {3}.

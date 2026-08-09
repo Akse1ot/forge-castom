@@ -1,0 +1,19 @@
+Name:Van Helsa's Paragon
+ManaCost:3 W
+Types:Creature Human Knight
+PT:2/4
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigForge | TriggerDescription$ At the beginning of each combat, forge your choice of two from flying, first strike, vigilance, lifelink and ward {2}.(Create an Equipment artifact token with equip {2} and “Equipped creature has the chosen abilities.”)
+SVar:TrigForge:DB$ Forge | Choices$ ChoiceFlying,ChoiceFirstStrike,ChoiceVigilance,ChoiceLifelink,ChoiceWard | ChoiceAmount$ 2 | ChoicePrompt$ Choose two abilities to forge
+SVar:ChoiceFlying:DB$ BlankLine | ForgeAbility$ ForgeFlying | ForgeAIWeight$ 25 | SpellDescription$ Flying
+SVar:ChoiceFirstStrike:DB$ BlankLine | ForgeAbility$ ForgeFirstStrike | ForgeAIWeight$ 20 | SpellDescription$ First strike
+SVar:ChoiceVigilance:DB$ BlankLine | ForgeAbility$ ForgeVigilance | ForgeAIWeight$ 10 | SpellDescription$ Vigilance
+SVar:ChoiceLifelink:DB$ BlankLine | ForgeAbility$ ForgeLifelink | ForgeAIWeight$ 30 | SpellDescription$ Lifelink
+SVar:ChoiceWard:DB$ BlankLine | ForgeAbility$ ForgeWard | ForgeAIWeight$ 15 | SpellDescription$ Ward {2}
+SVar:ForgeFlying:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Flying | Description$ Equipped creature has flying.
+SVar:ForgeFirstStrike:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ First Strike | Description$ Equipped creature has first strike.
+SVar:ForgeVigilance:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Vigilance | Description$ Equipped creature has vigilance.
+SVar:ForgeLifelink:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Lifelink | Description$ Equipped creature has lifelink.
+SVar:ForgeWard:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Ward:2 | Description$ Equipped creature has ward {2}.
+S:Mode$ CastWithFlash | ValidSA$ Activated.Equip | Caster$ You | Description$ You may activate equip abilities any time you could cast an instant.
+Oracle:At the beginning of each combat, forge your choice of two from flying, first strike, vigilance, lifelink and ward . (Create an Equipment artifact token with equip {2} and “Equipped creature has the chosen abilities.”)\n
+You may activate equip abilities any time you could cast an instant.

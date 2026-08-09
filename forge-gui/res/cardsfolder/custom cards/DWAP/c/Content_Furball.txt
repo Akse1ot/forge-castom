@@ -1,0 +1,9 @@
+Name:Content Furball
+ManaCost:2 W
+Types:Creature Gremlin
+PT:1/4
+K:Flash
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken | CheckSVar$ SpellsCastThisTurn | SVarCompare$ EQ0 | TriggerDescription$ At the beginning of your end step, create a 1/1 white snow Gremlin creature token with lifelink if you did not cast a spell this turn.
+SVar:TrigToken:DB$ Token | TokenScript$ w_1_1_snow_gremlin_lifelink | TokenOwner$ You
+SVar:SpellsCastThisTurn:Count$ThisTurnCast_Card.YouCtrl
+Oracle:Flash\nAt the beginning of your end step, create a 1/1 white snow Gremlin creature token with lifelink if you did not cast a spell this turn.

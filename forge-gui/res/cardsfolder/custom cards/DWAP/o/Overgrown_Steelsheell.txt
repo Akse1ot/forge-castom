@@ -1,0 +1,11 @@
+Name:Overgrown Steelsheell
+ManaCost:3 G G
+Types:Artifact Creature Plant Demon
+PT:5/5
+K:Convoke
+K:Trample
+K:Haste
+Text:You may cast CARDNAME from your graveyard. You can't spend mana to cast CARDNAME this way.
+A:SP$ PermanentCreature | ActivationZone$ Graveyard | ManaRestriction$ None | NonBasicSpell$ True
+DeckHas:Ability$Graveyard
+Oracle:Convoke\nTrample, haste\nYou may cast Overgrown Steelsheell from your graveyard. You can’t spend mana to cast Overgrown Steelsheell this way.

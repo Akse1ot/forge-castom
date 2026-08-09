@@ -1,0 +1,10 @@
+Name:Lostwoods Skywarden
+ManaCost:4 W W
+Types:Creature Cat Beast
+PT:4/4
+K:Flying
+K:Lifelink
+T:Mode$ SpellCast | ValidCard$ Creature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OpponentTurn$ True | Execute$ TrigReanimate | TriggerDescription$ Whenever you cast a spell during an opponent’s turn, return up to one target permanent card with mana value 4 or less from your graveyard to the battlefield.
+SVar:TrigReanimate:DB$ ChangeZone | ValidTgts$ Permanent.YouOwn+cmcLE4 | TgtPrompt$ Choose up to one target permanent card with mana value 4 or less | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ 1
+SVar:BuffedBy:Card.withFlash,Instant
+Oracle:Flying, lifelink\nWhenever you cast a spell during an opponent’s turn, return up to one target permanent card with mana value 4 or less from your graveyard to the battlefield.

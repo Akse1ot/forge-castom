@@ -1,0 +1,7 @@
+Name:Elof, Fabled Bulwark
+ManaCost:2 G
+Types:Legendary Creature Human Warrior
+PT:0/5
+K:Vigilance
+S:Mode$ CombatDamageToughness | ValidCard$ Card.Self,Creature.token+YouCtrl | Description$ CARDNAME and each creature token you control assigns combat damage equal to its toughness rather than its power.
+Oracle:Vigilance\nElof, Fabled Bulwark and each creature token you control assigns combat damage equal to its toughness rather than its power.

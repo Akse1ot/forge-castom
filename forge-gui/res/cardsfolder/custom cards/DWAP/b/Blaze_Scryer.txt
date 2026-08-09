@@ -1,0 +1,7 @@
+Name:Blaze Scryer
+ManaCost:1 R
+Types:Creature Elf Shaman
+PT:2/1
+T:Mode$ SpellCast | TriggerZones$ Battlefield | ValidCard$ Shaman,Instant,Sorcery | ValidActivatingPlayer$ You | Execute$ TrigDamage | TriggerDescription$ Whenever you cast an instant, sorcery or Shaman spell, CARDNAME deals 1 damage to each opponent.
+SVar:TrigDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 1
+Oracle:Whenever you cast an instant, sorcery or Shaman spell, Blaze Scryer deals 1 damage to each opponent.

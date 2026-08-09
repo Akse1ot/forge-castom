@@ -1,0 +1,8 @@
+Name:Hammer of the Admired
+ManaCost:1 W
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Card.EquippedBy | AddPower$ X | AddToughness$ X | Description$ Equipped creature gets +X/+X, where X is the number of creature cards in all graveyards.
+SVar:X:Count$Valid Creature.YouCtrl
+SVar:NeedsToPlayVar:X GE1
+Oracle:Equipped creature gets +X/+X, where X is the number of creatures you control.\nEquip {2}

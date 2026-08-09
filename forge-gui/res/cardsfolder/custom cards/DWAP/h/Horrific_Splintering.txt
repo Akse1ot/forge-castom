@@ -1,0 +1,6 @@
+Name:Horrific Splintering
+ManaCost:3 U
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Horror+YouCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigCopy | TriggerDescription$ Whenever a nontoken Horror you control enters, create a token that’s a copy of that creature.
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ TriggeredCardLKICopy | Controller$ You
+Oracle:Whenever a nontoken Horror you control enters, create a token that’s a copy of that creature.

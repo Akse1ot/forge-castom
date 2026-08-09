@@ -1,0 +1,7 @@
+Name:Steppe Stampede
+ManaCost:3 W W
+Types:Snow Instant
+K:Affinity:Permanent.Snow:snow permanent
+A:SP$ UntapAll | ValidCards$ Creature.YouCtrl | SubAbility$ DBPumpAll | SpellDescription$ Untap all creatures you control. They get +2/+1 until end of turn.
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +1
+Oracle:Affinity for snow permanents (This spell costs  less to cast for each snow permanent you control.)\nUntap all creatures you control. They get +2/+1 until end of turn.

@@ -1,0 +1,9 @@
+Name:Awoken Sapling
+ManaCost:B G
+Types:Creature Plant
+PT:2/2
+K:Epitome
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1 | SpellDescription$ Add one mana of any color.
+A:AB$ ChangeZone | Cost$ Exile<1/CARDNAME> | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.YouCtrl | TgtPrompt$ Select target card in your graveyard | Enlightened$ True | SpellDescription$ Return target card from your graveyard to your hand. Activate only if you’re enlightened.
+DeckHas:Ability$Graveyard
+Oracle:Epitome (If there are eight or more mana abilities among permanents you control, you become enlightened for the rest of the game.)\n{T}: Add one mana of any color.\nExile Awoken Sapling: Return target card from your graveyard to your hand. Activate only if you’re enlightened.

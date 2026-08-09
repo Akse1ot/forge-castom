@@ -1,0 +1,7 @@
+Name:Maddenned Ramblings
+ManaCost:1 B
+Types:Instant
+A:SP$ Draw | Cost$ 1 B Sac<1/Artifact;Creature/artifact or creature> | NumCards$ 2 | SubAbility$ DBForge | SpellDescription$ Draw two cards and forge menace. (Create an Equipment artifact token with equip {2}  and “Equipped creature has menace.”)
+SVar:DBForge:DB$ Forge | ForgeAbilities$ ForgeMenace
+SVar:ForgeMenace:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Menace | Description$ Equipped creature has menace.
+Oracle:As an additional cost to cast this spell, sacrifice an artifact or creature.\nDraw two cards and forge menace. (Create an Equipment artifact token with equip {2}  and “Equipped creature has menace.”)

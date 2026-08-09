@@ -1,0 +1,11 @@
+Name:Frostmoon Priestess
+ManaCost:1 W
+Types:Creature Elf Cleric
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerDescription$ When CARDNAME enters, ABILITY
+SVar:TrigCharm:DB$ Charm | Choices$ DBExile,DBSurveil
+SVar:DBExile:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 2 | TgtPrompt$ Select up to two target cards from a single graveyard | TargetsWithSameController$ True | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card | SpellDescription$ Exile up to two target cards from a single graveyard.
+SVar:DBSurveil:DB$ Surveil | Amount$ 2 | SubAbility$ DBGainLife | SpellDescription$ Surveil 2. You gain 2 life. If this spell was cast from a graveyard, exile it, then put it onto the battlefield transformed under its owner's control with a finality counter on it. (If a creature with a finality counter on it would die, exile it instead.)
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2
+DeckHas:Ability$LifeGain
+Oracle:When Frostmoon Priestess enters, choose one —\n• Exile up to two target cards from a single graveyard.\n• Surveil 2. You gain 2 life.

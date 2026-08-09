@@ -1,0 +1,13 @@
+Name:Lead the Avalanche
+ManaCost:1 R
+Types:Snow Sorcery
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | NumAtt$ +3 | NumDef$ +2 | KW$ Trample | SubAbility$ DBGrantTrigger | SpellDescription$ Target creature you control gets +3/+2 and gains trample until end of turn. If it's snow or {S} was spent to cast CARDNAME, it also gains “Whenever this creature deals combat damage to a player, you may discard your hand. If you do, draw three cards.”
+SVar:DBGrantTrigger:DB$ Effect | RememberObjects$ Targeted | Triggers$ TrigDamage | ConditionCheckSVar$ TargetIsSnow | ConditionSVarCompare$ GE1 | OrConditionCheckSVar$ SnowSpent | OrOtherConditionSVarCompare$ GE1
+SVar:TrigDamage:Mode$ DamageDone | ValidSource$ Creature.IsRemembered | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw | OptionalDecider$ You | TriggerDescription$ Whenever this creature deals combat damage to a player, you may discard your hand. If you do, draw three cards.
+SVar:TrigDraw:AB$ Draw | Cost$ Discard<0/Hand> | NumCards$ 3
+SVar:TargetIsSnow:Targeted$Valid Card.Snow
+SVar:SnowSpent:Count$CastTotalManaSpent Snow
+SVar:AIPreference:ManaFrom$Snow
+DeckHints:Type$Snow
+DeckHas:Ability$Discard
+Oracle:Target creature you control gets +3/+2 and gains trample until end of turn. If it's snow or {S} was spent to cast Lead the Avalanche, it also gains “Whenever this creature deals combat damage to a player, you may discard your hand. If you do, draw three cards.”

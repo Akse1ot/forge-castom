@@ -1,0 +1,7 @@
+Name:Iskari Floechanter
+ManaCost:1 W
+Types:Snow Creature Troll Shaman
+PT:2/2
+A:AB$ Tap | Cost$ S T | ValidTgts$ Creature.nonSnow | TgtPrompt$ Select target nonsnow creature | SpellDescription$ Tap target nonsnow creature.
+SVar:NonCombatPriority:5
+Oracle:{S},{T}: Tap target nonsnow creature.

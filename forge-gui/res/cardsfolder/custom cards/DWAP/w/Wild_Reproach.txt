@@ -1,0 +1,7 @@
+Name:Wild Reproach
+ManaCost:2 W
+Types:Instant
+A:SP$ Charm | Choices$ DBDestroy,DBReturn
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature.powerGE4 | TgtPrompt$ Select target creature with power 4 or greater | SpellDescription$ Destroy target creature with power 4 or greater.
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TgtPrompt$ Choose target creature card with mana value 3 or less in your graveyard | ValidTgts$ Creature.cmcLE3+YouCtrl | Tapped$ True | SpellDescription$ Return target creature card with mana value 3 or less from your graveyard to the battlefield tapped.
+Oracle:Choose one —\n• Destroy target creature with power 4 or greater.\n•Return target creature card with mana value 3 or less from your graveyard to the battlefield tapped.

@@ -1,0 +1,16 @@
+Name:Aspirant of the Hunt
+ManaCost:2 R
+Types:Snow Creature Human Shaman
+PT:2/3
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigInvoke | TriggerDescription$ Whenever CARDNAME attacks, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+SVar:TrigInvoke:DB$ InvokeSkill
+AlternateMode:Modal
+Oracle:Whenever Aspirant of the Hunt attacks, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Defiant Howl
+ManaCost:R
+Types:Snow Instant Skill
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | NumAtt$ +2 | KW$ Trample | SpellDescription$ Target creature you control gets +2/+0 and gains trample until end of turn.
+Oracle:Target creature you control gets +2/+0 and gains trample until end of turn.

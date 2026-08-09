@@ -1,0 +1,8 @@
+Name:Crack the Shells
+ManaCost:1 R R
+Types:Sorcery
+A:SP$ Charm | Choices$ DBDamage,DBToken
+SVar:DBDamage:DB$ DamageAll | ValidCards$ Creature | NumDmg$ 3 | SpellDescription$ CARDNAME deals 3 damage to each creature.
+SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScript$ r_3_1_a_demon_haste | TokenOwner$ You | AtEOT$ YourSacrifice | SpellDescription$ Create two 3/1 red Demon artifact creature tokens with haste. Sacrifice those tokens at the beginning of your next end step.
+DeckHas:Ability$Token
+Oracle:Choose one —\n• Crack the Shells deals 3 damage to each creature.\n• Create two 3/1 red Demon artifact creature tokens with haste. Sacrifice those tokens at the beginning of your next end step.

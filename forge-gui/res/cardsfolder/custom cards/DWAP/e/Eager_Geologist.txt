@@ -1,0 +1,8 @@
+Name:Eager Geologist
+ManaCost:2 U
+Types:Creature Dwarf Artificer
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigForge | TriggerDescription$ When CARDNAME enters, forge +1/+0 and ward {2} (Create an Equipment artifact token with equip {2} and “Equipped creature has +1/+0 and ward 2.”)
+SVar:TrigForge:DB$ Forge | ForgeAbilities$ ForgeBonus
+SVar:ForgeBonus:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddKeyword$ Ward:2 | Description$ Equipped creature gets +1/+0 and has ward {2}.
+Oracle:When Eager Geologist enters, forge +1/+0 and ward {2} (Create an Equipment artifact token with equip {2} and “Equipped creature has +1/+0 and ward {2}.”)

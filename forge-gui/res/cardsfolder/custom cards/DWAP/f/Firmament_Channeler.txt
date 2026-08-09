@@ -1,0 +1,11 @@
+Name:Firmament Channeler
+ManaCost:1 R
+Types:Creature Human Shaman
+PT:1/1
+K:Flying
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X | Description$ CARDNAME gets +2/+2 for each Aura and Equipment attached to it.
+SVar:X:Count$Valid Equipment.Attached,Aura.Attached/Times.2
+SVar:EnchantMe:Multiple
+SVar:EquipMe:Multiple
+DeckHints:Type$Equipment|Aura
+Oracle:Flying\nFirmament Channeler gets +2/+2 for each Aura and Equipment attached to it.

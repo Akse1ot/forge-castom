@@ -1,0 +1,11 @@
+Name:Van Helsa's Blade
+ManaCost:2 W
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach | TriggerDescription$ When CARDNAME enters, attach it to up to one target creature you control. Tap all creatures target opponent controls.
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select target creature you control | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | ValidTgts$ Creature.Other | ValidTgtsDesc$ another creature | TargetMin$ 0 | TargetMax$ 1
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 1 | Description$ Equipped creature gets +1/+1 and has "Whenever this creature deals combat damage to a player, draw a card, then discard a card."
+K:Equip:4
+Oracle:When Van Helsa’s Blade enters, attach it to up to one target creature you control, then tap up to one other target creature.
+Equipped creature gets +2/+1.
+Equip {4}

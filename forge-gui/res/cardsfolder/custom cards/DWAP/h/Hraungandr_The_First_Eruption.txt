@@ -1,0 +1,11 @@
+Name:Hraungandr, The First Eruption
+ManaCost:8 R R
+Types:Legendary Creature Elder Serpent
+PT:8/8
+K:Convoke
+K:Menace
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChangeZone | TriggerDescription$ Whenever CARDNAME attacks, return up to two instant, sorcery and/or cards with a Skill at random from your graveyard to your hand.
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType$ Instant.YouOwn+FrontSide,Sorcery.YouOwn+FrontSide,Card.Skill+YouOwn+BackSide | ValidEitherFace$ True | ChangeNum$ 2 | Hidden$ True | AtRandom$ True
+DeckHints:Type$Instant|Sorcery
+DeckHas:Ability$Graveyard
+Oracle:Convoke\nMenace\nWhenever Hraungandr, The First Eruption attacks, return up to two instant, sorcery and/or cards with a Skill at random from your graveyard to your hand.

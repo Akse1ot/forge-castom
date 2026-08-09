@@ -1,0 +1,8 @@
+Name:Cojocar Huntress
+ManaCost:G G
+Types:Creature Vampire
+PT:3/3
+S:Mode$ UnspentMana | ValidPlayer$ You | ManaType$ Green | Description$ You don't lose unspent green mana as steps and phases end.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.DamagedBy | TriggerZones$ Battlefield | Execute$ TrigMana | TriggerDescription$ Whenever a creature dealt damage by CARDNAME this turn dies, add one mana of any color.
+SVar:TrigMana:DB$ Mana | Produced$ Any
+Oracle:You don't lose unspent green mana as steps and phases end.\nWhenever a creature dealt damage by Cojocar Huntress this turn dies, add one mana of any color.

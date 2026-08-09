@@ -1,0 +1,13 @@
+Name:Enevenomed Scribe
+ManaCost:2 B
+Types:Creature Elf Assassin
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigForge | TriggerZones$ Battlefield | TriggerDescription$ When CARDNAME enters, forge deathtouch and “Whenever this creature deals combat damage to a player, they lose half their life rounded up. Attach that equipment to target creature you control. (Create an Equipment artifact token with equip {2} and “Equipped creature has the chosen abilities.”)
+SVar:TrigForge:DB$ Forge | ForgeAbilities$ ForgeGrantedAbilities | ForgeSVars$ ForgeDamageTrigger & ForgeLoseLife & X | RememberTokens$ True | SubAbility$ DBAttach
+SVar:ForgeGrantedAbilities:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Deathtouch | AddTrigger$ ForgeDamageTrigger | Description$ Equipped creature has deathtouch and “Whenever this creature deals combat damage to a player, they lose half their life, rounded up.”
+SVar:ForgeDamageTrigger:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ ForgeLoseLife | TriggerDescription$ Whenever this creature deals combat damage to a player, they lose half their life, rounded up.
+SVar:ForgeLoseLife:DB$ LoseLife | Defined$ TriggeredTarget | LifeAmount$ X
+SVar:X:Count$TriggeredTarget LifeTotal/HalfUp
+SVar:DBAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | Object$ Remembered | Defined$ ThisTargetedCard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:When Enevenomed Scribe enters, forge deathtouch and “Whenever this creature deals combat damage to a player, they lose half their life rounded up. Attach that equipment to target creature you control. (Create an Equipment artifact token with equip {2} and “Equipped creature has the chosen abilities.”)

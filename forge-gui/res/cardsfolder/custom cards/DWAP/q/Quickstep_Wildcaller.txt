@@ -1,0 +1,9 @@
+Name:Quickstep Wildcaller
+ManaCost:1 G
+Types:Creature Azra Shaman
+PT:1/1
+S:Mode$ Continuous | Affected$ Creature.Shaman+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1 | Description$ Other Shamans you control get +1/+1.
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | TriggerZones$ Battlefield | ValidTarget$ Player | Execute$ TrigDraw | TriggerDescription$ Fierce Punch — Whenever one or more creatures you control deal combat damage to a player, draw a card.
+SVar:TrigDraw:DB$ Draw
+DeckHints:Type$Shaman
+Oracle:Other Shamans you control get +1/+1.\nWhenever one or more creatures you control deal combat damage to a player, draw a card.

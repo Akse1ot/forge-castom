@@ -1,0 +1,8 @@
+Name:Titanic Odds
+ManaCost:3 G G
+Types:Sorcery
+A:SP$ Charm | Choices$ DBChangeZone,DBPump
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 2 | TgtPrompt$ Choose target permanent card in your graveyard | ValidTgts$ Permanent.YouOwn | SpellDescription$ Return up to two target permanent cards from your graveyard to your hand.
+SVar:DBPump:DB$ Pump | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select up to two target creatures you control | NumAtt$ +1 | AILogic$ PowerDmg | SubAbility$ DBEachDamage | StackDescription$ REP Up to two target creatures you control_{c:ThisTargetedCard} | SpellDescription$ Up to two target creatures you control each get +1/+0 until end of turn.
+SVar:DBEachDamage:DB$ EachDamage | ValidTgts$ Creature | TgtPrompt$ Select another target creature | TargetUnique$ True | DefinedDamagers$ ParentTarget | NumDmg$ Count$CardPower | StackDescription$ REP another target creature_{c:ThisTargetedCard} | SpellDescription$ They each deal damage equal to their power to another target creature.
+Oracle:Choose one —\n• Return up to two target permanent cards from your graveyard to your hand.\n•Up to two target creatures you control each get +1/+0 until end of turn. They each deal damage equal to their power to another target creature.

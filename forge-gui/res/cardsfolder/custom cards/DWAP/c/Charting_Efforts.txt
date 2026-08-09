@@ -1,0 +1,6 @@
+Name:Charting Efforts
+ManaCost:2 G
+Types:Instant
+K:Convoke
+A:SP$  ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.hasABasicLandType | Tapped$ True | ChangeNum$ 1 | SpellDescription$ Search your library for a land card with a basic land type, put it onto the battlefield tapped, then shuffle.
+Oracle:Convoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for  or one mana of that creature’s color.)\nSearch your library for a land card with a basic land type, put it onto the battlefield tapped, then shuffle.

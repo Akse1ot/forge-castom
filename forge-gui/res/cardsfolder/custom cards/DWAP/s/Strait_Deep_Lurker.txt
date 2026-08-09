@@ -1,0 +1,9 @@
+Name:Strait-Deep Lurker
+ManaCost:1 B
+Types:Creature Merfolk Horror
+PT:2/1
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDealDamage | TriggerDescription$ When CARDNAME enters, it deals X damage to each opponent, where X is the number of Horrors you control. 
+SVar:TrigDealDamage:DB$ DealDamage | Defined$ Opponent | NumDmg$ X 
+SVar:X:Count$Valid Horror.YouCtrl
+Oracle:Lifelink\nWhen Strait-Deep Lurker enters, it deals X damage to each opponent, where X is the number of Horrors you control.

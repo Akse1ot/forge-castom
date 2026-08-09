@@ -1,0 +1,11 @@
+Name:Star-High Dreamer
+ManaCost:1 U
+Types:Creature Azra Shaman
+PT:2/1
+K:Flash
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OpponentTurn$ True | Execute$ TrigPutCounter | TriggerDescription$ Whenever you cast a spell during an opponent's turn, put a +1/+1 counter on CARDNAME. Then if it’s the second time this ability has resolved this turn, draw a card.
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ2
+SVar:Resolved:Count$ResolvedThisTurn
+DeckHas:Ability$Counters
+Oracle:Flash (You may cast this spell any time you could cast an instant.)\nWhenever you cast a spell during an opponent’s turn, put a +1/+1 counter on Star-High Dreamer. Then if it’s the second time this ability has resolved this turn, draw a card.

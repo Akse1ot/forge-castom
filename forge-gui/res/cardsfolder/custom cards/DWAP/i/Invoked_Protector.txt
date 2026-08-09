@@ -1,0 +1,8 @@
+Name:Invoked Protector
+ManaCost:6
+Types:Artifact Creature Plant Golem
+PT:9/8
+K:Menace
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTap | TriggerDescription$ At the beginning of your upkeep, tap CARDNAME unless you pay 2 life.
+SVar:TrigTap:DB$ Tap | UnlessCost$ tapXType<2/Creature> | UnlessPayer$ You | Defined$ Self
+Oracle:Menace\nAt the beginning of your upkeep, tap Invoked Protector unless you tap two other untapped creatures you control.

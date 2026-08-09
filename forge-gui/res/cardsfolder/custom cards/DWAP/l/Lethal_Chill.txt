@@ -1,0 +1,9 @@
+Name:Lethal Chill
+ManaCost:2 B B
+Types:Snow Instant
+A:SP$ Destroy | ValidTgts$ Creature,Planeswalker | TgtPrompt$ Select target creature or planeswalker | SubAbility$ DBGainLife | SpellDescription$ Destroy target creature or planeswalker. You gain 1 life for each {S} spent to cast this spell.
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ X
+SVar:X:Count$CastTotalManaSpent Snow
+SVar:AIPreference:ManaFrom$Snow
+DeckHas:Ability$LifeGain
+Oracle:Destroy target creature or planeswalker. You gain 1 life for each {S} spent to cast this spell.

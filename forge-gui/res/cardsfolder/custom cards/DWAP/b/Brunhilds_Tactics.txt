@@ -1,0 +1,8 @@
+Name:Brunhild's Tactics
+ManaCost:B B
+Types:Snow Sorcery
+A:SP$ Surveil | Amount$ X | SubAbility$ DBDraw | SpellDescription$ Surveil X, where X is the amount of {S} spent to cast this spell. You draw two cards and you lose 2 life.
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2
+SVar:X:Count$CastTotalManaSpent Snow
+Oracle:Surveil X, where X is the amount of {S} spent to cast this spell.\nYou draw two cards and you lose 2 life.

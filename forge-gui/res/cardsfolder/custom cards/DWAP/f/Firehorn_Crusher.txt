@@ -1,0 +1,8 @@
+Name:Firehorn Crusher
+ManaCost:4 R
+Types:Creature Elemental Sheep
+PT:5/4
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter | TriggerDescription$ When CARDNAME enters, you may sacrifice another artifact. If you do, put two +1/+1 counters on CARDNAME.
+SVar:TrigPutCounter:AB$ PutCounter | Cost$ Sac<1/Artifact.Other;Creature.Other/another artifact or creature> | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2
+Oracle:Haste\nWhen Firehorn Crusher enters, you may sacrifice another artifact or creature. If you do, put two +1/+1 counters on Firehorn Crusher.

@@ -1,0 +1,9 @@
+Name:Star-Herd Blaze
+ManaCost:2 R
+Types:Creature Goat Spirit
+PT:3/3
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Player.NonActive | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ Whenever a player casts a spell, if it's not their turn, CARDNAME deals 4 damage to them.
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredActivator | NumDmg$ 4
+A:AB$ Pump | Cost$ 2 Sac<1/Creature;Artifact/artifact or creature> | Defined$ Self | NumAtt$ +2 | SpellDescription$ CARDNAME gets +2/+0 until end of turn.
+Oracle:Flying\nWhenever a player casts a spell, if it’s not their turn, Star-Herd Blaze deals 4 damage to them.\n{2}, Sacrifice an artifact or creature: Star-Herd Blaze gets +2/+0 until end of turn.

@@ -1,0 +1,7 @@
+Name:Unto Death
+ManaCost:2 B
+Types:Sorcery
+A:SP$ Charm | Choices$ DBDiscard,DBReturn
+SVar:DBDiscard:DB$ Discard | ValidTgts$ Opponent | NumCards$ 2 | Mode$ TgtChoose | SpellDescription$ Target opponent discards two cards.
+SVar:DBReturn:DB$ ChangeZone | TargetMin$ 0 | TargetMax$ 2 | Origin$ Graveyard | Destination$ Hand | TgtPrompt$ Choose up to two target creature and/or planeswalker cards from your graveyard | ValidTgts$ Card.Creature+YouOwn,Card.Planeswalker+YouOwn | StackDescription$ {p:You} returns up to two target creature and/or planeswalker cards from their graveyard to their hand. ({c:Targeted}) | SpellDescription$ Return up to two target creature and/or planeswalker cards from your graveyard to your hand.
+Oracle:Choose one —\n• Target opponent discards two cards.\n• Return up to two target creature and/or planeswalker cards from your graveyard to your hand.

@@ -1,0 +1,20 @@
+Name:Unformed Devourer
+ManaCost:4 B B
+Types:Creature Shade Horror
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvoke | TriggerDescription$ When CARDNAME enters, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
+SVar:TrigInvoke:DB$ InvokeSkill
+K:TypeCycling:Swamp:2
+AlternateMode:Modal
+Oracle:When Unformed Devourer enters, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)\n
+Swampcycling {2} ({2}, Discard this card: Search your library for a Swamp card, reveal it, put it into your hand, then shuffle.)
+
+ALTERNATE
+
+Name:Will Consumption
+ManaCost:1 B
+Types:Sorcery Skill
+A:SP$ Surveil | Amount$ 2 | SubAbility$ DBLoseLife | SpellDescription$ Surveil 2. Each opponent loses 2 life and you gain 2 life.
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | ConditionPresent$ Vampire.YouCtrl | ConditionCompare$ GE1 | LifeAmount$ 2
+Oracle:Surveil 2. Each opponent loses 2 life and you gain 2 life.

@@ -1,0 +1,23 @@
+Name:Jarlorn, Storm-Roar
+ManaCost:4 R R G G
+Types:Legendary Creature  Bear God
+PT:5/5
+K:Trample
+K:Haste
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigInvoke | TriggerDescription$ When CARDNAME enters, it invokes X times, where X is the number of creatures you control. Each copy must target a different creature. (Cast a copy of this creature's Skill without paying its mana cost.)
+SVar:TrigInvoke:DB$ InvokeSkill | Amount$ InvokeCount | DifferentTargets$ True
+SVar:InvokeCount:Count$Valid Creature.YouCtrl
+AlternateMode:Modal
+Oracle:Trample, haste\nWhen Jarlorn, Storm-Roar enters, it invokes X times, where X is the number of creatures you control. Each copy must target a different creature. (Cast a copy of this creature’s Skill without paying its mana cost.)
+
+ALTERNATE
+
+Name:Jarlorn's Fury
+ManaCost:R G
+Types:Sorcery Skill
+A:SP$ PutCounter | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBEffect | SpellDescription$ Put a +1/+1 counter on target creature you control. Until end of turn, it gains trample, haste and “Whenever this creature attacks, double the number of +1/+1 counters on it.”
+SVar:DBEffect:DB$ Effect | RememberObjects$ ParentTarget | ExileOnMoved$ Battlefield | StaticAbilities$ EffSModeContinuous
+SVar:EffSModeContinuous:Mode$ Continuous | Affected$ Card.IsRemembered | AddKeyword$ Trample & Haste | AddTrigger$ AttackTrig | Description$ Until end of turn, this creature gains trample, haste and “Whenever this creature attacks, double the number of +1/+1 counters on it.”
+SVar:AttackTrig:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDoubleCounters | TriggerDescription$ Whenever this creature attacks, double the number of +1/+1 counters on it.
+SVar:TrigDoubleCounters:DB$ MultiplyCounter | Defined$ TriggeredAttackerLKICopy | CounterType$ P1P1 
+Oracle:Put a +1/+1 counter on target creature you control. Until end of turn, it gains trample, haste and “Whenever this creature attacks, double the number of +1/+1 counters on it.”
