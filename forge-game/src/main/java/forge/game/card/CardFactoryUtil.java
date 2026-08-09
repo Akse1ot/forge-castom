@@ -717,6 +717,21 @@ public class CardFactoryUtil {
             trigger.setOverridingAbility(sa);
 
             inst.addTrigger(trigger);
+        } else if (keyword.startsWith("Bloodlust") && inst instanceof KeywordWithAmount bloodlust) {
+            final String n = bloodlust.getAmountString();
+
+            final String trigStr = "Mode$ DamageDealtOnce | ValidSource$ Card.Self"
+                    + " | CombatDamage$ True | TriggerZones$ Battlefield | Secondary$ True"
+                    + " | TriggerDescription$ " + bloodlust.getTitle()
+                    + " (" + inst.getReminderText() + ")";
+
+            final String effect = "DB$ PutCounter | Defined$ Self"
+                    + " | CounterType$ P1P1 | CounterNum$ " + n;
+
+            final Trigger trigger = TriggerHandler.parseTrigger(trigStr, card, intrinsic);
+            trigger.setOverridingAbility(AbilityFactory.getAbility(effect, card));
+
+            inst.addTrigger(trigger);
         } else if (keyword.startsWith("Bushido")) {
             final String[] k = keyword.split(":");
             final String n = k[1];

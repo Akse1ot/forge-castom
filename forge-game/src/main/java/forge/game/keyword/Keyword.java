@@ -27,6 +27,7 @@ public enum Keyword {
     BATTLE_CRY("Battle cry", SimpleKeyword.class, false, "Whenever this creature attacks, each other attacking creature gets +1/+0 until end of turn."),
     BESTOW("Bestow", KeywordWithCost.class, false, "If you cast this card for its bestow cost, it's an Aura spell with enchant creature. It becomes a creature again if it's not attached to a creature."),
     BLITZ("Blitz", KeywordWithCost.class, false, "If you cast this spell for its blitz cost, it gains haste and \"When this creature dies, draw a card.\" Sacrifice it at the beginning of the next end step."),
+    BLOODLUST("Bloodlust", KeywordWithAmount.class, false, "Whenever this creature deals combat damage, put {%d:+1/+1 counter} on it."),
     BLOODTHIRST("Bloodthirst", KeywordWithAmount.class, false, "If an opponent was dealt damage this turn, this creature enters with {%d:+1/+1 counter} on it."),
     BUSHIDO("Bushido", KeywordWithAmount.class, false, "Whenever this creature blocks or becomes blocked, it gets +%1$d/+%1$d until end of turn."),
     BUYBACK("Buyback", KeywordWithCost.class, false, "You may pay an additional %s as you cast this spell. If you do, put it into your hand instead of your graveyard as it resolves."),

@@ -1,0 +1,8 @@
+Name:Lone Poet
+ManaCost:2 G
+Types:Creature Human Bard
+PT:1/2
+A:AB$ Mana | Cost$ T | Produced$ Any | TriggersWhenSpent$ TrigCopy | SpellDescription$ Add one mana of any color. When that mana is spent to cast a multicolored spell, you gain 1 life.
+SVar:TrigCopy:Mode$ SpellCast | ValidCard$ Card.MultiColor | Execute$ TrigGainLife | TriggerDescription$ When that mana is spent to cast a multicolored spell, you gain 1 life.
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+Oracle:{T}: Add one mana of any color. When that mana is spent to cast a multicolored spell, you gain 1 life.

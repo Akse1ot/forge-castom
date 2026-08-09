@@ -300,6 +300,7 @@ Base=fromSheet("AENR Lands")
 2 b_3_3_nightmare
 3 bg_1_1_satyr_bard
 4 c_a_gecree_sac
+5 r_2_1_elemental_haste
 
 [other]
 5 emblem_Roselyn_Valvidia

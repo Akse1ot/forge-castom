@@ -1,0 +1,7 @@
+Name:Blazing Sonnet
+ManaCost:4 R
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ X | SpellDescription$ CARDNAME deals damage to target creature equal to the total number of cards in each player’s hand.
+SVar:X:Count$NumInAllHands
+DeckHints:Type$Instant|Sorcery
+Oracle:Blazing Sonnet deals damage to target creature equal to the total number of cards in each player’s hand.
