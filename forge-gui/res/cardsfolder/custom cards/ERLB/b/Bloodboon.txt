@@ -1,10 +1,12 @@
 Name:Bloodboon
 ManaCost:R R
 Types:Instant
-A:SP$ Token | TokenScript$ c_a_blood_draw | TokenAmount$ 1 | TokenOwner$ You | SubAbility$ DBCharm | SpellDescription$ Create a Blood token. ABILITY
-SVar:DBCharm:DB$ Charm | Choices$ DBDealDamage,DBChangeTargets,DBDestroy
-SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ X | SpellDescription$ CARDNAME deals equal to the number of Blood tokens you control to target creature or planeswalker.
-SVar:X:Count$Valid Blood.YouCtrl
-SVar:DBChangeTargets:DB$ ChangeTargets | TargetType$ SpellAbility.singleTarget | ValidTgts$ Card,Emblem | TgtPrompt$ Select target spell or ability with a single target | SpellDescription$ Change the target of target spell or ability with a single target.
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact | SpellDescription$ Destroy target artifact.
-Oracle:Create a Blood token. Choose one—\n• Bloodboon deals damage equal to the number of Blood tokens you control to target creature or planeswalker.\n• Change the target of target spell or ability with a single target.\n•Destroy target artifact.
+A:SP$ Charm | Choices$ DBBloodDamage,DBBloodChangeTargets,DBBloodDestroy | SpellDescription$ Create a Blood token. Choose one — CARDNAME deals damage equal to the number of Blood tokens you control to target creature or planeswalker; change the target of target spell or ability with a single target; or destroy target artifact.
+SVar:DBBloodDamage:DB$ Token | TokenScript$ c_a_blood_draw | TokenAmount$ 1 | TokenOwner$ You | ValidTgts$ Creature,Planeswalker | TgtPrompt$ Select target creature or planeswalker | SubAbility$ DBDealDamage | SpellDescription$ CARDNAME deals damage equal to the number of Blood tokens you control to target creature or planeswalker.
+SVar:DBDealDamage:DB$ DealDamage | Defined$ ParentTarget | NumDmg$ X | StackDescription$ None
+SVar:DBBloodChangeTargets:DB$ Token | TokenScript$ c_a_blood_draw | TokenAmount$ 1 | TokenOwner$ You | TargetType$ SpellAbility.singleTarget | ValidTgts$ Card,Emblem | TgtZone$ Stack | TgtPrompt$ Select target spell or ability with a single target | SubAbility$ DBChangeTargets | SpellDescription$ Change the target of target spell or ability with a single target.
+SVar:DBChangeTargets:DB$ ChangeTargets | Defined$ Targeted | StackDescription$ None
+SVar:DBBloodDestroy:DB$ Token | TokenScript$ c_a_blood_draw | TokenAmount$ 1 | TokenOwner$ You | ValidTgts$ Artifact | TgtPrompt$ Select target artifact | SubAbility$ DBDestroy | SpellDescription$ Destroy target artifact.
+SVar:DBDestroy:DB$ Destroy | Defined$ ParentTarget | StackDescription$ None
+SVar:X:Count$Valid Blood.token+YouCtrl
+Oracle:Create a Blood token. Choose one —\n• Bloodboon deals damage equal to the number of Blood tokens you control to target creature or planeswalker.\n• Change the target of target spell or ability with a single target.\n• Destroy target artifact.

@@ -101,7 +101,12 @@ public class StaticData {
             for (CardRules card : cardReader.loadCards()) {
                 if (null == card) continue;
 
-                final String cardName = card.getPreInitName();
+                final String cardName;
+                try {
+                    cardName = card.getPreInitName();
+                } catch (RuntimeException e) {
+                    throw new RuntimeException("Failed to initialize card script: " + card.getPath(), e);
+                }
 
                 if (!loadNonLegalCards && funnyCards.contains(cardName) && !card.getType().isBasicLand())
                     filtered.add(cardName);
