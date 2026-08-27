@@ -106,6 +106,11 @@ public class CardProperty {
             if (!card.isPermanent()) {
                 return false;
             }
+        } else if (property.equals("FaceUpPermanent")) {
+            final CardState faceUpState = card.getState(card.getFaceupCardStateName());
+            if (faceUpState == null || !faceUpState.getTypeWithChanges().isPermanent()) {
+                return false;
+            }
         } else if (property.equals("Historic")) {
             if (!card.isHistoric()) {
                 return false;

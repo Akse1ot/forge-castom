@@ -38,6 +38,86 @@ import java.util.Set;
 
 public class ChangeZoneEffect extends SpellAbilityEffect {
 
+    /**
+     * Temporarily exposes a face-down card's normal face for a zone change
+     * to the battlefield without treating this as "turning face up".
+     *
+     * If the zone change fails or is replaced, the original face-down state
+     * can be restored.
+     */
+    private static final class FaceUpStateSnapshot {
+        private final Card card;
+        private final boolean enabled;
+
+        private CardStateName oldStateName;
+        private boolean oldFaceDown;
+        private boolean oldBackSide;
+        private boolean oldFlipped;
+        private SpellAbility oldManifestedSA;
+        private SpellAbility oldCloakedSA;
+
+        private boolean applied;
+        private boolean committed;
+
+        private FaceUpStateSnapshot(final Card card0, final boolean enabled0) {
+            card = card0;
+            enabled = enabled0;
+        }
+
+        private boolean apply(final Map<AbilityKey, Object> moveParams) {
+            if (!enabled || card == null || !card.isFaceDown()) {
+                return true;
+            }
+
+            oldStateName = card.getCurrentStateName();
+            oldFaceDown = card.isFaceDown();
+            oldBackSide = card.isBackSide();
+            oldFlipped = card.isFlipped();
+            oldManifestedSA = card.getManifestedSA();
+            oldCloakedSA = card.getCloakedSA();
+
+            // Preserve the real pre-move LKI before exposing the face.
+            if (moveParams != null && !moveParams.containsKey(AbilityKey.CardLKI)) {
+                moveParams.put(AbilityKey.CardLKI, CardCopyService.getLKICopy(card));
+            }
+
+            applied = true;
+
+            // This is a zone-change normalization, not the TurnFaceUp game action.
+            // Cards entering the battlefield normally enter on their front face.
+            card.setFaceDown(false);
+            card.setBackSide(false);
+            card.setFlipped(false);
+
+            if (!card.setState(CardStateName.Original, false, true)) {
+                restore();
+                return false;
+            }
+
+            return true;
+        }
+
+        private void commit() {
+            committed = true;
+        }
+
+        private void restore() {
+            if (!applied || committed || card == null) {
+                return;
+            }
+
+            card.setBackSide(oldBackSide);
+            card.setFlipped(oldFlipped);
+            card.setFaceDown(oldFaceDown);
+            card.setState(oldStateName, true, true);
+            card.setManifested(oldManifestedSA);
+            card.setCloaked(oldCloakedSA);
+            card.updateStateForView();
+
+            applied = false;
+        }
+    }
+
     protected void onCardMoved(final SpellAbility sa, final Card movedCard, final Zone originZone, final ZoneType destination) {
     }
 
@@ -621,6 +701,8 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
 
                 final TargetEitherFaceUtil.StateSnapshot targetEitherFaceSnapshot =
                         TargetEitherFaceUtil.captureState(gameCard);
+                final FaceUpStateSnapshot faceUpStateSnapshot =
+                        new FaceUpStateSnapshot(gameCard, sa.hasParam("FaceUp"));
 
                 moveParams.put(AbilityKey.SimultaneousETB, tgtCards);
                 if (sa.isReplacementAbility()) {
@@ -720,13 +802,19 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                     CardFactoryUtil.setFaceDownState(gameCard, sa);
                 }
 
+                if (!faceUpStateSnapshot.apply(moveParams)) {
+                    continue;
+                }
+
                 try {
                     movedCard = game.getAction().moveTo(gameCard.getController().getZone(destination), gameCard, sa, moveParams);
                     if (movedCard == null || !movedCard.isInZone(destination)) {
                         continue;
                     }
                     targetEitherFaceSnapshot.commit();
+                    faceUpStateSnapshot.commit();
                 } finally {
+                    faceUpStateSnapshot.restore();
                     targetEitherFaceSnapshot.restore();
                 }
 
@@ -1479,7 +1567,22 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                         c.turnFaceDown(true);
                         CardFactoryUtil.setFaceDownState(c, sa);
                     }
-                    movedCard = game.getAction().moveToPlay(c, c.getController(), sa, moveParams);
+
+                    final FaceUpStateSnapshot faceUpStateSnapshot =
+                            new FaceUpStateSnapshot(c, sa.hasParam("FaceUp"));
+
+                    if (!faceUpStateSnapshot.apply(moveParams)) {
+                        continue;
+                    }
+
+                    try {
+                        movedCard = game.getAction().moveToPlay(c, c.getController(), sa, moveParams);
+                        if (movedCard != null && movedCard.isInPlay()) {
+                            faceUpStateSnapshot.commit();
+                        }
+                    } finally {
+                        faceUpStateSnapshot.restore();
+                    }
 
                     if (sa.hasParam("AttachAfter") && movedCard.isAttachment() && movedCard.isInPlay()) {
                         CardCollection list = AbilityUtils.getDefinedCards(source, sa.getParam("AttachAfter"), sa);

@@ -74,6 +74,7 @@ Cleric:Clerics
 Clown:Clowns
 Cockatrice:Cockatrices
 Construct:Constructs
+Coral:Corals
 Coward:Cowards
 Coyote:Coyotes
 Crab:Crabs
