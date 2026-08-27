@@ -1,0 +1,6 @@
+Name:Fish Token
+ManaCost:no cost
+Colors:green
+Types:Creature Fish
+PT:3/3
+Oracle:

@@ -331,10 +331,9 @@ public class CostAdjustment {
             sa.clearPaidByMelody();
         }
 
-        final Map<Card, List<ManaCost>> availablePayments =
-                MelodyUtil.getAvailablePayments(payer);
+        final CardCollection availableCards = MelodyUtil.getAvailableCards(payer);
 
-        if (availablePayments.isEmpty()) {
+        if (availableCards.isEmpty()) {
             return;
         }
 
@@ -342,7 +341,7 @@ public class CostAdjustment {
                 payer.getController().chooseCardsForMelody(
                         sa,
                         cost.toManaCost(),
-                        availablePayments
+                        availableCards
                 );
 
         final CardCollection tapped = new CardCollection();
@@ -352,14 +351,8 @@ public class CostAdjustment {
             final Card card = entry.getKey();
             final ManaCost payment = entry.getValue();
 
-            if (!isAvailableMelodyPayment(
-                    availablePayments,
-                    card,
-                    payment)) {
-                continue;
-            }
-
-            if (!MelodyUtil.canApplyPayment(cost, payment)) {
+            if (!availableCards.contains(card)
+                    || !MelodyUtil.isPaymentAvailable(card, cost, payment)) {
                 continue;
             }
 
@@ -390,26 +383,6 @@ public class CostAdjustment {
                     false
             );
         }
-    }
-
-    private static boolean isAvailableMelodyPayment(
-            final Map<Card, List<ManaCost>> availablePayments,
-            final Card card,
-            final ManaCost payment) {
-        final List<ManaCost> payments =
-                availablePayments.get(card);
-
-        if (payments == null || payment == null) {
-            return false;
-        }
-
-        for (final ManaCost available : payments) {
-            if (available.toString().equals(payment.toString())) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private static boolean adjustCostByAssist(ManaCostBeingPaid cost, final SpellAbility sa, boolean test) {

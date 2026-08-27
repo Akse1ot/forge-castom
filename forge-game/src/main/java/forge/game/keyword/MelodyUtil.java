@@ -2,11 +2,11 @@ package forge.game.keyword;
 
 import forge.card.mana.ManaCost;
 import forge.card.mana.ManaCostShard;
+import forge.card.MagicColor;
 import forge.game.card.Card;
 import forge.game.card.CardCollection;
 import forge.game.card.CardLists;
 import forge.game.card.CardPredicates;
-import forge.game.cost.Cost;
 import forge.game.mana.ManaCostBeingPaid;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
@@ -30,48 +30,116 @@ public final class MelodyUtil {
                 && sa.getHostCard().isCreature();
     }
 
-    public static Map<Card, List<ManaCost>> getAvailablePayments(final Player payer) {
-        final Map<Card, List<ManaCost>> result = new LinkedHashMap<>();
-
-        final CardCollection available = CardLists.filter(
-                payer.getCardsIn(ZoneType.Battlefield),
-                CardPredicates.CAN_TAP
-        );
+    public static CardCollection getAvailableCards(final Player payer) {
+        final CardCollection result = new CardCollection();
+        final CardCollection available = CardLists.filter(payer.getCardsIn(ZoneType.Battlefield), CardPredicates.CAN_TAP);
 
         for (final Card card : available) {
             for (final KeywordInterface keyword : card.getKeywords(Keyword.MELODY)) {
-                if (!(keyword instanceof KeywordWithCostInterface melody)) {
-                    continue;
-                }
-
-                final Cost cost = melody.getCost();
-                if (!cost.hasManaCost() || !cost.isOnlyManaCost()) {
-                    continue;
-                }
-
-                final ManaCost manaCost = cost.getCostMana().getMana();
-                if (!isSupportedPayment(manaCost)) {
-                    continue;
-                }
-
-                final List<ManaCost> costs =
-                        result.computeIfAbsent(card, ignored -> new ArrayList<>());
-
-                boolean duplicate = false;
-                for (final ManaCost existing : costs) {
-                    if (existing.toString().equals(manaCost.toString())) {
-                        duplicate = true;
-                        break;
-                    }
-                }
-
-                if (!duplicate) {
-                    costs.add(manaCost);
+                if (keyword instanceof Melody) {
+                    result.add(card);
+                    break;
                 }
             }
         }
 
         return result;
+    }
+
+    public static List<ManaCost> getPaymentOptions(final Card card, final ManaCostBeingPaid remaining) {
+        final List<ManaCost> result = new ArrayList<>();
+
+        for (final KeywordInterface keyword : card.getKeywords(Keyword.MELODY)) {
+            if (!(keyword instanceof Melody melody)) {
+                continue;
+            }
+
+            switch (melody.getPaymentType()) {
+                case ManaCost:
+                    addPaymentOption(result, remaining, melody.getManaCost());
+                    break;
+                case AnyOneColor:
+                    for (final byte color : MagicColor.WUBRG) {
+                        addPaymentOption(result, remaining, createColoredPayment(color, melody.getPaymentAmount()));
+                    }
+                    break;
+                case AnyColor:
+                    for (final ManaCost payment : getAnyColorPayments(remaining, melody.getPaymentAmount())) {
+                        addPaymentOption(result, remaining, payment);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return result;
+    }
+
+    private static void addPaymentOption(final List<ManaCost> result, final ManaCostBeingPaid remaining, final ManaCost payment) {
+        if (!canApplyPayment(remaining, payment)) {
+            return;
+        }
+
+        for (final ManaCost existing : result) {
+            if (existing.toString().equals(payment.toString())) {
+                return;
+            }
+        }
+
+        result.add(payment);
+    }
+
+    private static ManaCost createColoredPayment(final byte color, final int amount) {
+        final String symbol = MagicColor.toShortString(color);
+        return new ManaCost((symbol + " ").repeat(amount).trim());
+    }
+
+    private static List<ManaCost> getAnyColorPayments(final ManaCostBeingPaid remaining, final int amount) {
+        Map<String, PaymentState> states = new LinkedHashMap<>();
+        states.put(remaining.toString(), new PaymentState(new ManaCostBeingPaid(remaining), ""));
+
+        for (int i = 0; i < amount; i++) {
+            final Map<String, PaymentState> nextStates = new LinkedHashMap<>();
+
+            for (final PaymentState state : states.values()) {
+                for (final byte color : MagicColor.WUBRG) {
+                    final ManaCostBeingPaid nextRemaining = new ManaCostBeingPaid(state.remaining);
+                    if (!payColoredUnit(nextRemaining, color)) {
+                        continue;
+                    }
+
+                    final String symbol = MagicColor.toShortString(color);
+                    final String payment = state.payment.isEmpty() ? symbol : state.payment + " " + symbol;
+
+                    nextStates.putIfAbsent(nextRemaining.toString(), new PaymentState(nextRemaining, payment));
+                }
+            }
+
+            states = nextStates;
+            if (states.isEmpty()) {
+                break;
+            }
+        }
+
+        final List<ManaCost> result = new ArrayList<>();
+        for (final PaymentState state : states.values()) {
+            if (!state.payment.isEmpty()) {
+                result.add(new ManaCost(state.payment));
+            }
+        }
+
+        return result;
+    }
+
+    private static final class PaymentState {
+        private final ManaCostBeingPaid remaining;
+        private final String payment;
+
+        private PaymentState(final ManaCostBeingPaid remaining, final String payment) {
+            this.remaining = remaining;
+            this.payment = payment;
+        }
     }
 
     private static boolean isSupportedPayment(final ManaCost payment) {
@@ -81,28 +149,113 @@ public final class MelodyUtil {
                 && payment.getShardCount(ManaCostShard.X) == 0;
     }
 
-    public static boolean canApplyPayment(final ManaCostBeingPaid remaining,
-                                          final ManaCost payment) {
+    public static boolean canApplyPayment(final ManaCostBeingPaid remaining, final ManaCost payment) {
         if (!isSupportedPayment(payment)) {
             return false;
         }
 
         final ManaCostBeingPaid test = new ManaCostBeingPaid(remaining);
-        final int before = test.getConvertedManaCost();
-
-        test.subtractManaCost(payment);
-
-        return before - test.getConvertedManaCost() == payment.getCMC();
+        return applyPaymentInternal(test, payment);
     }
 
-    public static boolean applyPayment(final ManaCostBeingPaid remaining,
-                                       final ManaCost payment) {
+    public static boolean applyPayment(final ManaCostBeingPaid remaining, final ManaCost payment) {
         if (!canApplyPayment(remaining, payment)) {
             return false;
         }
 
-        remaining.subtractManaCost(payment);
+        return applyPaymentInternal(remaining, payment);
+    }
+
+    private static boolean applyPaymentInternal(final ManaCostBeingPaid remaining, final ManaCost payment) {
+        if (!isSimplePayment(payment)) {
+            final int before = remaining.getConvertedManaCost();
+            remaining.subtractManaCost(payment);
+            return before - remaining.getConvertedManaCost() == payment.getCMC();
+        }
+
+        for (final ManaCostShard shard : payment) {
+            if (!payColoredUnit(remaining, shard.getColorMask())) {
+                return false;
+            }
+        }
+
+        for (int i = 0; i < payment.getGenericCost(); i++) {
+            if (!payGenericUnit(remaining)) {
+                return false;
+            }
+        }
+
         return true;
+    }
+
+    private static boolean isSimplePayment(final ManaCost payment) {
+        for (final ManaCostShard shard : payment) {
+            if (!shard.isMonoColor() || shard.isPhyrexian() || shard.isOr2Generic() || shard.isSnow() || shard.isColorless()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static boolean payGenericUnit(final ManaCostBeingPaid remaining) {
+        if (remaining.getGenericManaAmount() > 0) {
+            remaining.decreaseGenericMana(1);
+            return true;
+        }
+
+        for (final ManaCostShard shard : remaining.getDistinctShards()) {
+            if (!shard.isOr2Generic()) {
+                continue;
+            }
+
+            remaining.decreaseShard(shard, 1);
+            remaining.increaseGenericMana(1);
+            return true;
+        }
+
+        return false;
+    }
+
+    private static boolean payColoredUnit(final ManaCostBeingPaid remaining, final byte color) {
+        final List<ManaCostShard> payable = new ArrayList<>();
+
+        for (final ManaCostShard shard : remaining.getDistinctShards()) {
+            if (shard.isSnow() || shard.isColorless()) {
+                continue;
+            }
+
+            if (shard.canBePaidWithManaOfColor(color)) {
+                payable.add(shard);
+            }
+        }
+
+        final ManaCostShard chosen = remaining.getShardToPayByPriority(payable, color);
+        if (chosen == null) {
+            return false;
+        }
+
+        remaining.decreaseShard(chosen, 1);
+
+        if (chosen.isOr2Generic() && (chosen.getColorMask() & color) == 0) {
+            remaining.increaseGenericMana(1);
+        }
+
+        return true;
+    }
+
+    public static boolean isPaymentAvailable(final Card card, final ManaCostBeingPaid remaining, final ManaCost payment) {
+        if (card == null || payment == null) {
+            return false;
+        }
+
+        for (final ManaCost available : getPaymentOptions(card, remaining)) {
+            if (available.toString().equals(payment.toString())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static boolean preventsUntap(final Card melodySource,

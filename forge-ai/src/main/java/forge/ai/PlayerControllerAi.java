@@ -1537,7 +1537,7 @@ public class PlayerControllerAi extends PlayerController {
     public Map<Card, ManaCost> chooseCardsForMelody(
             final SpellAbility sa,
             final ManaCost manaCost,
-            final Map<Card, List<ManaCost>> availablePayments) {
+            final CardCollectionView availableCards) {
         final Map<Card, ManaCost> selected = new LinkedHashMap<>();
         final ManaCostBeingPaid remaining =
                 new ManaCostBeingPaid(manaCost);
@@ -1552,7 +1552,7 @@ public class PlayerControllerAi extends PlayerController {
         }
 
         final List<Card> candidates =
-                new ArrayList<>(availablePayments.keySet());
+                new ArrayList<>(availableCards);
 
         // Prefer noncreatures, then cheaper permanents.
         candidates.sort(
@@ -1570,13 +1570,7 @@ public class PlayerControllerAi extends PlayerController {
                 ManaCost bestPayment = null;
 
                 for (final ManaCost payment :
-                        availablePayments.get(card)) {
-                    if (!MelodyUtil.canApplyPayment(
-                            remaining,
-                            payment)) {
-                        continue;
-                    }
-
+                        MelodyUtil.getPaymentOptions(card, remaining)) {
                     if (bestPayment == null
                             || payment.getCMC()
                             > bestPayment.getCMC()) {

@@ -2682,13 +2682,13 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
     public Map<Card, ManaCost> chooseCardsForMelody(
             final SpellAbility sa,
             final ManaCost manaCost,
-            final Map<Card, List<ManaCost>> availablePayments) {
+            final CardCollectionView availableCards) {
         final InputSelectCardsForMelody input =
                 new InputSelectCardsForMelody(
                         this,
                         sa,
                         manaCost,
-                        availablePayments
+                        availableCards
                 );
 
         input.showAndWait();

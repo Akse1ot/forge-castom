@@ -128,7 +128,7 @@ public enum Keyword {
     MAYHEM("Mayhem", Mayhem.class, false, "You may cast this card from your graveyard for %s if you discarded it this turn. Timing rules still apply."),
     MARTYR("Martyr", KeywordWithCost.class, false, "Whenever this creature becomes blocked, you may sacrifice it and pay %s."),
     MELEE("Melee", SimpleKeyword.class, false, "Whenever this creature attacks, it gets +1/+1 until end of turn for each opponent you attacked this combat."),
-    MELODY("Melody", KeywordWithCost.class, false, "While casting a creature spell, you may tap this to pay for %s. " + "This doesn't untap during your untap steps for as long as you control that creature."),
+    MELODY("Melody", Melody.class, false, "While casting a creature spell, you may tap this to pay for %s. This doesn't untap during your untap steps for as long as you control that creature."),
     MENTOR("Mentor", SimpleKeyword.class, false, "Whenever this creature attacks, put a +1/+1 counter on target attacking creature with lesser power."),
     MENACE("Menace", SimpleKeyword.class, true, "This creature can't be blocked except by two or more creatures."),
     MEGAMORPH("Megamorph", KeywordWithCost.class, false, "You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its megamorph cost and put a +1/+1 counter on it."),

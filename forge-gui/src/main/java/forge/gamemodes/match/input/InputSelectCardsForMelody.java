@@ -2,6 +2,7 @@ package forge.gamemodes.match.input;
 
 import forge.card.mana.ManaCost;
 import forge.game.card.Card;
+import forge.game.card.CardCollectionView;
 import forge.game.keyword.MelodyUtil;
 import forge.game.mana.ManaCostBeingPaid;
 import forge.game.spellability.SpellAbility;
@@ -19,7 +20,7 @@ public final class InputSelectCardsForMelody
         extends InputSelectManyBase<Card> {
     private static final long serialVersionUID = 1L;
 
-    private final Map<Card, List<ManaCost>> availablePayments;
+    private final CardCollectionView availableCards;
     private final Map<Card, ManaCost> selectedPayments =
             new LinkedHashMap<>();
 
@@ -30,12 +31,12 @@ public final class InputSelectCardsForMelody
             final PlayerControllerHuman controller,
             final SpellAbility sa,
             final ManaCost cost,
-            final Map<Card, List<ManaCost>> availablePayments) {
-        super(controller, 0, availablePayments.size(), sa);
+            final CardCollectionView availableCards) {
+        super(controller, 0, availableCards.size(), sa);
 
         this.originalCost = cost;
         this.remainingCost = new ManaCostBeingPaid(cost);
-        this.availablePayments = availablePayments;
+        this.availableCards = availableCards;
     }
 
     @Override
@@ -52,10 +53,7 @@ public final class InputSelectCardsForMelody
             final Card card,
             final List<Card> otherCardsToSelect,
             final ITriggerEvent triggerEvent) {
-        final List<ManaCost> cardPayments =
-                availablePayments.get(card);
-
-        if (cardPayments == null) {
+        if (!availableCards.contains(card)) {
             return false;
         }
 
@@ -67,12 +65,7 @@ public final class InputSelectCardsForMelody
             return true;
         }
 
-        final List<ManaCost> payable = new ArrayList<>();
-        for (final ManaCost payment : cardPayments) {
-            if (MelodyUtil.canApplyPayment(remainingCost, payment)) {
-                payable.add(payment);
-            }
-        }
+        final List<ManaCost> payable = MelodyUtil.getPaymentOptions(card, remainingCost);
 
         if (payable.isEmpty()) {
             showMessage(card + " cannot pay any part of "
@@ -111,7 +104,7 @@ public final class InputSelectCardsForMelody
 
     @Override
     public String getActivateAction(final Card card) {
-        return availablePayments.containsKey(card)
+        return availableCards.contains(card)
                 ? "tap for Melody"
                 : null;
     }

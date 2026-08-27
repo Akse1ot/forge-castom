@@ -240,7 +240,7 @@ public abstract class PlayerController {
     public Map<Card, ManaCost> chooseCardsForMelody(
             final SpellAbility sa,
             final ManaCost manaCost,
-            final Map<Card, List<ManaCost>> availablePayments) {
+            final CardCollectionView availableCards) {
         return Map.of();
     }
     public Map<Card, ManaCostShard> chooseCardsForSwallow(

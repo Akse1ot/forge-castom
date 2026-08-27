@@ -2487,7 +2487,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
         do {
             if (currentAbility.usesTargeting()) {
                 TargetChoices oldTargets = currentAbility.getTargets();
-                if (forceTargetingPlayer.getController().chooseNewTargetsFor(currentAbility, getForbiddenNewTargetsFilter(), null, true) == null) {
+                if (forceTargetingPlayer.getController().chooseNewTargetsFor(currentAbility, getForbiddenNewTargetsFilter(),  true) == null) {
                     currentAbility.setTargets(oldTargets);
                 }
             }
