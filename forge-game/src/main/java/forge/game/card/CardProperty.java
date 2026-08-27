@@ -21,6 +21,7 @@ import forge.game.combat.Combat;
 import forge.game.combat.CombatUtil;
 import forge.game.mana.Mana;
 import forge.game.player.Player;
+import forge.game.staticability.StaticAbilityCantBeBeamedUp;
 import forge.game.spellability.OptionalCost;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityStackInstance;
@@ -1937,6 +1938,10 @@ public class CardProperty {
             }
         } else if (property.equals("canBeTurnedFaceUp")) {
             if (!card.canBeTurnedFaceUp()) {
+                return false;
+            }
+        } else if (property.equals("canBeBeamedUp")) {
+            if (StaticAbilityCantBeBeamedUp.cantBeBeamedUp(card)) {
                 return false;
             }
         } else if (property.equals("NoAbilities")) {

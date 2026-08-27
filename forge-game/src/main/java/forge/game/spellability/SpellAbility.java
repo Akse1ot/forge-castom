@@ -817,6 +817,9 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
         return isAlternativeCost(AlternativeCost.Spectacle);
     }
 
+    public boolean isBeamMeUp() {
+        return this.isAlternativeCost(AlternativeCost.BeamMeUp);
+    }
     public final boolean isSpiritAsh() {
         return hasParam("PrecostDesc") && "Spirit Ash".equals(getParam("PrecostDesc"));
     }
@@ -2484,7 +2487,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
         do {
             if (currentAbility.usesTargeting()) {
                 TargetChoices oldTargets = currentAbility.getTargets();
-                if (forceTargetingPlayer.getController().chooseNewTargetsFor(currentAbility, getForbiddenNewTargetsFilter(), true) == null) {
+                if (forceTargetingPlayer.getController().chooseNewTargetsFor(currentAbility, getForbiddenNewTargetsFilter(), null, true) == null) {
                     currentAbility.setTargets(oldTargets);
                 }
             }

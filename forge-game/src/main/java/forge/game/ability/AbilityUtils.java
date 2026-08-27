@@ -1238,6 +1238,8 @@ public class AbilityUtils {
                 next = game.getNextPlayerAfter(next, dir);
             }
             players.add(next);
+        } else if (defined.equals("ManaSpender")) {
+            players.addAll(((SpellAbility) sa).getPayingMana().stream().map(m -> m.getPlayer()).collect(Collectors.toList()));
         } else {
             // will be filtered below
             players.addAll(game.getPlayersInTurnOrder());
@@ -2996,7 +2998,7 @@ public class AbilityUtils {
                     activated++;
                 }
             }
-            return doXMath(activated, s, c, ctb);
+            return doXMath(activated, expr, c, ctb);
         }
 
         // Count$FirstBatchThisTurnEntered_<ZoneDestination>[_from_<ZoneOrigin>]_ <Valid>
