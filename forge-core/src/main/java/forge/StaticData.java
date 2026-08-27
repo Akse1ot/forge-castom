@@ -121,7 +121,12 @@ public class StaticData {
                 for (CardRules card : customCardReader.loadCards()) {
                     if (null == card) continue;
 
-                    final String cardName = card.getName();
+                    final String cardName;
+                    try {
+                        cardName = card.getName();
+                    } catch (RuntimeException e) {
+                        throw new RuntimeException("Failed to initialize custom card script: " + card.getPath(), e);
+                    }
                     card.setCustom();
                     if (card.isVariant()) { //Append loaded custom cards to the respective list.
                         variantsCards.put(cardName, card);

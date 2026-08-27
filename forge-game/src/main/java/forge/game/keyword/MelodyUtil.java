@@ -58,6 +58,11 @@ public final class MelodyUtil {
                 case ManaCost:
                     addPaymentOption(result, remaining, melody.getManaCost());
                     break;
+                case Choice:
+                    for (final ManaCost payment : melody.getManaCosts()) {
+                        addPaymentOption(result, remaining, payment);
+                    }
+                    break;
                 case AnyOneColor:
                     for (final byte color : MagicColor.WUBRG) {
                         addPaymentOption(result, remaining, createColoredPayment(color, melody.getPaymentAmount()));
