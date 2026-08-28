@@ -587,6 +587,15 @@ public final class StaticAbilityContinuous {
                     p.addControlledWhileSearching(se.getTimestamp(), cntl);
                 }
 
+                if (params.containsKey("ControlPlayer")) {
+                    final Player cntl = Iterables.getFirst(
+                            AbilityUtils.getDefinedPlayers(hostCard, params.get("ControlPlayer"), stAb), null);
+
+                    if (cntl != null && cntl != p && cntl.isInGame()) {
+                        p.addController(se.getTimestamp(), cntl, false);
+                    }
+                }
+
                 if (params.containsKey("ControlVote")) {
                     p.addControlVote(se.getTimestamp());
                 }

@@ -179,7 +179,7 @@ public class StaticAbility extends CardTraitBase implements IIdentifiable, Clone
         if (hasParam("AddHiddenKeyword") || hasParam("MayPlay")
                 || hasParam("IgnoreEffectCost") || hasParam("Goad") || hasParam("CanBlockAny") || hasParam("CanBlockAmount")
                 || hasParam("AdjustLandPlays") || hasParam("ControlVote") || hasParam("AdditionalVote") || hasParam("AdditionalOptionalVote")
-                || hasParam("DeclaresAttackers") || hasParam("DeclaresBlockers")) {
+                || hasParam("DeclaresAttackers") || hasParam("DeclaresBlockers") || hasParam("ControlPlayer")) {
             layers.add(StaticAbilityLayer.RULES);
         }
 

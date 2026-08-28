@@ -33,6 +33,7 @@ import forge.game.card.*;
 import forge.game.keyword.Keyword;
 import forge.game.player.Player;
 import forge.game.player.PlayerActionConfirmMode;
+import forge.game.player.PlayerController;
 import forge.game.replacement.ReplacementType;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityStackInstance;
@@ -726,25 +727,28 @@ public class Combat {
             if (attackers != null && !attackers.isEmpty()) {
                 Player attackingPlayer = getAttackingPlayer();
                 Player assigningPlayer = blocker.getController();
+                PlayerController blockerController = CombatControlUtil.getDamageAssignmentController(blocker.getController(), blocker);
 
                 Player defender = null;
                 boolean divideCombatDamageAsChoose = blocker.hasKeyword("You may assign CARDNAME's combat damage divided as you choose among " +
                         "defending player and/or any number of creatures they control.")
-                        && blocker.getController().getController().confirmStaticApplication(blocker, PlayerActionConfirmMode.AlternativeDamageAssignment,
+                        && blockerController.confirmStaticApplication(blocker, PlayerActionConfirmMode.AlternativeDamageAssignment,
                         Localizer.getInstance().getMessage("lblAssignCombatDamageAsChoose",
                                 blocker.getTranslatedName()), null);
                 // choose defending player
                 if (divideCombatDamageAsChoose) {
-                    defender = blocker.getController().getController().chooseSingleEntityForEffect(attackingPlayer.getOpponents(), null, Localizer.getInstance().getMessage("lblChoosePlayer"), null);
+                    defender = blockerController.chooseSingleEntityForEffect(attackingPlayer.getOpponents(), null, Localizer.getInstance().getMessage("lblChoosePlayer"), null);
                     attackers = defender.getCreaturesInPlay();
                 }
 
                 if (AttackingBand.isValidBand(attackers, true))
                     assigningPlayer = attackingPlayer;
 
+                PlayerController assigningController = assigningPlayer == blocker.getController() ? blockerController : assigningPlayer.getController();
+
                 assignedDamage = true;
-                Map<Card, Integer> map = assigningPlayer.getController().assignCombatDamage(blocker, attackers, null, damage, defender, divideCombatDamageAsChoose || assigningPlayer != blocker.getController() || !this.legacyOrderCombatants);
-                for (Entry<Card, Integer> dt : map.entrySet()) {
+                Map<Card, Integer> map = assigningController.assignCombatDamage(blocker, attackers, null, damage, defender, divideCombatDamageAsChoose || assigningPlayer != blocker.getController() || !this.legacyOrderCombatants);
+                    for (Entry<Card, Integer> dt : map.entrySet()) {
                     // Butcher Orgg
                     if (dt.getKey() == null && dt.getValue() > 0) {
                         damageMap.get().put(blocker, defender, dt.getValue());
@@ -802,13 +806,15 @@ public class Combat {
                 assigningPlayer = orderedBlockers.get(0).getController();
             }
 
+            PlayerController assigningController = CombatControlUtil.getDamageAssignmentController(assigningPlayer, attacker);
+
             boolean assignToPlayer = false;
             if (StaticAbilityAssignCombatDamageAsUnblocked.assignCombatDamageAsUnblocked(attacker, false)) {
                 assignToPlayer = true;
             }
             if (!assignToPlayer && attacker.getGame().getCombat().isBlocked(attacker)
                     && StaticAbilityAssignCombatDamageAsUnblocked.assignCombatDamageAsUnblocked(attacker)) {
-                assignToPlayer = assigningPlayer.getController().confirmStaticApplication(attacker, PlayerActionConfirmMode.AlternativeDamageAssignment,
+                assignToPlayer = assigningController.confirmStaticApplication(attacker, PlayerActionConfirmMode.AlternativeDamageAssignment,
                         Localizer.getInstance().getMessage("lblAssignCombatDamageWerentBlocked",
                                 attacker.getTranslatedName()), null);
             }
@@ -820,7 +826,7 @@ public class Combat {
                 divideCombatDamageAsChoose = getDefendersCreatures().size() > 0 &&
                         attacker.hasKeyword("You may assign CARDNAME's combat damage divided as you choose among " +
                                 "defending player and/or any number of creatures they control.")
-                        && assigningPlayer.getController().confirmStaticApplication(attacker, PlayerActionConfirmMode.AlternativeDamageAssignment,
+                        && assigningController.confirmStaticApplication(attacker, PlayerActionConfirmMode.AlternativeDamageAssignment,
                         Localizer.getInstance().getMessage("lblAssignCombatDamageAsChoose",
                                 attacker.getTranslatedName()), null);
                 if (defender instanceof Card && divideCombatDamageAsChoose) {
@@ -829,9 +835,8 @@ public class Combat {
 
                 assignCombatDamageToCreature = !attacker.getGame().getCombat().isBlocked(attacker) && getDefendersCreatures().size() > 0 &&
                         attacker.hasKeyword("If CARDNAME is unblocked, you may have it assign its combat damage to a creature defending player controls.") &&
-                        assigningPlayer.getController().confirmStaticApplication(attacker, PlayerActionConfirmMode.AlternativeDamageAssignment,
-                                Localizer.getInstance().getMessage("lblAssignCombatDamageToCreature", attacker.getTranslatedName()), null);
-                if (divideCombatDamageAsChoose) {
+                        assigningController.confirmStaticApplication(attacker, PlayerActionConfirmMode.AlternativeDamageAssignment,
+                                Localizer.getInstance().getMessage("lblAssignCombatDamageToCreature", attacker.getTranslatedName()), null);                if (divideCombatDamageAsChoose) {
                     if (orderedBlockers == null || orderedBlockers.isEmpty()) {
                         orderedBlockers = getDefendersCreatures();
                     } else {
@@ -862,9 +867,8 @@ public class Combat {
                 attackers.remove(attacker);
                 if (assignCombatDamageToCreature) {
                     final SpellAbility emptySA = new SpellAbility.EmptySa(ApiType.Cleanup, attacker);
-                    Card chosen = attacker.getController().getController().chooseCardsForEffect(getDefendersCreatures(),
-                            emptySA, Localizer.getInstance().getMessage("lblChooseCreature"), 1, 1, false, null).get(0);
-                    damageMap.get().put(attacker, chosen, damageDealt);
+                    Card chosen = assigningController.chooseCardsForEffect(getDefendersCreatures(),
+                            emptySA, Localizer.getInstance().getMessage("lblChooseCreature"), 1, 1, false, null).get(0);                    damageMap.get().put(attacker, chosen, damageDealt);
                 } else if (trampler || !band.isBlocked()) { // this is called after declare blockers, no worries 'bout nulls in isBlocked
                     if (defender == null) {
                         defender = getDefenderPlayerByAttacker(attacker);
@@ -874,9 +878,8 @@ public class Combat {
                     damageMap.get().put(attacker, defender, damageDealt);
                 } // No damage happens if blocked but no blockers left
             } else {
-                Map<Card, Integer> map = assigningPlayer.getController().assignCombatDamage(attacker, orderedBlockers, attackers,
+                Map<Card, Integer> map = assigningController.assignCombatDamage(attacker, orderedBlockers, attackers,
                         damageDealt, defender, divideCombatDamageAsChoose || getAttackingPlayer() != assigningPlayer || !this.legacyOrderCombatants);
-
                 attackers.remove(attacker);
                 // player wants to assign another first
                 if (map == null) {

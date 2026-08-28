@@ -195,6 +195,7 @@ Llama:Llamas
 Lobster:Lobsters
 Manticore:Manticores
 Masticore:Masticores
+Meeple:Meeples
 Mercenary:Mercenaries
 Merfolk:Merfolk
 Mermaid:Mermaids

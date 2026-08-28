@@ -2597,6 +2597,10 @@ public class Player extends GameEntity implements Comparable<Player> {
         return controller;
     }
 
+    public final PlayerController getOriginalController() {
+        return controller;
+    }
+
     public final Player getControllingPlayer() {
         if (!controlledBy.isEmpty()) {
             return controlledBy.lastEntry().getValue().getKey();
@@ -2610,8 +2614,11 @@ public class Player extends GameEntity implements Comparable<Player> {
     }
 
     public void addController(long timestamp, Player pl) {
+        addController(timestamp, pl, true);
+    }
+    public void addController(long timestamp, Player pl, boolean event) {
         final IGameEntitiesFactory master = (IGameEntitiesFactory)pl.getLobbyPlayer();
-        addController(timestamp, pl, master.createMindSlaveController(pl, this), true);
+        addController(timestamp, pl, master.createMindSlaveController(pl, this), event);
     }
     public void addController(long timestamp, Player pl, PlayerController pc, boolean event) {
         controlledBy.put(timestamp, Pair.of(pl, pc));

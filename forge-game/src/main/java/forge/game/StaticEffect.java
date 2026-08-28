@@ -196,6 +196,11 @@ public class StaticEffect {
                 p.removeMaxLandPlaysInfinite(getTimestamp());
 
                 p.removeControlledWhileSearching(getTimestamp());
+
+                if (hasParam("ControlPlayer")) {
+                    p.removeController(getTimestamp(), false);
+                }
+
                 p.removeControlVote(getTimestamp());
                 p.removeAdditionalVote(getTimestamp());
                 p.removeAdditionalOptionalVote(getTimestamp());
