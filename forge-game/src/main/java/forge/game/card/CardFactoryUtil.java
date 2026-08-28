@@ -2620,15 +2620,18 @@ public class CardFactoryUtil {
             ReplacementEffect cardre = createETBReplacement(card, ReplacementLayer.Other, effect, false, true, intrinsic, "Card.Self", "");
 
             inst.addReplacement(cardre);
-        } else if (keyword.equals("Umbra armor")) {
-            String repeffstr = "Event$ Destroy | ActiveZones$ Battlefield | ValidCard$ Card.EnchantedBy | Secondary$ True"
-                    + " | Description$ Umbra armor (" + inst.getReminderText() + ")";
+        } else if (keyword.equals("Umbra armor") || keyword.equals("Talisman")) {
+            final String validCard = keyword.equals("Talisman")
+                    ? "Creature.EquippedBy"
+                    : "Card.EnchantedBy";
 
-            String abprevDamage = "DB$ HealDamage | Defined$ ReplacedCard";
-            String abdestroy = "DB$ Destroy | Defined$ Self";
+            final String repeffstr = "Event$ Destroy | ActiveZones$ Battlefield | ValidCard$ " + validCard
+                    + " | Secondary$ True | Description$ " + keyword + " (" + inst.getReminderText() + ")";
 
-            SpellAbility sa = AbilityFactory.getAbility(abprevDamage, card);
+            final String abprevDamage = "DB$ HealDamage | Defined$ ReplacedCard";
+            final String abdestroy = "DB$ Destroy | Defined$ Self";
 
+            final SpellAbility sa = AbilityFactory.getAbility(abprevDamage, card);
             final AbilitySub dessub = (AbilitySub) AbilityFactory.getAbility(abdestroy, card);
 
             sa.setSubAbility(dessub);
@@ -2637,7 +2640,7 @@ public class CardFactoryUtil {
                 sa.setIntrinsic(false);
             }
 
-            ReplacementEffect re = ReplacementHandler.parseReplacement(repeffstr, host, intrinsic, card);
+            final ReplacementEffect re = ReplacementHandler.parseReplacement(repeffstr, host, intrinsic, card);
 
             re.setOverridingAbility(sa);
 

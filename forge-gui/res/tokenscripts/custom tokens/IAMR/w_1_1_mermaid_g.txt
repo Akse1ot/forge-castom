@@ -1,0 +1,7 @@
+Name:Mermaid Token
+ManaCost:no cost
+Colors:white
+Types:Creature Mermaid
+PT:1/1
+A:AB$ Mana | Cost$ T | Produced$ G | SpellDescription$ Add {G}.
+Oracle:{T}: Add {G}.
