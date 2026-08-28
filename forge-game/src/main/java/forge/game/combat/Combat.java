@@ -748,7 +748,7 @@ public class Combat {
 
                 assignedDamage = true;
                 Map<Card, Integer> map = assigningController.assignCombatDamage(blocker, attackers, null, damage, defender, divideCombatDamageAsChoose || assigningPlayer != blocker.getController() || !this.legacyOrderCombatants);
-                    for (Entry<Card, Integer> dt : map.entrySet()) {
+                for (Entry<Card, Integer> dt : map.entrySet()) {
                     // Butcher Orgg
                     if (dt.getKey() == null && dt.getValue() > 0) {
                         damageMap.get().put(blocker, defender, dt.getValue());
@@ -836,7 +836,8 @@ public class Combat {
                 assignCombatDamageToCreature = !attacker.getGame().getCombat().isBlocked(attacker) && getDefendersCreatures().size() > 0 &&
                         attacker.hasKeyword("If CARDNAME is unblocked, you may have it assign its combat damage to a creature defending player controls.") &&
                         assigningController.confirmStaticApplication(attacker, PlayerActionConfirmMode.AlternativeDamageAssignment,
-                                Localizer.getInstance().getMessage("lblAssignCombatDamageToCreature", attacker.getTranslatedName()), null);                if (divideCombatDamageAsChoose) {
+                                Localizer.getInstance().getMessage("lblAssignCombatDamageToCreature", attacker.getTranslatedName()), null);
+                if (divideCombatDamageAsChoose) {
                     if (orderedBlockers == null || orderedBlockers.isEmpty()) {
                         orderedBlockers = getDefendersCreatures();
                     } else {
@@ -868,7 +869,8 @@ public class Combat {
                 if (assignCombatDamageToCreature) {
                     final SpellAbility emptySA = new SpellAbility.EmptySa(ApiType.Cleanup, attacker);
                     Card chosen = assigningController.chooseCardsForEffect(getDefendersCreatures(),
-                            emptySA, Localizer.getInstance().getMessage("lblChooseCreature"), 1, 1, false, null).get(0);                    damageMap.get().put(attacker, chosen, damageDealt);
+                            emptySA, Localizer.getInstance().getMessage("lblChooseCreature"), 1, 1, false, null).get(0);
+                    damageMap.get().put(attacker, chosen, damageDealt);
                 } else if (trampler || !band.isBlocked()) { // this is called after declare blockers, no worries 'bout nulls in isBlocked
                     if (defender == null) {
                         defender = getDefenderPlayerByAttacker(attacker);
