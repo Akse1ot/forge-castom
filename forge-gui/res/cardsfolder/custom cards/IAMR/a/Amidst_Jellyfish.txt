@@ -1,0 +1,9 @@
+Name:Amidst Jellyfish
+ManaCost:3 R
+Types:Enchantment Aura
+K:Enchant creature
+T:Mode$ AttackerBlocked | ValidCard$ Card.Enchanted | TriggerZones$ Battlefield | Execute$ TrigDamageBlockers | TriggerDescription$ Whenever enchanted creature becomes blocked, CARDNAME deals 4 damage to each creature blocking it.
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigDamageEnchanted | TriggerDescription$ At the beginning of each upkeep, CARDNAME deals 4 damage to enchanted creature.
+SVar:TrigDamageBlockers:DB$ DealDamage | Defined$ TriggeredBlockers | NumDmg$ 4
+SVar:TrigDamageEnchanted:DB$ DealDamage | Defined$ Enchanted | NumDmg$ 4
+Oracle:Enchant creature\nWhenever enchanted creature becomes blocked, Amidst Jellyfish deals 4 damage to each creature blocking it.\nAt the beginning of each upkeep, Amidst Jellyfish deals 4 damage to enchanted creature.

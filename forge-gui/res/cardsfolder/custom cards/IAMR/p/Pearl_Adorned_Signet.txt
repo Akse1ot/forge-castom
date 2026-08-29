@@ -1,0 +1,7 @@
+Name:Pearl-Adorned Signet
+ManaCost:4
+Types:Artifact Equipment
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1 | SpellDescription$ Add one mana of any color to your mana pool.
+K:Talisman
+K:Equip:1
+Oracle:{T}: Add one mana of any color to your mana pool.\nTalisman (If equipped creature would be destroyed, instead remove all damage from it and destroy this Equipment.)\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)

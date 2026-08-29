@@ -1,0 +1,10 @@
+Name:Outcast of Lua Atoll
+ManaCost:1 G
+Types:Creature Nixie Zombie
+PT:2/2
+K:Level up:1 B
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 3 | SetToughness$ 3 | AddKeyword$ Hexproof | IsPresent$ Card.Self+counters_GE1_LEVEL+counters_LE2_LEVEL | Description$ LEVEL 1-2 3/3 Hexproof
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 5 | SetToughness$ 5 | AddKeyword$ Hexproof | IsPresent$ Card.Self+counters_GE3_LEVEL | Description$ LEVEL 3+ 5/5 Hexproof
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn | TriggerDescription$ When CARDNAME dies, return it to the battlefield under your control.
+SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredNewCard | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True
+Oracle:Level up {1}{B} ({1}{B}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 1-2\n3/3\nHexproof\nLEVEL 3+\n5/5\nHexproof\nWhen Outcast of Lua Atoll dies, return it to the battlefield under your control.

@@ -1,0 +1,7 @@
+Name:Aether Torrent
+ManaCost:2 U
+Types:Instant
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBCreature1,DBCreature2
+SVar:DBCreature1:DB$ ChangeZone | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | Origin$ Battlefield | Destination$ Hand | SpellDescription$ Return target creature you control to its owner's hand.
+SVar:DBCreature2:DB$ ChangeZone | ValidTgts$ Creature.YouDontCtrl | TgtPrompt$ Select target creature you don't control | Origin$ Battlefield | Destination$ Hand | SpellDescription$ Return target creature you don't control to its owner's hand.
+Oracle:Choose one or both — Return target creature you control to its owner’s hand; or return target creature you don’t control to its owner’s hand.

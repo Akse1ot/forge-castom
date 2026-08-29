@@ -1,0 +1,6 @@
+Name:Drowned Geist
+ManaCost:W/U W/U
+Types:Creature Spirit
+PT:1/2
+A:AB$ Tap | Cost$ T Tap<1/Creature.Other+YouCtrl> | ValidTgts$ Creature | TgtPrompt$ Select target creature | SpellDescription$ Tap target creature.
+Oracle:{T}, Tap an untapped creature you control: Tap target creature.

@@ -1,0 +1,6 @@
+Name:Prospect
+ManaCost:U
+Types:Sorcery
+A:SP$ Draw | NumCards$ 3 | SubAbility$ DBBottom | SpellDescription$ Draw three cards, then put three cards from your hand on the bottom of your library in any order.
+SVar:DBBottom:DB$ ChangeZone | Origin$ Hand | Destination$ Library | LibraryPosition$ -1 | ChangeNum$ 3 | Mandatory$ True | Reorder$ True
+Oracle:Draw three cards, then put three cards from your hand on the bottom of your library in any order.

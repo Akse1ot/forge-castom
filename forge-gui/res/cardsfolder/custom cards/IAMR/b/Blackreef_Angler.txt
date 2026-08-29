@@ -1,0 +1,7 @@
+Name:Blackreef Angler
+ManaCost:3 B B
+Types:Creature Fish Horror
+PT:5/3
+K:Intimidate
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | SetColor$ Colorless | Description$ Creatures you control are colorless.
+Oracle:Intimidate\nCreatures you control are colorless.

@@ -1,0 +1,7 @@
+Name:Marinespeaker
+ManaCost:1 U
+Types:Creature Merfolk Shaman
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters the battlefield, put a 0/1 Fish creature token that’s all colors onto the battlefield.
+SVar:TrigToken:DB$ Token | TokenScript$ all_0_1_fish
+Oracle:When Marinespeaker enters the battlefield, put a 0/1 Fish creature token that’s all colors onto the battlefield.

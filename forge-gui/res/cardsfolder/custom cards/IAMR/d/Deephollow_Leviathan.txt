@@ -1,0 +1,9 @@
+Name:Deephollow Leviathan
+ManaCost:6 U U
+Types:Creature Human Knight
+PT:8/6
+K:Swallow
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigBottomCard | TriggerDescription$ Whenever CARDNAME attacks, put the bottom card of your library into your hand.
+SVar:TrigBottomCard:DB$ ChangeZone | DefinedPlayer$ You | Origin$ Library | Destination$ Hand | OriginLibraryPosition$ Bottom | NoShuffle$ True
+Oracle:Swallow (Each creature you sacrifice while casting this spell pays for {1} or one mana of that creature’s color.)\nTrample\nWhenever Deephollow Leviathan attacks, put the bottom card of your library into your hand.

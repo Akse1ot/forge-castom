@@ -1,0 +1,9 @@
+Name:Dragon of the Sea
+ManaCost:4 R R R
+Types:Creature Serpent
+PT:4/7
+K:Swallow
+K:Intimidate
+A:AB$ Pump | Cost$ R | NumAtt$ +1 | SpellDescription$ CARDNAME gets +1/+0 until end of turn.
+DeckHas:Ability$Counters
+Oracle:Swallow (Each creature you sacrifice while casting this spell pays for  or one mana of that creature’s color.)\nIntimidate (This creature can’t be blocked except by artifact creatures and/or creatures that share a color with it.)\n{R}: Dragon of the Sea gets +1/+0 until end of turn.

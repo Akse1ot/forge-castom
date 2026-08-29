@@ -1,0 +1,12 @@
+Name:Deepkin Trickster
+ManaCost:R
+Types:Creature Elemental Rogue
+PT:1/1
+K:Level up:2 R
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 2 | SetToughness$ 1 | AddAbility$ Loot | IsPresent$ Card.Self+counters_GE1_LEVEL+counters_LE3_LEVEL | Description$ LEVEL 1-3 2/1 {T}, Discard a card: Draw a card.
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 3 | SetToughness$ 1 | AddAbility$ BurnLoot | IsPresent$ Card.Self+counters_GE4_LEVEL | Description$ LEVEL 4+ 3/1 {T}, Discard a card: CARDNAME deals damage to up to one target creature equal to the discarded card's mana value. Draw a card.
+SVar:Loot:AB$ Draw | Cost$ T Discard<1/Card> | Secondary$ True | SpellDescription$ Draw a card.
+SVar:BurnLoot:AB$ DealDamage | Cost$ T Discard<1/Card> | Secondary$ True | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | NumDmg$ X | SubAbility$ DBDraw | SpellDescription$ CARDNAME deals damage to up to one target creature equal to the discarded card's mana value. Draw a card.
+SVar:DBDraw:DB$ Draw | NumCards$ 1
+SVar:X:Discarded$CardManaCost
+Oracle:Level up {2}{R} ({2}{R}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 1-3\n2/1\n{T}, Discard a card: Draw a card.\nLEVEL 4+\n3/1\n{T}, Discard a card: Deepkin Trickster deals damage to up to one target creature equal to the discarded card's mana value. Draw a card.

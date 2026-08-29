@@ -1,0 +1,6 @@
+Name:Lantern Bearer I
+ManaCost:1 W
+Types:Creature Merfolk Cleric
+PT:2/2
+S:Mode$ Continuous | Affected$ Card.Self | CharacteristicDefining$ True | SetColor$ All | Description$ CARDNAME is all colors.
+Oracle:Lantern Bearer is all colors.

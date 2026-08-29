@@ -1,0 +1,15 @@
+Name:Ctaleth
+ManaCost:8 B B B B B
+Types:Legendary Creature Kraken Avatar
+PT:11/11
+R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen | Description$ CARDNAME can't be countered.
+K:Swallow
+K:Protection:Card.MonoColor:monocolored
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEmblem | TriggerDescription$ Whenever CARDNAME enters or attacks, you get an emblem with "Creatures your opponents control get -1/-1."
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigEmblem | TriggerZones$ Battlefield | Secondary$ True | TriggerDescription$ Whenever CARDNAME enters or attacks, you get an emblem with "Creatures your opponents control get -1/-1."
+SVar:TrigEmblem:DB$ Effect | Name$ Emblem — Ctaleth | Image$ emblem_ctaleth | StaticAbilities$ STWeakness | Duration$ Permanent
+SVar:STWeakness:Mode$ Continuous | Affected$ Creature.OppCtrl | AddPower$ -1 | AddToughness$ -1 | Description$ Creatures your opponents control get -1/-1.
+R:Event$ Moved | Destination$ Graveyard | ValidCard$ Card.Self | ReplaceWith$ DBShuffle | Description$ If CARDNAME would be put into a graveyard from anywhere, reveal CARDNAME and shuffle it into its owner's library instead.
+SVar:DBShuffle:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Library | Defined$ ReplacedCard | Reveal$ True | Shuffle$ True
+SVar:HasAttackEffect:TRUE
+Oracle:Ctaleth can't be countered.\nSwallow, protection from monocolored\nWhenever Ctaleth enters the battlefield or attacks, you get an emblem with "Creatures your opponents control get -1/-1."\nIf Ctaleth would be put into a graveyard from anywhere, reveal Ctaleth and shuffle it into its owner's library instead.

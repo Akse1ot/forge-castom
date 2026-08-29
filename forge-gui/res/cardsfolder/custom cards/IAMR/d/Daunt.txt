@@ -1,0 +1,6 @@
+Name:Daunt
+ManaCost:1 BR
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | KW$ Intimidate | SubAbility$ DBDraw | SpellDescription$ Target creature you control gains intimidate until end of turn. Draw a card.
+SVar:DBDraw:DB$ Draw | NumCards$ 1
+Oracle:Target creature you control gains intimidate until end of turn.\nDraw a card.

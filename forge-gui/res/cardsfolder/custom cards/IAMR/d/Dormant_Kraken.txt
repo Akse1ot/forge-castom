@@ -1,0 +1,9 @@
+Name:Dormant Kraken
+ManaCost:3 U U
+Types:Creature Kraken
+PT:8/5
+K:Defender
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Opponent | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ EQ0 | Execute$ TrigDraw | TriggerDescription$ At the beginning of each opponent's end step, if no creature attacked you this turn, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:X:PlayerCountDefinedActivePlayer$HasPropertyattackedYouTheirCurrentTurn
+Oracle:Defender\nAt the beginning of each opponent's end step, if no creature attacked you this turn, draw a card.

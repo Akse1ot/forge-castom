@@ -1,0 +1,10 @@
+Name:Ctali Scout
+ManaCost:2 U
+Types:Creature Naga Scout
+PT:2/3
+K:Level up:1 U
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 3 | SetToughness$ 4 | AddTrigger$ TrigCombatDamage | IsPresent$ Card.Self+counters_GE2_LEVEL+counters_LE4_LEVEL | Description$ LEVEL 2-4 3/4 Whenever CARDNAME deals combat damage to a player, draw a card.
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 4 | SetToughness$ 5 | AddKeyword$ Intimidate | AddTrigger$ TrigCombatDamage | IsPresent$ Card.Self+counters_GE5_LEVEL | Description$ LEVEL 5+ 4/5 Intimidate,,,Whenever CARDNAME deals combat damage to a player, draw a card.
+SVar:TrigCombatDamage:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw | TriggerZones$ Battlefield | Secondary$ True | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Level up {1}{U} ({1}{U}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 2-4\n3/4\nWhenever Ctali Scout deals combat damage to a player, draw a card.\nLEVEL 5+\n4/5\nIntimidate (This creature can't be blocked except by artifact creatures and/or creatures that share a color with it.)\nWhenever Ctali Scout deals combat damage to a player, draw a card.

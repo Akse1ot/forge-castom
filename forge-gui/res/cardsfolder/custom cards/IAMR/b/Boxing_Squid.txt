@@ -1,0 +1,5 @@
+Name:Boxing Squid
+ManaCost:5 B
+Types:Creature Kraken
+PT:8/1
+Oracle:

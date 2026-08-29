@@ -1,0 +1,6 @@
+Name:Forgotten Glory
+ManaCost:3 W
+Types:Instant
+A:SP$  Token | TokenScript$ all_0_1_fish | TokenAmount$ 2 | TokenTapped$ True | SubAbility$ DBPumpAll | SpellDescription$ Put two 0/1 Fish creature tokens that are all colors onto the battlefield, then creatures you control get +1/+1 until end of turn.
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1
+Oracle:Put two 0/1 Fish creature tokens that are all colors onto the battlefield, then creatures you control get +1/+1 until end of turn.

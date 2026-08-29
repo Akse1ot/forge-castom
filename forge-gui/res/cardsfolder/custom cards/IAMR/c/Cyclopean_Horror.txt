@@ -1,0 +1,9 @@
+Name:Cyclopean Horror
+ManaCost:6 B B B
+Types:Creature Leviathan
+PT:9/10
+K:Swallow
+K:Intimidate
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigSac | TriggerDescription$ Whenever NICKNAME attacks, defending player sacrifices a nonblack creature.
+SVar:TrigSac:DB$ Sacrifice | Defined$ TriggeredDefendingPlayer | SacValid$ Creature.nonBlack
+Oracle:Swallow (Each creature you sacrifice while casting this spell pays for {1} or one mana of that creature’s color.)\nIntimidate (This creature can’t be blocked except by artifact creatures and/or creatures that share a color with it.)\nWhenever Cyclopean Horror attacks, defending player sacrifices a nonblack creature.

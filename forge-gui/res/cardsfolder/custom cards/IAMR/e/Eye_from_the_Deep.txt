@@ -1,0 +1,10 @@
+Name:Eye from the Deep
+ManaCost:5
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters the battlefield, create a 5/5 black Horror creature token, then attach CARDNAME to that creature.
+SVar:TrigToken:DB$ Token | TokenScript$ b_5_5_horror | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Talisman
+K:Equip:1
+Oracle:When Eye from the Deep enters the battlefield, put a 5/5 black Horror creature token onto the battlefield, then attach Eye from the Deep to that creature.\nTalisman (If equipped creature would be destroyed, instead remove all damage from it and destroy this Equipment.)\nEquip {1}

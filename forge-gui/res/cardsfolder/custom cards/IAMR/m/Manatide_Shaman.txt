@@ -1,0 +1,11 @@
+Name:Manatide Shaman
+ManaCost:2 RG RG
+Types:Creature Elemental Shaman
+PT:4/2
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDelayedMana | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, add that much mana in any combination of colors at the beginning of your next main phase.
+SVar:TrigDelayedMana:DB$ DelayedTrigger | Mode$ Phase | Phase$ Main1,Main2 | ValidPlayer$ You | Execute$ DBMana | RememberSVarAmount$ X | TriggerDescription$ At the beginning of your next main phase, add that much mana in any combination of colors.
+SVar:X:TriggerCount$DamageAmount
+SVar:DBMana:DB$ Mana | Produced$ Combo Any | Amount$ Y
+SVar:Y:Count$TriggerRememberAmount
+Oracle:Trample\nWhenever Manatide Shaman deals combat damage to a player, add that much mana in any combination of colors to your mana pool at the beginning of your next main phase.

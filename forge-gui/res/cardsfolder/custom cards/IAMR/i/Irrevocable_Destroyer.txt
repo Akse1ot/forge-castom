@@ -1,0 +1,12 @@
+Name:Irrevocable Destroyer
+ManaCost:3
+Types:Artifact Creature Golem
+PT:8/7
+K:Hexproof
+K:Trample
+K:ETBReplacement:Other:ChooseP
+SVar:ChooseP:DB$ ChoosePlayer | Defined$ You | Choices$ Player.Opponent | SpellDescription$ As CARDNAME enters the battlefield, choose an opponent.
+S:Mode$ MustAttack | ValidCreature$ Card.Self | MustAttack$ ChosenPlayer | Description$ CARDNAME attacks the chosen player each turn if able.
+S:Mode$ Continuous | Affected$ Player.You | ControlPlayer$ ChosenPlayer | Description$ The chosen player controls you except you still assign CARDNAME's combat damage.
+S:Mode$ Continuous | Affected$ Card.Self | AddHiddenKeyword$ AssignCombatDamageByOriginalController
+Oracle:Hexproof, trample\nAs Irrevocable Destroyer enters the battlefield, choose an opponent.\nIrrevocable Destroyer attacks the chosen player each turn if able.\nThe chosen player controls you except you still assign Irrevocable Destroyer's combat damage.

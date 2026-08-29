@@ -1,0 +1,6 @@
+Name:Marine Rallye
+ManaCost:4 G G
+Types:Sorcery
+A:SP$ Token | TokenAmount$ 2 | TokenScript$ g_3_3_fish | SubAbility$ DBLand | SpellDescription$ Put two 3/3 green Fish creature tokens onto the battlefield. Search your library for a basic land card, put it onto the battlefield tapped, then shuffle your library.
+SVar:DBLand:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | Tapped$ True | ChangeNum$ 1
+Oracle:Put two 3/3 green Fish creature tokens onto the battlefield. Search your library for a basic land card, put it onto the battlefield tapped, then shuffle your library.

@@ -1,0 +1,8 @@
+Name:Spiky Urchins
+ManaCost:G
+Types:Creature Starfish
+PT:1/1
+K:Defender
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ DevilTrigDamage | TriggerDescription$ When CARDNAME dies, it deals 1 damage to target creature or player.
+SVar:DevilTrigDamage:DB$ DealDamage | ValidTgts$ Creature,Player | NumDmg$ 1
+Oracle:Defender\nWhen Spiky Urchins dies, it deals 1 damage to target creature or player.

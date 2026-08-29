@@ -1,0 +1,6 @@
+Name:Bloodbath
+ManaCost:2 R R
+Types:Instant
+A:SP$ DamageAll | NumDmg$ X | ValidCards$ Creature.YouDontCtrl | ValidDescription$ each creature you don't control. | SubAbility$ DBPumpAll | SpellDescription$ CARDNAME deals X damage to each creature you don’t control, where X is the number of creatures that died this turn.
+SVar:X:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature
+Oracle:Bloodbath deals X damage to each creature you don’t control, where X is the number of creatures that died this turn.

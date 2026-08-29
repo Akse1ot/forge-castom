@@ -1,0 +1,8 @@
+Name:Sea Floor Lurker
+ManaCost:1 B
+Types:Creature Murloc Rogue
+PT:1/2
+K:Level up:1 R
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 3 | SetToughness$ 2 | AddKeyword$ Deathtouch | IsPresent$ Card.Self+counters_GE1_LEVEL+counters_LE3_LEVEL | Description$ LEVEL 1-3 3/2 Deathtouch
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 5 | SetToughness$ 2 | AddKeyword$ Deathtouch & Menace | IsPresent$ Card.Self+counters_GE4_LEVEL | Description$ LEVEL 4+ 5/2 Deathtouch. CARDNAME can't be blocked except by two or more creatures.
+Oracle:Level up {1}{R} ({1}{R}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 1-3\n3/2\nDeathtouch\nLEVEL 4+\n5/2\nDeathtouch\nSea Floor Lurker can't be blocked except by two or more creatures.

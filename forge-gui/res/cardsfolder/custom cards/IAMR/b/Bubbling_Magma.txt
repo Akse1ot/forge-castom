@@ -1,0 +1,7 @@
+Name:Bubbling Magma
+ManaCost:X G
+Types:Sorcery
+K:Swallow
+A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ X | SpellDescription$ CARDNAME deals X damage to target creature.
+SVar:X:Count$xPaid
+Oracle:Swallow (Each creature you sacrifice while casting this spell pays for {1} or one mana of that creature’s color.)\nBubbling Magma deals X damage to target creature.

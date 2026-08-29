@@ -1,0 +1,6 @@
+Name:Abyssal Bolt
+ManaCost:2 B
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | IsCurse$ True | NumAtt$ -X | NumDef$ -X | SpellDescription$ Target creature gets -X/-X until end of turn, where X is the greatest power among creatures you control.
+SVar:X:Count$ValidGraveyard,Battlefield Creature.YouCtrl$GreatestCardPower
+Oracle:Target creature gets -X/-X until end of turn, where X is the greatest power among creatures you control.

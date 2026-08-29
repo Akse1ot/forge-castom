@@ -1,0 +1,11 @@
+Name:Northcliff Protector
+ManaCost:W
+Types:Creature Merfolk Warrior
+PT:1/1
+K:Level up:1 W
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ X | SetToughness$ X | IsPresent$ Card.Self+counters_GE2_LEVEL+counters_LE4_LEVEL | Description$ LEVEL 2-4 */* CARDNAME's power and toughness are each equal to the number of creatures you control.
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ Y | SetToughness$ Y | IsPresent$ Card.Self+counters_GE5_LEVEL | Description$ LEVEL 5+ */* CARDNAME's power and toughness are each equal to twice the number of creatures you control.
+SVar:X:Count$Valid Creature.YouCtrl
+SVar:Y:Count$Valid Creature.YouCtrl/Times.2
+DeckHas:Ability$Counters
+Oracle:Level up {1}{W} ({1}{W}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 2-4\n*/*\nNorthcliff Protector's power and toughness are each equal to the number of creatures you control.\nLEVEL 5+\n*/*\nNorthcliff Protector's power and toughness are each equal to twice the number of creatures you control.

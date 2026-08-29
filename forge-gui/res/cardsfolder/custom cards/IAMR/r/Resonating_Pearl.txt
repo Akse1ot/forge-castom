@@ -1,0 +1,9 @@
+Name:Resonating Pearl
+ManaCost:4
+Types:Artifact
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounter | TriggerDescription$ At the beginning of your upkeep, put a charge counter on CARDNAME.
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ 1
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ X | SpellDescription$ Add X mana of any one color to your mana pool, where X is the number of charge counters on CARDNAME.
+SVar:X:Count$CardCounters.CHARGE
+DeckHas:Ability$Counters
+Oracle:At the beginning of your upkeep, put a charge counter on Resonating Pearl.\n{T}: Add X mana of any one color to your mana pool, where X is the number of charge counters on Resonating Pearl.

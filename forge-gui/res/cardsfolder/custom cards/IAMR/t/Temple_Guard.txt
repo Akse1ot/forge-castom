@@ -1,0 +1,7 @@
+Name:Temple Guard
+ManaCost:2 R
+Types:Creature Demon Warrior
+PT:3/3
+K:Defender
+S:Mode$ CanAttackDefender | ValidCard$ Card.Self+equipped | Description$ As long as CARDNAME is equipped, it can attack as though it didn't have defender.
+Oracle:Defender\nAs long as Temple Guard is equipped, it can attack as though it didn't have defender.

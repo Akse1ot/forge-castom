@@ -1,0 +1,12 @@
+Name:Chorus of Oblivion
+ManaCost:1 B
+Types:Creature Naga Wizard
+PT:1/2
+K:Level up:1 B
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 1 | SetToughness$ 4 | AddAbility$ Drain2 | IsPresent$ Card.Self+counters_GE2_LEVEL+counters_LE4_LEVEL | Description$ LEVEL 2-4 1/4 {T}: Target player loses 2 life and you gain 2 life.
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 1 | SetToughness$ 8 | AddAbility$ Drain5 | IsPresent$ Card.Self+counters_GE5_LEVEL | Description$ LEVEL 5+ 1/8 {T}: Target player loses 5 life and you gain 5 life.
+SVar:Drain2:AB$ LoseLife | Cost$ T | ValidTgts$ Player | LifeAmount$ 2 | Secondary$ True | SubAbility$ DBGain2 | SpellDescription$ Target player loses 2 life and you gain 2 life.
+SVar:DBGain2:DB$ GainLife | Defined$ You | LifeAmount$ 2
+SVar:Drain5:AB$ LoseLife | Cost$ T | ValidTgts$ Player | LifeAmount$ 5 | Secondary$ True | SubAbility$ DBGain5 | SpellDescription$ Target player loses 5 life and you gain 5 life.
+SVar:DBGain5:DB$ GainLife | Defined$ You | LifeAmount$ 5
+Oracle:Level up {1}{B} ({1}{B}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 2-4\n1/4\n{T}: Target player loses 2 life and you gain 2 life.\nLEVEL 5+\n1/8\n{T}: Target player loses 5 life and you gain 5 life.

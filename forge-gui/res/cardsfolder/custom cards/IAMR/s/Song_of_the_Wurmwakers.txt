@@ -1,0 +1,8 @@
+Name:Song of the Wurmwakers
+ManaCost:1 G
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAddCounters | TriggerDescription$ At the beginning of your end step, put a charge counter on CARDNAME for each tapped creature you control.
+A:AB$ Token | Cost$ SubCounter<7/CHARGE> | TokenScript$ g_7_7_serpent_trample | SpellDescription$ Remove seven charge counters from CARDNAME: Put a 7/7 green Serpent creature token with trample onto the battlefield.
+SVar:TrigAddCounters:DB$ PutCounter | Defined$ Self | CounterType$ CHARGE | CounterNum$ X
+SVar:X:Count$Valid Creature.YouCtrl+tapped
+Oracle:At the beginning of your end step, put a charge counter on Song of the Wurmwakers for each tapped creature you control.\nRemove seven charge counters from Song of the Wurmwakers: Put a 7/7 green Serpent creature token with trample onto the battlefield.

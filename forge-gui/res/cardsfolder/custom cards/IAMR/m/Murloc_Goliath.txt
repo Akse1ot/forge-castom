@@ -1,0 +1,8 @@
+Name:Murloc Goliath
+ManaCost:X B
+Types:Creature Murloc Mutant
+PT:0/0
+K:etbCounter:P1P1:X
+SVar:X:Count$xPaid
+DeckHas:Ability$Counters
+Oracle:Swallow (Each creature you sacrifice while casting this spell pays for {1} or one mana of that creature’s color.)\nMurloc Goliath enters the battlefield with X +1/+1 counters on it.

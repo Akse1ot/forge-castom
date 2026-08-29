@@ -1,0 +1,15 @@
+Name:Drowned Revenants
+ManaCost:3 B
+Types:Creature Spirit
+PT:2/4
+K:Level up:2 W
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 3 | SetToughness$ 6 | AddTrigger$ AttackDrain | IsPresent$ Card.Self+counters_GE2_LEVEL+counters_LE3_LEVEL | Description$ LEVEL 2-3 3/6 Whenever CARDNAME attacks, target player loses life equal to its power.
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 4 | SetToughness$ 8 | AddTrigger$ AttackDrainGain | IsPresent$ Card.Self+counters_GE4_LEVEL | Description$ LEVEL 4+ 4/8 Whenever CARDNAME attacks, target player loses life equal to its power and you gain that much life.
+SVar:AttackDrain:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigLoseLife | Secondary$ True | TriggerDescription$ Whenever CARDNAME attacks, target player loses life equal to its power.
+SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Player | LifeAmount$ X
+SVar:AttackDrainGain:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDrainLife | Secondary$ True | TriggerDescription$ Whenever CARDNAME attacks, target player loses life equal to its power and you gain that much life.
+SVar:TrigDrainLife:DB$ LoseLife | ValidTgts$ Player | LifeAmount$ X | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:CardPower
+SVar:HasAttackEffect:TRUE
+Oracle:Level up {2}{W} ({2}{W}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 2-3\n3/6\nWhenever Drowned Revenants attacks, target player loses life equal to its power.\nLEVEL 4+\n4/8\nWhenever Drowned Revenants attacks, target player loses life equal to its power and you gain that much life.

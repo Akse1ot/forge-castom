@@ -1,0 +1,9 @@
+Name:Lady Kaladrin
+ManaCost:U B R
+Types:Legendary Creature Naga Wizard
+PT:3/4
+K:Level up:1
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 3 | SetToughness$ 6 | AddKeyword$ First Strike & Deathtouch | IsPresent$ Card.Self+counters_GE3_LEVEL+counters_LE7_LEVEL | Description$ LEVEL 3-7 3/6 First strike, deathtouch
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 3 | SetToughness$ 8 | AddKeyword$ First Strike & Deathtouch & Hexproof | IsPresent$ Card.Self+counters_GE8_LEVEL | Description$ LEVEL 8+ 3/8 First strike, deathtouch, hexproof
+S:Mode$ MustAttack | ValidCreature$ Creature.OppCtrl | IsPresent$ Card.Self+counters_GE8_LEVEL | Description$ Creatures your opponents control attack each turn if able.
+Oracle:Level up {1} ({1}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 3-7\n3/6\nFirst strike, deathtouch\nLEVEL 8+\n3/8\nFirst strike, deathtouch, hexproof\nCreatures your opponents control attack each turn if able.

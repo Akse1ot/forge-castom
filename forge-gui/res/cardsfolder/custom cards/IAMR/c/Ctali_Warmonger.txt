@@ -1,0 +1,6 @@
+Name:Ctali Warmonger
+ManaCost:3 U
+Types:Creature Naga Warrior
+PT:2/4
+K:Intimidate
+Oracle:Intimidate

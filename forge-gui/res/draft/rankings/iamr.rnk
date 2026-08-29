@@ -1,0 +1,201 @@
+//Rank|Name|Rarity|Set
+#1|Bloodfin|M|IAMR
+#2|Ctaleth|M|IAMR
+#3|Irrevocable Destroyer|M|IAMR
+#4|Kayisha, the Land-dweller|M|IAMR
+#5|Lady Kaladrin|M|IAMR
+#6|Nolgul|M|IAMR
+#7|Primordial Pillar|M|IAMR
+#8|Senyn Supreme|M|IAMR
+#9|Sleepwatcher of Kalimaras|M|IAMR
+#10|Throne of the Ur-Kraken|M|IAMR
+#11|Tidesprite the Seer|M|IAMR
+#12|Xaelas, the Floodcaller|M|IAMR
+#13|Abyssal Mosa|R|IAMR
+#14|Arrival of the Ancients|R|IAMR
+#15|Battalion Turtle|R|IAMR
+#16|Blackreef Angler|R|IAMR
+#17|Bloodbath|R|IAMR
+#18|Chorus of Oblivion|R|IAMR
+#19|Coral Castle|R|IAMR
+#20|Deepkin Sage|R|IAMR
+#21|Depths of Mind|R|IAMR
+#22|Diverging Surge|R|IAMR
+#23|Dormant Kraken|R|IAMR
+#24|Elder of Deephome|R|IAMR
+#25|Emerien Songwriter|R|IAMR
+#26|Eye from the Deep|R|IAMR
+#27|Eye of Iamur|R|IAMR
+#28|Facestealer|R|IAMR
+#29|Gluttony|R|IAMR
+#30|Goblin Pearldiver|R|IAMR
+#31|Guardian Light|R|IAMR
+#32|Infinite Vitality|R|IAMR
+#33|Kraken's Embrace|R|IAMR
+#34|Kraken's Grasp|R|IAMR
+#35|Lightflooded Haven|R|IAMR
+#36|Limeshell Ammonite|R|IAMR
+#37|Lord of Ctalis|R|IAMR
+#38|Macuri Council|R|IAMR
+#39|Master of Pearlcraft|R|IAMR
+#40|Murloc Onslaught|R|IAMR
+#41|Murloc Totemancer|R|IAMR
+#42|Nixie Chess|R|IAMR
+#43|Parasitic Impostor|R|IAMR
+#44|Petrifying Gaze|R|IAMR
+#45|Ranger of Miracle Deeps|R|IAMR
+#46|Razor Reef|R|IAMR
+#47|Resonating Pearl|R|IAMR
+#48|Ritual Grounds|R|IAMR
+#49|Ruins Explorer|R|IAMR
+#50|Sheltering Grotto|R|IAMR
+#51|Shepherd of Coralia|R|IAMR
+#52|Ship Graveyard|R|IAMR
+#53|Song of the Wurmwakers|R|IAMR
+#54|Stranglekelp Druid|R|IAMR
+#55|Swarmcaller of Grglmar|R|IAMR
+#56|The Abyssal City|R|IAMR
+#57|Tideguard Colossus|R|IAMR
+#58|Abyssal Mistress|U|IAMR
+#59|Adventurous Turtle|U|IAMR
+#60|Blazing Trident|U|IAMR
+#61|Brood of Nolgul|U|IAMR
+#62|Bubbling Magma|U|IAMR
+#63|Child of Sharks|U|IAMR
+#64|Chorus of the Garden|U|IAMR
+#65|Coral Bank|U|IAMR
+#66|Coralia Basscaller|U|IAMR
+#67|Coralskin Maiden|U|IAMR
+#68|Cover with Kelp|U|IAMR
+#69|Ctali Scout|U|IAMR
+#70|Cyclopean Horror|U|IAMR
+#71|Deepkin Trickster|U|IAMR
+#72|Diving Golem|U|IAMR
+#73|Dragon of the Sea|U|IAMR
+#74|Drowned Revenants|U|IAMR
+#75|Eaten by an Oyster|U|IAMR
+#76|Emerien Dragonturtle|U|IAMR
+#77|Enclosure|U|IAMR
+#78|Encrusted Diver|U|IAMR
+#79|Eversong Scallop|U|IAMR
+#80|Fable of the Koi|U|IAMR
+#81|Fanged Eel|U|IAMR
+#82|Forgotten Glory|U|IAMR
+#83|Haunted Shipwrack|U|IAMR
+#84|Instructor of the Meek|U|IAMR
+#85|Jewel of the Deep|U|IAMR
+#86|Manatide Shaman|U|IAMR
+#87|Memory Bolt|U|IAMR
+#88|Memory Thief|U|IAMR
+#89|Murloc Crawler|U|IAMR
+#90|Murloc Goliath|U|IAMR
+#91|Northcliff Protector|U|IAMR
+#92|Outcast of Lua Atoll|U|IAMR
+#93|Patron of the Sea|U|IAMR
+#94|Pearl-Adorned Signet|U|IAMR
+#95|Pearlreef Mystic|U|IAMR
+#96|Ponderous Behemoth|U|IAMR
+#97|Rampaging Hammerhead|U|IAMR
+#98|Rune of Deephome|U|IAMR
+#99|Seahorse Rider|U|IAMR
+#100|Serene Gardens|U|IAMR
+#101|Shellbound Champion|U|IAMR
+#102|Singing Cliffs|U|IAMR
+#103|Spawn of Ctaleth|U|IAMR
+#104|Statues of Emerien|U|IAMR
+#105|Strike Down the Beast|U|IAMR
+#106|Sunken Academy|U|IAMR
+#107|Sunken Ring|U|IAMR
+#108|Tempting Trap|U|IAMR
+#109|Thought Theft|U|IAMR
+#110|Ticking Trinket|U|IAMR
+#111|Tidal Coil|U|IAMR
+#112|Tidebound Minions|U|IAMR
+#113|Wurm of the Abyss|U|IAMR
+#114|Abranchiate|C|IAMR
+#115|Abyssal Bolt|C|IAMR
+#116|Abyssal Harbinger|C|IAMR
+#117|Admiral's Effigy|C|IAMR
+#118|Aether Torrent|C|IAMR
+#119|Amidst Jellyfish|C|IAMR
+#120|Anemone Gobbler|C|IAMR
+#121|Apprentice Sharktamer|C|IAMR
+#122|Aquatic Servant|C|IAMR
+#123|Banish the Dread|C|IAMR
+#124|Battle Hymn|C|IAMR
+#125|Blackreef Scavenger|C|IAMR
+#126|Bloodkelp Lumomancer|C|IAMR
+#127|Bloodkelp Oracle|C|IAMR
+#128|Bloodscent Shark|C|IAMR
+#129|Boxing Squid|C|IAMR
+#130|Captain of the Damned|C|IAMR
+#131|Cowry Necklace|C|IAMR
+#132|Crack the Shell|C|IAMR
+#133|Ctali Warmonger|C|IAMR
+#134|Daunt|C|IAMR
+#135|Deadwater Tyrant|C|IAMR
+#136|Deephollow Leviathan|C|IAMR
+#137|Deephollow Sentry|C|IAMR
+#138|Denizen of the Magma Sea|C|IAMR
+#139|Descend to Oblivion|C|IAMR
+#140|Desiccate|C|IAMR
+#141|Drowned Geist|C|IAMR
+#142|Embracement|C|IAMR
+#143|Excessive Caution|C|IAMR
+#144|Fish Charmer|C|IAMR
+#145|Follow the Light|C|IAMR
+#146|Gemseeker|C|IAMR
+#147|Goldshimmer Seahorse|C|IAMR
+#148|Grazing Plesodons|C|IAMR
+#149|Halls of Beguiling Tunes|C|IAMR
+#150|Here Be Dragons|C|IAMR
+#151|Impenetrable Kelp|C|IAMR
+#152|Kelpvale Mosa|C|IAMR
+#153|Kraken Fodder|C|IAMR
+#154|Lantern Bearer I|C|IAMR
+#155|Leviathan Rider|C|IAMR
+#156|Loyal Seadragon|C|IAMR
+#157|Luminous Blast|C|IAMR
+#158|Macuri Tideguard|C|IAMR
+#159|Magma Dwellers|C|IAMR
+#160|Manamorphose|C|IAMR
+#161|Marine Rallye|C|IAMR
+#162|Marinespeaker|C|IAMR
+#163|Melodious Pearl|C|IAMR
+#164|Merfolk Jellydancer|C|IAMR
+#165|Moonfathom Witch|C|IAMR
+#166|Murloc Forager|C|IAMR
+#167|Murloc of Miracle Deeps|C|IAMR
+#168|Naga Tempest|C|IAMR
+#169|Naturalize|C|IAMR
+#170|Noble of Blood Bottom|C|IAMR
+#171|Ornate Temple|C|IAMR
+#172|Overgrown Palace|C|IAMR
+#173|Pearlreef Sentinel|C|IAMR
+#174|Phantom Veil|C|IAMR
+#175|Piranha Frenzy|C|IAMR
+#176|Priest of Moonfathom|C|IAMR
+#177|Prospect|C|IAMR
+#178|Radiant Corona|C|IAMR
+#179|Ravenous Maw|C|IAMR
+#180|Remember the Fallen|C|IAMR
+#181|Ring of Coralia|C|IAMR
+#182|Rotfin Hunter|C|IAMR
+#183|Scorchsmoker|C|IAMR
+#184|Sea Floor Lurker|C|IAMR
+#185|Serpent Hatchling|C|IAMR
+#186|Shared Moment|C|IAMR
+#187|Sharkbite|C|IAMR
+#188|Shoal Sentry|C|IAMR
+#189|Skull Hermit|C|IAMR
+#190|Spiky Urchins|C|IAMR
+#191|Strangle I|C|IAMR
+#192|Taken by the Sea|C|IAMR
+#193|Temple Guard|C|IAMR
+#194|Tome of Knowledge|C|IAMR
+#195|Traitorous Beauty|C|IAMR
+#196|Twist the Tides|C|IAMR
+#197|Vastide Whale|C|IAMR
+#198|Venomous Jellies|C|IAMR
+#199|Voyager of the Depths|C|IAMR
+#200|Woodcrusher Eel|C|IAMR

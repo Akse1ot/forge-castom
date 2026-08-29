@@ -1,0 +1,9 @@
+Name:Macuri Tideguard
+ManaCost:2 W
+Types:Creature Merfolk Knight
+PT:0/4
+K:Level up:3 U
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 2 | SetToughness$ 6 | AddKeyword$ Vigilance | IsPresent$ Card.Self+counters_GE1_LEVEL+counters_LE2_LEVEL | Description$ LEVEL 1-2 2/6 Vigilance
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 4 | SetToughness$ 8 | AddAbility$ TapOrUntap | IsPresent$ Card.Self+counters_GE3_LEVEL | AddKeyword$ Vigilance | Description$ LEVEL 3+ 4/8 Vigilance {1}, {T}: You may tap or untap target creature.
+SVar:TapOrUntap:AB$ TapOrUntap | Cost$ 1 T | ValidTgts$ Creature | SpellDescription$ You may tap or untap target creature.
+Oracle:Level up {3}{U} ({3}{U}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 1-2\n2/6\nVigilance\nLEVEL 3+\n4/8\nVigilance\n{1}, {T}: You may tap or untap target creature.

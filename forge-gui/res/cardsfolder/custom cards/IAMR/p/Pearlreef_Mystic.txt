@@ -1,0 +1,7 @@
+Name:Pearlreef Mystic
+ManaCost:1 UB UB
+Types:Creature Naga Wizard
+PT:2/3
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | IsPresent$ Creature.YouCtrl+powerGE8 | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ At the beginning of your end step, if you control a creature with power 8 or greater, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:At the beginning of your end step, if you control a creature with power 8 or greater, draw a card.

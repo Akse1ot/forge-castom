@@ -1,0 +1,7 @@
+Name:Depths of Mind
+ManaCost:1 U
+Types:Instant
+A:SP$ NameCard | Defined$ You | SubAbility$ DBDig | SpellDescription$ Name a card. Look at the top five cards of your library. You may reveal a card with the chosen name from among them and put it into your hand. Put the rest on the bottom of your library in any order. If no card was revealed this way, return CARDNAME to its owner's hand.
+SVar:DBDig:DB$ Dig | Defined$ You | DigNum$ 5 | ChangeNum$ 1 | ChangeValid$ Card.NamedCard | ChangeValidDesc$ card with the chosen name | Optional$ True | DestinationZone$ Hand | DestinationZone2$ Library | LibraryPosition2$ -1 | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Self | Origin$ Stack | Destination$ Hand | ConditionPresent$ Card | ConditionDefined$ Remembered | ConditionCompare$ EQ0
+Oracle:Name a card. Look at the top five cards of your library. You may reveal a card with the chosen name from among them and put it into your hand. Put the rest on the bottom of your library in any order. If no card was revealed this way, return Depths of Mind to its owner's hand.

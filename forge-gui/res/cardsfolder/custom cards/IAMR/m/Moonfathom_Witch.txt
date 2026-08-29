@@ -1,0 +1,11 @@
+Name:Moonfathom Witch
+ManaCost:3 B
+Types:Creature Naga Shaman
+PT:2/2
+K:Intimidate
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigColorless | TriggerDescription$ When CARDNAME enters the battlefield, target creature becomes colorless and gets +1/+1 or -1/-1 until end of turn.
+SVar:TrigColorless:DB$ Animate | ValidTgts$ Creature | Colors$ Colorless | OverwriteColors$ True | SubAbility$ DBChoice
+SVar:DBChoice:DB$ GenericChoice | Defined$ You | Choices$ PumpPlus,PumpMinus | ChoicePrompt$ Choose +1/+1 or -1/-1
+SVar:PumpPlus:DB$ Pump | Defined$ ParentTarget | NumAtt$ +1 | NumDef$ +1 | SpellDescription$ Target creature gets +1/+1 until end of turn.
+SVar:PumpMinus:DB$ Pump | Defined$ ParentTarget | NumAtt$ -1 | NumDef$ -1 | SpellDescription$ Target creature gets -1/-1 until end of turn.
+Oracle:Intimidate\nWhen Moonfathom Witch enters the battlefield, target creature becomes colorless and gets +1/+1 or -1/-1 until end of turn.

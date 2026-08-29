@@ -1,0 +1,10 @@
+Name:Murloc Forager
+ManaCost:R
+Types:Creature Murloc Berserker
+PT:1/1
+S:Mode$ MustAttack | ValidCreature$ Card.Self | Description$ CARDNAME attacks each turn if able.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters the battlefield, you may search your library for any number of cards named Murloc Forager, reveal them, put them into your hand, then shuffle your library.
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card.namedMurloc Forager | ChangeNum$ X | ShuffleNonMandatory$ True
+SVar:X:Count$ValidLibrary Card.namedMurloc Forager
+DeckHints:Name$Murloc Forager
+Oracle:Murloc Forager attacks each turn if able.\nWhen Murloc Forager enters the battlefield, you may search your library for any number of cards named Murloc Forager, reveal them, put them into your hand, then shuffle your library.

@@ -1,0 +1,6 @@
+Name:Singing Cliffs
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | Amount$ 1 | SpellDescription$ Add {C}.
+K:Melody:2
+Oracle:{T}: Add {C}.\nMelody {2} (While casting a creature spell, you may tap this to pay for {2}. This doesn't untap during your untap steps for as long as you control that creature.)

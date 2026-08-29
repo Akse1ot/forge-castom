@@ -1,0 +1,7 @@
+Name:Eye of Iamur
+ManaCost:5
+Types:Legendary Artifact
+A:AB$ Mana | Cost$ T | Produced$ W U B R G | SubAbility$ DBMoveSelf | SpellDescription$ Add {W}{U}{B}{R}{G}. Shuffle CARDNAME and your graveyard into your library.
+SVar:DBMoveSelf:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Library | SubAbility$ DBShuffleGrave
+SVar:DBShuffleGrave:DB$ ChangeZoneAll | ChangeType$ Card.YouOwn | Origin$ Graveyard | Destination$ Library | Shuffle$ True
+Oracle:{T}: Add {W}{U}{B}{R}{G}. Shuffle Eye of Iamur and your graveyard into your library.

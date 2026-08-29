@@ -1,0 +1,8 @@
+Name:Bloodkelp Lumomancer
+ManaCost:1 R
+Types:Creature Murloc Shaman
+PT:2/1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChooseColor | OptionalDecider$ You | TriggerDescription$ At the beginning of your upkeep, you may have target creature you control become the color of your choice until your next turn.
+SVar:TrigChooseColor:DB$ ChooseColor | Defined$ You | SubAbility$ DBChangeColor
+SVar:DBChangeColor:DB$ Animate | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | Colors$ ChosenColor | OverwriteColors$ True | Duration$ UntilYourNextTurn | Optional$ True
+Oracle:At the beginning of your upkeep, you may have target creature you control become the color of your choice until your next turn.

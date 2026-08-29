@@ -1,0 +1,6 @@
+Name:Strangle I
+ManaCost:2 U U
+Types:Instant
+K:Swallow
+A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | SpellDescription$ Counter target spell.
+Oracle:Swallow (Each creature you sacrifice while casting this spell pays for {1} or one mana of that creature’s color.)\nCounter target spell.

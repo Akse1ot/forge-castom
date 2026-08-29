@@ -1,0 +1,8 @@
+Name:Macuri Council
+ManaCost:1 W U
+Types:Creature Merfolk Advisor
+PT:2/2
+S:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Merfolk.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Vigilance | Description$ Other Merfolk creatures you control get +1/+1 and have vigilance.
+A:AB$ Draw | Cost$ tapXType<3/Merfolk> | AILogic$ AtOppEOT | SpellDescription$ Draw a card.
+DeckHints:Type$Merfolk
+Oracle:Other Merfolk creatures you control get +1/+1 and have vigilance.\nTap three untapped Merfolk you control: Draw a card.

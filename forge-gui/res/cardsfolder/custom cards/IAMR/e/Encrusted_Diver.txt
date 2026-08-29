@@ -1,0 +1,9 @@
+Name:Encrusted Diver
+ManaCost:1
+Types:Artifact
+K:Level up:2
+S:Mode$ Continuous | Affected$ Card.Self | AddAbility$ AnimateLow | IsPresent$ Card.Self+counters_GE1_LEVEL+counters_LE4_LEVEL | Description$ LEVEL 1-4 {1}: CARDNAME becomes a 0/5 Golem artifact creature with defender until end of turn.
+S:Mode$ Continuous | Affected$ Card.Self | AddAbility$ AnimateHigh | IsPresent$ Card.Self+counters_GE5_LEVEL | Description$ LEVEL 5+ {1}: CARDNAME becomes a 5/5 Golem artifact creature until end of turn.
+SVar:AnimateLow:AB$ Animate | Cost$ 1 | Defined$ Self | Power$ 0 | Toughness$ 5 | Types$ Artifact,Creature,Golem | RemoveCreatureTypes$ True | Keywords$ Defender | Secondary$ True | SpellDescription$ CARDNAME becomes a 0/5 Golem artifact creature with defender until end of turn.
+SVar:AnimateHigh:AB$ Animate | Cost$ 1 | Defined$ Self | Power$ 5 | Toughness$ 5 | Types$ Artifact,Creature,Golem | RemoveCreatureTypes$ True | Secondary$ True | SpellDescription$ CARDNAME becomes a 5/5 Golem artifact creature until end of turn.
+Oracle:Level up {2} ({2}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 1-4\n{1}: Encrusted Diver becomes a 0/5 Golem artifact creature with defender until end of turn.\nLEVEL 5+\n{1}: Encrusted Diver becomes a 5/5 Golem artifact creature until end of turn.

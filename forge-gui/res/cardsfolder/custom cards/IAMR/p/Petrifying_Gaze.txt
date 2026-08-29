@@ -1,0 +1,5 @@
+Name:Petrifying Gaze
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Animate | ValidTgts$ Creature.nonArtifact | Types$ Artifact | RemoveCardTypes$ True | RemoveSubTypes$ True | Colors$ Colorless | OverwriteColors$ True | Duration$ Permanent | SpellDescription$ Target nonartifact creature becomes a colorless artifact. It's no longer a creature.
+Oracle:Target nonartifact creature becomes a colorless artifact. (It's no longer a creature.)

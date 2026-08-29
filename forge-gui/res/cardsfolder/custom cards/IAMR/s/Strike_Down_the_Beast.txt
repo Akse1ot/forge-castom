@@ -1,0 +1,5 @@
+Name:Strike Down the Beast
+ManaCost:1 W
+Types:Instant
+A:SP$ PumpAll | ValidCards$ Creature.blocking | KW$ Double Strike | SpellDescription$ Blocking creatures gain double strike until end of turn. (They deal both first-strike and regular combat damage.)
+Oracle:Blocking creatures gain double strike until end of turn. (They deal both first-strike and regular combat damage.)

@@ -1,0 +1,9 @@
+Name:Wurm of the Abyss
+ManaCost:7 G G G
+Types:Creature Serpent
+PT:7/7
+K:Swallow
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters the battlefield, create a 7/7 green Serpent creature token with trample.
+SVar:TrigToken:DB$ Token | TokenScript$ g_7_7_serpent_trample
+Oracle:Swallow (Each creature you sacrifice while casting this spell pays for  or one mana of that creature’s color.)\nTrample\nWhen Wurm of the Abyss enters the battlefield, put a 7/7 green Serpent creature token with trample onto the battlefield.

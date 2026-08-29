@@ -1,0 +1,9 @@
+Name:Gluttony
+ManaCost:3 R R
+Types:Creature Incarnation
+PT:3/3
+K:Swallow
+S:Mode$ Continuous | Affected$ Card.YouCtrl+wasCast | AffectedZone$ Stack | AddKeyword$ Swallow | Description$ Spells you cast have swallow.
+T:Mode$ Sacrificed | ValidCard$ Creature | Execute$ TrigDealDamage | TriggerZones$ Battlefield | TriggerDescription$ Whenever a player sacrifices a creature, CARDNAME deals 1 damage to target creature or player.
+SVar:TrigDealDamage:DB$ DealDamage | ValidTgts$ Creature,Player | NumDmg$ 1 | TgtPrompt$ Select target creature or player
+Oracle:Swallow (Each creature you sacrifice while casting this spell pays for {1} or one mana of that creature's color.)\nSpells you cast have swallow.\nWhenever a player sacrifices a creature, Gluttony deals 1 damage to target creature or player.

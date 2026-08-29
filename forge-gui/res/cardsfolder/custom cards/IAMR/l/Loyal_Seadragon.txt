@@ -1,0 +1,7 @@
+Name:Loyal Seadragon
+ManaCost:GW
+Types:Creature Seahorse
+PT:1/1
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1 | CheckSVar$ X | SVarCompare$ EQ2 | Description$ Duet — As long as you control exactly two creatures, each of those creatures gets +1/+1.
+SVar:X:Count$Valid Creature.YouCtrl
+Oracle:Duet — As long as you control exactly two creatures, each of those creatures gets +1/+1.

@@ -1,0 +1,7 @@
+Name:Vastide Whale
+ManaCost:4 W
+Types:Creature Whale
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | TriggerDescription$ When CARDNAME enters, return a creature you control to its owner's hand.
+SVar:TrigChange:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Creature.YouCtrl | ChangeNum$ 1 | AILogic$ NeverBounceItself
+Oracle:When Vastide Whale enters the battlefield, return a creature you control to its owner’s hand.

@@ -1,0 +1,6 @@
+Name:Banish the Dread
+ManaCost:W
+Types:Sorcery
+Text:As an additional cost to cast Banish the Dread, tap three untapped creatures you control.
+A:SP$ ChangeZone | Cost$ W tapXType<3/Creature> | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | SpellDescription$ Exile target creature.
+Oracle:As an additional cost to cast Banish the Dread, tap three untapped creatures you control.\nExile target creature.

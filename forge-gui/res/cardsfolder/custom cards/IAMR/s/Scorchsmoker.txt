@@ -1,0 +1,5 @@
+Name:Scorchsmoker
+ManaCost:2 R R
+Types:Creature Elemental
+PT:4/3
+Oracle:

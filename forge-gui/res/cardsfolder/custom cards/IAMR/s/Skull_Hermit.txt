@@ -1,0 +1,7 @@
+Name:Skull Hermit
+ManaCost:2 B
+Types:Creature Zombie Crab
+PT:1/3
+K:Defender
+K:Bloodlust:1
+Oracle:Defender\nBloodlust 1 (Whenever this creature deals combat damage, put one +1/+1 counter on it.)

@@ -19,6 +19,7 @@ package forge;
 
 import com.google.common.io.Files;
 import forge.card.CardRules;
+import forge.card.CardSplitType;
 import forge.util.BuildInfo;
 import forge.util.FileUtil;
 import forge.util.Localizer;
@@ -152,6 +153,70 @@ public class CardStorageReader {
             charIndex--;
         }
         return new String(chars, 0, charIndex);
+    }
+
+    private void validateCardScriptFilename(final CardRules card) {
+        if (loadingTokens || card.getMainPart() == null) {
+            return;
+        }
+
+        // A secondary face supplied through CopyFaceFrom is not available yet.
+        // Skip filename validation rather than report a false positive.
+        if (card.getOtherPart() == null
+                && card.getSplitType() != CardSplitType.None
+                && card.getSplitType() != CardSplitType.Specialize) {
+            return;
+        }
+
+        String cardName = card.getMainPart().getName();
+        if (card.getOtherPart() != null) {
+            cardName += " // " + card.getOtherPart().getName();
+        }
+
+        final String expectedName = transformName(cardName);
+        if (expectedName.equalsIgnoreCase(card.getNormalizedName())) {
+            return;
+        }
+
+        System.err.printf(
+                "ERROR: Card script filename does not match its Name field(s).%n"
+                        + "  Card: %s%n"
+                        + "  File: %s%n"
+                        + "  Expected filename: %s%s%n",
+                cardName,
+                card.getPath(),
+                expectedName,
+                CARD_FILE_DOT_EXTENSION);
+    }
+
+    private void addLoadedCards(final Collection<CardRules> result, final Iterable<CardRules> cards) {
+        for (final CardRules card : cards) {
+            validateCardScriptFilename(card);
+
+            if (!result.add(card) && !loadingTokens) {
+                logDuplicateCardScript(result, card);
+            }
+        }
+    }
+
+    private static void logDuplicateCardScript(final Collection<CardRules> result,
+                                               final CardRules duplicate) {
+        for (final CardRules existing : result) {
+            if (String.CASE_INSENSITIVE_ORDER.compare(
+                    existing.getNormalizedName(), duplicate.getNormalizedName()) != 0) {
+                continue;
+            }
+
+            System.err.printf(
+                    "ERROR: Duplicate card script filename: \"%s%s\".%n"
+                            + "  First loaded script: %s%n"
+                            + "  Duplicate script: %s%n",
+                    duplicate.getNormalizedName(),
+                    CARD_FILE_DOT_EXTENSION,
+                    existing.getPath(),
+                    duplicate.getPath());
+            return;
+        }
     }
     
     private ZipEntry findZipEntryForCard(String transformedName) {
@@ -292,11 +357,11 @@ public class CardStorageReader {
                 executor.shutdown();
                 cdl.await();
                 for (final Future<List<CardRules>> pp : parts) {
-                    result.addAll(pp.get());
+                    addLoadedCards(result, pp.get());
                 }
             } else {
                 for (final Callable<List<CardRules>> c : tasks) {
-                    result.addAll(c.call());
+                    addLoadedCards(result, c.call());
                 }
             }
         } catch (InterruptedException e) {

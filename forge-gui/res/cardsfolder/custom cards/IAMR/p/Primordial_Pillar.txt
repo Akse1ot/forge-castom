@@ -1,0 +1,22 @@
+Name:Primordial Pillar
+ManaCost:3 G G
+Types:Creature Coral Wall
+PT:0/6
+K:Defender
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | TriggerZones$ Battlefield | TriggerDescription$ When CARDNAME enters the battlefield, exile the bottom six cards of your library face down.
+SVar:TrigExile:DB$ Repeat | MaxRepeat$ 6 | RepeatSubAbility$ DBExileBottom
+SVar:DBExileBottom:DB$ ChangeZone | Defined$ BottomOfLibrary | Origin$ Library | Destination$ Exile | ExileFaceDown$ True
+S:Mode$ Continuous | AffectedZone$ Exile | Affected$ Card.ExiledWithSource | MayLookAt$ You | Description$ You may look at cards exiled with CARDNAME.
+A:AB$ ChooseCard | Cost$ 1 G T | Defined$ You | ChoiceZone$ Exile | Choices$ Card.ExiledWithSource+faceDown+FaceUpPermanent | Amount$ 1 | ChoiceTitle$ Choose a permanent card exiled with CARDNAME | SubAbility$ DBTurnFaceUp | SpellDescription$ You may turn a permanent card exiled with CARDNAME face up. Any opponent may have you put that card onto the battlefield. If no player does, put it into your graveyard and any number of other permanent cards exiled with CARDNAME onto the battlefield.
+SVar:DBTurnFaceUp:DB$ SetState | Defined$ ChosenCard | Mode$ TurnFaceUp | RevealFirst$ True | ValidNewFace$ Permanent | RememberChanged$ True | SubAbility$ DBResetAccepted
+SVar:DBResetAccepted:DB$ StoreSVar | SVar$ Accepted | Type$ Number | Expression$ 0 | ConditionDefined$ Remembered | ConditionPresent$ Card.faceUp+ExiledWithSource | SubAbility$ DBAskOpponents
+SVar:DBAskOpponents:DB$ RepeatEach | RepeatPlayers$ Opponent | RepeatOptionalForEachPlayer$ True | RepeatOptionalMessage$ Have Primordial Pillar's controller put the revealed card onto the battlefield? | RepeatSubAbility$ DBMarkAccepted | ConditionDefined$ Remembered | ConditionPresent$ Card.faceUp+ExiledWithSource | SubAbility$ DBPutAccepted
+SVar:DBMarkAccepted:DB$ StoreSVar | SVar$ Accepted | Type$ Number | Expression$ 1 | AILogic$ OpponentMayGrantPermanent
+SVar:DBPutAccepted:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | GainControl$ True | ConditionSVar$ Accepted | ConditionCompare$ GE1 | ConditionDefined$ Remembered | ConditionPresent$ Card.faceUp+ExiledWithSource | SubAbility$ DBPutRejected
+SVar:DBPutRejected:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Graveyard | ConditionSVar$ Accepted | ConditionCompare$ EQ0 | ConditionDefined$ Remembered | ConditionPresent$ Card.faceUp+ExiledWithSource | SubAbility$ DBChooseOthers
+SVar:DBChooseOthers:DB$ ChooseCard | Defined$ You | ChoiceZone$ Exile | Choices$ Card.ExiledWithSource+faceDown+FaceUpPermanent | Amount$ NumOtherPermanents | MinAmount$ 0 | ChoiceTitle$ Choose any number of other permanent cards exiled with Primordial Pillar | ConditionSVar$ Accepted | ConditionCompare$ EQ0 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBMoveOthers
+SVar:DBMoveOthers:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Exile | Destination$ Battlefield | FaceUp$ True | GainControl$ True | ConditionSVar$ Accepted | ConditionCompare$ EQ0 | ConditionDefined$ ChosenCard | ConditionPresent$ Card.ExiledWithSource+faceDown+FaceUpPermanent | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:NumOtherPermanents:Count$ValidExile Card.ExiledWithSource+faceDown+FaceUpPermanent
+SVar:Accepted:Number$0
+Oracle:Defender\nWhen Primordial Pillar enters the battlefield, exile the bottom six cards of your library face down.\nYou may look at cards exiled with Primordial Pillar.\n{1}{G}, {T}: You may turn a permanent card exiled with Primordial Pillar face up. Any opponent may have you put that card onto the battlefield. If no player does, put it into your graveyard and any number of other permanent cards exiled with Primordial Pillar onto the battlefield.

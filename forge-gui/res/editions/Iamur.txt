@@ -1,0 +1,286 @@
+[metadata]
+Code=IAMR
+Date=2017-08-01
+Name=Iamur
+Type=CUSTOM_SET
+BoosterSlots=Common,Uncommon,RareMythic,Land,Wildcard,BonusWildcard
+Booster=7 Common, 3 Uncommon, 1 RareMythic, 1 Land, 1 Wildcard, 1 BonusWildcard
+Prerelease=6 Boosters, 1 RareMythic+
+BoosterBox=30
+
+[Common]
+Base=Common:fromSheet("IAMR cards")
+
+[Uncommon]
+Base=Uncommon:fromSheet("IAMR cards")
+
+[RareMythic]
+Base=Rare:fromSheet("IAMR cards")
+Replace=.136F Mythic:fromSheet("IAMR cards")
+
+[Land]
+Base=fromSheet("IAMR Lands")
+
+[Wildcard]
+Base=Uncommon:fromSheet("IAMR cards")
+Replace=.18F Common:fromSheet("IAMR cards")
+Replace=.19F Rare:fromSheet("IAMR cards")
+Replace=.02F Mythic:fromSheet("IAMR cards")
+
+[BonusWildcard]
+Base=Common:fromSheet("IAMR cards")
+Replace=.298F Uncommon:fromSheet("IAMR cards")
+Replace=.065F Rare:fromSheet("IAMR cards")
+Replace=.011F Mythic:fromSheet("IAMR cards")
+
+
+[cards]
+1 C Anemone Gobbler
+2 C Banish the Dread
+3 C Deephollow Sentry
+4 C Descend to Oblivion
+5 U Eversong Scallop
+6 C Excessive Caution
+7 C Fish Charmer
+8 C Follow the Light
+9 U Forgotten Glory
+10 C Goldshimmer Seahorse
+11 R Guardian Light
+12 C Lantern Bearer I 
+13 C Luminous Blast
+14 C Macuri Tideguard
+15 R Master of Pearlcraft
+16 U Northcliff Protector
+17 U Patron of the Sea
+18 U Ponderous Behemoth
+19 C Priest of Moonfathom
+20 R Ranger of Miracle Deeps
+21 C Remember the Fallen
+22 U Seahorse Rider
+23 M Senyn Supreme
+24 U Serene Gardens
+25 R Shepherd of Coralia
+26 C Shoal Sentry
+27 U Strike Down the Beast
+28 R Tideguard Colossus
+29 C Vastide Whale
+30 C Abranchiate
+31 U Adventurous Turtle
+32 C Aether Torrent
+33 C Aquatic Servant
+34 C Bloodkelp Oracle
+35 U Brood of Nolgul
+36 U Ctali Scout
+37 C Ctali Warmonger
+38 C Deephollow Leviathan
+39 R Depths of Mind
+40 C Desiccate
+41 R Dormant Kraken
+42 U Enclosure
+43 U Fable of the Koi
+44 R Facestealer I
+45 C Gemseeker
+46 R Kraken's Grasp
+47 C Leviathan Rider
+48 C Marinespeaker
+49 C Naga Tempest
+50 M Nolgul
+51 C Prospect
+52 R Ruins Explorer
+53 C Strangle I
+54 U Thought Theft
+55 U Tidal Coil
+56 C Twist the Tides
+57 M Xaelas, the Floodcaller
+58 C Abyssal Bolt
+59 U Abyssal Mistress
+60 R Arrival of the Ancients
+61 R Blackreef Angler
+62 C Blackreef Scavenger
+63 C Boxing Squid
+64 C Captain of the Damned
+65 R Chorus of Oblivion
+66 M Ctaleth
+67 U Cyclopean Horror
+68 C Deadwater Tyrant
+69 U Drowned Revenants
+70 U Eaten by an Oyster
+71 C Here Be Dragons
+72 R Kraken's Embrace
+73 U Memory Thief I
+74 C Moonfathom Witch
+75 U Murloc Goliath
+76 C Murloc of Miracle Deeps
+77 C Noble of Blood Bottom
+78 R Petrifying Gaze
+79 C Phantom Veil
+80 C Ravenous Maw
+81 C Rotfin Hunter
+82 C Sea Floor Lurker
+83 C Skull Hermit
+84 U Spawn of Ctaleth
+85 C Taken by the Sea
+86 U Tidebound Minions
+87 C Amidst Jellyfish
+88 C Battle Hymn
+89 R Bloodbath
+90 M Bloodfin
+91 C Bloodkelp Lumomancer
+92 C Bloodscent Shark
+93 U Bubbling Magma
+94 U Child of Sharks
+95 C Crack the Shell
+96 U Deepkin Trickster
+97 C Denizen of the Magma Sea
+98 U Dragon of the Sea
+99 R Elder of Deephome
+100 R Gluttony
+101 R Goblin Pearldiver
+102 C Kraken Fodder
+103 C Magma Dwellers
+104 U Memory Bolt
+105 C Merfolk Jellydancer
+106 C Murloc Forager
+107 R Murloc Onslaught
+108 C Piranha Frenzy
+109 U Rampaging Hammerhead
+110 U Rune of Deephome
+111 C Scorchsmoker
+112 C Sharkbite
+113 U Shellbound Champion
+114 C Temple Guard
+115 C Traitorous Beauty
+116 R Abyssal Mosa
+117 C Apprentice Sharktamer
+118 U Chorus of the Garden
+119 U Coralia Basscaller
+120 U Cover with Kelp
+121 C Embracement
+122 U Emerien Dragonturtle
+123 U Fanged Eel
+124 C Grazing Plesodons
+125 C Halls of Beguiling Tunes
+126 C Impenetrable Kelp
+127 C Kelpvale Mosa
+128 R Limeshell Ammonite
+129 C Marine Rallye
+130 R Murloc Totemancer
+131 C Naturalize
+132 U Outcast of Lua Atoll
+133 C Overgrown Palace
+134 M Primordial Pillar
+135 C Radiant Corona
+136 C Serpent Hatchling
+137 C Shared Moment
+138 R Song of the Wurmwakers
+139 C Spiky Urchins
+140 R Stranglekelp Druid
+141 U Tempting Trap
+142 C Woodcrusher Eel
+143 U Wurm of the Abyss
+144 C Abyssal Harbinger
+145 R Battalion Turtle
+146 U Coral Bank
+147 U Coralskin Maiden
+148 C Daunt
+149 R Deepkin Sage
+150 R Diverging Surge
+151 C Drowned Geist
+152 R Emerien Songwriter
+153 R Infinite Vitality
+154 U Instructor of the Meek
+155 M Kayisha, the Land-dweller
+156 M Lady Kaladrin
+157 R Lord of Ctalis
+158 C Loyal Seadragon
+159 R Macuri Council
+160 C Manamorphose
+161 U Manatide Shaman
+162 U Murloc Crawler
+163 R Parasitic Impostor
+164 U Pearlreef Mystic
+165 C Pearlreef Sentinel
+166 M Sleepwatcher of Kalimaras
+167 R Swarmcaller of Grglmar
+168 R The Abyssal City
+169 M Tidesprite the Seer
+170 C Venomous Jellies
+171 C Admiral's Effigy
+172 U Blazing Trident
+173 C Cowry Necklace
+174 U Diving Golem
+175 U Encrusted Diver
+176 R Eye from the Deep
+177 R Eye of Iamur
+178 U Haunted Shipwrack
+179 M Irrevocable Destroyer
+180 U Jewel of the Deep
+181 C Melodious Pearl
+182 R Nixie Chess
+183 U Pearl-Adorned Signet
+184 R Resonating Pearl
+185 C Ring of Coralia
+186 U Statues of Emerien
+187 U Sunken Ring
+188 U Ticking Trinket
+189 C Tome of Knowledge
+190 C Voyager of the Depths
+191 R Coral Castle
+192 R Lightflooded Haven
+193 C Ornate Temple
+194 R Razor Reef
+195 R Ritual Grounds
+196 R Sheltering Grotto
+197 R Ship Graveyard
+198 U Singing Cliffs
+199 U Sunken Academy
+200 M Throne of the Ur-Kraken
+201 L Plains
+202 L Plains
+203 L Plains
+204 L Island
+205 L Island
+206 L Island
+207 L Swamp
+208 L Swamp
+209 L Swamp
+210 L Mountain
+211 L Mountain
+212 L Mountain
+213 L Forest
+214 L Forest
+215 L Forest
+
+[Lands]
+1 Plains|IAMR|1
+1 Plains|IAMR|2
+1 Plains|IAMR|3
+1 Island|IAMR|1
+1 Island|IAMR|2
+1 Island|IAMR|3
+1 Swamp|IAMR|1
+1 Swamp|IAMR|2
+1 Swamp|IAMR|3
+1 Mountain|IAMR|1
+1 Mountain|IAMR|2
+1 Mountain|IAMR|3
+1 Forest|IAMR|1
+1 Forest|IAMR|2
+1 Forest|IAMR|3
+
+
+[tokens]
+1 all_0_1_fish
+2 b_2_2_zombie_pirate
+3 g_3_3_fish
+4 g_7_7_serpent_trample
+5 r_1_1_murloc
+6 b_5_5_horror
+7 w_1_1_mermaid_g
+8 w_0_0_meeple
+9 b_0_0_meeple
+
+[other]
+10 emblem_xaelas_the_floodcaller
+11 emblem_ctaleth
+12 emblem_kayisha_the_land_dweller

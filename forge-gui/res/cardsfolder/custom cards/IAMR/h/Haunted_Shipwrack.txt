@@ -1,0 +1,8 @@
+Name:Haunted Shipwrack
+ManaCost:4
+Types:Artifact
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.IsRemembered+YouCtrl | PresentZone$ Battlefield | PresentCompare$ EQ0 | Execute$ TrigCleanup | TriggerDescription$ At the beginning of your upkeep, create a 2/2 black Zombie Pirate creature token, then CARDNAME loses this ability for as long as you control that creature.
+SVar:TrigCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ b_2_2_zombie_pirate | TokenOwner$ You | RememberTokens$ True
+DeckHas:Ability$Token
+Oracle:At the beginning of your upkeep, create a 2/2 black Zombie Pirate creature token, then Haunted Shipwrack loses this ability for as long as you control that creature.

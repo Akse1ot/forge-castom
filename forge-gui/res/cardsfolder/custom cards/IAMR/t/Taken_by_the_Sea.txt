@@ -1,0 +1,5 @@
+Name:Taken by the Sea
+ManaCost:B B
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Creature.nonKraken+nonLeviathan+nonSerpent | TgtPrompt$ Select target non-Kraken, non-Leviathan, non-Serpent creature | SpellDescription$ Destroy target non-Kraken, non-Leviathan, non-Serpent creature.
+Oracle:Destroy target non-Kraken, non-Leviathan, non-Serpent creature.

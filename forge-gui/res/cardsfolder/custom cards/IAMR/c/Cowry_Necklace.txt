@@ -1,0 +1,7 @@
+Name:Cowry Necklace
+ManaCost:2
+Types:Artifact Equipment
+K:Talisman
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | Description$ Equipped creature gets +1/+1.
+K:Equip:1
+Oracle:Equipped creature gets +1/+1.\nTalisman (If equipped creature would be destroyed, instead remove all damage from it and destroy this Equipment.)\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)

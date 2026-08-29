@@ -1,0 +1,11 @@
+Name:Elder of Deephome
+ManaCost:1 R
+Types:Creature Elemental Shaman
+PT:2/1
+K:Level up:1 R
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 2 | SetToughness$ 2 | AddAbility$ MakeOne | IsPresent$ Card.Self+counters_GE1_LEVEL+counters_LE4_LEVEL | Description$ LEVEL 1-4 2/2 {T}: Create a 3/1 red Elemental creature token with haste. Sacrifice it at the beginning of the next end step.
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 2 | SetToughness$ 4 | AddAbility$ MakeThree | IsPresent$ Card.Self+counters_GE5_LEVEL | Description$ LEVEL 5+ 2/4 {T}: Create three 3/1 red Elemental creature tokens with haste. Sacrifice them at the beginning of the next end step.
+SVar:MakeOne:AB$ Token | Cost$ T | Secondary$ True | TokenAmount$ 1 | TokenScript$ r_3_1_elemental | TokenOwner$ You | PumpKeywords$ Haste | AtEOT$ Sacrifice | SpellDescription$ Create a 3/1 red Elemental creature token with haste. Sacrifice it at the beginning of the next end step.
+SVar:MakeThree:AB$ Token | Cost$ T | Secondary$ True | TokenAmount$ 3 | TokenScript$ r_3_1_elemental | TokenOwner$ You | PumpKeywords$ Haste | AtEOT$ Sacrifice | SpellDescription$ Create three 3/1 red Elemental creature tokens with haste. Sacrifice them at the beginning of the next end step.
+DeckHas:Ability$Token
+Oracle:Level up {1}{R} ({1}{R}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 1-4\n2/2\n{T}: Create a 3/1 red Elemental creature token with haste. Sacrifice it at the beginning of the next end step.\nLEVEL 5+\n2/4\n{T}: Create three 3/1 red Elemental creature tokens with haste. Sacrifice them at the beginning of the next end step.

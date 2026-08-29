@@ -1,0 +1,6 @@
+Name:Serene Gardens
+ManaCost:2 W
+Types:Enchantment
+T:Mode$ Attacks | ValidCard$ Creature.withIntimidate | Attacked$ You,Planeswalker.YouCtrl | Execute$ Debuff | TriggerZones$ Battlefield | TriggerDescription$ Whenever a creature with intimidate attacks you or a planeswalker you control, it loses intimidate until end of turn.
+SVar:Debuff:DB$ Debuff | Defined$ TriggeredAttackerLKICopy | Keywords$ Intimidate
+Oracle:Whenever a creature with intimidate attacks you or a planeswalker you control, it loses intimidate until end of turn.

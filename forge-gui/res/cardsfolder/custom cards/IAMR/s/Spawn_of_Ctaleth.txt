@@ -1,0 +1,7 @@
+Name:Spawn of Ctaleth
+ManaCost:2 B B
+Types:Creature Horror Wizard
+PT:2/2
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigMassacre | TriggerDescription$ When CARDNAME enters the battlefield, creatures your opponents control get -1/-1 until end of turn.
+SVar:TrigMassacre:DB$ PumpAll | NumAtt$ -1 | NumDef$ -1 | ValidCards$ Creature.OppCtrl | IsCurse$ True
+Oracle:When Spawn of Ctaleth enters the battlefield, creatures your opponents control get -1/-1 until end of turn.

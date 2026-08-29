@@ -1,0 +1,26 @@
+Name:Nixie Chess
+ManaCost:4
+Types:Artifact
+A:AB$ Token | Cost$ 3 T | ValidTgts$ Opponent | TgtPrompt$ Select target opponent | TokenOwner$ You | TokenScript$ w_0_0_meeple,b_0_0_meeple | TokenAmount$ 1 | RememberTokens$ True | SubAbility$ DBChooseCounters | SpellDescription$ Put a 0/0 white Meeple creature token and a 0/0 black Meeple creature token onto the battlefield, then distribute up to six +1/+1 counters among those creatures. You may have any of those creatures gain vigilance. The same is true for lifelink, trample, haste, first strike, hexproof and intimidate. Target opponent chooses one of those creatures and gains control it.
+SVar:DBChooseCounters:DB$ ChooseNumber | Defined$ You | Min$ 0 | Max$ 6 | ListTitle$ Choose how many +1/+1 counters to distribute among those creatures | SubAbility$ DBRepeatCounters
+SVar:DBRepeatCounters:DB$ Repeat | MaxRepeat$ X | RepeatSubAbility$ DBPutCounter | SubAbility$ DBChooseVigilance | References$ X
+SVar:DBPutCounter:DB$ PutCounter | Choices$ Card.IsRemembered | ChoiceAmount$ 1 | CounterType$ P1P1 | CounterNum$ 1 | ChoiceTitle$ Choose a creature to put a +1/+1 counter on
+SVar:DBChooseVigilance:DB$ ChooseCard | Defined$ You | DefinedCards$ Remembered | Amount$ NumMeeples | MinAmount$ 0 | ChoiceTitle$ Choose any of those creatures to gain vigilance | SubAbility$ DBVigilance
+SVar:DBVigilance:DB$ Pump | Defined$ ChosenCard | KW$ Vigilance | Duration$ Permanent | SubAbility$ DBChooseLifelink
+SVar:DBChooseLifelink:DB$ ChooseCard | Defined$ You | DefinedCards$ Remembered | Amount$ NumMeeples | MinAmount$ 0 | ChoiceTitle$ Choose any of those creatures to gain lifelink | SubAbility$ DBLifelink
+SVar:DBLifelink:DB$ Pump | Defined$ ChosenCard | KW$ Lifelink | Duration$ Permanent | SubAbility$ DBChooseTrample
+SVar:DBChooseTrample:DB$ ChooseCard | Defined$ You | DefinedCards$ Remembered | Amount$ NumMeeples | MinAmount$ 0 | ChoiceTitle$ Choose any of those creatures to gain trample | SubAbility$ DBTrample
+SVar:DBTrample:DB$ Pump | Defined$ ChosenCard | KW$ Trample | Duration$ Permanent | SubAbility$ DBChooseHaste
+SVar:DBChooseHaste:DB$ ChooseCard | Defined$ You | DefinedCards$ Remembered | Amount$ NumMeeples | MinAmount$ 0 | ChoiceTitle$ Choose any of those creatures to gain haste | SubAbility$ DBHaste
+SVar:DBHaste:DB$ Pump | Defined$ ChosenCard | KW$ Haste | Duration$ Permanent | SubAbility$ DBChooseFirstStrike
+SVar:DBChooseFirstStrike:DB$ ChooseCard | Defined$ You | DefinedCards$ Remembered | Amount$ NumMeeples | MinAmount$ 0 | ChoiceTitle$ Choose any of those creatures to gain first strike | SubAbility$ DBFirstStrike
+SVar:DBFirstStrike:DB$ Pump | Defined$ ChosenCard | KW$ First Strike | Duration$ Permanent | SubAbility$ DBChooseHexproof
+SVar:DBChooseHexproof:DB$ ChooseCard | Defined$ You | DefinedCards$ Remembered | Amount$ NumMeeples | MinAmount$ 0 | ChoiceTitle$ Choose any of those creatures to gain hexproof | SubAbility$ DBHexproof
+SVar:DBHexproof:DB$ Pump | Defined$ ChosenCard | KW$ Hexproof | Duration$ Permanent | SubAbility$ DBChooseIntimidate
+SVar:DBChooseIntimidate:DB$ ChooseCard | Defined$ You | DefinedCards$ Remembered | Amount$ NumMeeples | MinAmount$ 0 | ChoiceTitle$ Choose any of those creatures to gain intimidate | SubAbility$ DBIntimidate
+SVar:DBIntimidate:DB$ Pump | Defined$ ChosenCard | KW$ Intimidate | Duration$ Permanent | SubAbility$ DBGiveControl
+SVar:DBGiveControl:DB$ GainControl | Choices$ Card.IsRemembered | Chooser$ ParentTarget | NewController$ ParentTarget | ChoiceTitle$ Choose one of those creatures to gain control of | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+SVar:X:Count$ChosenNumber
+SVar:NumMeeples:Count$Valid Card.IsRemembered
+Oracle:{3}, {T}: Put a 0/0 white Meeple creature token and a 0/0 black Meeple creature token onto the battlefield, then distribute up to six +1/+1 counters among those creatures. You may have any of those creatures gain vigilance. The same is true for lifelink, trample, haste, first strike, hexproof and intimidate. Target opponent chooses one of those creatures and gains control it.

@@ -1,0 +1,9 @@
+Name:Stranglekelp Druid
+ManaCost:3 G
+Types:Creature Mermaid Druid Bard
+PT:2/2
+K:Melody:AnyOneColor:2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | IsPresent$ Card.Self+tapped | PresentCompare$ EQ1 | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ At the beginning of your upkeep, if CARDNAME is tapped, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Melody—two mana of any one color. (While casting a creature spell, you may tap this to pay for two mana of any one color. This doesn’t untap during your untap steps for as long as you control that creature.)\n
+At the beginning of your upkeep, if Stranglekelp Druid is tapped, draw a card.

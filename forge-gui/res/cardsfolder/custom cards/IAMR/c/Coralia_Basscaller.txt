@@ -1,0 +1,8 @@
+Name:Coralia Basscaller
+ManaCost:2 G G
+Types:Creature Mermaid Druid Bard
+PT:0/1
+K:Melody:G G
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters the battlefield, put a 3/3 green Fish creature token onto the battlefield.
+SVar:TrigToken:DB$ Token | TokenScript$ g_3_3_fish | TokenOwner$ You
+Oracle:Melody {G}{G} (While casting a creature spell, you may tap this to pay for {G}{G}. This doesn’t untap during your untap steps for as long as you control that creature.)\nWhen Coralia Basscaller enters the battlefield, put a 3/3 green Fish creature token onto the battlefield.

@@ -1,0 +1,7 @@
+Name:Coral Bank
+ManaCost:1 U
+Types:Creature Coral
+S:Mode$ Continuous | Affected$ Card.Self | CharacteristicDefining$ True | SetColor$ All | Description$ CARDNAME is all colors.
+K:Defender
+KW$ Prevent all combat damage that would be dealt to CARDNAME.
+Oracle:Coral Bank is all colors.\nDefender\nPrevent all combat damage that would be dealt to Coral Bank.

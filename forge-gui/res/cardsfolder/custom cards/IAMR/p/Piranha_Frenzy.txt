@@ -1,0 +1,5 @@
+Name:Piranha Frenzy
+ManaCost:2 R
+Types:Instant
+A:SP$ PumpAll | ValidCards$ Creature.token+YouCtrl | NumAtt$ +2 | KW$ Bloodlust:1 | SpellDescription$ Creature tokens you control get +2/+0 and gain bloodlust 1 until end of turn. (Whenever this creature deals combat damage, put a +1/+1 counter on it.)
+Oracle:Creature tokens you control get +2/+0 and gain bloodlust 1 until end of turn. (Whenever this creature deals combat damage, put a +1/+1 counter on it.)

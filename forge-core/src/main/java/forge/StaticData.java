@@ -3,6 +3,7 @@ package forge;
 import forge.card.CardDb;
 import forge.card.CardEdition;
 import forge.card.CardRules;
+import forge.card.ICardFace;
 import forge.card.PrintSheet;
 import forge.item.*;
 import forge.token.TokenDb;
@@ -63,6 +64,28 @@ public class StaticData {
 
     private static StaticData lastInstance = null;
 
+    private static void checkDuplicateCardFaceNames(
+            final Map<String, CardRules> seenFaceNames,
+            final CardRules card) {
+
+        for (final ICardFace face : card.getAllFaces()) {
+            final String faceName = face.getName();
+            final CardRules previous = seenFaceNames.putIfAbsent(faceName, card);
+
+            if (previous == null) {
+                continue;
+            }
+
+            System.err.printf(
+                    "ERROR: Duplicate card face Name: \"%s\".%n"
+                            + "  First loaded script: %s%n"
+                            + "  Duplicate script: %s%n",
+                    faceName,
+                    previous.getPath(),
+                    card.getPath());
+        }
+    }
+
     public StaticData(CardStorageReader cardReader, CardStorageReader customCardReader, String editionFolder, String customEditionsFolder, String blockDataFolder, String cardArtPreference, boolean enableUnknownCards, boolean loadNonLegalCards) {
         this(cardReader, null, customCardReader, null, editionFolder, customEditionsFolder, blockDataFolder, "", cardArtPreference, enableUnknownCards, loadNonLegalCards, false, false);
     }
@@ -83,6 +106,7 @@ public class StaticData {
         {
             final Map<String, CardRules> regularCards = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
             final Map<String, CardRules> variantsCards = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+            final Map<String, CardRules> seenFaceNames = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
             if (!loadNonLegalCards) {
                 for (CardEdition e : editions) {
@@ -108,6 +132,8 @@ public class StaticData {
                     throw new RuntimeException("Failed to initialize card script: " + card.getPath(), e);
                 }
 
+                checkDuplicateCardFaceNames(seenFaceNames, card);
+
                 if (!loadNonLegalCards && funnyCards.contains(cardName) && !card.getType().isBasicLand())
                     filtered.add(cardName);
 
@@ -127,6 +153,9 @@ public class StaticData {
                     } catch (RuntimeException e) {
                         throw new RuntimeException("Failed to initialize custom card script: " + card.getPath(), e);
                     }
+
+                    checkDuplicateCardFaceNames(seenFaceNames, card);
+
                     card.setCustom();
                     if (card.isVariant()) { //Append loaded custom cards to the respective list.
                         variantsCards.put(cardName, card);

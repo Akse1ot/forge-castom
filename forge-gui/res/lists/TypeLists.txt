@@ -300,6 +300,7 @@ Shapeshifter:Shapeshifters
 Shark:Sharks
 Sheep:Sheep
 Shi'ar:Shi'ar
+Ship:Ships
 Siren:Sirens
 Skeleton:Skeletons
 Skrull:Skrulls

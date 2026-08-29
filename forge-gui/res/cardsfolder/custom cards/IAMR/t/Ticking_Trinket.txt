@@ -1,0 +1,7 @@
+Name:Ticking Trinket
+ManaCost:3
+Types:Artifact Equipment
+K:Talisman
+K:Equip:0
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Haste | Description$ Equipped creature has haste.
+Oracle:Equipped creature has haste.\nTalisman (If equipped creature would be destroyed, instead remove all damage from it and destroy this Equipment.)\nEquip {0} ({0}: Attach to target creature you control. Equip only as a sorcery.)

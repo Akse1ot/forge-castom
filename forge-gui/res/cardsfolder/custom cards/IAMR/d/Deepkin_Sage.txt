@@ -1,0 +1,12 @@
+Name:Deepkin Sage
+ManaCost:1 R G
+Types:Creature Elemental Druid
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigMana | OptionalDecider$ You | TriggerDescription$ Whenever another creature enters the battlefield under your control, you may add {1} or one mana of any of that creature's colors to your mana pool.
+A:AB$ Token | Cost$ T | TokenAmount$ 1 | TokenScript$ all_0_1_fish | TokenOwner$ You | SpellDescription$ Create a 0/1 Fish creature token that's all colors.
+SVar:TrigMana:DB$ Charm | Choices$ DBColorless,DBChooseColor | CharmNum$ 1
+SVar:DBColorless:DB$ Mana | Produced$ 1 | Defined$ You | SpellDescription$ Add {1}.
+SVar:DBChooseColor:DB$ ChooseColor | Defined$ You | ColorsFrom$ TriggeredCard | SubAbility$ DBColorMana | SpellDescription$ Add one mana of any of that creature's colors.
+SVar:DBColorMana:DB$ Mana | Produced$ Chosen | Defined$ You
+DeckHas:Ability$Token
+Oracle:Whenever another creature enters the battlefield under your control, you may add {1} or one mana of any of that creature's colors to your mana pool.\n{T}: Create a 0/1 Fish creature token that's all colors.

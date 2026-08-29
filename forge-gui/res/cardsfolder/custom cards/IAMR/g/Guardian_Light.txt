@@ -1,0 +1,9 @@
+Name:Guardian Light
+ManaCost:2 W
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Indestructible | Description$ Enchanted creature has indestructible.
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLevel | TriggerDescription$ At the beginning of your end step, put a level counter on enchanted creature if it has level up.
+SVar:TrigLevel:DB$ PutCounter | Defined$ Enchanted | CounterType$ LEVEL | CounterNum$ 1 | ConditionDefined$ Enchanted | ConditionPresent$ Card.withLevel up
+Oracle:Enchant creature\nEnchanted creature has indestructible.\nAt the beginning of your end step, put a level counter on enchanted creature if it has level up.

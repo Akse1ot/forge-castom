@@ -1,0 +1,5 @@
+Name:Crack the Shell
+ManaCost:1 R
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Artifact,Creature.Turtle | TgtPrompt$ Select target artifact or Turtle | SpellDescription$ Destroy target artifact or Turtle.
+Oracle:Destroy target artifact or Turtle.

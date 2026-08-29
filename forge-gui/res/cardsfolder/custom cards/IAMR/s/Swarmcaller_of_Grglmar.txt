@@ -1,0 +1,10 @@
+Name:Swarmcaller of Grglmar
+ManaCost:1 B R
+Types:Creature Murloc Warrior
+PT:2/2
+S:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Murloc.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1 | Description$ Other Murloc creatures you control get +1/+1.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Murloc+Other+YouCtrl+attacking | Execute$ TrigToken | TriggerZones$ Battlefield | TriggerDescription$ Whenever another Murloc you control dies, if it was attacking, create a 1/1 red Murloc creature token.
+SVar:TrigToken:DB$ Token | TokenScript$ r_1_1_murloc | TokenOwner$ You
+DeckHints:Type$Murloc
+DeckHas:Ability$Token
+Oracle:Other Murloc creatures you control get +1/+1.\nWhenever another Murloc you control dies, if it was attacking, create a 1/1 red Murloc creature token.

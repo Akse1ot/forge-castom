@@ -1,0 +1,7 @@
+Name:Abyssal Mosa
+ManaCost:3 G G
+Types:Creature Serpent
+PT:4/4
+K:Trample
+K:Bloodlust:4
+Oracle:Trample\nBloodlust 4 (Whenever this creature deals combat damage, put four +1/+1 counters on it.)

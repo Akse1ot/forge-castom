@@ -1,0 +1,7 @@
+Name:Arrival of the Ancients
+ManaCost:4 B B
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Creature | SubAbility$ DBSearch | SpellDescription$ Destroy all creatures.
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Library | LibraryPosition$ 0 | ChangeType$ Creature.Kraken,Creature.Leviathan,Creature.Serpent | ChangeNum$ 1 | SpellDescription$ You may search your library for a Kraken, Leviathan, or Serpent creature card, reveal it, then shuffle your library and put that card on top of it.
+DeckHints:Type$Kraken|Leviathan|Serpent
+Oracle:Destroy all creatures. You may search your library for a Kraken, Leviathan or Serpent creature card, reveal it, then shuffle your library and put that card on top of it.

@@ -1,0 +1,11 @@
+Name:Facestealer I
+ManaCost:2 U U
+Types:Creature Horror
+PT:2/2
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.nonToken+OppCtrl | Execute$ TrigExchange | TriggerZones$ Battlefield | TriggerDescription$ Whenever a nontoken creature enters the battlefield under an opponent's control, exchange control of CARDNAME and that creature. CARDNAME loses this ability and that creature gains this ability.
+SVar:TrigExchange:DB$ ExchangeControl | Defined$ Self & TriggeredCard | SubAbility$ TrigLoseAbility
+SVar:TrigLoseAbility:DB$ Animate | Defined$ Self | RemoveThisAbility$ True | Duration$ Permanent | SubAbility$ TrigGainAbility
+SVar:TrigGainAbility:DB$ Animate | Defined$ TriggeredCard | Triggers$ FacestealerTrigger | Duration$ Permanent
+SVar:FacestealerTrigger:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.nonToken+OppCtrl | Execute$ TrigExchange | TriggerZones$ Battlefield | TriggerDescription$ Whenever a nontoken creature enters the battlefield under an opponent's control, exchange control of CARDNAME and that creature. CARDNAME loses this ability and that creature gains this ability.
+Oracle:Flash (You may cast this spell any time you could cast an instant.)\nWhenever a nontoken creature enters the battlefield under an opponents control, exchange control of Facestealer and that creature. Facestealer loses this ability and that creature gains this ability.

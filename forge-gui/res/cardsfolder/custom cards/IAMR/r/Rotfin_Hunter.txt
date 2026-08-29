@@ -1,0 +1,8 @@
+Name:Rotfin Hunter
+ManaCost:2 B
+Types:Creature Zombie Fish
+PT:1/1
+K:Bloodlust:1
+A:AB$ Pump | Cost$ Sac<1/Creature> | Defined$ Self | NumAtt$ +2 | NumDef$ +2 | SpellDescription$ CARDNAME gets +2/+2 until end of turn.
+DeckHas:Ability$Sacrifice
+Oracle:Bloodlust 1 (Whenever this creature deals combat damage, put one +1/+1 counter on it.)\nSacrifice a creature: Rotfin Hunter gets +2/+2 until end of turn.

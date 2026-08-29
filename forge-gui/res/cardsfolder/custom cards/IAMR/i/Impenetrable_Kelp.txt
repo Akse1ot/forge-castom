@@ -1,0 +1,6 @@
+Name:Impenetrable Kelp
+ManaCost:1 G
+Types:Instant
+A:SP$ Effect | ReplacementEffects$ RPrevent | SpellDescription$ Prevent all combat damage that would be dealt this turn by non-Kraken, non-Serpent, non-Leviathan creatures.
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | IsCombat$ True | ActiveZones$ Command | ValidSource$ Creature.nonKraken+nonSerpent+nonLeviathan | Description$ Prevent all combat damage that would be dealt this turn by non-Kraken, non-Serpent, non-Leviathan creatures.
+Oracle:Prevent all combat damage that would be dealt this turn by non-Kraken, non-Serpent, non-Leviathan creatures.

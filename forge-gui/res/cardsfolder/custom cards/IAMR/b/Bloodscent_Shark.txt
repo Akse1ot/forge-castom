@@ -1,0 +1,7 @@
+Name:Bloodscent Shark
+ManaCost:2 R R
+Types:Creature Fish
+PT:2/2
+K:Intimidate
+K:Bloodlust:1
+Oracle:Intimidate\nBloodlust 1 (Whenever this creature deals combat damage, put one +1/+1 counter on it.)

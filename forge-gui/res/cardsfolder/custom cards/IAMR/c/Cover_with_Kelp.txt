@@ -1,0 +1,9 @@
+Name:Cover with Kelp
+ManaCost:2 G
+Types:Enchantment Aura
+K:Enchant:Permanent:permanent
+SVar:AttachAITgts:Card.cmcGE3
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddType$ Land & Forest | RemoveCardTypes$ True | RemoveLandTypes$ True | Description$ Enchanted permanent is a Forest land. (It loses all other abilities and has “{G}: Add  to your mana pool.”)
+SVar:NonStackingAttachEffect:True
+Oracle:Enchant permanent\nEnchanted permanent is a Forest land. (It loses all other abilities and has “{G}: Add  to your mana pool.”)

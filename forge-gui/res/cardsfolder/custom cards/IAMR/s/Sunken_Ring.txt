@@ -1,0 +1,7 @@
+Name:Sunken Ring
+ManaCost:2
+Types:Artifact Equipment
+K:Talisman
+K:Equip:1
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ First Strike & Trample | Description$ Equipped creature has first strike and trample.
+Oracle:Equipped creature has first strike and trample.\nTalisman (If equipped creature would be destroyed, instead remove all damage from it and destroy this Equipment.)\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)

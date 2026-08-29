@@ -1,0 +1,8 @@
+Name:Shellbound Champion
+ManaCost:2 R
+Types:Creature Elemental Warrior
+PT:3/1
+K:Level up:1 U
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 5 | SetToughness$ 1 | AddKeyword$ First Strike | IsPresent$ Card.Self+counters_GE2_LEVEL+counters_LE3_LEVEL | Description$ LEVEL 2-3 5/1 First strike
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 8 | SetToughness$ 1 | AddKeyword$ First Strike & Hexproof | IsPresent$ Card.Self+counters_GE4_LEVEL | Description$ LEVEL 4+ 8/1 First strike, hexproof
+Oracle:Level up {1}{U} ({1}{U}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 2-3\n5/1\nFirst strike\nLEVEL 4+\n8/1\nFirst strike, hexproof (This creature can't be the target of spells or abilities your opponents control.)

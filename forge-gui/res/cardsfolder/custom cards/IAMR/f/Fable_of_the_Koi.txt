@@ -1,0 +1,7 @@
+Name:Fable of the Koi
+ManaCost:1 U
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever you cast an instant or sorcery spell, put a 0/1 Fish creature token that’s all colors onto the battlefield.
+SVar:TrigToken:DB$ Token | TokenScript$ all_0_1_fish
+DeckHints:Type$Instant|Sorcery
+Oracle:Whenever you cast an instant or sorcery spell, put a 0/1 Fish creature token that’s all colors onto the battlefield.

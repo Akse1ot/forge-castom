@@ -1,0 +1,9 @@
+Name:Goblin Pearldiver
+ManaCost:1 R R
+Types:Creature Goblin Fish Rogue
+PT:2/2
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigGainControl | TriggerDescription$ Whenever CARDNAME attacks, gain control of target artifact until end of turn. If it's an Equipment, attach it to CARDNAME.
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Artifact | TgtPrompt$ Select target artifact | LoseControl$ EOT | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ ParentTarget | Defined$ Self | ConditionDefined$ ParentTarget | ConditionPresent$ Card.Equipment | StackDescription$ None
+Oracle:Haste\nWhenever Goblin Pearldiver attacks, gain control of target artifact until end of turn. If it's an Equipment, attach it to Goblin Pearldiver.

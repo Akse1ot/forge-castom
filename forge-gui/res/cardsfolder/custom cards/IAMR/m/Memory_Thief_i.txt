@@ -1,0 +1,7 @@
+Name:Memory Thief I
+ManaCost:1 B
+Types:Creature Naga Wizard
+PT:2/1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Permanent | CombatDamage$ True | Execute$ TrigRemoveCounters | TriggerDescription$ Whenever CARDNAME deals combat damage to a permanent, remove all counters from that permanent.
+SVar:TrigRemoveCounters:DB$ RemoveCounter | Defined$ TriggeredTarget | CounterType$ All | CounterNum$ All
+Oracle:Whenever Memory Thief deals combat damage to a permanent, remove all counters from that permanent.

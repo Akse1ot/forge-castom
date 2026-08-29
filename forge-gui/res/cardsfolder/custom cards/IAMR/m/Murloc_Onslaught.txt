@@ -1,0 +1,7 @@
+Name:Murloc Onslaught
+ManaCost:4 R R
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ At the beginning of your upkeep, create four 1/1 red Murloc creature tokens with haste. Sacrifice those tokens at the beginning of the next end step.
+SVar:TrigToken:DB$ Token | TokenAmount$ 4 | TokenScript$ r_1_1_murloc_haste | TokenOwner$ You | AtEOT$ Sacrifice
+DeckHas:Ability$Token
+Oracle:At the beginning of your upkeep, create four 1/1 red Murloc creature tokens with haste. Sacrifice those tokens at the beginning of the next end step.

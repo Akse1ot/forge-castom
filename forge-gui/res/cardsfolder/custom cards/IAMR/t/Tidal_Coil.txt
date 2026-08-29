@@ -1,0 +1,7 @@
+Name:Tidal Coil
+ManaCost:1 U
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | ConditionCheckSVar$ X | ConditionSVarCompare$ GE1 | SpellDescription$ Counter target spell if you control the creature with the greatest power or tied for the greatest power.
+SVar:X:Count$Valid Creature.YouCtrl+greatestPower
+SVar:NeedsToPlayVar:X GE1
+Oracle:Counter target spell if you control the creature with the greatest power or tied for the greatest power.

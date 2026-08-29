@@ -1,0 +1,6 @@
+Name:Infinite Vitality
+ManaCost:5 G W
+Types:Sorcery
+A:SP$ PutCounter | ValidTgts$ Creature | TgtPrompt$ Select creatures to distribute +1/+1 counters among | TargetMin$ 1 | TargetMax$ X | CounterType$ P1P1 | CounterNum$ X | DividedAsYouChoose$ X | SpellDescription$ Distribute X +1/+1 counters among any number of target creatures, where X is your life total.
+SVar:X:Count$YourLifeTotal
+Oracle:Distribute X +1/+1 counters among any number of target creatures, where X is your life total.

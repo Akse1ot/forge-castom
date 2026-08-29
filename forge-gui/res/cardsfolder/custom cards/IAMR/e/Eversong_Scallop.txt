@@ -1,0 +1,9 @@
+Name:Eversong Scallop
+ManaCost:1 W
+Types:Creature Clam
+PT:0/2
+K:Defender
+K:Melody:W
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerDescription$ When CARDNAME enters, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Defender\nMelody {W} (While casting a creature spell, you may tap this to pay for {W}. This doesn’t untap during your untap steps for as long as you control that creature.)\nWhen Eversong Scallop enters the battlefield, draw a card.

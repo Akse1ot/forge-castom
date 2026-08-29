@@ -1,0 +1,10 @@
+Name:Murloc Totemancer
+ManaCost:G
+Types:Creature Murloc Shaman
+PT:0/2
+K:Level up:1 G
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 1 | SetToughness$ 3 | AddAbility$ ProtectOne | IsPresent$ Card.Self+counters_GE2_LEVEL+counters_LE4_LEVEL | Description$ LEVEL 2-4 1/3 {T}: Target creature you control gains indestructible until end of turn.
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 2 | SetToughness$ 4 | AddAbility$ ProtectAll | IsPresent$ Card.Self+counters_GE5_LEVEL | Description$ LEVEL 5+ 2/4 {T}: Creatures you control gain indestructible until end of turn.
+SVar:ProtectOne:AB$ Pump | Cost$ T | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | KW$ Indestructible | Secondary$ True | SpellDescription$ Target creature you control gains indestructible until end of turn.
+SVar:ProtectAll:AB$ PumpAll | Cost$ T | ValidCards$ Creature.YouCtrl | KW$ Indestructible | Secondary$ True | SpellDescription$ Creatures you control gain indestructible until end of turn.
+Oracle:Level up {1}{G} ({1}{G}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 2-4\n1/3\n{T}: Target creature you control gains indestructible until end of turn.\nLEVEL 5+\n2/4\n{T}: Creatures you control gain indestructible until end of turn.

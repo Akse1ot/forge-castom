@@ -1,0 +1,6 @@
+Name:Statues of Emerien
+ManaCost:4
+Types:Artifact Creature Wall
+PT:3/4
+K:Defender
+Oracle:Defender

@@ -1,0 +1,6 @@
+Name:Bloodkelp Oracle
+ManaCost:U
+Types:Creature Merfolk Shaman
+PT:1/1
+A:AB$ Mana | Cost$ T | Produced$ Any | RestrictValid$ Activated.Creature | SpellDescription$ Add one mana of any color to your mana pool. Spend this mana only to activate abilities of creatures.
+Oracle:{T}: Add one mana of any color to your mana pool. Spend this mana only to activate abilities of creatures.

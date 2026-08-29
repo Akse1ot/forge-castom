@@ -1,0 +1,7 @@
+Name:Thought Theft
+ManaCost:5 U
+Types:Sorcery
+A:SP$ Mill | ValidTgts$ Player | NumCards$ X | SubAbility$ DBReturn | SpellDescription$ Target player puts the top X cards of their library into their graveyard, where X is the number of creatures you control. Return CARDNAME to its owner's hand.
+SVar:X:Count$Valid Creature.YouCtrl
+SVar:DBReturn:DB$ ChangeZone | Defined$ Self | Origin$ Stack | Destination$ Hand
+Oracle:Target player puts the top X cards of their library into their graveyard, where X is the number of creatures you control. Return Thought Theft to its owner's hand.

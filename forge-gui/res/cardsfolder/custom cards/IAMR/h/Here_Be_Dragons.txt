@@ -1,0 +1,6 @@
+Name:Here Be Dragons
+ManaCost:1 B
+Types:Sorcery
+A:SP$ RevealHand | ValidTgts$ Player | SubAbility$ DBBottom | SpellDescription$ Target player reveals their hand. You choose a creature card from it. That player puts that card on the bottom of their library.
+SVar:DBBottom:DB$ ChangeZone | Origin$ Hand | Destination$ Library | LibraryPosition$ -1 | ChangeType$ Creature | ChangeNum$ 1 | Hidden$ True | DefinedPlayer$ Targeted | Chooser$ You | Mandatory$ True | IsCurse$ True
+Oracle:Target player reveals their hand. You choose a creature card from it. That player puts that card on the bottom of their library.

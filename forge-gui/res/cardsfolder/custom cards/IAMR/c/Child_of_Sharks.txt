@@ -1,0 +1,8 @@
+Name:Child of Sharks
+ManaCost:5 R
+Types:Creature Merfolk Shaman
+PT:4/4
+K:Swallow
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFight | TriggerDescription$ When CARDNAME enters the battlefield, it fights another target creature.
+SVar:TrigFight:DB$ Fight | Defined$ TriggeredCardLKICopy | ValidTgts$ Creature.Other | TgtPrompt$ Select another target creature
+Oracle:Swallow (Each creature you sacrifice while casting this spell pays for {1} or one mana of that creature's color.)\nWhen Child of Sharks enters the battlefield, it fights another target creature.

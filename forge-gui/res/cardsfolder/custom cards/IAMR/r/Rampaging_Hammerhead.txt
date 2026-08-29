@@ -1,0 +1,7 @@
+Name:Rampaging Hammerhead
+ManaCost:3 R R
+Types:Creature Fish
+PT:2/2
+K:First Strike
+K:Bloodlust:2
+Oracle:First strike\nBloodlust 2 (Whenever this creature deals combat damage, put two +1/+1 counters on it.)

@@ -1,0 +1,7 @@
+Name:Halls of Beguiling Tunes
+ManaCost:1 G
+Types:Creature Wall
+PT:0/4
+K:Defender
+K:Melody:1 G
+Oracle:Defender\nMelody {1}{G} (While casting a creature spell, you may tap this to pay for {1}{G}. This doesn’t untap during your untap steps for as long as you control that creature.)

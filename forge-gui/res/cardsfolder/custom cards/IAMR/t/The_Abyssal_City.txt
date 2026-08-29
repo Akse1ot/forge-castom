@@ -1,0 +1,11 @@
+Name:The Abyssal City
+ManaCost:7 B B G G
+Types:Legendary Creature Turtle
+PT:3/11
+K:Swallow
+K:Indestructible
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | TriggerZones$ Battlefield | TriggerDescription$ Whenever CARDNAME attacks, create two 5/5 black Horror creature tokens that are tapped and attacking.
+SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScript$ b_5_5_horror | TokenOwner$ You | TokenTapped$ True | TokenAttacking$ True
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Token
+Oracle:Swallow (Each creature you sacrifice while casting this spell pays for {1} or one mana of that creature's color.)\nIndestructible\nWhenever The Abyssal City attacks, create two 5/5 black Horror creature tokens that are tapped and attacking.

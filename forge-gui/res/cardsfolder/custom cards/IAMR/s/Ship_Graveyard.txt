@@ -1,0 +1,7 @@
+Name:Ship Graveyard
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | Amount$ 1 | SpellDescription$ Add {C}.
+A:AB$ Token | Cost$ 5 T Sac<1/CARDNAME> | TokenScript$ b_2_2_zombie_pirate | TokenAmount$ X | TokenOwner$ You | TokenTapped$ True | References$ X | SpellDescription$ Put a 2/2 black Zombie Pirate creature token onto the battlefield tapped for each artifact card in your graveyard.
+SVar:X:Count$ValidGraveyard Artifact.YouOwn
+Oracle:{T}: Add {C}.\n{5}, {T}, Sacrifice Ship Graveyard: Put a 2/2 black Zombie Pirate creature token onto the battlefield tapped for each artifact card in your graveyard.

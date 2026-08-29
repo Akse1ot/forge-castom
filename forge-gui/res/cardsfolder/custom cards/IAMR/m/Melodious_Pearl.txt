@@ -1,0 +1,5 @@
+Name:Melodious Pearl
+ManaCost:1
+Types:Artifact
+K:Melody:AnyColor:1
+Oracle:Melody—one mana of any color. (While casting a creature spell, you may tap this to pay for one mana of any color. This doesn’t untap during your untap steps for as long as you control that creature.)

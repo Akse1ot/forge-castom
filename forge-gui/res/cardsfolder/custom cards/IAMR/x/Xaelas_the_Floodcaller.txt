@@ -1,0 +1,11 @@
+Name:Xaelas, the Floodcaller
+ManaCost:3 U U U
+Types:Legendary Planeswalker Xaelas
+Loyalty:4
+A:AB$ ChangeZone | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent | Origin$ Battlefield | Destination$ Hand | SpellDescription$ Return target permanent to its owner's hand.
+A:AB$ Draw | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Player | Defined$ You | NumCards$ X | SpellDescription$ Draw cards equal to the number of cards in target player's hand.
+SVar:X:Count$TargetedPlayer$CardsInHand
+A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Xaelas, the Floodcaller | Image$ emblem_xaelas_the_floodcaller
+ | StaticAbilities$ STNoUntap | Stackable$ False | Duration$ Permanent | AILogic$ Always | SpellDescription$ You get an emblem with "Permanents your opponents control don't untap during their controllers' untap steps."
+SVar:STNoUntap:Mode$ Continuous | Affected$ Player.Opponent | AddKeyword$ UntapAdjust:Permanent:0 | Description$ Permanents your opponents control don't untap during their controllers' untap steps.
+Oracle:[+1]: Return target permanent to its owner's hand.\n[-3]: Draw cards equal to the number of cards in target player's hand.\n[-8]: You get an emblem with "Permanents your opponents control don't untap during their controllers' untap steps."

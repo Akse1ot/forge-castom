@@ -1,0 +1,8 @@
+Name:Diverging Surge
+ManaCost:1 U R
+Types:Instant
+A:SP$ Effect | Triggers$ TrigSpellCast | SpellDescription$ Whenever you cast an instant or sorcery spell this turn, copy that spell. You may choose new targets for the copy.
+SVar:TrigSpellCast:Mode$ SpellCast | ValidCard$ Instant,Sorcery | TriggerZones$ Command | ValidActivatingPlayer$ You | Execute$ TrigCopySpell | TriggerDescription$ Whenever you cast an instant or sorcery spell this turn, copy that spell. You may choose new targets for the copy.
+SVar:TrigCopySpell:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Controller$ TriggeredCardController | MayChooseTarget$ True | AILogic$ Always
+DeckNeeds:Type$Instant|Sorcery
+Oracle:Whenever you cast an instant or sorcery spell this turn, copy that spell. You may choose new targets for the copy.

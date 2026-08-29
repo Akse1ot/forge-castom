@@ -1,0 +1,6 @@
+Name:Fish Charmer
+ManaCost:3 W
+Types:Creature Mermaid Bard
+PT:3/2
+K:Melody:1 W
+Oracle:Melody {1}{W} (While casting a creature spell, you may tap this to pay for {1}{W}. This doesn’t untap during your untap steps for as long as you control that creature.)

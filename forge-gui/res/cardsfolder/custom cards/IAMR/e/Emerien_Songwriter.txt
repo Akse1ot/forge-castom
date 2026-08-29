@@ -1,0 +1,8 @@
+Name:Emerien Songwriter
+ManaCost:1 G W
+Types:Creature Mermaid Bard
+PT:2/2
+K:Melody:G W
+S:Mode$ Continuous | Affected$ Creature.Nixie+YouCtrl+Other | AddPower$ 1 | AddToughness$ 1 | Description$ Other Nixie creatures you control get +1/+1.
+S:Mode$ UntapOtherPlayer | ValidCard$ Creature.Mermaid+YouCtrl+Other | Description$ Untap each other Mermaid you control during each other player's untap step.
+Oracle:Other Nixie creatures you control get +1/+1.\nUntap each other Mermaid you control during each other player's untap step.\nMelody {G}{W} (While casting a creature spell, you may tap this to pay for {G}{W}. This doesn't untap during your untap steps for as long as you control that creature.)

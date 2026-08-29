@@ -1,0 +1,7 @@
+Name:Emerien Dragonturtle
+ManaCost:4 G G
+Types:Creature Turtle
+PT:2/8
+K:Trample
+K:Bloodlust:2
+Oracle:Trample\nBloodlust 2 (Whenever this creature deals combat damage, put two +1/+1 counter on it.)

@@ -1,0 +1,7 @@
+Name:Lord of Ctalis
+ManaCost:1 U B
+Types:Creature Naga Advisor
+PT:2/2
+S:Mode$ Continuous | Affected$ Creature.Naga+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Intimidate | Description$ Other Naga creatures you control get +1/+1 and have intimidate.
+A:AB$ Mana | Cost$ Sac<1/Naga.Other/another Naga> | Produced$ C | Amount$ 2 | RestrictValid$ Spell.Creature+powerGE8 | SpellDescription$ Add {2}. Spend this mana only to cast creature spells with power 8 or greater.
+Oracle:Other Naga creatures you control get +1/+1 and have intimidate.\nSacrifice another Naga: Add {2}. Spend this mana only to cast creature spells with power 8 or greater.

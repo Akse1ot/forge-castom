@@ -1,0 +1,10 @@
+Name:Battalion Turtle
+ManaCost:3 R W
+Types:Creature Turtle Soldier
+PT:0/5
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever CARDNAME attacks, other attacking creatures get +2/+0 until end of turn.
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Creature.Other+YouCtrl | DamageTarget$ Self | ReplaceWith$ DmgMe | Description$ All damage that would be dealt to another creature you control is dealt to CARDNAME instead.
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.attacking+YouCtrl+Other | NumAtt$ +2
+SVar:DmgMe:DB$ ReplaceEffect | VarName$ Affected | VarValue$ Self | VarType$ Card
+Oracle:Haste\nWhenever Battalion Turtle attacks, other attacking creatures get +2/+0 until end of turn.\nAll damage that would be dealt to another creature you control is dealt to Battalion Turtle instead.

@@ -1,0 +1,7 @@
+Name:Tidesprite the Seer
+ManaCost:3 UR UR UR
+Types:Legendary Creature Elemental Shaman
+PT:4/2
+S:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Creature.YouCtrl | AddAbility$ CopySpell | Description$ Creatures you control have "{T}: Copy target instant or sorcery spell you control. You may choose new targets for the copy."
+SVar:CopySpell:AB$ CopySpellAbility | Cost$ T | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | MayChooseTarget$ True | SpellDescription$ Copy target instant or sorcery spell you control. You may choose new targets for the copy.
+Oracle:Creatures you control have "{T}: Copy target instant or sorcery spell you control. You may choose new targets for the copy."

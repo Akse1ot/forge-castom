@@ -1,0 +1,10 @@
+Name:Patron of the Sea
+ManaCost:W
+Types:Creature Mermaid Cleric
+PT:1/1
+K:Level up:2 R
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 2 | SetToughness$ 3 | AddStaticAbility$ SPump1 | IsPresent$ Card.Self+counters_GE1_LEVEL+counters_LE2_LEVEL | Description$ LEVEL 1-2 2/3 Other creatures you control get +0/+1.
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 4 | SetToughness$ 4 | AddStaticAbility$ SPump2 | IsPresent$ Card.Self+counters_GE3_LEVEL | Description$ LEVEL 3+ 4/4 Other creatures you control get +1/+1.
+SVar:SPump1:Mode$ Continuous | Affected$ Creature.YouCtrl+Other | AddToughness$ 1 | Secondary$ True | Description$ Other creatures you control get +0/+1.
+SVar:SPump2:Mode$ Continuous | Affected$ Creature.YouCtrl+Other | AddPower$ 1 | AddToughness$ 1 | Secondary$ True | Description$ Other creatures you control get +1/+1.
+Oracle:Level up {2}{R} ({2}{R}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 1-2\n2/3\nOther creatures you control get +0/+1.\nLEVEL 3+\n4/4\nOther creatures you control get +1/+1.

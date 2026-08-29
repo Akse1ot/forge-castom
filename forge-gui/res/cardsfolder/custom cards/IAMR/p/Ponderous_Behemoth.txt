@@ -1,0 +1,11 @@
+Name:Ponderous Behemoth
+ManaCost:5 W W
+Types:Creature Whale
+PT:6/8
+K:Shroud
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ CARDNAME enters the battlefield tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife | TriggerDescription$ When CARDNAME enters, you gain 2 life for each tapped creature you control.
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X
+SVar:X:Count$Valid Creature.YouCtrl+tapped/Times.2
+Oracle:Ponderous Behemoth enters the battlefield tapped.\nWhen Ponderous Behemoth enters the battlefield, you gain 2 life for each tapped creature you control.

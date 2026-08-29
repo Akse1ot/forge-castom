@@ -1,0 +1,6 @@
+Name:Meeple Token
+ManaCost:no cost
+Colors:white
+Types:Creature Meeple
+PT:0/0
+Oracle:

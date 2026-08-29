@@ -1,0 +1,9 @@
+Name:Limeshell Ammonite
+ManaCost:G G
+Types:Creature Nautilus
+PT:2/2
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Indestructible | Condition$ PlayerTurn | Description$ Iron Muscle — As long as it's your turn, NICKNAME has indestructible.
+A:AB$ PutCounter | Cost$ G T | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SpellDescription$ Put a +1/+1 counter on CARDNAME.
+DeckHints:Ability$Counters
+Oracle:Limeshell Ammonite has indestructible as long as it’s your turn.
+{G}, {T}: Put a +1/+1 counter on Limeshell Ammonite.

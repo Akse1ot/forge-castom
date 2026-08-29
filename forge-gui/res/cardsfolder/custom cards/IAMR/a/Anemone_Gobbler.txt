@@ -1,0 +1,8 @@
+Name:Anemone Gobbler
+ManaCost:3 W
+Types:Creature Beast
+PT:3/4
+K:Vigilance
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ CARDNAME enters the battlefield tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+Oracle:Vigilance\nAnemone Gobbler enters the battlefield tapped.

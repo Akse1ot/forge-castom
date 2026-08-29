@@ -1,0 +1,10 @@
+Name:Voyager of the Depths
+ManaCost:3
+Types:Artifact Creature Ship
+PT:2/2
+K:Level up:2
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 4 | SetToughness$ 4 | IsPresent$ Card.Self+counters_GE2_LEVEL+counters_LE5_LEVEL | Description$ LEVEL 2-5 4/4
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 6 | SetToughness$ 6 | IsPresent$ Card.Self+counters_GE6_LEVEL | Description$ LEVEL 6+ 6/6
+S:Mode$ CantBlockBy | ValidAttacker$ Card.Self | ValidBlocker$ Creature.Kraken,Creature.Leviathan,Creature.Serpent | IsPresent$ Card.Self+counters_GE6_LEVEL | Description$ CARDNAME can't be blocked by Kraken, Leviathans or Serpents.
+DeckHas:Ability$Counters
+Oracle:Level up {2} ({2}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 2-5\n4/4\nLEVEL 6+\n6/6\nVoyager of the Depths can't be blocked by Kraken, Leviathans or Serpents.

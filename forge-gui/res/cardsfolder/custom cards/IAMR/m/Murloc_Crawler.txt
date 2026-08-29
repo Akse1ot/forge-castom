@@ -1,0 +1,6 @@
+Name:Murloc Crawler
+ManaCost:1 BR BR
+Types:Creature Murloc Berserker
+PT:3/2
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.SharesColorWith | Description$ CARDNAME can't be blocked by creatures that share a color with it.
+Oracle:Murloc Crawler can't be blocked by creatures that share a color with it.

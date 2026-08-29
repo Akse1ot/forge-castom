@@ -1,0 +1,8 @@
+Name:Murloc of Miracle Deeps
+ManaCost:2 B
+Types:Creature Murloc
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBottom | TriggerDescription$ When CARDNAME enters the battlefield, put the bottom card of your library into your hand. You lose 1 life.
+SVar:TrigBottom:DB$ ChangeZone | Defined$ BottomOfLibrary | Origin$ Library | Destination$ Hand | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 1
+Oracle:When Murloc of Miracle Deeps enters the battlefield, put the bottom card of your library into your hand. You lose 1 life.

@@ -1,0 +1,7 @@
+Name:Ring of Coralia
+ManaCost:1
+Types:Artifact Equipment
+K:Talisman
+K:Equip:1
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Vigilance | Description$ Equipped creature has vigilance.
+Oracle:Equipped creature has vigilance.\nTalisman (If equipped creature would be destroyed, instead remove all damage from it and destroy this Equipment.)\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)

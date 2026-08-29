@@ -1,0 +1,8 @@
+Name:Fanged Eel
+ManaCost:1 G G
+Types:Creature Fish
+PT:2/2
+K:Intimidate
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife | TriggerDescription$ When this land enters, you gain 3 life.
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3
+Oracle:Intimidate (This creature can’t be blocked except by artifact creatures and/or creatures that share a color with it.)\nWhen Fanged Eel enters the battlefield, you gain 3 life.

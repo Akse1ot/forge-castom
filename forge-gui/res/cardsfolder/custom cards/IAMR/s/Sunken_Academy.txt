@@ -1,0 +1,8 @@
+Name:Sunken Academy
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ CARDNAME enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ C | Amount$ 1 | SpellDescription$ Add {C}.
+A:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 2 | RestrictValid$ Activated.Creature+inZoneBattlefield | SpellDescription$ Add two mana of any one color to your mana pool. Spend this mana only to activate abilities of creatures.
+Oracle:Sunken Academy enters tapped.\n{T}: Add {C}.\n{T}: Add two mana of any one color to your mana pool. Spend this mana only to activate abilities of creatures.

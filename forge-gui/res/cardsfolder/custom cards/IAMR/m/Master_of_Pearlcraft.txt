@@ -1,0 +1,7 @@
+Name:Master of Pearlcraft
+ManaCost:2 W
+Types:Creature Mermaid Wizard
+PT:2/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChangeZone | TriggerDescription$ At the beginning of your upkeep, you may return target Equipment card from your graveyard to your hand.
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Equipment.YouCtrl
+Oracle:At the beginning of your upkeep, you may return target Equipment card from your graveyard to your hand.

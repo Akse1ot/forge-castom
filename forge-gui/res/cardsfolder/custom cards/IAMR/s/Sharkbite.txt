@@ -1,0 +1,6 @@
+Name:Sharkbite
+ManaCost:2 R
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ X | SpellDescription$ CARDNAME deals 3 damage to target creature. If another source dealt damage to it this turn, CARDNAME deals 8 damage to it instead.
+SVar:X:Targeted$Valid Card.wasDealtDamageThisTurn/Times.5/Plus.3
+Oracle:Sharkbite deals 3 damage to target creature. If another source dealt damage to it this turn, Sharkbite deals 8 damage to it instead.

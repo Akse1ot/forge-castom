@@ -1,0 +1,7 @@
+Name:Jewel of the Deep
+ManaCost:1
+Types:Artifact
+A:AB$ ChangeZone | Cost$ T | ValidTgts$ Card.YouOwn | TgtPrompt$ Select target card from your graveyard | Origin$ Graveyard | Destination$ Library | LibraryPosition$ -1 | SpellDescription$ Put target card from your graveyard on the bottom of your library.
+A:AB$ ChangeZone | Cost$ 6 T Sac<1/CARDNAME> | Origin$ Library | Destination$ Hand | ChangeType$ Card | ChangeNum$ 1 | OriginLibraryPosition$ Bottom | SubAbility$ DBSecondCard | SpellDescription$ Put the bottom two cards of your library into your hand.
+SVar:DBSecondCard:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Card | ChangeNum$ 1 | OriginLibraryPosition$ Bottom
+Oracle:{T}: Put target card from your graveyard on the bottom of your library.\n{6}, {T}, Sacrifice Jewel of the Deep: Put the bottom two cards of your library into your hand.

@@ -1,0 +1,6 @@
+Name:Twist the Tides
+ManaCost:4 U
+Types:Sorcery
+A:SP$ Draw | NumCards$ 2 | SubAbility$ DBToken | SpellDescription$ Draw two cards. Put two 0/1 Fish creature tokens that are all colors onto the battlefield.
+SVar:DBToken:DB$ Token | TokenScript$ all_0_1_fish | TokenAmount$ 2
+Oracle:Draw two cards. Put two 0/1 Fish creature tokens that are all colors onto the battlefield.

@@ -1,0 +1,8 @@
+Name:Noble of Blood Bottom
+ManaCost:1 B
+Types:Creature Naga Wizard
+PT:1/2
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever a creature dies, CARDNAME gets +1/+1 until end of turn.
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1 | NumDef$ +1
+Oracle:Lifelink\nWhenever a creature dies, Noble of Blood Bottom gets +1/+1 until end of turn.

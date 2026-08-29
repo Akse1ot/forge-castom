@@ -1,0 +1,14 @@
+Name:Nolgul
+ManaCost:8 U U U U U U
+Types:Legendary Creature Kraken Avatar
+PT:12/12
+R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen | Description$ CARDNAME can't be countered.
+K:Swallow
+K:Protection:Card.nonCreature:noncreature
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainControl | TriggerDescription$ Whenever CARDNAME enters or attacks, gain control of target creature.
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigGainControl | TriggerZones$ Battlefield | Secondary$ True | TriggerDescription$ Whenever CARDNAME enters or attacks, gain control of target creature.
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature
+R:Event$ Moved | Destination$ Graveyard | ValidCard$ Card.Self | ReplaceWith$ DBShuffle | Description$ If CARDNAME would be put into a graveyard from anywhere, reveal CARDNAME and shuffle it into its owner's library instead.
+SVar:DBShuffle:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Library | Defined$ ReplacedCard | Reveal$ True | Shuffle$ True
+SVar:HasAttackEffect:TRUE
+Oracle:Nolgul can't be countered.\nSwallow, protection from noncreature\nWhenever Nolgul enters or attacks, gain control of target creature.\nIf Nolgul would be put into a graveyard from anywhere, reveal Nolgul and shuffle it into its owner's library instead.

@@ -1,0 +1,10 @@
+Name:Throne of the Ur-Kraken
+ManaCost:no cost
+Types:Land
+K:Level up:1
+S:Mode$ Continuous | Affected$ Card.Self | AddAbility$ ManaLevel1 | IsPresent$ Card.Self+counters_GE1_LEVEL+counters_LE15_LEVEL | Description$ LEVEL 1-15 {T}: Add {C}.
+S:Mode$ Continuous | Affected$ Card.Self | AddAbility$ ManaLevel16 | IsPresent$ Card.Self+counters_GE16_LEVEL | Description$ LEVEL 16+ {T}: Add eight colorless mana.
+SVar:ManaLevel1:AB$ Mana | Cost$ T | Produced$ C | Amount$ 1 | SpellDescription$ Add {C}.
+SVar:ManaLevel16:AB$ Mana | Cost$ T | Produced$ C | Amount$ 8 | SpellDescription$ Add eight colorless mana.
+DeckHas:Ability$Counters
+Oracle:Level up {1} ({1}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 1-15\n{T}: Add {C}.\nLEVEL 16+\n{T}: Add eight colorless mana.

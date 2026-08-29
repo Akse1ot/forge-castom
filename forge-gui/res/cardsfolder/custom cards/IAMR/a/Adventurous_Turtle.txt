@@ -1,0 +1,8 @@
+Name:Adventurous Turtle
+ManaCost:1 U
+Types:Creature Turtle Warrior
+PT:0/4
+K:Level up:2 G
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 0 | SetToughness$ 6 | IsPresent$ Card.Self+counters_GE1_LEVEL+counters_LE2_LEVEL | PresentCompare$ EQ1 | Description$ LEVEL 1-2 0/6
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 0 | SetToughness$ 9 | AddKeyword$ All creatures able to block CARDNAME do so. | IsPresent$ Card.Self+counters_GE3_LEVEL | PresentCompare$ EQ1 | Description$ LEVEL 3+ 0/9 All creatures able to block CARDNAME do so.
+Oracle:Level up {2}{G} ({2}{G}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 1-2\n0/6\nLEVEL 3+\n0/9\nAll creatures able to block Adventurous Turtle do so.
