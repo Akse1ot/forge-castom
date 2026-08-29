@@ -193,14 +193,14 @@ public class CardStorageReader {
         for (final CardRules card : cards) {
             validateCardScriptFilename(card);
 
-            if (!result.add(card) && !loadingTokens) {
-                logDuplicateCardScript(result, card);
+            if (!result.add(card)) {
+                logDuplicateScript(result, card);
             }
         }
     }
 
-    private static void logDuplicateCardScript(final Collection<CardRules> result,
-                                               final CardRules duplicate) {
+    private void logDuplicateScript(final Collection<CardRules> result,
+                                    final CardRules duplicate) {
         for (final CardRules existing : result) {
             if (String.CASE_INSENSITIVE_ORDER.compare(
                     existing.getNormalizedName(), duplicate.getNormalizedName()) != 0) {
@@ -208,9 +208,10 @@ public class CardStorageReader {
             }
 
             System.err.printf(
-                    "ERROR: Duplicate card script filename: \"%s%s\".%n"
+                    "ERROR: Duplicate %s script filename: \"%s%s\".%n"
                             + "  First loaded script: %s%n"
                             + "  Duplicate script: %s%n",
+                    loadingTokens ? "token" : "card",
                     duplicate.getNormalizedName(),
                     CARD_FILE_DOT_EXTENSION,
                     existing.getPath(),

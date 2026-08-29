@@ -183,11 +183,22 @@ public class StaticData {
                 if (null == card) continue;
                 tokens.put(card.getNormalizedName(), card);
             }
-            if (customTokenReader != null){
-                for (CardRules card : customTokenReader.loadCards()){
+            if (customTokenReader != null) {
+                for (CardRules card : customTokenReader.loadCards()) {
                     if (null == card) continue;
+
                     card.setCustom();
-                    tokens.put(card.getNormalizedName(), card);
+
+                    final CardRules previous = tokens.put(card.getNormalizedName(), card);
+                    if (previous != null) {
+                        System.err.printf(
+                                "ERROR: Duplicate token script identifier: \"%s\".%n"
+                                        + "  Existing script: %s%n"
+                                        + "  Custom script: %s%n",
+                                card.getNormalizedName(),
+                                previous.getPath(),
+                                card.getPath());
+                    }
                 }
             }
             allTokens = new TokenDb(tokens, editions);
