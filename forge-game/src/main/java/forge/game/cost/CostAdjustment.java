@@ -41,7 +41,19 @@ public class CostAdjustment {
             return cost;
         }
 
-        final Cost taggedOptionalCost = TaggedOptionalCostAdjustment.adjust(cost, sa);
+        Cost baseCost = cost;
+
+        if (sa.isActivatedAbility() && sa.hasParam("AlternativeManaCost")) {
+            baseCost = cost.copyWithDefinedMana(
+                    sa.getParam("AlternativeManaCost")
+            );
+
+            // copyWithDefinedMana currently doesn't preserve this Cost flag.
+            baseCost.setMandatory(cost.isMandatory());
+        }
+
+        final Cost taggedOptionalCost =
+                TaggedOptionalCostAdjustment.adjust(baseCost, sa);
 
         if (sa.isTrigger()) {
             sa.setMaxWaterbend(taggedOptionalCost);
@@ -129,7 +141,11 @@ public class CostAdjustment {
                 mc = sa.getHostCard().getManaCost();
             } else if (sa.isAbility() && sa.getPayCosts().hasManaCost()) {
                 // TODO check for AlternateCost$, it should always be part of the activation cost too
-                mc = sa.getPayCosts().getCostMana().getMana();
+                if (sa.isActivatedAbility() && sa.hasParam("AlternativeManaCost")) {
+                    mc = new ManaCost(sa.getParam("AlternativeManaCost"));
+                } else {
+                    mc = sa.getPayCosts().getCostMana().getMana();
+                }
             }
             byte atom = ManaAtom.fromName(st.getParam("ForEachShard").toLowerCase());
             for (ManaCostShard shard : mc) {
@@ -300,6 +316,12 @@ public class CostAdjustment {
                 adjustCostBySwallow(
                         cost, sa, activator, test);
             }
+        }
+
+        if (sa.isActivatedAbility()
+                && host.hasKeyword(Keyword.ABYSSAL)) {
+            adjustCostBySwallow(
+                    cost, sa, activator, test);
         }
 
         if (sa.hasParam("TapCreaturesForMana")) {

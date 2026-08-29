@@ -1,4 +1,4 @@
-Name:Spinner of Souls
+Name:Spinner of Souls I
 ManaCost:U B
 Types:Creature Horror Warlock
 PT:0/4

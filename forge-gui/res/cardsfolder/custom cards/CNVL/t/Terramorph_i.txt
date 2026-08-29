@@ -1,4 +1,4 @@
-Name:Terramorph
+Name:Terramorph I
 ManaCost:2 R G
 Types:Sorcery
 A:SP$ Mana | Produced$ R R R G G G | SpellDescription$ Add {R}{R}{R}{G}{G}{G}.

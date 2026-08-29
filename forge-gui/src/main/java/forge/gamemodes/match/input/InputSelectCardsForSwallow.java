@@ -5,6 +5,7 @@ import forge.card.mana.ManaCost;
 import forge.card.mana.ManaCostShard;
 import forge.game.card.Card;
 import forge.game.card.CardCollectionView;
+import forge.game.keyword.Keyword;
 import forge.game.mana.ManaCostBeingPaid;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
@@ -31,6 +32,7 @@ public final class InputSelectCardsForSwallow
 
     private final Player player;
     private final CardCollectionView availableCards;
+    private final String mechanicName;
 
     public InputSelectCardsForSwallow(
             final PlayerControllerHuman controller,
@@ -44,12 +46,19 @@ public final class InputSelectCardsForSwallow
         this.originalCost = cost;
         this.remainingCost = new ManaCostBeingPaid(cost);
         this.availableCards = availableCards;
+        this.mechanicName =
+                sa.isActivatedAbility()
+                        && sa.getHostCard().hasKeyword(Keyword.ABYSSAL)
+                        ? "Abyssal"
+                        : "Swallow";
     }
 
     @Override
     protected String getMessage() {
         return TextUtil.concatNoSpace(
-                "Choose creatures to sacrifice for Swallow.\n",
+                "Choose creatures to sacrifice for ",
+                mechanicName,
+                ".\n",
                 "Remaining mana cost is ",
                 remainingCost.toString());
     }
@@ -81,7 +90,9 @@ public final class InputSelectCardsForSwallow
                     card.toString(),
                     " cannot pay any part of ",
                     remainingCost.toString(),
-                    " with Swallow."));
+                    " with ",
+                    mechanicName,
+                    "."));
             return false;
         }
 
@@ -105,7 +116,8 @@ public final class InputSelectCardsForSwallow
         if (colors.isMulticolor()) {
             return player.getController()
                     .chooseColorAllowColorless(
-                            "Swallow "
+                            mechanicName
+                                    + " "
                                     + card.toString()
                                     + " for which color?",
                             card,
@@ -127,7 +139,7 @@ public final class InputSelectCardsForSwallow
 
             if (shard == null) {
                 throw new IllegalStateException(
-                        "Unable to replay Swallow payment");
+                        "Unable to replay " + mechanicName + " payment");
             }
 
             chosenCards.put(entry.getKey(), shard);
@@ -137,7 +149,7 @@ public final class InputSelectCardsForSwallow
     @Override
     public String getActivateAction(final Card card) {
         if (availableCards.contains(card)) {
-            return "sacrifice creature for Swallow";
+            return "sacrifice creature for " + mechanicName;
         }
         return null;
     }

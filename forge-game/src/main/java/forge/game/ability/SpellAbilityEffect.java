@@ -965,6 +965,8 @@ public abstract class SpellAbilityEffect {
             }
         } else if ("ThisTurnAndNextTurn".equals(duration)) {
             game.getEndOfTurn().addUntil(() -> game.getEndOfTurn().addUntil(until));
+        } else if ("UntilEndOfResolution".equals(duration)) {
+            game.getStack().addUntilEndOfResolution(until);
         } else if ("UntilStateBasedActionChecked".equals(duration)) {
             game.addSBACheckedCommand(until);
         } else if ("UntilHostLeavesPlay".equals(duration)) {

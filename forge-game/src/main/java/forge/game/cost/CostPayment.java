@@ -215,7 +215,9 @@ public class CostPayment extends ManaConversionMatrix {
         final Map<Card, Boolean> swallowReservedSacrifices =
                 new IdentityHashMap<>();
 
-        if (ability.getHostCard().hasKeyword(Keyword.SWALLOW)) {
+        if (ability.getHostCard().hasKeyword(Keyword.SWALLOW)
+                || (ability.isActivatedAbility()
+                && ability.getHostCard().hasKeyword(Keyword.ABYSSAL))) {
             for (final CostPart part : parts) {
                 reserveSacrificeForSwallow(
                         part,

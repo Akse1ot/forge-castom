@@ -19,7 +19,7 @@ package forge;
 
 import com.google.common.io.Files;
 import forge.card.CardRules;
-import forge.card.CardSplitType;
+import forge.card.ICardFace;
 import forge.util.BuildInfo;
 import forge.util.FileUtil;
 import forge.util.Localizer;
@@ -155,68 +155,86 @@ public class CardStorageReader {
         return new String(chars, 0, charIndex);
     }
 
-    private void validateCardScriptFilename(final CardRules card) {
-        if (loadingTokens || card.getMainPart() == null) {
-            return;
-        }
+    private void addLoadedCards(final Collection<CardRules> result, final Iterable<CardRules> cards) {
+        for (final CardRules card : cards) {
+            if (result.add(card)) {
+                continue;
+            }
 
-        // A secondary face supplied through CopyFaceFrom is not available yet.
-        // Skip filename validation rather than report a false positive.
-        if (card.getOtherPart() == null
-                && card.getSplitType() != CardSplitType.None
-                && card.getSplitType() != CardSplitType.Specialize) {
-            return;
+            if (loadingTokens) {
+                logDuplicateTokenScript(result, card);
+            } else {
+                logDuplicateCardName(result, card);
+            }
         }
+    }
 
-        String cardName = card.getMainPart().getName();
-        if (card.getOtherPart() != null) {
-            cardName += " // " + card.getOtherPart().getName();
+    private static CardRules findExistingScript(final Collection<CardRules> result,
+                                                final CardRules duplicate) {
+        for (final CardRules existing : result) {
+            if (String.CASE_INSENSITIVE_ORDER.compare(
+                    existing.getNormalizedName(), duplicate.getNormalizedName()) == 0) {
+                return existing;
+            }
         }
+        return null;
+    }
 
-        final String expectedName = transformName(cardName);
-        if (expectedName.equalsIgnoreCase(card.getNormalizedName())) {
+    private static void logDuplicateTokenScript(final Collection<CardRules> result,
+                                                final CardRules duplicate) {
+        final CardRules existing = findExistingScript(result, duplicate);
+        if (existing == null) {
             return;
         }
 
         System.err.printf(
-                "ERROR: Card script filename does not match its Name field(s).%n"
-                        + "  Card: %s%n"
-                        + "  File: %s%n"
-                        + "  Expected filename: %s%s%n",
-                cardName,
-                card.getPath(),
-                expectedName,
-                CARD_FILE_DOT_EXTENSION);
+                "ERROR: Duplicate token script identifier: \"%s\".%n"
+                        + "  First loaded script: %s%n"
+                        + "  Duplicate script: %s%n",
+                duplicate.getNormalizedName(),
+                existing.getPath(),
+                duplicate.getPath());
     }
 
-    private void addLoadedCards(final Collection<CardRules> result, final Iterable<CardRules> cards) {
-        for (final CardRules card : cards) {
-            validateCardScriptFilename(card);
+    private static void logDuplicateCardName(final Collection<CardRules> result,
+                                             final CardRules duplicate) {
+        final CardRules existing = findExistingScript(result, duplicate);
+        if (existing == null) {
+            return;
+        }
 
-            if (!result.add(card)) {
-                logDuplicateScript(result, card);
+        for (final ICardFace duplicateFace : duplicate.getAllFaces()) {
+            for (final ICardFace existingFace : existing.getAllFaces()) {
+                if (existingFace.getName().equalsIgnoreCase(duplicateFace.getName())) {
+                    System.err.printf(
+                            "ERROR: Duplicate card Name: \"%s\".%n"
+                                    + "  First loaded script: %s%n"
+                                    + "  Duplicate script: %s%n",
+                            duplicateFace.getName(),
+                            existing.getPath(),
+                            duplicate.getPath());
+                    return;
+                }
             }
         }
-    }
 
-    private void logDuplicateScript(final Collection<CardRules> result,
-                                    final CardRules duplicate) {
-        for (final CardRules existing : result) {
-            if (String.CASE_INSENSITIVE_ORDER.compare(
-                    existing.getNormalizedName(), duplicate.getNormalizedName()) != 0) {
-                continue;
+        // Placeholder faces may not be present in getAllFaces() yet.
+        // getPreInitName() is specifically intended for CardDb initialization.
+        try {
+            final String existingName = existing.getPreInitName();
+            final String duplicateName = duplicate.getPreInitName();
+
+            if (existingName.equalsIgnoreCase(duplicateName)) {
+                System.err.printf(
+                        "ERROR: Duplicate card Name: \"%s\".%n"
+                                + "  First loaded script: %s%n"
+                                + "  Duplicate script: %s%n",
+                        duplicateName,
+                        existing.getPath(),
+                        duplicate.getPath());
             }
-
-            System.err.printf(
-                    "ERROR: Duplicate %s script filename: \"%s%s\".%n"
-                            + "  First loaded script: %s%n"
-                            + "  Duplicate script: %s%n",
-                    loadingTokens ? "token" : "card",
-                    duplicate.getNormalizedName(),
-                    CARD_FILE_DOT_EXTENSION,
-                    existing.getPath(),
-                    duplicate.getPath());
-            return;
+        } catch (RuntimeException ignored) {
+            // Do not allow diagnostic validation to break card loading.
         }
     }
     

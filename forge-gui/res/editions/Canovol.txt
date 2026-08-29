@@ -241,7 +241,7 @@ Replace=.011F Mythic:fromSheet("CNVL cards")
 204 M Superior Wingset
 205 M Supernatural Journeyer
 206 R Tainted Reality
-207 C Terramorph
+207 C Terramorph I
 208 R Terrifying Emergence
 209 M Touch of Eternity
 210 R Transmuting Entry

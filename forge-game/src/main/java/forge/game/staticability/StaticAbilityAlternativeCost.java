@@ -36,8 +36,51 @@ public class StaticAbilityAlternativeCost {
                 costTemplate = costTemplate.replace("ConvertedManaCost", Integer.toString(source.getCMC()));
 
                 Cost cost = new Cost(costTemplate, sa.isAbility());
-                // set the cost to this directly to bypass non mana cost
-                final SpellAbility newSA = sa.isAbility() ? sa.copyWithDefinedCost(cost) : sa.copyWithManaCostReplaced(pl, cost);
+
+                final boolean replaceManaCostOnly =
+                        sa.isActivatedAbility()
+                                && "True".equalsIgnoreCase(
+                                stAb.getParamOrDefault("ReplaceManaCostOnly", "False")
+                        );
+
+                if (replaceManaCostOnly) {
+                    // This mode replaces only the mana part of an activation cost.
+                    // The replacement itself therefore must contain mana only.
+                    if (!cost.isOnlyManaCost() || cost.getTotalMana().isNoCost()) {
+                        continue;
+                    }
+
+                    final Cost originalCost = sa.getPayCosts();
+
+                    // No reason to create an alternative if the ability already
+                    // has no mana cost or its mana cost is already {0}.
+                    if (originalCost == null
+                            || !originalCost.hasManaCost()
+                            || originalCost.getTotalMana().isZero()) {
+                        continue;
+                    }
+                }
+
+                final SpellAbility newSA;
+
+                if (replaceManaCostOnly) {
+                    // Keep the original activation cost on the copied ability.
+                    // This is important for X: Forge must still announce X normally
+                    // before the mana part is replaced during total-cost calculation.
+                    newSA = sa.copy(pl);
+
+                    // Internal marker used later by CostAdjustment.
+                    newSA.putParam(
+                            "AlternativeManaCost",
+                            cost.getTotalMana().getShortString()
+                    );
+                } else {
+                    // Preserve the existing Forge behaviour for all old scripts.
+                    newSA = sa.isAbility()
+                            ? sa.copyWithDefinedCost(cost)
+                            : sa.copyWithManaCostReplaced(pl, cost);
+                }
+
                 newSA.setActivatingPlayer(pl);
                 newSA.setBasicSpell(false);
 
@@ -77,8 +120,22 @@ public class StaticAbilityAlternativeCost {
 
                 // CostDesc only for ManaCost?
                 if (sa.isAbility()) {
-                    newSA.putParam("CostDesc", stAb.hasParam("CostDesc") ? ManaCostParser.parse(stAb.getParam("CostDesc")) : cost.toSimpleString());
+                    final Cost displayCost = replaceManaCostOnly
+                            ? sa.getPayCosts().copyWithDefinedMana(cost.getTotalMana())
+                            : cost;
+
+                    newSA.putParam(
+                            "CostDesc",
+                            stAb.hasParam("CostDesc")
+                                    ? ManaCostParser.parse(stAb.getParam("CostDesc"))
+                                    : displayCost.toSimpleString()
+                    );
+
                     sb.append(newSA.getCostDescription());
+
+                    if (replaceManaCostOnly) {
+                        sb.append(newSA.getParamOrDefault("SpellDescription", ""));
+                    }
                 }
 
                 // skip reminder text for now, Keywords might be too complicated

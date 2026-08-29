@@ -20,6 +20,8 @@ package forge.game.zone;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
+import forge.GameCommand;
+
 import forge.game.*;
 import forge.game.ability.AbilityKey;
 import forge.game.ability.AbilityUtils;
@@ -73,6 +75,12 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
     private boolean frozen = false;
     private boolean bResolving = false;
 
+    // Commands that expire when the current stack object finishes resolving.
+    // This is deliberately separate from bResolving: GameState also uses
+    // setResolving(true) while constructing a state outside real stack resolution.
+    private boolean endOfResolutionScopeActive = false;
+    private final Deque<GameCommand> untilEndOfResolution = new ArrayDeque<>();
+
     private final List<SpellAbility> thisTurnCast = Lists.newArrayList();
     private List<Card> lastTurnCast = Lists.newArrayList();
     private final List<SpellAbility> thisTurnActivated = Lists.newArrayList();
@@ -106,6 +114,10 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
         thisTurnActivated.clear();
         curResolvingCard = null;
         frozenStack.clear();
+
+        endOfResolutionScopeActive = false;
+        untilEndOfResolution.clear();
+
         clearUndoStack();
         game.updateStackForView();
     }
@@ -172,6 +184,55 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
         // TODO: frozen triggered abilities and undoable costs have nasty consequences
         frozen = false;
         frozenStack.clear();
+    }
+
+    /**
+     * Register a command that must run when the current stack object finishes
+     * resolving.
+     *
+     * This scope exists only inside resolveStack(). It intentionally does not use
+     * isResolving(), because GameState also sets that flag while constructing a
+     * game state and mana/static abilities can resolve outside resolveStack().
+     */
+    public final void addUntilEndOfResolution(final GameCommand command) {
+        if (!endOfResolutionScopeActive) {
+            throw new IllegalStateException(
+                    "UntilEndOfResolution can only be used while a stack object is resolving."
+            );
+        }
+        if (command == null) {
+            throw new IllegalArgumentException("UntilEndOfResolution command cannot be null.");
+        }
+
+        // LIFO is intentional: temporary states established later during the
+        // resolution are removed before states established earlier.
+        untilEndOfResolution.push(command);
+    }
+
+    private void beginEndOfResolutionScope() {
+        if (endOfResolutionScopeActive) {
+            throw new IllegalStateException(
+                    "Nested end-of-resolution scope in MagicStack.resolveStack()."
+            );
+        }
+        if (!untilEndOfResolution.isEmpty()) {
+            throw new IllegalStateException(
+                    "UntilEndOfResolution commands leaked from a previous resolution."
+            );
+        }
+
+        endOfResolutionScopeActive = true;
+    }
+
+    private void endEndOfResolutionScope() {
+        try {
+            while (!untilEndOfResolution.isEmpty()) {
+                untilEndOfResolution.pop().run();
+            }
+        } finally {
+            untilEndOfResolution.clear();
+            endOfResolutionScopeActive = false;
+        }
     }
 
     public final boolean isResolving() {
@@ -591,6 +652,8 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
             game.copyLastState();
         }
 
+        beginEndOfResolutionScope();
+
         // Change controller of activating player if it was set in SA
         if (sa.getControlledByPlayer() != null) {
             sa.getActivatingPlayer().addController(sa.getControlledByPlayer().getLeft(), sa.getControlledByPlayer().getRight());
@@ -623,6 +686,12 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
             sa.resolve();
             // do creatures ETB from here?
         }
+
+        // End temporary effects established during this resolution.
+        // Do this before restoring a controller that was installed before
+        // the resolution (e.g. Word of Command), so nested temporary state
+        // unwinds in reverse order.
+        endEndOfResolutionScope();
 
         // Change controller back if it was changed
         if (sa.getControlledByPlayer() != null) {

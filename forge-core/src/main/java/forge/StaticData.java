@@ -72,12 +72,12 @@ public class StaticData {
             final String faceName = face.getName();
             final CardRules previous = seenFaceNames.putIfAbsent(faceName, card);
 
-            if (previous == null) {
+            if (previous == null || previous == card) {
                 continue;
             }
 
             System.err.printf(
-                    "ERROR: Duplicate card face Name: \"%s\".%n"
+                    "ERROR: Duplicate card Name: \"%s\".%n"
                             + "  First loaded script: %s%n"
                             + "  Duplicate script: %s%n",
                     faceName,
@@ -149,7 +149,7 @@ public class StaticData {
 
                     final String cardName;
                     try {
-                        cardName = card.getName();
+                        cardName = card.getPreInitName();
                     } catch (RuntimeException e) {
                         throw new RuntimeException("Failed to initialize custom card script: " + card.getPath(), e);
                     }

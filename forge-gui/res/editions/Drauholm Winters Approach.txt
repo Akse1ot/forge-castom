@@ -259,7 +259,7 @@ Replace=.01F Mythic:fromSheet("DWAP cards")
 228 M Sivfrida, Life-Warden
 229 R Skadi, Fierce Protectress
 230 U Slumbering Snowtoad
-231 U Spinner of Souls
+231 U Spinner of Souls I
 232 M Steinar, Molten Will
 233 R Sven, Fjord Cliffdancer
 234 M Tungskul, Gelid Moon
