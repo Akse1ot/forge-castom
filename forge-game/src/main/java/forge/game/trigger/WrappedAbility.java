@@ -394,6 +394,15 @@ public class WrappedAbility extends Ability {
         sa.resetTargets();
     }
 
+    protected boolean checkTriggerRequirements(final Game game, final Trigger trigger) {
+        if (!trigger.requirementsCheck(game)) {
+            return false;
+        }
+        // Since basic requirements check only cares about whether it's "Activated"
+        // Also check on triggered object specific requirements on resolution (e.g. evolve)
+        return trigger.meetsRequirementsOnTriggeredObjects(game, getTriggeringObjects());
+    }
+
     // //////////////////////////////////////
     // THIS ONE IS ALL THAT MATTERS
     // //////////////////////////////////////
@@ -404,12 +413,7 @@ public class WrappedAbility extends Ability {
 
         if (!(TriggerType.Always.equals(regtrig.getMode())) && !regtrig.hasParam("NoResolvingCheck")) {
             // Most State triggers don't have "Intervening If"
-            if (!regtrig.requirementsCheck(game)) {
-                return;
-            }
-            // Since basic requirements check only cares about whether it's "Activated"
-            // Also check on triggered object specific requirements on resolution (e.g. evolve)
-            if (!regtrig.meetsRequirementsOnTriggeredObjects(game, getTriggeringObjects())) {
+            if (!checkTriggerRequirements(game, regtrig)) {
                 return;
             }
         }

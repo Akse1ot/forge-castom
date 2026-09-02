@@ -18,6 +18,7 @@
 package forge.game.trigger;
 
 import java.util.*;
+import java.util.function.BiFunction;
 
 import com.google.common.collect.*;
 
@@ -423,7 +424,21 @@ public class TriggerHandler {
     private void runSingleTrigger(final Trigger regtrig, final Map<AbilityKey, Object> runParams) {
         runSingleTrigger(regtrig, runParams, null);
     }
+
     private void runSingleTrigger(final Trigger regtrig, final Map<AbilityKey, Object> runParams, Player controller) {
+        runSingleTrigger(regtrig, runParams, controller,
+                (sa, decider) -> new WrappedAbility(regtrig, sa, decider));
+    }
+
+    public void runSingleTriggerWithWrapper(final Trigger regtrig,
+                                            final Map<AbilityKey, Object> runParams,
+                                            final BiFunction<SpellAbility, Player, WrappedAbility> wrapperFactory) {
+        runSingleTrigger(regtrig, runParams, null, wrapperFactory);
+    }
+
+    private void runSingleTrigger(final Trigger regtrig,
+                                  final Map<AbilityKey, Object> runParams, Player controller,
+                                  final BiFunction<SpellAbility, Player, WrappedAbility> wrapperFactory) {
         if (controller == null) {
             controller = regtrig.getHostCard().getController();
         }
@@ -437,24 +452,23 @@ public class TriggerHandler {
             if ("Battlefield".equals(regtrig.getParam("Origin"))) {
                 // If yes, only trigger once
                 newParams.put(AbilityKey.Card, mergedCards);
-                runSingleTriggerInternal(regtrig, newParams, controller);
+                runSingleTriggerInternal(regtrig, newParams, controller, wrapperFactory);
             } else {
                 // Else, trigger for each merged components
                 for (final Card c : mergedCards) {
                     newParams.put(AbilityKey.Card, c);
-                    runSingleTriggerInternal(regtrig, newParams, controller);
+                    runSingleTriggerInternal(regtrig, newParams, controller, wrapperFactory);
                 }
             }
         } else {
-            runSingleTriggerInternal(regtrig, runParams, controller);
+            runSingleTriggerInternal(regtrig, runParams, controller, wrapperFactory);
         }
     }
 
     // Checks if the conditions are right for a single trigger to go off, and
     // runs it if so.
     // Return true if the trigger went off, false otherwise.
-    private void runSingleTriggerInternal(final Trigger regtrig, final Map<AbilityKey, Object> runParams, Player controller) {
-        // All tests passed, execute ability.
+    private void runSingleTriggerInternal(final Trigger regtrig, final Map<AbilityKey, Object> runParams, Player controller, final BiFunction<SpellAbility, Player, WrappedAbility> wrapperFactory) {        // All tests passed, execute ability.
 
         adjustUndoStack(regtrig, runParams);
 
@@ -515,7 +529,7 @@ public class TriggerHandler {
             decider = sa.getActivatingPlayer();
         }
 
-        final WrappedAbility wrapperAbility = new WrappedAbility(regtrig, sa, decider);
+        final WrappedAbility wrapperAbility = wrapperFactory.apply(sa, decider);
         //wrapperAbility.setDescription(wrapperAbility.getStackDescription());
         //wrapperAbility.setDescription(wrapperAbility.toUnsuppressedString());
 

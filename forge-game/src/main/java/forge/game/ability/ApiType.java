@@ -69,6 +69,7 @@ public enum ApiType {
     CopySpellAbility (CopySpellAbilityEffect.class),
     ControlSpell (ControlSpellEffect.class),
     ControlPlayer (ControlPlayerEffect.class),
+    CustomReplayEtb (CustomReplayEtbEffect.class),
     Counter (CounterEffect.class),
     DamageAll (DamageAllEffect.class),
     DealDamage (DamageDealEffect.class),
