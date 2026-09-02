@@ -1650,7 +1650,7 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                         for (final Card card : c.getMergedCards()) {
                             if (card == c) continue;
                             if (destination.equals(ZoneType.Exile)) {
-                                handleExiledWith(c, sa);
+                                handleExiledWith(card, sa);
                             }
                         }
                     }
