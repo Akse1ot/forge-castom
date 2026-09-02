@@ -1,0 +1,7 @@
+Name:Hesitate
+ManaCost:W
+Types:Instant
+A:SP$ Effect | ValidTgts$ Creature | TgtPrompt$ Select target creature | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ CantAttack | SubAbility$ DBDraw | SpellDescription$ Target creature can't attack this turn. Draw a card.
+SVar:CantAttack:Mode$ CantAttack | ValidCard$ Card.IsRemembered
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Target creature can't attack this turn.\nDraw a card.

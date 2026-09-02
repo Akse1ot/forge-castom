@@ -1,0 +1,8 @@
+Name:Macuri Charm
+ManaCost:W U
+Types:Instant
+A:SP$ Charm | Choices$ PumpCreatures,RearrangeLibrary,CounterSpell
+SVar:PumpCreatures:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1 | SpellDescription$ Creatures you control get +1/+1 until end of turn.
+SVar:RearrangeLibrary:DB$ RearrangeTopOfLibrary | Defined$ You | NumCards$ 5 | SpellDescription$ Look at the top five cards of your library, then put them back in any order.
+SVar:CounterSpell:DB$ Counter | TargetType$ Spell | TgtPrompt$ Select target spell | ValidTgts$ Card | TargetValidTargeting$ Permanent.YouCtrl+inRealZoneBattlefield | SpellDescription$ Counter target spell that targets a permanent you control.
+Oracle:Choose one —\n• Creatures you control get +1/+1 until end of turn.\n• Look at the top five cards of your library, then put them back in any order.\n• Counter target spell that targets a permanent you control.

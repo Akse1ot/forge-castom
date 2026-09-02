@@ -1,0 +1,9 @@
+Name:Wavetouch Healer
+ManaCost:5 W
+Types:Creature Elemental Cleric
+PT:3/3
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPrevent | TriggerDescription$ When CARDNAME enters the battlefield, prevent all damage that would be dealt to you and creatures you control this turn.
+SVar:TrigPrevent:DB$ Effect | ReplacementEffects$ RPrevent
+SVar:RPrevent:Event$ DamageDone | Prevent$ True | ActiveZones$ Command | ValidTarget$ You,Creature.YouCtrl | Description$ Prevent all damage that would be dealt to you and creatures you control this turn.
+Oracle:Flash (You may cast this spell any time you could cast an instant.)\nWhen Wavetouch Healer enters the battlefield, prevent all damage that would be dealt to you and creatures you control this turn.

@@ -1,0 +1,5 @@
+Name:Smite the Hideous
+ManaCost:1 W
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Creature.withIntimidate | TgtPrompt$ Select target creature with intimidate | SpellDescription$ Destroy target creature with intimidate.
+Oracle:Destroy target creature with intimidate.

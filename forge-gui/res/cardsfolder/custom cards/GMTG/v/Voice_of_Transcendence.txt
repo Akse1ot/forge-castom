@@ -1,0 +1,8 @@
+Name:Voice of Transcendence
+ManaCost:3 G G
+Types:Creature Spirit
+PT:0/5
+K:Defender
+K:Melody:1 G G
+S:Mode$ Continuous | Affected$ Creature.beguiledBySource | AddKeyword$ Indestructible | Description$ Creatures beguiled by CARDNAME's melody are indestructible.
+Oracle:Defender\nMelody {1}{G}{G} (You may tap this to reduce the cost of a creature spell you cast by {1}{G}{G}. This doesn't untap during your untap steps for as long as you control the creature it becomes.)\nCreatures beguiled by Voice of Transcendence's melody are indestructible.

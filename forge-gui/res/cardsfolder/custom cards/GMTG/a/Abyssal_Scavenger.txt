@@ -1,0 +1,9 @@
+Name:Abyssal Scavenger
+ManaCost:5 G G G
+Types:Creature Serpent Horror
+PT:9/9
+K:Swallow
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | TriggerDescription$ When CARDNAME enters the battlefield, return target card from your graveyard to your hand.
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.YouCtrl
+Oracle:Swallow (Each creature you sacrifice while casting this spell reduces its cost by {1} or by one mana of that creature's color.)\nTrample\nWhen Abyssal Scavenger enters the battlefield, return target card from your graveyard to your hand.

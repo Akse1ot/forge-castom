@@ -1,0 +1,6 @@
+Name:Pavilion Harpist
+ManaCost:1 W
+Types:Creature Mermaid Bard
+PT:2/2
+K:Melody:W
+Oracle:Melody {W} (You may tap this to reduce the cost of a creature spell you cast by {W}. This doesn't untap during your untap steps for as long as you control the creature it becomes.)

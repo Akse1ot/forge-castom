@@ -1,0 +1,7 @@
+Name:Lamenting Mermaid
+ManaCost:G
+Types:Creature Mermaid Bard
+PT:1/1
+K:Melody:G
+S:Mode$ Continuous | Affected$ Creature.beguiledBySource | AddPower$ 1 | AddToughness$ 1 | Description$ Creatures beguiled by CARDNAME's melody get +1/+1.
+Oracle:Melody {G} (You may tap this to reduce the cost of a creature spell you cast by {G}. This doesn't untap during your untap steps for as long as you control the creature it becomes.)\nCreatures beguiled by Lamenting Mermaid's melody get +1/+1.

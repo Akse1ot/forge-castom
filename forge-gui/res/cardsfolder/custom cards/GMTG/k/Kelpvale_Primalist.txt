@@ -1,0 +1,10 @@
+Name:Kelpvale Primalist
+ManaCost:1 G
+Types:Creature Merfolk Druid
+PT:1/1
+K:Level up:2
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 2 | SetToughness$ 2 | AddAbility$ PumpTwo | IsPresent$ Card.Self+counters_GE2_LEVEL+counters_LE4_LEVEL | Description$ LEVEL 2-4 2/2 {T}: Target creature gets +2/+2 until end of turn.
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 4 | SetToughness$ 4 | AddAbility$ PumpFour | IsPresent$ Card.Self+counters_GE5_LEVEL | Description$ LEVEL 5+ 4/4 {T}: Target creature gets +4/+4 until end of turn.
+SVar:PumpTwo:AB$ Pump | Cost$ T | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ +2 | NumDef$ +2 | Secondary$ True | SpellDescription$ Target creature gets +2/+2 until end of turn.
+SVar:PumpFour:AB$ Pump | Cost$ T | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ +4 | NumDef$ +4 | Secondary$ True | SpellDescription$ Target creature gets +4/+4 until end of turn.
+Oracle:Level up {2} ({2}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 2-4\n2/2\n{T}: Target creature gets +2/+2 until end of turn.\nLEVEL 5+\n4/4\n{T}: Target creature gets +4/+4 until end of turn.

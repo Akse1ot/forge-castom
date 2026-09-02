@@ -1,0 +1,6 @@
+Name:Deephollow Stalker
+ManaCost:3 B
+Types:Creature Naga Rogue
+PT:4/2
+S:Mode$ Continuous | Affected$ Card.Self | CharacteristicDefining$ True | SetColor$ Colorless | Description$ CARDNAME is colorless.
+Oracle:Deephollow Stalker is colorless.

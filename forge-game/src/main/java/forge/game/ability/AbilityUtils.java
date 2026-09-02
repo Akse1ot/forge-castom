@@ -2589,6 +2589,9 @@ public class AbilityUtils {
         if (sq[0].equals("TotalDamageReceivedThisTurn")) {
             return doXMath(c.getAssignedDamage(), expr, c, ctb);
         }
+        if (sq[0].equals("TotalCombatDamageReceivedThisTurn")) {
+            return doXMath(c.getAssignedCombatDamage(), expr, c, ctb);
+        }
         if (sq[0].equals("ExcessDamageReceivedThisTurn")) {
             return doXMath(c.getExcessDamageThisTurn(), expr, c, ctb);
         }

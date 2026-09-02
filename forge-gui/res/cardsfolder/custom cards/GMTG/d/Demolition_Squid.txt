@@ -1,0 +1,9 @@
+Name:Demolition Squid
+ManaCost:5 R
+Types:Creature Kraken
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerDescription$ When CARDNAME enters the battlefield, ABILITY
+SVar:TrigCharm:DB$ Charm | Choices$ DBDestroyArtifact,DBDestroyDefender
+SVar:DBDestroyArtifact:DB$ Destroy | ValidTgts$ Artifact | TgtPrompt$ Select target artifact | SpellDescription$ Destroy target artifact.
+SVar:DBDestroyDefender:DB$ Destroy | ValidTgts$ Creature.withDefender | TgtPrompt$ Select target creature with defender | SpellDescription$ Destroy target creature with defender.
+Oracle:When Demolition Squid enters the battlefield, choose one — Destroy target artifact; or destroy target creature with defender.

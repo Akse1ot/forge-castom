@@ -1,0 +1,9 @@
+Name:Ctaleth's Inquisition
+ManaCost:2 B B
+Types:Sorcery
+A:SP$ Branch | ValidTgts$ Player | TgtPrompt$ Choose target player | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBControl | SubAbility$ DBSacrifice | SpellDescription$ Choose target player. If you control a creature with power 8 or greater, you control that player until CARDNAME finishes resolving. The chosen player sacrifices a creature and discards a card.
+SVar:X:Count$Valid Creature.YouCtrl+powerGE8
+SVar:DBControl:DB$ ControlPlayer | Defined$ Targeted | Controller$ You | Duration$ UntilEndOfResolution
+SVar:DBSacrifice:DB$ Sacrifice | Defined$ Targeted | SacValid$ Creature | Amount$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ Targeted | Mode$ TgtChoose | NumCards$ 1
+Oracle:Choose target player. If you control a creature with power 8 or greater, you control that player until Ctaleth's Inquisition finishes resolving. (You see all cards that player could see and make all decisions for the player.)\nThe chosen player sacrifices a creature and discards a card.

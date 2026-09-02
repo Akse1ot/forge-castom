@@ -1,0 +1,7 @@
+Name:Stormtide Invoker
+ManaCost:2 U
+Types:Creature Naga Wizard
+PT:2/3
+K:Abyssal
+A:AB$ PumpAll | Cost$ 8 | ValidCards$ Creature.OppCtrl | NumAtt$ -5 | SpellDescription$ Creatures your opponents control get -5/-0 until end of turn.
+Oracle:Abyssal (Each creature you sacrifice while activating an ability of this reduces its cost by {1} or by one mana of that creature's color.)\n{8}: Creatures your opponents control get -5/-0 until end of turn.

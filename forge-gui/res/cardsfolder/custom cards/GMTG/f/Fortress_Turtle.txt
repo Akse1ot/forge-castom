@@ -1,0 +1,6 @@
+Name:Fortress Turtle
+ManaCost:4 U
+Types:Creature Turtle
+PT:2/6
+K:Hexproof
+Oracle:Hexproof (This creature can’t be the target of spells or abilities your opponents control.)

@@ -1,0 +1,9 @@
+Name:Throne of Macuri
+ManaCost:3 W W
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounter | TriggerDescription$ At the beginning of your upkeep, put a dominion counter on CARDNAME.
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ DOMINION | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ X | AddToughness$ X | Description$ Creatures you control get +1/+1 for each dominion counter on CARDNAME.
+SVar:X:Count$CardCounters.DOMINION
+DeckHas:Ability$Counters
+Oracle:At the beginning of your upkeep, put a dominion counter on Throne of Macuri.\nCreatures you control get +1/+1 for each dominion counter on Throne of Macuri.

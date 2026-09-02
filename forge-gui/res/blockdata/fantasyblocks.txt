@@ -30,3 +30,4 @@
 (9) MtG Encyclopedia, 3/9/2ED, 2ED ATQ ARN DRK LEG FEM ICE HML ALL
 (3) Metaset Sample, 3/6/2ED, Meta-Cube(ArabianExtended)ARAB Meta-JoinedSet(ISD DKA AVR M13)M13-ISD Meta-Full()
 (3) Metaset Sample 2, 3/6/2ED, Meta-Choose(CUBE(ArabianExtended)Arabian Extended;FULL()*;JoinedSet(ICE ALL HML CSP)Ice Age Block Extended;Booster(2ED)Unlimited booster;Pack(4ED)4th Edition Tournament)CHOOSE Meta-Random(Full()*;JoinedSet(CHK BOK SOK)KAMI;Booster(8ED)8ED)RANDOM
+(2) Iamur Block, 3/6/IAMR, IAMR Meta-SpecialBooster(Grim Tidings Draft Booster)GMTG

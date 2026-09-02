@@ -1,0 +1,9 @@
+Name:Kraken's Hoard
+ManaCost:2 B
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE1 | Execute$ TrigSacrifice | TriggerDescription$ At the beginning of your end step, if you control a creature with power 8 or greater, you may sacrifice CARDNAME. If you do, you gain 3 life and draw three cards.
+SVar:TrigSacrifice:AB$ GainLife | Cost$ Sac<1/CARDNAME> | Defined$ You | LifeAmount$ 3 | ConditionCheckSVar$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 3
+SVar:X:Count$Valid Creature.YouCtrl+powerGE8
+DeckHas:Ability$LifeGain
+Oracle:At the beginning of your end step, if you control a creature with power 8 or greater, you may sacrifice Kraken's Hoard. If you do, you gain 3 life and draw three cards.

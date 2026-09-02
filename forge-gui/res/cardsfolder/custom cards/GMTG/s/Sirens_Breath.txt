@@ -1,0 +1,5 @@
+Name:Siren's Breath
+ManaCost:G G
+Types:Instant
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Deathtouch | SpellDescription$ Creatures you control gain deathtouch until end of turn.
+Oracle:Creatures you control gain deathtouch until end of turn.

@@ -1,0 +1,8 @@
+Name:Maw of the Unreal
+ManaCost:5 U U
+Types:Creature Leviathan Horror
+PT:8/9
+K:Swallow
+T:Mode$ DamageDone | ValidSource$ Card.Self | CombatDamage$ True | Execute$ TrigReturn | TriggerDescription$ Whenever CARDNAME deals combat damage, return it to its owner's hand.
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand
+Oracle:Swallow (Each creature you sacrifice while casting this spell reduces its cost by {1} or by one mana of that creature's color.)\nWhenever Maw of the Unreal deals combat damage, return it to its owner's hand.

@@ -1,0 +1,11 @@
+Name:Screeching Witch
+ManaCost:B
+Types:Creature Naga Shaman
+PT:1/1
+K:Level up:1 U
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 1 | SetToughness$ 3 | AddAbility$ MillOne | IsPresent$ Card.Self+counters_GE1_LEVEL+counters_LE4_LEVEL | Description$ LEVEL 1-4 1/3 {T}: Target player puts the top card of their library into their graveyard.
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 1 | SetToughness$ 5 | AddAbility$ MillFour | IsPresent$ Card.Self+counters_GE5_LEVEL | Description$ LEVEL 5+ 1/5 {T}: Target player puts the top four cards of their library into their graveyard.
+SVar:MillOne:AB$ Mill | Cost$ T | ValidTgts$ Player | NumCards$ 1 | Secondary$ True | SpellDescription$ Target player puts the top card of their library into their graveyard.
+SVar:MillFour:AB$ Mill | Cost$ T | ValidTgts$ Player | NumCards$ 4 | Secondary$ True | SpellDescription$ Target player puts the top four cards of their library into their graveyard.
+DeckHas:Ability$Mill
+Oracle:Level up {1}{U} ({1}{U}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 1-4\n1/3\n{T}: Target player puts the top card of their library into their graveyard.\nLEVEL 5+\n1/5\n{T}: Target player puts the top four cards of their library into their graveyard.

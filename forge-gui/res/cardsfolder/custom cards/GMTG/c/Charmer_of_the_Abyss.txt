@@ -1,0 +1,9 @@
+Name:Charmer of the Abyss
+ManaCost:1 B B
+Types:Creature Naga Wizard
+PT:2/2
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever another creature dies, you may pay {4}{B}. If you do, put a 5/5 black Horror creature token onto the battlefield.
+SVar:TrigToken:AB$ Token | Cost$ 4 B | TokenAmount$ 1 | TokenScript$ b_5_5_horror | TokenOwner$ You
+DeckHas:Ability$Token
+Oracle:Deathtouch\nWhenever another creature dies, you may pay {4}{B}. If you do, put a 5/5 black Horror creature token onto the battlefield.

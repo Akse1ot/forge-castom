@@ -1,0 +1,6 @@
+Name:Jellyfish Gargantuan
+ManaCost:4 G
+Types:Creature Jellyfish
+PT:3/5
+S:Mode$ Continuous | Affected$ Card.Self | CharacteristicDefining$ True | SetColor$ All | Description$ CARDNAME is all colors.
+Oracle:Jellyfish Gargantuan is all colors.

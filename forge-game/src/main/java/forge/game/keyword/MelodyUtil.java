@@ -324,4 +324,25 @@ public final class MelodyUtil {
             destination.setCastSA(copiedCast);
         }
     }
+
+    public static boolean isBeguiledBy(final Card creature, final Card melodySource) {
+        if (creature == null || melodySource == null) {
+            return false;
+        }
+
+        final SpellAbility castSA = creature.getCastSA();
+        if (castSA == null) {
+            return false;
+        }
+
+        for (final Card paidBy : castSA.getPaidByMelody()) {
+            // Identity is intentional: if the Melody source leaves and returns,
+            // it is a new game object.
+            if (paidBy == melodySource) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

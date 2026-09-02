@@ -1,0 +1,9 @@
+Name:Stranded on the Coast
+ManaCost:2 R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ CantBlock | ValidCard$ Creature.EnchantedBy | Description$ Enchanted creature can't block.
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ At the beginning of each upkeep, CARDNAME deals 2 damage to enchanted creature.
+SVar:TrigDamage:DB$ DealDamage | Defined$ Enchanted | NumDmg$ 2
+Oracle:Enchant creature\nEnchanted creature can't block.\nAt the beginning of each upkeep, Stranded on the Coast deals 2 damage to enchanted creature.

@@ -1,0 +1,6 @@
+Name:Spiked Cowry
+ManaCost:1 R
+Types:Creature Clam
+PT:4/2
+K:Defender
+Oracle:Defender

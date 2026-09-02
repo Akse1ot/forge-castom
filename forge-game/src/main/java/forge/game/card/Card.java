@@ -330,6 +330,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     private Map<Long, Player> goad = Maps.newTreeMap();
 
     private List<GameCommand> leavePlayCommandList = Lists.newArrayList();
+    private List<GameCommand> leaveZoneCommandList = Lists.newArrayList();
     private final List<GameCommand> untapCommandList = Lists.newArrayList();
     private final List<GameCommand> changeControllerCommandList = Lists.newArrayList();
     private final List<GameCommand> unattachCommandList = Lists.newArrayList();
@@ -3635,6 +3636,9 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     public final void addLeavesPlayCommand(final GameCommand c) {
         leavePlayCommandList.add(c);
     }
+    public final void addLeavesZoneCommand(final GameCommand c) {
+        leaveZoneCommandList.add(c);
+    }
 
     public void addStaticCommandList(Object[] objects) {
         staticCommandList.add(objects);
@@ -3650,11 +3654,24 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         leavePlayCommandList = list;
     }
 
+    public final List<GameCommand> getLeavesZoneCommands() {
+        return leaveZoneCommandList;
+    }
+    public final void setLeavesZoneCommands(List<GameCommand> list) {
+        leaveZoneCommandList = list;
+    }
+
     public final void runLeavesPlayCommands() {
         for (final GameCommand c : leavePlayCommandList) {
             c.run();
         }
         leavePlayCommandList.clear();
+    }
+    public final void runLeavesZoneCommands() {
+        for (final GameCommand c : leaveZoneCommandList) {
+            c.run();
+        }
+        leaveZoneCommandList.clear();
     }
     public final void runUntapCommands() {
         for (final GameCommand c : untapCommandList) {

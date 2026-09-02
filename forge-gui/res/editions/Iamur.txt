@@ -3,8 +3,8 @@ Code=IAMR
 Date=2017-08-01
 Name=Iamur
 Type=CUSTOM_SET
-BoosterSlots=Common,Uncommon,RareMythic,Land,Wildcard,BonusWildcard
-Booster=7 Common, 3 Uncommon, 1 RareMythic, 1 Land, 1 Wildcard, 1 BonusWildcard
+BoosterSlots=Common,Uncommon,RareMythic,Land
+Booster=10 Common, 3 Uncommon, 1 RareMythic, 1 Land
 Prerelease=6 Boosters, 1 RareMythic+
 BoosterBox=30
 
@@ -20,18 +20,6 @@ Replace=.136F Mythic:fromSheet("IAMR cards")
 
 [Land]
 Base=fromSheet("IAMR Lands")
-
-[Wildcard]
-Base=Uncommon:fromSheet("IAMR cards")
-Replace=.18F Common:fromSheet("IAMR cards")
-Replace=.19F Rare:fromSheet("IAMR cards")
-Replace=.02F Mythic:fromSheet("IAMR cards")
-
-[BonusWildcard]
-Base=Common:fromSheet("IAMR cards")
-Replace=.298F Uncommon:fromSheet("IAMR cards")
-Replace=.065F Rare:fromSheet("IAMR cards")
-Replace=.011F Mythic:fromSheet("IAMR cards")
 
 
 [cards]

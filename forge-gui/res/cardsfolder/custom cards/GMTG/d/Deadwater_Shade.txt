@@ -1,0 +1,7 @@
+Name:Deadwater Shade
+ManaCost:2 B
+Types:Creature Naga Shade
+PT:1/1
+K:Abyssal
+A:AB$ Pump | Cost$ B | Defined$ Self | NumAtt$ +1 | NumDef$ +1 | SpellDescription$ CARDNAME gets +1/+1 until end of turn.
+Oracle:Abyssal (Each creature you sacrifice while activating an ability of this reduces its cost by 1 or by one mana of that creature’s color.)\n{B}: Deadwater Shade gets +1/+1 until end of turn.

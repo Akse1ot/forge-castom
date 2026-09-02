@@ -1,0 +1,10 @@
+Name:Murloc Progenitor
+ManaCost:1 R
+Types:Creature Fish
+PT:1/1
+K:Bloodlust:1
+T:Mode$ DamageDealtOnce | ValidSource$ Card.Self | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigSearch | OptionalDecider$ You | TriggerDescription$ Whenever CARDNAME deals combat damage, you may search your library for a Murloc creature card that costs that much or less, reveal it, put it into your hand, then shuffle your library.
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Creature.Murloc+cmcLEX | ChangeNum$ 1 | ShuffleNonMandatory$ True
+SVar:X:TriggerCount$DamageAmount
+DeckHints:Type$Murloc
+Oracle:Bloodlust 1 (Whenever this creature deals combat damage, put one +1/+1 counter on it.)\nWhenever Murloc Progenitor deals combat damage, you may search your library for a Murloc creature card that costs that much or less, reveal it, put it into your hand, then shuffle your library.

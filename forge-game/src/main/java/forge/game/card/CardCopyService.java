@@ -78,6 +78,7 @@ public class CardCopyService {
             }
 
             out.setLeavesPlayCommands(copyFrom.getLeavesPlayCommands());
+            out.setLeavesZoneCommands(copyFrom.getLeavesZoneCommands());
 
             out.setSpecialized(copyFrom.isSpecialized());
             out.addRemembered(copyFrom.getRemembered());

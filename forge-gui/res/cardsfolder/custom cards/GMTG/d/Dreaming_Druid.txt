@@ -1,0 +1,7 @@
+Name:Dreaming Druid
+ManaCost:2 G
+Types:Creature Mermaid Druid Bard
+PT:2/2
+K:Melody:1 G
+S:Mode$ Continuous | Affected$ Creature.beguiledBySource | AddKeyword$ Hexproof | Description$ Creatures beguiled by CARDNAME's melody have hexproof.
+Oracle:Melody {1}{G} (You may tap this to reduce the cost of a creature spell you cast by {1}{G}. This doesn't untap during your untap steps for as long as you control the creature it becomes.)\nCreatures beguiled by Dreaming Druid's melody have hexproof.

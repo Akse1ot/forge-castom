@@ -1,0 +1,7 @@
+Name:Exalted Tideguard
+ManaCost:1 W W
+Types:Creature Merfolk Soldier
+PT:2/3
+K:Vigilance
+K:Intimidate
+Oracle:Vigilance, intimidate

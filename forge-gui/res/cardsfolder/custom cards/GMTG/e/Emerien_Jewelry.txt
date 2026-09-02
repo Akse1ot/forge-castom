@@ -1,0 +1,7 @@
+Name:Emerien Jewelry
+ManaCost:2
+Types:Artifact Equipment
+K:Talisman
+K:Equip:1
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Lifelink | Description$ Equipped creature has lifelink.
+Oracle:Equipped creature has lifelink.\nTalisman (If equipped creature would be destroyed, instead remove all damage from it and destroy this Equipment.)\nEquip {1}

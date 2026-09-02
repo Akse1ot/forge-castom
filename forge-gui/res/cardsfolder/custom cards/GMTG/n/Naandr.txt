@@ -1,0 +1,14 @@
+Name:Naandr
+ManaCost:8 G G G
+Types:Legendary Creature Kraken Avatar
+PT:13/13
+K:Swallow
+K:Protection:Card.cmcLE3:mana value 3 or less
+R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen | Description$ CARDNAME can't be countered.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerDescription$ Whenever CARDNAME enters the battlefield or attacks, draw three cards.
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw | Secondary$ True | TriggerZones$ Battlefield | TriggerDescription$ Whenever CARDNAME enters the battlefield or attacks, draw three cards.
+R:Event$ Moved | Destination$ Graveyard | ValidCard$ Card.Self | ReplaceWith$ DBShuffle | Description$ If CARDNAME would be put into your graveyard from anywhere, reveal CARDNAME and shuffle it into its owner's library instead.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 3
+SVar:DBShuffle:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Library | Defined$ ReplacedCard | Reveal$ True | Shuffle$ True
+SVar:HasAttackEffect:TRUE
+Oracle:Naandr can't be countered.\nSwallow (Each creature you sacrifice while casting this spell reduces its cost by {1} or by one mana of that creature's color.)\nProtection from converted mana cost 3 or less\nWhenever Naandr enters the battlefield or attacks, draw three cards.\nIf Naandr would be put into your graveyard from anywhere, reveal Naandr and shuffle it into its owner's library instead.

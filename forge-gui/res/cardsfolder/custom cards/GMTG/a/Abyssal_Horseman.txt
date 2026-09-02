@@ -1,0 +1,9 @@
+Name:Abyssal Horseman
+ManaCost:B B
+Types:Creature Horror Knight
+PT:2/2
+K:Level up:B
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 4 | SetToughness$ 4 | IsPresent$ Card.Self+counters_GE3_LEVEL+counters_LE11_LEVEL | Description$ LEVEL 3-11 4/4
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 6 | SetToughness$ 6 | AddStaticAbility$ SPump | IsPresent$ Card.Self+counters_GE12_LEVEL | Description$ LEVEL 12+ 6/6 Creatures your opponents control get -2/-2.
+SVar:SPump:Mode$ Continuous | Affected$ Creature.OppCtrl | AddPower$ -2 | AddToughness$ -2 | Secondary$ True | Description$ Creatures your opponents control get -2/-2.
+Oracle:Level up {B} ({B}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 3-11\n4/4\nLEVEL 12+\n6/6\nCreatures your opponents control get -2/-2.

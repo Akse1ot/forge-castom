@@ -1,0 +1,115 @@
+[metadata]
+Code=GMTG
+Date=2017-08-02
+Name=Grim Tidings
+Type=CUSTOM_SET
+
+[cards]
+1 C Atoll Runners
+2 U Anchored
+3 C Cityback Whale
+4 C Exalted Tideguard
+5 C Hesitate
+6 C Pavilion Harpist
+7 R Pristine Starstone
+8 U Seahorse Matchmaker
+9 C Skillful Ambush
+10 C Smite the Hideous
+11 R Throne of Macuri
+12 C Tidesworn Guardian
+13 R Quarantine Field I
+14 U Wavetouch Healer
+15 U Denizen of Light's End
+16 C Guard of Kaladrin
+17 C Fortress Turtle
+18 U Maw of the Unreal
+19 C Merfolk Tidebender
+20 R Mind Control
+21 M Omnipotence
+22 C Pearlreef Sage
+23 U Seduction
+24 C Stormtide Invoker
+25 C Tidebringer Kraken
+26 U Abyssal Encounter
+27 R Abyssal Horseman
+28 C Blackreef Abomination
+29 R Charmer of the Abyss
+30 R Ctaleth's Inquisition
+31 C Deadwater Shade
+32 C Deephollow Stalker
+33 C Dive into Madness
+34 C Hideous Devil
+35 C Horror of Blood Bottom
+36 C Infinite Spite
+37 U Kraken's Hoard
+38 C Murktide Invoker
+39 U Murloc Mudback
+40 U Queen of the Depths
+41 C Screeching Witch
+42 C Twisted Helmsman
+43 C Champions of Deephome
+44 C Deeptide Invoker
+45 C Demolition Squid
+46 C Desperate Foraging
+47 C Magma Hunter
+48 C Murloc Forager
+49 R Murloc Progenitor
+50 U Northcliff Piranhas
+51 U Scent of Blood
+52 C Shorestalker
+53 C Spiked Cowry
+54 C Stranded on the Coast
+55 C Avid Discoverer
+56 U Abyssal Scavenger
+57 U Dreaming Druid
+58 C Jellyfish Gargantuan
+59 U Kelpvale Primalist
+60 C Lamenting Mermaid
+61 M Naandr
+62 C Risen Sea Giant
+63 C Scavenging Mosa
+64 R Voice of Transcendence
+65 C Waylaying Serpent
+66 C Wondrous Above
+67 U Macuri Charm
+68 U Ctalis Charm
+69 U Grglmar Charm
+70 U Emerien Charm
+71 C Grinning Sprite
+72 C Ctali Enforcer
+73 C Romantic Rescue
+74 U Shepherd of the Depths
+75 U Crystalline Champion
+76 U Siren's Breath
+77 U Coralia Warleader
+78 U Coral Turtle
+79 U Cursed Chest
+80 C Emerien Jewelry
+81 R Helm of the Turtle Lord
+82 R Jinxed Mirror
+83 U Kraken's Possessions
+84 C Seafarer's Compass
+85 C Unpolished Pearl
+86 C Evolving Wilds
+87 U Reeftop Stronghold
+88 R Sanctum of Ctaleth
+89 L Plains
+90 L Island
+91 L Swamp
+92 L Mountain
+93 L Forest
+
+[Lands]
+1 Plains|GMTG
+1 Island|GMTG
+1 Swamp|GMTG
+1 Mountain|GMTG
+1 Forest|GMTG
+
+
+
+[tokens]
+
+
+[other]
+

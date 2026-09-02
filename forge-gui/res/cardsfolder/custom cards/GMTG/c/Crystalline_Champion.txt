@@ -1,0 +1,10 @@
+Name:Crystalline Champion
+ManaCost:1 UR UR
+Types:Creature Elemental Warrior
+PT:1/4
+A:AB$ ChooseColor | Cost$ UR | Defined$ You | AILogic$ MostProminentInHumanDeck | SubAbility$ DBEffect | SpellDescription$ Choose a color. Creatures of that color can't block CARDNAME this turn.
+SVar:DBEffect:DB$ Effect | RememberObjects$ Self | StaticAbilities$ CantBlockBy | SubAbility$ DBCleanup
+SVar:CantBlockBy:Mode$ CantBlockBy | ValidAttacker$ Creature.IsRemembered | ValidBlocker$ Creature.ChosenColor | Description$ EFFECTSOURCE can't be blocked by creatures of the chosen color this turn.
+SVar:DBCleanup:DB$ Cleanup | ClearChosenColor$ True
+A:AB$ Pump | Cost$ 1 UR UR | Defined$ Self | AILogic$ SwitchPT | KW$ HIDDEN CARDNAME's power and toughness are switched | SpellDescription$ Switch CARDNAME's power and toughness until end of turn.
+Oracle:{U/R}: Choose a color. Creatures of that color can't block Crystalline Champion this turn.\n{1}{U/R}{U/R}: Switch Crystalline Champion's power and toughness until end of turn.

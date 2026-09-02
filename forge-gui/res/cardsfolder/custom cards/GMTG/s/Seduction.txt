@@ -1,0 +1,5 @@
+Name:Seduction
+ManaCost:1 U U
+Types:Sorcery
+A:SP$ GainControl | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Melody:2 U U | SpellDescription$ Gain control of target creature until end of turn. Untap that creature. It gains melody {2}{U}{U} until end of turn.
+Oracle:Gain control of target creature until end of turn. Untap that creature. It gains melody {2}{U}{U} until end of turn. (You may tap this to reduce the cost of a creature spell you cast by {2}{U}{U}. This doesn’t untap during its controller’s untap steps for as long as you control the creature it becomes.)

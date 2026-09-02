@@ -1,0 +1,7 @@
+Name:Tidebringer Kraken
+ManaCost:6 U U
+Types:Creature Kraken
+PT:8/8
+K:Swallow
+K:Hexproof
+Oracle:Swallow (Each creature you sacrifice while casting this spell reduces its cost by 1 or by one mana of that creature’s color.)\nHexproof (This creature can’t be the target of spells or abilities your opponents control.)

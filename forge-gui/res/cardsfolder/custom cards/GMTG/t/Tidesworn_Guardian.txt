@@ -1,0 +1,9 @@
+Name:Tidesworn Guardian
+ManaCost:1 W
+Types:Creature Merfolk Knight
+PT:1/2
+K:Level up:2
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 2 | SetToughness$ 5 | CanBlockAmount$ 1 | IsPresent$ Card.Self+counters_GE2_LEVEL+counters_LE4_LEVEL | Description$ LEVEL 2-4 2/5 CARDNAME can block an additional creature.
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 3 | SetToughness$ 8 | CanBlockAny$ True | IsPresent$ Card.Self+counters_GE5_LEVEL | Description$ LEVEL 5+ 3/8 CARDNAME can block any number of creatures.
+DeckHas:Ability$Counters
+Oracle:Level up {2} ({2}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 2-4\n2/5\nTidesworn Guardian can block an additional creature.\nLEVEL 5+\n3/8\nTidesworn Guardian can block any number of creatures.

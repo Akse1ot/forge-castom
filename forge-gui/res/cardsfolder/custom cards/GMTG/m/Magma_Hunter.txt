@@ -1,0 +1,6 @@
+Name:Magma Hunter
+ManaCost:4 R
+Types:Creature Horror
+PT:3/4
+K:Intimidate
+Oracle:Intimidate

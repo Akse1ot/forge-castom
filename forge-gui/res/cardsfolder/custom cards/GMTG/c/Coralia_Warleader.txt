@@ -1,0 +1,13 @@
+Name:Coralia Warleader
+ManaCost:1 RW
+Types:Creature Mermaid Warrior
+PT:1/2
+K:Level up:2 RW
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 2 | SetToughness$ 4 | AddTrigger$ AttackPumpOne | AddSVar$ AE | IsPresent$ Card.Self+counters_GE1_LEVEL+counters_LE2_LEVEL | Description$ LEVEL 1-2 2/4 Whenever CARDNAME attacks, other creatures you control get +1/+0 until end of turn.
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 3 | SetToughness$ 6 | AddTrigger$ AttackPumpThree | AddSVar$ AE | IsPresent$ Card.Self+counters_GE3_LEVEL | Description$ LEVEL 3+ 3/6 Whenever CARDNAME attacks, other creatures you control get +3/+0 until end of turn.
+SVar:AttackPumpOne:Mode$ Attacks | ValidCard$ Card.Self | Execute$ PumpOne | TriggerZones$ Battlefield | Secondary$ True | TriggerDescription$ Whenever CARDNAME attacks, other creatures you control get +1/+0 until end of turn.
+SVar:PumpOne:DB$ PumpAll | ValidCards$ Creature.YouCtrl+Other | NumAtt$ +1
+SVar:AttackPumpThree:Mode$ Attacks | ValidCard$ Card.Self | Execute$ PumpThree | TriggerZones$ Battlefield | Secondary$ True | TriggerDescription$ Whenever CARDNAME attacks, other creatures you control get +3/+0 until end of turn.
+SVar:PumpThree:DB$ PumpAll | ValidCards$ Creature.YouCtrl+Other | NumAtt$ +3
+SVar:AE:SVar:HasAttackEffect:TRUE
+Oracle:Level up {2}{R/W} ({2}{R/W}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 1-2\n2/4\nWhenever Coralia Warleader attacks, other creatures you control get +1/+0 until end of turn.\nLEVEL 3+\n3/6\nWhenever Coralia Warleader attacks, other creatures you control get +3/+0 until end of turn.

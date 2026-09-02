@@ -19,6 +19,7 @@ import forge.game.combat.AttackRequirement;
 import forge.game.combat.AttackingBand;
 import forge.game.combat.Combat;
 import forge.game.combat.CombatUtil;
+import forge.game.keyword.MelodyUtil;
 import forge.game.mana.Mana;
 import forge.game.player.Player;
 import forge.game.staticability.StaticAbilityCantBeBeamedUp;
@@ -170,6 +171,8 @@ public class CardProperty {
             if (!card.isTransformed()) {
                 return false;
             }
+        } else if (property.equals("beguiledBySource")) {
+            return MelodyUtil.isBeguiledBy(card, source);
         } else if (property.equals("Flip")) {
             if (!card.isFlipCard()) {
                 return false;
@@ -1430,6 +1433,14 @@ public class CardProperty {
             }
         } else if (property.equals("powerOdd")) {
             if (card.getNetPower() % 2 != 1) {
+                return false;
+            }
+        } else if (property.equals("toughnessEven")) {
+            if (card.getNetToughness() % 2 != 0) {
+                return false;
+            }
+        } else if (property.equals("toughnessOdd")) {
+            if (card.getNetToughness() % 2 == 0) {
                 return false;
             }
         } else if (property.equals("cmcChosenEvenOdd")) {

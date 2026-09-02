@@ -543,6 +543,9 @@ public class GameAction {
                 game.fireEvent(new GameEventCardTapped(c, false));
             }
         }
+        if (!suppress) {
+            c.runLeavesZoneCommands();
+        }
         if (fromGraveyard) {
             game.addLeftGraveyardThisTurn(lastKnownInfo);
         }
@@ -983,6 +986,7 @@ public class GameAction {
             if (origin.is(ZoneType.Battlefield)) {
                 c.runLeavesPlayCommands();
             }
+            c.runLeavesZoneCommands();
         }
 
         // CR 603.6c other players LTB triggers should work

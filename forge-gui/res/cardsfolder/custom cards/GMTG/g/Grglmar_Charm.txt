@@ -1,0 +1,9 @@
+Name:Grglmar Charm
+ManaCost:B R
+Types:Instant
+A:SP$ Charm | Choices$ WeakenCreature,CreateMurlocs,GrantIntimidate
+SVar:WeakenCreature:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ -3 | NumDef$ -1 | IsCurse$ True | SpellDescription$ Target creature gets -3/-1 until end of turn.
+SVar:CreateMurlocs:DB$ Token | TokenScript$ r_1_1_murloc | TokenAmount$ 2 | TokenOwner$ You | PumpKeywords$ Haste | AtEOT$ Sacrifice | SpellDescription$ Create two 1/1 red Murloc creature tokens with haste. Sacrifice them at the beginning of the next end step.
+SVar:GrantIntimidate:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Intimidate | SpellDescription$ Creatures you control gain intimidate until end of turn.
+DeckHas:Ability$Token
+Oracle:Choose one —\n• Target creature gets -3/-1 until end of turn.\n• Put two 1/1 red Murloc creature tokens with haste onto the battlefield, sacrifice them at the beginning of the next end step.\n• Creatures you control gain intimidate until end of turn.

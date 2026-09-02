@@ -117,6 +117,10 @@ public class CloneEffect extends SpellAbilityEffect {
             return;
         }
 
+        final Card durationDefined = "UntilDefinedLeavesZone".equals(sa.getParam("Duration"))
+                ? getDurationDefinedCard(sa)
+                : null;
+
         final boolean optional = sa.hasParam("Optional");
         if (optional && !host.getController().getController().confirmAction(sa, null, Localizer.getInstance().getMessage("lblDoYouWantCopy", cardToCopy.getTranslatedName()), null)) {
             return;
@@ -198,7 +202,11 @@ public class CloneEffect extends SpellAbilityEffect {
                     }
                 };
 
-                addUntilCommand(sa, unclone);
+                if ("UntilDefinedLeavesZone".equals(sa.getParam("Duration"))) {
+                    addUntilDefinedLeavesZoneCommand(unclone, durationDefined);
+                } else {
+                    addUntilCommand(sa, unclone);
+                }
             }
 
             // now we can also cleanup in case target was another card

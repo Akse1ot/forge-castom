@@ -1,0 +1,7 @@
+Name:Skillful Ambush
+ManaCost:1 W
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ +1 | NumDef$ +1 | KW$ First Strike | SubAbility$ DBLevel | SpellDescription$ Target creature gets +1/+1 and gains first strike until end of turn. Put a level counter on that creature if it has level up.
+SVar:DBLevel:DB$ PutCounter | Defined$ ParentTarget.withLevel up | CounterType$ LEVEL | CounterNum$ 1
+DeckHas:Ability$Counters
+Oracle:Target creature gets +1/+1 and gains first strike until end of turn. Put a level counter on that creature if it has level up.

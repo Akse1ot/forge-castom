@@ -1,0 +1,8 @@
+Name:Avid Discoverer
+ManaCost:1 G
+Types:Creature Merfolk Scout
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLand | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters the battlefield, you may play an additional land this turn.
+SVar:TrigLand:DB$ Effect | StaticAbilities$ ExtraLand
+SVar:ExtraLand:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1 | Description$ You may play an additional land this turn.
+Oracle:When Avid Discoverer enters the battlefield, you may play an additional land this turn.

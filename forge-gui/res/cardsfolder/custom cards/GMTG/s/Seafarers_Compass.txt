@@ -1,0 +1,8 @@
+Name:Seafarer's Compass
+ManaCost:2
+Types:Artifact Equipment
+K:Talisman
+K:Equip:4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | TriggerDescription$ When CARDNAME enters the battlefield, you may search your library for a basic land card, reveal it, and put it into your hand. If you do, shuffle your library.
+SVar:TrigSearch:DB$ ChangeZone | Optional$ True | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land | DefinedPlayer$ You | ChangeNum$ 1 | ShuffleNonMandatory$ True
+Oracle:When Seafarer's Compass enters the battlefield, you may search your library for a basic land card, reveal it, and put it into your hand. If you do, shuffle your library.\nTalisman (If equipped creature would be destroyed, instead remove all damage from it and destroy this Equipment.)\nEquip {4}

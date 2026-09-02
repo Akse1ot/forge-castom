@@ -1,0 +1,9 @@
+Name:Cursed Chest
+ManaCost:3
+Types:Artifact Equipment
+K:Talisman
+K:Equip:3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters the battlefield, create a 2/2 black Zombie Pirate creature token.
+SVar:TrigToken:DB$ Token | TokenScript$ b_2_2_zombie_pirate | TokenAmount$ 1 | TokenOwner$ You
+DeckHas:Ability$Token
+Oracle:When Cursed Chest enters the battlefield, put a 2/2 black Zombie Pirate creature token onto the battlefield.\nTalisman (If equipped creature would be destroyed, instead remove all damage from it and destroy this Equipment.)\nEquip {3}

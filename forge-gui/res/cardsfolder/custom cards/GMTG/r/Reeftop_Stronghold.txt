@@ -1,0 +1,6 @@
+Name:Reeftop Stronghold
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ Animate | Cost$ 2 | Defined$ Self | Power$ 0 | Toughness$ 5 | Types$ Creature,Artifact,Wall | RemoveCreatureTypes$ True | Keywords$ Defender | SpellDescription$ CARDNAME becomes a 0/5 artifact Wall creature with defender until end of turn. It's still a land.
+Oracle:{T}: Add {C}.\n{2}: Reeftop Stronghold becomes a 0/5 artifact Wall creature with defender until end of turn. It's still a land.

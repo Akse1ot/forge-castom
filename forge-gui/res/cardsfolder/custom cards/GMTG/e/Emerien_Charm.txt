@@ -1,0 +1,9 @@
+Name:Emerien Charm
+ManaCost:G W
+Types:Instant
+A:SP$ Charm | Choices$ SearchLand,ReturnCards,GainLife
+SVar:SearchLand:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land | SpellDescription$ Search your library for a basic land card, reveal it, put it into your hand, then shuffle your library.
+SVar:ReturnCards:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ ValidGraveyard Card.YouOwn+ThisTurnEnteredFrom_Battlefield | SpellDescription$ Return to your hand all cards in your graveyard that were put there from the battlefield this turn.
+SVar:GainLife:DB$ GainLife | LifeAmount$ 5 | ValidTgts$ Player | SpellDescription$ Target player gains 5 life.
+DeckHas:Ability$LifeGain
+Oracle:Choose one —\n• Search your library for a basic land card, reveal it, put it into your hand, then shuffle your library.\n• Return to your hand all cards in your graveyard that were put there from the battlefield this turn.\n• Target player gains 5 life.

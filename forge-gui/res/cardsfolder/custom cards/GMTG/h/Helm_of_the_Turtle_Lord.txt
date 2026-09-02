@@ -1,0 +1,7 @@
+Name:Helm of the Turtle Lord
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:3
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddToughness$ 2 | Description$ Equipped creature gets +0/+2.
+S:Mode$ CombatDamageToughness | ValidCard$ Creature.EquippedBy | Description$ Equipped creature assigns combat damage equal to its toughness rather than its power.
+Oracle:Equipped creature gets +0/+2 and assigns combat damage equal to its toughness rather than its power.\nEquip {3}

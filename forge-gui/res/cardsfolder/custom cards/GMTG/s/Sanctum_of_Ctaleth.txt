@@ -1,0 +1,5 @@
+Name:Sanctum of Ctaleth
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | AddsKeywords$ Haste | AddsKeywordsValid$ Spell.Creature+powerGE8 | SpellDescription$ Add {C}. If that mana is spent on a creature spell with power 8 or greater, it gains haste.
+Oracle:{T}: Add {C}. If that mana is spent on a creature spell with power 8 or greater, it gains haste.

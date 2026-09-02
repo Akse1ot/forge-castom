@@ -1,0 +1,6 @@
+Name:Hideous Devil
+ManaCost:B
+Types:Creature Fish Horror
+PT:1/1
+K:Intimidate
+Oracle:Intimidate

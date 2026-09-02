@@ -577,3 +577,8 @@ MID Token Aggression 1: 1 wholeSheet("MID Token Aggression 1"), 1 RareMythic:fro
 MID Token Aggression 2: 1 wholeSheet("MID Token Aggression 2"), 1 RareMythic:fromSheet("MID Green Inserts")
 
 #--------------------------------------END OF SHENS INNISTRAD SHEETS-------------------------------------#
+
+#--------------------------------------CUSTOM EXPANSION SPECIAL BOOSTERS-------------------------------------#
+
+# Grim Tidings - Iamur Block draft booster
+Grim Tidings Draft Booster: 10 Common GMTG, 3 Uncommon GMTG, 1 RareMythic GMTG, 1 BasicLand GMTG

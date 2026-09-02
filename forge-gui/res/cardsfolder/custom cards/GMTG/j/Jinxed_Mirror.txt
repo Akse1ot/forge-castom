@@ -1,0 +1,6 @@
+Name:Jinxed Mirror
+ManaCost:4
+Types:Artifact
+S:Mode$ Continuous | Affected$ Creature.powerEven | AddPower$ 2 | Description$ Creatures with even power get +2/+0.
+S:Mode$ Continuous | Affected$ Creature.powerOdd | AddPower$ -2 | Description$ Creatures with odd power get -2/-0.
+Oracle:Creatures with even power get +2/+0.\nCreatures with uneven power get -2/-0.

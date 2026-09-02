@@ -1,0 +1,8 @@
+Name:Romantic Rescue
+ManaCost:1 GW
+Types:Instant
+A:SP$ Branch | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | BranchConditionSVar$ X | BranchConditionSVarCompare$ EQ2 | TrueSubAbility$ DBProtectAll | FalseSubAbility$ DBProtectTarget | SpellDescription$ Target creature you control is indestructible this turn. Duet — If you control exactly two creatures, instead each of those creatures is indestructible this turn.
+SVar:DBProtectAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Indestructible
+SVar:DBProtectTarget:DB$ Pump | Defined$ Targeted | KW$ Indestructible
+SVar:X:Count$Valid Creature.YouCtrl
+Oracle:Target creature you control is indestructible this turn.\nDuet — If you control exactly two creatures, instead each of those creatures is indestructible this turn.

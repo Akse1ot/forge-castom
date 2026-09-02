@@ -1,0 +1,5 @@
+Name:Dive into Madness
+ManaCost:3 B B
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ -8 | NumDef$ -8 | IsCurse$ True | SpellDescription$ Target creature gets -8/-8 until end of turn.
+Oracle:Target creature gets -8/-8 until end of turn.

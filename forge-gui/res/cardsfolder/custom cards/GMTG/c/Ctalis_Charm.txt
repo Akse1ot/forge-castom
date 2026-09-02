@@ -1,0 +1,9 @@
+Name:Ctalis Charm
+ManaCost:U B
+Types:Instant
+A:SP$ Charm | Choices$ WeakenCreatures,ReturnCreature,DiscardCard
+SVar:WeakenCreatures:DB$ PumpAll | ValidCards$ Creature.OppCtrl | NumAtt$ -2 | SpellDescription$ Creatures your opponents control get -2/-0 until end of turn.
+SVar:ReturnCreature:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Mandatory$ True | ValidTgts$ Creature.YouOwn | TgtPrompt$ Select target creature card in your graveyard | SpellDescription$ Return target creature card from your graveyard to your hand.
+SVar:DiscardCard:DB$ Discard | ValidTgts$ Player | NumCards$ 1 | Mode$ TgtChoose | SpellDescription$ Target player discards a card.
+DeckHas:Ability$Discard
+Oracle:Choose one —\n• Creatures your opponents control get -2/-0 until end of turn.\n• Return target creature card from your graveyard to your hand.\n• Target player discards a card.

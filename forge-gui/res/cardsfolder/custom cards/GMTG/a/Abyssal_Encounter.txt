@@ -1,0 +1,7 @@
+Name:Abyssal Encounter
+ManaCost:1 B
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature (1) | NumAtt$ -1 | NumDef$ -1 | SubAbility$ DBColorless | SpellDescription$ Target creature gets -1/-1 and becomes colorless until end of turn. Target creature gets +1/+1 and gains intimidate until end of turn.
+SVar:DBColorless:DB$ Animate | Defined$ Targeted | Colors$ Colorless | OverwriteColors$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature (2) | NumAtt$ +1 | NumDef$ +1 | KW$ Intimidate
+Oracle:Target creature gets -1/-1 and becomes colorless until end of turn.\nTarget creature gets +1/+1 and gains intimidate until end of turn.

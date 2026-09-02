@@ -1,0 +1,9 @@
+Name:Ctali Enforcer
+ManaCost:B R
+Types:Creature Naga Warrior
+PT:1/1
+K:Level up:1 BR
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 2 | SetToughness$ 3 | AddStaticAbility$ CantBlock | IsPresent$ Card.Self+counters_GE1_LEVEL+counters_LE2_LEVEL | Description$ LEVEL 1-2 2/3 CARDNAME can't block.
+S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 3 | SetToughness$ 5 | AddStaticAbility$ CantBlock | IsPresent$ Card.Self+counters_GE3_LEVEL | Description$ LEVEL 3+ 3/5 CARDNAME can't block.
+SVar:CantBlock:Mode$ CantBlock | ValidCard$ Creature.Self | Secondary$ True | Description$ CARDNAME can't block.
+Oracle:Level up {1}{BR} ({1}{BR}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 1-2\n2/3\nCtali Enforcer can't block.\nLEVEL 3+\n3/5\nCtali Enforcer can't block.

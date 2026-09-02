@@ -1,0 +1,9 @@
+Name:Pristine Starstone
+ManaCost:1 W
+Types:Enchantment Aura
+K:Enchant:Equipment
+S:Mode$ Continuous | Affected$ Equipment.EnchantedBy | AddStaticAbility$ EquipBonus | Description$ Enchanted Equipment has "Equipped creature gets +3/+3 and has first strike and vigilance."
+SVar:EquipBonus:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 3 | AddToughness$ 3 | AddKeyword$ First Strike & Vigilance | Description$ Equipped creature gets +3/+3 and has first strike and vigilance.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Equipment.EnchantedBy | Execute$ TrigReturn | TriggerDescription$ When enchanted Equipment is put into a graveyard from the battlefield, return CARDNAME to its owner's hand.
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Hand
+Oracle:Enchant Equipment\nEnchanted Equipment has "Equipped creature gets +3/+3 and has first strike and vigilance."\nWhen enchanted Equipment is put into a graveyard from the battlefield, return Pristine Starstone to its owner's hand.

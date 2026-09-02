@@ -980,6 +980,8 @@ public abstract class SpellAbilityEffect {
         } else if ("UntilLoseControlOfHost".equals(duration)) {
             host.addLeavesPlayCommand(until);
             host.addChangeControllerCommand(until);
+        } else if ("UntilDefinedLeavesZone".equals(duration)) {
+            addUntilDefinedLeavesZoneCommand(until, getDurationDefinedCard(sa));
         } else if ("AsLongAsControl".equals(duration)) {
             host.addLeavesPlayCommand(until);
             host.addChangeControllerCommand(until);
@@ -1111,5 +1113,21 @@ public abstract class SpellAbilityEffect {
                 getDefinedPlayersOrTargeted(cause, "DefinedExiler").get(0) : cause.getActivatingPlayer();
         movedCard.setExiledBy(exiler);
         movedCard.setExiledSA(cause);
+    }
+
+    protected static Card getDurationDefinedCard(final SpellAbility sa) {
+        if (!sa.hasParam("DurationDefined")) {
+            return null;
+        }
+        final CardCollection cards = AbilityUtils.getDefinedCards(sa.getHostCard(), sa.getParam("DurationDefined"), sa);
+        return cards.size() == 1 ? cards.get(0) : null;
+    }
+
+    protected static void addUntilDefinedLeavesZoneCommand(final GameCommand until, final Card durationCard) {
+        if (durationCard == null) {
+            until.run();
+        } else {
+            durationCard.addLeavesZoneCommand(until);
+        }
     }
 }

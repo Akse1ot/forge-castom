@@ -1,8 +1,7 @@
 Name:Venomous Jellies
 ManaCost:1 G
-Colors:all
 Types:Creature Jellyfish
 PT:1/2
 K:Deathtouch
-Text:CARDNAME is all colors.
+S:Mode$ Continuous | Affected$ Card.Self | CharacteristicDefining$ True | SetColor$ All | Description$ CARDNAME is all colors.
 Oracle:Venomous Jellies is all colors.\nDeathtouch

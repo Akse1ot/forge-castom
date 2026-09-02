@@ -1,0 +1,9 @@
+Name:Queen of the Depths
+ManaCost:5 B B B
+Types:Creature Naga Wizard
+PT:8/5
+K:Swallow
+K:Trample
+K:Deathtouch
+K:Protection:Pirate
+Oracle:Swallow (Each creature you sacrifice while casting this spell reduces its cost by {1} or by one mana of that creature's color.)\nTrample, deathtouch, protection from Pirates

@@ -1,0 +1,10 @@
+Name:Unpolished Pearl
+ManaCost:1
+Types:Artifact
+K:Level up:1
+S:Mode$ Continuous | Affected$ Card.Self | AddAbility$ ManaColorless | IsPresent$ Card.Self+counters_GE2_LEVEL+counters_LE3_LEVEL | Description$ LEVEL 2-3 {T}: Add {C}.
+S:Mode$ Continuous | Affected$ Card.Self | AddAbility$ ManaAny | IsPresent$ Card.Self+counters_GE4_LEVEL | Description$ LEVEL 4+ {T}: Add one mana of any color.
+SVar:ManaColorless:AB$ Mana | Cost$ T | Produced$ C | Secondary$ True | SpellDescription$ Add {C}.
+SVar:ManaAny:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1 | Secondary$ True | SpellDescription$ Add one mana of any color.
+DeckHas:Ability$Mana
+Oracle:Level up {1} ({1}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 2-3\n{T}: Add {C}.\nLEVEL 4+\n{T}: Add one mana of any color.

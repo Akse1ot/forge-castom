@@ -463,6 +463,7 @@ Grist
 Guff
 Godfrey
 Goldmask
+Harle
 Huatli
 Jace
 Jared
@@ -473,6 +474,7 @@ Karn
 Kasmina
 Kaya
 Keiko
+Kid
 Kiora
 Koth
 Liliana
