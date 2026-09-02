@@ -660,6 +660,15 @@ public class CardDetailUtil {
             area.append("\n\n");
             area.append("Owner: ").append(card.getOwner().toString());
         }
+
+        if (card.hasPreparedSpell()) {
+            area.append("\n\n");
+            area.append(Localizer.getInstance().getMessage("lblPrepared") + " — "
+                + card.getAlternateState().getName() + " "
+                + card.getAlternateState().getManaCost().toString() + ": "
+                + card.getAlternateState().getAbilityText()
+            );
+        }
         return area.toString().trim();
     }
 }
