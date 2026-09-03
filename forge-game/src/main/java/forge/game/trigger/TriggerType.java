@@ -63,6 +63,7 @@ public enum TriggerType {
     CounterRemovedOnce(TriggerCounterRemovedOnce.class),
     CrankContraption(TriggerCrankContraption.class),
     Crewed(TriggerCrewedSaddled.class),
+    CustomReplayEtb(TriggerCustomReplayEtb.class),
     Cycled(TriggerCycled.class),
     DamageAll(TriggerDamageAll.class),
     DamageDealtOnce(TriggerDamageDealtOnce.class),
