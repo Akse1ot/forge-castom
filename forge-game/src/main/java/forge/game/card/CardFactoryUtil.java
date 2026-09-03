@@ -504,6 +504,26 @@ public class CardFactoryUtil {
         }
     }
 
+    private static SpellAbility createUnityEtbAbility(final CardState card, final KeywordInterface inst) {
+        final String choose = "DB$ ChooseNumber | Defined$ You | Min$ 0 | Max$ Count$YourCountersUnity"
+                + " | ListTitle$ Choose how many unity counters to pay"
+                + " | SpellDescription$ Unity (" + inst.getReminderText() + ")";
+        final String remove = "DB$ RemoveCounter | Defined$ You | CounterType$ UNITY | CounterNum$ Count$ChosenNumber";
+        final String put = "DB$ PutCounter | Defined$ ReplacedCard | CounterType$ UNITY | CounterNum$ Count$ChosenNumber | ETB$ True";
+        final String cleanup = "DB$ Cleanup | ClearChosenNumber$ True";
+
+        final SpellAbility chooseSA = AbilityFactory.getAbility(choose, card);
+        final AbilitySub removeSA = (AbilitySub) AbilityFactory.getAbility(remove, card);
+        final AbilitySub putSA = (AbilitySub) AbilityFactory.getAbility(put, card);
+        final AbilitySub cleanupSA = (AbilitySub) AbilityFactory.getAbility(cleanup, card);
+
+        chooseSA.setSubAbility(removeSA);
+        removeSA.setSubAbility(putSA);
+        putSA.setSubAbility(cleanupSA);
+
+        return chooseSA;
+    }
+
     private static ReplacementEffect createETBReplacement(final CardState card, ReplacementLayer layer,
             final String effect, final boolean optional, final boolean secondary,
             final boolean intrinsic, final String valid, final String zone) {
@@ -2651,6 +2671,21 @@ public class CardFactoryUtil {
             ReplacementEffect cardre = createETBReplacement(card, ReplacementLayer.Other, effect, true, true, intrinsic, "Card.Self", "");
 
             inst.addReplacement(cardre);
+        } else if (keyword.equals("Unity")) {
+            final SpellAbility effect = createUnityEtbAbility(card, inst);
+
+            final ReplacementEffect re = createETBReplacement(
+                    card,
+                    ReplacementLayer.Other,
+                    effect,
+                    false,
+                    true,
+                    intrinsic,
+                    "Card.Self",
+                    ""
+            );
+
+            inst.addReplacement(re);
         } else if (keyword.startsWith("Vanishing:") && inst instanceof Vanishing vanishing) {
             // Vanishing could be added to a card, but this Effect should only be done when it has amount
 
