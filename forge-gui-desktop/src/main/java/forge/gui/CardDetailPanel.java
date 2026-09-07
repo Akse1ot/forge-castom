@@ -27,6 +27,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.html.HTMLDocument;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -62,7 +63,7 @@ public class CardDetailPanel extends SkinnedPanel {
         return new Color(detailColor.r, detailColor.g, detailColor.b);
     }
 
-    private final FLabel nameCostLabel;
+    private final FHtmlViewer nameCostLabel;
     private final FLabel typeLabel;
     private final FLabel powerToughnessLabel;
     private final FLabel idLabel;
@@ -77,7 +78,11 @@ public class CardDetailPanel extends SkinnedPanel {
         setLayout(null);
         setOpaque(false);
 
-        nameCostLabel = new FLabel.Builder().fontAlign(SwingConstants.CENTER).tooltip(Localizer.getInstance().getMessage("lblCardNameAndCost")).build();
+        nameCostLabel = new FHtmlViewer();
+        nameCostLabel.setToolTipText(Localizer.getInstance().getMessage("lblCardNameAndCost"));
+        nameCostLabel.setFocusable(true);
+        nameCostLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
+        ((HTMLDocument) nameCostLabel.getDocument()).getStyleSheet().addRule("body { margin: 0; text-align: center; }");
         typeLabel = new FLabel.Builder().fontAlign(SwingConstants.CENTER).tooltip(Localizer.getInstance().getMessage("lblCardType")).build();
         idLabel = new FLabel.Builder().fontAlign(SwingConstants.LEFT).tooltip(Localizer.getInstance().getMessage("lblCardID")).build();
         powerToughnessLabel = new FLabel.Builder().fontAlign(SwingConstants.CENTER).tooltip(Localizer.getInstance().getMessage("lblPrimaryCharacteristic")).build();
@@ -122,11 +127,10 @@ public class CardDetailPanel extends SkinnedPanel {
         // final int lineHeight = nameCostLabel.getPreferredSize().height;
         // final int dy = lineHeight + 1;
 
-        int areaHeight = nameCostLabel.getPreferredSize().height;
+        int areaHeight = typeLabel.getPreferredSize().height;
         nameCostLabel.setBounds(x, y, lineWidth, areaHeight);
         y += areaHeight + 1 ;
 
-        areaHeight = typeLabel.getPreferredSize().height;
         typeLabel.setBounds(x, y, lineWidth, areaHeight);
         y += areaHeight + 1 ;
 
@@ -256,8 +260,8 @@ public class CardDetailPanel extends SkinnedPanel {
         SwingUtilities.invokeLater(() -> scrArea.getVerticalScrollBar().setValue(scrArea.getVerticalScrollBar().getMinimum()));
     }
 
-    /** @return FLabel */
-    public FLabel getNameCostLabel() {
+    /** @return FHtmlViewer */
+    public FHtmlViewer getNameCostLabel() {
         return nameCostLabel;
     }
 

@@ -111,6 +111,8 @@ public enum CounterEnumType implements CounterType {
 
     DEATH("DEATH", 255, 108, 110, CounterAiCategory.Positive),
 
+    DEFEAT("DEFEAT", 180, 180, 180, CounterAiCategory.Negative),
+
     DEFENSE("DEF", 164, 23, 32, CounterAiCategory.Positive),
 
     DELAY("DELAY", 102, 206, 255, CounterAiCategory.Positive),

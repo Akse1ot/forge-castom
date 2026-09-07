@@ -2048,6 +2048,17 @@ public class CardFactoryUtil {
 
             inst.addTrigger(parsedUpkeepTrig);
             inst.addTrigger(parsedSacTrigger);
+        } else if (keyword.startsWith("Humbled")) {
+            final StringBuilder upkeepTrig = new StringBuilder();
+            upkeepTrig.append("Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.Self+counters_GE1_DEFEAT");
+            upkeepTrig.append(" | Secondary$ True | TriggerDescription$ At the beginning of your upkeep, if CARDNAME has a defeat counter on it, remove a defeat counter from it.");
+
+            final String remove = "DB$ RemoveCounter | Defined$ Self | CounterType$ DEFEAT | CounterNum$ 1";
+
+            final Trigger trigger = TriggerHandler.parseTrigger(upkeepTrig.toString(), card, intrinsic);
+            trigger.setOverridingAbility(AbilityFactory.getAbility(remove, card));
+
+            inst.addTrigger(trigger);
         } else if (keyword.startsWith("Visit")) {
             final String[] k = keyword.split(":");
 
@@ -2684,6 +2695,14 @@ public class CardFactoryUtil {
                     "Card.Self",
                     ""
             );
+
+            inst.addReplacement(re);
+        } else if (keyword.startsWith("Humbled:") && inst instanceof Humbled humbled) {
+            StringBuilder sb = new StringBuilder("etbCounter:DEFEAT:");
+            sb.append(humbled.getAmountString()).append(":no Condition:");
+            sb.append(humbled.getTitle()).append(" (").append(inst.getReminderText()).append(")");
+
+            final ReplacementEffect re = makeEtbCounter(sb.toString(), card, intrinsic);
 
             inst.addReplacement(re);
         } else if (keyword.startsWith("Vanishing:") && inst instanceof Vanishing vanishing) {
@@ -4287,6 +4306,9 @@ public class CardFactoryUtil {
             inst.addStaticAbility(StaticAbility.create(effect, state.getCard(), state, intrinsic));
         } else if (keyword.startsWith("Impending")) {
             String effect = "Mode$ Continuous | Affected$ Card.Self+impended+counters_GE1_TIME | RemoveType$ Creature | Secondary$ True";
+            inst.addStaticAbility(StaticAbility.create(effect, state.getCard(), state, intrinsic));
+        } else if (keyword.startsWith("Humbled")) {
+            String effect = "Mode$ Continuous | Affected$ Card.Self+counters_GE1_DEFEAT | RemoveType$ Creature | AddType$ Enchantment | Secondary$ True";
             inst.addStaticAbility(StaticAbility.create(effect, state.getCard(), state, intrinsic));
         } else if (keyword.startsWith("Immunity")) {
             final String[] k = keyword.split(":");

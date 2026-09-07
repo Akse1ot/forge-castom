@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import forge.game.card.Card;
 import forge.game.card.CardCollection;
 import forge.game.card.CardCollectionView;
-import forge.game.card.CardCollection;
 import forge.game.card.CardCopyService;
 import forge.game.combat.Combat;
 import forge.game.event.GameEventSnapshotRestored;
@@ -114,6 +113,10 @@ public class GameSnapshot {
             // Why is this here? This whole area seems wrong
             if (origCard.hasRemembered()) {
                 for (Object o : origCard.getRemembered()) {
+                    if (o == null) {
+                        System.err.println(c + " Remembered: null");
+                        continue;
+                    }
                     if (o instanceof GameObject) {
                         // Sometimes, a spell can "remember" a token card that's not in any zone
                         // (and thus wouldn't have been copied) - for example Swords to Plowshares
@@ -121,8 +124,12 @@ public class GameSnapshot {
                         if (o instanceof Card && ((Card)o).getZone() == null) {
                             continue;
                         }
-                        // Fix this with something else
-                        c.addRemembered(find((GameObject) o));
+                        GameObject mapped = gameObjectMap.map((GameObject) o);
+                        if (mapped == null) {
+                            System.err.println(c + " Remembered unmapped: " + o + "/" + o.getClass());
+                            continue;
+                        }
+                        c.addRemembered(mapped);
                     } else {
                         System.err.println(c + " Remembered: " + o + "/" + o.getClass());
                         c.addRemembered(o);
