@@ -46,6 +46,7 @@ public enum Keyword {
     CRAFT("Craft", Craft.class, false, "%s, Exile this artifact, %s: Return this card transformed under its owner's control. Craft only as a sorcery."),
     CREW("Crew", KeywordWithAmount.class, false, "Tap any number of creatures you control with total power %1$d or more: This Vehicle becomes an artifact creature until end of turn."),
     CUMULATIVE_UPKEEP("Cumulative upkeep", KeywordWithCost.class, false, "At the beginning of your upkeep, put an age counter on this permanent, then sacrifice it unless you pay its upkeep cost for each age counter on it."),
+    CURSED("Cursed", Cursed.class, false, "When this permanent leaves the battlefield, create {%1$d:1/1 black Soul creature token} with haste and \"This creature attacks each turn if able. Sacrifice this creature at the beginning of your next end step.\""),
     CYCLING("Cycling", KeywordWithCost.class, false, "%s, Discard this card: Draw a card."), //Typecycling reminder text handled by Cycling class
     DASH("Dash", KeywordWithCost.class, false, "You may cast this spell for its dash cost. If you do, it gains haste, and it's returned from the battlefield to its owner's hand at the beginning of the next end step."),
     DAYBOUND("Daybound", SimpleKeyword.class, true, "If a player casts no spells during their own turn, it becomes night next turn."),

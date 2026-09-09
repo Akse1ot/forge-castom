@@ -928,6 +928,23 @@ public class CardFactoryUtil {
             trigger.setOverridingAbility(AbilityFactory.getAbility(effect, card));
 
             inst.addTrigger(trigger);
+        } else if (keyword.startsWith("Cursed:") && inst instanceof Cursed cursed) {
+            if (cursed.hasX()) {
+                cursed.initializeX(card.getCurrentState());
+            }
+
+            final String n = cursed.getTokenAmount();
+
+            final String trigStr = "Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Card.Self"
+                    + " | Secondary$ True | TriggerDescription$ " + cursed.getTitle()
+                    + " (" + inst.getReminderText() + ")";
+            final String effect = "DB$ Token | TokenAmount$ " + n
+                    + " | TokenScript$ b_1_1_soul_cursed";
+
+            final Trigger trigger = TriggerHandler.parseTrigger(trigStr, card, intrinsic);
+            trigger.setOverridingAbility(AbilityFactory.getAbility(effect, card));
+
+            inst.addTrigger(trigger);
         } else if (keyword.equals("Daybound")) {
             // Set Day when it's Neither
             final String setDayTrig = "Mode$ Always | TriggerZones$ Battlefield | Static$ True | DayTime$ Neither | Secondary$ True | TriggerDescription$ Any time a player controls a permanent with daybound, if it's neither day nor night, it becomes day.";

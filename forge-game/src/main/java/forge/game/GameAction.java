@@ -34,6 +34,7 @@ import forge.game.ability.SpellAbilityEffect;
 import forge.game.card.*;
 import forge.game.event.*;
 import forge.game.extrahands.BackupPlanService;
+import forge.game.keyword.Cursed;
 import forge.game.keyword.Keyword;
 import forge.game.keyword.KeywordInterface;
 import forge.game.mulligan.MulliganService;
@@ -366,6 +367,10 @@ public class GameAction {
 
                 return c;
             }
+        }
+
+        if (!suppress && zoneTo.is(ZoneType.Battlefield)) {
+            Cursed.storeEnteringX(copied, cause);
         }
 
         if (!zoneTo.is(ZoneType.Stack)) {

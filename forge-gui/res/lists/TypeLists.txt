@@ -314,6 +314,7 @@ Snake:Snakes
 Soldier:Soldiers
 Soltari:Soltaris
 Sorcerer:Sorcerers
+Soul:Souls
 Spawn:Spawns
 Specter:Specters
 Spellshaper:Spellshapers
@@ -421,6 +422,7 @@ Spacecraft:Spacecraft
 Stone:Stones
 Treasure:Treasures
 Vehicle:Vehicles
+Vessel:Vessels
 Vibranium
 [WalkerTypes]
 Agnar
