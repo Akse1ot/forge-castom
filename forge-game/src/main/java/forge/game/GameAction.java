@@ -605,24 +605,28 @@ public class GameAction {
                 runParams.putAll(params);
             }
 
-            final boolean startedBatch = game.getCurrentZoneChangeBatchId() == null;
-            if (startedBatch) {
-                game.beginZoneChangeBatch();
-            }
-            try {
-                final Card batchRecordCard = fromBattlefield && !toBattlefield ? lastKnownInfo : copied;
-                game.recordZoneChangeBatch(
+            CardZoneTable zoneChangeBatch = (CardZoneTable) runParams.get(AbilityKey.InternalTriggerTable);
+            if (zoneChangeBatch == null) {
+                zoneChangeBatch = new CardZoneTable(lastBattlefield, lastGraveyard);
+                zoneChangeBatch.put(
                         zoneFrom != null ? zoneFrom.getZoneType() : null,
                         zoneTo.getZoneType(),
-                        batchRecordCard
+                        copied
                 );
-
-                game.getTriggerHandler().runTrigger(TriggerType.ChangesZone, runParams, true);
-            } finally {
-                if (startedBatch) {
-                    game.endZoneChangeBatch();
-                }
+                runParams.put(AbilityKey.InternalTriggerTable, zoneChangeBatch);
             }
+
+            final Card batchRecordCard = fromBattlefield || (fromGraveyard && !toBattlefield)
+                    ? lastKnownInfo
+                    : CardCopyService.getLKICopy(copied);
+            game.recordZoneChangeBatch(
+                    zoneFrom != null ? zoneFrom.getZoneType() : null,
+                    zoneTo.getZoneType(),
+                    batchRecordCard,
+                    zoneChangeBatch
+            );
+
+            game.getTriggerHandler().runTrigger(TriggerType.ChangesZone, runParams, true);
         }
 
         if (fromBattlefield && !zoneFrom.getPlayer().equals(zoneTo.getPlayer())) {
@@ -1600,45 +1604,41 @@ public class GameAction {
             // 704.5m World rule
             checkAgain |= handleWorldRule(noRegCreats);
 
-            game.beginZoneChangeBatch();
-            try {
-                // only check static abilities once after destroying all the creatures
-                // (e.g. helpful for Erebos's Titan and another creature dealing lethal damage to each other simultaneously)
-                setHoldCheckingStaticAbilities(true);
-                try {
-                    if (noRegCreats.size() > 1 && !orderedNoRegCreats) {
-                        noRegCreats = (CardCollection) GameActionUtil.orderCardsByTheirOwners(game, noRegCreats, ZoneType.Graveyard, null);
-                        orderedNoRegCreats = true;
-                    }
-                    for (Card c : noRegCreats) {
-                        c.updateWasDestroyed(true);
-                        sacrificeDestroy(c, null, mapParams);
-                    }
+            // only check static abilities once after destroying all the creatures
+            // (e.g. helpful for Erebos's Titan and another creature dealing lethal damage to each other simultaneously)
+            setHoldCheckingStaticAbilities(true);
 
-                    if (desCreats != null) {
-                        if (desCreats.size() > 1 && !orderedDesCreats) {
-                            desCreats = CardLists.filter(desCreats, Card::canBeDestroyed);
-                            if (!desCreats.isEmpty()) {
-                                desCreats = (CardCollection) GameActionUtil.orderCardsByTheirOwners(game, desCreats, ZoneType.Graveyard, null);
-                            }
-                            orderedDesCreats = true;
-                        }
-                        for (Card c : desCreats) {
-                            destroy(c, null, true, mapParams);
-                        }
-                    }
-
-                    if (sacrificeList.size() > 1 && !orderedSacrificeList) {
-                        sacrificeList = (CardCollection) GameActionUtil.orderCardsByTheirOwners(game, sacrificeList, ZoneType.Graveyard, null);
-                        orderedSacrificeList = true;
-                    }
-                    sacrifice(sacrificeList, null, true, mapParams);
-                } finally {
-                    setHoldCheckingStaticAbilities(false);
-                }
-            } finally {
-                game.endZoneChangeBatch();
+            if (noRegCreats.size() > 1 && !orderedNoRegCreats) {
+                noRegCreats = (CardCollection) GameActionUtil.orderCardsByTheirOwners(game, noRegCreats, ZoneType.Graveyard, null);
+                orderedNoRegCreats = true;
             }
+            for (Card c : noRegCreats) {
+                c.updateWasDestroyed(true);
+                sacrificeDestroy(c, null, mapParams);
+            }
+
+            if (desCreats != null) {
+                if (desCreats.size() > 1 && !orderedDesCreats) {
+                    desCreats = CardLists.filter(desCreats, Card::canBeDestroyed);
+                    if (!desCreats.isEmpty()) {
+                        desCreats = (CardCollection) GameActionUtil.orderCardsByTheirOwners(game, desCreats, ZoneType.Graveyard, null);
+                    }
+                    orderedDesCreats = true;
+                }
+                for (Card c : desCreats) {
+                    destroy(c, null, true, mapParams);
+                }
+            }
+
+            if (sacrificeList.size() > 1 && !orderedSacrificeList) {
+                sacrificeList = (CardCollection) GameActionUtil.orderCardsByTheirOwners(game, sacrificeList, ZoneType.Graveyard, null);
+                orderedSacrificeList = true;
+            }
+            sacrifice(sacrificeList, null, true, mapParams);
+
+            setHoldCheckingStaticAbilities(false);
+
+            table.triggerChangesZoneAll(game, null);
 
             table.triggerChangesZoneAll(game, null);
 
@@ -2148,42 +2148,30 @@ public class GameAction {
         final boolean showRevealDialog = source != null && source.hasParam("ShowSacrificedCards");
 
         CardCollection result = new CardCollection();
-
-        final UUID prevBatch = game.getCurrentZoneChangeBatchId();
-        if (prevBatch == null) {
-            game.beginZoneChangeBatch();
-        }
-        try {
-            for (Card c : list) {
-                if (c == null) {
-                    continue;
-                }
-
-                if (!c.canBeSacrificedBy(source, effect)) {
-                    continue;
-                }
-
-                Card lkiCopy = ((CardCollection) params.get(AbilityKey.LastStateBattlefield)).get(c);
-                c.getController().addSacrificedThisTurn(lkiCopy, source);
-                lki.put(c.getController(), lkiCopy);
-
-                c.updateWasDestroyed(true);
-
-                Card changed = sacrificeDestroy(c, source, params);
-                if (changed != null) {
-                    result.add(changed);
-                }
-                if (showRevealDialog) {
-                    final String message = Localizer.getInstance().getMessage("lblSacrifice");
-                    reveal(result, ZoneType.Graveyard, c.getOwner(), false, message, false);
-                }
+        for (Card c : list) {
+            if (c == null) {
+                continue;
             }
-        } finally {
-            if (prevBatch == null) {
-                game.endZoneChangeBatch();
+
+            if (!c.canBeSacrificedBy(source, effect)) {
+                continue;
+            }
+
+            Card lkiCopy = ((CardCollection) params.get(AbilityKey.LastStateBattlefield)).get(c);
+            c.getController().addSacrificedThisTurn(lkiCopy, source);
+            lki.put(c.getController(), lkiCopy);
+
+            c.updateWasDestroyed(true);
+
+            Card changed = sacrificeDestroy(c, source, params);
+            if (changed != null) {
+                result.add(changed);
+            }
+            if (showRevealDialog) {
+                final String message = Localizer.getInstance().getMessage("lblSacrifice");
+                reveal(result, ZoneType.Graveyard, c.getOwner(), false, message, false);
             }
         }
-
         for (Map.Entry<Player, Collection<Card>> e : lki.asMap().entrySet()) {
             final Map<AbilityKey, Object> runParams = AbilityKey.mapFromPlayer(e.getKey());
             runParams.put(AbilityKey.Cards, new CardCollection(e.getValue()));
@@ -2225,18 +2213,8 @@ public class GameAction {
         }
         game.getTriggerHandler().runTrigger(TriggerType.Destroyed, runParams, false);
 
-        final UUID prevBatch = game.getCurrentZoneChangeBatchId();
-        if (prevBatch == null) {
-            game.beginZoneChangeBatch();
-        }
-        try {
-            final Card sacrificed = sacrificeDestroy(c, sa, params);
-            return sacrificed != null;
-        } finally {
-            if (prevBatch == null) {
-                game.endZoneChangeBatch();
-            }
-        }
+        final Card sacrificed = sacrificeDestroy(c, sa, params);
+        return sacrificed != null;
     }
 
     /**
@@ -2248,18 +2226,7 @@ public class GameAction {
             return null;
         }
 
-        final UUID prevBatch = game.getCurrentZoneChangeBatchId();
-        if (prevBatch == null) {
-            game.beginZoneChangeBatch();
-        }
-        try {
-            final Card newCard = moveToGraveyard(c, cause, params);
-            return newCard;
-        } finally {
-            if (prevBatch == null) {
-                game.endZoneChangeBatch();
-            }
-        }
+        return moveToGraveyard(c, cause, params);
     }
 
     public void revealTo(final Card card, final Player to) {

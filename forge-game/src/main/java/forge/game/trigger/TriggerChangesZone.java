@@ -33,6 +33,7 @@ import forge.game.card.Card;
 import forge.game.card.CardCollectionView;
 import forge.game.card.CardLists;
 import forge.game.card.CardPredicates;
+import forge.game.card.CardZoneTable;
 import forge.game.spellability.SpellAbility;
 import forge.game.zone.ZoneType;
 import forge.util.Expressions;
@@ -129,6 +130,31 @@ public class TriggerChangesZone extends Trigger {
             }
 
             if (!matchesValidParam("ValidCard", moved)) {
+                return false;
+            }
+        }
+
+        if (hasParam("FirstTime")) {
+            final String valid = getParamOrDefault("FirstTimeValid", getParamOrDefault("ValidCard", "Card"));
+
+            final List<ZoneType> origins = hasParam("Origin") && !"Any".equals(getParam("Origin"))
+                    ? ZoneType.listValueOf(getParam("Origin"))
+                    : null;
+            final List<ZoneType> destinations = hasParam("Destination") && !"Any".equals(getParam("Destination"))
+                    ? ZoneType.listValueOf(getParam("Destination"))
+                    : null;
+
+            final CardZoneTable batch = (CardZoneTable) runParams.get(AbilityKey.InternalTriggerTable);
+
+            if (!getHostCard().getGame().isFirstZoneChangeBatchThisTurn(
+                    destinations,
+                    origins,
+                    valid,
+                    batch,
+                    getHostCard().getController(),
+                    getHostCard(),
+                    this
+            )) {
                 return false;
             }
         }

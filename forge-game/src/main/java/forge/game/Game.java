@@ -291,24 +291,21 @@ public class Game {
         changeZoneLKIInfo.clear();
     }
 
-    // === Custom patch: zone-change batching + first-batch-per-turn registry ===
-    private int zoneChangeBatchDepth = 0;
-    private UUID currentZoneChangeBatchId = null;
-
+    // === Custom patch: first matching zone-change batch this turn ===
     private final List<ZoneChangeBatchRecord> zoneChangeBatchRecordsThisTurn = Lists.newArrayList();
 
     private static final class ZoneChangeBatchRecord {
         private final ZoneType origin;
         private final ZoneType destination;
         private final Card card;
-        private final UUID batchId;
+        private final CardZoneTable batch;
 
         private ZoneChangeBatchRecord(final ZoneType origin, final ZoneType destination,
-                                      final Card card, final UUID batchId) {
+                                      final Card card, final CardZoneTable batch) {
             this.origin = origin;
             this.destination = destination;
             this.card = card;
-            this.batchId = batchId;
+            this.batch = batch;
         }
     }
 
@@ -1232,58 +1229,35 @@ public class Game {
         numPiledGuessedSA = 0;
     }
 
-    public void beginZoneChangeBatch() {
-        if (zoneChangeBatchDepth == 0) {
-            currentZoneChangeBatchId = UUID.randomUUID();
-        }
-        zoneChangeBatchDepth++;
-    }
-
-    public void endZoneChangeBatch() {
-        if (zoneChangeBatchDepth <= 0) {
-            zoneChangeBatchDepth = 0;
-            currentZoneChangeBatchId = null;
+    public void recordZoneChangeBatch(final ZoneType origin, final ZoneType destination,
+                                      final Card card, final CardZoneTable batch) {
+        if (destination == null || card == null || batch == null) {
             return;
         }
-
-        zoneChangeBatchDepth--;
-        if (zoneChangeBatchDepth == 0) {
-            currentZoneChangeBatchId = null;
-        }
-    }
-
-    public UUID getCurrentZoneChangeBatchId() {
-        return currentZoneChangeBatchId;
-    }
-
-    public void recordZoneChangeBatch(final ZoneType origin, final ZoneType destination, final Card card) {
-        if (destination == null || card == null || currentZoneChangeBatchId == null) {
-            return;
-        }
-        zoneChangeBatchRecordsThisTurn.add(new ZoneChangeBatchRecord(origin, destination, card, currentZoneChangeBatchId));
+        zoneChangeBatchRecordsThisTurn.add(new ZoneChangeBatchRecord(origin, destination, card, batch));
     }
 
     /**
-     * Returns true if the current batch is the first batch this turn that contains
-     * a matching zone-change event.
+     * Returns true if the supplied batch is the first batch this turn that
+     * contains a matching zone-change event.
      */
-    public boolean isFirstBatchThisTurn(final ZoneType destination, final ZoneType origin,
-                                        final String validFilter, final UUID batchId, final Player player,
-                                        final Card source, final CardTraitBase ctb) {
-        if (destination == null || validFilter == null || validFilter.isEmpty() || batchId == null) {
+    public boolean isFirstZoneChangeBatchThisTurn(final List<ZoneType> destinations,
+                                                  final List<ZoneType> origins, final String validFilter, final CardZoneTable batch,
+                                                  final Player player, final Card source, final CardTraitBase ctb) {
+        if (validFilter == null || validFilter.isEmpty() || batch == null) {
             return false;
         }
 
         final String[] valid = validFilter.split(",");
         for (final ZoneChangeBatchRecord record : zoneChangeBatchRecordsThisTurn) {
-            if (record.destination != destination) {
+            if (destinations != null && !destinations.contains(record.destination)) {
                 continue;
             }
-            if (origin != null && record.origin != origin) {
+            if (origins != null && !origins.contains(record.origin)) {
                 continue;
             }
             if (record.card.isValid(valid, player, source, ctb)) {
-                return batchId.equals(record.batchId);
+                return record.batch == batch;
             }
         }
 
@@ -1293,8 +1267,6 @@ public class Game {
     public void clearZoneChangeBatchRecordsThisTurn() {
         zoneChangeBatchRecordsThisTurn.clear();
     }
-
-
 
     public void onCleanupPhase() {
         resetNumPiledGuessedSA();
@@ -1314,9 +1286,6 @@ public class Game {
         }
         clearZoneChangeBatchRecordsThisTurn();
 
-        // safety: also reset batch state at end of turn
-        zoneChangeBatchDepth = 0;
-        currentZoneChangeBatchId = null;
     }
 
     public void addCounterAddedThisTurn(Player putter, CounterType cType, Card card, Integer value) {

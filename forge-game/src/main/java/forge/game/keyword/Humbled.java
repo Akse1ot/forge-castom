@@ -23,7 +23,7 @@ public class Humbled extends KeywordWithAmount {
     @Override
     protected String formatReminderText(String reminderText) {
         if (withoutAmount) {
-            return "As long as this permanent has a defeat counter on it, it's an enchantment and not a creature. At the beginning of your upkeep, remove a defeat counter from it.";
+            return "As long as this permanent has a defeat counter on it, it's an enchantment and loses all other card types. At the beginning of your upkeep, remove a defeat counter from it.";
         } else {
             return super.formatReminderText(reminderText);
         }

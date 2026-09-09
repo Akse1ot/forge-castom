@@ -2,11 +2,9 @@ Name:Duskwood Shaman
 ManaCost:BG
 Types:Creature Satyr Shaman
 PT:1/1
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other | TriggerZones$ Battlefield |ConditionCheckSVar$ X | ConditionSVarCompare$ EQ1 | Execute$ TrigCharm | TriggerDescription$ Whenever another creature dies, if it’s the first creature that died this turn, ABILITY
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other | TriggerZones$ Battlefield | FirstTime$ True | FirstTimeValid$ Creature | Execute$ TrigCharm | TriggerDescription$ Whenever another creature dies, if it’s the first creature that died this turn, ABILITY
 SVar:TrigCharm:DB$ Charm | Choices$ DBCounter,DBScry,DBGainLife
-SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SpellDescription$ Put a +1/+1 counters on CARDNAME.
+SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SpellDescription$ Put a +1/+1 counter on CARDNAME.
 SVar:DBScry:DB$ Scry | ScryNum$ 2 | SpellDescription$ Scry 2.
 SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3 | SpellDescription$ You gain 3 life.
-SVar:X:Count$FirstBatchThisTurnEntered_Graveyard_from_Battlefield_Creature
-Oracle:Whenever another creature dies, if it’s the first creature that died this turn, choose one —\n• Put a +1/+1 counter on Duskwood Shaman.\n• Scry 2.\n•You gain 3 life.
-
+Oracle:Whenever another creature dies, if it’s the first creature that died this turn, choose one —\n• Put a +1/+1 counter on Duskwood Shaman.\n• Scry 2.\n• You gain 3 life.

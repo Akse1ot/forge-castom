@@ -4308,7 +4308,7 @@ public class CardFactoryUtil {
             String effect = "Mode$ Continuous | Affected$ Card.Self+impended+counters_GE1_TIME | RemoveType$ Creature | Secondary$ True";
             inst.addStaticAbility(StaticAbility.create(effect, state.getCard(), state, intrinsic));
         } else if (keyword.startsWith("Humbled")) {
-            String effect = "Mode$ Continuous | Affected$ Card.Self+counters_GE1_DEFEAT | RemoveType$ Creature | AddType$ Enchantment | Secondary$ True";
+            String effect = "Mode$ Continuous | Affected$ Card.Self+counters_GE1_DEFEAT | AddType$ Enchantment | RemoveCardTypes$ True | Secondary$ True";
             inst.addStaticAbility(StaticAbility.create(effect, state.getCard(), state, intrinsic));
         } else if (keyword.startsWith("Immunity")) {
             final String[] k = keyword.split(":");

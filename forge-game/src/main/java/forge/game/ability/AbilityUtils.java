@@ -3004,44 +3004,6 @@ public class AbilityUtils {
             return doXMath(activated, expr, c, ctb);
         }
 
-        // Count$FirstBatchThisTurnEntered_<ZoneDestination>[_from_<ZoneOrigin>]_ <Valid>
-        // Returns 1 if the current batch is the first matching zone-change batch this turn, else 0.
-        if (sq[0].startsWith("FirstBatchThisTurnEntered")) {
-            final String prefix = "FirstBatchThisTurnEntered_";
-            if (!paidparts[0].startsWith(prefix)) {
-                return doXMath(0, expr, c, ctb);
-            }
-
-            final String rest = paidparts[0].substring(prefix.length());
-            final int destinationEnd = rest.indexOf('_');
-            if (destinationEnd <= 0 || destinationEnd >= rest.length() - 1) {
-                return doXMath(0, expr, c, ctb);
-            }
-
-            final ZoneType destination = ZoneType.smartValueOf(rest.substring(0, destinationEnd));
-            final String tail = rest.substring(destinationEnd + 1);
-
-            ZoneType origin = null;
-            final String validFilter;
-
-            if (tail.startsWith("from_")) {
-                final String afterFrom = tail.substring("from_".length());
-                final int originEnd = afterFrom.indexOf('_');
-                if (originEnd <= 0 || originEnd >= afterFrom.length() - 1) {
-                    return doXMath(0, expr, c, ctb);
-                }
-
-                origin = ZoneType.smartValueOf(afterFrom.substring(0, originEnd));
-                validFilter = afterFrom.substring(originEnd + 1);
-            } else {
-                validFilter = tail;
-            }
-
-            final UUID batchId = game.getCurrentZoneChangeBatchId();
-            final int value = game.isFirstBatchThisTurn(destination, origin, validFilter, batchId, player, c, ctb) ? 1 : 0;
-            return doXMath(value, expr, c, ctb);
-        }
-
         // Count$ThisTurnEntered <ZoneDestination> [from <ZoneOrigin>] <Valid>
         if (sq[0].startsWith("ThisTurnEntered") || sq[0].startsWith("LastTurnEntered")) {
             final String[] workingCopy = paidparts[0].split("_", 5);
