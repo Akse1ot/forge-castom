@@ -30,6 +30,7 @@ import forge.game.keyword.Keyword;
 import forge.game.mana.*;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
+import forge.game.zone.ZoneType;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
@@ -46,10 +47,55 @@ import java.util.Map;
  * @version $Id$
  */
 public class CostPayment extends ManaConversionMatrix {
+    static final String COALESCE_PAYMENT = "Coalesce";
+
     private final Cost cost;
     private Cost adjustedCost;
     private final SpellAbility ability;
     private final List<CostPart> paidCostParts = Lists.newArrayList();
+
+    public static void handleCoalesce(
+            final SpellAbility sa,
+            final boolean costIsPaid,
+            final Map<AbilityKey, Object> params) {
+        final CardCollection coalesced =
+                sa.getPaidList(COALESCE_PAYMENT, true);
+
+        if (coalesced == null || coalesced.isEmpty()) {
+            return;
+        }
+
+        final CardCollection selected =
+                new CardCollection(coalesced);
+
+        for (final Card card : selected) {
+            card.setUsedToPay(false);
+        }
+
+        if (costIsPaid) {
+            final Game game = sa.getHostCard().getGame();
+            final Player payer = sa.getActivatingPlayer();
+
+            for (final Card card : selected) {
+                final Card gameCard =
+                        game.getCardState(card, null);
+
+                if (gameCard == null
+                        || !card.equalsWithGameTimestamp(gameCard)
+                        || !gameCard.isInZone(ZoneType.Exile)
+                        || !gameCard.getOwner().equals(payer)) {
+                    continue;
+                }
+
+                game.getAction().moveToGraveyard(
+                        gameCard,
+                        null,
+                        params);
+            }
+        }
+
+        coalesced.clear();
+    }
 
     /**
      * <p>
@@ -475,6 +521,9 @@ public class CostPayment extends ManaConversionMatrix {
             }
 
             sa.clearSacrificedForSwallow();
+        }
+        if (!test) {
+            handleCoalesce(sa, costIsPaid, params);
         }
         if (!table.isEmpty()) {
             table.triggerChangesZoneAll(sa.getHostCard().getGame(), sa);

@@ -575,6 +575,12 @@ public class PlaySpellAbility {
 
             ability.clearSacrificedForSwallow();
         }
+
+        CostPayment.handleCoalesce(
+                ability,
+                !manaInputCancelled,
+                params);
+
         if (!table.isEmpty() && !manaInputCancelled) {
             table.triggerChangesZoneAll(game, ability);
         }

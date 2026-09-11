@@ -116,9 +116,18 @@ public class CardZoom extends FOverlay {
 
         final boolean canShow = MatchController.instance.mayView(currentCard);
         final String name = CardDetailUtil.formatCardName(currentCard, canShow, state == currentCard.getAlternateState());
+        final String type = CardDetailUtil.formatCardType(state, canShow).trim();
         final String text = CardDetailUtil.composeCardText(state, MatchController.instance.getGameView(), canShow).trim();
 
-        Forge.getClipboard().setContents(text.isEmpty() ? name : name + "\n\n" + text);
+        final StringBuilder result = new StringBuilder(name);
+        if (!type.isEmpty()) {
+            result.append("\n").append(type);
+        }
+        if (!text.isEmpty()) {
+            result.append("\n\n").append(text);
+        }
+
+        Forge.getClipboard().setContents(result.toString());
     }
 
     public static void hideZoom() {

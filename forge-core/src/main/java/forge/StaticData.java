@@ -3,6 +3,7 @@ package forge;
 import forge.card.CardDb;
 import forge.card.CardEdition;
 import forge.card.CardRules;
+import forge.card.ICardFace;
 import forge.card.PrintSheet;
 import forge.item.*;
 import forge.token.TokenDb;
@@ -41,6 +42,7 @@ public class StaticData {
     private final Set<String> filtered = new HashSet<>();
     private final Map<String, CardRules> regularRules = new ConcurrentSkipListMap<>(String.CASE_INSENSITIVE_ORDER);
     private final Map<String, CardRules> variantRules = new ConcurrentSkipListMap<>(String.CASE_INSENSITIVE_ORDER);
+    private final Map<String, CardRules> seenFaceNames = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private final Set<String> placeholderFacesInProgress = new HashSet<>();
     private final Set<String> missingLazyCards = new HashSet<>();
     private final Object lazyLoadLock = new Object();
@@ -75,6 +77,44 @@ public class StaticData {
     private final Map<String, List<String>> setLookup = new HashMap<>();
 
     private static StaticData lastInstance = null;
+
+    private static String getPreInitNameForLoad(final CardRules card, final boolean custom) {
+        try {
+            return card.getPreInitName();
+        } catch (RuntimeException e) {
+            throw new RuntimeException(
+                    "Failed to initialize " + (custom ? "custom " : "") + "card script: " + card.getPath(), e);
+        }
+    }
+
+    private static void checkDuplicateCardFaceNames(
+            final Map<String, CardRules> seenFaceNames,
+            final CardRules card) {
+        for (final ICardFace face : card.getAllFaces()) {
+            if (face == null) {
+                continue;
+            }
+
+            final String faceName = face.getName();
+            if (faceName == null || faceName.isEmpty()) {
+                continue;
+            }
+
+            final CardRules previous = seenFaceNames.putIfAbsent(faceName, card);
+            if (previous == null || previous == card
+                    || Objects.equals(previous.getPath(), card.getPath())) {
+                continue;
+            }
+
+            System.err.printf(
+                    "ERROR: Duplicate card Name: \"%s\".%n"
+                            + "  First loaded script: %s%n"
+                            + "  Duplicate script: %s%n",
+                    faceName,
+                    previous.getPath(),
+                    card.getPath());
+        }
+    }
 
     public StaticData(CardStorageReader cardReader, CardStorageReader customCardReader, String editionFolder, String customEditionsFolder, String blockDataFolder, String cardArtPreference, boolean enableUnknownCards, boolean loadNonLegalCards) {
         this(cardReader, null, customCardReader, null, editionFolder, customEditionsFolder, blockDataFolder, "", cardArtPreference, enableUnknownCards, loadNonLegalCards, false, false, null);
@@ -114,7 +154,8 @@ public class StaticData {
             for (CardRules card : cardReader.loadCards()) {
                 if (null == card) continue;
 
-                final String cardName = card.getPreInitName();
+                final String cardName = getPreInitNameForLoad(card, false);
+                checkDuplicateCardFaceNames(seenFaceNames, card);
 
                 if (!loadNonLegalCards && funnyCards.contains(cardName) && !card.getType().isBasicLand())
                     filtered.add(cardName);
@@ -151,7 +192,17 @@ public class StaticData {
                 for (CardRules card : customTokenReader.loadCards()){
                     if (null == card) continue;
                     card.setCustom();
-                    tokens.put(card.getNormalizedName(), card);
+
+                    final CardRules previous = tokens.put(card.getNormalizedName(), card);
+                    if (previous != null) {
+                        System.err.printf(
+                                "ERROR: Duplicate token script identifier: \"%s\".%n"
+                                        + "  Existing script: %s%n"
+                                        + "  Custom script: %s%n",
+                                card.getNormalizedName(),
+                                previous.getPath(),
+                                card.getPath());
+                    }
                 }
             }
             allTokens = new TokenDb(tokens, editions);
@@ -270,7 +321,8 @@ public class StaticData {
     }
 
     private void loadAllCardsEntry(CardRules rules) {
-        final String cardName = rules.getPreInitName();
+        final String cardName = getPreInitNameForLoad(rules, false);
+        checkDuplicateCardFaceNames(seenFaceNames, rules);
         if (commonCards.getRules(cardName, false) != null || variantCards.getRules(cardName, false) != null) {
             return;
         }
@@ -291,7 +343,8 @@ public class StaticData {
         for (CardRules card : customCardReader.loadCards()) {
             if (null == card) continue;
 
-            final String cardName = card.getName();
+            final String cardName = getPreInitNameForLoad(card, true);
+            checkDuplicateCardFaceNames(seenFaceNames, card);
             card.setCustom();
             if (card.isVariant()) { //Append loaded custom cards to the respective list.
                 variantRules.put(cardName, card);
@@ -311,6 +364,7 @@ public class StaticData {
             variantCards.clearLoadedCards();
             missingLazyCards.clear();
             filtered.clear();
+            seenFaceNames.clear();
             allCardsLoaded = false;
             if (customCardReader != null) {
                 lazyLoadDepth++;
@@ -372,6 +426,10 @@ public class StaticData {
         if (rules == null) {
             return;
         }
+
+        final String rulesName = getPreInitNameForLoad(rules, false);
+        checkDuplicateCardFaceNames(seenFaceNames, rules);
+
         for (String faceName : rules.getPlaceholderFaceNames()) {
             if (placeholderFacesInProgress.add(faceName)) {
                 try {
@@ -381,8 +439,8 @@ public class StaticData {
                 }
             }
         }
-        if (!loadNonLegalCards && funnyCards.contains(rules.getPreInitName()) && !rules.getType().isBasicLand()) {
-            filtered.add(rules.getPreInitName());
+        if (!loadNonLegalCards && funnyCards.contains(rulesName) && !rules.getType().isBasicLand()) {
+            filtered.add(rulesName);
         }
         if (rules.isVariant()) {
             variantCards.loadCard(cardName, setCode, rules);

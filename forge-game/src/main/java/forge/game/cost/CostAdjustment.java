@@ -306,6 +306,13 @@ public class CostAdjustment {
                 }
                 table.triggerChangesZoneAll(game, sa);
             }
+            if (host.hasKeyword(Keyword.COALESCE)) {
+                adjustCostByCoalesce(
+                        cost,
+                        sa,
+                        activator,
+                        test);
+            }
             if (host.hasKeyword(Keyword.CONVOKE)) {
                 adjustCostByConvokeOrImprovise(cost, sa, activator, false, true, test);
             }
@@ -434,6 +441,124 @@ public class CostAdjustment {
         if (maxWaterbend != null && maxWaterbend > 0) {
             adjustCostByConvokeOrImprovise(cost, sa, payer, true, true, test);
         }
+    }
+
+    private static void adjustCostByCoalesce(
+            final ManaCostBeingPaid cost,
+            final SpellAbility sa,
+            final Player payer,
+            final boolean test) {
+        if (!test) {
+            final CardCollection previous =
+                    sa.getPaidList(
+                            CostPayment.COALESCE_PAYMENT,
+                            true);
+
+            if (previous != null) {
+                for (final Card card : previous) {
+                    card.setUsedToPay(false);
+                }
+                previous.clear();
+            }
+        }
+
+        final int genericManaToPay =
+                cost.getUnpaidShards(
+                        ManaCostShard.GENERIC);
+
+        if (genericManaToPay == 0) {
+            return;
+        }
+
+        final CardCollection exile =
+                CardLists.filter(
+                        payer.getGame().getCardsIn(
+                                ZoneType.Exile),
+                        card -> card.getOwner().equals(payer)
+                                && !card.isToken()
+                                && !card.isUsedToPay());
+
+        final int maxReduction =
+                Math.min(
+                        genericManaToPay,
+                        exile.size() / 2);
+
+        if (maxReduction == 0) {
+            return;
+        }
+
+        if (test) {
+            cost.decreaseGenericMana(maxReduction);
+            return;
+        }
+
+        final CardCollection chosen =
+                new CardCollection();
+
+        if (payer.getController().isAI()) {
+            chosen.addAll(
+                    payer.getController()
+                            .chooseCardsToDiscardFrom(
+                                    payer,
+                                    sa,
+                                    exile,
+                                    maxReduction * 2,
+                                    maxReduction * 2));
+        } else {
+            final int reduction =
+                    payer.getController().chooseNumber(
+                            sa,
+                            "Choose how much generic mana to pay with Coalesce",
+                            0,
+                            maxReduction);
+
+            final int amount = reduction * 2;
+            final CardCollection available =
+                    new CardCollection(exile);
+
+            for (int i = 0; i < amount; i++) {
+                final Card card =
+                        payer.getController()
+                                .chooseSingleCardForZoneChange(
+                                        ZoneType.Graveyard,
+                                        Lists.newArrayList(
+                                                ZoneType.Exile),
+                                        sa,
+                                        available,
+                                        null,
+                                        "Choose a card you own in exile for Coalesce",
+                                        false,
+                                        payer);
+
+                if (card == null) {
+                    break;
+                }
+
+                chosen.add(card);
+                available.remove(card);
+            }
+        }
+
+        final int pairs = chosen.size() / 2;
+
+        if (pairs == 0) {
+            return;
+        }
+
+        final int cardsUsed = pairs * 2;
+
+        for (int i = 0; i < cardsUsed; i++) {
+            final Card card = chosen.get(i);
+
+            card.setUsedToPay(true);
+
+            sa.addCostToHashList(
+                    card,
+                    CostPayment.COALESCE_PAYMENT,
+                    true);
+        }
+
+        cost.decreaseGenericMana(pairs);
     }
 
     private static void adjustCostBySwallow(

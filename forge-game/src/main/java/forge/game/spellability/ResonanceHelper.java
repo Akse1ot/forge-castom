@@ -6,6 +6,7 @@ import forge.game.Game;
 import forge.game.ability.AbilityFactory;
 import forge.game.ability.AbilityFactory.AbilityRecordType;
 import forge.game.ability.ApiType;
+import forge.game.ability.AbilityUtils;
 import forge.game.card.Card;
 import forge.game.card.CardState;
 import forge.game.player.Player;
@@ -166,10 +167,7 @@ public final class ResonanceHelper {
                 continue;
             }
 
-            List<SpellAbility> allSA = new ArrayList<>();
-            for (SpellAbility sa : resCard.getBasicSpells()) {
-                allSA.add(sa);
-            }
+            List<SpellAbility> allSA = AbilityUtils.getBasicSpellsFromPlayEffect(resCard, activator);
 
             if (allSA.isEmpty()) {
                 markForCommit(root, resCard);
