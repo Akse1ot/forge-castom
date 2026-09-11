@@ -1,5 +1,7 @@
 package forge.adventure.util;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -27,6 +29,7 @@ import forge.sound.SoundEffectType;
 import forge.sound.SoundSystem;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * Class to create ui elements in the correct style
@@ -282,6 +285,23 @@ public class Controls {
 
     static public MarqueeButton newMarqueeButton(String text) {
         return new MarqueeButton(text);
+    }
+
+    public static void addCopyOnRightClick(Actor actor, String text) {
+        addCopyOnRightClick(actor, () -> text);
+    }
+
+    public static void addCopyOnRightClick(Actor actor, Supplier<String> textSupplier) {
+        actor.addListener(new ClickListener(Input.Buttons.RIGHT) {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                String text = textSupplier.get();
+                if (text != null && !text.isEmpty()) {
+                    Gdx.app.getClipboard().setContents(text);
+                }
+                event.stop();
+            }
+        });
     }
 
     static public Rectangle getBoundingRect(Actor actor) {

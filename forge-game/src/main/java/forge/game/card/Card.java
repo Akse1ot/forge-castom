@@ -3103,11 +3103,18 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
             }
         }
 
-        // Class Abilities
-        if (isClassCard()) {
+        // Class and Quest staged abilities
+        if (isStagedCard()) {
             sb.append(linebreak);
-            // Currently the maximum levels of all Class cards are all 3
-            for (int level = 1; level <= 3; ++level) {
+
+            int maxLevel = 1;
+            for (final StaticAbility st : state.getStaticAbilities()) {
+                if (st.isClassAbility() && StringUtils.isNumeric(st.getParam("ClassLevel"))) {
+                    maxLevel = Math.max(maxLevel, Integer.parseInt(st.getParam("ClassLevel")));
+                }
+            }
+
+            for (int level = 1; level <= maxLevel; ++level) {
                 boolean disabled = level > getClassLevel() && isInPlay();
                 // Class second part is a static ability that grants the other abilities
                 for (final StaticAbility st : state.getStaticAbilities()) {
@@ -6841,6 +6848,23 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     }
     public boolean isClassCard() {
         return getType().hasStringType("Class");
+    }
+    public boolean isQuestCard() {
+        if (!getType().hasStringType("Quest")) {
+            return false;
+        }
+
+        for (final SpellAbility sa : getCurrentState().getSpellAbilities()) {
+            if (sa.getApi() == ApiType.ClassLevelUp) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isStagedCard() {
+        return isClassCard() || isQuestCard();
     }
 
     /**

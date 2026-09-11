@@ -1510,6 +1510,11 @@ public class CardProperty {
             if (!card.hasCounters()) {
                 return false;
             }
+        } else if (property.startsWith("hasCounterTypeOtherThan_")) {
+            final CounterType excluded = CounterType.getType(property.substring("hasCounterTypeOtherThan_".length()));
+            if (card.getCounters().elementSet().stream().noneMatch(type -> !type.equals(excluded))) {
+                return false;
+            }
         } else if (property.startsWith("counters")) {
             // syntax example: counters_GE9_P1P1 or counters_LT12_TIME
             final String[] splitProperty = property.split("_");

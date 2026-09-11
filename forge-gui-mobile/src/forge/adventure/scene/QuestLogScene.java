@@ -18,6 +18,7 @@ import forge.adventure.util.Current;
 
 public class QuestLogScene extends UIScene {
     private Table scrollContainer, detailScrollContainer;
+    private String questCopyText = "";
     Window scrollWindow;
     ScrollPane scroller,detailScroller;
     Table root, detailRoot;
@@ -49,6 +50,7 @@ public class QuestLogScene extends UIScene {
         detailScrollContainer.row();
 
         detailScroller = new ScrollPane(detailScrollContainer);
+        Controls.addCopyOnRightClick(detailScroller, () -> questCopyText);
         detailScroller.setScrollingDisabled(true,false);
         if (Forge.isLandscapeMode()) {
             detailRoot.add(abandonQuestButton).fillX().top().padTop(5f);
@@ -135,6 +137,7 @@ public class QuestLogScene extends UIScene {
         if (quest == null) {
             return;
         }
+        questCopyText = buildQuestCopyText(quest);
         root.setVisible(false);
         detailRoot.setVisible(true);
         detailScrollContainer.clear();
@@ -202,6 +205,27 @@ public class QuestLogScene extends UIScene {
             detailScrollContainer.row();
         }
         updateTrackButton(quest.isTracked);
+    }
+
+    private String buildQuestCopyText(AdventureQuestData quest) {
+        StringBuilder text = new StringBuilder(quest.getName());
+
+        if (quest.getDescription() != null && !quest.getDescription().isEmpty()) {
+            text.append('\n').append(quest.getDescription());
+        }
+
+        for (AdventureQuestStage stage : quest.getCompletedStages()) {
+            text.append("\n\u2611 ").append(stage.name);
+        }
+
+        for (AdventureQuestStage stage : quest.getActiveStages()) {
+            text.append("\n\u2610 ").append(stage.name);
+            if (stage.description != null && !stage.description.isEmpty()) {
+                text.append('\n').append(stage.description);
+            }
+        }
+
+        return text.toString();
     }
 
     private void toggleTracked(AdventureQuestData quest) {

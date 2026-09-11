@@ -557,8 +557,8 @@ public class CardView extends GameEntityView {
             markerItems.add("In Room:");
             markerItems.add(c.getCurrentRoom());
         }
-        if(c.isClassCard() && c.isInZone(ZoneType.Battlefield)) {
-            markerItems.add("CL:" + c.getClassLevel());
+        if(c.isStagedCard() && c.isInZone(ZoneType.Battlefield)) {
+            markerItems.add((c.isQuestCard() ? "ST:" : "CL:") + c.getClassLevel());
         }
         if(getRingLevel() > 0) {
             markerItems.add("RL:" + getRingLevel());

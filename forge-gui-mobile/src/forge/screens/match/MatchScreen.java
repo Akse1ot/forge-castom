@@ -375,15 +375,15 @@ public class MatchScreen extends FScreen {
             if (n > 1) {
                 int idxConcede = 0;
                 int idxAutoYields = 1;
-                int idxSettings = n - 2; // Settings is second-from-last
                 int idxShowWinLose = n - 1; // Show Win/Lose is last
                 boolean gameOver = viewWinLose != null;
                 boolean canSwitch = !gameOver && !game.isMulligan();
                 gameMenu.getChildAt(idxConcede).setEnabled(canSwitch);
                 gameMenu.getChildAt(idxAutoYields).setEnabled(canSwitch);
+                gameMenu.getChildAt(idxShowWinLose).setEnabled(gameOver);
                 if (!Forge.isMobileAdventureMode) {
+                    int idxSettings = n - 2; // Settings is second-from-last
                     gameMenu.getChildAt(idxSettings).setEnabled(canSwitch);
-                    gameMenu.getChildAt(idxShowWinLose).setEnabled(gameOver);
                 }
             }
         }

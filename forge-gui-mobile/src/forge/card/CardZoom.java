@@ -23,6 +23,8 @@ import forge.deck.DeckProxy;
 import forge.game.GameView;
 import forge.game.card.Card;
 import forge.game.card.CardView;
+import forge.game.card.CardView.CardStateView;
+import forge.gui.card.CardDetailUtil;
 import forge.gamemodes.planarconquest.ConquestCommander;
 import forge.item.IPaperCard;
 import forge.item.InventoryItem;
@@ -99,6 +101,24 @@ public class CardZoom extends FOverlay {
 
     public static boolean isOpen() {
         return cardZoom.isVisible();
+    }
+
+    private static void copyCurrentCardToClipboard() {
+        if (currentCard == null) {
+            return;
+        }
+
+        final boolean altState = showBackSide || showAltState;
+        final CardStateView state = currentCard.getState(altState);
+        if (state == null) {
+            return;
+        }
+
+        final boolean canShow = MatchController.instance.mayView(currentCard);
+        final String name = CardDetailUtil.formatCardName(currentCard, canShow, state == currentCard.getAlternateState());
+        final String text = CardDetailUtil.composeCardText(state, MatchController.instance.getGameView(), canShow).trim();
+
+        Forge.getClipboard().setContents(text.isEmpty() ? name : name + "\n\n" + text);
     }
 
     public static void hideZoom() {
@@ -520,6 +540,12 @@ public class CardZoom extends FOverlay {
 
     @Override
     public boolean keyDown(int keyCode) {
+        if (keyCode == Input.Keys.C
+                && (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)
+                || Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT))) {
+            copyCurrentCardToClipboard();
+            return true;
+        }
         if (isAdvBack) {
             if (keyCode == Input.Keys.ESCAPE || keyCode == Input.Keys.BACK) {
                 if (Forge.endKeyInput()) { return true; }

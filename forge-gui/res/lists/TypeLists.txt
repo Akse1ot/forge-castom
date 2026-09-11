@@ -393,6 +393,7 @@ Case
 Class
 Curse:Curses
 Plan:Plans
+Quest:Quests
 Role
 Room
 Rune

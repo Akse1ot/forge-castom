@@ -87,9 +87,9 @@ public class VGameMenu extends FDropDownMenu {
                 }
                 SettingsScreen.show(false);
             }));
-            addItem(new FMenuItem(Forge.getLocalizer().getMessage("lblShowWinLoseOverlay"), FSkinImage.ENDTURN, e ->
-                    MatchController.instance.showWinlose()
-            ));
         }
+        addItem(new FMenuItem(Forge.getLocalizer().getMessage("lblShowWinLoseOverlay"), FSkinImage.ENDTURN, e ->
+                MatchController.instance.showWinlose()
+        ));
     }
 }

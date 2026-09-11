@@ -2914,7 +2914,7 @@ public class CardFactoryUtil {
             final SpellAbility origSA = card.getFirstSpellAbility();
 
             origSA.appendSubAbility(newSA);
-        } else if (keyword.startsWith("Class")) {
+        } else if (keyword.startsWith("Class") || keyword.startsWith("QuestStage:")) {
             final String[] k = keyword.split(":");
             final int level = Integer.parseInt(k[1]);
 
@@ -2922,7 +2922,8 @@ public class CardFactoryUtil {
             sbClass.append("AB$ ClassLevelUp | Cost$ ").append(k[2]);
             sbClass.append(" | ClassLevel$ EQ").append(level - 1);
             sbClass.append(" | SorcerySpeed$ True");
-            sbClass.append(" | StackDescription$ SpellDescription | SpellDescription$ Level ").append(level);
+            sbClass.append(" | StackDescription$ SpellDescription | SpellDescription$ ")
+                    .append(keyword.startsWith("QuestStage:") ? "Stage " : "Level ").append(level);
 
             final SpellAbility sa = AbilityFactory.getAbility(sbClass.toString(), card);
             sa.setIntrinsic(intrinsic);
@@ -4206,7 +4207,7 @@ public class CardFactoryUtil {
             st.setSVar("PlayEncoded", ab);
 
             inst.addStaticAbility(st);
-        } else if (keyword.startsWith("Class")) {
+        } else if (keyword.startsWith("Class") || keyword.startsWith("QuestStage:")) {
             final String[] k = keyword.split(":");
             final String level = k[1];
             final String params = k[3];

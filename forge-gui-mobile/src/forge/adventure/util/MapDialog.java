@@ -193,6 +193,7 @@ public class MapDialog {
         }
         TypingLabel A = Controls.newTypingLabel(text);
         A.setWrap(true);
+        Controls.addCopyOnRightClick(A, text);
         Array<TextraButton> buttons = new Array<>();
         A.setTypingListener(new TypingAdapter() {
             @Override
@@ -237,6 +238,7 @@ public class MapDialog {
                     } else {
                         B = Controls.newTextButton(name, () -> loadDialog(option));
                     }
+                    Controls.addCopyOnRightClick(B, name);
                     B.getTextraLabel().setWrap(true); //We want this to wrap in case it's a wordy choice.
                     buttons.add(B);
                     B.setVisible(false);
