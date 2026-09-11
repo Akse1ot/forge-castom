@@ -1492,6 +1492,7 @@ public final class CMatchUI
                 label.setOnRightClick(() -> handleYieldMarkerToggle(player, phase, () -> {
                     label.setEnabled(true);
                     label.repaintOnlyThisLabel();
+                    pushSkipPhaseToControllers(player, phase);
                 }));
             }
         }

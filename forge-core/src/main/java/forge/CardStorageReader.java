@@ -24,12 +24,14 @@ import forge.util.BuildInfo;
 import forge.util.FileUtil;
 import forge.util.Localizer;
 import forge.util.ThreadUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
 
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.function.BiFunction;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -69,7 +71,8 @@ public class CardStorageReader {
     private transient File cardsfolder;
 
     private transient ZipFile zip;
-    private transient Map<String, ZipEntry> zipEntriesMap;
+    private final transient NavigableMap<String, ZipEntry> zipEntriesByCardName;
+    private final transient NavigableMap<String, File> cardFilesByCardName;
     private final transient Charset charset;
 
     private final boolean loadCardsLazily;
@@ -102,7 +105,21 @@ public class CardStorageReader {
         }
 
         this.charset = Charset.forName(CardStorageReader.DEFAULT_CHARSET_NAME);
+
+        if (loadCardsLazily) {
+            final Map<String, CardRules> loadedCardsByName = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+            zipEntriesByCardName = zip == null ? Collections.emptyNavigableMap()
+                    : buildCardNameIndex(getZipEntries(), this::loadCard, loadedCardsByName);
+            cardFilesByCardName = buildCardNameIndex(collectCardFiles(new ArrayList<>(), cardsfolder), this::loadCard, loadedCardsByName);
+        } else {
+            zipEntriesByCardName = Collections.emptyNavigableMap();
+            cardFilesByCardName = Collections.emptyNavigableMap();
+        }
     } // CardReader()
+
+    boolean isLoadingCardsLazily() {
+        return loadCardsLazily;
+    }
 
     private List<CardRules> loadCardsInRange(final List<File> files, final int from, final int to) {
         final CardRules.Reader rulesReader = new CardRules.Reader();
@@ -149,10 +166,88 @@ public class CardStorageReader {
             }
             chars[charIndex++] = c;
         }
+        if (charIndex == 0) {
+            return "";
+        }
         if (chars[charIndex - 1] == '_') {
             charIndex--;
         }
         return new String(chars, 0, charIndex);
+    }
+
+    public final CardRules attemptToLoadCard(String cardName) {
+        final String transformedName = transformName(StringUtils.stripAccents(cardName));
+        if (transformedName.isEmpty()) {
+            return null;
+        }
+
+        final CardRules.Reader rulesReader = new CardRules.Reader();
+        final ZipEntry entry = zipEntriesByCardName.get(transformedName);
+        if (entry != null) {
+            return loadCard(rulesReader, entry);
+        }
+        final File file = cardFilesByCardName.get(transformedName);
+        if (file != null) {
+            return loadCard(rulesReader, file);
+        }
+        return null;
+    }
+
+    private <T> NavigableMap<String, T> buildCardNameIndex(List<T> sources, BiFunction<CardRules.Reader, T, CardRules> loader,
+                                                           Map<String, CardRules> loadedCardsByName) {
+        final StopWatch sw = new StopWatch();
+        sw.start();
+        final NavigableMap<String, T> index = new TreeMap<>();
+        final Map<String, T> placeholderNames = new TreeMap<>();
+        final CardRules.Reader rulesReader = new CardRules.Reader();
+        for (T source : sources) {
+            final CardRules rules;
+            try {
+                rules = loader.apply(rulesReader, source);
+            } catch (RuntimeException e) {
+                continue; // a script that cannot be parsed cannot satisfy a lookup either
+            }
+            if (rules == null) {
+                continue;
+            }
+            checkDuplicateIndexedCard(loadedCardsByName, rules);
+            for (String name : primaryNamesOf(rules)) {
+                putName(index, name, source);
+            }
+            for (String name : rules.getPlaceholderFaceNames()) {
+                putName(placeholderNames, name, source);
+            }
+        }
+        for (Map.Entry<String, T> e : placeholderNames.entrySet()) {
+            index.putIfAbsent(e.getKey(), e.getValue());
+        }
+        sw.stop();
+        System.out.printf("Lazy card database: indexed %d card names from %d files in %d ms%n", index.size(), sources.size(), sw.getTime());
+        return index;
+    }
+
+    private <T> void putName(Map<String, T> index, String name, T source) {
+        final String key = transformName(StringUtils.stripAccents(name));
+        if (!key.isEmpty()) {
+            index.putIfAbsent(key, source);
+        }
+    }
+
+    private static List<String> primaryNamesOf(CardRules rules) {
+        final List<String> names = new ArrayList<>();
+        names.add(rules.getPreInitName());
+        for (ICardFace face : rules.getAllFaces()) {
+            if (face != null) {
+                names.add(face.getName());
+            }
+        }
+        // getDisplayNameForVariant needs concrete faces, which placeholders lack.
+        if (rules.getPlaceholderFaceNames().isEmpty() && rules.getSupportedFunctionalVariants() != null) {
+            for (String variant : rules.getSupportedFunctionalVariants()) {
+                names.add(rules.getDisplayNameForVariant(variant));
+            }
+        }
+        return names;
     }
 
     private void addLoadedCards(final Collection<CardRules> result, final Iterable<CardRules> cards) {
@@ -161,16 +256,29 @@ public class CardStorageReader {
                 continue;
             }
 
-            if (loadingTokens) {
-                logDuplicateTokenScript(result, card);
-            } else {
-                logDuplicateCardName(result, card);
+            final CardRules existing = findExistingScript(result, card);
+            if (existing != null) {
+                logDuplicateScript(existing, card);
             }
         }
     }
 
-    private static CardRules findExistingScript(final Collection<CardRules> result,
-                                                final CardRules duplicate) {
+    private void checkDuplicateIndexedCard(final Map<String, CardRules> loadedCardsByName, final CardRules card) {
+        final CardRules existing = loadedCardsByName.putIfAbsent(card.getNormalizedName(), card);
+        if (existing != null) {
+            logDuplicateScript(existing, card);
+        }
+    }
+
+    private void logDuplicateScript(final CardRules existing, final CardRules duplicate) {
+        if (loadingTokens) {
+            logDuplicateTokenScript(existing, duplicate);
+        } else {
+            logDuplicateCardName(existing, duplicate);
+        }
+    }
+
+    private static CardRules findExistingScript(final Collection<CardRules> result, final CardRules duplicate) {
         for (final CardRules existing : result) {
             if (String.CASE_INSENSITIVE_ORDER.compare(
                     existing.getNormalizedName(), duplicate.getNormalizedName()) == 0) {
@@ -180,13 +288,7 @@ public class CardStorageReader {
         return null;
     }
 
-    private static void logDuplicateTokenScript(final Collection<CardRules> result,
-                                                final CardRules duplicate) {
-        final CardRules existing = findExistingScript(result, duplicate);
-        if (existing == null) {
-            return;
-        }
-
+    private static void logDuplicateTokenScript(final CardRules existing, final CardRules duplicate) {
         System.err.printf(
                 "ERROR: Duplicate token script identifier: \"%s\".%n"
                         + "  First loaded script: %s%n"
@@ -196,16 +298,13 @@ public class CardStorageReader {
                 duplicate.getPath());
     }
 
-    private static void logDuplicateCardName(final Collection<CardRules> result,
-                                             final CardRules duplicate) {
-        final CardRules existing = findExistingScript(result, duplicate);
-        if (existing == null) {
-            return;
-        }
-
+    private static void logDuplicateCardName(final CardRules existing, final CardRules duplicate) {
         for (final ICardFace duplicateFace : duplicate.getAllFaces()) {
+            if (duplicateFace == null) {
+                continue;
+            }
             for (final ICardFace existingFace : existing.getAllFaces()) {
-                if (existingFace.getName().equalsIgnoreCase(duplicateFace.getName())) {
+                if (existingFace != null && existingFace.getName().equalsIgnoreCase(duplicateFace.getName())) {
                     System.err.printf(
                             "ERROR: Duplicate card Name: \"%s\".%n"
                                     + "  First loaded script: %s%n"
@@ -237,73 +336,15 @@ public class CardStorageReader {
             // Do not allow diagnostic validation to break card loading.
         }
     }
-    
-    private ZipEntry findZipEntryForCard(String transformedName) {
-        if (zip == null) {
-            return null;
-        }
-
-        if (zipEntriesMap == null) {
-            zipEntriesMap = new HashMap<>();
-            for (ZipEntry entry : getZipEntries()) {
-                zipEntriesMap.put(entry.getName(), entry);
-            }
-        }
-
-        transformedName = transformedName.charAt(0) + "/" + transformedName;
-        ZipEntry entry = zipEntriesMap.get(transformedName + CardStorageReader.CARD_FILE_DOT_EXTENSION);
-        if (entry == null) {
-            // Double faced cards file naming convention currently has both names - so try to prefix match.
-            // TODO: Consider changing the naming convention for DFCs.
-            for (String fileName : zipEntriesMap.keySet()) {
-                if (fileName.startsWith(transformedName)) {
-                    entry = zipEntriesMap.get(fileName);
-                    break;
-                }
-            }
-        }
-        return entry;
-    }
-    
-    private File findFileForCard(String transformedName) {
-        String folder = cardsfolder.getAbsolutePath() + "/" + transformedName.charAt(0);
-        File file = new File(folder + "/" + transformedName + CardStorageReader.CARD_FILE_DOT_EXTENSION);
-        if (!file.exists()) {
-            file = null;
-            // Double faced cards file naming convention currently has both names - so try to prefix match.
-            // TODO: Consider changing the naming convention for DFCs.
-            String[] fileNames = new File(folder).list();
-            if (fileNames != null) {
-                for (String fileName : new File(folder).list()) {
-                    if (fileName.startsWith(transformedName)) {
-                        file = new File(folder, fileName);
-                        break;
-                    }
-                }
-            }
-        }
-        return file;
-    }
-
-    public final CardRules attemptToLoadCard(String cardName) {
-        String transformedName = transformName(cardName);
-        CardRules rules = null;
-
-        // TODO: Should CardRules.Reader object be cached?
-        ZipEntry entry = findZipEntryForCard(transformedName);
-        if (entry != null) {
-            rules = loadCard(new CardRules.Reader(), entry);
-        } else {
-            File file = findFileForCard(transformedName);
-            if (file != null) {
-                rules = loadCard(new CardRules.Reader(), file);
-            }
-        }
-
-        return rules;
-    }
 
     public final Iterable<CardRules> loadCards() {
+        if (loadCardsLazily) {
+            return Collections.emptyList();
+        }
+        return readAllCards();
+    }
+
+    public final Iterable<CardRules> readAllCards() {
         final Localizer localizer = Localizer.getInstance();
 
         progressObserver.setOperationName(localizer.getMessage("splash.loading.examining-cards"), true);
@@ -314,10 +355,6 @@ public class CardStorageReader {
         final Set<CardRules> result;
         result = new TreeSet<>(Comparator.comparing(CardRules::getNormalizedName, String.CASE_INSENSITIVE_ORDER));
 
-        if (loadCardsLazily) {
-            return result;
-        }
- 
         final List<File> allFiles = collectCardFiles(new ArrayList<>(), this.cardsfolder);
         if (!allFiles.isEmpty()) {
             int fileParts = zip == null ? NUMBER_OF_PARTS : 1 + NUMBER_OF_PARTS / 3;
@@ -504,3 +541,4 @@ public class CardStorageReader {
     }
 
 }
+

@@ -113,6 +113,7 @@ public enum AbilityKey {
     Player("Player"),
     PreventedAmount("PreventedAmount"),
     Produced("Produced"),
+    Random("Random"),
     Regeneration("Regeneration"),
     ReplacementEffect("ReplacementEffect"),
     ReplacementResult("ReplacementResult"),

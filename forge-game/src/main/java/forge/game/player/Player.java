@@ -164,8 +164,6 @@ public class Player extends GameEntity implements Comparable<Player> {
     private CardCollection currentPlanes = new CardCollection();
     private CardCollection planeswalkedToThisTurn = new CardCollection();
 
-    private Card activeScheme = null;
-
     private NavigableMap<Long, Pair<Player, PlayerController>> controlledBy = Maps.newTreeMap();
     private NavigableMap<Long, Player> controlledWhileSearching = Maps.newTreeMap();
 
@@ -315,10 +313,6 @@ public class Player extends GameEntity implements Comparable<Player> {
         return getZone(ZoneType.SchemeDeck).size() > 0; //Only the archenemy has schemes.
     }
 
-    public Card getActiveScheme() {
-        return activeScheme;
-    }
-
     public void setSchemeInMotion(SpellAbility cause) {
         setSchemeInMotion(cause, getZone(ZoneType.SchemeDeck).get(0));
     }
@@ -336,13 +330,6 @@ public class Player extends GameEntity implements Comparable<Player> {
         final Map<AbilityKey, Object> runParams = AbilityKey.newMap();
         runParams.put(AbilityKey.Scheme, scheme);
         game.getTriggerHandler().runTrigger(TriggerType.SetInMotion, runParams, false);
-    }
-
-    /**
-     * returns all players.
-     */
-    public final PlayerCollection getRegisteredPlayers() {
-        return game.getRegisteredPlayers();
     }
 
     /**
@@ -479,6 +466,11 @@ public class Player extends GameEntity implements Comparable<Player> {
         startingLife = startLife;
         life = startLife;
         view.updateLife(this);
+    }
+
+    /** The number of cards in this player's main deck (not counting Commander/Sideboard/etc.) at game start. */
+    public final int getStartingLibrarySize() {
+        return getRegisteredPlayer().getDeck().getMain().countAll();
     }
 
     public final int getLife() {
@@ -878,7 +870,7 @@ public class Player extends GameEntity implements Comparable<Player> {
      * Get the greatest amount of combat damage assigned to a single player this turn.
      */
     public final int getMaxAssignedCombatDamage() {
-        return Aggregates.max(getRegisteredPlayers(), GameEntity::getAssignedCombatDamage);
+        return Aggregates.max(game.getRegisteredPlayers(), GameEntity::getAssignedCombatDamage);
     }
 
     public final boolean canReceiveCounters(final CounterType type) {
