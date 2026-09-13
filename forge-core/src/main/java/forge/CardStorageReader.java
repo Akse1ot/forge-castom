@@ -20,6 +20,7 @@ package forge;
 import com.google.common.io.Files;
 import forge.card.CardRules;
 import forge.card.ICardFace;
+import forge.card.CardSplitType;
 import forge.util.BuildInfo;
 import forge.util.FileUtil;
 import forge.util.Localizer;
@@ -237,7 +238,7 @@ public class CardStorageReader {
         final List<String> names = new ArrayList<>();
         names.add(rules.getPreInitName());
         for (ICardFace face : rules.getAllFaces()) {
-            if (face != null) {
+            if (face != null && !isSharedPreparedSpell(rules, face)) {
                 names.add(face.getName());
             }
         }
@@ -248,6 +249,11 @@ public class CardStorageReader {
             }
         }
         return names;
+    }
+
+    private static boolean isSharedPreparedSpell(final CardRules card, final ICardFace face) {
+        return card.getSplitType() == CardSplitType.Prepare
+                && face == card.getOtherPart();
     }
 
     private void addLoadedCards(final Collection<CardRules> result, final Iterable<CardRules> cards) {

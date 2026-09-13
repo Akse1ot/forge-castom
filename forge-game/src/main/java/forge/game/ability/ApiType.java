@@ -199,6 +199,7 @@ public enum ApiType {
     SkipTurn (SkipTurnEffect.class),
     StoreSVar (StoreSVarEffect.class),
     Subgame (SubgameEffect.class),
+    Subjugate (SubjugateEffect.class),
     Surveil (SurveilEffect.class),
     SwitchBlock (SwitchBlockEffect.class),
     TakeInitiative (TakeInitiativeEffect.class),

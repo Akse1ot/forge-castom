@@ -16,6 +16,7 @@ import forge.card.mana.ManaCostShard;
 import forge.game.CardTraitPredicates;
 import forge.game.Game;
 import forge.game.GameActionUtil;
+import forge.game.GameEntityCounterTable;
 import forge.game.ability.AbilityKey;
 import forge.game.ability.AbilityUtils;
 import forge.game.ability.ApiType;
@@ -92,6 +93,80 @@ public class ComputerUtilMana {
             return false;
         sa.setActivatingPlayer(ai);
         return payManaCost(sa.getPayCosts(), sa, ai, true, 0, false, false);
+    }
+
+    public static boolean hasEnoughManaSourcesToCastNextTurn(final SpellAbility sa, final Player ai,
+                                                             final Card additionalLand) {
+        if (ai == null || sa == null || additionalLand == null
+                || !additionalLand.isLand()
+                || !additionalLand.isInZone(ZoneType.Hand)
+                || !sa.isBasicSpell()
+                || !sa.getPayCosts().isOnlyManaCost()
+                || sa.costHasManaX()
+                || !ai.getManaPool().isEmpty()
+                || willEnterTapped(additionalLand, ai)
+                || !hasReliableNextTurnManaAbility(additionalLand)) {
+            return false;
+        }
+
+        sa.setActivatingPlayer(ai);
+
+        final CardCollection sources = CardLists.filter(ai.getCardsIn(ZoneType.Battlefield),
+                c -> !c.hasSVar("EndOfTurnLeavePlay")
+                        && (c.isUntapped()
+                        || (c.getCounters(CounterEnumType.STUN) == 0 && c.canUntap(ai, true)))
+                        && hasReliableNextTurnManaAbility(c));
+
+        sources.add(additionalLand);
+
+        final CostPartMana manaPart = sa.getPayCosts().getCostMana();
+        final ManaCostBeingPaid baseCost = new ManaCostBeingPaid(
+                manaPart == null ? ManaCost.ZERO : manaPart.getManaCostFor(sa));
+
+        if (payManaCost(baseCost, sa, ai, true, false, false, sources) == null) {
+            return false;
+        }
+
+        final ManaCostBeingPaid adjustedCost =
+                calculateManaCost(sa.getPayCosts(), sa, ai, true, 0, false);
+
+        return payManaCost(adjustedCost, sa, ai, true, false, false, sources) != null;
+    }
+
+    private static boolean hasReliableNextTurnManaAbility(final Card card) {
+        for (final SpellAbility mana : getAIPlayableMana(card)) {
+            final Cost cost = mana.getPayCosts();
+            if (cost != null && cost.isReusuableResource()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean willEnterTapped(final Card card, final Player player) {
+        final Map<AbilityKey, Object> repParams = AbilityKey.mapFromAffected(card);
+        repParams.put(AbilityKey.Origin, card.getZone().getZoneType());
+        repParams.put(AbilityKey.Destination, ZoneType.Battlefield);
+
+        final GameEntityCounterTable table = new GameEntityCounterTable();
+        repParams.put(AbilityKey.EffectOnly, true);
+        repParams.put(AbilityKey.CounterTable, table);
+        repParams.put(AbilityKey.CounterMap, table.column(card));
+
+        for (final ReplacementEffect re : player.getGame().getReplacementHandler()
+                .getReplacementList(ReplacementType.Moved, repParams, ReplacementLayer.Other)) {
+            final SpellAbility reSA = re.ensureAbility();
+            if (reSA == null || reSA.getApi() != ApiType.Tap) {
+                continue;
+            }
+
+            reSA.setActivatingPlayer(reSA.getHostCard().getController());
+            if (reSA.metConditions()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static CardCollection getManaSourcesToPayCost(final ManaCostBeingPaid cost, final SpellAbility sa, final Player ai, final boolean effect) {
@@ -595,7 +670,15 @@ public class ComputerUtilMana {
     }
 
     // returns null if unpayable
-    private static List<SpellAbility> payManaCost(final ManaCostBeingPaid cost, final SpellAbility sa, final Player ai, final boolean test, boolean checkPlayable, boolean effect) {
+    // returns null if unpayable
+    private static List<SpellAbility> payManaCost(final ManaCostBeingPaid cost, final SpellAbility sa,
+                                                  final Player ai, final boolean test, boolean checkPlayable, boolean effect) {
+        return payManaCost(cost, sa, ai, test, checkPlayable, effect, null);
+    }
+
+    private static List<SpellAbility> payManaCost(final ManaCostBeingPaid cost, final SpellAbility sa,
+                                                  final Player ai, final boolean test, boolean checkPlayable, boolean effect,
+                                                  final CardCollectionView availableSources) {
         if ((sa.isOffering() && sa.getSacrificedAsOffering() == null) || (sa.isEmerge() && sa.getSacrificedAsEmerge() == null)) {
             // nothing was chosen
             return null;
@@ -636,7 +719,8 @@ public class ComputerUtilMana {
         int phyLifeToPay = 2;
         boolean purePhyrexian = cost.containsOnlyPhyrexianMana();
         boolean hasConverge = sa.getHostCard().hasConverge();
-        ListMultimap<ManaCostShard, SpellAbility> sourcesForShards = getSourcesForShards(cost, sa, ai, test, checkPlayable, hasConverge);
+        ListMultimap<ManaCostShard, SpellAbility> sourcesForShards =
+                getSourcesForShards(cost, sa, ai, test, checkPlayable, hasConverge, availableSources);
 
         int testEnergyPool = ai.getCounters(CounterEnumType.ENERGY);
         ManaCostShard toPay = null;
@@ -832,10 +916,11 @@ public class ComputerUtilMana {
      * Creates a mapping between the required mana shards and the available spell abilities to pay for them
      */
     private static ListMultimap<ManaCostShard, SpellAbility> getSourcesForShards(final ManaCostBeingPaid cost,
-            final SpellAbility sa, final Player ai, final boolean test, final boolean checkPlayable,
-            final boolean hasConverge) {
+                                                                                 final SpellAbility sa, final Player ai, final boolean test, final boolean checkPlayable,
+                                                                                 final boolean hasConverge, final CardCollectionView availableSources) {
         // arrange all mana abilities by color produced.
-        final ListMultimap<Integer, SpellAbility> manaAbilityMap = groupSourcesByManaColor(ai, checkPlayable);
+        final ListMultimap<Integer, SpellAbility> manaAbilityMap =
+                groupSourcesByManaColor(ai, checkPlayable, availableSources);
         if (manaAbilityMap.isEmpty()) {
             // no mana abilities, bailing out
             return null;
@@ -1341,7 +1426,13 @@ public class ComputerUtilMana {
     }
 
     public static CardCollection getAvailableManaSources(final Player ai, final boolean checkPlayable) {
-        final CardCollectionView list = CardCollection.combine(ai.getCardsIn(ZoneType.Battlefield), ai.getCardsIn(ZoneType.Hand));
+        final CardCollectionView list = CardCollection.combine(
+                ai.getCardsIn(ZoneType.Battlefield), ai.getCardsIn(ZoneType.Hand));
+        return getAvailableManaSources(ai, checkPlayable, list);
+    }
+
+    private static CardCollection getAvailableManaSources(final Player ai, final boolean checkPlayable,
+                                                          final CardCollectionView list) {
         final List<Card> manaSources = CardLists.filter(list, c -> {
             for (final SpellAbility am : getAIPlayableMana(c)) {
                 am.setActivatingPlayer(ai);
@@ -1496,11 +1587,21 @@ public class ComputerUtilMana {
         return sortedManaSources;
     }
 
-    private static ListMultimap<Integer, SpellAbility> groupSourcesByManaColor(final Player ai, boolean checkPlayable) {
+    private static ListMultimap<Integer, SpellAbility> groupSourcesByManaColor(final Player ai,
+                                                                               boolean checkPlayable) {
+        return groupSourcesByManaColor(ai, checkPlayable, null);
+    }
+
+    private static ListMultimap<Integer, SpellAbility> groupSourcesByManaColor(final Player ai,
+                                                                               boolean checkPlayable, final CardCollectionView availableSources) {
         final ListMultimap<Integer, SpellAbility> manaMap = ArrayListMultimap.create();
         final Game game = ai.getGame();
 
-        for (final Card sourceCard : getAvailableManaSources(ai, checkPlayable)) {
+        final CardCollection manaSources = availableSources == null
+                ? getAvailableManaSources(ai, checkPlayable)
+                : getAvailableManaSources(ai, checkPlayable, availableSources);
+
+        for (final Card sourceCard : manaSources) {
             if (DEBUG_MANA_PAYMENT) {
                 System.out.println("DEBUG_MANA_PAYMENT: groupSourcesByManaColor sourceCard = " + sourceCard);
             }

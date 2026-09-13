@@ -11,6 +11,7 @@ import forge.game.CardTraitBase;
 import forge.game.Game;
 import forge.game.GameAction;
 import forge.game.ability.AbilityKey;
+import forge.game.player.Player;
 import forge.game.player.PlayerCollection;
 import forge.game.replacement.ReplacementType;
 import forge.game.spellability.SpellAbility;
@@ -202,10 +203,14 @@ public class CardZoneTable extends ForwardingTable<ZoneType, ZoneType, CardColle
         return Iterables.concat(values());
     }
 
-    public void addToken(Card c, boolean firstTime) {
+    public void addToken(Card c, Player creator, boolean firstTime) {
         createdTokens.add(c);
         if (firstTime) {
-            firstTimeTokenCreators.add(c.getOwner());
+            firstTimeTokenCreators.add(creator);
         }
+    }
+
+    public void addToken(Card c, boolean firstTime) {
+        addToken(c, c.getOwner(), firstTime);
     }
 }

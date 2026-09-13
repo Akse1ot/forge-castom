@@ -108,6 +108,9 @@ public class Player extends GameEntity implements Comparable<Player> {
     private int spellsCastLastTurn;
     private List<Card> spellsCastSinceBeginningOfLastTurn = Lists.newArrayList();
     private int investigatedThisTurn;
+    // Number of Subjugate actions performed this turn,
+    // not the total Subjugate amount.
+    private int subjugatedThisTurn;
     private int surveilThisTurn;
     private int committedCrimeThisTurn;
     private int numFlipsThisTurn;
@@ -2309,6 +2312,32 @@ public class Player extends GameEntity implements Comparable<Player> {
         investigatedThisTurn = 0;
     }
 
+    public final int getSubjugatedNumThisTurn() {
+        return subjugatedThisTurn;
+    }
+
+    public final void addSubjugatedThisTurn(final int amount,
+                                            final CardCollection cards,
+                                            final SpellAbility cause) {
+        subjugatedThisTurn++;
+
+        final Map<AbilityKey, Object> runParams = AbilityKey.mapFromPlayer(this);
+        runParams.put(AbilityKey.Amount, amount);
+        runParams.put(AbilityKey.Cards, cards);
+        runParams.put(AbilityKey.Cause, cause);
+        runParams.put(AbilityKey.FirstTime, subjugatedThisTurn == 1);
+
+        game.getTriggerHandler().runTrigger(
+                TriggerType.Subjugated,
+                runParams,
+                false
+        );
+    }
+
+    public final void resetSubjugatedThisTurn() {
+        subjugatedThisTurn = 0;
+    }
+
     public final void addSacrificedThisTurn(final Card cpy, final SpellAbility source) {
         // Play the Sacrifice sound
         game.fireEvent(new GameEventCardSacrificed(CardView.get(cpy)));
@@ -2541,6 +2570,7 @@ public class Player extends GameEntity implements Comparable<Player> {
         setLandsPlayedLastTurn(getLandsPlayedThisTurn());
         resetLandsPlayedThisTurn();
         resetInvestigatedThisTurn();
+        resetSubjugatedThisTurn();
         resetSurveilThisTurn();
         resetDiscardedThisTurn();
         resetSacrificedThisTurn();

@@ -3,6 +3,7 @@ package forge;
 import forge.card.CardDb;
 import forge.card.CardEdition;
 import forge.card.CardRules;
+import forge.card.CardSplitType;
 import forge.card.ICardFace;
 import forge.card.PrintSheet;
 import forge.item.*;
@@ -91,7 +92,7 @@ public class StaticData {
             final Map<String, CardRules> seenFaceNames,
             final CardRules card) {
         for (final ICardFace face : card.getAllFaces()) {
-            if (face == null) {
+            if (face == null || isSharedPreparedSpell(card, face)) {
                 continue;
             }
 
@@ -114,6 +115,11 @@ public class StaticData {
                     previous.getPath(),
                     card.getPath());
         }
+    }
+
+    private static boolean isSharedPreparedSpell(final CardRules card, final ICardFace face) {
+        return card.getSplitType() == CardSplitType.Prepare
+                && face == card.getOtherPart();
     }
 
     public StaticData(CardStorageReader cardReader, CardStorageReader customCardReader, String editionFolder, String customEditionsFolder, String blockDataFolder, String cardArtPreference, boolean enableUnknownCards, boolean loadNonLegalCards) {

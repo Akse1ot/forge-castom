@@ -383,41 +383,8 @@ public class CountersPutAi extends CountersAi {
             return new AiAbilityDecision(0, AiPlayDecision.CantPlayAi);
         }
 
-        if ("RuneCounter".equals(logic)) {
-            if (!"P1P1".equals(type) || !sa.usesTargeting() || !source.isToken()
-                    || !source.getType().hasSubtype("Rune")
-                    || !abCost.hasSpecificCostType(CostSacrifice.class)) {
-                return new AiAbilityDecision(0, AiPlayDecision.CantPlayAi);
-            }
-
-            if (!ComputerUtilCost.canPayCost(sa, ai, false)) {
-                return new AiAbilityDecision(0, AiPlayDecision.CantAfford);
-            }
-
-            sa.resetTargets();
-
-            CardCollection list = ComputerUtil.getSafeTargets(ai, sa, ai.getCreaturesInPlay());
-            list = CardLists.filter(list, c -> sa.canTarget(c)
-                    && c.canReceiveCounters(CounterEnumType.P1P1)
-                    && !ComputerUtilCard.isUselessCreature(ai, c));
-
-            if (list.isEmpty()) {
-                list = ComputerUtil.getSafeTargets(ai, sa, ai.getCreaturesInPlay());
-                list = CardLists.filter(list, c -> sa.canTarget(c)
-                        && c.canReceiveCounters(CounterEnumType.P1P1));
-            }
-
-            Card runeChoice = chooseBoonTarget(list, type);
-            if (runeChoice == null) {
-                runeChoice = ComputerUtilCard.getBestCreatureAI(list);
-            }
-
-            if (runeChoice == null) {
-                return new AiAbilityDecision(0, AiPlayDecision.TargetingFailed);
-            }
-
-            sa.getTargets().add(runeChoice);
-            return new AiAbilityDecision(100, AiPlayDecision.WillPlay);
+        if ("SacrificeTokenP1P1".equals(logic)) {
+            return doSacrificeTokenP1P1Ai(ai, sa);
         }
 
         if ("Polukranos".equals(logic)) {
@@ -1142,6 +1109,189 @@ public class CountersPutAi extends CountersAi {
 
         }
         return Iterables.getFirst(options, null);
+    }
+
+    private AiAbilityDecision doSacrificeTokenP1P1Ai(final Player ai, final SpellAbility sa) {
+        final Card source = sa.getHostCard();
+
+        if (!sa.usesTargeting()
+                || sa.getMinTargets() > 1
+                || sa.getMaxTargets() != 1
+                || !source.isToken()
+                || !"P1P1".equals(sa.getParam("CounterType"))
+                || !ComputerUtilCost.isSacrificeSelfCost(sa.getPayCosts())) {
+            return new AiAbilityDecision(0, AiPlayDecision.CantPlayAi);
+        }
+
+        if (!ComputerUtilCost.canPayCost(sa, ai, false)) {
+            return new AiAbilityDecision(0, AiPlayDecision.CantAfford);
+        }
+
+        sa.resetTargets();
+
+        CardCollection list = ComputerUtil.getSafeTargets(ai, sa, ai.getCreaturesInPlay());
+        list = CardLists.filter(list, c -> !c.equals(source)
+                && sa.canTarget(c)
+                && c.canReceiveCounters(CounterEnumType.P1P1));
+
+        list = ComputerUtil.filterAITgts(sa, ai, list, false);
+
+        if (list.isEmpty()) {
+            return new AiAbilityDecision(0, AiPlayDecision.TargetingFailed);
+        }
+
+        final CardCollection preferred = CardLists.filter(list,
+                c -> !c.hasSVar("EndOfTurnLeavePlay")
+                        && !ComputerUtilCard.isUselessCreature(ai, c));
+
+        if (!preferred.isEmpty()) {
+            // In danger, prefer a creature that the normal block AI actually expects
+            // to use in the dangerous combat, even if another creature has a higher
+            // generic evaluation.
+            final Card defensiveChoice = chooseDefensiveP1P1Target(ai, list);
+            if (defensiveChoice != null) {
+                return targetSacrificeTokenP1P1(sa, defensiveChoice, AiPlayDecision.ImpactCombat);
+            }
+
+            final Card choice = chooseBoonTarget(preferred, "P1P1");
+            return targetSacrificeTokenP1P1(sa, choice, AiPlayDecision.WillPlay);
+        }
+
+        // Only low-value creatures are currently available. Give the normal AI
+        // a chance to cast a creature it actually wants to play this turn.
+        if (hasBetterP1P1TargetInHand(ai, false)) {
+            return new AiAbilityDecision(0, AiPlayDecision.AnotherTime);
+        }
+
+        // Waiting another turn is no longer appropriate if the normal combat
+        // prediction says that one of the current creatures will actually be
+        // needed as a blocker in a dangerous combat.
+        final Card defensiveChoice = chooseDefensiveP1P1Target(ai, list);
+        if (defensiveChoice != null) {
+            return targetSacrificeTokenP1P1(sa, defensiveChoice, AiPlayDecision.ImpactCombat);
+        }
+
+        // Only after the emergency check do we look exactly one known land drop
+        // ahead. This is deliberately conservative.
+        if (hasBetterP1P1TargetInHand(ai, true)) {
+            return new AiAbilityDecision(0, AiPlayDecision.AnotherTime);
+        }
+
+        final Card choice = chooseBoonTarget(list, "P1P1");
+        return targetSacrificeTokenP1P1(sa, choice, AiPlayDecision.WillPlay);
+    }
+
+    private AiAbilityDecision targetSacrificeTokenP1P1(final SpellAbility sa, final Card choice,
+                                                       final AiPlayDecision decision) {
+        if (choice == null) {
+            return new AiAbilityDecision(0, AiPlayDecision.TargetingFailed);
+        }
+
+        sa.resetTargets();
+        sa.getTargets().add(choice);
+
+        if (!sa.isTargetNumberValid()) {
+            sa.resetTargets();
+            return new AiAbilityDecision(0, AiPlayDecision.TargetingFailed);
+        }
+
+        return new AiAbilityDecision(100, decision);
+    }
+
+    private Card chooseDefensiveP1P1Target(final Player ai, final CardCollection candidates) {
+        final CardCollection blockers = new CardCollection();
+
+        for (final Player opp : ai.getOpponents()) {
+            if (ComputerUtil.predictNextCombatsRemainingLife(
+                    ai, false, false, 0, null, List.of(opp)) != Integer.MIN_VALUE) {
+                continue;
+            }
+
+            final Combat combat = new Combat(opp);
+            boolean hasAttacker = false;
+
+            for (final Card attacker : opp.getCreaturesInPlay()) {
+                if (ComputerUtilCombat.canAttackNextTurn(attacker, ai)) {
+                    combat.addAttacker(attacker, ai);
+                    hasAttacker = true;
+                }
+            }
+
+            if (!hasAttacker) {
+                continue;
+            }
+
+            final AiBlockController block = new AiBlockController(ai, false);
+            block.assignBlockersForCombat(combat, null);
+
+            for (final Card candidate : candidates) {
+                if (combat.isBlocking(candidate) && !blockers.contains(candidate)) {
+                    blockers.add(candidate);
+                }
+            }
+        }
+
+        return blockers.isEmpty() ? null : chooseBoonTarget(blockers, "P1P1");
+    }
+
+    private boolean hasBetterP1P1TargetInHand(final Player ai, final boolean nextTurn) {
+        if (!(ai.getController() instanceof PlayerControllerAi pcAi)) {
+            return false;
+        }
+
+        final CardCollection hand = new CardCollection(ai.getCardsIn(ZoneType.Hand));
+        List<SpellAbility> spells = ComputerUtilAbility.getSpellAbilities(hand, ai);
+        spells = ComputerUtilAbility.getOriginalAndAltCostAbilities(spells, ai);
+
+        final AiController aic = pcAi.getAi();
+
+        for (final SpellAbility spell : spells) {
+            if (spell.getApi() != ApiType.PermanentCreature) {
+                continue;
+            }
+
+            final Card creature = spell.getHostCard();
+            if (creature == null
+                    || ComputerUtilCard.isUselessCreature(ai, creature)
+                    || creature.hasSVar("EndOfTurnLeavePlay")) {
+                continue;
+            }
+
+            spell.setActivatingPlayer(ai);
+
+            if (!spell.canPlay()) {
+                continue;
+            }
+
+            // Don't wait for a creature merely because it is technically legal.
+            // It must be a spell the normal AI is actually willing to cast.
+            if (aic.canPlaySa(spell) != AiPlayDecision.WillPlay) {
+                continue;
+            }
+
+            if (!nextTurn) {
+                if (ComputerUtilCost.canPayCost(spell, ai, false)) {
+                    return true;
+                }
+                continue;
+            }
+
+            // Future alternative/optional costs can depend on conditions that
+            // disappear before the next turn. Only the basic spell is guaranteed.
+            if (!spell.isBasicSpell()
+                    || !spell.getPayCosts().isOnlyManaCost()
+                    || spell.costHasManaX()) {
+                continue;
+            }
+
+            for (final Card land : CardLists.filter(ai.getCardsIn(ZoneType.Hand), CardPredicates.LANDS)) {
+                if (ComputerUtilMana.hasEnoughManaSourcesToCastNextTurn(spell, ai, land)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private AiAbilityDecision doMoveCounterLogic(final Player ai, SpellAbility sa, PhaseHandler ph) {
