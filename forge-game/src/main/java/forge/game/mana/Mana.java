@@ -31,7 +31,7 @@ import forge.game.spellability.SpellAbility;
  * This represents a single mana 'globe' floating in a player's pool.
  * </p>
  */
-public record Mana(byte color, Card sourceCard, AbilityManaPart manaAbility, Player player) {
+public record Mana(byte color, Card sourceCard, AbilityManaPart manaAbility, Player player, long productionId, int productionSize) {
 
     @Override
     public boolean equals(Object other) {
@@ -41,6 +41,10 @@ public record Mana(byte color, Card sourceCard, AbilityManaPart manaAbility, Pla
         Mana m2 = (Mana) other;
 
         if (color != m2.color) {
+            return false;
+        }
+
+        if (productionId != m2.productionId || productionSize != m2.productionSize) {
             return false;
         }
 
@@ -74,11 +78,15 @@ public record Mana(byte color, Card sourceCard, AbilityManaPart manaAbility, Pla
         return mp == mp2 || (mp.getManaRestrictions().equals(mp2.getManaRestrictions()) && mp.getExtraManaRestriction().equals(mp2.getExtraManaRestriction()));
     }
 
-    public Mana(final byte color, final Card sourceCard, final AbilityManaPart manaAbility, final Player player) {
-        this.color = color;
-        this.manaAbility = manaAbility;
-        this.sourceCard = sourceCard.isInPlay() ? CardCopyService.getLKICopy(sourceCard) : sourceCard.getGame().getChangeZoneLKIInfo(sourceCard);
-        this.player = player;
+    public Mana(final byte color, final Card sourceCard,
+                final AbilityManaPart manaAbility, final Player player) {
+        this(color, sourceCard, manaAbility, player, 0L, 0);
+    }
+
+    public Mana {
+        sourceCard = sourceCard.isInPlay()
+                ? CardCopyService.getLKICopy(sourceCard)
+                : sourceCard.getGame().getChangeZoneLKIInfo(sourceCard);
     }
 
     @Override
@@ -124,6 +132,19 @@ public record Mana(byte color, Card sourceCard, AbilityManaPart manaAbility, Pla
     public boolean triggersWhenSpent() {
         return this.manaAbility != null && manaAbility.getTriggersWhenSpent();
     }
+
+    public boolean triggersWhenSpentTogether() {
+        return this.manaAbility != null && manaAbility.getTriggersWhenSpentTogether();
+    }
+
+    public long getProductionId() {
+        return productionId;
+    }
+
+    public int getProductionSize() {
+        return productionSize;
+    }
+
     public boolean isPersistentMana() {
         return this.manaAbility != null && manaAbility.isPersistentMana();
     }
@@ -152,6 +173,6 @@ public record Mana(byte color, Card sourceCard, AbilityManaPart manaAbility, Pla
     }
 
     public Mana convertColor(byte color) {
-        return new Mana(color, this.sourceCard, this.manaAbility, this.player);
+        return new Mana(color, this.sourceCard, this.manaAbility, this.player, this.productionId, this.productionSize);
     }
 }

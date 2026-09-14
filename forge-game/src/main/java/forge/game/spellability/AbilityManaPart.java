@@ -79,6 +79,7 @@ public class AbilityManaPart implements java.io.Serializable {
     private final String addsKeywordsUntil;
     private final String addsCounters;
     private final String triggersWhenSpent;
+    private final boolean triggersWhenSpentTogether;
     private final boolean persistentMana;
     private final boolean combatMana;
 
@@ -111,6 +112,7 @@ public class AbilityManaPart implements java.io.Serializable {
         this.addsKeywordsUntil = params.get("AddsKeywordsUntil");
         this.addsCounters = params.get("AddsCounters");
         this.triggersWhenSpent = params.get("TriggersWhenSpent");
+        this.triggersWhenSpentTogether = params.containsKey("TriggersWhenSpentTogether");
         this.persistentMana = params.containsKey("PersistentMana");
         this.combatMana = params.containsKey("CombatMana");
     }
@@ -125,6 +127,7 @@ public class AbilityManaPart implements java.io.Serializable {
         this.addsKeywordsUntil = oldMana.addsKeywordsUntil;
         this.addsCounters = oldMana.addsCounters;
         this.triggersWhenSpent = oldMana.triggersWhenSpent;
+        this.triggersWhenSpentTogether = oldMana.triggersWhenSpentTogether;
         this.persistentMana = oldMana.persistentMana;
         this.combatMana = oldMana.combatMana;
         // Do we need to copy over last mana produced somehow? Its kinda gross
@@ -181,20 +184,41 @@ public class AbilityManaPart implements java.io.Serializable {
         //clear lastProduced
         this.lastManaProduced.clear();
 
+        int producedCount = 0;
+        if (this.triggersWhenSpentTogether && this.triggersWhenSpent != null) {
+            for (final String c : afterReplace.split(" ")) {
+                producedCount += StringUtils.isNumeric(c) ? Integer.parseInt(c) : 1;
+            }
+        }
+
+        final int productionSize = producedCount;
+        final long productionId = productionSize > 0 ? game.getNextTimestamp() : 0L;
+
         // TODO use MagicColor
         Map<Byte, Mana> manaHolder = Maps.newHashMap();
 
         // loop over mana produced string
         for (final String c : afterReplace.split(" ")) {
             if (StringUtils.isNumeric(c)) {
-                this.lastManaProduced.add(manaHolder.computeIfAbsent((byte) ManaAtom.COLORLESS, b -> new Mana(b, source, this, player)), Integer.parseInt(c));
+                this.lastManaProduced.add(
+                        manaHolder.computeIfAbsent(
+                                (byte) ManaAtom.COLORLESS,
+                                b -> new Mana(b, source, this, player, productionId, productionSize)
+                        ),
+                        Integer.parseInt(c)
+                );
             } else {
                 byte attemptedMana = MagicColor.fromName(c);
                 if (attemptedMana == 0) {
-                    attemptedMana = (byte)ManaAtom.COLORLESS;
+                    attemptedMana = (byte) ManaAtom.COLORLESS;
                 }
 
-                this.lastManaProduced.add(manaHolder.computeIfAbsent(attemptedMana, b -> new Mana(b, source, this, player)));
+                this.lastManaProduced.add(
+                        manaHolder.computeIfAbsent(
+                                attemptedMana,
+                                b -> new Mana(b, source, this, player, productionId, productionSize)
+                        )
+                );
             }
         }
 
@@ -328,6 +352,10 @@ public class AbilityManaPart implements java.io.Serializable {
 
     public boolean getTriggersWhenSpent() {
         return this.triggersWhenSpent != null;
+    }
+
+    public boolean getTriggersWhenSpentTogether() {
+        return this.triggersWhenSpentTogether;
     }
 
     public void addTriggersWhenSpent(SpellAbility saBeingPaid) {

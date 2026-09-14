@@ -227,7 +227,7 @@ public class GameSnapshot {
         if (toCard == null) {
             return m;
         }
-        Mana newMana = new Mana(m.getColor(), toCard, m.getManaAbility(), toPlayer);
+        Mana newMana = new Mana(m.getColor(), toCard, m.getManaAbility(), toPlayer, m.getProductionId(), m.getProductionSize());
         newMana.getManaAbility().setSourceCard(toCard);
         return newMana;
     }

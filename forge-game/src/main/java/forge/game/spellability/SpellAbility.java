@@ -1001,9 +1001,29 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
     public final void applyPayingManaEffects() {
         Card host = getHostCard();
 
+        final Map<Long, Integer> groupedManaSpent = new HashMap<>();
+        for (final Mana mana : getPayingMana()) {
+            if (mana.triggersWhenSpentTogether() && mana.getProductionId() != 0L) {
+                groupedManaSpent.merge(mana.getProductionId(), 1, Integer::sum);
+            }
+        }
+
+        final Set<Long> handledManaProductions = new HashSet<>();
+
         for (Mana mana : getPayingMana()) {
             if (mana.triggersWhenSpent()) {
-                mana.getManaAbility().addTriggersWhenSpent(this);
+                if (mana.triggersWhenSpentTogether()) {
+                    final long productionId = mana.getProductionId();
+
+                    if (productionId != 0L
+                            && handledManaProductions.add(productionId)
+                            && groupedManaSpent.getOrDefault(productionId, 0)
+                            == mana.getProductionSize()) {
+                        mana.getManaAbility().addTriggersWhenSpent(this);
+                    }
+                } else {
+                    mana.getManaAbility().addTriggersWhenSpent(this);
+                }
             }
 
             if (mana.addsCounters(this)) {
