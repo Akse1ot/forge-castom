@@ -72,6 +72,16 @@ public class CostPartMana extends CostPart {
         maxWaterbend = max;
     }
 
+    CostPartMana copyWithManaCost(final ManaCost manaCost) {
+        final CostPartMana result = new CostPartMana(manaCost, null);
+        result.xMin = xMin;
+        result.isExiledCreatureCost = isExiledCreatureCost;
+        result.isEnchantedCreatureCost = isEnchantedCreatureCost;
+        result.isCostPayAnyNumberOfTimes = isCostPayAnyNumberOfTimes;
+        result.maxWaterbend = maxWaterbend;
+        return result;
+    }
+
     /**
      * Gets the mana.
      *

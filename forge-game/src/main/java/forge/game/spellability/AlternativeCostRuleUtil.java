@@ -3,12 +3,13 @@ package forge.game.spellability;
 import forge.card.mana.ManaCost;
 import forge.game.card.Card;
 import forge.game.cost.Cost;
-import forge.game.cost.CostPartMana;
 
-final class AlternativeCostRuleUtil {
+public final class AlternativeCostRuleUtil {
 
     static final String MARK_DERIVED_VARIANT = "DerivedAltCostVariant";
     static final String MARK_POST_PROCESSED = "AltCostPostProcessed";
+    public static final String PARAM_ADDITIONAL_REDUCE = "AltCostAdditionalReduce";
+    public static final String PARAM_ADDITIONAL_RAISE = "AltCostAdditionalRaise";
 
     private AlternativeCostRuleUtil() {
     }
@@ -56,39 +57,7 @@ final class AlternativeCostRuleUtil {
             return null;
         }
 
-        final Cost result = base.copyWithNoMana();
-        removeManaParts(result);
-        result.setMandatory(base.isMandatory());
-
-        final CostPartMana oldMana = base.getCostMana();
-        final CostPartMana replacement;
-
-        if (oldMana != null && (oldMana.isExiledCreatureCost() || oldMana.isEnchantedCreatureCost() || oldMana.getXMin() > 0)) {
-            replacement = new CostPartMana(
-                    newMana,
-                    oldMana.isExiledCreatureCost(),
-                    oldMana.isEnchantedCreatureCost(),
-                    oldMana.getXMin()
-            );
-        } else {
-            replacement = new CostPartMana(newMana, null);
-        }
-
-        if (oldMana != null) {
-            replacement.setMaxWaterbend(oldMana.getMaxWaterbend());
-        }
-
-        result.getCostParts().add(replacement);
-        result.sort();
-        return result;
-    }
-
-    private static void removeManaParts(final Cost cost) {
-        if (cost == null) {
-            return;
-        }
-
-        cost.getCostParts().removeIf(part -> part instanceof CostPartMana);
+        return base.copyWithDefinedMana(newMana);
     }
 
     static Cost replaceManaPart(final Cost base, final String manaExpr) {
@@ -108,21 +77,15 @@ final class AlternativeCostRuleUtil {
             return;
         }
 
-        // Keep the same v1 limitation as before: reducing X is not supported.
         if (new ManaCost(manaExpr).countX() > 0) {
             throw new IllegalArgumentException("Alt-cost mana reduction does not support X: " + manaExpr);
         }
 
-        if (!sa.hasParam("ReduceCost")) {
-            sa.putParam("ReduceCost", manaExpr);
-            sa.putParam("ReduceAmount", "1");
-            return;
-        }
-
-        final String existingCost = sa.getParam("ReduceCost");
-        final String existingReduction = expandExistingReduction(sa, existingCost);
-        sa.putParam("ReduceCost", joinCostExpressions(existingReduction, manaExpr));
-        sa.putParam("ReduceAmount", "1");
+        final String existing = sa.getParamOrDefault(PARAM_ADDITIONAL_REDUCE, "");
+        sa.putParam(
+                PARAM_ADDITIONAL_REDUCE,
+                joinCostExpressions(existing, manaExpr)
+        );
     }
 
     static void addManaRaise(final SpellAbility sa, final String manaExpr) {
@@ -130,53 +93,11 @@ final class AlternativeCostRuleUtil {
             return;
         }
 
-        if (!sa.hasParam("RaiseCost")) {
-            sa.putParam("RaiseCost", manaExpr);
-            return;
-        }
-
-        final String existing = sa.getParam("RaiseCost");
-        if (existing != null && sa.hasSVar(existing)) {
-            throw new IllegalStateException("Cannot combine alt-cost mana raise with dynamic RaiseCost: " + existing);
-        }
-
-        sa.putParam("RaiseCost", joinCostExpressions(existing, manaExpr));
-    }
-
-    private static String expandExistingReduction(final SpellAbility sa, final String existingCost) {
-        if (existingCost == null || existingCost.trim().isEmpty()) {
-            return "";
-        }
-
-        if (!sa.hasParam("ReduceAmount")) {
-            if (isNonNegativeInteger(existingCost)) {
-                return existingCost;
-            }
-            throw new IllegalStateException("Cannot combine alt-cost mana reduction with dynamic ReduceCost: " + existingCost);
-        }
-
-        final String existingAmount = sa.getParam("ReduceAmount");
-        if (!isNonNegativeInteger(existingAmount)) {
-            throw new IllegalStateException("Cannot combine alt-cost mana reduction with dynamic ReduceAmount: " + existingAmount);
-        }
-
-        final int count = Integer.parseInt(existingAmount);
-        if (count <= 0) {
-            return "";
-        }
-
-        return repeatCostExpression(existingCost, count);
-    }
-
-    private static String repeatCostExpression(final String costExpr, final int count) {
-        final StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < count; i++) {
-            if (sb.length() > 0) {
-                sb.append(' ');
-            }
-            sb.append(costExpr.trim());
-        }
-        return sb.toString();
+        final String existing = sa.getParamOrDefault(PARAM_ADDITIONAL_RAISE, "");
+        sa.putParam(
+                PARAM_ADDITIONAL_RAISE,
+                joinCostExpressions(existing, manaExpr)
+        );
     }
 
     private static String joinCostExpressions(final String left, final String right) {

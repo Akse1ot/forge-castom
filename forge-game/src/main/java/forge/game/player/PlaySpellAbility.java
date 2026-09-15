@@ -95,6 +95,8 @@ public class PlaySpellAbility {
             return true;
         }
 
+        sa = AlternativeCostCastProcessor.process(sa);
+
         boolean castFaceDown = sa.isCastFaceDown();
         boolean flippedToCast = sa.isSpell() && source.isFaceDown();
 
@@ -605,6 +607,8 @@ public class PlaySpellAbility {
     }
 
     public final boolean playAbility(final boolean mayChooseTargets, final boolean isFree, final boolean skipStack) {
+        ability = AlternativeCostCastProcessor.process(ability);
+
         final Player player = ability.getActivatingPlayer();
         final Game game = player.getGame();
         boolean refreeze = game.getStack().isFrozen();
@@ -661,8 +665,6 @@ public class PlaySpellAbility {
         if (ability.isSpell() && !c.isCopiedSpell()) {
             ability = GameActionUtil.addExtraKeywordCost(ability);
         }
-
-        ability = AlternativeCostCastProcessor.process(ability);
 
         if (!skipStack) {
             NextSpellColorHelper.prepareSpellColor(player, ability);

@@ -38,6 +38,13 @@ public final class AlternativeCostVariantBuilder {
             addExternalVariants(candidate, result, activator, source);
         }
 
+        for (int i = 0; i < result.size(); i++) {
+            result.set(
+                    i,
+                    AlternativeCostCastProcessor.process(result.get(i))
+            );
+        }
+
         return result;
     }
 

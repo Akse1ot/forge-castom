@@ -18,6 +18,7 @@ import forge.game.keyword.MelodyUtil;
 import forge.game.mana.ManaCostBeingPaid;
 import forge.game.player.Player;
 import forge.game.player.PlayerCollection;
+import forge.game.spellability.AlternativeCostRuleUtil;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityPredicates;
 import forge.game.spellability.TargetChoices;
@@ -47,9 +48,6 @@ public class CostAdjustment {
             baseCost = cost.copyWithDefinedMana(
                     sa.getParam("AlternativeManaCost")
             );
-
-            // copyWithDefinedMana currently doesn't preserve this Cost flag.
-            baseCost.setMandatory(cost.isMandatory());
         }
 
         final Cost taggedOptionalCost =
@@ -108,6 +106,13 @@ public class CostAdjustment {
                 inc = new Cost(raise, false);
             }
             result.add(inc);
+        }
+
+        if (sa.hasParam(AlternativeCostRuleUtil.PARAM_ADDITIONAL_RAISE)) {
+            result.add(new Cost(
+                    sa.getParam(AlternativeCostRuleUtil.PARAM_ADDITIONAL_RAISE),
+                    sa.isAbility()
+            ));
         }
 
         for (final StaticAbility stAb : raiseAbilities) {
@@ -246,6 +251,13 @@ public class CostAdjustment {
                 sumGeneric += num;
             }
         }
+
+        if (sa.hasParam(AlternativeCostRuleUtil.PARAM_ADDITIONAL_REDUCE)) {
+            cost.subtractManaCost(new ManaCost(
+                    sa.getParam(AlternativeCostRuleUtil.PARAM_ADDITIONAL_REDUCE)
+            ));
+        }
+
         if (sa.isPowerUp() && host.enteredThisTurn()) {
             // TODO handle hybrid ManaCost
             cost.subtractManaCost(host.getManaCost());

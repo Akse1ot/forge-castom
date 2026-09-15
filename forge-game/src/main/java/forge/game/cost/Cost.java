@@ -700,6 +700,7 @@ public class Cost implements Serializable {
     public final Cost copyWithNoMana() {
         Cost toRet = new Cost(0);
         toRet.isAbility = this.isAbility;
+        toRet.isMandatory = this.isMandatory;
         for (CostPart cp : this.costParts) {
             if (!(cp instanceof CostPartMana))
                 toRet.costParts.add(cp.copy());
@@ -712,9 +713,16 @@ public class Cost implements Serializable {
         return copyWithDefinedMana(new ManaCost(manaCost));
     }
     public final Cost copyWithDefinedMana(ManaCost manaCost) {
+        final CostPartMana oldMana = getCostMana();
         Cost toRet = copyWithNoMana();
-        toRet.costParts.add(new CostPartMana(manaCost, null));
+
+        toRet.costParts.removeIf(part -> part instanceof CostPartMana);
+        toRet.costParts.add(oldMana == null
+                ? new CostPartMana(manaCost, null)
+                : oldMana.copyWithManaCost(manaCost));
+
         toRet.cacheTapCost();
+        toRet.sort();
         return toRet;
     }
 
