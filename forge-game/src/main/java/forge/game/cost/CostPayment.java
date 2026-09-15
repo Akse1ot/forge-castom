@@ -246,6 +246,8 @@ public class CostPayment extends ManaConversionMatrix {
             PaymentDecision decision = part.accept(decisionMaker);
             if (null == decision) return false;
 
+            decision.matrix = this;
+
             try {
                 // wrap the payment and push onto the cost stack
                 game.costPaymentStack.push(part, this);
