@@ -17,6 +17,8 @@
  */
 package forge.game.mana;
 
+import java.util.Objects;
+
 import forge.card.MagicColor;
 import forge.card.mana.ManaAtom;
 import forge.game.card.Card;
@@ -51,6 +53,10 @@ public record Mana(byte color, Card sourceCard, AbilityManaPart manaAbility, Pla
         AbilityManaPart mp = this.getManaAbility();
         AbilityManaPart mp2 = m2.getManaAbility();
         if ((mp == null) != (mp2 == null)) {
+            return false;
+        }
+
+        if (mp != null && !Objects.equals(mp.getCannotCounterAbility(), mp2.getCannotCounterAbility())) {
             return false;
         }
 

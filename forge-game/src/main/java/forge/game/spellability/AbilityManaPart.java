@@ -74,6 +74,7 @@ public class AbilityManaPart implements java.io.Serializable {
     private final String manaRestrictions;
     private String extraManaRestrictions = "";
     private final String cannotCounterSpell;
+    private final String cannotCounterAbility;
     private final String addsKeywords;
     private final String addsKeywordsType;
     private final String addsKeywordsUntil;
@@ -107,6 +108,7 @@ public class AbilityManaPart implements java.io.Serializable {
         origProduced = params.getOrDefault("Produced", "1");
         this.manaRestrictions = params.getOrDefault("RestrictValid", "");
         this.cannotCounterSpell = params.get("AddsNoCounter");
+        this.cannotCounterAbility = params.get("AddsNoCounterAbility");
         this.addsKeywords = params.get("AddsKeywords");
         this.addsKeywordsType = params.get("AddsKeywordsValid");
         this.addsKeywordsUntil = params.get("AddsKeywordsUntil");
@@ -122,6 +124,7 @@ public class AbilityManaPart implements java.io.Serializable {
         this.origProduced = oldMana.origProduced;
         this.manaRestrictions = oldMana.manaRestrictions;
         this.cannotCounterSpell = oldMana.cannotCounterSpell;
+        this.cannotCounterAbility = oldMana.cannotCounterAbility;
         this.addsKeywords = oldMana.addsKeywords;
         this.addsKeywordsType = oldMana.addsKeywordsType;
         this.addsKeywordsUntil = oldMana.addsKeywordsUntil;
@@ -261,16 +264,35 @@ public class AbilityManaPart implements java.io.Serializable {
      * @return a {@link java.lang.String} object.
      */
     public boolean cannotCounterPaidWith(SpellAbility saBeingPaid) {
-        if (null == cannotCounterSpell) return false;
-        if ("True".equalsIgnoreCase(cannotCounterSpell)) return true;
+        if (saBeingPaid == null) {
+            return false;
+        }
 
-        Card source = saBeingPaid.getHostCard();
-        if (source == null) return false;
-        return source.isValid(cannotCounterSpell, sourceCard.getController(), sourceCard, null);
+        if (saBeingPaid.isSpell()) {
+            if (null == cannotCounterSpell) return false;
+            if ("True".equalsIgnoreCase(cannotCounterSpell)) return true;
+
+            Card source = saBeingPaid.getHostCard();
+            if (source == null) return false;
+            return source.isValid(cannotCounterSpell, sourceCard.getController(), sourceCard, null);
+        }
+
+        if (saBeingPaid.isActivatedAbility()) {
+            if (null == cannotCounterAbility) return false;
+            if ("True".equalsIgnoreCase(cannotCounterAbility)) return true;
+
+            return saBeingPaid.isValid(cannotCounterAbility, sourceCard.getController(), sourceCard, null);
+        }
+
+        return false;
     }
 
     public boolean isCannotCounterPaidWith() {
         return null != cannotCounterSpell;
+    }
+
+    public String getCannotCounterAbility() {
+        return cannotCounterAbility;
     }
 
     public void addNoCounterEffect(SpellAbility saBeingPaid) {
@@ -284,14 +306,25 @@ public class AbilityManaPart implements java.io.Serializable {
         eff.setColor(ColorSet.C);
         eff.setGamePieceType(GamePieceType.EFFECT);
 
-        String cantcounterstr = "Event$ Counter | ValidSA$ Spell.IsRemembered | Description$ That spell can't be countered.";
+        final boolean activatedAbility = saBeingPaid.isActivatedAbility();
+        final String cantcounterstr;
+        if (activatedAbility) {
+            eff.setEffectSource(saBeingPaid);
+            cantcounterstr = "Event$ Counter | ValidSA$ Activated.EffectSourceAbility | Description$ That ability can't be countered.";
+        } else {
+            cantcounterstr = "Event$ Counter | ValidSA$ Spell.IsRemembered | Description$ That spell can't be countered.";
+        }
+
         ReplacementEffect re = ReplacementHandler.parseReplacement(cantcounterstr, eff, true);
         re.setLayer(ReplacementLayer.CantHappen);
         eff.addReplacementEffect(re);
 
-        eff.addRemembered(saBeingPaid.getHostCard());
-
-        SpellAbilityEffect.addForgetOnMovedTrigger(eff, "Stack");
+        if (activatedAbility) {
+            game.getEndOfTurn().addUntil(() -> game.getAction().exileEffect(eff));
+        } else {
+            eff.addRemembered(saBeingPaid.getHostCard());
+            SpellAbilityEffect.addForgetOnMovedTrigger(eff, "Stack");
+        }
 
         game.getAction().moveToCommand(eff, null);
     }

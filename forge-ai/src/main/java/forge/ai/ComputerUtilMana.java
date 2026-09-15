@@ -204,6 +204,10 @@ public class ComputerUtilMana {
         return score;
     }
 
+    private static boolean isPreferredNoCounterMana(final SpellAbility manaAbility, final SpellAbility saPaidFor) {
+        return manaAbility.getPayCosts().isReusuableResource() && manaAbility.isManaCannotCounter(saPaidFor);
+    }
+
     private static void sortManaAbilities(final ListMultimap<ManaCostShard, SpellAbility> sourcesForShards, final ListMultimap<Integer, SpellAbility> manaAbilityMap, final SpellAbility sa) {
         final Map<Card, Integer> manaCardMap = Maps.newHashMap();
         final List<Card> orderedCards = Lists.newArrayList();
@@ -272,6 +276,14 @@ public class ComputerUtilMana {
                         }
                     }
 
+                    if (manaCardMap.get(ability1.getHostCard()).equals(manaCardMap.get(ability2.getHostCard()))) {
+                        final boolean noCounter1 = isPreferredNoCounterMana(ability1, sa);
+                        final boolean noCounter2 = isPreferredNoCounterMana(ability2, sa);
+                        if (noCounter1 != noCounter2) {
+                            return noCounter1 ? -1 : 1;
+                        }
+                    }
+
                     // sources were previously sorted, so add their index to connect those values to some degree
                     // This has been disabled because it makes the AI more likely to sacrifice lands than use creatures for mana
                     // preOrder += abilities.indexOf(ability1) - abilities.indexOf(ability2);
@@ -289,6 +301,12 @@ public class ComputerUtilMana {
                     return -1;
                 } else if (payWithAb2 && !payWithAb1) {
                     return 1;
+                }
+
+                final boolean noCounter1 = isPreferredNoCounterMana(ability1, sa);
+                final boolean noCounter2 = isPreferredNoCounterMana(ability2, sa);
+                if (noCounter1 != noCounter2) {
+                    return noCounter1 ? -1 : 1;
                 }
 
                 return ability1.compareTo(ability2);
