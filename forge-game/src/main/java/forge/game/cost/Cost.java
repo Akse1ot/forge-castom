@@ -398,9 +398,17 @@ public class Cost implements Serializable {
         }
 
         if (parse.startsWith("Mill<")) {
-            // Mill<NumCards>
             final String[] splitStr = abCostParse(parse, 1);
             return new CostMill(splitStr[0]);
+        }
+
+        if (parse.startsWith("Scry<")) {
+            final String[] splitStr = abCostParse(parse, 1);
+            return new CostScry(splitStr[0]);
+        }
+
+        if (parse.equals("Traverse")) {
+            return new CostTraverse();
         }
 
         if (parse.startsWith("FlipCoin<")) {

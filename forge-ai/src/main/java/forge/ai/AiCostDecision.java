@@ -32,7 +32,7 @@ public class AiCostDecision extends CostDecisionMakerBase {
 
     private List<PaymentDecision> collectNestedDecisions(final Cost cost) {
         final List<PaymentDecision> nested = new ArrayList<>();
-        for (final CostPart part : cost.getCostPartsWithZeroMana()) {
+        for (final CostPart part : cost.getCostParts()) {
             final PaymentDecision pd = part.accept(this);
             if (pd == null) {
                 return null;
@@ -83,6 +83,32 @@ public class AiCostDecision extends CostDecisionMakerBase {
         }
 
         return PaymentDecision.orBranch("Left", leftNested);
+    }
+
+    @Override
+    public PaymentDecision visit(final CostTraverse cost) {
+        final CardCollection lands = CardLists.filter(
+                player.getCardsIn(ZoneType.Hand),
+                card -> card.isLand() && !card.isUsedToPay()
+        );
+
+        if (lands.isEmpty()) {
+            return null;
+        }
+
+        final Card chosen =
+                ComputerUtilCard.getWorstAI(lands);
+
+        return chosen == null
+                ? null
+                : PaymentDecision.card(chosen);
+    }
+
+    @Override
+    public PaymentDecision visit(final CostScry cost) {
+        return PaymentDecision.number(
+                cost.getAbilityAmount(ability)
+        );
     }
 
     public AiCostDecision(Player ai0, SpellAbility sa, final boolean effect) {

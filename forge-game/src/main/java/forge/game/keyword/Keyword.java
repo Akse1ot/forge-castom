@@ -213,6 +213,7 @@ public enum Keyword {
     TOXIC("Toxic", KeywordWithAmount.class, false, "Players dealt combat damage by this creature also get {%d:poison counter}."),
     TRAINING("Training", SimpleKeyword.class, false, "Whenever this creature attacks with another creature with greater power, put a +1/+1 counter on this creature."),
     TRAMPLE("Trample", Trample.class, true, "This creature can deal excess combat damage to the player or planeswalker it's attacking."),
+    TRAVERSE("Traverse", SimpleKeyword.class, false, "As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped."),
     TRANSFIGURE("Transfigure", KeywordWithCost.class, false, "%s, Sacrifice this creature: Search your library for a creature card with the same mana value as this creature and put that card onto the battlefield, then shuffle. Transfigure only as a sorcery."),
     TRANSMUTE("Transmute", KeywordWithCost.class, false, "%s, Discard this card: Search your library for a card with the same mana value as this card, reveal it, and put it into your hand, then shuffle. Transmute only as a sorcery."),
     TRIBUTE("Tribute", KeywordWithAmount.class, false, "As this creature enters, an opponent of your choice may put {%d:+1/+1 counter} on it."),

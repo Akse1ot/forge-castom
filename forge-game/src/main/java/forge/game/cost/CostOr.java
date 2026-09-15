@@ -86,7 +86,7 @@ public class CostOr extends CostPart {
         }
 
         final List<CostPart> parts =
-                chosen.getCostPartsWithZeroMana();
+                chosen.getCostParts();
 
         if (parts.size() != decision.nested.size()) {
             return false;

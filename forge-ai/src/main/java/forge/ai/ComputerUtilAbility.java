@@ -24,6 +24,7 @@ import forge.game.cost.CostRemoveCounter;
 import forge.game.keyword.Keyword;
 import forge.game.phase.PhaseType;
 import forge.game.player.Player;
+import forge.game.spellability.CostPartVariantBuilder;
 import forge.game.spellability.OptionalCost;
 import forge.game.spellability.OptionalCostValue;
 import forge.game.spellability.SpellAbility;
@@ -125,8 +126,14 @@ public class ComputerUtilAbility {
             newAbilities.addAll(otherAltSa);
         }
 
+        final List<SpellAbility> costPartVariants =
+                CostPartVariantBuilder.expand(
+                        newAbilities,
+                        activator
+                );
+
         final List<SpellAbility> result = Lists.newArrayList();
-        for (SpellAbility sa : newAbilities) {
+        for (SpellAbility sa : costPartVariants) {
             sa.setActivatingPlayer(activator);
 
             // Optional cost selection through the AI controller

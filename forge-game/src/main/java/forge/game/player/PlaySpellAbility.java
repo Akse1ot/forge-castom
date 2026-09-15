@@ -35,6 +35,7 @@ import forge.game.mana.ManaCostBeingPaid;
 import forge.game.mana.ManaPool;
 import forge.game.mana.ManaRefundService;
 import forge.game.spellability.AlternativeCostCastProcessor;
+import forge.game.spellability.CostPartVariantBuilder;
 import forge.game.spellability.NextSpellColorHelper;
 import forge.game.spellability.OptionalCostValue;
 import forge.game.spellability.ResonanceHelper;
@@ -145,8 +146,25 @@ public class PlaySpellAbility {
     static SpellAbility chooseOptionalAdditionalCosts(Player p, final SpellAbility original) {
         PlayerController c = p.getController();
 
-        final List<SpellAbility> abilities = GameActionUtil.getAdditionalCostSpell(original);
-        final SpellAbility choosen = c.getAbilityToPlay(original.getHostCard(), abilities);
+        final List<SpellAbility> abilities =
+                CostPartVariantBuilder.expand(
+                        GameActionUtil.getAdditionalCostSpell(original),
+                        p
+                );
+
+        if (abilities.isEmpty()) {
+            return null;
+        }
+
+        final SpellAbility choosen =
+                c.getAbilityToPlay(
+                        original.getHostCard(),
+                        abilities
+                );
+
+        if (choosen == null) {
+            return null;
+        }
 
         List<OptionalCostValue> list = GameActionUtil.getOptionalCostValues(choosen);
         if (!list.isEmpty()) {
@@ -610,6 +628,35 @@ public class PlaySpellAbility {
         ability = AlternativeCostCastProcessor.process(ability);
 
         final Player player = ability.getActivatingPlayer();
+
+        if (CostPartVariantBuilder.needsPreparation(
+                ability,
+                player
+        )) {
+            final List<SpellAbility> variants =
+                    CostPartVariantBuilder.expand(
+                            List.of(ability),
+                            player
+                    );
+
+            if (variants.isEmpty()) {
+                return false;
+            }
+
+            if (variants.size() == 1) {
+                ability = variants.get(0);
+            } else {
+                ability = controller.getAbilityToPlay(
+                        ability.getHostCard(),
+                        variants
+                );
+
+                if (ability == null) {
+                    return false;
+                }
+            }
+        }
+
         final Game game = player.getGame();
         boolean refreeze = game.getStack().isFrozen();
         SpellAbility resonanceOriginalTail = null;

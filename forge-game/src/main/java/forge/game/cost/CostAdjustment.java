@@ -19,6 +19,7 @@ import forge.game.mana.ManaCostBeingPaid;
 import forge.game.player.Player;
 import forge.game.player.PlayerCollection;
 import forge.game.spellability.AlternativeCostRuleUtil;
+import forge.game.spellability.CostPartVariantBuilder;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityPredicates;
 import forge.game.spellability.TargetChoices;
@@ -49,6 +50,8 @@ public class CostAdjustment {
                     sa.getParam("AlternativeManaCost")
             );
         }
+
+        baseCost = applyKeywordAdditionalCosts(baseCost, sa);
 
         final Cost taggedOptionalCost =
                 TaggedOptionalCostAdjustment.adjust(baseCost, sa);
@@ -126,6 +129,56 @@ public class CostAdjustment {
         }
 
         sa.setMaxWaterbend(result);
+
+        return result;
+    }
+
+    private static Cost applyKeywordAdditionalCosts(final Cost cost,
+                                                    final SpellAbility sa) {
+        if (cost == null
+                || sa == null
+                || !sa.isSpell()
+                || sa.isCopied()
+                || sa.getHostCard() == null
+                || !sa.getHostCard().hasKeyword(Keyword.TRAVERSE)) {
+            return cost;
+        }
+
+        final Cost result = cost.copy();
+
+        // Never allow an already materialized Traverse to survive into
+        // a selected replacement variant.
+        result.getCostParts().removeIf(
+                part -> part instanceof CostTraverse
+        );
+
+        final String replacement =
+                CostPartVariantBuilder.getSelectedReplacement(
+                        sa,
+                        "Traverse"
+                );
+
+        if (replacement != null) {
+            result.add(
+                    new Cost(
+                            replacement,
+                            false,
+                            CostPartVariantBuilder
+                                    .isSelectedReplacementIntrinsic(
+                                            sa,
+                                            "Traverse"
+                                    )
+                    ),
+                    false,
+                    sa
+            );
+        } else {
+            result.add(
+                    new Cost("Traverse", false),
+                    false,
+                    sa
+            );
+        }
 
         return result;
     }

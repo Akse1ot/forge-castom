@@ -74,7 +74,7 @@ public class HumanCostDecision extends CostDecisionMakerBase {
         }
 
         final List<PaymentDecision> nested = new ArrayList<>();
-        for (final CostPart part : chosenCost.getCostPartsWithZeroMana()) {
+        for (final CostPart part : chosenCost.getCostParts()) {
             final PaymentDecision pd = part.accept(this);
             if (pd == null) {
                 return null;
@@ -83,6 +83,49 @@ public class HumanCostDecision extends CostDecisionMakerBase {
         }
 
         return PaymentDecision.orBranch(chosenBranch, nested);
+    }
+
+    @Override
+    public PaymentDecision visit(final CostTraverse cost) {
+        final CardCollection lands = CardLists.filter(
+                player.getCardsIn(ZoneType.Hand),
+                card -> card.isLand() && !card.isUsedToPay()
+        );
+
+        if (lands.isEmpty()) {
+            return null;
+        }
+
+        final InputSelectCardsFromList inp =
+                new InputSelectCardsFromList(
+                        controller,
+                        1,
+                        1,
+                        lands,
+                        ability
+                );
+
+        inp.setMessage(
+                "Select a land card from your hand for Traverse"
+        );
+        inp.setCancelAllowed(true);
+        inp.showAndWait();
+
+        if (inp.hasCancelled()
+                || inp.getSelected().size() != 1) {
+            return null;
+        }
+
+        return PaymentDecision.card(
+                inp.getSelected()
+        );
+    }
+
+    @Override
+    public PaymentDecision visit(final CostScry cost) {
+        return PaymentDecision.number(
+                cost.getAbilityAmount(ability)
+        );
     }
 
     @Override

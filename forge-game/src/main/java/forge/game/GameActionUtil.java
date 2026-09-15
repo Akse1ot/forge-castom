@@ -305,7 +305,14 @@ public final class GameActionUtil {
             alternatives.addAll(StaticAbilityAlternativeCost.alternativeCosts(sa, source, activator));
         }
 
-        return AlternativeCostVariantBuilder.expandAlternativeCosts(alternatives, source, activator);
+        return CostPartVariantBuilder.expand(
+                AlternativeCostVariantBuilder.expandAlternativeCosts(
+                        alternatives,
+                        source,
+                        activator
+                ),
+                activator
+        );
     }
 
     public static SpellAbility getGraveyardSpellByKeyword(KeywordInterface inst, SpellAbility sa, Player activator, AlternativeCost altCost) {

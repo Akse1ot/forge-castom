@@ -20,6 +20,8 @@ public interface ICostVisitor<T> {
     T visit(CostForage cost);
     T visit(CostRollDice cost);
     T visit(CostMill cost);
+    T visit(CostScry cost);
+    T visit(CostTraverse cost);
     T visit(CostAddMana cost);
     T visit(CostPayLife cost);
     T visit(CostPayEnergy cost);
@@ -116,6 +118,14 @@ public interface ICostVisitor<T> {
         }
         @Override
         public T visit(CostMill cost) {
+            return null;
+        }
+        @Override
+        public T visit(CostScry cost) {
+            return null;
+        }
+        @Override
+        public T visit(CostTraverse cost) {
             return null;
         }
         @Override

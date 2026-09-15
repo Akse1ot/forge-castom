@@ -14,6 +14,7 @@ public enum StaticAbilityMode {
     // GameActionUtil
     OptionalCost,
     ReplaceOptionalCost,
+    ReplaceCostPart,
 
     // StaticAbilityAlternativeCost
     AlternativeCost,
