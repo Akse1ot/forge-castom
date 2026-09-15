@@ -70,6 +70,7 @@ public enum TriggerType {
     DamageDone(TriggerDamageDone.class),
     DamageDoneOnce(TriggerDamageDoneOnce.class),
     DamageDoneOnceByController(TriggerDamageDoneOnceByController.class),
+    DamagePreventedBySource(TriggerDamagePreventedBySource.class),
     DamagePreventedOnce(TriggerDamagePreventedOnce.class),
     DayTimeChanges (TriggerDayTimeChanges.class),
     Destroyed(TriggerDestroyed.class),

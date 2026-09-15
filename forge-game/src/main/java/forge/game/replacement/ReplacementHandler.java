@@ -44,6 +44,7 @@ import forge.game.player.PlayerCollection;
 import forge.game.spellability.AbilitySub;
 import forge.game.spellability.Spell;
 import forge.game.spellability.SpellAbility;
+import forge.game.trigger.TriggerType;
 import forge.game.zone.Zone;
 import forge.game.zone.ZoneType;
 import forge.util.Localizer;
@@ -528,6 +529,21 @@ public class ReplacementHandler {
             if (apiType == ApiType.ReplaceSplitDamage) {
                 damageMap.put(source, newTarget, newDamage);
             }
+        }
+
+        final boolean isPrevention = apiType == ApiType.ReplaceDamage
+                || "True".equals(mapParams.get("Prevent"))
+                || mapParams.containsKey("PreventionEffect");
+        final int prevented = (int) runParams.getOrDefault(AbilityKey.PreventedAmount, 0);
+
+        if (isPrevention && res != ReplacementResult.NotReplaced && prevented > 0) {
+            final Map<AbilityKey, Object> triggerParams = AbilityKey.newMap();
+            triggerParams.put(AbilityKey.DamageSource, source);
+            triggerParams.put(AbilityKey.DamageTarget, target);
+            triggerParams.put(AbilityKey.DamageAmount, prevented);
+            triggerParams.put(AbilityKey.IsCombatDamage, runParams.get(AbilityKey.IsCombat));
+
+            game.getTriggerHandler().runTrigger(TriggerType.DamagePreventedBySource, triggerParams, false);
         }
 
         // Put run params into executed param list so this replacement effect won't handle them again
