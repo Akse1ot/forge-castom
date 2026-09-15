@@ -82,7 +82,8 @@ public final class AlternativeCostRuleUtil {
         }
 
         final String existing = sa.getParamOrDefault(PARAM_ADDITIONAL_REDUCE, "");
-        sa.putParam(
+        putPersistentParam(
+                sa,
                 PARAM_ADDITIONAL_REDUCE,
                 joinCostExpressions(existing, manaExpr)
         );
@@ -94,7 +95,8 @@ public final class AlternativeCostRuleUtil {
         }
 
         final String existing = sa.getParamOrDefault(PARAM_ADDITIONAL_RAISE, "");
-        sa.putParam(
+        putPersistentParam(
+                sa,
                 PARAM_ADDITIONAL_RAISE,
                 joinCostExpressions(existing, manaExpr)
         );
@@ -140,4 +142,23 @@ public final class AlternativeCostRuleUtil {
         final String description = derived.getDescription() == null ? "" : derived.getDescription();
         derived.setDescription(description + " (" + variantDescription + ")");
     }
+
+    static void putPersistentParam(final SpellAbility sa, final String key, final String value) {
+        if (sa == null || key == null || value == null) {
+            return;
+        }
+
+        sa.putParam(key, value);
+        sa.getOriginalMapParams().put(key, value);
+    }
+
+    static void removePersistentParam(final SpellAbility sa, final String key) {
+        if (sa == null || key == null) {
+            return;
+        }
+
+        sa.removeParam(key);
+        sa.getOriginalMapParams().remove(key);
+    }
+
 }

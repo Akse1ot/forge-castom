@@ -82,6 +82,15 @@ public class CostPartMana extends CostPart {
         return result;
     }
 
+    boolean isUnrestrictedZero() {
+        return cost.isZero()
+                && xMin == 0
+                && !isExiledCreatureCost
+                && !isEnchantedCreatureCost
+                && !isCostPayAnyNumberOfTimes
+                && maxWaterbend == null;
+    }
+
     /**
      * Gets the mana.
      *

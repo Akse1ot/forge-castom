@@ -48,7 +48,11 @@ public final class AlternativeCostCastProcessor {
         }
 
         sa.setPayCosts(current);
-        sa.putParam(AlternativeCostRuleUtil.MARK_POST_PROCESSED, "True");
+        AlternativeCostRuleUtil.putPersistentParam(
+                sa,
+                AlternativeCostRuleUtil.MARK_POST_PROCESSED,
+                "True"
+        );
         return sa;
     }
 

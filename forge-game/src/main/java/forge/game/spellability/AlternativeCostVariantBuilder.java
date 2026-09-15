@@ -201,8 +201,15 @@ public final class AlternativeCostVariantBuilder {
         }
 
         derived.setActivatingPlayer(activator);
-        derived.putParam(AlternativeCostRuleUtil.MARK_DERIVED_VARIANT, "True");
-        derived.removeParam(AlternativeCostRuleUtil.MARK_POST_PROCESSED);
+        AlternativeCostRuleUtil.putPersistentParam(
+                derived,
+                AlternativeCostRuleUtil.MARK_DERIVED_VARIANT,
+                "True"
+        );
+        AlternativeCostRuleUtil.removePersistentParam(
+                derived,
+                AlternativeCostRuleUtil.MARK_POST_PROCESSED
+        );
 
         final Cost newCost = applyVariantActions(derived.getPayCosts().copy(), derived, ruleHost, rule);
         derived.setPayCosts(newCost);

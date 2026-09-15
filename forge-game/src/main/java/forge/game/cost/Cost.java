@@ -1077,17 +1077,41 @@ public class Cost implements Serializable {
                 continue; // do not add Zero Mana
             } else if (part instanceof CostPartMana && mPartOld != null) {
                 CostPartMana mPart = (CostPartMana) part;
-                ManaCostBeingPaid manaCost = new ManaCostBeingPaid(mPart.getMana());
-                costParts.remove(mPartOld);
-                int xMin = Math.max(mPart.getXMin(), mPartOld.getXMin());
-                manaCost.addManaCost(mPartOld.getMana());
-                if (mPartOld.isExiledCreatureCost() || mPartOld.isEnchantedCreatureCost() || xMin > 0) {
-                    // need to explicitly copy the ExiledCreatureCost/EnchantedCreatureCost
-                    costParts.add(0, new CostPartMana(manaCost.toManaCost(), mPartOld.isExiledCreatureCost(), mPartOld.isEnchantedCreatureCost(), xMin));
+
+                if (mPartOld.isUnrestrictedZero()) {
+                    costParts.remove(mPartOld);
+                    costParts.add(0, mPart.copyWithManaCost(mPart.getMana()));
                 } else {
-                    costParts.add(0, new CostPartMana(manaCost.toManaCost(), null));
+                    ManaCostBeingPaid manaCost = new ManaCostBeingPaid(mPart.getMana());
+                    costParts.remove(mPartOld);
+
+                    int xMin = Math.max(mPart.getXMin(), mPartOld.getXMin());
+                    manaCost.addManaCost(mPartOld.getMana());
+
+                    if (mPartOld.isExiledCreatureCost()
+                            || mPartOld.isEnchantedCreatureCost()
+                            || xMin > 0) {
+                        costParts.add(
+                                0,
+                                new CostPartMana(
+                                        manaCost.toManaCost(),
+                                        mPartOld.isExiledCreatureCost(),
+                                        mPartOld.isEnchantedCreatureCost(),
+                                        xMin
+                                )
+                        );
+                    } else {
+                        costParts.add(
+                                0,
+                                new CostPartMana(
+                                        manaCost.toManaCost(),
+                                        null
+                                )
+                        );
+                    }
+
+                    getCostMana().setMaxWaterbend(mPart.getMaxWaterbend());
                 }
-                getCostMana().setMaxWaterbend(mPart.getMaxWaterbend());
             } else if (part instanceof CostPutCounter || (mergeAdditional && // below usually not desired because they're from different causes
                     (part instanceof CostDiscard || part instanceof CostDraw ||
                     part instanceof CostAddMana || part instanceof CostPayLife ||
