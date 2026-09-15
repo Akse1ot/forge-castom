@@ -12,6 +12,7 @@ import forge.game.card.Card;
 import forge.game.card.CardCollection;
 import forge.game.card.CardCollectionView;
 import forge.game.card.CardFactory;
+import forge.game.card.CardLists;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
 import forge.game.trigger.TriggerType;
@@ -23,43 +24,80 @@ public class MutateEffect extends SpellAbilityEffect {
     @Override
     public void resolve(SpellAbility sa) {
         final Card host = sa.getHostCard();
-        final Player p = host.getOwner();
         final Game game = host.getGame();
+
+        Card mutatingCard = host;
+        if (sa.hasParam("MutateFrom")) {
+            final Player activator = sa.getActivatingPlayer();
+            final ZoneType zone = ZoneType.smartValueOf(sa.getParam("MutateFrom"));
+            final CardCollection choices = CardLists.getValidCards(
+                    activator.getCardsIn(zone),
+                    sa.getParamOrDefault("MutateValid", "Creature.YouOwn+nonHuman"),
+                    activator,
+                    host,
+                    sa
+            );
+
+            if (choices.isEmpty()) {
+                return;
+            }
+
+            final HashMap<String, Object> params = new HashMap<>();
+            params.put("MutateSource", true);
+
+            mutatingCard = activator.getController().chooseSingleEntityForEffect(
+                    choices,
+                    sa,
+                    Localizer.getInstance().getMessage("lblChooseaCard"),
+                    sa.hasParam("Optional"),
+                    params
+            );
+
+            if (mutatingCard == null) {
+                return;
+            }
+        }
+
+        final Player p = mutatingCard.getOwner();
+
         // 111.11. A copy of a permanent spell becomes a token as it resolves.
         // The token has the characteristics of the spell that became that token.
         // The token is not “created” for the purposes of any replacement effects or triggered abilities that refer to creating a token.
-        if (host.isCopiedSpell()) {
-            host.setGamePieceType(GamePieceType.TOKEN);
+        if (mutatingCard.isCopiedSpell()) {
+            mutatingCard.setGamePieceType(GamePieceType.TOKEN);
         }
 
         final Card target = getDefinedCardsOrTargeted(sa, "Defined").get(0);
 
-        CardCollectionView view = CardCollection.getView(Lists.newArrayList(host, target));
-        final Card topCard = host.getController().getController().chooseSingleEntityForEffect(
+        CardCollectionView view = CardCollection.getView(Lists.newArrayList(mutatingCard, target));
+        final Player chooser = sa.hasParam("MutateFrom")
+                ? sa.getActivatingPlayer()
+                : mutatingCard.getController();
+        final Card topCard = chooser.getController().chooseSingleEntityForEffect(
                 view,
                 sa,
                 Localizer.getInstance().getMessage("lblChooseCreatureToBeTop"),
                 false,
                 new HashMap<>()
         );
-        final boolean putOnTop = (topCard == host);
+        final boolean putOnTop = (topCard == mutatingCard);
 
         // There shouldn't be any mutate abilities, but for now.
-        if (sa.isSpell()) {
-            host.setController(p, 0);
+        if (sa.isSpell() && mutatingCard == host) {
+            mutatingCard.setController(p, 0);
         }
 
         final boolean wasFaceDown = target.isFaceDown();
 
-        host.setMergedToCard(target);
+        mutatingCard.setMergedToCard(target);
         // If first time mutate, add target first.
         if (!target.hasMergedCard()) {
             target.addMergedCard(target);
         }
         if (putOnTop) {
-            target.addMergedCardToTop(host);
+            target.addMergedCardToTop(mutatingCard);
         } else {
-            target.addMergedCard(host);
+            target.addMergedCard(mutatingCard);
         }
 
         // First remove current mutated states
@@ -80,15 +118,15 @@ public class MutateEffect extends SpellAbilityEffect {
         game.getTriggerHandler().clearActiveTriggers(target, null);
         game.getTriggerHandler().registerActiveTrigger(target, false);
 
-        game.getAction().moveTo(p.getZone(ZoneType.Merged), host, sa);
+        game.getAction().moveTo(p.getZone(ZoneType.Merged), mutatingCard, sa);
 
-        host.setTapped(target.isTapped());
-        host.setFlipped(target.isFlipped());
+        mutatingCard.setTapped(target.isTapped());
+        mutatingCard.setFlipped(target.isFlipped());
         target.setTimesMutated(target.getTimesMutated() + 1);
         target.updateStateForView();
         target.updateTokenView();
-        if (host.isCommander()) {
-            host.getOwner().updateMergedCommanderInfo(target, host);
+        if (mutatingCard.isCommander()) {
+            mutatingCard.getOwner().updateMergedCommanderInfo(target, mutatingCard);
             target.updateCommanderView();
         }
 

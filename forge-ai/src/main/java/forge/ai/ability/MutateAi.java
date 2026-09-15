@@ -2,6 +2,7 @@ package forge.ai.ability;
 
 import forge.ai.*;
 import forge.game.card.Card;
+import forge.game.card.CardCollection;
 import forge.game.card.CardCollectionView;
 import forge.game.card.CardLists;
 import forge.game.card.CardPredicates;
@@ -9,6 +10,7 @@ import forge.game.keyword.Keyword;
 import forge.game.player.Player;
 import forge.game.player.PlayerActionConfirmMode;
 import forge.game.spellability.SpellAbility;
+import forge.game.zone.ZoneType;
 
 import java.util.Map;
 import java.util.function.Predicate;
@@ -16,16 +18,31 @@ import java.util.function.Predicate;
 public class MutateAi extends SpellAbilityAi {
     @Override
     protected AiAbilityDecision canPlay(Player aiPlayer, SpellAbility sa) {
+        if (sa.hasParam("MutateFrom")) {
+            final ZoneType zone = ZoneType.smartValueOf(sa.getParam("MutateFrom"));
+            final CardCollection sourceChoices = CardLists.getValidCards(
+                    aiPlayer.getCardsIn(zone),
+                    sa.getParamOrDefault("MutateValid", "Creature.YouOwn+nonHuman"),
+                    aiPlayer,
+                    sa.getHostCard(),
+                    sa
+            );
+
+            if (sourceChoices.isEmpty()) {
+                return new AiAbilityDecision(0, AiPlayDecision.CantPlayAi);
+            }
+        }
+
         CardCollectionView mutateTgts = CardLists.getTargetableCards(aiPlayer.getCreaturesInPlay(), sa);
         mutateTgts = ComputerUtil.getSafeTargets(aiPlayer, sa, mutateTgts);
 
         // Filter out some abilities that are useless
         // TODO: add other stuff useless for Mutate here
         mutateTgts = CardLists.filter(mutateTgts, Predicate.not(
-                CardPredicates.hasKeyword(Keyword.DEFENDER)
-                        .or(CardPredicates.hasKeyword("CARDNAME can't attack."))
-                        .or(CardPredicates.hasKeyword("CARDNAME can't block."))
-                        .or(card -> ComputerUtilCard.isUselessCreature(aiPlayer, card))
+                        CardPredicates.hasKeyword(Keyword.DEFENDER)
+                                .or(CardPredicates.hasKeyword("CARDNAME can't attack."))
+                                .or(CardPredicates.hasKeyword("CARDNAME can't block."))
+                                .or(card -> ComputerUtilCard.isUselessCreature(aiPlayer, card))
                 )
         );
 
@@ -43,6 +60,14 @@ public class MutateAi extends SpellAbilityAi {
 
     @Override
     protected Card chooseSingleCard(Player ai, SpellAbility sa, Iterable<Card> options, boolean isOptional, Player targetedPlayer, Map<String, Object> params) {
+        if (params != null && Boolean.TRUE.equals(params.get("MutateSource"))) {
+            CardCollection choices = new CardCollection();
+            for (Card c : options) {
+                choices.add(c);
+            }
+            return ComputerUtilCard.getBestCreatureAI(choices);
+        }
+
         // Decide which card goes on top here. Pretty rudimentary, feel free to improve.
         Card choice = null;
 
