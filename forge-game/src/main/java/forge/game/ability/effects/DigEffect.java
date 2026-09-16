@@ -426,7 +426,13 @@ public class DigEffect extends SpellAbilityEffect {
                     if (sa.hasParam("ExileFaceDown")) {
                         c.turnFaceDown(true);
                     }
-                    if (sa.hasParam("WithMayLook")) {
+                    if (sa.hasParam("Foretold")) {
+                        c.setForetold(true);
+                        if (sa.hasParam("ForetoldCost")) {
+                            c.setForetoldCostByEffect(true);
+                        }
+                    }
+                    if (sa.hasParam("WithMayLook") || sa.hasParam("Foretold")) {
                         c.addMayLookFaceDownExile(activator);
                     }
                     if (sa.hasParam("Imprint")) {
