@@ -483,6 +483,7 @@ Koth
 Liliana
 Lolth
 Lukka
+Mashera
 Minsc
 Mordenkainen
 Nahiri
