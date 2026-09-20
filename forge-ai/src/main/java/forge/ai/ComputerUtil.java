@@ -1451,6 +1451,9 @@ public class ComputerUtil {
                     }
 
                     final String affected = stAb.getParam("Affected");
+                    if (stAb.hasParam("AffectedDefined") || affected == null) {
+                        continue;
+                    }
                     if (affected.startsWith("Creature") && (affected.contains("YouCtrl") || !affected.contains("."))) {
                         return true;
                     }
@@ -1502,7 +1505,8 @@ public class ComputerUtil {
             for (final Card c : opp) {
                 for (StaticAbility stAb : c.getStaticAbilities()) {
                     if (stAb.checkMode(StaticAbilityMode.Continuous) && stAb.hasParam("AddKeyword")
-                            && stAb.getParam("AddKeyword").contains("Haste")) {
+                            && stAb.getParam("AddKeyword").contains("Haste")
+                            && !stAb.hasParam("AffectedDefined") && stAb.hasParam("Affected")) {
                         final ArrayList<String> affected = Lists.newArrayList(stAb.getParam("Affected").split(","));
                         if (affected.contains("Creature")) {
                             return true;
