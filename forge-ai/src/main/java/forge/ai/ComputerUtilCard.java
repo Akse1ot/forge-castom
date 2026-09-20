@@ -1607,10 +1607,17 @@ public class ComputerUtilCard {
             return true;
         }
 
-        // buff attacker/blocker using triggered pump (unless it's lethal and we don't want to be reckless)
+        // Buff attacker/blocker using triggered pump.
+        // Before attackers are declared, canAttack() is sufficient.
+        // Once attackers have been declared, only creatures actually attacking
+        // can still benefit as attackers in the current combat.
         if (immediately && phase.getPhase().isBefore(PhaseType.COMBAT_DECLARE_BLOCKERS) && !loseCardAtEOT) {
             if (phase.isPlayerTurn(ai)) {
-                if (CombatUtil.canAttack(c) || (phase.inCombat() && c.isAttacking())) {
+                if (phase.getPhase().isBefore(PhaseType.COMBAT_DECLARE_ATTACKERS)) {
+                    if (CombatUtil.canAttack(c)) {
+                        return true;
+                    }
+                } else if (combat != null && combat.isAttacking(c)) {
                     return true;
                 }
             } else if (CombatUtil.canBlock(c)) {

@@ -8,6 +8,7 @@ import forge.game.Game;
 import forge.game.ability.AbilityUtils;
 import forge.game.ability.ApiType;
 import forge.game.card.*;
+import forge.game.combat.Combat;
 import forge.game.combat.CombatUtil;
 import forge.game.cost.Cost;
 import forge.game.cost.CostTapType;
@@ -503,6 +504,39 @@ public class PumpAi extends PumpAiBase {
         if (!sa.isCurse()) {
             // Don't target cards that will die.
             list = ComputerUtil.getSafeTargets(ai, sa, list);
+        }
+
+        // Prefer creatures that are actually participating in the current combat
+        // for immediate generic power pumps. This prevents a triggered temporary
+        // pump from targeting a creature that entered after attackers were declared.
+        if (!sa.isCurse()
+                && immediately
+                && attack > 0
+                && defense == 0
+                && keywords.isEmpty()
+                && !sa.hasParam("AILogic")) {
+
+            final PhaseHandler ph = game.getPhaseHandler();
+            final Combat combat = game.getCombat();
+
+            if (combat != null
+                    && (ph.is(PhaseType.COMBAT_DECLARE_ATTACKERS)
+                    || ph.is(PhaseType.COMBAT_DECLARE_BLOCKERS))) {
+
+                final CardCollection combatants;
+
+                if (ph.isPlayerTurn(ai)) {
+                    combatants = CardLists.filter(list, combat::isAttacking);
+                } else {
+                    combatants = CardLists.filter(list, combat::isBlocking);
+                }
+
+                // Only narrow the target list when at least one relevant combatant
+                // is a legal target. Otherwise preserve the old fallback behavior.
+                if (!combatants.isEmpty()) {
+                    list = combatants;
+                }
+            }
         }
 
         if ("BetterCreatureThanSource".equals(sa.getParam("AILogic"))) {
