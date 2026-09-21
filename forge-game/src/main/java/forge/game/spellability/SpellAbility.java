@@ -208,6 +208,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
     private SpellAbilityRestriction restrictions;
     private SpellAbilityCondition conditions = new SpellAbilityCondition();
     private AbilitySub subAbility;
+    private SpellAbility textReplacementOriginalAbility;
 
     private Map<String, SpellAbility> additionalAbilities = Maps.newHashMap();
     private Map<String, List<AbilitySub>> additionalAbilityLists = Maps.newHashMap();
@@ -396,6 +397,56 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
             sub = sub.getSubAbility();
         }
         return null;
+    }
+
+    public boolean hasResolvingAbilityReplacement() {
+        return textReplacementOriginalAbility != null;
+    }
+
+    public void replaceResolvingAbility(final SpellAbility replacement) {
+        if (!isSpell()) {
+            throw new IllegalStateException("Only spells can have their resolving ability replaced.");
+        }
+        if (replacement == null || replacement.getApi() == null) {
+            throw new IllegalArgumentException("Replacement ability must have an API.");
+        }
+        if (replacement.usesTargeting()
+                || replacement.getSubAbility() != null
+                || !replacement.getAdditionalAbilities().isEmpty()
+                || !replacement.getAdditionalAbilityLists().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "ReplaceSpellAbility currently requires a single targetless API ability.");
+        }
+
+        if (textReplacementOriginalAbility == null) {
+            textReplacementOriginalAbility = copy(getHostCard(), getActivatingPlayer(), false, false);
+        }
+
+        api = replacement.getApi();
+
+        originalMapParams = Maps.newHashMap(replacement.getOriginalMapParams());
+        mapParams = Maps.newHashMap(replacement.getMapParams());
+
+        targetRestrictions = null;
+
+        conditions = replacement.getConditions() == null
+                ? new SpellAbilityCondition()
+                : (SpellAbilityCondition) replacement.getConditions().copy();
+        conditions.setConditions(mapParams);
+
+        subAbility = null;
+        additionalAbilities = Maps.newHashMap();
+        additionalAbilityLists = Maps.newHashMap();
+
+        final String replacementDescription = replacement.getOriginalDescription();
+        setDescription(replacementDescription);
+
+        final String replacementStackDescription = replacement.getOriginalStackDescription();
+        setStackDescription(StringUtils.isEmpty(replacementStackDescription)
+                ? replacementDescription
+                : replacementStackDescription);
+
+        view.updateDescription(this);
     }
 
     public boolean canThisProduce(final String s) {
@@ -1386,6 +1437,10 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
         return copy(host, activ, lki, false);
     }
     public SpellAbility copy(Card host, Player activ, final boolean lki, final boolean keepTextChanges) {
+        if (hasResolvingAbilityReplacement() && !lki && !keepTextChanges) {
+            return textReplacementOriginalAbility.copy(host, activ, false, false);
+        }
+
         SpellAbility clone = null;
         try {
             clone = (SpellAbility) clone();
@@ -1397,6 +1452,11 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
 
             // need CardState before View
             clone.view = new SpellAbilityView(clone, lki || host.getGame() == null ? null : host.getGame().getTracker());
+
+            if (textReplacementOriginalAbility != null) {
+                clone.textReplacementOriginalAbility =
+                        textReplacementOriginalAbility.copy(host, activ, false, false);
+            }
 
             // always set this to false, it is only set in CopyEffect
             clone.mayChooseNewTargets = false;
@@ -1437,6 +1497,8 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
             if (usesTargeting()) {
                 // the targets need to be cloned, otherwise they might be cleared
                 clone.targetChosen = getTargets().clone();
+            } else if (hasResolvingAbilityReplacement()) {
+                clone.targetChosen = new TargetChoices();
             }
 
             // clear maps for copy, the values will be added later
@@ -2704,6 +2766,16 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
     @Override
     public void changeText() {
         super.changeText();
+
+        if (hasResolvingAbilityReplacement()) {
+            stackDescription = AbilityUtils.applyDescriptionTextChangeEffects(originalStackDescription, this);
+            description = AbilityUtils.applyDescriptionTextChangeEffects(originalDescription, this);
+
+            if (conditions != null) {
+                conditions.setConditions(getMapParams());
+            }
+            return;
+        }
 
         if (targetRestrictions != null) {
             targetRestrictions.applyTargetTextChanges(this);

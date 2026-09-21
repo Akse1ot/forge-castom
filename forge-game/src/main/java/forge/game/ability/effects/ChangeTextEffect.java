@@ -9,6 +9,8 @@ import forge.card.CardType;
 import forge.card.ColorSet;
 import forge.card.MagicColor;
 import forge.game.Game;
+import forge.game.ability.AbilityFactory;
+import forge.game.spellability.SpellAbilityStackInstance;
 import forge.game.ability.SpellAbilityEffect;
 import forge.game.card.Card;
 import forge.game.event.GameEventCardStatsChanged;
@@ -25,6 +27,12 @@ public class ChangeTextEffect extends SpellAbilityEffect {
     public void resolve(final SpellAbility sa) {
         final Card source = sa.getHostCard();
         final Game game = source.getGame();
+
+        if (sa.hasParam("ReplaceSpellAbility")) {
+            replaceSpellAbility(sa, game);
+            return;
+        }
+
         final Long timestamp = game.getNextTimestamp();
         final boolean permanent = "Permanent".equals(sa.getParam("Duration"));
 
@@ -129,11 +137,61 @@ public class ChangeTextEffect extends SpellAbilityEffect {
         }
     }
 
+    private void replaceSpellAbility(final SpellAbility sa, final Game game) {
+        final String replacementSVar = sa.getParam("ReplaceSpellAbility");
+        final String replacementScript = sa.getSVar(replacementSVar);
+
+        if (replacementScript.isEmpty()) {
+            throw new IllegalArgumentException("ChangeText ReplaceSpellAbility references missing SVar: " + replacementSVar);
+        }
+
+        final long timestamp = game.getNextTimestamp();
+
+        for (final SpellAbility target : sa.getTargets().getTargetSpells()) {
+            final SpellAbilityStackInstance si = game.getStack().getInstanceMatchingSpellAbilityID(target);
+            if (si == null) {
+                continue;
+            }
+
+            final SpellAbility tgtSA = si.getSpellAbility();
+            final Card tgtCard = tgtSA.getHostCard();
+
+            final SpellAbility replacement = AbilityFactory.getAbility(replacementScript, tgtCard);
+            replacement.setActivatingPlayer(tgtSA.getActivatingPlayer());
+
+            tgtSA.replaceResolvingAbility(replacement);
+
+            tgtCard.addChangedCardTraitsByText(
+                    List.of(tgtSA), List.of(), List.of(), List.of(),
+                    timestamp, sa.getId());
+            tgtCard.addChangedCardKeywordsByText(
+                    List.of(), timestamp, sa.getId(), true);
+
+            game.fireEvent(new GameEventCardStatsChanged(tgtCard));
+            tgtCard.updateStateForView();
+        }
+
+        game.updateStackForView();
+    }
+
     /* (non-Javadoc)
      * @see forge.card.abilityfactory.SpellEffect#getStackDescription(java.util.Map, forge.card.spellability.SpellAbility)
      */
     @Override
     protected String getStackDescription(final SpellAbility sa) {
+
+        if (sa.hasParam("ReplaceSpellAbility")) {
+            final StringBuilder sb = new StringBuilder();
+            sb.append("Change the text of ");
+
+            for (final SpellAbility target : sa.getTargets().getTargetSpells()) {
+                sb.append(target.getHostCard()).append(" ");
+            }
+
+            sb.append("by replacing all text.");
+            return sb.toString();
+        }
+
         final String changedColorWordOriginal, changedColorWordNew;
         if (sa.hasParam("ChangeColorWord")) {
             final String[] changedColorWordsArray = sa.getParam("ChangeColorWord").split(" ");

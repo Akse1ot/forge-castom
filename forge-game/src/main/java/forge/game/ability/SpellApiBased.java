@@ -28,10 +28,10 @@ public class SpellApiBased extends Spell {
 
     @Override
     public String getStackDescription() {
-        // prefer set stack Description if able 
+        // prefer set stack Description if able
         final String result = super.getStackDescription();
         if (result.isEmpty()) {
-            return effect.getStackDescriptionWithSubs(mapParams, this);
+            return getApi().getSpellEffect().getStackDescriptionWithSubs(mapParams, this);
         }
         return result;
     }
@@ -41,7 +41,7 @@ public class SpellApiBased extends Spell {
      */
     @Override
     public void resolve() {
-        effect.resolve(this);
+        getApi().getSpellEffect().resolve(this);
         getActivatingPlayer().getAchievementTracker().onSpellResolve(this);
     }
 }
