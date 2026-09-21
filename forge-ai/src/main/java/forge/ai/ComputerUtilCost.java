@@ -699,6 +699,12 @@ public class ComputerUtilCost {
 
         val = ObjectUtils.min(val, abCost.getMaxForNonManaX(root, ai, effect));
 
+        if (!root.costHasManaX() && val != null && sa.hasParam("AIXMax")) {
+            root.setXManaCostPaid(val);
+            int calculated = AbilityUtils.calculateAmount(source, sa.getParam("AIXMax"), sa);
+            val = Math.min(val, calculated);
+        }
+
         if (val != null && val > 0) {
             // filter cost parts for preferences, don't choose X > than possible preferences
             for (final CostPart part : abCost.getCostParts()) {
