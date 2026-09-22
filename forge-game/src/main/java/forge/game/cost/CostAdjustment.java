@@ -388,6 +388,14 @@ public class CostAdjustment {
                 adjustCostBySwallow(
                         cost, sa, activator, test);
             }
+            if (sa.hasParam(
+                    CostPayment.PAY_GENERIC_WITH_RETURN)) {
+                adjustCostByPayGenericWithReturn(
+                        cost,
+                        sa,
+                        activator,
+                        test);
+            }
         }
 
         if (sa.isActivatedAbility()
@@ -678,6 +686,118 @@ public class CostAdjustment {
                 card.setUsedToPay(true);
                 sa.addSacrificedForSwallow(card);
             }
+        }
+    }
+
+    private static void adjustCostByPayGenericWithReturn(
+            final ManaCostBeingPaid cost,
+            final SpellAbility sa,
+            final Player payer,
+            final boolean test) {
+        if (!test) {
+            final CardCollection previous =
+                    sa.getPaidList(
+                            CostPayment.PAY_GENERIC_WITH_RETURN,
+                            true);
+
+            if (previous != null) {
+                for (final Card card : previous) {
+                    card.setUsedToPay(false);
+                    card.setReservedForZoneChangePayment(false);
+                }
+                previous.clear();
+            }
+        }
+
+        final int genericManaToPay =
+                cost.getUnpaidShards(
+                        ManaCostShard.GENERIC);
+
+        if (genericManaToPay <= 0) {
+            return;
+        }
+
+        CardCollection available =
+                CardLists.getValidCards(
+                        payer.getCardsIn(ZoneType.Battlefield),
+                        sa.getParam(
+                                        CostPayment.PAY_GENERIC_WITH_RETURN)
+                                .split(";"),
+                        payer,
+                        sa.getHostCard(),
+                        sa);
+
+        available = CardLists.filter(
+                available,
+                card -> !card.isUsedToPay()
+                        && !card.isReservedForZoneChangePayment());
+
+        if (available.isEmpty()) {
+            return;
+        }
+
+        final int maxCards =
+                Math.min(
+                        genericManaToPay,
+                        available.size());
+
+        if (test) {
+            if (payer.getController().isAI()) {
+                final CardCollectionView selected =
+                        payer.getController()
+                                .chooseCardsToPayGenericWithReturn(
+                                        sa,
+                                        cost.toManaCost(),
+                                        available,
+                                        maxCards);
+
+                if (selected != null) {
+                    cost.decreaseGenericMana(
+                            Math.min(
+                                    maxCards,
+                                    selected.size()));
+                }
+            } else {
+                cost.decreaseGenericMana(maxCards);
+            }
+            return;
+        }
+
+        final CardCollectionView selected =
+                payer.getController()
+                        .chooseCardsToPayGenericWithReturn(
+                                sa,
+                                cost.toManaCost(),
+                                available,
+                                maxCards);
+
+        if (selected == null || selected.isEmpty()) {
+            return;
+        }
+
+        int cardsUsed = 0;
+
+        for (final Card card : selected) {
+            if (cardsUsed >= maxCards) {
+                break;
+            }
+
+            if (!available.contains(card)
+                    || card.isUsedToPay()
+                    || card.isReservedForZoneChangePayment()) {
+                continue;
+            }
+
+            card.setUsedToPay(true);
+            card.setReservedForZoneChangePayment(true);
+
+            sa.addCostToHashList(
+                    card,
+                    CostPayment.PAY_GENERIC_WITH_RETURN,
+                    true);
+
+            cost.decreaseGenericMana(1);
+            cardsUsed++;
         }
     }
 

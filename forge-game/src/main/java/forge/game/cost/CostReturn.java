@@ -61,6 +61,7 @@ public class CostReturn extends CostPartWithList {
 
         CardCollectionView typeList = payer.getCardsIn(ZoneType.Battlefield);
         typeList = CardLists.getValidCards(typeList, getType().split(";"), payer, source, ability);
+        typeList = CardLists.filter(typeList, card -> card.canBeUsedToPayZoneChangeCost(ability));
 
         return typeList.size();
     }
@@ -108,7 +109,7 @@ public class CostReturn extends CostPartWithList {
     public final boolean canPay(final SpellAbility ability, final Player payer, final boolean effect) {
         final Card source = ability.getHostCard();
         if (payCostFromSource()) {
-            return source.isInPlay();
+            return source.isInPlay() && source.canBeUsedToPayZoneChangeCost(ability);
         }
 
         return getMaxAmountX(ability, payer, effect) >= getAbilityAmount(ability);

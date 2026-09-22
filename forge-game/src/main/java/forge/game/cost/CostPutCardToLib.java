@@ -135,10 +135,15 @@ public class CostPutCardToLib extends CostPartWithList {
         }
 
         if (this.payCostFromSource()) {
-            return typeList.contains(source);
+            return typeList.contains(source)
+                    && source.canBeUsedToPayZoneChangeCost(ability);
         }
 
         typeList = CardLists.getValidCards(typeList, getType().split(";"), payer, source, ability);
+
+        typeList = CardLists.filter(
+                typeList,
+                card -> card.canBeUsedToPayZoneChangeCost(ability));
 
         if (typeList.size() < i) {
             return false;

@@ -48,6 +48,7 @@ import java.util.Map;
  */
 public class CostPayment extends ManaConversionMatrix {
     static final String COALESCE_PAYMENT = "Coalesce";
+    public static final String PAY_GENERIC_WITH_RETURN = "PayGenericWithReturn";
 
     private final Cost cost;
     private Cost adjustedCost;
@@ -95,6 +96,95 @@ public class CostPayment extends ManaConversionMatrix {
         }
 
         coalesced.clear();
+    }
+
+    private void releasePayGenericWithReturn() {
+        final CardCollection selected =
+                ability.getPaidList(
+                        PAY_GENERIC_WITH_RETURN,
+                        true);
+
+        if (selected == null || selected.isEmpty()) {
+            return;
+        }
+
+        for (final Card card : selected) {
+            card.setUsedToPay(false);
+            card.setReservedForZoneChangePayment(false);
+        }
+
+        selected.clear();
+    }
+
+    private boolean commitPayGenericWithReturn() {
+        final CardCollection paid =
+                ability.getPaidList(
+                        PAY_GENERIC_WITH_RETURN,
+                        true);
+
+        if (paid == null || paid.isEmpty()) {
+            return true;
+        }
+
+        final Game game =
+                ability.getHostCard().getGame();
+
+        final CardCollection selected =
+                new CardCollection(paid);
+        final CardCollection current =
+                new CardCollection();
+
+        for (final Card card : selected) {
+            final Card gameCard =
+                    game.getCardState(card, null);
+
+            if (gameCard == null
+                    || !card.equalsWithGameTimestamp(gameCard)
+                    || !gameCard.isInZone(ZoneType.Battlefield)) {
+                return false;
+            }
+
+            current.add(gameCard);
+        }
+
+        final CardZoneTable table =
+                new CardZoneTable(
+                        game.getLastStateBattlefield(),
+                        game.getLastStateGraveyard());
+
+        final Map<AbilityKey, Object> params =
+                AbilityKey.newMap();
+        AbilityKey.addCardZoneTableParams(
+                params,
+                table);
+
+        for (int i = 0; i < current.size(); i++) {
+            final Card selectedCard =
+                    selected.get(i);
+            final Card gameCard =
+                    current.get(i);
+
+            selectedCard.setUsedToPay(false);
+            selectedCard.setReservedForZoneChangePayment(false);
+
+            gameCard.setUsedToPay(false);
+            gameCard.setReservedForZoneChangePayment(false);
+
+            game.getAction().moveToHand(
+                    gameCard,
+                    null,
+                    params);
+        }
+
+        paid.clear();
+
+        if (!table.isEmpty()) {
+            table.triggerChangesZoneAll(
+                    game,
+                    ability);
+        }
+
+        return true;
     }
 
     /**
@@ -180,51 +270,88 @@ public class CostPayment extends ManaConversionMatrix {
             }
         }
 
+        releasePayGenericWithReturn();
+
         new ManaRefundService(this.ability).refundManaPaid();
     }
 
-    public boolean payCost(final CostDecisionMakerBase decisionMaker) {
-        adjustedCost = CostAdjustment.adjust(cost, ability, decisionMaker.isEffect());
-        List<CostPart> costParts = adjustedCost.getCostPartsWithZeroMana();
+    public boolean payCost(
+            final CostDecisionMakerBase decisionMaker) {
+        adjustedCost =
+                CostAdjustment.adjust(
+                        cost,
+                        ability,
+                        decisionMaker.isEffect());
+
+        List<CostPart> costParts =
+                adjustedCost.getCostPartsWithZeroMana();
 
         if (adjustedCost.getCostParts().size() > 1) {
-            // if mana part is shown here it wouldn't include reductions, but that's just a minor inconvenience
-            costParts = decisionMaker.getPlayer().getController().orderCosts(costParts);
+            // if mana part is shown here it wouldn't include reductions,
+            // but that's just a minor inconvenience
+            costParts =
+                    decisionMaker.getPlayer()
+                            .getController()
+                            .orderCosts(costParts);
         }
 
-        final Game game = decisionMaker.getPlayer().getGame();
+        final Game game =
+                decisionMaker.getPlayer().getGame();
 
-        for (final CostPart part : costParts) {
-            // Wrap the cost and push onto the cost stack
-            try {
-                game.costPaymentStack.push(part, this);
+        boolean success = false;
 
-                PaymentDecision pd = part.accept(decisionMaker);
+        try {
+            for (final CostPart part : costParts) {
+                try {
+                    // Wrap the cost and push onto the cost stack
+                    game.costPaymentStack.push(
+                            part,
+                            this);
 
-                // Right before we start paying as decided, we need to transfer the CostPayments matrix over?
-                if (pd != null) {
-                    pd.matrix = this;
+                    PaymentDecision pd =
+                            part.accept(decisionMaker);
+
+                    // Right before we start paying as decided, we need to transfer the CostPayments matrix over?
+                    if (pd != null) {
+                        pd.matrix = this;
+                    }
+
+                    if (pd == null
+                            || !part.payAsDecided(
+                            decisionMaker.getPlayer(),
+                            pd,
+                            ability,
+                            decisionMaker.isEffect())) {
+                        return false;
+                    }
+
+                    this.paidCostParts.add(part);
+                } finally {
+                    game.costPaymentStack.pop(); // cost is resolved
                 }
+            }
 
-                if (pd == null || !part.payAsDecided(decisionMaker.getPlayer(), pd, ability, decisionMaker.isEffect())) {
-                    return false;
+            if (!commitPayGenericWithReturn()) {
+                return false;
+            }
+
+            // clear lists used for undo
+            for (final CostPart part
+                    : this.paidCostParts) {
+                if (part instanceof CostPartWithList listCost) {
+                    listCost.resetLists();
+                } else if (part instanceof CostOr orCost) {
+                    orCost.resetNestedLists();
                 }
-                this.paidCostParts.add(part);
-            } finally {
-                game.costPaymentStack.pop(); // cost is resolved
+            }
+
+            success = true;
+            return true;
+        } finally {
+            if (!success) {
+                releasePayGenericWithReturn();
             }
         }
-
-        // clear lists used for undo
-        for (final CostPart part : this.paidCostParts) {
-            if (part instanceof CostPartWithList listCost) {
-                listCost.resetLists();
-            } else if (part instanceof CostOr orCost) {
-                orCost.resetNestedLists();
-            }
-        }
-
-        return true;
     }
 
     public final boolean payComputerCosts(final CostDecisionMakerBase decisionMaker) {
@@ -234,76 +361,189 @@ public class CostPayment extends ManaConversionMatrix {
             this.ability.setActivatingPlayer(decisionMaker.getPlayer());
         }
 
-        Map<CostPart, PaymentDecision> decisions = Maps.newHashMap();
+        final Map<CostPart, PaymentDecision> decisions = Maps.newHashMap();
         // for Trinisphere make sure to include Zero
-        List<CostPart> parts = CostAdjustment.adjust(cost, ability, decisionMaker.isEffect()).getCostPartsWithZeroMana();
+        final List<CostPart> parts = CostAdjustment.adjust(
+                cost,
+                ability,
+                decisionMaker.isEffect()
+        ).getCostPartsWithZeroMana();
 
         // Set all of the decisions before attempting to pay anything
-
         final Game game = decisionMaker.getPlayer().getGame();
 
-        for (final CostPart part : parts) {
-            PaymentDecision decision = part.accept(decisionMaker);
-            if (null == decision) return false;
-
-            decision.matrix = this;
-
-            try {
-                // wrap the payment and push onto the cost stack
-                game.costPaymentStack.push(part, this);
-                if (decisionMaker.paysRightAfterDecision() && !part.payAsDecided(decisionMaker.getPlayer(), decision, ability, decisionMaker.isEffect())) {
-                    return false;
-                }
-            } finally {
-                game.costPaymentStack.pop(); // cost is either paid or deferred
-            }
-            decisions.put(part, decision);
-        }
-
-        final Map<Card, Boolean> swallowReservedSacrifices =
-                new IdentityHashMap<>();
-
-        if (ability.getHostCard().hasKeyword(Keyword.SWALLOW)
-                || (ability.isActivatedAbility()
-                && ability.getHostCard().hasKeyword(Keyword.ABYSSAL))) {
-            for (final CostPart part : parts) {
-                reserveSacrificeForSwallow(
-                        part,
-                        decisions.get(part),
-                        swallowReservedSacrifices);
-            }
-        }
+        boolean success = false;
 
         try {
-            for (final CostPart part : parts) {
-                // wrap the payment and push onto the cost stack
-                try {
-                    game.costPaymentStack.push(part, this);
+            final Map<Card, Boolean> decisionZoneReservations =
+                    new IdentityHashMap<>();
 
-                    if (!part.payAsDecided(
-                            decisionMaker.getPlayer(),
-                            decisions.get(part),
-                            this.ability,
-                            decisionMaker.isEffect())) {
+            try {
+                for (final CostPart part : parts) {
+                    final PaymentDecision decision =
+                            part.accept(decisionMaker);
+
+                    if (decision == null) {
                         return false;
                     }
 
-                    // abilities care what was used to pay for them
-                    if (part instanceof CostPartWithList) {
-                        ((CostPartWithList) part).resetLists();
-                    } else if (part instanceof CostOr) {
-                        ((CostOr) part).resetNestedLists();
+                    decision.matrix = this;
+
+                    try {
+                        // wrap the payment and push onto the cost stack
+                        game.costPaymentStack.push(part, this);
+
+                        if (decisionMaker.paysRightAfterDecision()
+                                && !part.payAsDecided(
+                                decisionMaker.getPlayer(),
+                                decision,
+                                ability,
+                                decisionMaker.isEffect())) {
+                            return false;
+                        }
+                    } finally {
+                        game.costPaymentStack.pop(); // cost is either paid or deferred
                     }
-                } finally {
-                    game.costPaymentStack.pop(); // cost is resolved
+
+                    decisions.put(part, decision);
+
+                    if (ability.hasParam(PAY_GENERIC_WITH_RETURN)
+                            && !decisionMaker.paysRightAfterDecision()) {
+                        reserveDecisionZoneChangeForPayGenericWithReturn(
+                                part,
+                                decision,
+                                decisionZoneReservations);
+                    }
+                }
+            } finally {
+                for (final Map.Entry<Card, Boolean> entry
+                        : decisionZoneReservations.entrySet()) {
+                    entry.getKey().setReservedForZoneChangePayment(
+                            entry.getValue());
                 }
             }
-            return true;
-        } finally {
-            for (final Map.Entry<Card, Boolean> entry
-                    : swallowReservedSacrifices.entrySet()) {
-                entry.getKey().setUsedToPay(entry.getValue());
+
+            final Map<Card, Boolean> reservedUsedToPay =
+                    new IdentityHashMap<>();
+
+            if (ability.getHostCard().hasKeyword(Keyword.SWALLOW)
+                    || (ability.isActivatedAbility()
+                    && ability.getHostCard().hasKeyword(Keyword.ABYSSAL))) {
+                for (final CostPart part : parts) {
+                    reserveSacrificeForSwallow(
+                            part,
+                            decisions.get(part),
+                            reservedUsedToPay);
+                }
             }
+
+            if (ability.hasParam(PAY_GENERIC_WITH_RETURN)) {
+                for (final CostPart part : parts) {
+                    reserveZoneChangeForPayGenericWithReturn(
+                            part,
+                            decisions.get(part),
+                            reservedUsedToPay);
+                }
+            }
+
+            try {
+                for (final CostPart part : parts) {
+                    // wrap the payment and push onto the cost stack
+                    try {
+                        game.costPaymentStack.push(part, this);
+
+                        if (!part.payAsDecided(
+                                decisionMaker.getPlayer(),
+                                decisions.get(part),
+                                this.ability,
+                                decisionMaker.isEffect())) {
+                            return false;
+                        }
+
+                        // abilities care what was used to pay for them
+                        if (part instanceof CostPartWithList) {
+                            ((CostPartWithList) part).resetLists();
+                        } else if (part instanceof CostOr) {
+                            ((CostOr) part).resetNestedLists();
+                        }
+                    } finally {
+                        game.costPaymentStack.pop(); // cost is resolved
+                    }
+                }
+
+                if (!commitPayGenericWithReturn()) {
+                    return false;
+                }
+
+                success = true;
+                return true;
+            } finally {
+                for (final Map.Entry<Card, Boolean> entry
+                        : reservedUsedToPay.entrySet()) {
+                    entry.getKey().setUsedToPay(entry.getValue());
+                }
+            }
+        } finally {
+            if (!success) {
+                releasePayGenericWithReturn();
+            }
+        }
+    }
+
+    private static void reserveDecisionZoneChangeForPayGenericWithReturn(
+            final CostPart part,
+            final PaymentDecision decision,
+            final Map<Card, Boolean> previousReservationState) {
+        if (decision == null) {
+            return;
+        }
+
+        if (part instanceof CostSacrifice
+                || part instanceof CostReturn
+                || part instanceof CostExile
+                || part instanceof CostPutCardToLib) {
+            for (final Card card : decision.cards) {
+                if (card == null || !card.isInPlay()) {
+                    continue;
+                }
+
+                previousReservationState.putIfAbsent(
+                        card,
+                        card.isReservedForZoneChangePayment());
+
+                card.setReservedForZoneChangePayment(true);
+            }
+            return;
+        }
+
+        if (!(part instanceof CostOr orCost)
+                || decision.nested == null
+                || decision.type == null) {
+            return;
+        }
+
+        final Cost chosenCost;
+
+        if ("Left".equals(decision.type)) {
+            chosenCost = orCost.getLeftCost();
+        } else if ("Right".equals(decision.type)) {
+            chosenCost = orCost.getRightCost();
+        } else {
+            return;
+        }
+
+        final List<CostPart> nestedParts =
+                chosenCost.getCostPartsWithZeroMana();
+
+        if (nestedParts.size() != decision.nested.size()) {
+            return;
+        }
+
+        for (int i = 0; i < nestedParts.size(); i++) {
+            reserveDecisionZoneChangeForPayGenericWithReturn(
+                    nestedParts.get(i),
+                    decision.nested.get(i),
+                    previousReservationState);
         }
     }
 
@@ -355,6 +595,75 @@ public class CostPayment extends ManaConversionMatrix {
     }
 
     private static void reserveCardForSwallow(
+            final Card card,
+            final Map<Card, Boolean> previousUsedState) {
+        if (card == null || !card.isInPlay()) {
+            return;
+        }
+
+        if (!previousUsedState.containsKey(card)) {
+            previousUsedState.put(
+                    card,
+                    card.isUsedToPay());
+        }
+
+        card.setUsedToPay(true);
+    }
+
+    private static void reserveZoneChangeForPayGenericWithReturn(
+            final CostPart part,
+            final PaymentDecision decision,
+            final Map<Card, Boolean> previousUsedState) {
+        if (decision == null) {
+            return;
+        }
+
+        if (part instanceof CostSacrifice
+                || part instanceof CostReturn
+                || part instanceof CostExile
+                || part instanceof CostPutCardToLib) {
+            if (decision.cards != null) {
+                for (final Card card : decision.cards) {
+                    reserveCardForPayGenericWithReturn(
+                            card,
+                            previousUsedState);
+                }
+            }
+            return;
+        }
+
+        if (!(part instanceof CostOr orCost)
+                || decision.nested == null
+                || decision.type == null) {
+            return;
+        }
+
+        final Cost chosenCost;
+
+        if ("Left".equals(decision.type)) {
+            chosenCost = orCost.getLeftCost();
+        } else if ("Right".equals(decision.type)) {
+            chosenCost = orCost.getRightCost();
+        } else {
+            return;
+        }
+
+        final List<CostPart> nestedParts =
+                chosenCost.getCostPartsWithZeroMana();
+
+        if (nestedParts.size() != decision.nested.size()) {
+            return;
+        }
+
+        for (int i = 0; i < nestedParts.size(); i++) {
+            reserveZoneChangeForPayGenericWithReturn(
+                    nestedParts.get(i),
+                    decision.nested.get(i),
+                    previousUsedState);
+        }
+    }
+
+    private static void reserveCardForPayGenericWithReturn(
             final Card card,
             final Map<Card, Boolean> previousUsedState) {
         if (card == null || !card.isInPlay()) {

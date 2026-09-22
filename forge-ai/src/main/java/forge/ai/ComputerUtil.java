@@ -675,6 +675,10 @@ public class ComputerUtil {
             final Card target, final int amount, SpellAbility sa) {
         CardCollection typeList = CardLists.getValidCards(ai.getCardsIn(zone), type.split(";"), activate.getController(), activate, sa);
 
+        typeList = CardLists.filter(
+                typeList,
+                card -> card.canBeUsedToPayZoneChangeCost(sa));
+
         // don't move the card we're pumping
         typeList = ComputerUtilCost.paymentChoicesWithoutTargets(typeList, sa, ai);
 
@@ -790,6 +794,10 @@ public class ComputerUtil {
 
     public static CardCollection chooseReturnType(final Player ai, final String type, final Card activate, final Card target, final int amount, SpellAbility sa) {
         CardCollection typeList = CardLists.getValidCards(ai.getCardsIn(ZoneType.Battlefield), type.split(";"), activate.getController(), activate, sa);
+
+        typeList = CardLists.filter(
+                typeList,
+                card -> card.canBeUsedToPayZoneChangeCost(sa));
 
         // don't bounce the card we're pumping
         // TODO unless it can be used as a save

@@ -30,16 +30,94 @@ public class AiCostDecision extends CostDecisionMakerBase {
     private final CardCollection discarded;
     private final CardCollection tapped;
 
+    private static void reserveZoneChangeDecision(
+            final CostPart part,
+            final PaymentDecision decision,
+            final Map<Card, Boolean> previousReservationState) {
+        if (decision == null) {
+            return;
+        }
+
+        if (part instanceof CostSacrifice
+                || part instanceof CostReturn
+                || part instanceof CostExile
+                || part instanceof CostPutCardToLib) {
+            for (final Card card : decision.cards) {
+                if (card == null || !card.isInPlay()) {
+                    continue;
+                }
+
+                previousReservationState.putIfAbsent(
+                        card,
+                        card.isReservedForZoneChangePayment());
+
+                card.setReservedForZoneChangePayment(true);
+            }
+            return;
+        }
+
+        if (!(part instanceof CostOr orCost)
+                || decision.nested == null
+                || decision.type == null) {
+            return;
+        }
+
+        final Cost chosenCost;
+
+        if ("Left".equals(decision.type)) {
+            chosenCost = orCost.getLeftCost();
+        } else if ("Right".equals(decision.type)) {
+            chosenCost = orCost.getRightCost();
+        } else {
+            return;
+        }
+
+        final List<CostPart> nestedParts =
+                chosenCost.getCostPartsWithZeroMana();
+
+        if (nestedParts.size() != decision.nested.size()) {
+            return;
+        }
+
+        for (int i = 0; i < nestedParts.size(); i++) {
+            reserveZoneChangeDecision(
+                    nestedParts.get(i),
+                    decision.nested.get(i),
+                    previousReservationState);
+        }
+    }
+
     private List<PaymentDecision> collectNestedDecisions(final Cost cost) {
         final List<PaymentDecision> nested = new ArrayList<>();
-        for (final CostPart part : cost.getCostParts()) {
-            final PaymentDecision pd = part.accept(this);
-            if (pd == null) {
-                return null;
+        final Map<Card, Boolean> previousReservationState =
+                new IdentityHashMap<>();
+
+        try {
+            for (final CostPart part : cost.getCostParts()) {
+                final PaymentDecision pd = part.accept(this);
+                if (pd == null) {
+                    return null;
+                }
+
+                nested.add(pd);
+
+                if (ability.hasParam(
+                        CostPayment.PAY_GENERIC_WITH_RETURN)) {
+                    reserveZoneChangeDecision(
+                            part,
+                            pd,
+                            previousReservationState);
+                }
             }
-            nested.add(pd);
+
+            return nested;
+        } finally {
+            for (final Map.Entry<Card, Boolean> entry
+                    : previousReservationState.entrySet()) {
+                entry.getKey().setReservedForZoneChangePayment(
+                        entry.getValue());
+            }
         }
-        return nested;
     }
 
     @Override
@@ -269,11 +347,22 @@ public class AiCostDecision extends CostDecisionMakerBase {
     public PaymentDecision visit(CostExile cost) {
         String type = cost.getType();
         if (cost.payCostFromSource()) {
-            return PaymentDecision.card(source);
+            return source.canExiledBy(ability, isEffect())
+                    ? PaymentDecision.card(source)
+                    : null;
         }
 
         if (type.equals("All")) {
-            return PaymentDecision.card(player.getCardsIn(cost.getFrom()));
+            CardCollection cards =
+                    new CardCollection(
+                            player.getCardsIn(cost.getFrom()));
+
+            if (!cards.allMatch(
+                    card -> card.canBeUsedToPayZoneChangeCost(ability))) {
+                return null;
+            }
+
+            return PaymentDecision.card(cards);
         } else if (type.contains("FromTopGrave")) {
             return null;
         } else if (type.contains("+withTotalCMCGE")) {
@@ -281,6 +370,11 @@ public class AiCostDecision extends CostDecisionMakerBase {
             int amount = AbilityUtils.calculateAmount(source, strAmount, ability);
             String typeCleaned = TextUtil.fastReplace(type, TextUtil.concatNoSpace("+withTotalCMCGE", strAmount), "");
             CardCollection valid = CardLists.getValidCards(player.getGame().getCardsIn(cost.getFrom().get(0)), typeCleaned, player, source, ability);
+
+            valid = CardLists.filter(
+                    valid,
+                    CardPredicates.canExiledBy(ability, isEffect()));
+
             CardCollection chosen = new CardCollection();
 
             valid.sort(CardLists.CmcComparator);
@@ -475,7 +569,9 @@ public class AiCostDecision extends CostDecisionMakerBase {
     @Override
     public PaymentDecision visit(CostPutCardToLib cost) {
         if (cost.payCostFromSource()) {
-            return PaymentDecision.card(source);
+            return source.canBeUsedToPayZoneChangeCost(ability)
+                    ? PaymentDecision.card(source)
+                    : null;
         }
         final Game game = player.getGame();
         CardCollection chosen = new CardCollection();
@@ -490,6 +586,10 @@ public class AiCostDecision extends CostDecisionMakerBase {
         int c = cost.getAbilityAmount(ability);
 
         list = CardLists.getValidCards(list, cost.getType().split(";"), player, source, ability);
+
+        list = CardLists.filter(
+                list,
+                card -> card.canBeUsedToPayZoneChangeCost(ability));
 
         if (cost.isSameZone()) {
             // Jötun Grunt
@@ -572,10 +672,22 @@ public class AiCostDecision extends CostDecisionMakerBase {
     @Override
     public PaymentDecision visit(CostSacrifice cost) {
         if (cost.payCostFromSource()) {
-            return PaymentDecision.card(source);
+            return source.canBeSacrificedBy(
+                    ability,
+                    isEffect())
+                    ? PaymentDecision.card(source)
+                    : null;
         }
         if (cost.getType().equals("OriginalHost")) {
-            return PaymentDecision.card(ability.getOriginalHost());
+            final Card originalHost =
+                    ability.getOriginalHost();
+
+            return originalHost != null
+                    && originalHost.canBeSacrificedBy(
+                    ability,
+                    isEffect())
+                    ? PaymentDecision.card(originalHost)
+                    : null;
         }
         if (cost.getAmount().equals("All")) {
             // Does the AI want to use Sacrifice All?
@@ -591,13 +703,25 @@ public class AiCostDecision extends CostDecisionMakerBase {
 
     @Override
     public PaymentDecision visit(CostReturn cost) {
-        if (cost.payCostFromSource())
-            return PaymentDecision.card(source);
+        if (cost.payCostFromSource()) {
+            return source.canBeUsedToPayZoneChangeCost(ability)
+                    ? PaymentDecision.card(source)
+                    : null;
+        }
 
         int c = cost.getAbilityAmount(ability);
 
-        CardCollectionView res = ComputerUtil.chooseReturnType(player, cost.getType(), source, ability.getTargetCard(), c, ability);
-        return res.isEmpty() ? null : PaymentDecision.card(res);
+        CardCollectionView res = ComputerUtil.chooseReturnType(
+                player,
+                cost.getType(),
+                source,
+                ability.getTargetCard(),
+                c,
+                ability);
+
+        return res.isEmpty()
+                ? null
+                : PaymentDecision.card(res);
     }
 
     @Override

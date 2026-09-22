@@ -910,6 +910,17 @@ public class CardFactoryUtil {
             conspireTrigger.setSVar("Conspire", "Count$OptionalKeywordAmount");
 
             inst.addTrigger(conspireTrigger);
+        } else if (keyword.equals("Corrupt")) {
+            final String trigStr = "Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard"
+                    + " | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Secondary$ True"
+                    + " | TriggerDescription$ Corrupt (" + inst.getReminderText() + ")";
+
+            final String effect = "DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1";
+
+            final Trigger trigger = TriggerHandler.parseTrigger(trigStr, card, intrinsic);
+            trigger.setOverridingAbility(AbilityFactory.getAbility(effect, card));
+
+            inst.addTrigger(trigger);
         } else if (keyword.startsWith("Cumulative upkeep")) {
             final String[] k = keyword.split(":");
             final Cost cost = new Cost(k[1], false);

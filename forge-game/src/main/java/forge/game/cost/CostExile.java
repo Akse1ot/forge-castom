@@ -176,7 +176,13 @@ public class CostExile extends CostPartWithList {
 
         String type = this.getType();
         if (type.equals("All")) {
-            return true; // this will always work
+            CardCollectionView allCards;
+            if (zoneRestriction != 1) {
+                allCards = game.getCardsIn(this.from);
+            } else {
+                allCards = payer.getCardsIn(this.from);
+            }
+            return allCards.allMatch(card -> card.canBeUsedToPayZoneChangeCost(ability));
         }
         else if (type.contains("FromTopGrave")) {
             type = TextUtil.fastReplace(type, "FromTopGrave", "");

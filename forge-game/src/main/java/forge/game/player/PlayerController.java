@@ -249,6 +249,26 @@ public abstract class PlayerController {
             final CardCollectionView creatures) {
         return Map.of();
     }
+
+    public CardCollectionView chooseCardsToPayGenericWithReturn(
+            final SpellAbility sa,
+            final ManaCost manaCost,
+            final CardCollectionView validCards,
+            final int maxCards) {
+        if (maxCards <= 0 || validCards.isEmpty()) {
+            return CardCollection.EMPTY;
+        }
+
+        return chooseCardsForEffect(
+                validCards,
+                sa,
+                "Choose permanents to return to their owners' hands to pay {1} each",
+                0,
+                Math.min(maxCards, validCards.size()),
+                true,
+                null);
+    }
+
     public abstract List<Card> chooseCardsForSplice(SpellAbility sa, List<Card> cards);
 
     public abstract CardCollectionView chooseCardsToRevealFromHand(int min, int max, CardCollectionView valid);

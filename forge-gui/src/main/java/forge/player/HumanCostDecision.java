@@ -30,6 +30,63 @@ public class HumanCostDecision extends CostDecisionMakerBase {
     private final String orString;
     private boolean mandatory;
 
+    private static void reserveZoneChangeDecision(
+            final CostPart part,
+            final PaymentDecision decision,
+            final Map<Card, Boolean> previousReservationState) {
+        if (decision == null) {
+            return;
+        }
+
+        if (part instanceof CostSacrifice
+                || part instanceof CostReturn
+                || part instanceof CostExile
+                || part instanceof CostPutCardToLib) {
+            for (final Card card : decision.cards) {
+                if (card == null || !card.isInPlay()) {
+                    continue;
+                }
+
+                previousReservationState.putIfAbsent(
+                        card,
+                        card.isReservedForZoneChangePayment());
+
+                card.setReservedForZoneChangePayment(true);
+            }
+            return;
+        }
+
+        if (!(part instanceof CostOr orCost)
+                || decision.nested == null
+                || decision.type == null) {
+            return;
+        }
+
+        final Cost chosenCost;
+
+        if ("Left".equals(decision.type)) {
+            chosenCost = orCost.getLeftCost();
+        } else if ("Right".equals(decision.type)) {
+            chosenCost = orCost.getRightCost();
+        } else {
+            return;
+        }
+
+        final List<CostPart> nestedParts =
+                chosenCost.getCostPartsWithZeroMana();
+
+        if (nestedParts.size() != decision.nested.size()) {
+            return;
+        }
+
+        for (int i = 0; i < nestedParts.size(); i++) {
+            reserveZoneChangeDecision(
+                    nestedParts.get(i),
+                    decision.nested.get(i),
+                    previousReservationState);
+        }
+    }
+
     public HumanCostDecision(final PlayerControllerHuman controller, final Player p, final SpellAbility sa, final boolean effect, String prompt) {
         super(p, effect, sa, sa.getHostCard());
         this.controller = controller;
@@ -73,16 +130,42 @@ public class HumanCostDecision extends CostDecisionMakerBase {
             }
         }
 
-        final List<PaymentDecision> nested = new ArrayList<>();
-        for (final CostPart part : chosenCost.getCostParts()) {
-            final PaymentDecision pd = part.accept(this);
-            if (pd == null) {
-                return null;
-            }
-            nested.add(pd);
-        }
+        final List<PaymentDecision> nested =
+                new ArrayList<>();
+        final Map<Card, Boolean> previousReservationState =
+                new IdentityHashMap<>();
 
-        return PaymentDecision.orBranch(chosenBranch, nested);
+        try {
+            for (final CostPart part
+                    : chosenCost.getCostParts()) {
+                final PaymentDecision pd =
+                        part.accept(this);
+
+                if (pd == null) {
+                    return null;
+                }
+
+                nested.add(pd);
+
+                if (ability.hasParam(
+                        CostPayment.PAY_GENERIC_WITH_RETURN)) {
+                    reserveZoneChangeDecision(
+                            part,
+                            pd,
+                            previousReservationState);
+                }
+            }
+
+            return PaymentDecision.orBranch(
+                    chosenBranch,
+                    nested);
+        } finally {
+            for (final Map.Entry<Card, Boolean> entry
+                    : previousReservationState.entrySet()) {
+                entry.getKey().setReservedForZoneChangePayment(
+                        entry.getValue());
+            }
+        }
     }
 
     @Override
@@ -370,7 +453,15 @@ public class HumanCostDecision extends CostDecisionMakerBase {
         }
 
         if (type.equals("All")) {
-            if (confirmAction(cost, Localizer.getInstance().getMessage("lblExileNCardsFromYourZone", list.size(), cost.from.get(0).getTranslatedName()))) {
+            if (!list.allMatch(card -> card.canBeUsedToPayZoneChangeCost(ability))) {
+                return null;
+            }
+            if (confirmAction(
+                    cost,
+                    Localizer.getInstance().getMessage(
+                            "lblExileNCardsFromYourZone",
+                            list.size(),
+                            cost.from.get(0).getTranslatedName()))) {
                 return PaymentDecision.card(list);
             }
             return null;
@@ -877,11 +968,29 @@ public class HumanCostDecision extends CostDecisionMakerBase {
     public PaymentDecision visit(final CostPutCardToLib cost) {
         int c = cost.getAbilityAmount(ability);
 
-        final CardCollection list = CardLists.getValidCards(cost.sameZone ? player.getGame().getCardsIn(cost.getFrom()) :
-                player.getCardsIn(cost.getFrom()), cost.getType().split(";"), player, source, ability);
+        CardCollection list = CardLists.getValidCards(
+                cost.sameZone
+                        ? player.getGame().getCardsIn(cost.getFrom())
+                        : player.getCardsIn(cost.getFrom()),
+                cost.getType().split(";"),
+                player,
+                source,
+                ability);
+
+        list = CardLists.filter(
+                list,
+                card -> card.canBeUsedToPayZoneChangeCost(ability));
 
         if (cost.payCostFromSource()) {
-            return source.getZone() == player.getZone(cost.from) && confirmAction(cost, Localizer.getInstance().getMessage("lblPutCardToLibraryConfirm", source.getTranslatedName())) ? PaymentDecision.card(source) : null;
+            return source.getZone() == player.getZone(cost.from)
+                    && source.canBeUsedToPayZoneChangeCost(ability)
+                    && confirmAction(
+                    cost,
+                    Localizer.getInstance().getMessage(
+                            "lblPutCardToLibraryConfirm",
+                            source.getTranslatedName()))
+                    ? PaymentDecision.card(source)
+                    : null;
         }
 
         if (cost.from == ZoneType.Hand) {
@@ -1007,27 +1116,56 @@ public class HumanCostDecision extends CostDecisionMakerBase {
 
         if (cost.payCostFromSource()) {
             final Card card = ability.getHostCard();
-            if (card.getController() == player && card.isInPlay()) {
+            if (card.getController() == player
+                    && card.isInPlay()
+                    && card.canBeUsedToPayZoneChangeCost(ability)) {
                 final CardView view = CardView.get(card);
-                return confirmAction(cost, Localizer.getInstance().getMessage("lblReturnCardToHandConfirm", CardTranslation.getTranslatedName(view.getName()))) ? PaymentDecision.card(card) : null;
+                return confirmAction(
+                        cost,
+                        Localizer.getInstance().getMessage(
+                                "lblReturnCardToHandConfirm",
+                                CardTranslation.getTranslatedName(view.getName())))
+                        ? PaymentDecision.card(card)
+                        : null;
             }
             return null;
         }
 
-        final CardCollectionView validCards = CardLists.getValidCards(ability.getActivatingPlayer().getCardsIn(ZoneType.Battlefield),
-                cost.getType().split(";"), player, source, ability);
+        CardCollectionView validCards = CardLists.getValidCards(
+                ability.getActivatingPlayer().getCardsIn(ZoneType.Battlefield),
+                cost.getType().split(";"),
+                player,
+                source,
+                ability);
+
+        validCards = CardLists.filter(
+                validCards,
+                card -> card.canBeUsedToPayZoneChangeCost(ability));
 
         if (validCards.size() < c) {
             return null;
         }
 
-        final InputSelectCardsFromList inp = new InputSelectCardsFromList(controller, c, c, validCards, ability);
+        final InputSelectCardsFromList inp =
+                new InputSelectCardsFromList(
+                        controller,
+                        c,
+                        c,
+                        validCards,
+                        ability);
+
         inp.setCancelAllowed(!mandatory);
-        inp.setMessage(Localizer.getInstance().getMessage("lblNTypeCardsToHand", "%d", cost.getDescriptiveType()));
+        inp.setMessage(
+                Localizer.getInstance().getMessage(
+                        "lblNTypeCardsToHand",
+                        "%d",
+                        cost.getDescriptiveType()));
         inp.showAndWait();
+
         if (inp.hasCancelled()) {
             return null;
         }
+
         return PaymentDecision.card(inp.getSelected());
     }
 

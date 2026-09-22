@@ -255,6 +255,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     private boolean wontPhaseInNormal = false;
 
     private boolean usedToPayCost = false;
+    private boolean reservedForZoneChangePayment = false;
 
     private boolean isEmblem = false;
     private boolean isBoon = false;
@@ -6068,6 +6069,20 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         usedToPayCost = b;
     }
 
+    public final boolean isReservedForZoneChangePayment() {
+        return reservedForZoneChangePayment;
+    }
+    public final void setReservedForZoneChangePayment(final boolean b) {
+        reservedForZoneChangePayment = b;
+    }
+
+    public final boolean canBeUsedToPayZoneChangeCost(final SpellAbility source) {
+        if (isReservedForZoneChangePayment()) {
+            return false;
+        }
+        return source == null || !source.isManaAbility() || !isUsedToPay();
+    }
+
     public CardDamageHistory getDamageHistory() {
         return damageHistory;
     }
@@ -7060,8 +7075,8 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
             return false;
         }
 
-        // can't sacrifice it for mana ability if it is already marked as sacrifice
-        if (source != null && source.isManaAbility() && isUsedToPay()) {
+        // can't move a card already reserved by another payment
+        if (!canBeUsedToPayZoneChangeCost(source)) {
             return false;
         }
 
@@ -7077,6 +7092,9 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     }
 
     public final boolean canExiledBy(final SpellAbility source, final boolean effect) {
+        if (!canBeUsedToPayZoneChangeCost(source)) {
+            return false;
+        }
         return !StaticAbilityCantExile.cantExile(this, source, effect);
     }
 
