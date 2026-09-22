@@ -1072,6 +1072,10 @@ public class CardProperty {
             if (!card.isUntapped()) {
                 return false;
             }
+        } else if (property.startsWith("faceDownOriginalType")) {
+            if (!card.isFaceDown() || !card.getState(CardStateName.Original).getType().hasStringType(property.substring("faceDownOriginalType".length()))) {
+                return false;
+            }
         } else if (property.startsWith("faceDown")) {
             if (!card.isFaceDown()) {
                 return false;
