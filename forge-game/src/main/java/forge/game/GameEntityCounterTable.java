@@ -24,7 +24,7 @@ public class GameEntityCounterTable extends ForwardingTable<Optional<Player>, Ga
 
     private Table<Optional<Player>, GameEntity, Multiset<CounterType>> dataMap = HashBasedTable.create();
     private boolean redirectedCounters;
-    private GameEntityCounterTable lastResult = new GameEntityCounterTable();
+    private GameEntityCounterTable lastResult;
 
     public GameEntityCounterTable() {
     }
