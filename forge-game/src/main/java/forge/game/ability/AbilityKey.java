@@ -41,6 +41,7 @@ public enum AbilityKey {
     CounterAmount("CounterAmount"),
     CounterNum("CounterNum"),
     CounterMap("CounterMap"),
+    CounterResultTable("CounterResultTable"),
     CounterTable("CounterTable"),
     CounterType("CounterType"),
     Crew("Crew"),

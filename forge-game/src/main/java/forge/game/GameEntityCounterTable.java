@@ -23,6 +23,8 @@ import forge.game.trigger.TriggerType;
 public class GameEntityCounterTable extends ForwardingTable<Optional<Player>, GameEntity, Multiset<CounterType>> {
 
     private Table<Optional<Player>, GameEntity, Multiset<CounterType>> dataMap = HashBasedTable.create();
+    private boolean redirectedCounters;
+    private GameEntityCounterTable lastResult = new GameEntityCounterTable();
 
     public GameEntityCounterTable() {
     }
@@ -67,6 +69,23 @@ public class GameEntityCounterTable extends ForwardingTable<Optional<Player>, Ga
         return values().stream().collect(Collectors.summingInt(Multiset::size));
     }
 
+    public void markRedirectedCounters() {
+        redirectedCounters = true;
+    }
+
+    public GameEntityCounterTable getLastResult() {
+        return lastResult;
+    }
+
+    private void mergeResult(final GameEntityCounterTable other) {
+        for (Cell<Optional<Player>, GameEntity, Multiset<CounterType>> c : other.cellSet()) {
+            for (Multiset.Entry<CounterType> e : c.getValue().entrySet()) {
+                put(c.getRowKey().orElse(null), c.getColumnKey(), e.getElement(), e.getCount());
+            }
+        }
+        redirectedCounters |= other.redirectedCounters;
+    }
+
     /*
      * returns the counters that can still be removed from game entity
      */
@@ -108,15 +127,111 @@ public class GameEntityCounterTable extends ForwardingTable<Optional<Player>, Ga
         game.getTriggerHandler().runTrigger(TriggerType.CounterAddedAll, runParams, false);
     }
 
+    @SuppressWarnings("unchecked")
+    public void replaceCounterEffectDeferred(final Game game,
+                                             final SpellAbility cause,
+                                             final boolean effect,
+                                             final GameEntityCounterTable pendingTable,
+                                             final Map<AbilityKey, Object> params) {
+        if (isEmpty()) {
+            return;
+        }
+
+        for (Map.Entry<GameEntity, Map<Optional<Player>, Multiset<CounterType>>> gm
+                : columnMap().entrySet()) {
+            Map<Optional<Player>, Multiset<CounterType>> values = gm.getValue();
+
+            final Map<AbilityKey, Object> repParams =
+                    AbilityKey.mapFromAffected(gm.getKey());
+
+            repParams.put(AbilityKey.Cause, cause);
+            repParams.put(AbilityKey.EffectOnly, effect);
+            repParams.put(AbilityKey.CounterMap, values);
+            repParams.put(AbilityKey.ETB, false);
+
+            if (params != null) {
+                if (params.containsKey(AbilityKey.LastStateBattlefield)) {
+                    repParams.put(AbilityKey.LastStateBattlefield,
+                            params.get(AbilityKey.LastStateBattlefield));
+                }
+                if (params.containsKey(AbilityKey.LastStateGraveyard)) {
+                    repParams.put(AbilityKey.LastStateGraveyard,
+                            params.get(AbilityKey.LastStateGraveyard));
+                }
+                if (params.containsKey(AbilityKey.InternalTriggerTable)) {
+                    repParams.put(AbilityKey.InternalTriggerTable,
+                            params.get(AbilityKey.InternalTriggerTable));
+                }
+                if (params.containsKey(AbilityKey.SimultaneousETB)) {
+                    repParams.put(AbilityKey.SimultaneousETB,
+                            params.get(AbilityKey.SimultaneousETB));
+                }
+            }
+
+            // Marks this AddCounter event as deferred. RedirectTo replacements
+            // encountered recursively must add their final events to the same
+            // pending table instead of placing counters immediately.
+            repParams.put(AbilityKey.CounterTable, pendingTable);
+
+            switch (game.getReplacementHandler().run(
+                    ReplacementType.AddCounter, repParams)) {
+                case NotReplaced:
+                    break;
+
+                case Updated:
+                    values = (Map<Optional<Player>, Multiset<CounterType>>)
+                            repParams.get(AbilityKey.CounterMap);
+                    break;
+
+                default:
+                    // The event was fully replaced. Any replacement-generated
+                    // deferred counter events were already added to pendingTable.
+                    continue;
+            }
+
+            for (Map.Entry<Optional<Player>, Multiset<CounterType>> e
+                    : values.entrySet()) {
+                for (Multiset.Entry<CounterType> ec
+                        : e.getValue().entrySet()) {
+                    if (ec.getCount() > 0) {
+                        pendingTable.put(
+                                e.getKey().orElse(null),
+                                gm.getKey(),
+                                ec.getElement(),
+                                ec.getCount());
+                    }
+                }
+            }
+        }
+    }
+
     public void replaceCounterEffect(final Game game, final SpellAbility cause) {
         replaceCounterEffect(game, cause, cause != null && !(cause instanceof AbilityStatic), false, null);
     }
     @SuppressWarnings("unchecked")
-    public boolean replaceCounterEffect(final Game game, final SpellAbility cause, final boolean effect, final boolean etb, Map<AbilityKey, Object> params) {
+    public boolean replaceCounterEffect(final Game game, final SpellAbility cause,
+                                        final boolean effect, final boolean etb,
+                                        Map<AbilityKey, Object> params) {
+        lastResult = new GameEntityCounterTable();
+
         if (isEmpty()) {
             return false;
         }
+
+        GameEntityCounterTable parentResult = null;
+        if (params != null
+                && params.get(AbilityKey.CounterResultTable)
+                instanceof GameEntityCounterTable) {
+            parentResult =
+                    (GameEntityCounterTable) params.get(
+                            AbilityKey.CounterResultTable);
+        }
+
         GameEntityCounterTable result = new GameEntityCounterTable();
+
+        if (redirectedCounters) {
+            result.markRedirectedCounters();
+        }
         for (Map.Entry<GameEntity, Map<Optional<Player>, Multiset<CounterType>>> gm : columnMap().entrySet()) {
             Map<Optional<Player>, Multiset<CounterType>> values = gm.getValue();
 
@@ -131,7 +246,12 @@ public class GameEntityCounterTable extends ForwardingTable<Optional<Player>, Ga
                     repParams.putAll(params);
                 }
 
-                switch (game.getReplacementHandler().run(ReplacementType.AddCounter, repParams)) {
+                // Must be after putAll: a parent accumulator must not overwrite
+                // this invocation's local result.
+                repParams.put(AbilityKey.CounterResultTable, result);
+
+                switch (game.getReplacementHandler().run(
+                        ReplacementType.AddCounter, repParams)) {
                 case NotReplaced:
                     break;
                 case Updated: {
@@ -178,7 +298,17 @@ public class GameEntityCounterTable extends ForwardingTable<Optional<Player>, Ga
             }
         }
 
-        int totalAdded = totalValues();
+        lastResult = result;
+
+        if (parentResult != null) {
+            parentResult.mergeResult(result);
+            return !result.isEmpty();
+        }
+
+        int totalAdded = result.redirectedCounters
+                ? result.totalValues()
+                : totalValues();
+
         if (totalAdded > 0 && cause != null && cause.hasParam("RememberAmount")) {
             cause.getHostCard().addRemembered(totalAdded);
         }

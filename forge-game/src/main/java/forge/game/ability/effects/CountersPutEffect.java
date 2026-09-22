@@ -646,8 +646,11 @@ public class CountersPutEffect extends SpellAbilityEffect {
 
         table.replaceCounterEffect(game, cause);
 
+        final GameEntityCounterTable resultTable =
+                table.getLastResult();
+
         if (sa.hasParam("RemovePhase")) {
-            for (Map.Entry<GameEntity, Multiset<CounterType>> e : table.row(Optional.of(placer)).entrySet()) {
+            for (Map.Entry<GameEntity, Multiset<CounterType>> e : resultTable.row(Optional.of(placer)).entrySet()) {
                 for (Multiset.Entry<CounterType> ce : e.getValue().entrySet()) {
                     addRemovePhaseTrigger(card, sa, sa.getParam("RemovePhase"), e.getKey(), ce.getElement(), ce.getCount());
                 }
@@ -656,7 +659,7 @@ public class CountersPutEffect extends SpellAbilityEffect {
         //for cards like Agitator Ant/Spectacular Showdown that care if counters were actually put on,
         // instead use "RememberPut" – this checks after replacement
         if (sa.hasParam("RememberCards")) { // remembers whether counters actually placed or not
-            card.addRemembered(table.columnKeySet());
+            card.addRemembered(resultTable.columnKeySet());
         }
     }
 
