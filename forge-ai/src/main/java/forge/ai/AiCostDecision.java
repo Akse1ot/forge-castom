@@ -991,11 +991,96 @@ public class AiCostDecision extends CostDecisionMakerBase {
         return table.isEmpty() ? null : PaymentDecision.counters(table);
     }
 
+    private CounterType chooseSameKindCounterType(final CostRemoveCounter cost, final Card card, final int amount, final int priority) {
+        for (final CounterType cType : cost.getSameKindCounterTypes(card, amount)) {
+            if (priority == 0 && ComputerUtil.isNegativeCounter(cType, card)) {
+                return cType;
+            }
+
+            if (priority == 1 && ComputerUtil.isUselessCounter(cType, card)) {
+                return cType;
+            }
+
+            if (priority == 2) {
+                if (cType.is(CounterEnumType.P1P1) && card.getLethalDamage() <= amount
+                        && !card.hasKeyword(Keyword.UNDYING)) {
+                    continue;
+                }
+                return cType;
+            }
+        }
+
+        return null;
+    }
+
+    private PaymentDecision chooseSameKindCounterPayment(final CostRemoveCounter cost, final CardCollectionView typeList, final int amount) {
+        if (amount <= 0) {
+            return null;
+        }
+
+        for (int priority = 0; priority < 3; priority++) {
+            final CardCollection candidates = new CardCollection();
+            final Map<Card, CounterType> counterTypes = new IdentityHashMap<>();
+
+            for (final Card card : typeList) {
+                final CounterType cType = chooseSameKindCounterType(cost, card, amount, priority);
+                if (cType != null) {
+                    candidates.add(card);
+                    counterTypes.put(card, cType);
+                }
+            }
+
+            final Card chosen = ComputerUtilCard.getWorstAI(candidates);
+            if (chosen != null) {
+                final GameEntityCounterTable counterTable = new GameEntityCounterTable();
+                counterTable.put(null, chosen, counterTypes.get(chosen), amount);
+                return PaymentDecision.counters(counterTable);
+            }
+        }
+
+        return null;
+    }
+
     @Override
     public PaymentDecision visit(CostRemoveCounter cost) {
         final String amount = cost.getAmount();
         final String type = cost.getType();
         final GameEntityCounterTable counterTable = new GameEntityCounterTable();
+
+        if (cost.isSameKind() && cost.counter == null) {
+            int c;
+
+            final String sVar = ability.getSVar(amount);
+            if (amount.equals("All")) {
+                return null;
+            } else if (sVar.equals("Targeted$CardManaCost")) {
+                c = 0;
+                if (ability.getTargets().size() > 0) {
+                    for (Card tgt : ability.getTargets().getTargetCards()) {
+                        if (tgt.getManaCost() != null) {
+                            c += tgt.getManaCost().getCMC();
+                        }
+                    }
+                }
+            } else {
+                c = cost.getAbilityAmount(ability);
+            }
+
+            final CardCollectionView typeList;
+            if (cost.payCostFromSource()) {
+                typeList = new CardCollection(source);
+            } else if (type.equals("OriginalHost")) {
+                final Card originalHost = ability.getOriginalHost();
+                if (originalHost == null) {
+                    return null;
+                }
+                typeList = new CardCollection(originalHost);
+            } else {
+                typeList = CardLists.getValidCards(player.getCardsIn(cost.zone), type.split(";"), player, source, ability);
+            }
+
+            return chooseSameKindCounterPayment(cost, typeList, c);
+        }
 
         // TODO Help AI filter card with most useless counters and put those counters in countertable for things like
         //  Moxite Refinery, similar to CostRemoveAnyCounter

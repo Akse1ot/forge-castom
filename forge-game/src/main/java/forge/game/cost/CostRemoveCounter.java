@@ -47,6 +47,7 @@ public class CostRemoveCounter extends CostPart {
     public final CounterType counter;
     public final List<ZoneType> zone;
     public final Boolean oneOrMore;
+    private final boolean sameKind;
 
     /**
      * Instantiates a new cost remove counter.
@@ -62,11 +63,48 @@ public class CostRemoveCounter extends CostPart {
      * @param zone the zone.
      */
     public CostRemoveCounter(final String amount, final CounterType counter, final String type, final String description, final List<ZoneType> zone, final boolean oneOrMore) {
+        this(amount, counter, type, description, zone, oneOrMore, false);
+    }
+
+    public CostRemoveCounter(final String amount, final CounterType counter, final String type, final String description, final List<ZoneType> zone, final boolean oneOrMore, final boolean sameKind) {
         super(amount, type, description);
 
         this.counter = counter;
         this.zone = zone;
         this.oneOrMore = oneOrMore;
+        this.sameKind = sameKind;
+    }
+
+    public boolean isSameKind() {
+        return sameKind;
+    }
+
+    public int getMaxSameKindCounters(final Card card) {
+        if (card == null) {
+            return 0;
+        }
+
+        int max = 0;
+        for (final Multiset.Entry<CounterType> e : card.getCounters().entrySet()) {
+            if (card.canRemoveCounters(e.getElement())) {
+                max = Math.max(max, e.getCount());
+            }
+        }
+        return max;
+    }
+
+    public List<CounterType> getSameKindCounterTypes(final Card card, final int amount) {
+        final List<CounterType> result = Lists.newArrayList();
+        if (card == null) {
+            return result;
+        }
+
+        for (final Multiset.Entry<CounterType> e : card.getCounters().entrySet()) {
+            if (e.getCount() >= amount && card.canRemoveCounters(e.getElement())) {
+                result.add(e.getElement());
+            }
+        }
+        return result;
     }
 
     @Override
@@ -80,7 +118,7 @@ public class CostRemoveCounter extends CostPart {
         final boolean anyCounters = cntrs == null;
 
         if (this.payCostFromSource()) {
-            return anyCounters ? source.getNumAllCounters() : source.getCounters(cntrs);
+            return anyCounters ? (sameKind ? getMaxSameKindCounters(source) : source.getNumAllCounters()) : source.getCounters(cntrs);
         }
 
         List<Card> typeList;
@@ -93,7 +131,7 @@ public class CostRemoveCounter extends CostPart {
         // Single Target
         int maxcount = 0;
         for (Card c : typeList) {
-            maxcount = anyCounters ? Math.max(maxcount, c.getNumAllCounters()) : Math.max(maxcount, c.getCounters(cntrs));
+            maxcount = anyCounters ? Math.max(maxcount, sameKind ? getMaxSameKindCounters(c) : c.getNumAllCounters()) : Math.max(maxcount, c.getCounters(cntrs));
         }
         return maxcount;
     }
@@ -126,6 +164,10 @@ public class CostRemoveCounter extends CostPart {
             } else {
                 sb.append(Lang.nounWithNumeralExceptOne(this.getAmount(),
                         anyCounter ? "counter" : this.counter.getName().toLowerCase() + " counter"));
+            }
+
+            if (sameKind && anyCounter) {
+                sb.append(" of the same kind");
             }
 
             sb.append(" from ");
@@ -161,7 +203,8 @@ public class CostRemoveCounter extends CostPart {
             amount = getAbilityAmount(ability);
         }
         if (this.payCostFromSource()) {
-            return !source.isPhasedOut() && ((anyCounters ? source.getNumAllCounters() : source.getCounters(cntrs)) - amount) >= 0;
+            final int available = anyCounters ? (sameKind ? getMaxSameKindCounters(source) : source.getNumAllCounters()) : source.getCounters(cntrs);
+            return !source.isPhasedOut() && available - amount >= 0;
         }
 
         List<Card> typeList;
@@ -173,7 +216,8 @@ public class CostRemoveCounter extends CostPart {
 
         // (default logic) remove X counters from a single permanent
         for (Card c : typeList) {
-            if ((anyCounters ? c.getNumAllCounters() : c.getCounters(cntrs)) - amount >= 0) {
+            final int available = anyCounters ? (sameKind ? getMaxSameKindCounters(c) : c.getNumAllCounters()) : c.getCounters(cntrs);
+            if (available - amount >= 0) {
                 return true;
             }
         }

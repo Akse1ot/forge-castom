@@ -97,6 +97,15 @@ public class ComputerUtilCost {
         for (final CostPart part : cost.getCostParts()) {
             if (part instanceof CostRemoveCounter remCounter) {
                 final CounterType type = remCounter.counter;
+
+                if (remCounter.isSameKind() && type == null) {
+                    final PaymentDecision pay = decision.visit(remCounter);
+                    if (pay == null || pay.counterTable.totalValues() <= 0) {
+                        return false;
+                    }
+                    continue;
+                }
+
                 if (!part.payCostFromSource()) {
                     if (type.is(CounterEnumType.P1P1)) {
                         return false;

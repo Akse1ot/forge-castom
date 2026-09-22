@@ -311,8 +311,10 @@ public class Cost implements Serializable {
             return new CostUntapType(splitStr[0], splitStr[1], description, untapCost);
         }
 
-        if (parse.startsWith("SubCounter<")) {
+        if (parse.startsWith("SubCounter<") || parse.startsWith("SubCounterSameKind<")) {
             // SubCounter<NumCounters/CounterType/{Type/Description/Zone}>
+            // SubCounterSameKind<NumCounters/CounterType/{Type/Description/Zone}>
+            final boolean sameKind = parse.startsWith("SubCounterSameKind<");
             final String[] splitStr = abCostParse(parse, 5);
             final String type = splitStr.length > 2 ? splitStr[2] : "CARDNAME";
             final String description = splitStr.length > 3 ? splitStr[3] : null;
@@ -323,7 +325,7 @@ public class Cost implements Serializable {
                 splitStr[0] = "X";
             }
 
-            return new CostRemoveCounter(splitStr[0], CounterType.getType(splitStr[1]), type, description, zone, oneOrMore);
+            return new CostRemoveCounter(splitStr[0], CounterType.getType(splitStr[1]), type, description, zone, oneOrMore, sameKind);
         }
 
         if (parse.startsWith("AddCounter<")) {

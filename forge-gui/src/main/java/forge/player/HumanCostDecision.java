@@ -1414,7 +1414,9 @@ public class HumanCostDecision extends CostDecisionMakerBase {
         }
 
         if (cost.payCostFromSource()) {
-            final int maxCounters = anyCounters ? source.getNumAllCounters() : source.getCounters(cntrs);
+            final int maxCounters = anyCounters
+                    ? (cost.isSameKind() ? cost.getMaxSameKindCounters(source) : source.getNumAllCounters())
+                    : source.getCounters(cntrs);
             if (amount.equals("All")) {
                 String prompt = Localizer.getInstance().getMessage("lblRemoveAllCountersConfirm") + (anyCounters ? "" : " (" + cntrs.getName() + ")");
                 if (!InputConfirm.confirm(controller, ability, prompt)) {
@@ -1434,13 +1436,15 @@ public class HumanCostDecision extends CostDecisionMakerBase {
             if (maxCounters < cntRemoved) {
                 return null;
             }
-            counterTable = generateCounterTable(source, cntrs, cntRemoved >= 0 ? cntRemoved : maxCounters, ability);
+            counterTable = generateCounterTable(source, cntrs, cntRemoved >= 0 ? cntRemoved : maxCounters, ability, cost.isSameKind());
             if (counterTable.isEmpty()) return null;
             return PaymentDecision.counters(counterTable);
 
         } else if (type.equals("OriginalHost")) {
             final Card origHost = ability.getOriginalHost();
-            final int maxCounters = anyCounters ? origHost.getNumAllCounters() : origHost.getCounters(cntrs);
+            final int maxCounters = anyCounters
+                    ? (cost.isSameKind() ? cost.getMaxSameKindCounters(origHost) : origHost.getNumAllCounters())
+                    : origHost.getCounters(cntrs);
             if (amount.equals("All")) {
                 cntRemoved = maxCounters;
             }
@@ -1448,15 +1452,18 @@ public class HumanCostDecision extends CostDecisionMakerBase {
                 return null;
             }
 
-            counterTable = generateCounterTable(origHost, cntrs, cntRemoved >= 0 ? cntRemoved : maxCounters, ability);
+            counterTable = generateCounterTable(origHost, cntrs, cntRemoved >= 0 ? cntRemoved : maxCounters, ability, cost.isSameKind());
             if (counterTable.isEmpty()) return null;
             return PaymentDecision.counters(counterTable);
         }
 
         CardCollectionView validCards = CardLists.getValidCards(player.getCardsIn(cost.zone), type.split(";"), player, source, ability);
         // you can only select 1 card to remove N counters from
-        validCards = anyCounters ? CardLists.filterAnyCounters(validCards, cntRemoved) :
-                CardLists.filter(validCards, CardPredicates.hasCounter(cntrs, cntRemoved));
+        final int countersToRemove = cntRemoved;
+        validCards = anyCounters ? (cost.isSameKind()
+                ? CardLists.filter(validCards, c -> cost.getMaxSameKindCounters(c) >= countersToRemove)
+                : CardLists.filterAnyCounters(validCards, countersToRemove)) :
+                CardLists.filter(validCards, CardPredicates.hasCounter(cntrs, countersToRemove));
         if (validCards.isEmpty()) {
             return null;
         }
@@ -1475,9 +1482,43 @@ public class HumanCostDecision extends CostDecisionMakerBase {
             return null;
         }
 
-        counterTable = generateCounterTable(selected, cntrs, cntRemoved, ability);
+        counterTable = generateCounterTable(selected, cntrs, cntRemoved, ability, cost.isSameKind());
         if (counterTable.isEmpty()) return null;
         return PaymentDecision.counters(counterTable);
+    }
+
+    private GameEntityCounterTable generateCounterTable(final Card c, final CounterType cType, final int cntToRemove, final SpellAbility sa, final boolean sameKind) {
+        if (!sameKind || cType != null) {
+            return generateCounterTable(c, cType, cntToRemove, sa);
+        }
+
+        final GameEntityCounterTable counterTable = new GameEntityCounterTable();
+        final List<CounterType> choices = Lists.newArrayList();
+
+        for (final CounterType ct : c.getCounters().elementSet()) {
+            if (c.getCounters(ct) >= cntToRemove && c.canRemoveCounters(ct)) {
+                choices.add(ct);
+            }
+        }
+
+        if (choices.isEmpty()) {
+            return counterTable;
+        }
+
+        final CounterType chosen;
+        if (choices.size() == 1) {
+            chosen = choices.get(0);
+        } else {
+            final PlayerController pc = c.getController().getController();
+            final String prompt = Localizer.getInstance().getMessage("lblSelectCountersTypeToRemove");
+            chosen = pc.chooseCounterType(choices, sa, prompt, null);
+        }
+
+        if (chosen != null) {
+            counterTable.put(null, c, chosen, cntToRemove);
+        }
+
+        return counterTable;
     }
 
     private GameEntityCounterTable generateCounterTable(final Card c, final CounterType cType, int cntToRemove, final SpellAbility sa) {
