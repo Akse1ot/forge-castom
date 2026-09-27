@@ -201,6 +201,7 @@ public enum SpellApiToAi {
             .put(ApiType.TapOrUntap, TapOrUntapAi.class)
             .put(ApiType.TapOrUntapAll, TapOrUntapAllAi.class)
             .put(ApiType.TimeTravel, TimeTravelAi.class)
+            .put(ApiType.Torment, TormentAi.class)
             .put(ApiType.Token, TokenAi.class)
             .put(ApiType.TwoPiles, TwoPilesAi.class)
             .put(ApiType.Unattach, UnattachAi.class)

@@ -4,6 +4,7 @@ import com.google.common.collect.*;
 import forge.LobbyPlayer;
 import forge.StaticData;
 import forge.ai.ability.ProtectAi;
+import forge.ai.ability.TormentAi;
 import forge.card.CardStateName;
 import forge.card.ColorSet;
 import forge.card.ICardFace;
@@ -17,6 +18,7 @@ import forge.game.ability.AbilityUtils;
 import forge.game.ability.ApiType;
 import forge.game.ability.effects.CharmEffect;
 import forge.game.ability.effects.RollDiceEffect;
+import forge.game.ability.TormentUtil;
 import forge.game.card.*;
 import forge.game.combat.Combat;
 import forge.game.cost.*;
@@ -705,7 +707,19 @@ public class PlayerControllerAi extends PlayerController {
     }
 
     @Override
-    public String chooseSomeType(String kindOfType, SpellAbility sa, Collection<String> validTypes, boolean isOptional) {
+    public String chooseSomeType(String kindOfType, SpellAbility sa,
+                                 Collection<String> validTypes, boolean isOptional) {
+        if (TormentUtil.CHOICE_KIND_EFFECT.equals(kindOfType)
+                || TormentUtil.CHOICE_KIND_COST.equals(kindOfType)) {
+            return TormentAi.chooseOption(
+                    player,
+                    sa,
+                    validTypes,
+                    TormentUtil.CHOICE_KIND_EFFECT.equals(
+                            kindOfType)
+            );
+        }
+
         String chosen = ComputerUtil.chooseSomeType(player, kindOfType, sa, validTypes);
         if (StringUtils.isBlank(chosen) && !validTypes.isEmpty()) {
             chosen = validTypes.iterator().next();

@@ -10,6 +10,7 @@ import forge.card.ColorSet;
 import forge.card.MagicColor;
 import forge.game.*;
 import forge.game.ability.AbilityUtils;
+import forge.game.ability.TormentUtil;
 import forge.game.card.*;
 import forge.game.cost.*;
 import forge.game.player.*;
@@ -166,6 +167,26 @@ public class HumanCostDecision extends CostDecisionMakerBase {
                         entry.getValue());
             }
         }
+    }
+
+    @Override
+    public PaymentDecision visit(final CostTorment cost) {
+        final List<String> choices =
+                TormentUtil.getAvailableChoices(
+                        player,
+                        ability,
+                        isEffect());
+
+        final String choice =
+                controller.chooseSomeType(
+                        TormentUtil.CHOICE_KIND_COST,
+                        ability,
+                        choices,
+                        !mandatory);
+
+        return choice == null
+                ? null
+                : PaymentDecision.type(choice);
     }
 
     @Override

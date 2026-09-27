@@ -9,6 +9,7 @@ import forge.card.ColorSet;
 import forge.game.Game;
 import forge.game.GameEntityCounterTable;
 import forge.game.ability.AbilityUtils;
+import forge.game.ability.TormentUtil;
 import forge.game.card.*;
 import forge.game.cost.*;
 import forge.game.keyword.Keyword;
@@ -161,6 +162,12 @@ public class AiCostDecision extends CostDecisionMakerBase {
         }
 
         return PaymentDecision.orBranch("Left", leftNested);
+    }
+
+    @Override
+    public PaymentDecision visit(final CostTorment cost) {
+        return PaymentDecision.type(
+                TormentUtil.CHOICE_DEFERRED);
     }
 
     @Override

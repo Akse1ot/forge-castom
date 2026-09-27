@@ -413,6 +413,10 @@ public class Cost implements Serializable {
             return new CostTraverse();
         }
 
+        if (parse.equals("Torment")) {
+            return new CostTorment();
+        }
+
         if (parse.startsWith("FlipCoin<")) {
             // FlipCoin<NumCoins>
             final String[] splitStr = abCostParse(parse, 1);

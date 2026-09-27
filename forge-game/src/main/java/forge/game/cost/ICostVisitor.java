@@ -42,6 +42,7 @@ public interface ICostVisitor<T> {
     T visit(CostUntap cost);
     T visit(CostUnattach cost);
     T visit(CostTapType cost);
+    T visit(CostTorment cost);
     T visit(CostPayShards cost);
     T visit(CostBlight cost);
     T visit(CostOr cost);
@@ -126,6 +127,10 @@ public interface ICostVisitor<T> {
         }
         @Override
         public T visit(CostTraverse cost) {
+            return null;
+        }
+        @Override
+        public T visit(CostTorment cost) {
             return null;
         }
         @Override
