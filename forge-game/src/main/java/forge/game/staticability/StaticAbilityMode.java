@@ -39,6 +39,7 @@ public enum StaticAbilityMode {
     CantBlockBy,
     CanAttackIfHaste,
     CanBlockIfReach,
+    CanBlockIfShadow,
     MinMaxBlocker,
     BlockTapped,
     AttackVigilance,
@@ -56,6 +57,7 @@ public enum StaticAbilityMode {
 
     // StaticAbilityCombatDamageToughness
     CombatDamageToughness,
+    CombatDamageNegatePower,
 
     // StaticAbilityCombatDamageBasePowerToughness
     CombatDamageBasePowerToughness,
@@ -117,6 +119,9 @@ public enum StaticAbilityMode {
     // StaticAbilityCantDraw
     CantDraw,
 
+    // StaticAbilityDrawFromBottom
+    DrawFromBottom,
+
     // StaticAbilityCantDiscard
     CantDiscard,
 
@@ -161,6 +166,7 @@ public enum StaticAbilityMode {
     IgnoreLandwalk,
     // StaticAbilityIgnoreLegendRule
     IgnoreLegendRule,
+    IgnorePlaneswalkerZeroLoyaltyRule,
 
     // StaticAbilityModifyModalChoices
     ModifyModes,

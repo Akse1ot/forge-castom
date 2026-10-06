@@ -26,7 +26,6 @@ import forge.game.card.CardCollection;
 import forge.game.card.CardUtil;
 import forge.game.card.CardView;
 import forge.game.player.PlayerCollection;
-import forge.game.player.PlayerView;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityStackInstance;
 import forge.game.spellability.StackItemView;
@@ -42,7 +41,6 @@ import forge.util.TextUtil;
 
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -190,19 +188,11 @@ public class TargetSelection {
                 return ability.getTargets().add(onlyTarget);
             }
         }
-        final Map<PlayerView, Object> playersWithValidTargets = Maps.newHashMap();
-        for (Card card : validTargets) {
-            playersWithValidTargets.put(PlayerView.get(card.getController()), null);
-        }
-
-        PlayerView playerView = controller.getLocalPlayerView();
-        PlayerZoneUpdates playerZoneUpdates = controller.getGui().openZones(playerView, validTargets.stream().map(c -> c.getZone().getZoneType()).collect(Collectors.toSet()), playersWithValidTargets, true);
         if (!zones.contains(ZoneType.Stack)) {
             InputSelectTargets inp = new InputSelectTargets(controller, validTargets, ability, mandatory, numTargets, divisionValues, filter, mustTargetFiltered);
             inp.showAndWait();
             choiceResult = !inp.hasCancelled();
             bTargetingDone = inp.hasPressedOk();
-            controller.getGui().restoreOldZones(playerView, playerZoneUpdates);
         } else {
             // for every other case an all-purpose GuiChoose
             choiceResult = this.chooseCardFromList(validTargets, true, mandatory);
