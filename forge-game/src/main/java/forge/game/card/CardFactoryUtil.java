@@ -4567,8 +4567,21 @@ public class CardFactoryUtil {
             faceDown.addIntrinsicKeywords(Arrays.asList(sa.getParam("FaceDownKeyword").split(" & ")));
         }
 
+        if (sa.hasParam("FaceDownAddAbility")) {
+            for (final Map.Entry<String, String> e : sa.getSVars().entrySet()) {
+                faceDown.setSVar(e.getKey(), e.getValue());
+            }
+
+            for (final String abilitySVar : sa.getParam("FaceDownAddAbility").split(" & ")) {
+                final SpellAbility ability = AbilityFactory.getAbility(faceDown, abilitySVar, faceDown);
+                ability.setIntrinsic(true);
+                faceDown.addSpellAbility(ability);
+            }
+        }
+
         if (sa.hasParam("FaceDownPower") || sa.hasParam("FaceDownToughness")
-                || sa.hasParam("FaceDownSetType") || sa.hasParam("FaceDownKeyword")) {
+                || sa.hasParam("FaceDownSetType") || sa.hasParam("FaceDownKeyword")
+                || sa.hasParam("FaceDownAddAbility")) {
             final GameCommand unanimate = new GameCommand() {
                 private static final long serialVersionUID = 8853789549297846163L;
 

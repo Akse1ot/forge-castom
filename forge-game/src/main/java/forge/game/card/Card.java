@@ -7646,6 +7646,32 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         return hasK1 == isOptionalCostPaid(OptionalCost.Kicker2) ? (hasK1 ? 2 : 0) : 1;
     }
 
+    private LandAbility createMayPlayAsLandAbility(final CardPlayOption option) {
+        final StaticAbility sta = option.getAbility();
+        final LandAbility landAbility = new LandAbility(this, getCurrentState());
+
+        landAbility.setMayPlay(option);
+        landAbility.setSVars(sta.getSVars());
+
+        for (final String param : List.of(
+                "FaceDown",
+                "FaceDownPower",
+                "FaceDownToughness",
+                "FaceDownSetType",
+                "FaceDownKeyword",
+                "FaceDownAddAbility")) {
+            if (sta.hasParam(param)) {
+                landAbility.putParam(param, sta.getParam(param));
+            }
+        }
+
+        if (option.isWithFlash()) {
+            landAbility.getRestrictions().setInstantSpeed(true);
+        }
+
+        return landAbility;
+    }
+
     public List<SpellAbility> getAllPossibleAbilities(final Player player, final boolean removeUnplayable) {
         return getAllPossibleAbilities(player, removeUnplayable, null);
     }
@@ -7727,6 +7753,12 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
                 if (isCloaked()) {
                     abilities.add(oState.getCloakUp());
                 }
+            }
+        }
+
+        for (final CardPlayOption option : mayPlay(player)) {
+            if (option.getAbility().hasParam("MayPlayAsLand")) {
+                abilities.add(createMayPlayAsLandAbility(option));
             }
         }
 

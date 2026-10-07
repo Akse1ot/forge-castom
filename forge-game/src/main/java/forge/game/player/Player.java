@@ -1681,8 +1681,14 @@ public class Player extends GameEntity implements Comparable<Player> {
     }
 
     public final Card playLand(final Card land, SpellAbility cause) {
+        final boolean playFaceDown = cause.hasParam("FaceDown");
+        final long layerTimestamp = land.getLayerTimestamp();
+
         land.setController(this, 0);
-        if (land.isFaceDown()) {
+        if (playFaceDown) {
+            land.turnFaceDown(true);
+            CardFactoryUtil.setFaceDownState(land, cause);
+        } else if (land.isFaceDown()) {
             land.turnFaceUp(null);
             if (cause.isLandAbility()) {
                 land.changeToState(cause.getCardStateName());
@@ -1694,6 +1700,16 @@ public class Player extends GameEntity implements Comparable<Player> {
 
         game.copyLastState();
         final Card c = game.getAction().moveTo(getZone(ZoneType.Battlefield), land, cause);
+
+        if (playFaceDown && !c.isInPlay()) {
+            c.setBackSide(false);
+            c.setState(CardStateName.Original, false);
+            c.setFaceDown(false);
+            c.setLayerTimestamp(layerTimestamp);
+            c.runFaceupCommands();
+            c.updateStateForView();
+        }
+
         game.updateLastStateForCard(c);
 
         // Run triggers
@@ -3329,6 +3345,12 @@ public class Player extends GameEntity implements Comparable<Player> {
         StaticAbility stAb = StaticAbility.create(addToHandAbility, eff, eff.getCurrentState(), true);
         stAb.setSVar("MoveToHand", moveToHand);
         eff.addStaticAbility(stAb);
+
+        if (companion.hasSVar("CompanionEffect")) {
+            StaticAbility companionEffect = StaticAbility.create(companion.getSVar("CompanionEffect"), eff, eff.getCurrentState(), true);
+            companionEffect.setSVars(companion.getSVars());
+            eff.addStaticAbility(companionEffect);
+        }
 
         return eff;
     }

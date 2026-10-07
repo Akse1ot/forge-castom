@@ -347,6 +347,9 @@ public final class GameActionUtil {
         }
 
         for (CardPlayOption o : source.mayPlay(activator)) {
+            if (o.getAbility().hasParam("MayPlayAsLand")) {
+                continue;
+            }
             // do not appear if it can be cast with SorcerySpeed
             if (o.getAbility().hasParam("MayPlayNotSorcerySpeed") && activator.canCastSorcery()) {
                 continue;

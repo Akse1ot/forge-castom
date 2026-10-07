@@ -126,6 +126,7 @@ Gamer:Gamers
 Gamma:Gammas
 Gargoyle:Gargoyles
 Germ:Germs
+Ghoul:Ghouls
 Giant:Giants
 Giraffe:Giraffes
 Gith:Gith

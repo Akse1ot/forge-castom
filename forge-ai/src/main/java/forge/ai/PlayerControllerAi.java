@@ -736,6 +736,21 @@ public class PlayerControllerAi extends PlayerController {
     }
 
     @Override
+    public Sticker chooseSticker(List<Sticker> options, Card target, SpellAbility sa, boolean isOptional) {
+        return PutStickerAi.chooseSticker(options, target, sa, isOptional);
+    }
+
+    @Override
+    public int chooseStickerNamePosition(Sticker sticker, Card target) {
+        return 0;
+    }
+
+    @Override
+    public Card chooseCardToKeepStickers(CardCollectionView options) {
+        return ComputerUtilCard.getBestAI(options);
+    }
+
+    @Override
     public String chooseSector(Card assignee, String ai, List<String> sectors) {
         return Aggregates.random(sectors);
     }
