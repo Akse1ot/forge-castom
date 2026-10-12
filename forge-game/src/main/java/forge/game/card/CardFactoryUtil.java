@@ -4567,6 +4567,10 @@ public class CardFactoryUtil {
             faceDown.addIntrinsicKeywords(Arrays.asList(sa.getParam("FaceDownKeyword").split(" & ")));
         }
 
+        if (sa.hasParam("FaceDownImage")) {
+            faceDown.setSVar("FaceDownImage", sa.getParam("FaceDownImage"));
+        }
+
         if (sa.hasParam("FaceDownAddAbility")) {
             for (final Map.Entry<String, String> e : sa.getSVars().entrySet()) {
                 faceDown.setSVar(e.getKey(), e.getValue());
@@ -4581,7 +4585,7 @@ public class CardFactoryUtil {
 
         if (sa.hasParam("FaceDownPower") || sa.hasParam("FaceDownToughness")
                 || sa.hasParam("FaceDownSetType") || sa.hasParam("FaceDownKeyword")
-                || sa.hasParam("FaceDownAddAbility")) {
+                || sa.hasParam("FaceDownAddAbility") || sa.hasParam("FaceDownImage")) {
             final GameCommand unanimate = new GameCommand() {
                 private static final long serialVersionUID = 8853789549297846163L;
 

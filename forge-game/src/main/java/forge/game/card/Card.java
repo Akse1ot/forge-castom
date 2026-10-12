@@ -3076,7 +3076,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
 
             boolean alwaysShow = false;
             if (!sa.isIntrinsic()) alwaysShow = true; // allows added abilities to show on face-down stuff (e.g. Morph,Cloaked)
-            if (!sAbility.endsWith(state.getName() + "\r\n") || alwaysShow) {
+            if (state.getName().isEmpty() || !sAbility.endsWith(state.getName() + "\r\n") || alwaysShow) {
                 sb.append(sAbility);
                 sb.append("\r\n");
             }
@@ -6581,6 +6581,12 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
                 return StaticData.instance().getOtherImageKey(ImageKeys.MORPH_IMAGE, set);
             }
         }
+
+        final CardState faceDown = states.get(CardStateName.FaceDown);
+        if (faceDown != null && faceDown.hasSVar("FaceDownImage")) {
+            return StaticData.instance().getOtherImageKey(faceDown.getSVar("FaceDownImage"), null);
+        }
+
         // TODO add face-down SA to key
 
         return ImageKeys.getTokenKey(ImageKeys.HIDDEN_CARD);
@@ -7659,7 +7665,8 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
                 "FaceDownToughness",
                 "FaceDownSetType",
                 "FaceDownKeyword",
-                "FaceDownAddAbility")) {
+                "FaceDownAddAbility",
+                "FaceDownImage")) {
             if (sta.hasParam(param)) {
                 landAbility.putParam(param, sta.getParam(param));
             }
