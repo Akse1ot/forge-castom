@@ -62,6 +62,11 @@ public class CardProperty {
             if (!card.hasNoName()) {
                 return false;
             }
+        } else if (property.startsWith("CraftedWithColor")) {
+            byte color = MagicColor.fromName(property.substring("CraftedWithColor".length()));
+            if (!card.getCraftedWithColors().hasAnyColor(color)) {
+                return false;
+            }
         } else if (property.startsWith("named")) {
             // by name can also have color names, so needs to happen before colors.
             String name = TextUtil.fastReplace(property.substring(5), ";", ","); // workaround for card name with ","

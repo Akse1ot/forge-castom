@@ -412,7 +412,7 @@ public class HumanCostDecision extends CostDecisionMakerBase {
 
     @Override
     public PaymentDecision visit(final CostExile cost) {
-        String type = cost.getType();
+        String type = cost.getTypeWithoutDifferentColorsMax();
         Card onlyPayable = null;
         if (cost.payCostFromSource()) {
             onlyPayable = source;
@@ -546,6 +546,28 @@ public class HumanCostDecision extends CostDecisionMakerBase {
 
         if (c == 0) { //in case choice was already made to pay 0 cards
             return PaymentDecision.number(c);
+        }
+
+        if (cost.getDifferentColorsMax() > 0) {
+            final InputSelectCardsFromList inp = new InputSelectCardsFromList(controller, c, c, list, ability) {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                protected boolean onCardSelected(final Card selected, final List<Card> otherCardsToSelect,
+                                                 final ITriggerEvent triggerEvent) {
+                    for (Card other : this.selected) {
+                        if (other.getColor().getColor() == selected.getColor().getColor()) {
+                            return false;
+                        }
+                    }
+                    return super.onCardSelected(selected, otherCardsToSelect, triggerEvent);
+                }
+            };
+            inp.setMessage("Select " + c + " monocolored material(s) of different colors to craft");
+            inp.setCancelAllowed(!mandatory);
+            inp.showAndWait();
+            return inp.hasCancelled() || inp.getSelected().size() != c
+                    ? null : PaymentDecision.card(inp.getSelected());
         }
 
         if (cost.from.size() == 1) {

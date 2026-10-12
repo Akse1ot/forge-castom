@@ -62,6 +62,10 @@ public class CardCopyService {
         out.setGamePieceType(copyFrom.getGamePieceType());
         out.setTokenCard(copyFrom.isTokenCard());
 
+        if (toGame != copyFrom.getGame()) {
+            out.setCraftedWithColors(copyFrom.getCraftedWithColors());
+        }
+
         if (toGame == copyFrom.getGame()) {
             // Only copy these things if we're not copying them into a new game
 
@@ -315,6 +319,7 @@ public class CardCopyService {
         newCopy.setCounters(HashMultiset.create(copyFrom.getCounters()));
 
         newCopy.setColor(copyFrom.getColor());
+        newCopy.setCraftedWithColors(copyFrom.getCraftedWithColors());
         newCopy.setPhasedOut(copyFrom.getPhasedOut());
         newCopy.setTapped(copyFrom.isTapped());
         newCopy.setTributed(copyFrom.isTributed());

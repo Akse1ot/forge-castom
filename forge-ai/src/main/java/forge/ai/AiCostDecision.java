@@ -359,6 +359,34 @@ public class AiCostDecision extends CostDecisionMakerBase {
                     : null;
         }
 
+        if (cost.getDifferentColorsMax() > 0) {
+            final int count = cost.getAbilityAmount(ability);
+            if (count == 0) {
+                return PaymentDecision.card(new CardCollection());
+            }
+            CardCollection candidates = CardLists.getValidCards(player.getCardsIn(cost.getFrom()),
+                    cost.getTypeWithoutDifferentColorsMax().split(";"), player, source, ability);
+            candidates = CardLists.filter(candidates, CardPredicates.canExiledBy(ability, isEffect()));
+            candidates.sort(Comparator.comparing((Card c) -> !c.isToken())
+                    .thenComparing(c -> !c.isInZone(ZoneType.Graveyard))
+                    .thenComparingInt(Card::getCMC));
+
+            final CardCollection chosen = new CardCollection();
+            int usedColors = 0;
+            for (Card candidate : candidates) {
+                int color = candidate.getColor().getColor();
+                if (Integer.bitCount(color) != 1 || (usedColors & color) != 0) {
+                    continue;
+                }
+                chosen.add(candidate);
+                usedColors |= color;
+                if (chosen.size() == count) {
+                    break;
+                }
+            }
+            return chosen.size() == count ? PaymentDecision.card(chosen) : null;
+        }
+
         if (type.equals("All")) {
             CardCollection cards =
                     new CardCollection(

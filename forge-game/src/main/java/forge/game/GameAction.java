@@ -490,7 +490,7 @@ public class GameAction {
             }
 
             if (cause != null && cause.isCraft() && toBattlefield) { // retain cards crafted while ETB transformed
-                copied.retainPaidList(cause, "ExiledCards");
+                copied.retainCraftMaterials(cause);
             }
         }
 

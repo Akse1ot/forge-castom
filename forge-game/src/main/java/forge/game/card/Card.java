@@ -40,6 +40,7 @@ import forge.game.card.sticker.StickerKind;
 import forge.game.combat.Combat;
 import forge.game.combat.CombatLki;
 import forge.game.cost.Cost;
+import forge.game.cost.CostExile;
 import forge.game.event.*;
 import forge.game.event.GameEventCardDamaged.DamageType;
 import forge.game.keyword.*;
@@ -99,6 +100,8 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     private CardState currentState;
     private CardStateName currentStateName = CardStateName.Original;
     private GamePieceType gamePieceType = GamePieceType.CARD;
+
+    private ColorSet craftedWithColors = ColorSet.C;
 
     private Zone castFrom;
     private SpellAbility castSA;
@@ -195,6 +198,14 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     private final List<String> draftActions = Lists.newArrayList();
     private Map<Player, String> flipResult;
     private List<Integer> storedRolls;
+
+    public final ColorSet getCraftedWithColors() {
+        return craftedWithColors;
+    }
+
+    public final void setCraftedWithColors(final ColorSet colors) {
+        craftedWithColors = colors == null ? ColorSet.C : colors;
+    }
 
     private boolean isCommander = false;
     private boolean canMoveToCommandZone = false;
@@ -394,6 +405,17 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         CurrentSideCMC,
         LeftSplitCMC,
         RightSplitCMC
+    }
+
+    public final void retainCraftMaterials(final SpellAbility cause) {
+        int colors = 0;
+        for (Card material : cause.getPaidList(CostExile.HashLKIListKey)) {
+            if (material.getId() != getId()) {
+                colors |= material.getColor().getColor();
+            }
+        }
+        setCraftedWithColors(ColorSet.fromMask((byte) colors));
+        retainPaidList(cause, CostExile.HashCardListKey);
     }
 
     /**

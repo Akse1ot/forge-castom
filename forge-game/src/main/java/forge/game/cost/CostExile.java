@@ -34,6 +34,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The Class CostExile.
@@ -85,6 +87,15 @@ public class CostExile extends CostPartWithList {
     public Integer getMaxAmountX(SpellAbility ability, Player payer, final boolean effect) {
         final Card source = ability.getHostCard();
         final Game game = source.getGame();
+
+        if (getDifferentColorsMax() > 0) {
+            CardCollectionView candidates = zoneRestriction != 1
+                    ? game.getCardsIn(this.from) : payer.getCardsIn(this.from);
+            CardCollection valid = CardLists.getValidCards(candidates,
+                    getTypeWithoutDifferentColorsMax().split(";"), payer, source, ability);
+            valid = CardLists.filter(valid, CardPredicates.canExiledBy(ability, effect));
+            return Math.min(getDifferentColorsMax(), countAvailableColors(valid));
+        }
 
         CardCollectionView typeList;
         if (zoneRestriction != 1) {
@@ -174,7 +185,7 @@ public class CostExile extends CostPartWithList {
         final Card source = ability.getHostCard();
         final Game game = source.getGame();
 
-        String type = this.getType();
+        String type = this.getTypeWithoutDifferentColorsMax();
         if (type.equals("All")) {
             CardCollectionView allCards;
             if (zoneRestriction != 1) {
@@ -274,6 +285,11 @@ public class CostExile extends CostPartWithList {
             amount++;
         }
 
+        if (getDifferentColorsMax() > 0 &&
+                (amount > getDifferentColorsMax() || countAvailableColors(list) < amount)) {
+            return false;
+        }
+
         if (list.size() < amount) {
             return false;
         }
@@ -356,4 +372,26 @@ public class CostExile extends CostPartWithList {
     public <T> T accept(ICostVisitor<T> visitor) {
         return visitor.visit(this);
     }
+
+    private static final Pattern DIFFERENT_COLORS_MAX = Pattern.compile("\\+withDifferentColorsMax(\\d+)");
+
+    public int getDifferentColorsMax() {
+        Matcher m = DIFFERENT_COLORS_MAX.matcher(getType());
+        return m.find() ? Integer.parseInt(m.group(1)) : 0;
+    }
+
+    public String getTypeWithoutDifferentColorsMax() {
+        return DIFFERENT_COLORS_MAX.matcher(getType()).replaceAll("");
+    }
+
+    private static int countAvailableColors(final Iterable<Card> cards) {
+        int colors = 0;
+        for (Card card : cards) {
+            if (card.getColor().isMonoColor()) {
+                colors |= card.getColor().getColor();
+            }
+        }
+        return Integer.bitCount(colors);
+    }
+
 }
