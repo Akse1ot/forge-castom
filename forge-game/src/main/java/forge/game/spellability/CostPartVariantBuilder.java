@@ -1,7 +1,6 @@
 package forge.game.spellability;
 
 import forge.game.cost.Cost;
-import forge.game.cost.CostTraverse;
 import forge.game.keyword.Keyword;
 import forge.game.player.Player;
 import forge.game.staticability.StaticAbility;

@@ -68,12 +68,8 @@ public class CloneEffect extends SpellAbilityEffect {
         Card cardToCopy = null;
 
         if (sa.hasParam("Choices")) {
-        // ChoiceZone may be a single zone or a comma-separated list.
-        // For replacement clone effects, Battlefield and Graveyard must use last-state
-        // collections so the entering object does not see itself or other objects that
-        // were not legal choices before the replacement event.
+            // ChoiceZone may be a single zone or a comma-separated list.
             final String czRaw = sa.hasParam("ChoiceZone") ? sa.getParam("ChoiceZone") : ZoneType.Battlefield.name();
-
             CardCollection choices = new CardCollection();
 
             for (String part : czRaw.split(",")) {
@@ -83,20 +79,29 @@ public class CloneEffect extends SpellAbilityEffect {
                 }
 
                 final ZoneType zone = ZoneType.smartValueOf(zoneName);
-                CardCollection zoneChoices;
+                CardCollection zoneChoices = new CardCollection(game.getCardsIn(zone));
 
-                if (sa.isReplacementAbility() && zone.equals(ZoneType.Battlefield)) {
-                    zoneChoices = new CardCollection(sa.getLastStateBattlefield());
-                } else if (sa.isReplacementAbility() && zone.equals(ZoneType.Graveyard)) {
-                    zoneChoices = new CardCollection(sa.getLastStateGraveyard());
-                } else {
-                    zoneChoices = new CardCollection(game.getCardsIn(zone));
+                // choices need to be filtered by LastState Battlefield or Graveyard
+                // if a Clone enters the field as other cards it could clone,
+                // the clone should not be able to clone them
+                // but do that only for Replacement Effects
+                CardCollectionView lastState = null;
+                if (sa.isReplacementAbility()) {
+                    if (zone.equals(ZoneType.Battlefield)) {
+                        lastState = sa.getLastStateBattlefield();
+                    } else if (zone.equals(ZoneType.Graveyard)) {
+                        lastState = sa.getLastStateGraveyard();
+                    }
                 }
 
+                if (lastState == null) {
+                    zoneChoices = CardLists.getValidCards(zoneChoices, sa.getParam("Choices"), activator, host, sa);
+                } else {
+                    // CR 614.12a what it can copy is decided by how they looked before the event
+                    zoneChoices.retainAll(CardLists.getValidCards(lastState, sa.getParam("Choices"), activator, host, sa));
+                }
                 choices.addAll(zoneChoices);
             }
-
-            choices = CardLists.getValidCards(choices, sa.getParam("Choices"), activator, host, sa);
             boolean choiceOpt = sa.hasParam("ChoiceOptional");
 
             String title = sa.hasParam("ChoiceTitle") ? sa.getParam("ChoiceTitle") :

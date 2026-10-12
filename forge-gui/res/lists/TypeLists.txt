@@ -203,6 +203,7 @@ Merfolk:Merfolk
 Mermaid:Mermaids
 Metathran:Metathrans
 Misbegotten:Misbegotten
+Mindless-One:Mindless-Ones
 Minion:Minions
 Minotaur:Minotaurs
 Mite:Mites
@@ -409,6 +410,7 @@ Blood
 Bobblehead:Bobbleheads
 Book:Books
 Clue:Clues
+Communicator:Communicators
 Equipment
 Food:Foods
 Fortification

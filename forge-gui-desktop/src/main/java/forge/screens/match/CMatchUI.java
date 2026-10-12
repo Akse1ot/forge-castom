@@ -1196,7 +1196,7 @@ public final class CMatchUI
 
     @Override
     public void showPromptMessage(PlayerView playerView, String message, CardView card) {
-        cancelWaitingTimer();
+        cancelAwaitNextInput();
         cPrompt.setMessage(message, card);
         notePromptMessage(message);
     }

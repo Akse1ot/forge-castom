@@ -18,7 +18,6 @@
 package forge.player;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import forge.card.CardStateName;
 import forge.game.*;
 import forge.game.card.Card;

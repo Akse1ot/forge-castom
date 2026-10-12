@@ -112,7 +112,7 @@ public final class CustomReplayEtbTriggerSupport {
                 || game.getTriggerHandler().isTriggerSuppressed(TriggerType.ChangesZone)
                 || trigger.isSuppressed()
                 || !trigger.phasesCheck(game)
-                || !trigger.checkActivationLimit()) {
+                || trigger.limitByActivations(1) == 0) {
             return false;
         }
 
