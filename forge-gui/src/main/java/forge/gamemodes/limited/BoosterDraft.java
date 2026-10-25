@@ -694,7 +694,6 @@ public class BoosterDraft implements IBoosterDraft {
     }
 
     public void initializeBoosters() {
-
         for (Supplier<List<PaperCard>> boosterRound : this.product) {
             for (int i = 0; i < this.podSize; i++) {
                 DraftPack pack = new DraftPack(boosterRound.get(), nextId++);
@@ -904,9 +903,7 @@ public class BoosterDraft implements IBoosterDraft {
         for(LimitedPlayer pl : brokers) {
             pl.activateBrokers(this.players);
         }
-
     }
-
 
     private static String choosePackByPack(final List<String> setz, int packs) {
         StringBuilder sb = new StringBuilder();

@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import forge.game.GameLogEntry;
 import forge.game.GameLogEntryType;
+import forge.game.GameType;
 import forge.game.GameView;
 import forge.gui.SOverlayUtils;
 import forge.gui.UiCommand;
@@ -48,6 +49,7 @@ public class ViewWinLose implements IWinLoseView<FButton> {
     private final JPanel pnlRight = new JPanel();
     private final FScrollPane scrCustom = new FScrollPane(false);
     private final boolean customIsPopulated;
+    private final boolean replay;
 
     private final SkinnedLabel lblTitle = new SkinnedLabel("WinLoseFrame > lblTitle needs updating.");
     private final SkinnedLabel lblStats = new SkinnedLabel("WinLoseFrame > lblStats needs updating.");
@@ -78,7 +80,9 @@ public class ViewWinLose implements IWinLoseView<FButton> {
         // Control of the win/lose is handled differently for various game
         // modes.
         ControlWinLose control = null;
-        switch (game0.getGameType()) {
+        // a recording only shows what happened: no rewards, no saving results, no next game
+        replay = matchUI.isReplay();
+        switch (replay ? GameType.Constructed : game0.getGameType()) {
             case Quest:
                 control = new QuestWinLose(this, game0, matchUI);
                 break;
@@ -125,7 +129,7 @@ public class ViewWinLose implements IWinLoseView<FButton> {
         btnRestart.setFont(FSkin.getRelativeFont(22));
         btnViewBattlefield.setText(localizer.getMessage("lblShowBattlefield"));
         btnViewBattlefield.setFont(FSkin.getRelativeFont(22));
-        btnQuit.setText(localizer.getMessage("btnQuitMatch"));
+        btnQuit.setText(replay ? "Close replay" : localizer.getMessage("btnQuitMatch"));
         btnQuit.setFont(FSkin.getRelativeFont(22));
         btnContinue.setEnabled(!game0.isMatchOver());
 
@@ -164,8 +168,10 @@ public class ViewWinLose implements IWinLoseView<FButton> {
         pnlButtons.setOpaque(false);
 
         final String constraints = "w 300px!, h 50px!, gap 0 0 20px 0";
-        pnlButtons.add(btnContinue, constraints);
-        pnlButtons.add(btnRestart, constraints);
+        if (!replay) {
+            pnlButtons.add(btnContinue, constraints);
+            pnlButtons.add(btnRestart, constraints);
+        }
         pnlButtons.add(btnViewBattlefield, constraints);
         pnlButtons.add(btnQuit, constraints);
         pnlLeft.add(pnlButtons, "w 100%!");
@@ -182,7 +188,7 @@ public class ViewWinLose implements IWinLoseView<FButton> {
         pnlLog.add(btnCopyLog, "center, w pref+16, h pref+8");
         pnlLeft.add(pnlLog, "w 100%!");
 
-        lblTitle.setText(composeTitle(game0));
+        lblTitle.setText((replay ? "Replay: " : "") + composeTitle(game0));
         attachToOverlay();
     }
 
@@ -204,7 +210,7 @@ public class ViewWinLose implements IWinLoseView<FButton> {
     }
 
     private void focusBestButton() {
-        if (btnContinue.isEnabled()) {
+        if (!replay && btnContinue.isEnabled()) {
             btnContinue.requestFocusInWindow();
         } else {
             btnQuit.requestFocusInWindow();
@@ -357,3 +363,4 @@ public class ViewWinLose implements IWinLoseView<FButton> {
         }
     }
 }
+

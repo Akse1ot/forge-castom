@@ -49,6 +49,7 @@ import forge.game.player.PlayerView;
 import forge.game.spellability.SpellAbilityView;
 import forge.game.zone.ZoneType;
 import forge.gamemodes.match.DrawOfferMessage;
+import forge.gamemodes.match.Selection;
 import forge.gamemodes.match.YieldMarker;
 import forge.gamemodes.net.NetworkGuiGame;
 import forge.gamemodes.match.HostedMatch;
@@ -97,10 +98,6 @@ public class MatchController extends NetworkGuiGame {
     private static MatchScreen view;
     private static GameState phaseGameState;
     private static boolean introShowing;      // EDT only
-
-    private GameState getPhaseGameState() {
-        return phaseGameState;
-    }
 
     private final Map<PlayerView, InfoTab> zonesToRestore = Maps.newHashMap();
     private Map<PlayerView, Object> selectionZonesBackup;
@@ -209,11 +206,6 @@ public class MatchController extends NetworkGuiGame {
         refreshCardDetails(null);
     }
 
-    @Override
-    public GameState getGamestate() {
-        return getPhaseGameState();
-    }
-
     public boolean hotSeatMode() {
         return FModel.getPreferences().getPrefBoolean(FPref.MATCH_HOT_SEAT_MODE);
     }
@@ -247,7 +239,7 @@ public class MatchController extends NetworkGuiGame {
         if(GuiBase.isNetPlay(this))
             view.resetFields();
         selectionZonesBackup = null;
-        clearSelectables();  //fix uncleared selection
+        setSelection(Selection.NONE);  //fix uncleared selection
 
         if (noHumans) {
             //add special object that pauses game if screen touched
@@ -284,8 +276,14 @@ public class MatchController extends NetworkGuiGame {
 
     @Override
     public void updateButtons(final PlayerView owner, final String label1, final String label2, final boolean enable1, final boolean enable2, final boolean focus1) {
+        updateButtons(owner, label1, label2, enable1, enable2, focus1, false);
+    }
+
+    @Override
+    public void updateButtons(final PlayerView owner, final String label1, final String label2, final boolean enable1, final boolean enable2, final boolean focus1, final boolean undoAvailable) {
         final VPrompt prompt = view.getPrompt(owner);
         final FButton btn1 = prompt.getBtnOk(), btn2 = prompt.getBtnCancel();
+        prompt.setUndoAvailable(undoAvailable);
         btn1.setText(label1);
         btn2.setText(label2);
         btn1.setEnabled(enable1);
@@ -443,6 +441,11 @@ public class MatchController extends NetworkGuiGame {
     }
 
     @Override
+    public boolean canPickStackTargets() {
+        return true; // stack entries are tapped in the stack view (VStack)
+    }
+
+    @Override
     public void onSnapshotRestored() {
         VCardDisplayArea.CardAreaPanel.resetForUndo();
     }
@@ -588,9 +591,35 @@ public class MatchController extends NetworkGuiGame {
     }
 
     @Override
-    public void setSelectables(final Iterable<CardView> cards, final int min, final int max) {
-        super.setSelectables(cards, min, max);
-        final PlayerZoneUpdates zones = max > 0 ? getZonesHolding(cards) : new PlayerZoneUpdates();
+    public void setSelection(final Selection selection) {
+        final Selection prev = getSelection();
+        super.setSelection(selection);
+        final boolean stackOffered = selection.offersStackItems() && !prev.offersStackItems();
+        FThreads.invokeInEdtLater(() -> {
+            if (stackOffered && !view.getStack().isVisible()) { // stack items are picked in the stack view, so bring it up
+                view.getStack().show();
+            }
+            if (selection.offersStackItems()) {
+                view.getStack().update();
+            }
+            Gdx.graphics.requestRendering();
+        });
+        if (prev.cards().equals(selection.cards())) {
+            if (!prev.actionable().equals(selection.actionable())) {
+                FThreads.invokeInEdtNowOrLater(() -> {
+                    for (final PlayerView p : getGameView().getPlayers()) {
+                        updateCardsNetSafe(p.getCards(ZoneType.Battlefield));
+                        updateCardsNetSafe(p.getCards(ZoneType.Hand));
+                    }
+                });
+            }
+            return;
+        }
+        if (selection.cards().isEmpty()) {
+            clearSelectableCards();
+            return;
+        }
+        final PlayerZoneUpdates zones = selection.max() > 0 ? getZonesHolding(selection.cards()) : new PlayerZoneUpdates();
         // update zones on tabletop and floating zones - non-selectable cards may be rendered differently
         FThreads.invokeInEdtNowOrLater(() -> {
             for (final PlayerView p : getGameView().getPlayers()) {
@@ -614,16 +643,14 @@ public class MatchController extends NetworkGuiGame {
             }
             updateZones(zones);
             openZones(getCurrentPlayer(), zoneTypes, players);
-            // showMessage re-issues setSelectables as picks narrow the choices; the first backup is the one to keep
+            // the selectable cards can change while one prompt is open; the first backup is the one to keep
             if (selectionZonesBackup == null) {
                 selectionZonesBackup = players;
             }
         });
     }
 
-    @Override
-    public void clearSelectables() {
-        super.clearSelectables();
+    private void clearSelectableCards() {
         // update zones on tabletop and floating zones - non-selectable cards may be rendered differently
         FThreads.invokeInEdtNowOrLater(() -> {
             for (final PlayerView p : getGameView().getPlayers()) {
@@ -633,28 +660,6 @@ public class MatchController extends NetworkGuiGame {
             if (selectionZonesBackup != null) {
                 restoreOldZones(selectionZonesBackup);
                 selectionZonesBackup = null;
-            }
-        });
-    }
-
-    @Override
-    public void setWeaklySelectable(final Iterable<CardView> cards) {
-        super.setWeaklySelectable(cards);
-        FThreads.invokeInEdtNowOrLater(() -> {
-            for (final PlayerView p : getGameView().getPlayers()) {
-                updateCardsNetSafe(p.getCards(ZoneType.Battlefield));
-                updateCardsNetSafe(p.getCards(ZoneType.Hand));
-            }
-        });
-    }
-
-    @Override
-    public void clearWeaklySelectable() {
-        super.clearWeaklySelectable();
-        FThreads.invokeInEdtNowOrLater(() -> {
-            for (final PlayerView p : getGameView().getPlayers()) {
-                updateCardsNetSafe(p.getCards(ZoneType.Battlefield));
-                updateCardsNetSafe(p.getCards(ZoneType.Hand));
             }
         });
     }

@@ -65,6 +65,7 @@ import forge.gamemodes.match.DeclineScope;
 import forge.gamemodes.match.DrawOfferCoordinator;
 import forge.gamemodes.match.DrawOfferMessage;
 import forge.gamemodes.match.NextGameDecision;
+import forge.gamemodes.match.Selection;
 import forge.gamemodes.match.YieldController;
 import forge.gamemodes.match.YieldUpdate;
 import forge.gamemodes.match.input.*;
@@ -89,6 +90,7 @@ import forge.model.FModel;
 import forge.trackable.TrackableCollection;
 import forge.util.*;
 import forge.util.collect.FCollection;
+import forge.trackable.TrackableObject;
 import forge.util.collect.FCollectionView;
 
 import io.sentry.Sentry;
@@ -992,7 +994,7 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
         }
         if (toTop.size() < cards.size()) { // the top isn't everything
             for (int i = result.size() - 1; i >= 0 && manipulable.contains(result.get(i)); i--) {
-                toBottom.add(result.get(i));
+                toBottom.add(0, result.get(i));
             }
         }
         return ImmutablePair.of(toTop, toBottom);
@@ -1169,7 +1171,8 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
                 return cards;
         }
         endTempShowCards();
-        if(topOfDeck)
+        // The card listed first goes nearest the chosen end of the deck, so it must be moved last
+        if(destinationZone.isDeck())
             Collections.reverse(choices);
         CardCollection result = new CardCollection();
         gameCacheMove.addToList(choices, result);
@@ -1586,26 +1589,20 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
     };
 
     /** Cache from {@link AvailableActions#collectActionable}, populated in
-     *  {@link #chooseSpellAbilityToPlay} and reused by {@link #pushActionableCards}. */
+     *  {@link #chooseSpellAbilityToPlay} and reused by {@link #getActionableCards}. */
     private Set<CardView> cachedActionableCards;
 
-    /** Push the actionable-card set to the GUI. Payment mode falls back to the
-     *  "playable mana ability" predicate; non-payment reuses {@link #cachedActionableCards}. */
-    public void pushActionableCards(boolean paymentMode) {
-        pushActionableCards(paymentMode, null);
-    }
-
-    /** Weighted push: actionable cards get strength 1; {@code emphasized} cards (the AI's
-     *  auto-tap plan) are raised to strength 2 by adding them a second time, so the GUI can
-     *  render them more prominently. Each pref layer is gated independently. */
-    public void pushActionableCards(boolean paymentMode, Iterable<CardView> emphasized) {
+    /** The actionable cards. Payment mode falls back to the "playable mana ability" predicate;
+     *  non-payment reuses {@link #cachedActionableCards}. Actionable cards get strength 1;
+     *  {@code emphasized} cards (the AI's auto-tap plan) are raised to strength 2 by adding them
+     *  a second time, so the GUI can render them more prominently. Each pref layer is gated independently. */
+    public List<CardView> getActionableCards(boolean paymentMode, Iterable<CardView> emphasized) {
         final boolean showActionable = yieldController.getBoolPref(FPref.UI_SHOW_ACTIONABLE_HIGHLIGHTS);
         final boolean showAutoTap = emphasized != null
                 && yieldController.getBoolPref(FPref.UI_SHOW_AUTOTAP_PREVIEW);
 
         if (!showActionable && !showAutoTap) {
-            getGui().clearWeaklySelectable();
-            return;
+            return List.of();
         }
 
         final Set<CardView> actionable = Sets.newHashSet();
@@ -1638,7 +1635,7 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
                 weighted.add(cv);
             }
         }
-        getGui().setWeaklySelectable(weighted);
+        return weighted;
     }
 
     private boolean cardHasPlayableManaAbility(Card c) {
@@ -1648,15 +1645,10 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
         return false;
     }
 
-    public void clearActionableCards() {
-        getGui().clearWeaklySelectable();
-    }
-
-    /** Push undeclared, legal attacker candidates. */
-    public void pushAttackerCandidates(final Player attackingPlayer, final Combat combat) {
+    /** Undeclared, legal attacker candidates. */
+    public List<CardView> getAttackerCandidates(final Player attackingPlayer, final Combat combat) {
         if (!yieldController.getBoolPref(FPref.UI_SHOW_ACTIONABLE_HIGHLIGHTS)) {
-            getGui().clearWeaklySelectable();
-            return;
+            return List.of();
         }
         final Set<CardView> result = Sets.newHashSet();
         for (final Card c : attackingPlayer.getCreaturesInPlay()) {
@@ -1665,20 +1657,15 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
             if (combat != null && combat.isAttacking(c)) continue;
             result.add(c.getView());
         }
-        getGui().setWeaklySelectable(result);
+        return Lists.newArrayList(result);
     }
 
-    /** Push defenders that could block at least one current attacker. */
-    public void pushBlockerCandidates(final Player defendingPlayer, final Combat combat) {
-        if (!yieldController.getBoolPref(FPref.UI_SHOW_ACTIONABLE_HIGHLIGHTS)) {
-            getGui().clearWeaklySelectable();
-            return;
+    /** Defenders that could block at least one current attacker. */
+    public List<CardView> getBlockerCandidates(final Player defendingPlayer, final Combat combat) {
+        if (!yieldController.getBoolPref(FPref.UI_SHOW_ACTIONABLE_HIGHLIGHTS) || combat == null) {
+            return List.of();
         }
         final Set<CardView> result = Sets.newHashSet();
-        if (combat == null) {
-            getGui().setWeaklySelectable(result);
-            return;
-        }
         final Iterable<Card> attackers = combat.getAttackers();
         for (final Card blocker : defendingPlayer.getCreaturesInPlay()) {
             if (!CombatUtil.canBlock(blocker)) continue;
@@ -1694,7 +1681,7 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
                 result.add(blocker.getView());
             }
         }
-        getGui().setWeaklySelectable(result);
+        return Lists.newArrayList(result);
     }
 
     @Override
@@ -1758,6 +1745,7 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
             return null;
         }
         final UndoManager undo = getGame().getUndoManager();
+        undo.setMode(undoModeFromPrefs());      // the host's setting decides, for every player in the game
         if (!isMacroActive()) {
             if (UndoManager.OWN_TURN_ONLY && getGame().getPhaseHandler().getPlayerTurn() != player) {
                 undo.barrier("Opponent's turn");
@@ -1777,7 +1765,17 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
 
     @Override
     public boolean playChosenSpellAbility(final SpellAbility chosenSa) {
-        return PlaySpellAbility.playSpellAbility(this, player, chosenSa);
+        // what targeting marks as chosen stays marked until the cost is paid or the cast is cancelled
+        keepTargetsMarked = true;
+        try {
+            return PlaySpellAbility.playSpellAbility(this, player, chosenSa);
+        } finally {
+            keepTargetsMarked = false;
+            if (!keptMarks.isEmpty()) {
+                keptMarks.clear();
+                getGui().setSelection(Selection.NONE);
+            }
+        }
     }
 
     @Override
@@ -2476,6 +2474,38 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
 
     @Override
     public boolean chooseTargetsFor(final SpellAbility currentAbility) {
+        final boolean result = chooseTargetsForStep(currentAbility);
+        // what was chosen stays marked while later targeting steps follow, and goes away after the last one or a failure;
+        // for a spell being cast it stays up through paying the cost instead (see playChosenSpellAbility)
+        if (result && keepTargetsMarked && !TargetingProgress.hasLaterTargetingStep(currentAbility)) {
+            final List<TrackableObject> marks = new ArrayList<>(TargetingProgress.chosenTargets(currentAbility));
+            // a targeted spell is a Card target on the Stack, so its stack entry has to be marked separately
+            for (final Card c : currentAbility.getTargets().getTargetCards()) {
+                if (!c.isInZone(ZoneType.Stack)) { continue; }
+                for (final SpellAbilityStackInstance si : getGame().getStack()) {
+                    final SpellAbility onStack = si.getSpellAbility();
+                    if (onStack.isSpell() && c.equals(onStack.getHostCard()) && !marks.contains(si.getView())) {
+                        marks.add(si.getView());
+                        break;
+                    }
+                }
+            }
+            keptMarks.addAll(marks);
+            // the targeting input cleared its marks when it stopped, before they were kept
+            getGui().setSelection(Selection.ofChosen(keptMarks));
+        }
+        return result;
+    }
+
+    /** True while a spell is being cast: what targeting marks as chosen then stays marked until its cost is paid. */
+    private boolean keepTargetsMarked;
+    private final List<TrackableObject> keptMarks = new ArrayList<>();
+
+    public List<TrackableObject> getKeptMarks() {
+        return keptMarks;
+    }
+
+    private boolean chooseTargetsForStep(final SpellAbility currentAbility) {
         final TargetSelection select = new TargetSelection(this, currentAbility);
         boolean canFilterMustTarget = true;
 
@@ -2789,6 +2819,13 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
         AchievementCollection.updateAll(this);
     }
 
+    private static UndoManager.Mode undoModeFromPrefs() {
+        final String v = FModel.getPreferences().getPref(FPref.UI_UNDO_MODE);
+        if (ForgeConstants.UNDO_MODE_OFF.equals(v)) { return UndoManager.Mode.OFF; }
+        if (ForgeConstants.UNDO_MODE_SINGLE.equals(v)) { return UndoManager.Mode.SINGLE_STEP; }
+        return UndoManager.Mode.FREE;
+    }
+
     public boolean canUndoLastAction() {
         if (getGame().getPhaseHandler().getPriorityPlayer() != player) return false;
         return getGame().getUndoManager().canUndo(player) && inputQueue.getInput() instanceof InputPassPriority;
@@ -2849,6 +2886,25 @@ public class PlayerControllerHuman extends PlayerController implements IGameCont
             macros().addRememberedAction(new SelectCardAction(cardView));
         }
         return selected;
+    }
+
+    @Override
+    public void selectStackItem(final StackItemView item) {
+        // stack entries can be picked by the stack-only input, and by the normal targeting input when a spell
+        // may target a spell or a permanent (Chaoslace and the like)
+        final Input current = inputProxy.getInput();
+        if (item == null
+                || !(current instanceof InputSelectStackItems || current instanceof InputSelectTargets)) {
+            return;
+        }
+        // a stack entry was picked while stack targets are chosen; it is identified by its stack instance, and the
+        // input takes it as that instance's ability
+        for (final SpellAbilityStackInstance si : getGame().getStack()) {
+            if (si.getId() == item.getId()) {
+                inputProxy.selectAbility(si.getSpellAbility());
+                return;
+            }
+        }
     }
 
     @Override
