@@ -1208,6 +1208,7 @@ public class Player extends GameEntity implements Comparable<Player> {
 
         for (int i = 0; i < n; i++) {
             if (gameStarted && !canDraw()) {
+                triggerDrawnOnce(drawn, cause);
                 return drawn;
             }
             CardCollectionView cards = doDraw(toReveal, cause, params, zone);
@@ -1223,7 +1224,20 @@ public class Player extends GameEntity implements Comparable<Player> {
                 game.getAction().revealTo(e.getValue(), e.getKey(), "Revealing cards drawn from ");
             }
         }
+        triggerDrawnOnce(drawn, cause);
         return drawn;
+    }
+
+    private void triggerDrawnOnce(final CardCollection drawn, final SpellAbility cause) {
+        if (drawn.isEmpty() || game.getAge().ordinal() <= GameStage.Mulligan.ordinal()) {
+            return;
+        }
+
+        final Map<AbilityKey, Object> runParams = AbilityKey.mapFromPlayer(this);
+        runParams.put(AbilityKey.Cards, new CardCollection(drawn));
+        runParams.put(AbilityKey.Amount, drawn.size());
+        runParams.put(AbilityKey.Cause, cause);
+        game.getTriggerHandler().runTrigger(TriggerType.DrawnOnce, runParams, false);
     }
 
     /**
