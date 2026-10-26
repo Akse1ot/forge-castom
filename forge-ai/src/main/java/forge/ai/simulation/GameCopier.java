@@ -23,6 +23,7 @@ import forge.game.phase.PhaseType;
 import forge.game.player.Player;
 import forge.game.player.RegisteredPlayer;
 import forge.game.spellability.SpellAbility;
+import forge.game.spellability.FocusHelper;
 import forge.game.spellability.SpellAbilityStackInstance;
 import forge.game.staticability.StaticAbility;
 import forge.game.trigger.TriggerType;
@@ -32,6 +33,7 @@ import forge.item.PaperCard;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 import java.util.Map;
 
 public class GameCopier {
@@ -143,6 +145,7 @@ public class GameCopier {
         for (Player origPlayer : playerMap.keySet()) {
             Player newPlayer = playerMap.get(origPlayer);
             origPlayer.copyCommandersToSnapshot(newPlayer, gameObjectMap::map);
+            origPlayer.copyCustomStateToSnapshot(newPlayer, cardMap::get);
             origPlayer.copyEffectCardsToSnapshot(newPlayer, gameObjectMap::map);
             ((PlayerZoneBattlefield) newPlayer.getZone(ZoneType.Battlefield)).setTriggers(true);
         }
@@ -196,6 +199,8 @@ public class GameCopier {
 
         // TODO update thisTurnCast
 
+        origGame.getTriggerHandler().copyFocusDelayedTriggersTo(newGame.getTriggerHandler(), gameObjectMap);
+
         if (advanceToPhase != null) {
             newGame.getPhaseHandler().devAdvanceToPhase(advanceToPhase, () -> GameSimulator.resolveStack(newGame, aiPlayer.getWeakestOpponent()));
         }
@@ -204,19 +209,37 @@ public class GameCopier {
     }
 
     private void copyStack(Game origGame, Game newGame, IEntityMap map) {
-        for (SpellAbilityStackInstance origEntry : origGame.getStack()) {
+        stackMap.clear();
+        // Map every spell first: retargeting can make an older spell target a newer one.
+        for (SpellAbilityStackInstance entry : origGame.getStack()) {
+            SpellAbility original = entry.getSpellAbility();
+            if (original.isSpell()) {
+                SpellAbility copied = findSAInCard(original, map.map(original.getHostCard()));
+                if (copied == null) {
+                    copied = FocusHelper.findFocusedSpell(original, map.map(original.getHostCard()));
+                }
+                if (copied != null) {
+                    copied.setActivatingPlayer(map.map(original.getActivatingPlayer()));
+                    stackMap.put(original, copied);
+                }
+            }
+        }
+        // Normal insertion pushes on top, so rebuild from the bottom.
+        for (Iterator<SpellAbilityStackInstance> it = origGame.getStack().reverseIterator(); it.hasNext();) {
+            SpellAbilityStackInstance origEntry = it.next();
             SpellAbility origSa = origEntry.getSpellAbility();
-            Card origHostCard = origSa.getHostCard();
-            Card newCard = map.map(origHostCard);
             SpellAbility newSa = null;
             if (origSa.isSpell()) {
-                newSa = findSAInCard(origSa, newCard);
+                newSa = stackMap.get(origSa);
             }
             if (newSa != null) {
                 newSa.setActivatingPlayer(map.map(origSa.getActivatingPlayer()));
-                if (origSa.usesTargeting()) {
-                    for (GameObject o : origSa.getTargets()) {
-                        newSa.getTargets().add(map.map(o));
+                newSa.setFocused(origSa.isFocused());
+                for (SpellAbility originalPart = origSa, copiedPart = newSa;
+                        originalPart != null && copiedPart != null;
+                        originalPart = originalPart.getSubAbility(), copiedPart = copiedPart.getSubAbility()) {
+                    if (originalPart.usesTargeting()) {
+                        copiedPart.setTargets(originalPart.getTargets().copyMapped(map::map));
                     }
                 }
                 newGame.getStack().add(newSa);
@@ -314,6 +337,11 @@ public class GameCopier {
             );
 
             // TODO: Verify that the above relationships are preserved bi-directionally or not.
+        }
+
+        for (Map.Entry<Card, Card> entry : cardMap.entrySet()) {
+            Card copied = entry.getValue();
+            entry.getKey().copyCustomStateToSnapshot(copied, ability -> findSAInCard(ability, copied));
         }
 
         copyLeftThisTurn(newGame, aiPlayer);

@@ -6,6 +6,7 @@ import forge.ai.ComputerUtil;
 import forge.ai.ComputerUtilMana;
 import forge.ai.PlayerControllerAi;
 import forge.ai.simulation.GameStateEvaluator.Score;
+import forge.card.CardStateName;
 import forge.game.Game;
 import forge.game.GameEntity;
 import forge.game.GameObject;
@@ -17,6 +18,7 @@ import forge.game.phase.PhaseType;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.TargetRestrictions;
+import forge.game.spellability.TargetEitherFaceUtil;
 import forge.ai.ComputerUtilCard;
 import forge.game.zone.ZoneType;
 import forge.util.AITimeoutTracker;
@@ -943,14 +945,30 @@ public final class FlatMonteCarloPicker {
     /**
      * Aims the play at the given target in place of what the heuristics chose.
      *
-     * @return false (leaving the targets alone) if the play has no single target or this one is not legal for it
+     * @return false (leaving the targets alone) if the play has no single target, this one is not legal for it,
+     *         or an MDFC face choice is still needed
      */
     public static boolean applyTarget(final SpellAbility sa, final GameObject target) {
         final SpellAbility ts = singleTargetingAbility(sa);
         if (ts == null || !(target instanceof GameEntity) || !ts.canTarget((GameEntity) target)) {
             return false;
         }
+        CardStateName state = null;
+        if (target instanceof Card card && TargetEitherFaceUtil.isEnabled(ts)
+                && TargetEitherFaceUtil.isSupportedMDFC(card)) {
+            state = ts.getTargets().contains(card) ? ts.getTargets().getTargetedCardState(card) : null;
+            if (state == null) {
+                state = TargetEitherFaceUtil.getAutoTargetState(ts, card);
+            }
+            // A GameObject-only candidate cannot express a choice between two legal faces.
+            if (state == null) {
+                return false;
+            }
+        }
         ts.resetTargets();
+        if (state != null) {
+            ts.getTargets().setTargetedCardState((Card) target, state);
+        }
         return ts.getTargets().add(target);
     }
 

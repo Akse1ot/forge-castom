@@ -14,6 +14,7 @@ import forge.game.player.PlayerActionConfirmMode;
 import forge.game.zone.ZoneType;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public final class ResonanceHelper {
 
@@ -25,6 +26,118 @@ public final class ResonanceHelper {
     private static final String SVAR_RESONANCE_COLORS = "ResonanceColors";
     private static final String SVAR_RESONANCE_COLOR_TS = "ResonanceColorTS";
     private static final String SVAR_RESONANCE_COMMIT_IDS = "ResonanceCommitIds";
+    private static final String SVAR_RESONANCE_PREPARED = "ResonancePrepared";
+    private static final String SVAR_RESONANCE_EFFECT = "ResonanceEffect";
+
+    /** Owns only Resonance changes; the caller keeps the normal payment and stack lifecycle. */
+    public static final class CastAttempt implements AutoCloseable {
+        private final Game game;
+        private final Player player;
+        private final SpellAbility original;
+        private boolean finished;
+
+        private CastAttempt(Game game, Player player, SpellAbility original) {
+            this.game = game;
+            this.player = player;
+            this.original = original;
+        }
+
+        public boolean isPrepared() {
+            return !getCommitIds(original).isEmpty();
+        }
+
+        public void commit(SpellAbility current) {
+            if (!finished) {
+                commitOnCastSuccess(game, player, current);
+                if (current != original) {
+                    original.setSVar(SVAR_RESONANCE_COMMIT_IDS, "");
+                }
+                finished = true;
+            }
+        }
+
+        public void rollback(SpellAbility current) {
+            if (!finished) {
+                clearMerge(current);
+                if (current != original) {
+                    clearMerge(original);
+                }
+                finished = true;
+            }
+        }
+
+        @Override
+        public void close() {
+            rollback(original);
+        }
+    }
+
+    public static CastAttempt prepareCast(Game game, Player player, SpellAbility root) {
+        return prepareCast(game, player, root, null);
+    }
+
+    /** Remove a previous cast's additions before Splice or modes inspect a reused ability. */
+    public static void resetForCast(SpellAbility root) {
+        if (root != null && root.isSpell() && !root.isCopied()) {
+            clearMerge(root);
+        }
+    }
+
+    public static CastAttempt prepareCast(Game game, Player player, SpellAbility root,
+            Predicate<SpellAbility> chooseEffects) {
+        CastAttempt attempt = new CastAttempt(game, player, root);
+        if (root == null || !root.isSpell() || root.isCopied()) {
+            attempt.finished = true;
+            return attempt;
+        }
+        // A new cast may reuse an SA whose previous cast already committed its effects.
+        resetForCast(root);
+        try {
+            mergeOnCast(game, player, root, chooseEffects);
+        } catch (RuntimeException | Error ex) {
+            attempt.close();
+            throw ex;
+        }
+        return attempt;
+    }
+
+    private static void clearMerge(SpellAbility root) {
+        if (root == null || root.getSVar(SVAR_RESONANCE_PREPARED).isEmpty()) {
+            return;
+        }
+        clearDirectColorOverrideForSpellCast(root);
+        SpellAbility previous = root;
+        for (AbilitySub sub = root.getSubAbility(); sub != null;) {
+            AbilitySub next = sub.getSubAbility();
+            if ("True".equals(sub.getSVar(SVAR_RESONANCE_EFFECT))) {
+                previous.setSubAbility(next);
+            } else {
+                previous = sub;
+            }
+            sub = next;
+        }
+        root.setSVar(SVAR_RESONANCE_COMMIT_IDS, "");
+        root.setSVar(SVAR_RESONANCE_COLORS, "");
+        root.setSVar(SVAR_RESONANCE_COLOR_TS, "");
+        root.setSVar(SVAR_RESONANCE_PREPARED, "");
+    }
+
+    private static boolean chooseEffects(SpellAbility root, SpellAbility first,
+            Predicate<SpellAbility> chooser) {
+        Map<SpellAbility, TargetChoices> targets = new IdentityHashMap<>();
+        for (SpellAbility part = root; part != first; part = part.getSubAbility()) {
+            targets.put(part, part.getTargets().clone());
+        }
+        Integer x = root.getXManaCostPaid();
+        List<AbilitySub> modes = root.getChosenList() == null ? null : new ArrayList<>(root.getChosenList());
+        try {
+            return chooser.test(first) && root.getHostCard().getGame().getStack().hasLegalTargeting(first);
+        } finally {
+            targets.forEach(SpellAbility::setTargets);
+            root.setXManaCostPaid(x);
+            root.setChosenList(modes);
+        }
+    }
 
     private static void appendTargetPromptContext(final SpellAbility sa, final String context) {
         if (sa == null) {
@@ -125,13 +238,10 @@ public final class ResonanceHelper {
             return;
         }
 
-        if (originalTail != null) {
-            originalTail.setSubAbility(null);
+        clearMerge(root);
+        if (originalTail != null && originalTail.getRootAbility() != root) {
+            clearMerge(originalTail.getRootAbility());
         }
-
-        root.setSVar(SVAR_RESONANCE_COMMIT_IDS, "");
-        root.setSVar(SVAR_RESONANCE_COLORS, "");
-        root.setSVar(SVAR_RESONANCE_COLOR_TS, "");
     }
 
     // =====================================================================
@@ -145,8 +255,14 @@ public final class ResonanceHelper {
     // MAIN MERGE FUNCTION
     // =====================================================================
     public static SpellAbility mergeOnCast(Game game, Player activator, SpellAbility root) {
+        return mergeOnCast(game, activator, root, null);
+    }
+
+    private static SpellAbility mergeOnCast(Game game, Player activator, SpellAbility root,
+            Predicate<SpellAbility> chooseEffects) {
 
         if (root == null || !root.isSpell() || root.isCopied()) return root;
+        if (!root.getSVar(SVAR_RESONANCE_PREPARED).isEmpty()) return root;
 
         final Card host = root.getHostCard();
         if (host == null) return root;
@@ -155,6 +271,7 @@ public final class ResonanceHelper {
 
         List<Card> pending = new ArrayList<>(activator.getPendingResonance());
         if (pending.isEmpty()) return root;
+        root.setSVar(SVAR_RESONANCE_PREPARED, "True");
 
         boolean originalTargetPromptAdjusted = false;
 
@@ -194,6 +311,7 @@ public final class ResonanceHelper {
             }
 
             final CardState hostState = host.getCurrentState();
+            final SpellAbility originalTail = root.getTailAbility();
 
             // === MERGE EFFECTS ===
             for (SpellAbility saA : allSA) {
@@ -237,8 +355,19 @@ public final class ResonanceHelper {
 
                 AbilitySub sub = (AbilitySub) subSa;
                 sub.setActivatingPlayer(activator);
+                for (SpellAbility part = sub; part != null; part = part.getSubAbility()) {
+                    part.setSVar(SVAR_RESONANCE_EFFECT, "True");
+                }
                 appendTargetPromptContext(sub, "Resonance from " + resCard.getName());
                 root.appendSubAbility(sub);
+            }
+
+            // Declining an optional effect still consumes its source on a successful cast.
+            if (chooseEffects != null && originalTail.getSubAbility() != null
+                    && !chooseEffects(root, originalTail.getSubAbility(), chooseEffects)) {
+                originalTail.setSubAbility(null);
+                markForCommit(root, resCard);
+                continue;
             }
 
             // === REMEMBER COLORS (MASK-BASED) ===

@@ -26,12 +26,14 @@ import forge.game.CardTraitBase;
 import forge.game.CardTraitPredicates;
 import forge.game.Game;
 import forge.game.IHasSVars;
+import forge.game.IEntityMap;
 import forge.game.ability.AbilityFactory;
 import forge.game.ability.AbilityKey;
 import forge.game.ability.AbilityUtils;
 import forge.game.card.*;
 import forge.game.player.Player;
 import forge.game.spellability.AbilitySub;
+import forge.game.spellability.FocusHelper;
 import forge.game.spellability.SpellAbility;
 import forge.game.staticability.StaticAbilityDisableTriggers;
 import forge.game.staticability.StaticAbilityPanharmonicon;
@@ -58,6 +60,15 @@ public class TriggerHandler {
 
     public final void registerDelayedTrigger(final Trigger trig) {
         delayedTriggers.add(trig);
+    }
+
+    public final void copyFocusDelayedTriggersTo(final TriggerHandler destination, final IEntityMap map) {
+        for (final Trigger trigger : delayedTriggers) {
+            final Trigger copied = FocusHelper.copyPendingTrigger(trigger, map);
+            if (copied != null) {
+                destination.registerDelayedTrigger(copied);
+            }
+        }
     }
 
     public final void clearDelayedTrigger() {

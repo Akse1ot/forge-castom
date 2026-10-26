@@ -77,6 +77,7 @@ import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -385,7 +386,8 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     private final ActivationTable numberTurnActivations = new ActivationTable();
     private final ActivationTable numberGameActivations = new ActivationTable();
     private final ActivationTable numberAbilityResolved = new ActivationTable();
-    private final Map<String, ActivationTable> numberAbilityResolvedGroups = Maps.newHashMap();
+    // Groups expose totals only; retaining ability/player identities is unnecessary.
+    private final Map<String, Integer> numberAbilityResolvedGroups = Maps.newHashMap();
 
     private final Map<SpellAbility, List<String>> chosenModesTurn = Maps.newHashMap();
     private final Map<SpellAbility, List<String>> chosenModesGame = Maps.newHashMap();
@@ -8124,8 +8126,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         if (StringUtils.isBlank(groupName)) {
             return 0;
         }
-        ActivationTable table = numberAbilityResolvedGroups.get(groupName);
-        return table == null ? 0 : table.getTotal();
+        return numberAbilityResolvedGroups.getOrDefault(groupName, 0);
     }
 
     public void addAbilityResolved(SpellAbility ability) {
@@ -8135,8 +8136,12 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         if (StringUtils.isBlank(groupName) || ability == null) {
             return;
         }
-        ActivationTable table = numberAbilityResolvedGroups.computeIfAbsent(groupName, k -> new ActivationTable());
-        table.add(ability);
+        // Preserve ActivationTable's rule for a trigger without an original ability.
+        SpellAbility root = ability.getRootAbility();
+        if (root.isTrigger() && root.getTrigger().getOverridingAbility() == null) {
+            return;
+        }
+        numberAbilityResolvedGroups.merge(groupName, 1, Integer::sum);
     }
     public Multiset<Player> getAbilityResolvedThisTurnActivators(SpellAbility ability) {
         return numberAbilityResolved.getActivators(ability);
@@ -8505,6 +8510,24 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
             unlockAbilities.put(state, CardFactoryUtil.abilityUnlockRoom(getState(state)));
         }
         return unlockAbilities.get(state);
+    }
+
+    /** Copy persistent custom state, without carrying ability references into another game. */
+    public void copyCustomStateToSnapshot(Card destination, Function<SpellAbility, SpellAbility> abilityMapper) {
+        if (destination == this) {
+            return;
+        }
+        destination.craftedWithColors = craftedWithColors;
+        destination.focused = focused;
+        destination.numberAbilityResolvedGroups.clear();
+        destination.numberAbilityResolvedGroups.putAll(numberAbilityResolvedGroups);
+        destination.planeswalkerAbilitiesActivatedThisTurn.clear();
+        for (SpellAbility ability : planeswalkerAbilitiesActivatedThisTurn) {
+            SpellAbility mapped = abilityMapper.apply(ability);
+            if (mapped != null) {
+                destination.addActivatedThisLoyaltyAbilityThisTurn(mapped);
+            }
+        }
     }
 
     public void copyFrom(Card in) {

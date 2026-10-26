@@ -3249,6 +3249,7 @@ public class CardFactoryUtil {
                     c.setFocused(true);
 
                     final String delTrig = "DB$ DelayedTrigger"
+                            + " | FocusDelayed$ True"
                             + " | Mode$ Phase"
                             + " | Phase$ Upkeep"
                             + " | ValidPlayer$ You"

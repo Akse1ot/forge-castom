@@ -2934,6 +2934,25 @@ public class Player extends GameEntity implements Comparable<Player> {
         }
     }
 
+    /** Copy custom turn history and pending effects after all cards have been mapped. */
+    public void copyCustomStateToSnapshot(Player toPlayer, Function<Card, Card> mapper) {
+        if (toPlayer == this) {
+            return;
+        }
+        toPlayer.lifePaidThisTurn = lifePaidThisTurn;
+        toPlayer.lifePaidLastTurn = lifePaidLastTurn;
+        toPlayer.subjugatedThisTurn = subjugatedThisTurn;
+        // ColorSet is immutable; the pending card list must be independent and remapped.
+        toPlayer.nextSpellAddColors = nextSpellAddColors;
+        toPlayer.pendingResonance.clear();
+        for (Card card : pendingResonance) {
+            Card mapped = mapper.apply(card);
+            if (mapped != null) {
+                toPlayer.pendingResonance.add(mapped);
+            }
+        }
+    }
+
     /**
      * Wires this player's field-managed effect cards (keyword, monarch,
      * initiative, blessing, enlightened, enduring story, contraption sprocket, radiation, speed) to their

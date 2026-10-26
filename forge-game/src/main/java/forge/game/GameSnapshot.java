@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Iterator;
 
 public class GameSnapshot {
     private final Game origGame;
@@ -32,6 +33,7 @@ public class GameSnapshot {
     private boolean restore = false;
 
     private final SnapshotEntityMap gameObjectMap = new SnapshotEntityMap();
+    private final Map<SpellAbility, SpellAbility> copiedStackAbilities = new HashMap<>();
 
     public GameSnapshot(Game origGame) {
         this.origGame = origGame;
@@ -91,6 +93,7 @@ public class GameSnapshot {
         for (Player p : fromGame.getPlayers()) {
             Player toPlayer = findBy(toGame, p);
             p.copyCommandersToSnapshot(toPlayer, c -> findBy(toGame, c));
+            p.copyCustomStateToSnapshot(toPlayer, c -> findBy(toGame, c));
             if (!restore) {
                 // Only wire these while storing: an effect card created after the
                 // snapshot was taken has no counterpart to map on the way back, and
@@ -165,6 +168,10 @@ public class GameSnapshot {
             copyStack(fromGame, toGame);
         }
 
+        if (!restore) {
+            fromGame.getTriggerHandler().copyFocusDelayedTriggersTo(toGame.getTriggerHandler(), gameObjectMap);
+        }
+
         if (restore) {
             for (Player p : toGame.getPlayers()) {
                 p.updateAllZonesForView();
@@ -234,6 +241,7 @@ public class GameSnapshot {
     }
 
     private void copyStack(Game fromGame, Game toGame) {
+        copiedStackAbilities.clear();
         // Try to match the StackInstance ID. If we don't find it, generate a new stack instance that matches
         // If we do find it, we may need to alter the existing stack instance
         // If we find it and we're restoring, we dont need to do anything
@@ -243,11 +251,34 @@ public class GameSnapshot {
             stackIds.put(toEntry.getId(), toEntry);
         }
 
-        for (SpellAbilityStackInstance origEntry : fromGame.getStack()) {
+        // Targets may refer to newer spells after retargeting; map all entries before copying targets.
+        for (SpellAbilityStackInstance entry : fromGame.getStack()) {
+            SpellAbility original = entry.getSpellAbility();
+            SpellAbilityStackInstance existing = stackIds.get(entry.getId());
+            if (existing != null) {
+                copiedStackAbilities.put(original, existing.getSpellAbility());
+            } else if (original.isSpell()) {
+                Card host = findBy(toGame, original.getHostCard());
+                if (host == null) {
+                    // IF this card isn't in future world, it's likely a copy
+                    host = createCardCopy(toGame, findBy(toGame, original.getHostCard().getOwner()), original.getHostCard());
+                }
+                SpellAbility copied = findSAInCard(original, host);
+                if (copied != null) {
+                    copied.setActivatingPlayer(findBy(toGame, original.getActivatingPlayer()));
+                    copiedStackAbilities.put(original, copied);
+                }
+            }
+        }
+
+        // Match normal stack insertion order.
+        for (Iterator<SpellAbilityStackInstance> it = fromGame.getStack().reverseIterator(); it.hasNext();) {
+            SpellAbilityStackInstance origEntry = it.next();
             int id = origEntry.getId();
             SpellAbilityStackInstance instance = stackIds.getOrDefault(id, null);
 
             if (instance != null) {
+                copiedStackAbilities.put(origEntry.getSpellAbility(), instance.getSpellAbility());
                 if (!restore) {
                     System.out.println("Might need to alter " + origEntry.getSpellAbility() + " on stack");
                 }
@@ -258,36 +289,26 @@ public class GameSnapshot {
             System.out.println("Adding " + origEntry.getSpellAbility() + " to stack");
 
             SpellAbility origSa = origEntry.getSpellAbility();
-            Card origHostCard = origSa.getHostCard();
-            Card newCard = findBy(toGame, origHostCard);
-
-            if (newCard == null) {
-                // IF this card isn't in future world, it's likely a copy
-                newCard = createCardCopy(toGame, findBy(toGame, origHostCard.getOwner()), origHostCard);
-            }
-
             // FInd newEntry from origEntrys
 
             SpellAbility newSa = null;
             if (origSa.isSpell()) {
-                newSa = findSAInCard(origSa, newCard);
+                newSa = copiedStackAbilities.get(origSa);
             }
 
             // Is the SA on the stack?
             if (newSa != null) {
                 newSa.setActivatingPlayer(findBy(toGame, origSa.getActivatingPlayer()));
-                if (origSa.usesTargeting()) {
-                    for (GameObject o : origSa.getTargets()) {
-                        if (o instanceof Card) {
-                            newSa.getTargets().add(findBy(toGame, (Card) o));
-                        } else if (o instanceof Player) {
-                            newSa.getTargets().add(findBy(toGame, (Player) o));
-                        } else {
-                            System.out.println("Failed to restore target " + o + " for " + origSa);
-                        }
+                newSa.setFocused(origSa.isFocused());
+                for (SpellAbility originalPart = origSa, copiedPart = newSa;
+                        originalPart != null && copiedPart != null;
+                        originalPart = originalPart.getSubAbility(), copiedPart = copiedPart.getSubAbility()) {
+                    if (originalPart.usesTargeting()) {
+                        copiedPart.setTargets(originalPart.getTargets().copyMapped(gameObjectMap::map));
                     }
                 }
                 toGame.getStack().add(newSa, id);
+                copiedStackAbilities.put(origSa, newSa);
             }
         }
     }
@@ -430,6 +451,10 @@ public class GameSnapshot {
             );
             // TODO: Verify that the above relationships are preserved bi-directionally or not.
         }
+        for (Card fromCard : getCardsToCopy(fromGame)) {
+            Card copied = findBy(toGame, fromCard);
+            fromCard.copyCustomStateToSnapshot(copied, ability -> findSAInCard(ability, copied));
+        }
     }
 
     private static CardCollectionView getCardsToCopy(Game game) {
@@ -565,6 +590,8 @@ public class GameSnapshot {
                 return findBy(getGame(), (Player) o);
             } else if (o instanceof Card) {
                 return findBy(getGame(), (Card) o);
+            } else if (o instanceof SpellAbility) {
+                return copiedStackAbilities.get(o);
             }
             return null;
         }
@@ -594,6 +621,8 @@ public class GameSnapshot {
             return findBy(newGame, (Card) o);
         } else if (o instanceof Player) {
             return findBy(newGame, (Player) o);
+        } else if (o instanceof SpellAbility) {
+            return copiedStackAbilities.get(o);
         }
 
         return null;

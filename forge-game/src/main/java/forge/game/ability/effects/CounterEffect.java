@@ -12,9 +12,11 @@ import forge.game.replacement.ReplacementResult;
 import forge.game.replacement.ReplacementType;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityStackInstance;
+import forge.game.spellability.ResonanceHelper;
 import forge.game.trigger.TriggerType;
 import forge.game.zone.ZoneType;
 import forge.util.Localizer;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -255,56 +257,67 @@ public class CounterEffect extends SpellAbilityEffect {
         if (game.getReplacementHandler().run(ReplacementType.Counter, repParams) != ReplacementResult.NotReplaced) {
             return false;
         }
-        game.getStack().remove(si);
+        // Ordinary counter events keep their original objects. Temporary cast colors need
+        // independent LKI because Countered can be processed after the live host is cleaned.
+        final boolean snapshotColors = tgtSA.isSpell()
+                && (StringUtils.isNotEmpty(tgtSA.getSVar("ResonanceColorTS"))
+                || StringUtils.isNotEmpty(tgtSA.getSVar("_NextSpellAddColorTS")));
+        final Card counteredCard = snapshotColors ? CardCopyService.getLKICopy(c) : c;
+        final SpellAbility counteredSA = snapshotColors ? tgtSA.copy(counteredCard, true) : tgtSA;
+        try {
+            game.getStack().remove(si, false);
 
-        // if the target card on stack was a spell with Bestow, then unbestow it
-        c.unanimateBestow();
+            // if the target card on stack was a spell with Bestow, then unbestow it
+            c.unanimateBestow();
 
-        params.put(AbilityKey.StackSa, tgtSA);
+            params.put(AbilityKey.StackSa, tgtSA);
 
-        String destination = srcSA.getParamOrDefault("Destination", "Graveyard");
-        if (srcSA.hasParam("DestinationChoice")) { //Hinder
-            List<String> pos = Arrays.asList(srcSA.getParam("DestinationChoice").split(","));
-            destination = srcSA.getActivatingPlayer().getController().chooseSomeType(Localizer.getInstance().getMessage("lblRemoveDestination"), tgtSA, pos);
-        }
-        if (tgtSA.isAbility()) {
-            // For Ability-targeted counterspells - do not move it anywhere,
-            // even if Destination$ is specified.
-        } else if (destination.equals("Graveyard")) {
-            movedCard = game.getAction().moveToGraveyard(c, srcSA, params);
-        } else if (destination.equals("Exile")) {
-            if (!c.canExiledBy(srcSA, true)) {
-                return false;
+            String destination = srcSA.getParamOrDefault("Destination", "Graveyard");
+            if (srcSA.hasParam("DestinationChoice")) { //Hinder
+                List<String> pos = Arrays.asList(srcSA.getParam("DestinationChoice").split(","));
+                destination = srcSA.getActivatingPlayer().getController().chooseSomeType(Localizer.getInstance().getMessage("lblRemoveDestination"), tgtSA, pos);
             }
-            movedCard = game.getAction().exile(c, srcSA, params);
-        } else if (destination.equals("Hand")) {
-            movedCard = game.getAction().moveToHand(c, srcSA, params);
-        } else if (destination.equals("Battlefield")) {
-            // card is no longer cast
-            c.setCastSA(null);
-            c.setCastFrom(null);
-            c.forceTurnFaceUp();
-            c.setController(srcSA.getActivatingPlayer(), game.getNextTimestamp());
-            movedCard = game.getAction().moveToPlay(c, srcSA.getActivatingPlayer(), srcSA, params);
-        } else if (destination.equals("TopOfLibrary")) {
-            movedCard = game.getAction().moveToLibrary(c, srcSA, params);
-        } else if (destination.equals("BottomOfLibrary")) {
-            movedCard = game.getAction().moveToBottomOfLibrary(c, srcSA, params);
-        } else {
-            throw new IllegalArgumentException("AbilityFactory_CounterMagic: Invalid Destination argument for card "
-                    + srcSA.getHostCard().getName());
+            if (tgtSA.isAbility()) {
+                // For Ability-targeted counterspells - do not move it anywhere,
+                // even if Destination$ is specified.
+            } else if (destination.equals("Graveyard")) {
+                movedCard = game.getAction().moveToGraveyard(c, srcSA, params);
+            } else if (destination.equals("Exile")) {
+                if (!c.canExiledBy(srcSA, true)) {
+                    return false;
+                }
+                movedCard = game.getAction().exile(c, srcSA, params);
+            } else if (destination.equals("Hand")) {
+                movedCard = game.getAction().moveToHand(c, srcSA, params);
+            } else if (destination.equals("Battlefield")) {
+                // card is no longer cast
+                c.setCastSA(null);
+                c.setCastFrom(null);
+                c.forceTurnFaceUp();
+                c.setController(srcSA.getActivatingPlayer(), game.getNextTimestamp());
+                movedCard = game.getAction().moveToPlay(c, srcSA.getActivatingPlayer(), srcSA, params);
+            } else if (destination.equals("TopOfLibrary")) {
+                movedCard = game.getAction().moveToLibrary(c, srcSA, params);
+            } else if (destination.equals("BottomOfLibrary")) {
+                movedCard = game.getAction().moveToBottomOfLibrary(c, srcSA, params);
+            } else {
+                throw new IllegalArgumentException("AbilityFactory_CounterMagic: Invalid Destination argument for card "
+                        + srcSA.getHostCard().getName());
+            }
+
+            final Map<AbilityKey, Object> runParams = AbilityKey.mapFromCard(counteredCard);
+            runParams.put(AbilityKey.Cause, srcSA);
+            runParams.put(AbilityKey.SpellAbility, counteredSA);
+            game.getTriggerHandler().runTrigger(TriggerType.Countered, runParams, false);
+
+            if (!tgtSA.isAbility()) {
+                game.fireEvent(new GameEventAddLog(GameLogEntryType.ZONE_CHANGE, "Send countered spell to " + destination));
+            }
+
+            return true;
+        } finally {
+            ResonanceHelper.clearDirectColorOverrideForSpellCast(tgtSA);
         }
-
-        final Map<AbilityKey, Object> runParams = AbilityKey.mapFromCard(c);
-        runParams.put(AbilityKey.Cause, srcSA);
-        runParams.put(AbilityKey.SpellAbility, tgtSA);
-        game.getTriggerHandler().runTrigger(TriggerType.Countered, runParams, false);
-
-        if (!tgtSA.isAbility()) {
-            game.fireEvent(new GameEventAddLog(GameLogEntryType.ZONE_CHANGE, "Send countered spell to " + destination));
-        }
-
-        return true;
     }
 
 }

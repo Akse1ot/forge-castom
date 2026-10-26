@@ -20,6 +20,7 @@ package forge.game.spellability;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import com.google.common.collect.ForwardingList;
 import com.google.common.collect.Iterables;
@@ -234,6 +235,29 @@ public class TargetChoices extends ForwardingList<GameObject> implements Cloneab
         tc.cardControllers.putAll(cardControllers);
         tc.targetedCardStates.putAll(targetedCardStates);
         return tc;
+    }
+
+    /** Copy selections into another game, including metadata keyed by the selected objects. */
+    public TargetChoices copyMapped(Function<GameObject, GameObject> mapper) {
+        TargetChoices copy = new TargetChoices();
+        for (GameObject target : targets) {
+            GameObject mapped = mapper.apply(target);
+            if (!copy.add(mapped)) {
+                continue;
+            }
+            if (target instanceof Card card && mapped instanceof Card mappedCard) {
+                copy.setTargetedCardState(mappedCard, getTargetedCardState(card));
+                Player controller = cardControllers.get(card);
+                if (controller != null) {
+                    copy.cardControllers.put(mappedCard, (Player) mapper.apply(controller));
+                }
+            }
+            Integer divided = getDividedValue(target);
+            if (divided != null) {
+                copy.addDividedAllocation(mapped, divided);
+            }
+        }
+        return copy;
     }
     @Override
     protected List<GameObject> delegate() {

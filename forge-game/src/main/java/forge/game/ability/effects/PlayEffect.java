@@ -327,6 +327,12 @@ public class PlayEffect extends SpellAbilityEffect {
             try {
                 List<SpellAbility> sas = AbilityUtils.getSpellsFromPlayEffect(tgtCard, controller, state, !altCost, validSA);
 
+                if (controller.getController().isAI() && (sa.hasParam("Focus") || focusIfHasFocus)) {
+                    for (SpellAbility spell : sas) {
+                        spell.setFocused(true);
+                    }
+                }
+
                 if (explicitState && TargetEitherFaceUtil.isEnabled(sa)) {
                     final CardStateName spellState = state;
                     sas.removeIf(sp -> sp.getCardStateName() != spellState);

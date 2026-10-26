@@ -29,6 +29,7 @@ final class SpellAbilityChoiceCopier {
         }
 
         copyKeywordChoices(source, destination);
+        destination.setFocused(source.isFocused());
         destination.setCastFromPlayEffect(source.isCastFromPlayEffect());
         destination.setXManaCostPaid(source.getXManaCostPaid());
         return copyChosenModes(source, destination) ? destination : null;
@@ -46,13 +47,7 @@ final class SpellAbilityChoiceCopier {
             if (!sourceAbility.usesTargeting()) {
                 continue;
             }
-            for (GameObject sourceTarget : sourceAbility.getTargets()) {
-                GameObject destinationTarget = gameObjectMapper.apply(sourceTarget);
-                destinationAbility.getTargets().add(destinationTarget);
-                if (sourceAbility.isDividedAsYouChoose()) {
-                    destinationAbility.addDividedAllocation(destinationTarget, sourceAbility.getDividedValue(sourceTarget));
-                }
-            }
+            destinationAbility.setTargets(sourceAbility.getTargets().copyMapped(gameObjectMapper));
         }
     }
 

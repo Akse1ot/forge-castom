@@ -84,7 +84,7 @@ public class PlayerControllerAi extends PlayerController {
         if (abilities.isEmpty()) {
             return null;
         }
-        return abilities.get(0);
+        return abilities.stream().filter(FocusHelper::matchesCastCondition).findFirst().orElse(null);
     }
 
     public AiController getAi() {

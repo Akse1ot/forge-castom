@@ -880,10 +880,21 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
     }
 
     public final void remove(final SpellAbilityStackInstance si) {
-        NextSpellColorHelper.clearDirectColorOverrideForSpellCast(si.getSpellAbility());
+        remove(si, true);
+    }
 
-        stack.remove(si);
-        frozenStack.remove(si);
+    /** CounterEffect defers Resonance cleanup until movement and its LKI event have been prepared. */
+    public final void remove(final SpellAbilityStackInstance si, final boolean clearResonance) {
+        boolean removed = stack.remove(si);
+        removed |= frozenStack.remove(si);
+        if (!removed) {
+            return;
+        }
+        NextSpellColorHelper.clearDirectColorOverrideForSpellCast(si.getSpellAbility());
+        if (clearResonance) {
+            ResonanceHelper.clearDirectColorOverrideForSpellCast(si.getSpellAbility());
+        }
+
         game.updateStackForView();
         game.fireEvent(new GameEventSpellRemovedFromStack(SpellAbilityView.get(si.getSpellAbility())));
     }

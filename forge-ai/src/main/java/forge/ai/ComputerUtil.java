@@ -48,6 +48,7 @@ import forge.game.replacement.ReplacementLayer;
 import forge.game.replacement.ReplacementType;
 import forge.game.spellability.AbilitySub;
 import forge.game.spellability.NextSpellColorHelper;
+import forge.game.spellability.ResonanceHelper;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityStackInstance;
 import forge.game.spellability.TargetRestrictions;
@@ -86,9 +87,11 @@ public class ComputerUtil {
         final Game game = source.getGame();
         final Card host = sa.getHostCard();
         final Zone hz = host.isCopiedSpell() ? null : host.getZone();
+        final int zonePosition = hz == null ? 0 : hz.getCards().indexOf(host);
         source.setSplitStateToPlayAbility(sa);
 
         if (sa.isSpell() && !source.isCopiedSpell()) {
+            ResonanceHelper.resetForCast(sa);
             sa = AbilityUtils.addSpliceEffects(sa);
             if (sa.getSplicedCards() != null && !sa.getSplicedCards().isEmpty() && ai.getController().isAI()) {
                 // we need to reconsider and retarget the SA after additional SAs have been added onto it via splice,
@@ -125,38 +128,102 @@ public class ComputerUtil {
                 return false;
             }
         }
-        // Spell Permanents inherit their cost from Mana Cost
-        final Cost cost = sa.getPayCosts();
-
-        final boolean refreeze = game.getStack().isFrozen();
-        game.getStack().freezeStack(sa);
-
-        final CostPayment pay = new CostPayment(cost, sa);
-        if (pay.payComputerCosts(new AiCostDecision(ai, sa, false))) {
-            game.getStack().addAndUnfreeze(sa);
-            NextSpellColorHelper.commitPreparedSpellColor(ai, sa);
-
-            if (sa.getSplicedCards() != null && !sa.getSplicedCards().isEmpty()) {
-                game.getAction().reveal(sa.getSplicedCards(), ai, true, "Computer reveals spliced cards from ");
+        try (ResonanceHelper.CastAttempt resonance = ResonanceHelper.prepareCast(game, ai, sa,
+                effects -> ai.getController().chooseTargetsFor(effects))) {
+            // Spell Permanents inherit their cost from Mana Cost
+            final Cost cost = sa.getPayCosts();
+            final boolean refreeze = game.getStack().isFrozen();
+            if (resonance.isPrepared() && !game.getStack().hasLegalTargeting(sa)) {
+                rollbackResonanceCast(resonance, sa, hz, zonePosition, new CostPayment(cost, sa), source, refreeze);
+                return false;
             }
-            return true;
-        }
 
-        NextSpellColorHelper.rollbackPreparedSpellColor(sa);
+            game.getStack().freezeStack(sa);
 
-        // FIXME: Should not arrive here, though the card seems to be stuck on stack zone and invalidated and nowhere to be found, try to put back to original zone and maybe try to cast again if possible at later time?
-        System.out.println("[" + sa.getActivatingPlayer() + "] AI failed to play " + sa.getHostCard() + " [" + sa.getHostCard().getZone() + "]");
-        if (!refreeze) {
-            game.getStack().unfreezeStack();
-        }
-        sa.setSkip(true);
-        if (host != null && hz != null && hz.is(ZoneType.Stack)) {
-            Card c = game.getAction().moveTo(hz.getZoneType(), host, null, null);
-            for (SpellAbility csa : c.getSpellAbilities()) {
-                csa.setSkip(true);
+            final CostPayment pay = new CostPayment(cost, sa);
+            if (pay.payComputerCosts(new AiCostDecision(ai, sa, false))) {
+                resonance.commit(sa);
+                game.getStack().addAndUnfreeze(sa);
+                NextSpellColorHelper.commitPreparedSpellColor(ai, sa);
+
+                if (sa.getSplicedCards() != null && !sa.getSplicedCards().isEmpty()) {
+                    game.getAction().reveal(sa.getSplicedCards(), ai, true, "Computer reveals spliced cards from ");
+                }
+                return true;
             }
+
+            if (resonance.isPrepared()) {
+                rollbackResonanceCast(resonance, sa, hz, zonePosition, pay, source, refreeze);
+                if (!refreeze) {
+                    game.getStack().unfreezeStack();
+                }
+                return false;
+            }
+
+            NextSpellColorHelper.rollbackPreparedSpellColor(sa);
+
+            // FIXME: Should not arrive here, though the card seems to be stuck on stack zone and invalidated and nowhere to be found, try to put back to original zone and maybe try to cast again if possible at later time?
+            System.out.println("[" + sa.getActivatingPlayer() + "] AI failed to play " + sa.getHostCard() + " [" + sa.getHostCard().getZone() + "]");
+            if (!refreeze) {
+                game.getStack().unfreezeStack();
+            }
+            sa.setSkip(true);
+            if (host != null && hz != null && hz.is(ZoneType.Stack)) {
+                Card c = game.getAction().moveTo(hz.getZoneType(), host, null, null);
+                for (SpellAbility csa : c.getSpellAbilities()) {
+                    csa.setSkip(true);
+                }
+            }
+            return false;
         }
-        return false;
+    }
+
+    private static void rollbackResonanceCast(ResonanceHelper.CastAttempt resonance, SpellAbility sa,
+            Zone fromZone, int zonePosition, CostPayment payment, Card source, boolean refreeze) {
+        resonance.rollback(sa);
+        if (refreeze) {
+            // A nested cast does not own the enclosing frozen stack or its waiting triggers.
+            NextSpellColorHelper.rollbackPreparedSpellColor(sa);
+            payment.refundPayment();
+            rollbackResonanceSource(sa, fromZone, zonePosition, source);
+        } else {
+            GameActionUtil.rollbackAbility(sa, fromZone, zonePosition, payment, source);
+        }
+    }
+
+    private static void rollbackResonanceSource(SpellAbility sa, Zone fromZone, int zonePosition, Card source) {
+        Card current = sa.getHostCard();
+        Game game = current.getGame();
+        if (fromZone == null || fromZone.is(ZoneType.None) || fromZone.is(ZoneType.Stack)
+                || !current.isInZone(ZoneType.Stack)
+                || !game.getStackZone().getCards().anyMatch(card -> card == current)) {
+            return;
+        }
+        // moveToStack can replace the card with a new object of the same ID. Remove that
+        // actual object, then reinstate the original without running a new zone change.
+        game.getStackZone().remove(current);
+        current.setCastSA(null);
+        current.setCastFrom(null);
+        current.setZone(fromZone);
+        source.setCastSA(null);
+        source.setCastFrom(null);
+        Integer position = zonePosition < 0 ? null : Math.min(zonePosition, fromZone.size());
+        fromZone.add(source, position, null, true);
+        sa.setHostCard(source);
+        for (SpellAbility original : source.getSpells()) {
+            original.setHostCard(source);
+        }
+        sa.setXManaCostPaid(null);
+        sa.setSpendPhyrexianMana(false);
+        sa.clearPipsToReduce();
+        sa.setPaidLife(0);
+        sa.rollback();
+        sa.resetOnceResolved();
+        source.setBackSide(false);
+        source.setState(source.getFaceupCardStateName(), true);
+        source.unanimateBestow();
+        game.getTriggerHandler().clearActiveTriggers(current, null);
+        game.getTriggerHandler().registerActiveTrigger(source, false);
     }
 
     private static boolean hasDiscardHandCost(final Cost cost) {
@@ -246,6 +313,7 @@ public class ComputerUtil {
         }
 
         if (sa.isSpell() && !source.isCopiedSpell()) {
+            ResonanceHelper.resetForCast(sa);
             sa.setHostCard(game.getAction().moveToStack(source, sa));
             sa = GameActionUtil.addExtraKeywordCost(sa);
         }
@@ -261,12 +329,36 @@ public class ComputerUtil {
             return false;
         }
 
-        if (pay.payComputerCosts(new AiCostDecision(ai, sa, false))) {
-            game.getStack().add(sa);
-            return true;
+        try (ResonanceHelper.CastAttempt resonance = ResonanceHelper.prepareCast(game, ai, sa,
+                effects -> ai.getController().chooseTargetsFor(effects))) {
+            final boolean refreeze = game.getStack().isFrozen();
+            if (resonance.isPrepared() && !game.getStack().hasLegalTargeting(sa)) {
+                rollbackResonanceCast(resonance, sa, fromZone, zonePosition, pay, source, refreeze);
+                return false;
+            }
+            if (resonance.isPrepared() && !refreeze) {
+                game.getStack().freezeStack(sa);
+            }
+            if (pay.payComputerCosts(new AiCostDecision(ai, sa, false))) {
+                boolean prepared = resonance.isPrepared();
+                resonance.commit(sa);
+                if (prepared && !refreeze) {
+                    game.getStack().addAndUnfreeze(sa);
+                } else {
+                    game.getStack().add(sa);
+                }
+                return true;
+            }
+            if (resonance.isPrepared()) {
+                rollbackResonanceCast(resonance, sa, fromZone, zonePosition, pay, source, refreeze);
+                if (!refreeze) {
+                    game.getStack().unfreezeStack();
+                }
+            } else {
+                NextSpellColorHelper.rollbackPreparedSpellColor(sa);
+            }
+            return false;
         }
-        NextSpellColorHelper.rollbackPreparedSpellColor(sa);
-        return false;
     }
 
     public static final boolean playNoStack(final Player ai, SpellAbility sa, final Game game, final boolean effect) {

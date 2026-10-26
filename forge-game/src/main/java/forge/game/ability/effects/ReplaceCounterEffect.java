@@ -237,11 +237,14 @@ public class ReplaceCounterEffect extends SpellAbilityEffect {
                     }
 
                     for (GameEntity recipient : recipients) {
-                        redirected.put(
-                                source,
-                                recipient,
+                        // These are new AddCounter events, even when their placement is deferred.
+                        // Use the normal eligibility check before processing their replacements.
+                        // The entering permanent's own ETB share stays in CounterMap below.
+                        recipient.addCounter(
                                 ec.getElement(),
-                                count);
+                                count,
+                                source,
+                                redirected);
                     }
 
                     /*
