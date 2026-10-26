@@ -8,4 +8,5 @@ SVar:DBToken:DB$ Token | ConditionDefined$ Remembered | ConditionPresent$ Creatu
 SVar:DBLand:DB$ Mana | Produced$ Combo Any | Amount$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Land | SubAbility$ DBDraw
 SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card.nonCreature+nonLand | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Token
 Oracle:At the beginning of your precombat main phase, reveal the top card of your library. If it’s a creature card, create a 2/2 green Wolf creature token. If it’s a land card, add two mana in any combination of colors. If it’s a noncreature, nonland card, draw a card.

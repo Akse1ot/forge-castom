@@ -6,4 +6,5 @@ SVar:TrigDraw:DB$ Draw
 SVar:LifeGained:Count$LifeYouGainedThisTurn
 A:AB$ GainLife | Cost$ 4 GW GW | LifeAmount$ 2 | SpellDescription$ You gain 2 life.
 DeckNeeds:Ability$LifeGain
-Oracle:At the beginning of each end step, if you’ve gained life this turn, draw a card.\n{1}{GW}{GW}: You gain 2 life.
+DeckHas:Ability$LifeGain
+Oracle:At the beginning of each end step, if you’ve gained life this turn, draw a card.\n{4}{G/W}{G/W}: You gain 2 life.

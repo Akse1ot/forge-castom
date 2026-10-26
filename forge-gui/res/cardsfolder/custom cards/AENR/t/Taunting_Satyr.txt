@@ -4,4 +4,5 @@ Types:Creature Satyr Bard
 PT:2/2
 T:Mode$ SpellCast | ValidCard$ Card.MultiColor | TriggerZones$ Battlefield | ValidActivatingPlayer$ You | Execute$ DBPump | AILogic$ Pump | TriggerDescription$ Whenever you cast a multicolored spell, target creature gets +1/+1 until end of turn and must be blocked this turn if able.
 SVar:DBPump:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ 1 | NumDef$ 1| KW$ HIDDEN CARDNAME must be blocked if able.
+SVar:BuffedBy:Card.MultiColor
 Oracle:Virtuoso — Whenever you cast a multicolored spell, target creature gets +1/+1 until end of turn and must be blocked this turn if able.

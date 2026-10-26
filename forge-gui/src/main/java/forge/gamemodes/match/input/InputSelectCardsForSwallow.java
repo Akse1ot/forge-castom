@@ -5,14 +5,18 @@ import forge.card.mana.ManaCost;
 import forge.card.mana.ManaCostShard;
 import forge.game.card.Card;
 import forge.game.card.CardCollectionView;
+import forge.game.card.CardView;
 import forge.game.keyword.Keyword;
 import forge.game.mana.ManaCostBeingPaid;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
+import forge.gamemodes.match.Selection;
 import forge.player.PlayerControllerHuman;
+import forge.trackable.TrackableObject;
 import forge.util.ITriggerEvent;
 import forge.util.TextUtil;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -54,6 +58,15 @@ public final class InputSelectCardsForSwallow
     }
 
     @Override
+    protected Selection getSelection() {
+        final List<TrackableObject> chosen = new ArrayList<>();
+        for (final Card selected : getSelected()) {
+            chosen.add(selected.getView());
+        }
+        return new Selection(new ArrayList<>(CardView.getCollection(availableCards)), min, max, List.of(), chosen, List.of());
+    }
+
+    @Override
     protected String getMessage() {
         return TextUtil.concatNoSpace(
                 "Choose creatures to sacrifice for ",
@@ -76,7 +89,7 @@ public final class InputSelectCardsForSwallow
             chosenColors.remove(card);
             rebuildRemainingCost();
 
-            onSelectStateChanged(card, false);
+            showSelection();
             refresh();
             return true;
         }
@@ -99,7 +112,7 @@ public final class InputSelectCardsForSwallow
         chosenColors.put(card, chosenColor);
         chosenCards.put(card, shard);
 
-        onSelectStateChanged(card, true);
+        showSelection();
         refresh();
         return true;
     }

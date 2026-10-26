@@ -8,4 +8,5 @@ R:Event$ GainLife | ActiveZones$ Battlefield | ValidPlayer$ Opponent | ReplaceWi
 SVar:RLoseLife:DB$ GainLife | LifeAmount$ X | Defined$ You
 SVar:X:ReplaceCount$LifeGained
 SVar:NonStackingEffect:True
+DeckHas:Ability$LifeGain
 Oracle:Flash\nLifelink\nIf an opponent would gain life, you gain that much life instead.

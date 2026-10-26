@@ -3,13 +3,17 @@ package forge.gamemodes.match.input;
 import forge.card.mana.ManaCost;
 import forge.game.card.Card;
 import forge.game.card.CardCollectionView;
+import forge.game.card.CardView;
 import forge.game.keyword.MelodyUtil;
 import forge.game.mana.ManaCostBeingPaid;
 import forge.game.spellability.SpellAbility;
+import forge.gamemodes.match.Selection;
 import forge.player.PlayerControllerHuman;
+import forge.trackable.TrackableObject;
 import forge.util.ITriggerEvent;
 import forge.util.TextUtil;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -39,6 +43,15 @@ public final class InputSelectCardsForMelody
     }
 
     @Override
+    protected Selection getSelection() {
+        final List<TrackableObject> chosen = new ArrayList<>();
+        for (final Card selected : getSelected()) {
+            chosen.add(selected.getView());
+        }
+        return new Selection(new ArrayList<>(CardView.getCollection(availableCards)), min, max, List.of(), chosen, List.of());
+    }
+
+    @Override
     protected String getMessage() {
         return TextUtil.concatNoSpace(
                 "Choose permanents to tap for Melody.\n",
@@ -59,7 +72,7 @@ public final class InputSelectCardsForMelody
         if (selectedPayments.containsKey(card)) {
             selectedPayments.remove(card);
             rebuildRemainingCost();
-            onSelectStateChanged(card, false);
+            showSelection();
             refresh();
             return true;
         }
@@ -88,7 +101,7 @@ public final class InputSelectCardsForMelody
 
         selectedPayments.put(card, chosen);
         rebuildRemainingCost();
-        onSelectStateChanged(card, true);
+        showSelection();
         refresh();
         return true;
     }

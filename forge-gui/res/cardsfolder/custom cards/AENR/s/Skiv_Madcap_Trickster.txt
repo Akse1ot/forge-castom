@@ -1,10 +1,13 @@
 Name:Skiv, Madcap Trickster
 ManaCost:2 B R
 Types:Legendary Creature Rogue
+PT:4/3
 T:Mode$ ChangesZone | ValidCard$ Card.Self | Destination$ Battlefield | Execute$ TrigDiscard | TriggerDescription$ When CARDNAME enters the battlefield, target opponent discards a card at random.
 SVar:TrigDiscard:DB$ Discard | ValidTgts$ Opponent | NumCards$ 1 | Mode$ Random
-T:Mode$ ChangesZone | ValidCard$ Creature.OppCtrl | Origin$ Hand | Destination$ Graveyard | RememberChanged$ True | Execute$ DBGainControl | TriggerDescription$ Whenever an opponent discards a creature card, you may put that card onto the battlefield under your control. If you do, that creature gains haste. Sacrifice it at the beginning of your next end step.
-SVar:DBGainControl:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ Remembered | GainControl$ True | SubAbility$ DBPump
-SVar:DBPump:DB$ Animate | Keywords$ Haste | Defined$ Remembered | Duration$ Permanent | AtEOT$ Sacrifice | SubAbility$ DBCleanup
+T:Mode$ Discarded | ValidCard$ Creature | ValidPlayer$ Opponent | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ DBGainControl | TriggerDescription$ Whenever an opponent discards a creature card, you may put that card onto the battlefield under your control. If you do, that creature gains haste. Sacrifice it at the beginning of your next end step.
+SVar:DBGainControl:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredCard | GainControl$ True | RememberChanged$ True | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | KW$ Haste | Defined$ Remembered | Duration$ Permanent | AtEOT$ YourSacrifice | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Discard & Ability$Graveyard
+DeckHints:Ability$Discard
 Oracle:When Skiv, Madcap Trickster enters the battlefield, target opponent discards a card at random.\nWhenever an opponent discards a creature card, you may put that card onto the battlefield under your control. If you do, that creature gains haste. Sacrifice it at the beginning of your next end step.

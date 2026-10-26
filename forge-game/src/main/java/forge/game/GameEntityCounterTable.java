@@ -147,7 +147,6 @@ public class GameEntityCounterTable extends ForwardingTable<Optional<Player>, Ga
             repParams.put(AbilityKey.Cause, cause);
             repParams.put(AbilityKey.EffectOnly, effect);
             repParams.put(AbilityKey.CounterMap, values);
-            repParams.put(AbilityKey.ETB, false);
 
             if (params != null) {
                 if (params.containsKey(AbilityKey.LastStateBattlefield)) {

@@ -3,5 +3,5 @@ ManaCost:WU WU
 Types:Creature Human Wizard
 PT:2/1
 R:Event$ SearchLibrary | ActiveZones$ Battlefield | ValidPlayer$ Any | ReplaceWith$ RepDraw | Description$ If a player would search a library, that player draws a card instead.
-SVar:RepDraw:DB$ Draw | Defined$ Player | NumCards$ 1
+SVar:RepDraw:DB$ Draw | Defined$ ReplacedPlayer | NumCards$ 1
 Oracle:If a player would search a library, that player draws a card instead.

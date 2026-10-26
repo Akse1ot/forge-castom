@@ -8,3 +8,5 @@ SVar:DBChangeZone2:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Dest
 SVar:DBShuffle:DB$ Shuffle | Defined$ You | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 Oracle:{T}, Pay 3 life, Sacrifice another creature: Search your library for a creature card and reveal it. If a Satyr card is revealed this way, put it onto the battlefield. Otherwise, put it into your hand. Then shuffle your library.
+DeckNeeds:Type$Creature
+DeckHints:Type$Satyr

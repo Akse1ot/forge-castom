@@ -6,9 +6,5 @@ K:Flash
 K:Flying
 K:Lifelink
 K:etbCounter:P1P1:1:CheckSVar$ X:CARDNAME enters the battlefield with a +1/+1 counter on it if you were dealt damage by a source an opponent controlled this turn.
-T:Mode$ DamageDone | ValidSource$ Card.OppCtrl,Emblem.OppCtrl | ValidTarget$ You | Execute$ TrigRemember | Static$ True
-SVar:TrigRemember:DB$ Pump | RememberObjects$ TriggeredSourceController
-T:Mode$ Phase | Phase$ Cleanup | Execute$ TrigReset | Static$ True
-SVar:TrigReset:DB$ Cleanup | ClearRemembered$ True
-SVar:X:Count$RememberedSize
+SVar:X:Count$DamageThisTurn Card.OppCtrl,Emblem.OppCtrl,Effect.OppCtrl Player.You
 Oracle:Flash\nFlying, lifelink\nExquisite Idealon enters the battlefield with a +1/+1 counter on it if you were dealt damage by a source an opponent controlled this turn.

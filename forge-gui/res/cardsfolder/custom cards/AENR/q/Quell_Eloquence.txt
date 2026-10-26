@@ -6,4 +6,5 @@ SVar:AttachAILogic:Curse
 T:Mode$ Attacks | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever enchanted creature attacks or blocks, you gain 5 life.
 T:Mode$ Blocks | ValidCard$ Card.AttachedBy | TriggerZones$ Battlefield | Execute$ TrigGainLife | Secondary$ True | TriggerDescription$ Whenever enchanted creature attacks or blocks, you gain 5 life.
 SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 5 | Defined$ You
+DeckHas:Ability$LifeGain
 Oracle:Enchant creature you don’t control\nWhenever enchanted creature attacks or blocks, you gain 5 life.

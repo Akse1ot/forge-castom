@@ -2,7 +2,6 @@ Name:Steelborn Muse
 ManaCost:2 R W
 Types:Creature Spirit
 PT:4/2
-S:Mode$ AttackRestrict | MaxAttackers$ 1 | ValidDefender$ You | SubAbility$ DBLimitBlock | Description$ Your opponents can’t attack or block with more than one creature each combat
-SVar:DBLimitBlock:DB$ Effect | StaticAbilities$ STLimitBlock  | Duration$ Permanent
-SVar:STLimitBlock:Mode$ BlockRestrict | MaxBlockers$ 1 | ValidDefender$ Opponent
+S:Mode$ AttackRestrict | MaxAttackers$ 1 | ValidDefender$ You | Description$ No more than one creature can attack you each combat.
+S:Mode$ BlockRestrict | MaxBlockers$ 1 | ValidDefender$ Opponent | Description$ Your opponents can’t block with more than one creature each combat.
 Oracle:Your opponents can’t attack or block with more than one creature each combat.

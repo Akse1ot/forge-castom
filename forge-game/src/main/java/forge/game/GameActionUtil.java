@@ -350,6 +350,9 @@ public final class GameActionUtil {
             if (o.getAbility().hasParam("MayPlayAsLand")) {
                 continue;
             }
+            if (o.getAbility().hasParam("MayPlayOnlyAdventure") && !sa.isAdventure()) {
+                continue;
+            }
             // do not appear if it can be cast with SorcerySpeed
             if (o.getAbility().hasParam("MayPlayNotSorcerySpeed") && activator.canCastSorcery()) {
                 continue;

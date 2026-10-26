@@ -5,4 +5,6 @@ PT:2/2
 K:Flash
 K:etbCounter:P1P1:X:no Condition:NICKNAME enters with a number of +1/+1 counters on it equal to the amount of life you’ve gained this turn.
 SVar:X:Count$LifeYouGainedThisTurn
+DeckNeeds:Ability$LifeGain
+DeckHas:Ability$Counters
 Oracle:Flash\nFearless Feline enters the battlefield with an amount of +1/+1 counters on it equal to the amount of life you’ve gained this turn.

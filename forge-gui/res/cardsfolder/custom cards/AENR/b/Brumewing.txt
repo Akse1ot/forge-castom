@@ -5,4 +5,6 @@ PT:1/1
 K:Flying
 A:AB$ PutCounter | Cost$ 1 B Sac<1/Creature/creature> | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBLoseLife | SpellDescription$ Put a +1/+1 counter on CARDNAME and you lose 1 life.
 SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 1 | Defined$ You
+DeckHints:Ability$Token
+DeckHas:Ability$Counters
 Oracle:{1}{B}, Sacrifice a creature: Put a +1/+1 counter on Brumewing. You lose 1 life.
