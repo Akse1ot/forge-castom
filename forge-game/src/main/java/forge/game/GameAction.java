@@ -2560,9 +2560,12 @@ public class GameAction {
         Player newFirst = first;
         do {
             List<SpellAbility> usableFromOpeningHand = Lists.newArrayList();
+            Map<SpellAbility, ZoneType> openingHandZones = new IdentityHashMap<>();
 
             // Select what can be activated from a given hand
-            for (final Card c : takesAction.getCardsIn(ZoneType.Hand)) {
+            // Command zone actions must explicitly name Command as their origin.
+            for (final Card c : Iterables.concat(takesAction.getCardsIn(ZoneType.Hand), takesAction.getCardsIn(ZoneType.Command))) {
+                final ZoneType sourceZone = c.getZone().getZoneType();
                 for (KeywordInterface inst : c.getKeywords()) {
                     String kw = inst.getOriginal();
                     if (kw.startsWith("MayEffectFromOpeningHand")) {
@@ -2573,9 +2576,18 @@ public class GameAction {
                         }
 
                         final SpellAbility effect = AbilityFactory.getAbility(c.getSVar(effName), c);
+                        if (effect.hasParam("Origin")) {
+                            if (!ZoneType.listValueOf(effect.getParam("Origin")).contains(sourceZone)
+                                    || (sourceZone == ZoneType.Command && "All".equals(effect.getParam("Origin")))) {
+                                continue;
+                            }
+                        } else if (sourceZone == ZoneType.Command) {
+                            continue;
+                        }
                         effect.setActivatingPlayer(takesAction);
 
                         usableFromOpeningHand.add(effect);
+                        openingHandZones.put(effect, sourceZone);
                     }
                 }
             }
@@ -2586,7 +2598,8 @@ public class GameAction {
             }
 
             for (final SpellAbility sa : usableFromOpeningHand) {
-                if (!takesAction.getZone(ZoneType.Hand).contains(sa.getHostCard())) {
+                final ZoneType sourceZone = openingHandZones.get(sa);
+                if (sourceZone == null || !takesAction.getZone(sourceZone).contains(sa.getHostCard())) {
                     continue;
                 }
 

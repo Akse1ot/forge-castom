@@ -925,6 +925,10 @@ public class CardProperty {
                         }
                     }
                     return list.isEmpty();
+                } else if (restriction.equals("OtherYourCreatures")) {
+                    CardCollection list = CardLists.filter(sourceController.getCreaturesInPlay(), CardPredicates.sharesNameWith(card));
+                    list.removeIf(c -> c.equalsWithGameTimestamp(card));
+                    return list.isEmpty();
                 } else {
                     CardCollection list = CardLists.getValidCards(game.getCardsIn(ZoneType.Battlefield), restriction,
                             sourceController, source, spellAbility);
