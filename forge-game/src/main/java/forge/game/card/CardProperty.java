@@ -1142,6 +1142,41 @@ public class CardProperty {
                     && !card.getDamageHistory().hasBlockedSinceLastUpkeepOf(sourceController)) {
                 return false;
             }
+        } else if (property.startsWith("DamagedByCombat")) {
+            String prop = property.substring("DamagedByCombat".length());
+            CardCollection def = null;
+            if (prop.startsWith(" ")) {
+                def = AbilityUtils.getDefinedCards(source, prop.substring(1), spellAbility);
+            }
+            boolean found = false;
+            for (Pair<Integer, Boolean> p : card.getDamageReceivedThisTurn()) {
+                if (!Boolean.TRUE.equals(p.getRight())) {
+                    continue;
+                }
+                Pair<Card, GameEntity> damageLKI = game.getDamageLKI(p);
+                if (damageLKI == null || damageLKI.getLeft() == null) {
+                    continue;
+                }
+                Card dmgSource = damageLKI.getLeft();
+                if (def != null) {
+                    for (Card c : def) {
+                        if (dmgSource.equalsWithGameTimestamp(c)) {
+                            found = true;
+                            break;
+                        }
+                    }
+                } else if (prop.isEmpty() && dmgSource.equalsWithGameTimestamp(source)) {
+                    found = true;
+                } else if (!prop.isEmpty() && dmgSource.isValid(prop.split(";"), sourceController, source, spellAbility)) {
+                    found = true;
+                }
+                if (found) {
+                    break;
+                }
+            }
+            if (!found) {
+                return false;
+            }
         } else if (property.startsWith("DamagedBy")) {
             String prop = property.substring("DamagedBy".length());
             CardCollection def = null;

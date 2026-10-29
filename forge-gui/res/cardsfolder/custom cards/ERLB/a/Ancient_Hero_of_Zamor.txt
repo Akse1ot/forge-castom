@@ -7,4 +7,6 @@ SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac
 SVar:X:Count$LeftGraveyardThisTurn Card
 A:AB$ Tap | Cost$ 2 W ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | ValidTgts$ Creature.OppCtrl | TgtPrompt$ Select target creature | SubAbility$ DBPutCounter | SpellDescription$ Tap target creature and put a stun counter on it.
 SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+DeckHas:Ability$Token & Ability$Counters
+DeckHints:Ability$Graveyard
 Oracle:At the beginning of your end step, if one or more cards left a graveyard this turn, create a Rune token.\n{2}{W}, Exile this card from your graveyard: Tap target creature and put a stun counter on it.

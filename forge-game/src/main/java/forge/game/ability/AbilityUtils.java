@@ -144,6 +144,8 @@ public class AbilityUtils {
             }
         } else if (defined.equals("Enchanted")) {
             c = hostCard.getEnchantingCard();
+        } else if (defined.equals("AshOfWarEnchanted")) {
+            c = getAshOfWarEnchantedCreature(hostCard);
         } else if (defined.equals("TopOfGraveyard")) {
             final CardCollectionView grave = player.getCardsIn(ZoneType.Graveyard);
 
@@ -378,6 +380,26 @@ public class AbilityUtils {
         return null; //If this happens there is a card in the game that is not in any zone
     }
 
+    private static Card getAshOfWarEnchantedCreature(final Card aura) {
+        if (!aura.isAura() || !aura.hasKeyword(Keyword.ASH_OF_WAR)) {
+            return null;
+        }
+
+        final Card enchanted = aura.getEnchantingCard();
+        if (enchanted == null) {
+            return null;
+        }
+
+        if (enchanted.isEquipment()) {
+            final Card equipped = enchanted.getEquipping();
+            if (equipped != null && equipped.isCreature()) {
+                return equipped;
+            }
+        }
+
+        return enchanted.isCreature() ? enchanted : null;
+    }
+
     // Utility functions used by the AFs
     /**
      * <p>
@@ -601,6 +623,9 @@ public class AbilityUtils {
             }
 
             val = handlePaid(list, calcX[1], card, ability);
+        }
+        else if (calcX[0].equals("AshOfWarEnchanted")) {
+            val = handlePaid(getDefinedCards(card, "AshOfWarEnchanted", ability), calcX[1], card, ability);
         }
         else if (calcX[0].matches("Enchanted") || calcX[0].matches("Equipped")) {
             // Add whole Enchanted list to handlePaid
