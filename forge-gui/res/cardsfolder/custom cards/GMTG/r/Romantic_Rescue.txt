@@ -5,4 +5,5 @@ A:SP$ Branch | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature y
 SVar:DBProtectAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Indestructible
 SVar:DBProtectTarget:DB$ Pump | Defined$ Targeted | KW$ Indestructible
 SVar:X:Count$Valid Creature.YouCtrl
+DeckNeeds:Type$Creature
 Oracle:Target creature you control is indestructible this turn.\nDuet — If you control exactly two creatures, instead each of those creatures is indestructible this turn.

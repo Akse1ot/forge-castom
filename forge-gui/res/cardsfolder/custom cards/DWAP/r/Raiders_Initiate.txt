@@ -3,6 +3,8 @@ ManaCost:W
 Types:Creature Human Berserker
 PT:1/2
 K:Vigilance
-S:Mode$ Continuous | Affected$ Card.Self+enchanted,Card.Self+equipped | AddPower$ 2 | AddToughness$ 1 | Description$ CARDNAME loses defender as long as it's enchanted or equipped.
-Oracle:Vigilance\n
-Raider’s Initiate gets +2/+1 as long as it’s enchanted or equipped.
+S:Mode$ Continuous | Affected$ Card.Self+enchanted,Card.Self+equipped | AddPower$ 2 | AddToughness$ 1 | Description$ CARDNAME gets +2/+1 as long as it's enchanted or equipped.
+SVar:EnchantMe:Once
+SVar:EquipMe:Once
+DeckHints:Type$Equipment|Aura
+Oracle:Vigilance\nRaider’s Initiate gets +2/+1 as long as it’s enchanted or equipped.

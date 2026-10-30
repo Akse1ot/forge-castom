@@ -15,5 +15,6 @@ SVar:EnlightenedValue:Count$Enlightened.1.0
 SVar:ReturnCondition:SVar$SacrificedCount/Plus.EnlightenedValue
 SVar:DBCleanupSacrifice:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
 A:AB$ DestroyAll | Cost$ SubCounter<4/LOYALTY> | ValidCards$ Permanent.cmcLE4+!canProduceMana | Planeswalker$ True | Ultimate$ True | SpellDescription$ Destroy each permanent with mana value 4 or less and without a mana ability.
-DeckHas:Ability$Counters|Graveyard|Sacrifice
-Oracle:Epitome\n[+1]:Create a 1/1 black Treefolk token with “{T}: Add one mana of any color.” If you’re in an epitome, put two +1/+1 counters on it.\n[-2]:You may sacrifice a creature. If you do or you’re enlightened, return target permanent card from your graveyard to the battlefield.\n[-4]:Destroy each permanent with mana value 4 or less and without a mana ability.
+DeckHas:Ability$Counters & Ability$Graveyard & Ability$Sacrifice & Ability$Token & Ability$Mana
+DeckHints:Ability$Mana
+Oracle:Epitome (If there are eight or more mana abilities among permanents you control, you become enlightened for the rest of the game.)\n+1: Create a 1/1 black Treefolk token with “{T}: Add one mana of any color.” If you’re in an epitome, put two +1/+1 counters on it.\n-2: You may sacrifice a creature. If you do or you’re enlightened, return target permanent card from your graveyard to the battlefield.\n-4: Destroy each permanent with mana value 4 or less and without a mana ability.

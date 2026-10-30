@@ -4,4 +4,5 @@ Types:Creature Fish
 PT:2/3
 K:Haste
 K:Bloodlust:1
+DeckHas:Ability$Counters
 Oracle:Haste\nBloodlust 1 (Whenever this creature deals combat damage, put one +1/+1 counter on it.)

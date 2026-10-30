@@ -1,6 +1,7 @@
 Name:Follow the Light
 ManaCost:1 W
 Types:Instant
-A:SP$ GainLife | LifeAmount$ 3 | SubAbility$ DBToken | SpellDescription$ CYou gain 3 life. Put two 0/1 Fish creature tokens that are all colors onto the battlefield.
+A:SP$ GainLife | LifeAmount$ 3 | SubAbility$ DBToken | SpellDescription$ You gain 3 life. Put two 0/1 Fish creature tokens that are all colors onto the battlefield.
 SVar:DBToken:DB$ Token | TokenScript$ all_0_1_fish | TokenAmount$ 2 
+DeckHas:Ability$Token
 Oracle:You gain 3 life. Put two 0/1 Fish creature tokens that are all colors onto the battlefield.

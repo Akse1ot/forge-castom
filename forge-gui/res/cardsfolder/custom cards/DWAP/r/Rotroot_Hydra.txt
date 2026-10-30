@@ -10,4 +10,5 @@ SVar:E:Count$Enlightened.1.0
 SVar:Y:Count$Compare E EQ1.Z.X
 SVar:Z:Count$xPaid/Twice
 DeckHas:Ability$Counters
+DeckHints:Ability$Mana
 Oracle:Epitome (If there are eight or more mana abilities among permanents you control, you become enlightened for the rest of the game.)\nReach\nRotroot Hydra enters with X +1/+1 counters on it. If you’re enlightened, it enters with twice X +1/+1 counters instead.

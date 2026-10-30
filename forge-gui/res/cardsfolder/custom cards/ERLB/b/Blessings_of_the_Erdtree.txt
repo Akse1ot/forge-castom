@@ -6,7 +6,9 @@ SVar:DBToken:DB$ Token | TokenScript$ c_a_Rune_sac | TokenAmount$ X | SpellDescr
 SVar:X:Count$Valid Creature.YouCtrl
 SVar:DBDraw:DB$ Draw | NumCards$ Y | SpellDescription$ Draw a card for each creature you control with a +1/+1 counter on it.
 SVar:Y:Count$Valid Creature.YouCtrl+counters_GE1_P1P1
-SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land | ChangeTypeDesc$ land | Tapped$ True | ChangeNum$ 1 | SpellDescription$ Search your library for a land card, put it onto the battlefield tapped, then shuffle.
-SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TgtPrompt$ Choose target permanent card in your graveyard | ValidTgts$ Permanent.YouCtrl | SubAbility$ DBGainLife | SpellDescription$ Return target permanent card from your graveyard to your hand. You gain 3
+SVar:DBChangeZone:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land | ChangeTypeDesc$ land | Tapped$ True | ChangeNum$ 1 | Shuffle$ True | SpellDescription$ Search your library for a land card, put it onto the battlefield tapped, then shuffle.
+SVar:DBChangeZone2:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TgtZone$ Graveyard | TgtPrompt$ Choose target permanent card in your graveyard | ValidTgts$ Permanent.YouOwn | SubAbility$ DBGainLife | SpellDescription$ Return target permanent card from your graveyard to your hand. You gain 3 life.
 SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3
+DeckHas:Ability$Token & Type$Rune
+DeckHints:Ability$Counters & Type$Creature
 Oracle:Choose two —\n• Create a Rune token for each creature you control.\n• Draw a card for each creature you control with a +1/+1 counter on it.\n• Search your library for a land card, put it onto the battlefield tapped, then shuffle.\n• Return target permanent card from your graveyard to your hand. You gain 3 life.

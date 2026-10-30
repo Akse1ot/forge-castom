@@ -2,4 +2,5 @@ Name:Magma Dwellers
 ManaCost:R R
 Types:Creature Elemental
 PT:2/2
+K:Intimidate
 Oracle:Intimidate (This creature can’t be blocked except by artifact creatures and/or creatures that share a color with it.)

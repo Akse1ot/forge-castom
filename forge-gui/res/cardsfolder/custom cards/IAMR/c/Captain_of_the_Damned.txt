@@ -6,4 +6,5 @@ T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.S
 T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ DBDig | Secondary$ True | TriggerDescription$ When CARDNAME enters or dies, put a 2/2 black Zombie Pirate creature token onto the battlefield.
 SVar:DBDig:DB$ Token | TokenScript$ b_2_2_zombie_pirate
 SVar:PlayMain1:TRUE
+DeckHas:Ability$Token
 Oracle:When Captain of the Damned enters the battlefield or dies, put a 2/2 black Zombie Pirate creature token onto the battlefield.

@@ -267,8 +267,9 @@ Base=fromSheet("IAMR Lands")
 7 w_1_1_mermaid_g
 8 w_0_0_meeple
 9 b_0_0_meeple
+10 r_1_1_murloc_haste
 
 [other]
-10 emblem_xaelas_the_floodcaller
-11 emblem_ctaleth
-12 emblem_kayisha_the_land_dweller
+11 emblem_xaelas_the_floodcaller
+12 emblem_ctaleth
+13 emblem_kayisha_the_land_dweller

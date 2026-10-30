@@ -8,5 +8,6 @@ K:Haste
 T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigAttach | TriggerDescription$ Whenever NICKNAME enters, attach up to one target Equipment you control to it.
 SVar:TrigAttach:DB$ Attach | Defined$ Self | Object$ Targeted | ValidTgts$ Equipment.YouCtrl | TgtPrompt$ Select up to one target Equipment you control | TargetMin$ 0 | TargetMax$ 1
 SVar:EquipMe:Once
+SVar:PlayMain1:TRUE
 DeckNeeds:Type$Equipment
 Oracle:Affinity for equipment (This spell costs {1} less to cast for each equipment you control.)\nFlying, haste\nWhen Blazing Valkyria enters, attach up to one target Equipment you control to it.

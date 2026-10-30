@@ -1,6 +1,6 @@
 Name:Lay the Seeds
 ManaCost:1 B
-Types:Enchantment — Aura
+Types:Enchantment Aura
 K:Enchant:Creature.YouCtrl:creature you control
 SVar:AttachAILogic:Pump
 S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ -1 | Description$ Enchanted creature gets +2/-1.
@@ -8,4 +8,5 @@ T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ 
 SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.YouOwn+cmcLTY+sharesCreatureTypeWith TriggeredCardLKICopy | ChangeNum$ 1 | Hidden$ True | Mandatory$ True | ForgetOtherRemembered$ True | RememberChanged$ True | SubAbility$ DBReturnAura
 SVar:DBReturnAura:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield | AttachedTo$ Remembered
 SVar:Y:TriggeredCard$CardManaCost
+DeckHas:Ability$Graveyard
 Oracle:Enchant creature you control.\nEnchanted creature gets +2/-1.\nWhenever enchanted creature dies, return a creature card with lesser mana value that shares a type with enchanted creature from your graveyard to the battlefield and attach Lay the Seeds to it.

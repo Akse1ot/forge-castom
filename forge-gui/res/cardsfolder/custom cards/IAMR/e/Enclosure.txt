@@ -5,4 +5,5 @@ K:Enchant:Creature
 T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigTap | TriggerDescription$ At the beginning of each upkeep, tap enchanted creature and all other creatures with the same name as that creature.
 SVar:TrigTap:DB$ TapAll | ValidCards$ Creature.sharesNameWith Enchanted
 SVar:AttachAILogic:Curse
+SVar:NonStackingAttachEffect:True
 Oracle:Enchant creature\nAt the beginning of each upkeep, tap enchanted creature and all other creatures with the same name as that creature.

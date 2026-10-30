@@ -10,4 +10,6 @@ A:AB$ Effect | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True
 SVar:LifeGain:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever you gain life, target creature you control gains indestructible until end of turn.
 SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | KW$ Indestructible
 SVar:PlayMain1:TRUE
+DeckHas:Ability$Token & Type$Food
+DeckHints:Ability$LifeGain
 Oracle:[+1]: Create a Food token.\n[-3]: Until end of turn, whenever you gain life, put a +1/+1 counter on target creature you control.\n[-5]: You gain an emblem with “Whenever you gain life, target creature you control gains indestructible until end of turn.”

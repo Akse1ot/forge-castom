@@ -4,4 +4,6 @@ Types:Artifact Equipment
 K:Talisman
 K:Equip:1
 S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Lifelink | Description$ Equipped creature has lifelink.
+DeckNeeds:Type$Creature
+DeckHas:Ability$LifeGain
 Oracle:Equipped creature has lifelink.\nTalisman (If equipped creature would be destroyed, instead remove all damage from it and destroy this Equipment.)\nEquip {1}

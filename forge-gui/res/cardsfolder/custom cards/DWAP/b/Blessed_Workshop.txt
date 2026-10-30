@@ -6,4 +6,5 @@ T:Mode$ Sacrificed | ValidPlayer$ You | ValidCard$ Card.Self | Execute$ TrigForg
 SVar:TrigForge:DB$ Forge | ForgeAbilities$ ForgeBonus
 SVar:ForgeBonus:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | Description$ Equipped creature gets +1/+1.
 A:AB$ Draw | Cost$ 2 Sac<1/CARDNAME> | SpellDescription$ Draw a card.
+DeckHas:Ability$Token & Ability$Sacrifice & Type$Equipment & Type$Artifact
 Oracle:Whenever Blessed Workshop enters or you sacrifice it, forge +1/+1. (Create an Equipment artifact token with equip {2} and “Equipped creature has +1/+1.”)\n{2}, Sacrifice Blessed Workshop: Draw a card.

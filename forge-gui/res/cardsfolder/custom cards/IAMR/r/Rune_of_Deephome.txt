@@ -3,4 +3,6 @@ ManaCost:1 R
 Types:Enchantment
 S:Mode$ Continuous | Affected$ Creature.token+YouCtrl | AddPower$ 1 | AddToughness$ 1 | Description$ Creature tokens you control get +1/+1 and can't be blocked except by two or more creatures.
 S:Mode$ MinMaxBlocker | ValidCard$ Creature.token+YouCtrl | Min$ 2
+DeckHints:Ability$Token
+DeckNeeds:Ability$Token
 Oracle:Creature tokens you control get +1/+1 and can’t be blocked except by two or more creatures.

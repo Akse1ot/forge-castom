@@ -6,6 +6,8 @@ S:Mode$ Continuous | Affected$ Creature.YouCtrl+attacking | AddPower$ 1 | AddKey
 T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigInvoke | TriggerDescription$ At the beginning of your end step, CARDNAME  invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
 SVar:TrigInvoke:DB$ InvokeSkill
 AlternateMode:Modal
+SVar:PlayMain1:TRUE
+DeckHas:Ability$Token
 Oracle:Attacking creatures you control get +1/+0 and have deathtouch.\nAt the beginning of your end step, Brunhild, Raider Queen invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
 
 ALTERNATE

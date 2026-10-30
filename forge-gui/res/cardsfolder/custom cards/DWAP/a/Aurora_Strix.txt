@@ -8,4 +8,5 @@ T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.S
 SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 3 | SubAbility$ DBDiscard
 SVar:DBDiscard:DB$ Discard | Mode$ TgtChoose | Defined$ Player.Opponent | SubAbility$ DBSacCreature
 SVar:DBSacCreature:DB$ Sacrifice | SacValid$ Creature | Defined$ Player.Opponent
+DeckHas:Ability$Sacrifice
 Oracle:As an additional cost to cast this spell, sacrifice an artifact or creature.\nFlying\nWhen Aurora Strix enters, each opponent loses 3 life, discards a card and sacrifices a creature.

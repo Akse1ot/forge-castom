@@ -5,4 +5,4 @@ PT:4/4
 K:Convoke
 K:Flying
 K:Vigilance
-Oracle:Convoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for  or one mana of that creature’s color.)\nFlying, vigilance
+Oracle:Convoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature’s color.)\nFlying, vigilance

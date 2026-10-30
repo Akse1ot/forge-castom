@@ -7,5 +7,6 @@ SVar:TrigAttach:DB$ Attach | ValidTgts$ Equipment.YouCtrl | TargetMin$ 0 | Targe
 A:AB$ Forge | Cost$ 1 W | ForgeAbilities$ ForgeBonus | SpellDescription$ Forge +1/+1. (Create an Equipment artifact token with equip {2} and “Equipped creature gets +1/+1.”)
 SVar:ForgeBonus:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | Description$ Equipped creature gets +1/+1.
 SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Token & Type$Equipment & Type$Artifact
 DeckHints:Type$Equipment
-Oracle:Whenever Frostmoon Pathleader attacks, attach up to one target equipment you control to it.\n{1}{W}: Forge +1/+1. (Create an Equipment artifact token with equip {2} and “Equipped creature gets +1/+1.”)
+Oracle:Whenever Frostmoon Pathleader attacks, attach up to one target equipment you control to it.\n{1}{W}: Forge +1/+1. (Create an Equipment artifact token with equip {2} and “Equipped creature has +1/+1.”)

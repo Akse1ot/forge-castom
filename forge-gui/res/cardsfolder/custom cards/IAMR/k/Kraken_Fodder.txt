@@ -1,5 +1,6 @@
 Name:Kraken Fodder
 ManaCost:2 R
 Types:Sorcery
-A:SP$  Token | TokenScript$ all_0_1_fish | TokenAmount$ 2 | SpellDescription$ Put three 0/1 Fish creature tokens that are all colors onto the battlefield.
+A:SP$  Token | TokenScript$ all_0_1_fish | TokenAmount$ 3 | SpellDescription$ Put three 0/1 Fish creature tokens that are all colors onto the battlefield.
+DeckHas:Ability$Token
 Oracle:Put three 0/1 Fish creature tokens that are all colors onto the battlefield.

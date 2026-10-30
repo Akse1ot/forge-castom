@@ -3,5 +3,5 @@ ManaCost:no cost
 Colors:red,green
 Types:Creature Demi-Human
 PT:1/1
-S:Mode$ CantAttack,CantBlock | ValidCard$ Card.Self | IsPresent$ Creature.!token+YouCtrl | PresentCompare$ EQ0 | Description$ CARDNAME can't attack or block unless you control another Giant.
+S:Mode$ CantAttack,CantBlock | ValidCard$ Card.Self | IsPresent$ Creature.!token+YouCtrl | PresentCompare$ EQ0 | Description$ CARDNAME can't attack or block unless you control a nontoken creature.
 Oracle:This creature can’t attack or block unless you control a nontoken creature.

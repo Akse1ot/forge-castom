@@ -4,4 +4,5 @@ Types:Instant
 A:SP$ Effect | StaticAbilities$ STSwallow | SubAbility$ DBDraw | SpellDescription$ Spells you cast this turn have swallow. Draw a card.
 SVar:STSwallow:Mode$ Continuous | Affected$ Card.YouCtrl+wasCast | AffectedZone$ Stack | AddKeyword$ Swallow | Description$ Spells you cast this turn have swallow.
 SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+DeckHints:Ability$Token
 Oracle:Spells you cast this turn have swallow. (Each creature you sacrifice while casting those spells pays for {1} or one mana of that creature's color.)\nDraw a card.

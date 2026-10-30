@@ -7,4 +7,4 @@ SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn,Snow.YouOwn
 K:Flying
 K:Ward:2
 DeckHints:Ability$Graveyard
-Oracle:This spell costs {2} less to cast for each instant card, sorcery card and snow card in your graveyard.\nFlying, ward {2} 
+Oracle:This spell costs {1} less to cast for each instant card, sorcery card and snow card in your graveyard.\nFlying, ward {2}

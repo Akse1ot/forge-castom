@@ -11,4 +11,5 @@ SVar:Y:TriggeredSpellAbility$TimesKicked
 T:Mode$ SpellCast | ValidCard$ Card.kicked+Blue | ValidActivatingPlayer$ You | Execute$ TrigDamage | TriggerZones$ Battlefield | TriggerDescription$ Whenever you cast a kicked blue spell, this creature deals X damage to any target, where X is twice the number of times that spell was kicked.
 SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X
 SVar:X:TriggeredSpellAbility$TimesKicked/Times.2
+DeckHints:Keyword$Kicker
 Oracle:Flying, prowess\nWhenever you cast a kicked red spell, tap up to one target creature. Put a stun counter on it for each time that spell was kicked.\nWhenever you cast a kicked blue spell, this creature deals X damage to any target, where X is twice the number of times that spell was kicked.

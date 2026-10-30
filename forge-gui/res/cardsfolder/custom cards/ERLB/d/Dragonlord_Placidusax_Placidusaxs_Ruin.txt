@@ -17,6 +17,6 @@ ManaCost:W U B R G
 Types:Legendary Enchantment Aura
 K:Enchant:Creature,Planeswalker:creature or Planeswalker
 S:Mode$ Continuous | Affected$ Creature.EnchantedBy,Planeswalker.EnchantedBy | AddPower$ 5 | AddType$ Dragon | Description$ Enchanted permanent gets +5/+0 and is a Dragon in addition to its other types.
-T:Mode$ AbilityCast | ValidCard$ Creature.EquippedBy+inRealZoneBattlefield | ValidSA$ SpellAbility | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigCopyAbility | TriggerDescription$ Whenever you activate an ability of enchanted permanent, you may copy that ability. You may choose new targets for the copy.
-SVar:TrigCopyAbility:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+T:Mode$ AbilityCast | ValidCard$ Creature.EnchantedBy,Planeswalker.EnchantedBy | ValidSA$ Activated | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigCopyAbility | TriggerDescription$ Whenever you activate an ability of enchanted permanent, you may copy that ability. You may choose new targets for the copy.
+SVar:TrigCopyAbility:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Controller$ You | MayChooseTarget$ True
 Oracle:Enchant creature or planeswalker\nEnchanted permanent gets +5/+0 and is a Dragon in addition to its other types.\nWhenever you activate an ability of enchanted permanent, you may copy that ability. You may choose new targets for the copy.

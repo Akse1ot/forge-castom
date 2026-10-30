@@ -8,5 +8,6 @@ T:Mode$ SpellCast | ValidCard$ Creature.Snow | ValidActivatingPlayer$ You | Trig
 SVar:TrigDig:DB$ Dig | DigNum$ X | Reveal$ True | ChangeNum$ 1 | Optional$ True | ChangeValid$ Card.Snow+nonCreature | DestinationZone$ Hand | SkipReorder$ True | SubAbility$ DBShuffle
 SVar:DBShuffle:DB$ Shuffle | Defined$ You
 SVar:X:TriggeredSpellAbility$Converge
+DeckHas:Ability$Mana
 DeckNeeds:Type$Snow
 Oracle:Intrepidity is all colors.\nWhenever a snow land you control enters, add one mana of any color.\nWhenever you cast a snow creature spell, reveal the top X cards of your library, where X is the number of colors spent to cast it. You may put a snow noncreature card from among them into your hand, then shuffle.

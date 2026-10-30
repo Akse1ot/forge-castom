@@ -4,4 +4,6 @@ Types:Sorcery
 K:Swallow
 A:SP$ Mill | ValidTgts$ Player | NumCards$ 8 | SubAbility$ DBDraw | SpellDescription$ Target player puts the top eight cards of their library into their graveyard and you draw eight cards.
 SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 8
+DeckHas:Ability$Sacrifice
+DeckHints:Ability$Token
 Oracle:Swallow (Each creature you sacrifice while casting this spell pays for {1} or one mana of that creature’s color.)\nTarget player puts the top eight cards of his or her library into his or her graveyard and you draw eight cards.

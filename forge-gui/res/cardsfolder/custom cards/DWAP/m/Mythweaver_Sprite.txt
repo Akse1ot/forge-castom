@@ -7,4 +7,5 @@ T:Mode$ SpellCast | ValidCard$ Enchantment | ValidActivatingPlayer$ You | Execut
 SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
 S:Mode$ ReduceCost | Type$ Spell | ValidCard$ Enchantment | Activator$ You | Amount$ X | Description$ Enchantment spells you cast cost {1} less to cast for each +1/+1 counter on CARDNAME.
 SVar:X:Count$CardCounters.P1P1
-Oracle:Flying\nWhenever you cast an enchantment spell, put a +1/+1 counter on Mythweaver Sprite.\nEnchantment spells you cast cost {1} less to cast for each +1/+1 counter on Mythweaver Sprite.
+DeckHas:Ability$Counters
+Oracle:Flying\nWhenever you cast an enchantment spell, put a +1/+1 counter on Mythweaver Sprite. \nEnchantment spells you cast cost {1} less to cast for each +1/+1 counter on Mythweaver Sprite.

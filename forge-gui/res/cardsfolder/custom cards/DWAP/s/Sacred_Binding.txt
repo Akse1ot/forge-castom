@@ -7,4 +7,5 @@ SVar:DBForge:DB$ Forge | ForgeAbilities$ ForgeLifelink
 SVar:ForgeLifelink:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Lifelink | Description$ Equipped creature has lifelink.
 SVar:PlayMain1:TRUE
 SVar:OblivionRing:TRUE
+DeckHas:Ability$Token & Ability$LifeGain & Type$Equipment & Type$Artifact
 Oracle:When Sacred Binding enters, exile up to one target nonland permanent you don’t control until Sacred Binding leaves the battlefield. Forge lifelink. (Create an Equipment artifact token with equip {2} and “Equipped creature has lifelink.”)

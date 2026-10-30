@@ -9,5 +9,6 @@ SVar:TrigUntap:DB$ Untap | UntapUpTo$ True | UntapType$ Land.YouCtrl | Amount$ X
 SVar:DBDraw:DB$ Draw | NumCards$ X | SubAbility$ DBGainLife
 SVar:DBGainLife:DB$ GainLife | LifeAmount$ X
 SVar:X:Count$Valid Permanent.YouCtrl+hasKeywordFlash
+DeckHas:Ability$LifeGain
 DeckHints:Keyword$Flash
 Oracle:Flash\nFlying\nWhen Sven, Fjord Cliffdancer enters, untap up to X lands you control, where X is the number of permanents you control with flash, then you draw X cards and gain X life.

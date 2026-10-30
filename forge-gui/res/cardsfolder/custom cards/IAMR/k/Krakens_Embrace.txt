@@ -4,4 +4,6 @@ Types:Sorcery
 K:Swallow
 A:SP$ DealDamage | ValidTgts$ Creature,Player | NumDmg$ 8 | SubAbility$ DBGainLife | SpellDescription$ CARDNAME deals 8 damage to target creature or player and you gain 8 life.
 SVar:DBGainLife:DB$ GainLife | LifeAmount$ 8
+DeckHas:Ability$Sacrifice
+DeckHints:Ability$Token
 Oracle:Swallow (Each creature you sacrifice while casting this spell pays for {1} or one mana of that creature's color.)\nKraken's Embrace deals 8 damage to target creature or player and you gain 8 life.

@@ -10,4 +10,5 @@ SVar:ForgeLoseLife:DB$ LoseLife | Defined$ TriggeredTarget | LifeAmount$ X
 SVar:X:Count$TriggeredTarget LifeTotal/HalfUp
 SVar:DBAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | Object$ Remembered | Defined$ ThisTargetedCard | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-Oracle:When Enevenomed Scribe enters, forge deathtouch and “Whenever this creature deals combat damage to a player, they lose half their life rounded up. Attach that equipment to target creature you control. (Create an Equipment artifact token with equip {2} and “Equipped creature has the chosen abilities.”)
+DeckHas:Ability$Token & Type$Equipment & Type$Artifact
+Oracle:When Enevenomed Scribe enters, forge deathtouch and “Whenever this creature deals combat damage to a player, they lose half their life rounded up. Attach that equipment to target creature you control.  (Create an Equipment artifact token with equip 2 and “Equipped creature has the chosen abilities.”)

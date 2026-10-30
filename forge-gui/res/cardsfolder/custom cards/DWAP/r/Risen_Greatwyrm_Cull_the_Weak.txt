@@ -8,6 +8,7 @@ SVar:TrigInvoke:DB$ InvokeSkill
 T:Mode$ ChangesZone | ValidCard$ Creature.tapped | Origin$ Battlefield | Destination$ Graveyard | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a tapped creature dies, you gain 2 life.
 SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 2
 AlternateMode:Modal
+DeckHas:Ability$LifeGain
 Oracle:Flying\nWhen Risen Greatwyrm enters, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)\nWhenever a tapped creature dies, you gain 2 life.
 
 ALTERNATE

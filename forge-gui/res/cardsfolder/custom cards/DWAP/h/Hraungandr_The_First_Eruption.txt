@@ -6,6 +6,7 @@ K:Convoke
 K:Menace
 T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigChangeZone | TriggerDescription$ Whenever CARDNAME attacks, return up to two instant, sorcery and/or cards with a Skill at random from your graveyard to your hand.
 SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType$ Instant.YouOwn+FrontSide,Sorcery.YouOwn+FrontSide,Card.Skill+YouOwn+BackSide | ValidEitherFace$ True | ChangeNum$ 2 | Hidden$ True | AtRandom$ True
-DeckHints:Type$Instant|Sorcery
+SVar:HasAttackEffect:TRUE
 DeckHas:Ability$Graveyard
+DeckHints:Type$Instant|Sorcery
 Oracle:Convoke\nMenace\nWhenever Hraungandr, The First Eruption attacks, return up to two instant, sorcery and/or cards with a Skill at random from your graveyard to your hand.

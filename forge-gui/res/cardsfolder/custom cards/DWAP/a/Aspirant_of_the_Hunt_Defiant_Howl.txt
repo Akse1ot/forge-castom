@@ -5,6 +5,7 @@ PT:2/3
 T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigInvoke | TriggerDescription$ Whenever CARDNAME attacks, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
 SVar:TrigInvoke:DB$ InvokeSkill
 AlternateMode:Modal
+SVar:HasAttackEffect:TRUE
 Oracle:Whenever Aspirant of the Hunt attacks, it invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
 
 ALTERNATE

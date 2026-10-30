@@ -9,4 +9,4 @@ SVar:X:Count$CastTotalManaSpent Snow/Plus.Y
 SVar:Y:Count$Valid Creature.Snow+YouCtrl+Other
 SVar:AIPreference:ManaFrom$Snow
 DeckNeeds:Type$Snow
-Oracle:Trample\nWhen Snowslide Runner enters, if was {S} spent to cast it or you control another snow creature, it fights up to one target creature you don’t control.
+Oracle:Trample\nWhen Snowslide Runner enters, if {S} was spent to cast it or you control another snow creature, it fights up to one target creature you don’t control.

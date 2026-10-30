@@ -6,4 +6,4 @@ K:Convoke
 K:Trample
 K:Vigilance
 K:Ward:2
-Oracle:Convoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for  or one mana of that creature’s color.)\nTrample, vigilance, ward {2}
+Oracle:Convoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature’s color.)\nTrample, vigilance, ward {2}

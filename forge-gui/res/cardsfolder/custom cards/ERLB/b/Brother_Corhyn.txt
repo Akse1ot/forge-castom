@@ -8,4 +8,6 @@ A:AB$ Effect | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True
 SVar:Counter:Mode$ CounterAddedOnce | ValidCard$ Creature.YouCtrl | CounterType$ P1P1 | ValidSource$ You | Execute$ EmblemTrig | TriggerDescription$ Whenever you put one or more +1/+1 counters on a creature, you gain that much life.
 SVar:EmblemTrig:DB$ GainLife | Defined$ You | LifeAmount$ X
 SVar:X:TriggerCount$Amount
+DeckHas:Ability$Token|Counters & Type$Rune
+DeckHints:Ability$Counters & Type$Creature
 Oracle:[+1]: Create a Rune token.\n[-3]: Creatures you control with +1/+1 counters on them get lifelink and indestructible until end of turn.\n[-5]: You gain an emblem with “Whenever you put one or more +1/+1 counters on a creature, you gain that much life.”

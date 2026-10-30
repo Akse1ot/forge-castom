@@ -11,4 +11,6 @@ SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature
 R:Event$ Moved | Destination$ Graveyard | ValidCard$ Card.Self | ReplaceWith$ DBShuffle | Description$ If CARDNAME would be put into a graveyard from anywhere, reveal CARDNAME and shuffle it into its owner's library instead.
 SVar:DBShuffle:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Library | Defined$ ReplacedCard | Reveal$ True | Shuffle$ True
 SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Sacrifice
+DeckHints:Ability$Token
 Oracle:Nolgul can't be countered.\nSwallow, protection from noncreature\nWhenever Nolgul enters or attacks, gain control of target creature.\nIf Nolgul would be put into a graveyard from anywhere, reveal Nolgul and shuffle it into its owner's library instead.

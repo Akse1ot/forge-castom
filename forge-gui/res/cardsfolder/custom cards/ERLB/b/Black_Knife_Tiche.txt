@@ -8,4 +8,5 @@ SVar:TrigSurveil:DB$ Surveil | Amount$ 2
 T:Mode$ ChangesZoneAll | Origin$ Hand,Library | Destination$ Graveyard | ValidCards$ Card | TriggerZones$ Battlefield | Execute$ TrigDrain | TriggerDescription$ Whenever one or more cards are put into a player’s graveyard from their hand or library, each opponent loses 1 life.
 SVar:TrigDrain:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1
 K:Spirit Ash:2 B Sac<1/Permanent.Legendary/legendary permanent>
+DeckHints:Ability$Mill|Discard
 Oracle:Deathtouch\nWhenever this creature deals combat damage to a player, surveil 2.\nWhenever one or more cards are put into a player’s graveyard from their hand or library, each opponent loses 1 life.\nSpirit Ash—{2}{B}, Sacrifice a legendary permanent.

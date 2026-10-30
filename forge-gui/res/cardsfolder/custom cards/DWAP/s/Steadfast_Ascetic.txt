@@ -3,5 +3,6 @@ ManaCost:3 G
 Types:Creature Ape Shaman
 PT:4/4
 K:Epitome
-S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | AddType$ Elder | Enlightened$ True | Description$ CARDNAME gets +2/+2 and is an Elder in addition to its other types as long as you’re enlightened.
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | AddType$ Elder | CheckSVar$ Count$Enlightened.1.0 | SVarCompare$ GE1 | Description$ CARDNAME gets +2/+2 and is an Elder in addition to its other types as long as you’re enlightened.
+DeckHints:Ability$Mana
 Oracle:Epitome (If there are eight or more mana abilities among permanents you control, you become enlightened for the rest of the game.)\nSteadfast Ascetic gets +2/+2 and is an Elder in addition to its other types as long as you’re enlightened.

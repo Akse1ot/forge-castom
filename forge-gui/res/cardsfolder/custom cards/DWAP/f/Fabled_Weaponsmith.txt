@@ -6,4 +6,5 @@ T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.S
 SVar:TrigForge:DB$ Forge | ForgeAbilities$ ForgeBonus | SubAbility$ DBAttach
 SVar:ForgeBonus:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | Description$ Equipped creature gets +2/+2.
 SVar:DBAttach:DB$ Attach | Choices$ Equipment.YouCtrl | Defined$ Self
+DeckHas:Ability$Token & Type$Equipment & Type$Artifact
 Oracle:When Fabled Weaponsmith enters, forge +2/+2, then attach an equipment you control to Fabled Weaponsmith. (Create an Equipment artifact token with equip {2} and “Equipped creature has +2/+2.”)

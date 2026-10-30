@@ -9,4 +9,5 @@ SVar:X:Count$LastStateBattlefield Shaman.YouCtrl
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Shaman.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ Whenever a Shaman you control enters, put a +1/+1 counter on this creature.
 SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
 DeckHas:Ability$Counters
+DeckHints:Type$Shaman
 Oracle:Trample, haste\nElder Protector enters with a +1/+1 counter on it for each Shaman you control.\nWhenever a Shaman you control enters, put a +1/+1 counter on Elder Protector.

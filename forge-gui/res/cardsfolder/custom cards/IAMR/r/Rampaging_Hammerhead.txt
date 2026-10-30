@@ -4,4 +4,5 @@ Types:Creature Fish
 PT:2/2
 K:First Strike
 K:Bloodlust:2
+DeckHas:Ability$Counters
 Oracle:First strike\nBloodlust 2 (Whenever this creature deals combat damage, put two +1/+1 counters on it.)

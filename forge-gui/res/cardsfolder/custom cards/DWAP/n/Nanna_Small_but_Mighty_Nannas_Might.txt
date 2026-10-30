@@ -7,6 +7,8 @@ SVar:TrigPut:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select ta
 SVar:TrigInvoke:DB$ InvokeSkill | ConditionCheckSVar$ TotalP1P1Counters | ConditionSVarCompare$ GE5
 SVar:TotalP1P1Counters:Count$Valid Creature.YouCtrl$CardCounters.P1P1
 AlternateMode:Modal
+DeckHas:Ability$Counters
+DeckHints:Ability$Counters
 Oracle:Whenever Nanna, Small but Mighty becomes tapped, put a +1/+1 counter on target creature you control. Then if there are five or more +1/+1 counters among creatures you control, Nanna, Small but Mighty invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
 
 ALTERNATE

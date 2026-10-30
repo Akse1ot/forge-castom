@@ -23,4 +23,5 @@ SVar:DBGiveControl:DB$ GainControl | Choices$ Card.IsRemembered | Chooser$ Paren
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
 SVar:X:Count$ChosenNumber
 SVar:NumMeeples:Count$Valid Card.IsRemembered
+DeckHas:Ability$Token|Counters
 Oracle:{3}, {T}: Put a 0/0 white Meeple creature token and a 0/0 black Meeple creature token onto the battlefield, then distribute up to six +1/+1 counters among those creatures. You may have any of those creatures gain vigilance. The same is true for lifelink, trample, haste, first strike, hexproof and intimidate. Target opponent chooses one of those creatures and gains control it.

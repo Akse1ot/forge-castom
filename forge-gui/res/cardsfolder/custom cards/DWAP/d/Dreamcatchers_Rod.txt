@@ -9,4 +9,5 @@ SVar:TrigPump:DB$ Pump | Defined$ Equipped | NumAtt$ +X
 SVar:X:TriggeredSpellAbility$CardManaCostLKI
 SVar:BuffedBy:Instant,Sorcery
 DeckHas:Ability$Graveyard
-Oracle:When Dreamcatcher's Rod enters, return up to one target instant card, sorcery card, or card with a Skill from your graveyard to your hand.\nWhenever you cast an instant or sorcery spell, equipped creature gets +X/+0 until end of turn, where X is that spell's mana value.\nEquip {1}
+DeckHints:Type$Instant|Sorcery|Skill
+Oracle:When Dreamcatcher’s Rod enters, return up to one target instant card, sorcery card or card with a Skill from your graveyard to your hand.\nWhenever you cast an instant or sorcery spell, equipped creature gets +X/+0 until end of turn, where X is that spell’s mana value.\nEquip {1}

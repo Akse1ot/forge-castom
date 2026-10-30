@@ -8,4 +8,6 @@ K:Trample
 T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigChooseColor | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, choose a color. Destroy all creatures that player controls of that color.
 SVar:TrigChooseColor:DB$ ChooseColor | Defined$ You | SubAbility$ DBDestroy
 SVar:DBDestroy:DB$ DestroyAll | ValidCards$ Creature.ChosenColor+ControlledBy TriggeredTarget
+DeckHas:Ability$Sacrifice
+DeckHints:Ability$Token
 Oracle:Swallow (Each creature you sacrifice while casting this spell pays for {1} or one mana of that creature's color.)\nFirst strike, trample\nWhenever Sleepwatcher of Kalimaras deals combat damage to a player, choose a color. Destroy all creatures that player controls of that color.

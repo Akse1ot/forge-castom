@@ -1,0 +1,6 @@
+Name:Murloc Token
+ManaCost:no cost
+Colors:red
+Types:Creature Murloc
+PT:1/1
+Oracle:

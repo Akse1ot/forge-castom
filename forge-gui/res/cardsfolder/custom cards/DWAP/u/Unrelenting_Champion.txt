@@ -8,4 +8,5 @@ SVar:TrigSacrifice:DB$ Sacrifice | Optional$ True | SacValid$ Card.TriggeredSour
 SVar:DBUntap:DB$ UntapAll | ValidCards$ Creature.YouCtrl | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBAddCombat
 SVar:DBAddCombat:DB$ AddPhase | ExtraPhase$ Combat | AfterPhase$ EndCombat | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Sacrifice
 Oracle:Menace\nWhenever one or more creatures you control deal combat damage to a player, you may sacrifice one of them. If you do, untap all creatures you control. After this phase, there is an additional combat phase.

@@ -4,10 +4,12 @@ Types:Legendary Creature Human Soldier
 PT:2/2
 K:Multikicker:R
 K:Battle cry
-A:SP$ Token | TokenAmount$ X | TokenScript$ r_1_1_enchantment_spirit_haste | TokenOwner$ You | SpellDescription$ For each time this spell was kicked, create a 1/1 red enchantment Spirit creature token with haste.
-SVar:X:Count$TimesKicked
+T:Mode$ SpellCast | ValidCard$ Card.Self | TriggerZones$ Stack | Execute$ TrigToken | TriggerDescription$ When you cast CARDNAME, create a 1/1 red Spirit enchantment creature token with haste for each time it was kicked.
+SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScript$ r_1_1_enchantment_spirit_haste | TokenOwner$ You
+SVar:X:TriggeredSpellAbility$TimesKicked
+DeckHas:Ability$Token
 AlternateMode:Modal
-Oracle:Multikicker {R} (You may pay an additional {R} any number of times as you cast this spell.)\nBattle cry (Whenever this creature attacks, each other attacking creature gets +1/+0 until end of turn.)\nFor each time this spell was kicked, create a 1/1 red enchantment Spirit creature token with haste.
+Oracle:Multikicker {R} (You may pay an additional {R} any number of times as you cast this spell.)\nBattle cry (Whenever this creature attacks, each other attacking creature gets +1/+0 until end of turn.)\nWhen you cast this spell, create a 1/1 red Spirit enchantment creature token with haste for each time it was kicked.
 
 ALTERNATE
 
@@ -19,4 +21,7 @@ K:Vigilance
 T:Mode$ SpellCast | ValidCard$ Card.kicked | ValidActivatingPlayer$ You | Execute$ TrigToken | TriggerZones$ Battlefield | TriggerDescription$ Whenever you cast a kicked spell, create a 2/2 blue Spirit Knight enchantment creature token with vigilance for each time that spell was kicked.
 SVar:TrigToken:DB$ Token | TokenAmount$ X | TokenScript$ u_2_2_enchantment_spirit_knight_vigilance | TokenOwner$ You
 SVar:X:TriggeredSpellAbility$TimesKicked
+DeckHas:Ability$Token
+DeckNeeds:Keyword$Kicker|Multikicker
+DeckHints:Keyword$Kicker|Multikicker
 Oracle:Vigilance\nWhenever you cast a kicked spell, create a 2/2 blue Spirit Knight enchantment creature token with vigilance for each time that spell was kicked.

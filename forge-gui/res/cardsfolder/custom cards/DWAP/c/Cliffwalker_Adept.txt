@@ -3,6 +3,7 @@ ManaCost:1 U
 Types:Snow Creature Human Scout
 PT:1/3
 A:AB$ Mana | Cost$ T | Produced$ U | RestrictValid$ Spell.Instant,Spell.Sorcery,Spell.Snow | SpellDescription$ Add {U}. Spend this mana only to cast an instant, sorcery or snow spell.
+DeckHas:Ability$Mana
 DeckHints:Type$Instant|Sorcery
-DeckNeeds:Type$Snow
+DeckNeeds:Type$Instant|Sorcery|Snow
 Oracle:{T}: Add {U}. Spend this mana only to cast an instant, sorcery or snow spell.

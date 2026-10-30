@@ -2,7 +2,10 @@ Name:Tome of Knowledge
 ManaCost:1
 Types:Artifact Equipment
 T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLevel | TriggerDescription$ At the beginning of your end step, put a level counter on equipped creature if it has level up.
-SVar:TrigLevel:DB$ PutCounter | Defined$ Equipped.withLevel up | CounterType$ LEVEL | CounterNum$ 1
+SVar:TrigLevel:DB$ PutCounter | Defined$ Equipped | CounterType$ LEVEL | CounterNum$ 1 | ConditionDefined$ Equipped | ConditionPresent$ Card.withLevel up
 K:Equip:1
 DeckHas:Ability$Counters
+DeckHints:Keyword$Level up
+DeckNeeds:Keyword$Level up
+SVar:AttachAi:AITgts$ Creature.withLevel up
 Oracle:At the beginning of your end step, put a level counter on equipped creature if it has level up.\nEquip {1}

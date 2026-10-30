@@ -4,4 +4,6 @@ Types:Creature Human Knight
 PT:7/7
 K:Swallow
 K:Vigilance
+DeckHints:Ability$Token
+DeckHas:Ability$Sacrifice
 Oracle:Swallow (Each creature you sacrifice while casting this spell reduces its cost by 1 or by one mana of that creature’s color.)\nVigilance

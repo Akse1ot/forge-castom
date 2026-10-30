@@ -2,6 +2,7 @@ package forge.ai.ability;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.primitives.Ints;
 import forge.ai.*;
 import forge.game.Game;
 import forge.game.GameEntity;
@@ -108,8 +109,18 @@ public class CountersPutAi extends CountersAi {
             }
             int maxLevel = 0;
             for (StaticAbility st : source.getStaticAbilities()) {
-                if (st.toString().startsWith("LEVEL ")) {
-                    maxLevel = Math.max(maxLevel, Integer.parseInt(st.toString().substring(6, 7)));
+                // Use the script text, not the translated display description.
+                final String description = st.getParamOrDefault("Description", "");
+                if (!st.isSuppressed() && description.startsWith("LEVEL ")) {
+                    int end = 6;
+                    while (end < description.length() && description.charAt(end) >= '0'
+                            && description.charAt(end) <= '9') {
+                        end++;
+                    }
+                    final Integer level = Ints.tryParse(description.substring(6, end));
+                    if (level != null) {
+                        maxLevel = Math.max(maxLevel, level);
+                    }
                 }
             }
             return source.getCounters(CounterEnumType.LEVEL) < maxLevel;
@@ -618,10 +629,10 @@ public class CountersPutAi extends CountersAi {
                 }
             }
 
-            // each non +1/+1 counter on the card is a 10% chance of not
-            // activating this ability.
+            // Each non +1/+1 counter on the card is a 10% chance of not
+            // activating this ability. Level counters use their level cap instead.
 
-            if (!(type.equals("P1P1") || type.equals("M1M1") || type.equals("ICE")) && MyRandom.getRandom().nextFloat() < (.1 * currCounters)) {
+            if (!(type.equals("P1P1") || type.equals("M1M1") || type.equals("ICE") || type.equals("LEVEL")) && MyRandom.getRandom().nextFloat() < (.1 * currCounters)) {
                 return new AiAbilityDecision(0, AiPlayDecision.CantPlayAi);
             }
             // Instant +1/+1

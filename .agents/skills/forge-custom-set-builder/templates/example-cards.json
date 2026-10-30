@@ -1,0 +1,26 @@
+{
+  "set_code": "EXAM",
+  "set_url": "https://example.invalid/custom-set",
+  "expected_cards": 1,
+  "cards": [
+    {
+      "source_id": "source-card-1",
+      "source_url": "https://example.invalid/custom-set/card/1",
+      "name": "Example Creature",
+      "forge_name": "Example Creature",
+      "collector_number": "1",
+      "rarity": "C",
+      "faces": [
+        {
+          "name": "Example Creature",
+          "mana_cost": "1 G",
+          "type_line": "Creature — Beast",
+          "power": "2",
+          "toughness": "2",
+          "oracle_text": "Trample"
+        }
+      ],
+      "quality": {"status": "verified", "method": "browser"}
+    }
+  ]
+}

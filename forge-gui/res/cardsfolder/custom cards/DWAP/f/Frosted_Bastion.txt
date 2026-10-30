@@ -5,4 +5,5 @@ R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementRe
 SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
 A:AB$ Mana | Cost$ T | Produced$ B  | SpellDescription$ Add {B}.
 A:AB$ ChangeZone | Cost$ 5 B B T Sac<1/CARDNAME> | Origin$ Graveyard | Destination$ Battlefield | WithCountersType$ FINALITY | ValidTgts$ Creature.YouCtrl | AITgts$ Card.cmcGE5 | TgtPrompt$ Select target creature in your graveyard | SpellDescription$ Return target creature card from your graveyard to the battlefield with a finality counter.
+DeckHas:Ability$Mana & Ability$Sacrifice & Ability$Graveyard
 Oracle:Frosted Bastion enters tapped.\n{T}: Add {B}.\n{5}{B}{B}, {T}, Sacrifice Frosted Bastion: Return target creature card from your graveyard to the battlefield with a finality counter.

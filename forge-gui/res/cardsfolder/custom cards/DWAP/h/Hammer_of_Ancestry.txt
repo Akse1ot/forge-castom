@@ -5,5 +5,5 @@ S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ X | AddToughness$
 SVar:X:Count$Valid Equipment.YouCtrl
 S:Mode$ Continuous | Affected$ Card.Self | GainsAbilitiesOf$ Equipment.Other+YouCtrl | GainsAllAbilities$ True | GainsAbilitiesExcludeKeywords$ Equip | GainsValidAbilities$ Activated.!Equip | Description$ CARDNAME has all non-equip abilities of other Equipment you control.
 K:Equip:2
-Oracle:Equipped creature gets +1/+1 for each equipment you control.\n
-Hammer of Ancestry has all non-equip abilities of other equipment you control.\nEquip {2}
+DeckHints:Type$Equipment
+Oracle:Equipped creature gets +1/+1 for each equipment you control.\nHammer of Ancestry has all non-equip abilities of other equipment you control.\nEquip {2}

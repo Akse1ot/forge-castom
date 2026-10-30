@@ -9,4 +9,4 @@ T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.S
 SVar:TrigTap:DB$ Tap | Defined$ Enchanted
 R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Permanent.EnchantedBy | ValidStepTurnToController$ You | Layer$ CantHappen | Description$ Enchanted permanent doesn't untap during its controller's untap step and its activated abilities can't be activated.
 S:Mode$ CantBeActivated | ValidCard$ Permanent.EnchantedBy | Secondary$ True | Description$ Enchanted permanent doesn't untap during its controller's untap step and its activated abilities can't be activated.
-Oracle:Flash\nEnchant creature or planeswalker\nWhen this Aura enters, tap enchanted permanent.\nEnchanted permanent doesn't untap during its controller's untap step and its activated abilities can't be activated.
+Oracle:Flash\nEnchant creature or planeswalker\nWhen this Aura enters, tap enchanted permanent.\nEnchanted permanent doesn’t untap during its controller’s untap step and its activated abilities can’t be activated.

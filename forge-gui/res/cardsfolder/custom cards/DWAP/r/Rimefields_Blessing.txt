@@ -1,6 +1,6 @@
 Name:Rimefield's Blessing
 ManaCost:2 G
-Types:Enchantment Aura
+Types:Snow Enchantment Aura
 K:Enchant:Creature
 SVar:AttachAILogic:Pump
 S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X | Description$ Enchanted creature gets +X/+X, where X is the number of snow permanents you control.

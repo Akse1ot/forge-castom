@@ -12,4 +12,6 @@ SVar:STWeakness:Mode$ Continuous | Affected$ Creature.OppCtrl | AddPower$ -1 | A
 R:Event$ Moved | Destination$ Graveyard | ValidCard$ Card.Self | ReplaceWith$ DBShuffle | Description$ If CARDNAME would be put into a graveyard from anywhere, reveal CARDNAME and shuffle it into its owner's library instead.
 SVar:DBShuffle:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Library | Defined$ ReplacedCard | Reveal$ True | Shuffle$ True
 SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Sacrifice
+DeckHints:Ability$Token
 Oracle:Ctaleth can't be countered.\nSwallow, protection from monocolored\nWhenever Ctaleth enters the battlefield or attacks, you get an emblem with "Creatures your opponents control get -1/-1."\nIf Ctaleth would be put into a graveyard from anywhere, reveal Ctaleth and shuffle it into its owner's library instead.

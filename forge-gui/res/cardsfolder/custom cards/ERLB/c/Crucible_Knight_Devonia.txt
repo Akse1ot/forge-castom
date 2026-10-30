@@ -10,4 +10,6 @@ SVar:MoveHand:DB$ Draw | Defined$ You | ConditionDefined$ Remembered | Condition
 SVar:DBToken:DB$ Token | ConditionDefined$ Remembered | ConditionPresent$ Card.nonEnchantment+nonLand | TokenScript$ c_a_Rune_sac | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 S:Mode$ ReduceCost | ValidTarget$ Card.Self | ValidCard$ Aura | Type$ Spell | Activator$ You | Amount$ 2 | Description$ Aura spells you cast that target this creature cost {2} less to cast.
+DeckHas:Ability$Token
+DeckHints:Type$Enchantment|Aura
 Oracle:Trample\nWhenever an enchantment you control enters, reveal the top card of your library. If it’s a land card, put it onto the battlefield tapped. If it’s an enchantment card, draw a card. If it’s a nonland, nonenchantment card, create a Rune token.\nAura spells you cast that target this creature cost {2} less to cast.

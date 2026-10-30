@@ -7,5 +7,6 @@ SVar:DBForge:DB$ Forge | ConditionCheckSVar$ CreatureSacrificed | ConditionSVarC
 SVar:ForgeBonus:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 1 | Description$ Equipped creature has +2/+1.
 SVar:ArtifactSacrificed:PlayerCountPropertyYou$SacrificedThisTurn Artifact
 SVar:CreatureSacrificed:PlayerCountPropertyYou$SacrificedThisTurn Creature
+DeckHas:Ability$Token & Type$Equipment & Type$Artifact
 DeckHints:Ability$Sacrifice & Type$Clue|Food|Treasure
 Oracle:At the beginning of your end step, if you’ve sacrificed an artifact this turn, create a 2/1 black Berserker creature token. Then if you’ve sacrificed a creature this turn, forge +2/+1. (Create an Equipment artifact token with equip {2} and “Equipped creature has +2/+1.”)

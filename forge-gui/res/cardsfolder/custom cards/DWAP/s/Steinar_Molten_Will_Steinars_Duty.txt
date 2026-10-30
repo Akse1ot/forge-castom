@@ -15,6 +15,8 @@ SVar:SacrificedThisTurn:PlayerCountPropertyYou$SacrificedThisTurn Permanent
 SVar:DiscardedThisTurn:PlayerCountPropertyYou$CardsDiscardedThisTurn
 SVar:GreatestLifeLossThisTurn:PlayerCountPropertyYou$GreatestLifeLostAtOnceThisTurn
 AlternateMode:Modal
+DeckHas:Ability$Token & Ability$LifeGain
+DeckHints:Ability$Sacrifice|Discard
 Oracle:Whenever you sacrifice a permanent, discard a card or lose 3 or more life, you gain 1 life and draw a card. Then if you’ve done all three this turn, Steinar, Molten Will invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
 
 ALTERNATE

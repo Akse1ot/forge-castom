@@ -11,4 +11,6 @@ R:Event$ Moved | Destination$ Graveyard | ValidCard$ Card.Self | ReplaceWith$ DB
 SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 3
 SVar:DBShuffle:DB$ ChangeZone | Hidden$ True | Origin$ All | Destination$ Library | Defined$ ReplacedCard | Reveal$ True | Shuffle$ True
 SVar:HasAttackEffect:TRUE
+DeckHints:Ability$Token
+DeckHas:Ability$Sacrifice
 Oracle:Naandr can't be countered.\nSwallow (Each creature you sacrifice while casting this spell reduces its cost by {1} or by one mana of that creature's color.)\nProtection from converted mana cost 3 or less\nWhenever Naandr enters the battlefield or attacks, draw three cards.\nIf Naandr would be put into your graveyard from anywhere, reveal Naandr and shuffle it into its owner's library instead.

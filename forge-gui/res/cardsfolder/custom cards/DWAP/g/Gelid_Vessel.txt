@@ -13,4 +13,4 @@ SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 SVar:IsHorror:RememberedLKI$Valid Card.Horror
 SVar:X:RememberedLKI$CardManaCost
 DeckHints:Type$Horror
-Oracle:Other Horrors you control get +1/+1.\nWhenever another Horror you control dies, reveal the top card of your library. You lose life equal to its mana value and put it into your hand. If the revealed card is a Horror, each opponent loses that much life instead.
+Oracle:Other Horrors you control get +1/+1.\nWhenever another Horror you control dies, reveal the top card of your library. you lose life equal to it’s mana value and put it into your hand. If the revealed card is a Horror, each opponent loses that much life instead.

@@ -6,6 +6,6 @@ A:SP$ Animate | ValidTgts$ Creature | TgtPrompt$ Select target creature | Trigge
 SVar:DiesTrigger:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn | TriggerController$ TriggeredCardController | TriggerDescription$ When this creature dies, return it to the battlefield tapped under its owner’s control, with three +1/+1 counters on it if you’re enlightened.
 SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredNewCardLKICopy | Tapped$ True | WithCountersType$ P1P1 | WithCountersAmount$ X
 SVar:X:Count$Enlightened.3.0
-DeckHas:Ability$Counters
-Oracle:Epitome (If there are eight or more mana abilities among permanents you control, you become enlightened for the rest of the game.)\n
-Until end of turn, target creature gains “When this creature dies, return it to the battlefield tapped under its owner’s control, with three +1/+1 counters on it if you’re enlightened.”
+DeckHas:Ability$Counters & Ability$Graveyard
+DeckHints:Ability$Mana
+Oracle:Epitome (If there are eight or more mana abilities among permanents you control, you become enlightened for the rest of the game.)\nUntil end of turn, target creature gains “When this creature dies, return it to the battlefield tapped under its owner’s control, with  three +1/+1 counters on it if you’re enlightened.”

@@ -5,4 +5,5 @@ PT:2/2
 K:Haste
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters the battlefield, put a 0/1 Fish creature token that’s all colors onto the battlefield.
 SVar:TrigToken:DB$ Token | TokenScript$ all_0_1_fish
+DeckHas:Ability$Token
 Oracle:Haste\nWhen Merfolk Jellydancer enters the battlefield, put a 0/1 Fish creature token that’s all colors onto the battlefield.

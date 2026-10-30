@@ -2,4 +2,6 @@ Name:Omnipotence
 ManaCost:6 U U U
 Types:Enchantment
 S:Mode$ AlternativeCost | ValidSA$ Activated | ValidCard$ Creature.YouCtrl+inZoneBattlefield | ValidPlayer$ You | Cost$ 0 | ReplaceManaCostOnly$ True | Description$ You may activate abilities of creatures you control without paying their mana costs.
+DeckHints:Keyword$Abyssal|Level up
+DeckNeeds:Type$Creature
 Oracle:You may activate abilities of creatures you control without paying their mana costs.

@@ -1,7 +1,7 @@
 Name:Shadowcleave
 ManaCost:B
 Types:Sorcery
-A:SP$ Destroy | Cost$ 1 B Sac<1/Artifact;Creature/artifact or creature> | ValidTgts$ Creature,Planeswalker | TgtPrompt$ Select target creature or planeswalker | SpellDescription$ Destroy target creature or planeswalker.
+A:SP$ Destroy | Cost$ B Sac<1/Artifact;Creature/artifact or creature> | ValidTgts$ Creature,Planeswalker | TgtPrompt$ Select target creature or planeswalker | SpellDescription$ Destroy target creature or planeswalker.
 K:Flashback:4 B
 DeckHas:Ability$Sacrifice
 DeckHints:Type$Artifact

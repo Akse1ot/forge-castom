@@ -8,4 +8,6 @@ T:Mode$ Forged | ValidPlayer$ You | OptionalDecider$ You | Execute$ TrigCreateDw
 SVar:TrigCreateDwarf:DB$ Token | TokenScript$ rw_1_1_dwarf_warrior_haste_lifelink | TokenOwner$ You | RememberTokens$ True | SubAbility$ DBAttachForged
 SVar:DBAttachForged:DB$ Attach | Object$ TriggeredCards | Defined$ Remembered | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Token & Ability$LifeGain
+DeckHints:Type$Equipment
 Oracle:Flying, haste\nWhenever you forge, you may create a 1/1 white and red Dwarf Warrior creature token with lifelink and haste. If you do, attach that equipment to it.

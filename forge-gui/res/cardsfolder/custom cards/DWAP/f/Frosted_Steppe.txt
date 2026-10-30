@@ -5,4 +5,5 @@ R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementRe
 SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
 A:AB$ Mana | Cost$ T | Produced$ R | SpellDescription$ Add {R}.
 A:AB$ CopyPermanent | Cost$ 3 R R T Sac<1/CARDNAME> | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | AddKeywords$ Haste | AtEOT$ YourSacrifice | SpellDescription$ Create a token that’s a copy of target creature you control, except it has haste. Sacrifice it at the beginning of your next end step.
+DeckHas:Ability$Token & Ability$Mana & Ability$Sacrifice
 Oracle:Frosted Steppe enters tapped.\n{T}: Add {R}.\n{3}{R}{R}, {T}, Sacrifice Frosted Steppe: Create a token that’s a copy of target creature you control, except it has haste. Sacrifice it at the beginning of your next end step.

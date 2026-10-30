@@ -7,4 +7,6 @@ SVar:TrigToken:DB$ Token | TokenScript$ rw_1_1_enchantment_spirit_haste | TokenA
 SVar:X:Count$ModifiedWays.Equipping/Twice
 K:Equip:2
 DeckHas:Ability$Token
+DeckNeeds:Type$Creature
+DeckHints:Type$Aura|Equipment & Ability$Counters
 Oracle:Equipped creature gets +1/+1 and has vigilance and battle cry. (Whenever that creature attacks, each other attacking creature gets +1/+0 until end of turn.)\nAt the beginning of combat on your turn, create X 1/1 red and white Spirit enchantment creature tokens with haste, where X is twice the amount of different ways equipped creature is modified. Exile those tokens at end of combat.\nEquip {2}

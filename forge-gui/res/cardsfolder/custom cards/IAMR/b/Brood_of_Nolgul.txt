@@ -8,4 +8,6 @@ T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTap | Secondary$ True | Tr
 SVar:TrigTap:DB$ Tap | TargetMin$ 0 | TargetMax$ 3 | ValidTgts$ Creature | TgtPrompt$ Select up to three target creatures. | SubAbility$ DBNoUntap
 SVar:DBNoUntap:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
 SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Sacrifice
+DeckHints:Ability$Token
 Oracle:Swallow (Each creature you sacrifice while casting this spell pays for {1} or one mana of that creature’s color.)\nWhen Brood of Nolgul enters the battlefield or attacks, tap up to three target creatures. Those creatures don’t untap during their controller’s next untap steps.

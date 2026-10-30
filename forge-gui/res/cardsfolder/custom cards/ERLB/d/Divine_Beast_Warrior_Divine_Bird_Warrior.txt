@@ -5,9 +5,9 @@ PT:2/2
 K:Vigilance
 S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X | Description$ This creature gets +1/+1 for each other enchantment you control.
 SVar:X:Count$Valid Enchantment.Other+YouCtrl
+DeckHints:Type$Enchantment
 AlternateMode:Modal
-Oracle:Vigilance\n
-This creature gets +1/+1 for each other enchantment you control.
+Oracle:Vigilance\nThis creature gets +1/+1 for each other enchantment you control.
 
 ALTERNATE
 
@@ -18,4 +18,5 @@ PT:2/1
 K:Flying
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Enchantment.Other+YouCtrl | Execute$ TrigSurveil | TriggerDescription$ Whenever CARDNAME or another enchantment you control enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)
 SVar:TrigSurveil:DB$ Surveil | Amount$ 1
+DeckHints:Type$Enchantment
 Oracle:Flying\nWhenever this creature or another enchantment you control enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)

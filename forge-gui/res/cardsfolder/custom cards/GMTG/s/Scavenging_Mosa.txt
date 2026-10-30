@@ -3,4 +3,5 @@ ManaCost:2 G G
 Types:Creature Serpent
 PT:3/3
 K:Bloodlust:1
+DeckHas:Ability$Counters
 Oracle:Bloodlust 1 (Whenever this creature deals combat damage, put one +1/+1 counter on it.)

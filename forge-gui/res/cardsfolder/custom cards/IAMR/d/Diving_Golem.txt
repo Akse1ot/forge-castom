@@ -5,4 +5,5 @@ PT:*/1
 K:First Strike
 S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | Description$ CARDNAME's power is equal to twice the number of artifacts you control.
 SVar:X:Count$Valid Artifact.YouCtrl/Times.2
+DeckHints:Type$Artifact
 Oracle:First strike\nDiving Golem's power is equal to twice the number of artifacts you control.

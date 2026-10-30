@@ -9,8 +9,8 @@ SVar:X:Count$ThisTurnCast_Card.YouCtrl
 A:AB$ Animate | Cost$ AddCounter<0/LOYALTY> | Defined$ Self | Power$ 9 | Toughness$ 9 | Keywords$ Hexproof & Trample | Types$ Creature,Fox,Spirit | Planeswalker$ True | SpellDescription$ Until end of turn, Keiko becomes a 9/9 Fox Spirit creature with hexproof and trample.
 A:AB$ InvokeSkill | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | SpellDescription$ Keiko invokes. (Cast a copy of this planeswalker's Skill without paying its mana cost.)
 AlternateMode:Modal
-Oracle:This spell costs {2} less to cast for each other spell cast this turn.\n
-[+1]: You may draw a card for each spell you’ve cast this turn. if you do, discard a card.\n[0]: Until end of turn, Keiko becomes a 9/9 Fox Spirit creature with hexproof and trample.\n[-2]: Keiko invokes. (Cast a copy of this planeswalker's Skill without paying its mana cost.)
+DeckHas:Ability$Graveyard & Ability$Discard
+Oracle:This spell costs {2} less to cast for each other spell cast this turn.\n+1: You may draw a card for each spell you’ve cast this turn. if you do, discard a card.\n0: Until end of turn, Keiko becomes a 9/9 Fox Spirit creature with hexproof and trample.\n-2: Keiko invokes.
 
 ALTERNATE
 
@@ -20,4 +20,4 @@ Types:Instant Skill
 A:SP$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ X | ExcessSVar$ Excess | SubAbility$ DBSurveil | SpellDescription$ CARDNAME deals damage equal to the number of spells you’ve cast this turn plus one to target creature or planeswalker. Surveil X, where X is the amount of excess damage dealt this way.
 SVar:DBSurveil:DB$ Surveil | Amount$ Excess
 SVar:X:Count$ThisTurnCast_Card.YouCtrl/Plus.1
-Oracle:Keiko’s Frostfire deals damage equal to the number of spells you’ve cast this turn plus one to target creature or planeswalker. Surveil X, where X is the amount of excess damage dealt this way.
+Oracle:-2: Keiko's Frostfire deals damage equal to the number of spells you’ve cast this turn plus one to target creature or planeswalker. Surveil X, where X is the amount of excess damage dealt this way.

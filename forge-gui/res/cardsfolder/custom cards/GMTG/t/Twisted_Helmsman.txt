@@ -5,4 +5,5 @@ PT:2/2
 T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME dies, put a 2/2 black Zombie Pirate creature token onto the battlefield.
 SVar:TrigToken:DB$ Token | TokenScript$ b_2_2_zombie_pirate | TokenOwner$ You
 DeckHas:Ability$Token
+SVar:SacMe:2
 Oracle:When Twisted Helmsman dies, put a 2/2 black Zombie Pirate creature token onto the battlefield.

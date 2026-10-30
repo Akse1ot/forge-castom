@@ -10,6 +10,7 @@ SVar:TrigLoseLife:DB$ LoseLife | ValidTgts$ Player | LifeAmount$ X
 SVar:AttackDrainGain:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDrainLife | Secondary$ True | TriggerDescription$ Whenever CARDNAME attacks, target player loses life equal to its power and you gain that much life.
 SVar:TrigDrainLife:DB$ LoseLife | ValidTgts$ Player | LifeAmount$ X | SubAbility$ DBGainLife
 SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
-SVar:X:CardPower
+SVar:X:Count$CardPower
 SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Counters
 Oracle:Level up {2}{W} ({2}{W}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 2-3\n3/6\nWhenever Drowned Revenants attacks, target player loses life equal to its power.\nLEVEL 4+\n4/8\nWhenever Drowned Revenants attacks, target player loses life equal to its power and you gain that much life.

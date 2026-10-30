@@ -11,6 +11,6 @@ ALTERNATE
 
 Name:Savage Blessing
 ManaCost:1 U
-Types:Instant — Skill
+Types:Instant Skill
 A:SP$ Animate | ValidTgts$ Creature | Power$ 5 | Toughness$ 5 | SpellDescription$ Target creature has base power and toughness 5/5 until end of turn.
 Oracle:Target creature has base power and toughness 5/5 until end of turn.

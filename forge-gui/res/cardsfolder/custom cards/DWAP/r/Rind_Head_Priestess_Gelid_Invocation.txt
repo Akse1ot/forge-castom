@@ -7,8 +7,9 @@ SVar:TrigMill:DB$ Mill | NumCards$ X | Defined$ Opponent | SubAbility$ DBInvoke
 SVar:DBInvoke:DB$ InvokeSkill | ConditionCheckSVar$ GreatestGraveyard | ConditionSVarCompare$ GE13
 SVar:X:Count$Valid Creature.YouCtrl+Horror$GreatestCardPower
 SVar:GreatestGraveyard:PlayerCountPlayers$HighestCardsInGraveyard
-DeckHints:Type$Horror
 AlternateMode:Modal
+DeckHas:Ability$Graveyard
+DeckHints:Type$Horror
 Oracle:At the beginning of combat on your turn, each opponent mills cards equal to the greatest power among Horror creatures you control. Then if a graveyard has thirteen or more cards in it, Rind, Head Priestess invokes. (Cast a copy of this creature’s Skill without paying its mana cost.)
 
 ALTERNATE

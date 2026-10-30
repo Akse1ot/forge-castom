@@ -1,8 +1,9 @@
 Name:Raider's Spirit
 ManaCost:3 W B
 Types:Enchantment
-S:Mode$ Continuous | Affected$ Creature.YouCtrl+token | AddPower$ 1 | AddKeyword$ Vigilance | Description$ Creature tokens you control get +1/+1 and have vigilance.
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create two 1/1 blue Merfolk creature tokens with hexproof.
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+token | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Vigilance | Description$ Creature tokens you control get +1/+1 and have vigilance.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create two 2/1 black Berserker creature tokens.
 SVar:TrigToken:DB$ Token | TokenAmount$ 2 | TokenScript$ b_2_1_berserker
+SVar:PlayMain1:TRUE
 DeckHas:Ability$Token
 Oracle:Creature tokens you control get +1/+1 and have vigilance.\nWhen Raider’s Spirit enters, create two 2/1 black Berserker creature tokens.

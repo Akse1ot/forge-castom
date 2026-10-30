@@ -4,4 +4,5 @@ Types:Creature Merfolk Soldier
 PT:2/2
 S:Mode$ Continuous | Affected$ Card.Self+equipped | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Intimidate | Description$ As long as CARDNAME is equipped, it gets +1/+1 and has intimidate.
 SVar:EquipMe:Once
+DeckHints:Type$Equipment
 Oracle:As long as Deephollow Sentry is equipped, it gets +1/+1 and has intimidate.

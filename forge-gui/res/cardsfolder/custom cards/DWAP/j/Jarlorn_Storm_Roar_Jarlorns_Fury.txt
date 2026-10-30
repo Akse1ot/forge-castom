@@ -8,6 +8,7 @@ T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefi
 SVar:TrigInvoke:DB$ InvokeSkill | Amount$ InvokeCount | DifferentTargets$ True
 SVar:InvokeCount:Count$Valid Creature.YouCtrl
 AlternateMode:Modal
+DeckHas:Ability$Counters
 Oracle:Trample, haste\nWhen Jarlorn, Storm-Roar enters, it invokes X times, where X is the number of creatures you control. Each copy must target a different creature. (Cast a copy of this creature’s Skill without paying its mana cost.)
 
 ALTERNATE

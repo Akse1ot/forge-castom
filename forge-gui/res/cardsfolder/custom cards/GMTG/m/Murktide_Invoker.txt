@@ -5,4 +5,6 @@ PT:2/1
 K:Abyssal
 A:AB$ Draw | Cost$ 8 | ValidTgts$ Player | NumCards$ 3 | SubAbility$ DBLoseLife | SpellDescription$ Target player draws three cards and loses 3 life.
 SVar:DBLoseLife:DB$ LoseLife | Defined$ Targeted | LifeAmount$ 3
+DeckHints:Ability$Token
+DeckHas:Ability$Sacrifice
 Oracle:Abyssal (Each creature you sacrifice while activating an ability of this reduces its cost by {1} or by one mana of that creature's color.)\n{8}: Target player draws three cards and loses 3 life.

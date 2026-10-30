@@ -7,4 +7,6 @@ SVar:DBExileEnchantment:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exil
 SVar:DBExileFlying:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.withFlying | TgtPrompt$ Select target creature with flying | SpellDescription$ Exile target creature with flying.
 SVar:DBRunes:DB$ Token | TokenAmount$ 2 | TokenScript$ c_a_Rune_sac | SpellDescription$ Create two Rune tokens.
 SVar:Y:Count$Valid Enchantment.YouCtrl
+DeckHas:Ability$Token|Exile & Type$Rune
+DeckHints:Type$Enchantment
 Oracle:Choose one. If you control two or more enchantments as you cast this spell, choose one or more instead.\n• Exile target artifact.\n• Exile target enchantment.\n• Exile target creature with flying.\n• Create two Rune tokens.

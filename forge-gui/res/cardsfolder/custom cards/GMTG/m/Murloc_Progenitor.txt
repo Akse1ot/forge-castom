@@ -7,4 +7,6 @@ T:Mode$ DamageDealtOnce | ValidSource$ Card.Self | CombatDamage$ True | TriggerZ
 SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Creature.Murloc+cmcLEX | ChangeNum$ 1 | ShuffleNonMandatory$ True
 SVar:X:TriggerCount$DamageAmount
 DeckHints:Type$Murloc
+DeckNeeds:Type$Murloc
+DeckHas:Ability$Counters
 Oracle:Bloodlust 1 (Whenever this creature deals combat damage, put one +1/+1 counter on it.)\nWhenever Murloc Progenitor deals combat damage, you may search your library for a Murloc creature card that costs that much or less, reveal it, put it into your hand, then shuffle your library.

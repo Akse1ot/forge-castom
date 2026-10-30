@@ -4,4 +4,7 @@ Types:Creature Elemental Shaman
 PT:3/1
 K:Abyssal
 A:AB$ GainControl | Cost$ 8 | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste | SpellDescription$ Gain control of target creature until end of turn. Untap that creature. It gains haste until end of turn.
+SVar:PlayMain1:TRUE
+DeckHints:Ability$Token
+DeckHas:Ability$Sacrifice
 Oracle:Abyssal (Each creature you sacrifice while activating an ability of this reduces its cost by {1} or by one mana of that creature's color.)\n{8}: Gain control of target creature until end of turn. Untap that creature. It gains haste until end of turn.

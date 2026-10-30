@@ -5,4 +5,5 @@ A:SP$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE1 | TrueSu
 SVar:DBSurveil:DB$ Surveil | Amount$ 2 | SubAbility$ DBDraw
 SVar:DBDraw:DB$ Draw | NumCards$ 2
 SVar:X:Count$CastTotalManaSpent Snow
+DeckHas:Ability$Graveyard
 Oracle:If {S} was spent to cast this spell, surveil 2.\nDraw two cards.

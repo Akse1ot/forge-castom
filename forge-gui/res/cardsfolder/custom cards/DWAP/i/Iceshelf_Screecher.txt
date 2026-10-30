@@ -9,4 +9,4 @@ SVar:TrigCounter:DB$ Counter | TargetType$ Spell | ValidTgts$ Card | TgtPrompt$ 
 SVar:X:Count$CastTotalManaSpent Snow
 SVar:AIPreference:ManaFrom$Snow
 DeckNeeds:Type$Snow
-Oracle:Flash, Flying\nWhen Iceshelf Screecher enters, counter target spell unless its controller pays {1} for each {S} spent to cast this spell.
+Oracle:Flash\nFlying\nWhen Iceshelf Screecher enters, counter target spell unless its controller pays {1} for each {S} spent to cast this spell.

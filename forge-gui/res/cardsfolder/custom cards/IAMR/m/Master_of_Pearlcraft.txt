@@ -2,6 +2,8 @@ Name:Master of Pearlcraft
 ManaCost:2 W
 Types:Creature Mermaid Wizard
 PT:2/2
-T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChangeZone | TriggerDescription$ At the beginning of your upkeep, you may return target Equipment card from your graveyard to your hand.
-SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Equipment.YouCtrl
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChangeZone | OptionalDecider$ You | TriggerDescription$ At the beginning of your upkeep, you may return target Equipment card from your graveyard to your hand.
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Equipment.YouOwn
+DeckHints:Type$Equipment
+DeckNeeds:Type$Equipment
 Oracle:At the beginning of your upkeep, you may return target Equipment card from your graveyard to your hand.
