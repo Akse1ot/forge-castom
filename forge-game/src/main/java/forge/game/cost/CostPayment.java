@@ -271,12 +271,17 @@ public class CostPayment extends ManaConversionMatrix {
         }
 
         releasePayGenericWithReturn();
+        CausalityCostHelper.clearUnpaid(ability);
 
         new ManaRefundService(this.ability).refundManaPaid();
     }
 
     public boolean payCost(
             final CostDecisionMakerBase decisionMaker) {
+        if (!CausalityCostHelper.validatePayment(ability)) {
+            CausalityCostHelper.clearUnpaid(ability);
+            return false;
+        }
         adjustedCost =
                 CostAdjustment.adjust(
                         cost,
@@ -295,12 +300,17 @@ public class CostPayment extends ManaConversionMatrix {
                             .orderCosts(costParts);
         }
 
+        costParts = CausalityCostHelper.exileLast(costParts, ability);
         final Game game =
                 decisionMaker.getPlayer().getGame();
 
         boolean success = false;
+        CausalityCostHelper.Reservation causality = CausalityCostHelper.reserve(ability);
 
         try {
+            if (!causality.preflight(costParts, decisionMaker.isEffect())) {
+                return false;
+            }
             for (final CostPart part : costParts) {
                 try {
                     // Wrap the cost and push onto the cost stack
@@ -308,8 +318,9 @@ public class CostPayment extends ManaConversionMatrix {
                             part,
                             this);
 
-                    PaymentDecision pd =
-                            part.accept(decisionMaker);
+                    causality.forPart(part);
+                    PaymentDecision pd = CausalityCostHelper.isSelectedPart(ability, part)
+                            ? CausalityCostHelper.decision(ability) : part.accept(decisionMaker);
 
                     // Right before we start paying as decided, we need to transfer the CostPayments matrix over?
                     if (pd != null) {
@@ -317,6 +328,7 @@ public class CostPayment extends ManaConversionMatrix {
                     }
 
                     if (pd == null
+                            || !causality.validateDecision(part, pd, decisionMaker.isEffect())
                             || !part.payAsDecided(
                             decisionMaker.getPlayer(),
                             pd,
@@ -325,6 +337,7 @@ public class CostPayment extends ManaConversionMatrix {
                         return false;
                     }
 
+                    causality.recordPayment(part);
                     this.paidCostParts.add(part);
                 } finally {
                     game.costPaymentStack.pop(); // cost is resolved
@@ -345,16 +358,23 @@ public class CostPayment extends ManaConversionMatrix {
                 }
             }
 
+            CausalityCostHelper.completePayment(ability, causality.paidSelection());
             success = true;
-            return true;
+            return success;
         } finally {
+            causality.close();
             if (!success) {
                 releasePayGenericWithReturn();
+                CausalityCostHelper.clearUnpaid(ability);
             }
         }
     }
 
     public final boolean payComputerCosts(final CostDecisionMakerBase decisionMaker) {
+        if (!CausalityCostHelper.validatePayment(ability)) {
+            CausalityCostHelper.clearUnpaid(ability);
+            return false;
+        }
         // Just in case it wasn't set, but honestly it shouldn't have gotten
         // here without being set
         if (this.ability.getActivatingPlayer() == null) {
@@ -363,27 +383,32 @@ public class CostPayment extends ManaConversionMatrix {
 
         final Map<CostPart, PaymentDecision> decisions = Maps.newHashMap();
         // for Trinisphere make sure to include Zero
-        final List<CostPart> parts = CostAdjustment.adjust(
+        final List<CostPart> parts = CausalityCostHelper.exileLast(CostAdjustment.adjust(
                 cost,
                 ability,
                 decisionMaker.isEffect()
-        ).getCostPartsWithZeroMana();
+        ).getCostPartsWithZeroMana(), ability);
 
         // Set all of the decisions before attempting to pay anything
         final Game game = decisionMaker.getPlayer().getGame();
 
         boolean success = false;
+        CausalityCostHelper.Reservation causality = CausalityCostHelper.reserve(ability);
 
         try {
+            if (!causality.preflight(parts, decisionMaker.isEffect())) {
+                return false;
+            }
             final Map<Card, Boolean> decisionZoneReservations =
                     new IdentityHashMap<>();
 
             try {
                 for (final CostPart part : parts) {
-                    final PaymentDecision decision =
-                            part.accept(decisionMaker);
+                    causality.forPart(part);
+                    final PaymentDecision decision = CausalityCostHelper.isSelectedPart(ability, part)
+                            ? CausalityCostHelper.decision(ability) : part.accept(decisionMaker);
 
-                    if (decision == null) {
+                    if (decision == null || !causality.validateDecision(part, decision, decisionMaker.isEffect())) {
                         return false;
                     }
 
@@ -400,6 +425,9 @@ public class CostPayment extends ManaConversionMatrix {
                                 ability,
                                 decisionMaker.isEffect())) {
                             return false;
+                        }
+                        if (decisionMaker.paysRightAfterDecision()) {
+                            causality.recordPayment(part);
                         }
                     } finally {
                         game.costPaymentStack.pop(); // cost is either paid or deferred
@@ -452,6 +480,10 @@ public class CostPayment extends ManaConversionMatrix {
                     try {
                         game.costPaymentStack.push(part, this);
 
+                        causality.forPart(part);
+                        if (!causality.validateDecision(part, decisions.get(part), decisionMaker.isEffect())) {
+                            return false;
+                        }
                         if (!part.payAsDecided(
                                 decisionMaker.getPlayer(),
                                 decisions.get(part),
@@ -459,6 +491,7 @@ public class CostPayment extends ManaConversionMatrix {
                                 decisionMaker.isEffect())) {
                             return false;
                         }
+                        causality.recordPayment(part);
 
                         // abilities care what was used to pay for them
                         if (part instanceof CostPartWithList) {
@@ -475,8 +508,9 @@ public class CostPayment extends ManaConversionMatrix {
                     return false;
                 }
 
+                CausalityCostHelper.completePayment(ability, causality.paidSelection());
                 success = true;
-                return true;
+                return success;
             } finally {
                 for (final Map.Entry<Card, Boolean> entry
                         : reservedUsedToPay.entrySet()) {
@@ -484,8 +518,10 @@ public class CostPayment extends ManaConversionMatrix {
                 }
             }
         } finally {
+            causality.close();
             if (!success) {
                 releasePayGenericWithReturn();
+                CausalityCostHelper.clearUnpaid(ability);
             }
         }
     }

@@ -83,6 +83,21 @@ import java.util.stream.Collectors;
 public class ComputerUtil {
 
     public static boolean handlePlayingSpellAbility(final Player ai, SpellAbility sa, Consumer<SpellAbility> chooseTargets) {
+        CausalityCostHelper.Attempt causality = new CausalityCostHelper.Attempt(sa);
+        boolean success = false;
+        try {
+            if (!CausalityCostHelper.prepare(sa)) {
+                return false;
+            }
+            success = handlePlayingSpellAbilityPrepared(ai, sa, chooseTargets, causality);
+            return success;
+        } finally {
+            causality.finish(success);
+        }
+    }
+
+    private static boolean handlePlayingSpellAbilityPrepared(final Player ai, SpellAbility sa,
+            Consumer<SpellAbility> chooseTargets, CausalityCostHelper.Attempt causality) {
         final Card source = sa.getHostCard();
         final Game game = source.getGame();
         final Card host = sa.getHostCard();
@@ -113,18 +128,25 @@ public class ComputerUtil {
         }
 
         sa = GameActionUtil.addExtraKeywordCost(sa);
+        causality.track(sa);
 
         NextSpellColorHelper.prepareSpellColor(ai, sa);
 
         if (sa.getApi() == ApiType.Charm && !CharmEffect.makeChoices(sa)) {
             // 603.3c If no mode is chosen, the ability is removed from the stack.
             NextSpellColorHelper.rollbackPreparedSpellColor(sa);
+            if (CausalityCostHelper.isEnabled(sa)) {
+                GameActionUtil.rollbackAbility(sa, hz, zonePosition, new CostPayment(sa.getPayCosts(), sa), source);
+            }
             return false;
         }
         if (chooseTargets != null) {
             chooseTargets.accept(sa);
             if (!sa.isTargetNumberValid()) {
                 NextSpellColorHelper.rollbackPreparedSpellColor(sa);
+                if (CausalityCostHelper.isEnabled(sa)) {
+                    GameActionUtil.rollbackAbility(sa, hz, zonePosition, new CostPayment(sa.getPayCosts(), sa), source);
+                }
                 return false;
             }
         }
@@ -133,7 +155,8 @@ public class ComputerUtil {
             // Spell Permanents inherit their cost from Mana Cost
             final Cost cost = sa.getPayCosts();
             final boolean refreeze = game.getStack().isFrozen();
-            if (resonance.isPrepared() && !game.getStack().hasLegalTargeting(sa)) {
+            if ((resonance.isPrepared() || CausalityCostHelper.isEnabled(sa))
+                    && !game.getStack().hasLegalTargeting(sa)) {
                 rollbackResonanceCast(resonance, sa, hz, zonePosition, new CostPayment(cost, sa), source, refreeze);
                 return false;
             }
@@ -152,7 +175,7 @@ public class ComputerUtil {
                 return true;
             }
 
-            if (resonance.isPrepared()) {
+            if (resonance.isPrepared() || CausalityCostHelper.isEnabled(sa)) {
                 rollbackResonanceCast(resonance, sa, hz, zonePosition, pay, source, refreeze);
                 if (!refreeze) {
                     game.getStack().unfreezeStack();
@@ -300,6 +323,21 @@ public class ComputerUtil {
     }
 
     public static final boolean playStack(SpellAbility sa, final Player ai, final Game game) {
+        CausalityCostHelper.Attempt causality = new CausalityCostHelper.Attempt(sa);
+        boolean success = false;
+        try {
+            if (!CausalityCostHelper.prepare(sa)) {
+                return false;
+            }
+            success = playStackPrepared(sa, ai, game, causality);
+            return success;
+        } finally {
+            causality.finish(success);
+        }
+    }
+
+    private static boolean playStackPrepared(SpellAbility sa, final Player ai, final Game game,
+                                            CausalityCostHelper.Attempt causality) {
         if (!ComputerUtilCost.canPayCost(sa, ai, false)) {
             return false;
         }
@@ -320,6 +358,7 @@ public class ComputerUtil {
 
         NextSpellColorHelper.prepareSpellColor(ai, sa);
 
+        causality.track(sa);
         final Cost cost = sa.getPayCosts();
         final CostPayment pay = new CostPayment(cost, sa);
 
@@ -332,7 +371,8 @@ public class ComputerUtil {
         try (ResonanceHelper.CastAttempt resonance = ResonanceHelper.prepareCast(game, ai, sa,
                 effects -> ai.getController().chooseTargetsFor(effects))) {
             final boolean refreeze = game.getStack().isFrozen();
-            if (resonance.isPrepared() && !game.getStack().hasLegalTargeting(sa)) {
+            if ((resonance.isPrepared() || CausalityCostHelper.isEnabled(sa))
+                    && !game.getStack().hasLegalTargeting(sa)) {
                 rollbackResonanceCast(resonance, sa, fromZone, zonePosition, pay, source, refreeze);
                 return false;
             }
@@ -349,7 +389,7 @@ public class ComputerUtil {
                 }
                 return true;
             }
-            if (resonance.isPrepared()) {
+            if (resonance.isPrepared() || CausalityCostHelper.isEnabled(sa)) {
                 rollbackResonanceCast(resonance, sa, fromZone, zonePosition, pay, source, refreeze);
                 if (!refreeze) {
                     game.getStack().unfreezeStack();

@@ -300,6 +300,7 @@ public class GameSnapshot {
             if (newSa != null) {
                 newSa.setActivatingPlayer(findBy(toGame, origSa.getActivatingPlayer()));
                 newSa.setFocused(origSa.isFocused());
+                newSa.setCausalitySelection(origSa.getCausalitySelection());
                 for (SpellAbility originalPart = origSa, copiedPart = newSa;
                         originalPart != null && copiedPart != null;
                         originalPart = originalPart.getSubAbility(), copiedPart = copiedPart.getSubAbility()) {

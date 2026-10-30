@@ -91,6 +91,10 @@ public class ChangeZoneAi extends SpellAbilityAi {
             sa.getHostCard().removeSVar("AIPreferenceOverride");
         }
 
+        if (aiLogic.equals("Causality")) {
+            CausalityCostHelper.clearUnpaid(sa);
+            return CausalityCostHelper.prepare(sa);
+        }
         if (aiLogic.equals("SurpriseBlock")) {
             if (ai.getGame().getPhaseHandler().getPhase().isBefore(PhaseType.COMBAT_DECLARE_ATTACKERS)) {
                 return false;

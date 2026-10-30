@@ -26,6 +26,7 @@ import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
 import forge.game.card.*;
 import forge.game.cost.CostSacrifice;
+import forge.game.cost.CausalityCostHelper;
 import forge.game.staticability.StaticAbilityCantBeCopied;
 import forge.util.*;
 import org.apache.commons.lang3.StringUtils;
@@ -203,6 +204,16 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
 
     // TODO move AI specific field to its module
     private boolean skip = false;
+
+    private CausalityCostHelper.Selection causalitySelection;
+
+    public CausalityCostHelper.Selection getCausalitySelection() {
+        return getRootAbility().causalitySelection;
+    }
+
+    public void setCausalitySelection(CausalityCostHelper.Selection selection) {
+        getRootAbility().causalitySelection = selection;
+    }
 
     private Cost payCosts;
     private SpellAbilityRestriction restrictions;

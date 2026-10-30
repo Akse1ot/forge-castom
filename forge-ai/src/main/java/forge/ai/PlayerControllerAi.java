@@ -289,6 +289,9 @@ public class PlayerControllerAi extends PlayerController {
 
     @Override
     public CardCollectionView chooseCardsForEffect(CardCollectionView sourceList, SpellAbility sa, String title, int min, int max, boolean isOptional, Map<String, Object> params) {
+        if (params != null && Boolean.TRUE.equals(params.get(CausalityCostHelper.CHOICE))) {
+            return CausalityCostAi.choose(player, sa, sourceList);
+        }
         return brains.chooseCardsForEffect(sourceList, sa, min, max, isOptional, params);
     }
 

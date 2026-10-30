@@ -625,6 +625,18 @@ public class PlaySpellAbility {
     }
 
     public final boolean playAbility(final boolean mayChooseTargets, final boolean isFree, final boolean skipStack) {
+        CausalityCostHelper.Attempt causality = new CausalityCostHelper.Attempt(ability);
+        boolean success = false;
+        try {
+            success = playAbilityPrepared(mayChooseTargets, isFree, skipStack, causality);
+            return success;
+        } finally {
+            causality.finish(success);
+        }
+    }
+
+    private boolean playAbilityPrepared(final boolean mayChooseTargets, final boolean isFree,
+                                        final boolean skipStack, CausalityCostHelper.Attempt causality) {
         ability = AlternativeCostCastProcessor.process(ability);
 
         final Player player = ability.getActivatingPlayer();
@@ -716,7 +728,11 @@ public class PlaySpellAbility {
             NextSpellColorHelper.prepareSpellColor(player, ability);
         }
 
+        causality.track(ability);
         Cost abCost = ability.getPayCosts();
+        if (isFree && CausalityCostHelper.isEnabled(ability) && !ability.isCopied()) {
+            abCost = abCost.copyWithNoMana();
+        }
         CostPayment payment = new CostPayment(abCost, ability);
 
         boolean manaColorConversion = false;
@@ -756,13 +772,15 @@ public class PlaySpellAbility {
         // because of Selective Snare do announceType first
         boolean preCostRequisites = announceType() && announceValuesLikeX() &&
             ability.checkRestrictions(player) &&
+            CausalityCostHelper.prepare(ability) &&
             (!mayChooseTargets || ability.setupTargets()) &&
             ability.canCastTiming(player) &&
             ability.isLegalAfterStack();
 
         // Freeze the stack just before we start paying costs but after the ability is fully set up
         game.getStack().freezeStack(skipStack ? null : ability);
-        final boolean prerequisitesMet = preCostRequisites && (isFree || payment.payCost(controller.getCostDecisionMaker(player, ability, ability.isTrigger())));
+        final boolean skipPayment = isFree && (!CausalityCostHelper.isEnabled(ability) || ability.isCopied());
+        final boolean prerequisitesMet = preCostRequisites && (skipPayment || payment.payCost(controller.getCostDecisionMaker(player, ability, ability.isTrigger())));
 
         game.clearTopLibsCast(ability);
 

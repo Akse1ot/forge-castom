@@ -128,6 +128,7 @@ public class CostAdjustment {
             host.setFaceDown(false);
         }
 
+        CausalityCostHelper.applyCount(result, sa);
         sa.setMaxWaterbend(result);
 
         return result;
@@ -292,7 +293,7 @@ public class CostAdjustment {
             }
         }
 
-        int sumGeneric = 0;
+        int sumGeneric = CausalityCostHelper.reduction(sa);
         if (sa.hasParam("ReduceCost")) {
             String cst = sa.getParam("ReduceCost");
             String amt = sa.getParamOrDefault("ReduceAmount", cst);

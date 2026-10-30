@@ -14,9 +14,6 @@ ALTERNATE
 Name:Law of Causality
 ManaCost:4 W
 Types:Instant
-A:SP$ ChangeZone | ValidTgts$ NonlandPermanent.sharesCardTypeWith ExiledCards | TgtPrompt$ Select target nonland permanent | Origin$ Battlefield | Destination$ Exile | SpellDescription$ Exile target nonland permanent that shares a card type with the exiled cards.
-S:Mode$ RaiseCost | ValidCard$ Card.Self | Type$ Spell | Cost$ ExileFromGrave<1+/Permanent+withSharedCardType/permanent cards> | EffectZone$ All | Description$ As an additional cost to cast this spell, exile one or more permanent cards that share a card type from your graveyard. This spell costs {1} less to cast for each card exiled this way.
-S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Exiled | EffectZone$ All | Relative$ True | Secondary$ True | Description$ This spell costs {1} less to cast for each card exiled this way.
-SVar:Exiled:Number$0
+A:SP$ ChangeZone | Cost$ 4 W ExileFromGrave<1/Permanent/permanent cards/ExileTag=Causality> | CausalityCost$ True | AILogic$ Causality | ValidTgts$ Permanent.nonLand+sharesCausalityCostType | TgtPrompt$ Select target nonland permanent sharing a type common to all cards exiled as this cost | Origin$ Battlefield | Destination$ Exile | SpellDescription$ As an additional cost to cast this spell, exile one or more permanent cards that share a card type from your graveyard. This spell costs {1} less to cast for each card exiled this way. Exile target nonland permanent that shares a card type with the exiled cards.
 DeckHints:Ability$Graveyard|Mill
 Oracle:As an additional cost to cast this spell, exile one or more permanent cards that share a card type from your graveyard. This spell costs {1} less to cast for each card exiled this way.\nExile target nonland permanent that shares a card type with the exiled cards.

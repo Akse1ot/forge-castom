@@ -32,6 +32,7 @@ final class SpellAbilityChoiceCopier {
         destination.setFocused(source.isFocused());
         destination.setCastFromPlayEffect(source.isCastFromPlayEffect());
         destination.setXManaCostPaid(source.getXManaCostPaid());
+        destination.setCausalitySelection(source.getCausalitySelection());
         return copyChosenModes(source, destination) ? destination : null;
     }
 

@@ -20,6 +20,7 @@ import forge.game.combat.AttackRequirement;
 import forge.game.combat.AttackingBand;
 import forge.game.combat.Combat;
 import forge.game.combat.CombatUtil;
+import forge.game.cost.CausalityCostHelper;
 import forge.game.keyword.MelodyUtil;
 import forge.game.mana.Mana;
 import forge.game.player.Player;
@@ -778,6 +779,9 @@ public class CardProperty {
                         break;
                 }
             }
+        } else if (property.equals("sharesCausalityCostType")) {
+            return spellAbility instanceof SpellAbility sa
+                    && CausalityCostHelper.matchesTarget(sa, card);
         } else if (property.startsWith("sharesCardTypeWith")) {
             if (property.equals("sharesCardTypeWith")) {
                 if (!card.sharesCardTypeWith(source)) {
