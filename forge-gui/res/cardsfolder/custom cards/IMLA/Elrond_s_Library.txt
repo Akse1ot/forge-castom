@@ -1,0 +1,9 @@
+Name:Elrond’s Library
+ManaCost:no cost
+Types:Legendary Land
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry | TriggerDescription$ When CARDNAME enters the battlefield, scry 2 then draw 2 cards.
+SVar:TrigScry:DB$ Scry | Defined$ You | ScryNum$ 2 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 2
+A:AB$ Mana | Cost$ T | Produced$ Combo W U | SpellDescription$ Add {W} or {U}.
+DeckHas:Ability$Mana
+Oracle:When Elrond’s Library enters the battlefield, scry 2 then draw 2 cards.\n{T}: Add {W} or {U}

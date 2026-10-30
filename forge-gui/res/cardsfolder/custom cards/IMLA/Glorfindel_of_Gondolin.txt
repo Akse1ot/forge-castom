@@ -1,0 +1,21 @@
+Name:Glorfindel of Gondolin
+ManaCost:4 W
+Types:Legendary Creature Elf Knight
+PT:5/3
+K:Vigilance
+R:Event$ Moved | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | ActiveZones$ Battlefield | ReplaceWith$ DBExile | Description$ If CARDNAME would die, exile it instead then return it to the battlefield transformed under its owner's control.
+SVar:DBExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | Transformed$ True | GainControl$ ReplacedCardOwner | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+Oracle:Vigilance\nIf Glorfindel of Gondolin would die, exile it instead then return it to the battlefield transformed under its owner’s control.
+ALTERNATE
+Name:Glorfindel, Seneschal of Imladris
+ManaCost:no cost
+Types:Legendary Creature Elf Knight
+PT:6/5
+Colors:white
+K:Vigilance
+K:First strike
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.Black | Description$ CARDNAME can't be blocked by black creatures.
+Oracle:Vigilance, first strike\nGlorfindel, Seneschal of Imladris can’t be blocked by black creatures.

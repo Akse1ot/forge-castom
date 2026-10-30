@@ -6,5 +6,7 @@ K:Trample
 S:Mode$ ReplaceOptionalCost | EffectZone$ All | ValidSA$ Spell+YouCtrl | ValidOptionalCost$ Kicker1,Kicker2 | Cost$ Sac<1/Permanent/a permanent> | Description$ You may sacrifice a permanent rather than pay that spell's kicker cost.
 T:Mode$ SpellCast | ValidCard$ Card.kicked | ValidActivatingPlayer$ You | Execute$ TrigDamageAll | TriggerZones$ Battlefield | TriggerDescription$ Whenever you cast a kicked spell, this creature deals 2 damage to each opponent and each creature and planeswalker those players control.
 SVar:TrigDamageAll:DB$ DamageAll | NumDmg$ 2 | ValidPlayers$ Player.Opponent | SubAbility$ DBDamageCreature
-SVar:DBDamageCreature:DB$ DamageAll | NumDmg$ 2 | ValidCards$ Creature.OppCtrl
-Oracle:Trample\nYou may pay sacrifice a permanent rather than pay the kicker costs of kicked spells you cast.\nWhenever you cast a kicked spell, this creature deals 2 damage to each opponent and each creature and planeswalker those players control.
+SVar:DBDamageCreature:DB$ DamageAll | NumDmg$ 2 | ValidCards$ Creature.OppCtrl,Planeswalker.OppCtrl
+DeckNeeds:Keyword$Kicker
+DeckHints:Keyword$Kicker
+Oracle:Trample\nYou may sacrifice a permanent rather than pay a kicker cost of a spell you cast.\nWhenever you cast a kicked spell, this creature deals 2 damage to each opponent and each creature and planeswalker those players control.

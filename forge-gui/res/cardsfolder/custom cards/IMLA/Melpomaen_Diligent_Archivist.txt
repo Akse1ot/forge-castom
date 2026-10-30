@@ -1,0 +1,7 @@
+Name:Melpomaen, Diligent Archivist
+ManaCost:1 U
+Types:Legendary Creature Elf Advisor
+PT:2/1
+T:Mode$ Scry | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever you scry, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Whenever you scry, draw a card.

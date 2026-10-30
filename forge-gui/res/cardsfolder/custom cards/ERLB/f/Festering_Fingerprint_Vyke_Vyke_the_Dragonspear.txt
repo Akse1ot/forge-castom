@@ -8,11 +8,12 @@ SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | C
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 A:AB$ Token | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | TokenScript$ r_1_1_enchantment_spirit_haste | SpellDescription$ Create a 1/1 red enchantment Spirit creature token with haste.
 A:AB$ Discard | Cost$ SubCounter<5/LOYALTY> | Planeswalker$ True | Ultimate$ True | Mode$ Hand | Defined$ Player |RememberDiscarded$ True | SubAbility$ DBEachDraw | SpellDescription$ Each player discards their hand, then draws seven cards. Add {B} or {R} for each card discarded this way.
-SVar:DBEachDraw:DB$ Draw | Defined$ Player | NumCards$ 7
+SVar:DBEachDraw:DB$ Draw | Defined$ Player | NumCards$ 7 | SubAbility$ DBAddMana
 SVar:DBAddMana:DB$ Mana | Produced$ Combo B R | Amount$ X | SubAbility$ DBCleanup
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 SVar:X:Remembered$Amount
 AlternateMode:Modal
+DeckHas:Ability$Discard & Ability$Token
+DeckHints:Ability$Discard
 Oracle:Madness—Sacrifice a creature or planeswalker.\n[+1]: Discard a card. If you do, draw a card.\n[0]: Create a 1/1 red enchantment Spirit creature token with haste.\n[-5]: Each player discards their hand, then draws seven cards. Add {B} or {R} for each card discarded this way.
 
 ALTERNATE

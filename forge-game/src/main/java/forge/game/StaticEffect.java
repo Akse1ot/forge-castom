@@ -278,7 +278,7 @@ public class StaticEffect {
 
                 // remove abilities
                 if (hasParam("AddAbility") || hasParam("GainsAbilitiesOf")
-                        || hasParam("GainsAbilitiesOfDefined") || hasParam("GainsTriggerAbsOf")
+                        || hasParam("GainsAbilitiesOfDefined") || hasParam("GainsTriggerAbsOf") || hasParam("GainsTriggerAbsOfDefined")
                         || hasParam("AddTrigger") || hasParam("AddStaticAbility")
                         || hasParam("AddReplacementEffect") || hasParam("RemoveAllAbilities") || hasParam("RemoveNonManaAbilities")
                         ) {

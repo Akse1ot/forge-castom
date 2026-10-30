@@ -293,6 +293,17 @@ public class Cost implements Serializable {
     }
 
     private static CostPart parseCostPart(String parse, boolean tapCost, boolean untapCost) {
+        // A tag belongs to this exile part, independently of spell-wide optional-cost tags.
+        final String exileTagPrefix = "/ExileTag=";
+        final int exileTagStart = parse.lastIndexOf(exileTagPrefix);
+        if (parse.startsWith("Exile") && exileTagStart >= 0 && parse.endsWith(">")) {
+            final CostPart part = parseCostPart(parse.substring(0, exileTagStart) + ">", tapCost, untapCost);
+            if (!(part instanceof CostExile exile)) {
+                throw new IllegalArgumentException("ExileTag requires a CostExile part: " + parse);
+            }
+            exile.setExileTag(parse.substring(exileTagStart + exileTagPrefix.length(), parse.length() - 1));
+            return exile;
+        }
         if (parse.startsWith("Mana<")) {
             final String[] splitStr = TextUtil.split(abCostParse(parse, 1)[0], '\\');
             final String restriction = splitStr.length > 1 ? splitStr[1] : null;
@@ -1133,6 +1144,11 @@ public class Cost implements Serializable {
                     part instanceof CostExile))) {
                 boolean alreadyAdded = false;
                 for (final CostPart other : costParts) {
+                    // Keep tagged payments separate, including when an untagged part is added later.
+                    if (part instanceof CostExile exile && (exile.getExileTag() != null
+                            || other instanceof CostExile otherExile && otherExile.getExileTag() != null)) {
+                        continue;
+                    }
                     Integer otherAmount = other.convertAmount();
                     // support X loyalty
                     if (otherAmount == null && sa != null && sa.isPwAbility()) {

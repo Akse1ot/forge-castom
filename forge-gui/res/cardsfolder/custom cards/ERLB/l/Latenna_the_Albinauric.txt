@@ -9,4 +9,6 @@ T:Mode$ ChangesZone | ValidCard$ Card.Self+Enchantment | Origin$ Any | Destinati
 SVar:TrigToken:DB$ Token | TokenScript$ lobo
 A:AB$ ChangeZone | Cost$ T Sac<1/CARDNAME> | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land | StackDescription$ SpellDescription | SpellDescription$ Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.
 K:Spirit Ash:3 U G
+DeckHas:Ability$Token & Type$Enchantment|Wolf|Spirit
+DeckHints:Type$Enchantment
 Oracle:Defender, vigilance, reach\nWhen this creature enters, if it’s an enchantment, create Lobo, a legendary blue Wolf Spirit enchantment creature token with “This creature’s power and toughness are each equal to the number of enchantments you control.” and “As long as you control Lobo, Latenna doesn’t have defender.”\n{T}, Sacrifice Latenna: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.\nSpirit Ash {3}{U}{G}

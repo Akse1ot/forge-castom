@@ -1,0 +1,8 @@
+Name:The Last Homely House
+ManaCost:no cost
+Types:Legendary Land
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife | TriggerDescription$ When CARDNAME enters the battlefield, gain 3 life.
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3
+A:AB$ Mana | Cost$ T | Produced$ Combo G W | SpellDescription$ Add {G} or {W}.
+DeckHas:Ability$LifeGain & Ability$Mana
+Oracle:When The Last Homely House enters the battlefield, gain 3 life.\n{T}: Add {G} or {W}

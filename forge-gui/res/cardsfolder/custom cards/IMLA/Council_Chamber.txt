@@ -1,0 +1,8 @@
+Name:Council Chamber
+ManaCost:no cost
+Types:Legendary Land
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigReveal | TriggerDescription$ When CARDNAME enters the battlefield, you may reveal the top card of your library. If it is legendary, put it into your hand. Otherwise, put it on the bottom of your library.
+SVar:TrigReveal:DB$ Dig | Defined$ You | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card.Legendary | DestinationZone$ Hand | DestinationZone2$ Library | LibraryPosition2$ -1
+A:AB$ Mana | Cost$ T | Produced$ Combo G U | SpellDescription$ Add {G} or {U}.
+DeckHas:Ability$Mana
+Oracle:When Council Chamber enters the battlefield, you may reveal the top card of your library. If it is legendary, put it into your hand. Otherwise, put it on the bottom of your library.\n{T}: Add {G} or {U}

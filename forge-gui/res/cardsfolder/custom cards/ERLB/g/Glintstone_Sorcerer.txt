@@ -2,7 +2,8 @@ Name:Glintstone Sorcerer
 ManaCost:1 U U
 Types:Creature Human Wizard
 PT:2/2
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | OptionalDecider$ TriggeredCardController | Execute$ TrigReturn | TriggerDescription$ When CARDNAME dies, you may pay {U}{U}. If you do, return up to one target instant or sorcery card from your graveyard to your hand.
-SVar:TrigReturn:AB$ ChangeZone | Cost$ U U | Origin$ Graveyard | Destination$ Hand | TgtPrompt$ Choose target instant or sorcery card in your graveyard | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn | TriggerDescription$ When CARDNAME dies, you may pay {U}{U}. If you do, return up to one target instant or sorcery card from your graveyard to your hand.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | UnlessCost$ U U | UnlessSwitched$ True | UnlessPayer$ You | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Choose up to one target instant or sorcery card in your graveyard
 K:Spirit Ash:3 U U ExileFromGrave<1/Instant;Sorcery/instant or sorcery card>
+DeckHints:Type$Instant|Sorcery
 Oracle:When this creature dies, you may pay {U}{U}. If you do, return up to one target instant or sorcery card from your graveyard to your hand.\nSpirit Ash—{3}{U}{U}, Exile an instant or sorcery card from your graveyard.

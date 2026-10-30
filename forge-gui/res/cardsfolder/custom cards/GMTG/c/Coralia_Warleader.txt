@@ -11,5 +11,4 @@ SVar:AttackPumpThree:Mode$ Attacks | ValidCard$ Card.Self | Execute$ PumpThree |
 SVar:PumpThree:DB$ PumpAll | ValidCards$ Creature.YouCtrl+Other | NumAtt$ +3
 SVar:AE:SVar:HasAttackEffect:TRUE
 DeckHints:Ability$Token
-DeckHas:Ability$Counters
 Oracle:Level up {2}{R/W} ({2}{R/W}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 1-2\n2/4\nWhenever Coralia Warleader attacks, other creatures you control get +1/+0 until end of turn.\nLEVEL 3+\n3/6\nWhenever Coralia Warleader attacks, other creatures you control get +3/+0 until end of turn.

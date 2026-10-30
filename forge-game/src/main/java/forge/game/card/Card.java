@@ -5027,6 +5027,36 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         return result;
     }
 
+    /** Full inheritance refreshes text and nested effects, while retaining the cached identities. */
+    public final Trigger addTriggerForStaticAbility(final Trigger trig, final StaticAbility stAb,
+                                                   final boolean keepTextChanges) {
+        if (!keepTextChanges) {
+            return addTriggerForStaticAbility(trig, stAb);
+        }
+        final String key = "GainsAllAbilities:" + trig.getId();
+        final Trigger previous = storedTrigger.get(stAb, key);
+        final SpellAbility sourceAbility = trig.ensureAbility();
+        final SpellAbility effect = sourceAbility == null ? null
+                : sourceAbility.copyForGainedTrigger(this,
+                        previous == null ? null : previous.getOverridingAbility());
+        final Trigger result = trig.copy(this, false, true, effect);
+        if (previous != null) {
+            result.setId(previous.getId());
+        }
+        storedTrigger.put(stAb, key, result);
+        return result;
+    }
+
+    /** Called only after a real static pass, not during its temporary layer removal. */
+    public final void clearInactiveGainedTriggers() {
+        for (final Table.Cell<StaticAbility, String, Trigger> cell : Lists.newArrayList(storedTrigger.cellSet())) {
+            if (cell.getColumnKey().startsWith("GainsAllAbilities:")
+                    && !getTriggers().contains(cell.getValue())) {
+                storedTrigger.remove(cell.getRowKey(), cell.getColumnKey());
+            }
+        }
+    }
+
     public void setStoredReplacements(Table<StaticAbility, String, ReplacementEffect> table) {
         storedReplacementEffect.clear();
         for (Table.Cell<StaticAbility, String, ReplacementEffect> c : table.cellSet()) {

@@ -1250,6 +1250,10 @@ public class GameAction {
             }
         }
 
+        if (preList.isEmpty()) {
+            affectedCards.forEach(Card::clearInactiveGainedTriggers);
+        }
+
         for (final Card c : staticList) {
             List<Object[]> toRemove = Lists.newArrayList();
             for (Object[] staticCheck : c.getStaticCommandList()) {

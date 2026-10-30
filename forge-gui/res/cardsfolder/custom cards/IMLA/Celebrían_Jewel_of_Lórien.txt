@@ -1,0 +1,11 @@
+Name:Celebrían, Jewel of Lórien
+ManaCost:2 G W
+Types:Legendary Creature Elf Noble
+PT:2/4
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigPut | TriggerDescription$ Whenever CARDNAME deals damage to an opponent, you may put a creature card with mana value 2 or less from your hand onto the battlefield.
+SVar:TrigPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.cmcLE2 | ChangeNum$ 1
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigSacrifice | TriggerDescription$ When CARDNAME becomes the target of a spell or ability, sacrifice it and lose 2 life.
+SVar:TrigSacrifice:DB$ Sacrifice | SacValid$ Self | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 2
+SVar:Targeting:Dies
+Oracle:Whenever Celebrían, Jewel of Lórien deals damage to an opponent, you may put a creature card with mana value 2 or less from your hand onto the battlefield.\nWhen Celebrían, Jewel of Lórien becomes the target of a spell or ability, sacrifice it and lose 2 life.

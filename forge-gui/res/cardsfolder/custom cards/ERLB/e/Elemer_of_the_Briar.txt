@@ -13,4 +13,6 @@ SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | Duration$ UntilTheE
 SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | Description$ You may play remembered card.
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Token & Ability$Discard & Ability$Sacrifice
+DeckHints:Type$Artifact
 Oracle:Menace, reach\nWhen this creature enters or attacks, create a Blood token.\nWhenever an artifact is put into a graveyard from the battlefield, exile the top card of your library. Until the end of your next turn, you may play that card. This ability triggers only once each turn.

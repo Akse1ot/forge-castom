@@ -8,7 +8,8 @@ S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Y | EffectZone
 SVar:X:Count$xPaid
 SVar:Y:SVar$X/Times.2
 SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE2
-A:SP$ PermanentCreature | Cost$ 8 R G Sac<3/Creature> | ActivationZone$ Graveyard | Secondary$ True | SpellDescription$ You may cast this spell from your graveyard by sacrificing three creatures in addition to paying its other costs.
+A:SP$ PermanentCreature | Cost$ 8 R G Sac<X/Creature> Sac<3/Creature> | AILogic$ SacToReduceCost | AIXMax$ GraveSacMax | ActivationZone$ Graveyard | Secondary$ True | SpellDescription$ You may cast this spell from your graveyard by sacrificing three creatures in addition to paying its other costs.
+SVar:GraveSacMax:Count$Valid Creature.YouCtrl+CanBeSacrificedBy/Minus.3
 AlternateMode:Modal
 Oracle:Trample\nAs an additional cost to cast this spell, you may sacrifice any number of creatures. This spell costs {2} less to cast for each creature sacrificed this way.\nYou can cast this spell from your graveyard by sacrificing three creatures in addition to paying its other costs.
 

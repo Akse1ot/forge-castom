@@ -1427,10 +1427,21 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
     public SpellAbility copy(Card host, final boolean lki, boolean keepTextChanges) {
         return copy(host, this.getActivatingPlayer(), lki, keepTextChanges);
     }
+
+    /** Refresh a continuously granted trigger's effect without resetting its activation key. */
+    public SpellAbility copyForGainedTrigger(final Card host, final SpellAbility previous) {
+        return copy(host, getActivatingPlayer(), false, true, previous == null ? null : previous.id);
+    }
+
     public SpellAbility copy(Card host, Player activ, final boolean lki) {
         return copy(host, activ, lki, false);
     }
     public SpellAbility copy(Card host, Player activ, final boolean lki, final boolean keepTextChanges) {
+        return copy(host, activ, lki, keepTextChanges, null);
+    }
+
+    private SpellAbility copy(Card host, Player activ, final boolean lki, final boolean keepTextChanges,
+                              final Integer activationId) {
         if (hasResolvingAbilityReplacement() && !lki && !keepTextChanges) {
             return textReplacementOriginalAbility.copy(host, activ, false, false);
         }
@@ -1438,7 +1449,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
         SpellAbility clone = null;
         try {
             clone = (SpellAbility) clone();
-            clone.id = lki ? id : nextId();
+            clone.id = activationId != null ? activationId : lki ? id : nextId();
 
             // don't use setHostCard to not trigger the not copied parts yet
 
@@ -3178,7 +3189,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
                     continue;
                 }
                 // 3) "…on spells and abilities you control"
-                if (st.getHostCard().getController() != ctx.chooser) {
+                if (st.getHostCard().getController() != ctx.sa.getActivatingPlayer()) {
                     continue;
                 }
 

@@ -6,7 +6,6 @@ K:Flying
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigInvoke | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters, you may have it invoke. (Cast a copy of this creature’s Skill without paying its mana cost.)
 SVar:TrigInvoke:DB$ InvokeSkill
 AlternateMode:Modal
-DeckHas:Ability$Counters
 Oracle:Flying\nWhen Stormbane Strix enters, you may have it invoke. (Cast a copy of this creature’s Skill without paying its mana cost.)
 
 ALTERNATE

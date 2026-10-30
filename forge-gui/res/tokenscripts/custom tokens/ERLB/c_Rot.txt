@@ -1,4 +1,4 @@
-Name:Rot Token
+Name:Rot
 ManaCost:no cost
 Colors:colorless
 Types:Land

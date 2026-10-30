@@ -1,0 +1,9 @@
+Name:The Hall of Fire
+ManaCost:no cost
+Types:Legendary Land
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigSearch | TriggerDescription$ When CARDNAME enters the battlefield, you may search your library for a Saga, put it onto the battlefield then shuffle.
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Saga | ChangeNum$ 1 | Shuffle$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo U R | SpellDescription$ Add {U} or {R}.
+DeckHas:Ability$Mana
+DeckHints:Type$Saga
+Oracle:When The Hall of Fire enters the battlefield, you may search your library for a Saga, put it onto the battlefield then shuffle.\n{T}: Add {U} or {R}

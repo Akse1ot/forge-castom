@@ -3,14 +3,17 @@ ManaCost:3 W W
 Types:Legendary Enchantment
 K:Lifelink
 T:Mode$ Attacks | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigRemoveCounters | TriggerDescription$ Whenever a creature an opponent controls attacks or blocks, you may remove any number of +1/+1 counters from creatures you control. If you do, this enchantment deals that much damage to that creature.
-T:Mode$ Blocks | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigRemoveCounters | Secondary$ True | TriggerDescription$ Whenever a creature an opponent controls attacks or blocks, you may remove any number of +1/+1 counters from creatures you control. If you do, this enchantment deals that much damage to that creature.
+T:Mode$ Blocks | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigRemoveBlockCounters | Secondary$ True | TriggerDescription$ Whenever a creature an opponent controls attacks or blocks, you may remove any number of +1/+1 counters from creatures you control. If you do, this enchantment deals that much damage to that creature.
 SVar:TrigRemoveCounters:DB$ RemoveCounter | Choices$ Creature.YouCtrl+counters_GE1_P1P1 | ChoiceOptional$ True | CounterType$ P1P1 | CounterNum$ Any | RememberAmount$ True | SubAbility$ DBDealDamage
-SVar:DBDealDamage:DB$ DealDamage | Defined$ TriggeredCard | NumDmg$ X | SubAbility$ DBCleanup
+SVar:TrigRemoveBlockCounters:DB$ RemoveCounter | Choices$ Creature.YouCtrl+counters_GE1_P1P1 | ChoiceOptional$ True | CounterType$ P1P1 | CounterNum$ Any | RememberAmount$ True | SubAbility$ DBBlockDamage
+SVar:DBBlockDamage:DB$ DealDamage | Defined$ TriggeredBlockerLKICopy | NumDmg$ X | SubAbility$ DBCleanup
+SVar:DBDealDamage:DB$ DealDamage | Defined$ TriggeredAttackerLKICopy | NumDmg$ X | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 SVar:X:Count$RememberedNumber
 AlternateMode:Modal
-Oracle:Lifelink\n
-Whenever a creature an opponent controls attacks or blocks, you may remove any number of +1/+1 counters from creatures you control. If you do, this enchantment deals that much damage to that creature.
+DeckHas:Ability$LifeGain & Ability$Token & Ability$Mana
+DeckHints:Ability$Counters
+Oracle:Lifelink\nWhenever a creature an opponent controls attacks or blocks, you may remove any number of +1/+1 counters from creatures you control. If you do, this enchantment deals that much damage to that creature.
 
 ALTERNATE
 

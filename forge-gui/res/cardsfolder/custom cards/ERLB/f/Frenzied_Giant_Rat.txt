@@ -6,5 +6,6 @@ T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ 
 SVar:TrigToken:DB$ Token | TokenScript$ c_a_blood_draw | TokenOwner$ You
 K:Madness:B PayLife<1>
 K:Spirit Ash:B PayLife<1>
-DeckHas:Ability$Token|Sacrifice & Type$Blood
-Oracle:When this creature dies, create a Blood token. (It's an artifact with "{1}, {T}, Discard a card, Sacrifice this artifact: Draw a card.")\n\n
+DeckHas:Ability$Token & Type$Blood
+DeckHints:Ability$Discard
+Oracle:When this creature dies, create a Blood token. (It's an artifact with "{1}, {T}, Discard a card, Sacrifice this artifact: Draw a card.")\nMadness {B}, Pay 1 life.\nSpirit ash {B}, Pay 1 life.

@@ -5,7 +5,10 @@ PT:2/2
 K:Reach
 K:Spirit Ash:0:ConditionPresent$ Dragon.OppCtrl | ConditionCompare$ GE1
 T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDamage | TriggerDescription$ When CARDNAME dies, it deals damage equal to its power to target creature or planeswalker. If that permanent is a Dragon, it deals double that damage instead.
-SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ X | SubAbility$ DBDouble
-SVar:DBDouble:DB$ DealDamage | Defined$ Targeted | NumDmg$ X | ConditionDefined$ Targeted | ConditionPresent$ Dragon
+SVar:TrigDamage:DB$ Branch | ValidTgts$ Creature,Planeswalker | BranchConditionSVar$ IsDragon | TrueSubAbility$ DBDragonDamage | FalseSubAbility$ DBNormalDamage
+SVar:IsDragon:Targeted$Valid Dragon
+SVar:DBDragonDamage:DB$ DealDamage | Defined$ Targeted | DamageSource$ TriggeredCardLKICopy | NumDmg$ DoublePower
+SVar:DBNormalDamage:DB$ DealDamage | Defined$ Targeted | DamageSource$ TriggeredCardLKICopy | NumDmg$ X
 SVar:X:TriggeredCard$CardPower
-Oracle:Reach\nWhen this creature dies, it dealsCreature damage equal to its power to target creature or planeswalker. If that permanent is a Dragon, it deals double that damage instead.\nSpirit Ash {0}. Activate only if an opponent controls a Dragon.
+SVar:DoublePower:TriggeredCard$CardPower/Times.2
+Oracle:Reach\nWhen this creature dies, it deals damage equal to its power to target creature or planeswalker. If that permanent is a Dragon, it deals double that damage instead.\nSpirit Ash {0}. Activate only if an opponent controls a Dragon.

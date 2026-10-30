@@ -19,6 +19,7 @@ import forge.game.card.sticker.Sticker;
 import forge.game.card.sticker.StickerKind;
 import forge.game.cost.Cost;
 import forge.game.cost.CostAdjustment;
+import forge.game.cost.CostExile;
 import forge.game.keyword.EpitomeHelper;
 import forge.game.keyword.Keyword;
 import forge.game.keyword.KeywordInterface;
@@ -4194,6 +4195,20 @@ public class AbilityUtils {
         if (sa instanceof SpellAbility) {
             SpellAbility root = ((SpellAbility)sa).getRootAbility();
             list = root.getPaidList(defined, true);
+            if (list != null && defined.startsWith(CostExile.TAGGED_PAID_LIST_PREFIX)) {
+                // A payment record outlives its objects. Only the same exile incarnation is linked.
+                CardCollection linked = new CardCollection();
+                for (Card paid : list) {
+                    Card current = root.getHostCard().getGame().getCardState(paid, null);
+                    if (current != null && paid.equalsWithGameTimestamp(current)
+                            && current.isInZone(ZoneType.Exile) && current.getExiledWith() != null
+                            && current.getExiledWith().equalsWithGameTimestamp(root.getHostCard())
+                            && root.getHostCard().hasExiledCard(current)) {
+                        linked.add(current);
+                    }
+                }
+                return linked;
+            }
         }
         return list;
     }

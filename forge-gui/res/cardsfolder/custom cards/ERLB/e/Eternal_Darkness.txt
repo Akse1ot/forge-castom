@@ -1,7 +1,9 @@
 Name:Eternal Darkness
 ManaCost:1 U U
 Types:Instant
-A:SP$ Charm | Choices$ DBCounter,DBReturn
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBCounter,DBReturn
 SVar:DBCounter:DB$ Counter | TargetType$ Spell | ValidTgts$ Card | TgtPrompt$ Counter target spell | SpellDescription$ Counter target spell.
-SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TgtPrompt$ Choose target instant or sorcery card in your graveyard | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | SpellDescription$ Return target instant or sorcery card from your graveyard to your hand.
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TgtPrompt$ Choose target instant or sorcery card in your graveyard | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | SpellDescription$ Return target instant or sorcery card from your graveyard to your hand.
+DeckHas:Ability$Graveyard
+DeckHints:Type$Instant|Sorcery
 Oracle:Choose one or both —\n• Counter target spell.\n• Return target instant or sorcery card from your graveyard to your hand.

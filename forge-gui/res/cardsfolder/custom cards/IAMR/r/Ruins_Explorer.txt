@@ -8,5 +8,4 @@ S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 3 | SetToughness$ 5 | AddAb
 SVar:ReturnHand:AB$ ChangeZone | Cost$ 2 U T | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Artifact.YouOwn | TgtPrompt$ Choose target artifact card in your graveyard | Secondary$ True | SpellDescription$ Return target artifact card from your graveyard to your hand.
 SVar:ReturnBattlefield:AB$ ChangeZone | Cost$ 2 U T | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Artifact.YouOwn | TgtPrompt$ Choose target artifact card in your graveyard | Secondary$ True | SpellDescription$ Return target artifact card from your graveyard to the battlefield.
 DeckHints:Type$Artifact
-DeckHas:Ability$Counters
 Oracle:Level up {3}{U} ({3}{U}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 1-2\n2/4\n{2}{U}, {T}: Return target artifact card from your graveyard to your hand.\nLEVEL 3+\n3/5\n{2}{U}, {T}: Return target artifact card from your graveyard to the battlefield.

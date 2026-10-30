@@ -11,6 +11,8 @@ SVar:DBGainLife:DB$ GainLife | ConditionDefined$ Remembered | ConditionPresent$ 
 SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 AlternateMode:Modal
+DeckHas:Ability$Token & Ability$Graveyard
+DeckHints:Type$Creature|Planeswalker
 Oracle:Vigilance, lifelink\nAt the beginning of your upkeep, you may exile target creature or planeswalker card from a graveyard. If you do, create a Rune token, gain 1 life and draw a card.
 
 ALTERNATE

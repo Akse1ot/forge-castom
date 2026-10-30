@@ -1,0 +1,8 @@
+Name:Arwen, Little Lark
+ManaCost:1 W
+Types:Legendary Creature Elf Noble
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainLife | TriggerDescription$ When CARDNAME enters the battlefield, gain 3 life.
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3
+DeckHas:Ability$LifeGain
+Oracle:When Arwen, Little Lark enters the battlefield, gain 3 life.

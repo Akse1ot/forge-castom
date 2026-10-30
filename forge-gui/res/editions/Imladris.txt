@@ -1,0 +1,19 @@
+[metadata]
+Code=IMLA
+Date=2023-08-07
+Name=Imladris
+Type=CUSTOM_SET
+
+[cards]
+001 U Arwen, Little Lark
+002 M Glorfindel of Gondolin
+003 R Erestor, Chief Counsellor
+004 C Melpomaen, Diligent Archivist
+005 U Lindir, Carefree Minstrel
+006 R Celebrían, Jewel of Lórien
+007 U Elladan and Elrohir
+008 R Elrond, Kind as Summer
+009 R Council Chamber
+010 R Elrond’s Library
+011 R The Hall of Fire
+012 R The Last Homely House

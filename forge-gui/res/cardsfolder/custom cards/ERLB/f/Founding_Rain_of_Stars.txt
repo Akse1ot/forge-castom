@@ -1,7 +1,9 @@
 Name:Founding Rain of Stars
 ManaCost:2 U
 Types:Legendary Instant
-A:SP$ Draw | NumCards$ 3 | SubAbility$ DBDiscard | SpellDescription$ Draw three cards. Then discard two cards unless you discard a creature card.
+A:SP$ Draw | NumCards$ 3 | SubAbility$ DBDiscard | SpellDescription$ Draw three cards. Then discard two cards unless you discard an instant or sorcery card.
 SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 2 | Mode$ TgtChoose | UnlessType$ Instant,Sorcery
 K:Flashback:U U U U U
+DeckHas:Ability$Discard & Ability$Graveyard
+DeckHints:Type$Instant|Sorcery
 Oracle:(You may cast a legendary instant only if you control a legendary creature or planeswalker.)\nDraw three cards. Then discard two cards unless you discard an instant or sorcery card.\nFlashback—{U}{U}{U}{U}{U}(You may cast this card from your graveyard for its flashback cost. Then exile it.)

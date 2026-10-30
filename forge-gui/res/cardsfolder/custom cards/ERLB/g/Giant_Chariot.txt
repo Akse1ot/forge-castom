@@ -6,4 +6,5 @@ K:Trample
 T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigDraw | TriggerDescription$ Whenever CARDNAME dies, draw a card.
 SVar:TrigDraw:DB$ Draw | Defined$ You
 A:AB$ ChangeZone | Cost$ 2 | ValidTgts$ Card | TgtPrompt$ Select target card in a graveyard | Origin$ Graveyard | Destination$ Library | LibraryPosition$ -1 | SpellDescription$ Put target card in a graveyard on the bottom of its owner’s library.
+DeckHints:Ability$Graveyard
 Oracle:Trample\nWhen this creature dies, draw a card.\n{2}: Put target card in a graveyard on the bottom of its owner’s library.

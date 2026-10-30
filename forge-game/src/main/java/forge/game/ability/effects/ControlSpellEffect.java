@@ -67,9 +67,10 @@ public class ControlSpellEffect extends SpellAbilityEffect {
             long tStamp = game.getNextTimestamp();
             SpellAbilityStackInstance si = game.getStack().getInstanceMatchingSpellAbilityID(spell);
             if (exchange) {
-                // Currently the only Exchange Control for Spells is a Permanent Trigger
                 // Use "DefinedExchange" to Reference Object that is Exchanging the other direction
-                GameObject obj = Iterables.getFirst(getDefinedOrTargeted(sa, "DefinedExchange"), null);
+                GameObject obj = "SourceFirstSpell".equals(sa.getParam("DefinedExchange"))
+                        ? Iterables.getFirst(getDefinedSpellsOrTargeted(sa, "DefinedExchange"), null)
+                        : Iterables.getFirst(getDefinedOrTargeted(sa, "DefinedExchange"), null);
                 if (obj instanceof Card c) {
                     if (!c.isInPlay() || c.isPhasedOut() || si == null) {
                         // Exchanging object isn't available, continue
@@ -86,6 +87,31 @@ public class ControlSpellEffect extends SpellAbilityEffect {
                     newController = c.getController();
                     c.addTempController(si.getActivatingPlayer(), tStamp);
                     c.runChangeControllerCommands();
+                } else if (obj instanceof SpellAbility exchangeSpell) {
+                    SpellAbilityStackInstance exchangeSi = game.getStack().getInstanceMatchingSpellAbilityID(exchangeSpell);
+                    if (si == null || exchangeSi == null || !si.isSpell() || !exchangeSi.isSpell()) {
+                        continue;
+                    }
+
+                    Card exchangeCard = exchangeSi.getSpellAbility().getHostCard();
+                    Player spellController = si.getActivatingPlayer();
+                    Player exchangeController = exchangeSi.getActivatingPlayer();
+                    if (spellController == exchangeController
+                            || !tgtC.canBeControlledBy(exchangeController)
+                            || !exchangeCard.canBeControlledBy(spellController)) {
+                        continue;
+                    }
+
+                    if (remember) {
+                        source.addRemembered(exchangeCard);
+                    }
+                    newController = exchangeController;
+                    exchangeCard.runChangeControllerCommands();
+                    exchangeCard.addTempController(spellController, tStamp);
+                    exchangeSi.setActivatingPlayer(spellController);
+                } else {
+                    // An exchange cannot happen if either object is unavailable.
+                    continue;
                 }
             }
 

@@ -7,6 +7,5 @@ SVar:TrigTap:DB$ Tap | ValidTgts$ Creature | TgtPrompt$ Select up to one target 
 SVar:DBCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ X
 SVar:X:Count$CastTotalManaSpent Snow
 SVar:AIPreference:ManaFrom$Snow
-DeckHas:Ability$Counters
 DeckHints:Type$Snow
 Oracle:When Iceshelf Crasher enters, if it was cast, tap up to one target creature and put X stun counters on it, where X is the amount of {S} spent to cast this spell.

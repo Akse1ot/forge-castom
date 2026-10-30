@@ -6,4 +6,6 @@ T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | TriggerZones$ Batt
 SVar:TrigToken:DB$ Token | TokenScript$ g_1_1_Spider_Scorpion_Insect
 SVar:PackTactics:Count$Valid Creature.attacking$CardPower
 K:Spirit Ash:2 G
+DeckHas:Ability$Token
+SVar:HasAttackEffect:TRUE
 Oracle:Pack tactics — Whenever this creature attacks, if you attacked with creatures with total power 6 or greater this combat, create a 1/1 green Spider Scorpion Insect creature token.\nSpirit Ash {2}{G}

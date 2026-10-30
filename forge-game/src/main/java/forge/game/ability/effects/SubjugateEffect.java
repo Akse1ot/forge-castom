@@ -20,6 +20,8 @@ import forge.game.replacement.ReplacementType;
 import forge.game.spellability.SpellAbility;
 import forge.game.zone.ZoneType;
 import forge.item.PaperCard;
+import forge.item.PaperToken;
+import forge.token.TokenDb;
 
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -27,7 +29,25 @@ import java.util.Set;
 
 public class SubjugateEffect extends SpellAbilityEffect {
 
-    private static final String NIGHTMARE_NAME = "Vicious Nightmare";
+    private static final String NIGHTMARE_SCRIPT = "vicious_nightmare";
+
+    @Override
+    public boolean movesCardToOrFromLibrary(final SpellAbility sa) {
+        return true;
+    }
+
+    private static PaperCard getNightmareTemplate(final Card host) {
+        final TokenDb tokens = StaticData.instance().getAllTokens();
+        final PaperToken template = tokens == null ? null
+                : tokens.getToken(NIGHTMARE_SCRIPT, host.getSetCode());
+        if (template == null) {
+            throw new RuntimeException("SubjugateEffect didn't find token script: " + NIGHTMARE_SCRIPT);
+        }
+
+        // Use the token's rules with a non-token printing. CardFactory would
+        // otherwise create a real TOKEN, including when rebuilding it in a new zone.
+        return new PaperCard(template.getRules(), template.getEdition(), template.getRarity());
+    }
 
     @Override
     protected String getStackDescription(final SpellAbility sa) {
@@ -60,19 +80,10 @@ public class SubjugateEffect extends SpellAbilityEffect {
             return;
         }
 
-        final PaperCard nightmarePaper =
-                StaticData.instance()
-                        .getCommonCards()
-                        .getUniqueByName(NIGHTMARE_NAME);
-
-        if (nightmarePaper == null) {
-            throw new RuntimeException(
-                    "SubjugateEffect didn't find card: " + NIGHTMARE_NAME
-            );
-        }
+        final PaperCard nightmarePaper = getNightmareTemplate(host);
 
         final PlayerCollection opponents =
-                AbilityUtils.getDefinedPlayers(host, "Opponents", sa);
+                AbilityUtils.getDefinedPlayers(host, "Opponent", sa);
 
         /*
          * TokenCreateTable row = creator.

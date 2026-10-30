@@ -80,9 +80,19 @@ public abstract class CostPartWithList extends CostPart {
             sa.addCostToHashList(card, lkiPaymentMethod, intrinsic);
         }
         final String cardPaymentMethod = getHashForCardList();
+        final String additionalCardPaymentMethod = getAdditionalHashForCardList();
         for (final Card card : cardList) {
             sa.addCostToHashList(card, cardPaymentMethod, intrinsic);
+            if (additionalCardPaymentMethod != null) {
+                // Entering the battlefield may reuse and retimestamp the live card object.
+                sa.addCostToHashList(CardCopyService.getLKICopy(card), additionalCardPaymentMethod, intrinsic);
+            }
         }
+    }
+
+    /** Optional payment snapshots, independent of the legacy live-card list. */
+    protected String getAdditionalHashForCardList() {
+        return null;
     }
 
     // public abstract List<Card> getValidCards();

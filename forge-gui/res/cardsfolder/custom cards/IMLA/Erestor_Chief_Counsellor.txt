@@ -1,0 +1,10 @@
+Name:Erestor, Chief Counsellor
+ManaCost:3 U
+Types:Legendary Creature Elf Advisor
+PT:*/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry | TriggerDescription$ When CARDNAME enters the battlefield, scry 2.
+SVar:TrigScry:DB$ Scry | ScryNum$ 2
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | Description$ CARDNAME's power is equal to the number of Historic cards you control. (Artifacts, legendaries, and Sagas are historic.)
+SVar:X:Count$Valid Permanent.YouCtrl+Historic
+DeckHints:Type$Artifact|Legendary|Saga
+Oracle:When Erestor, Chief Counsellor enters the battlefield, scry 2.\nErestor, Chief Counsellor’s power is equal to the number of Historic cards you control. (Artifacts, legendaries, and Sagas are historic.)

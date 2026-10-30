@@ -984,7 +984,7 @@ public final class StaticAbilityContinuous {
                             }
 
                             final Trigger newTrigger =
-                                    trigger.copy(affectedCard, false, true);
+                                    affectedCard.addTriggerForStaticAbility(trigger, stAb, true);
 
                             newTrigger.putParam(GAINED_ALL_ABILITIES_MARKER, "True");
                             setGrantedTraitExtrinsic(newTrigger);
@@ -1052,8 +1052,9 @@ public final class StaticAbilityContinuous {
                     }
                 }
 
-                if (params.containsKey("GainsTriggerAbsOf")) {
-                    CardCollection cards = cardsGainedFrom("GainsTriggerAbsOf", params, hostCard, stAb, game);
+                if (params.containsKey("GainsTriggerAbsOfDefined") || params.containsKey("GainsTriggerAbsOf")) {
+                    CardCollection cards = cardsGainedFrom(params.containsKey("GainsTriggerAbsOfDefined")
+                            ? "GainsTriggerAbsOfDefined" : "GainsTriggerAbsOf", params, hostCard, stAb, game);
 
                     for (Card c : cards) {
                         for (final Trigger trig : c.getTriggers()) {

@@ -5,5 +5,4 @@ PT:2/2
 K:Intimidate
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.powerGE8+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigSacrifice | TriggerDescription$ Whenever a creature with power 8 or greater enters the battlefield under your control, target opponent sacrifices a nonblack creature.
 SVar:TrigSacrifice:DB$ Sacrifice | ValidTgts$ Opponent | SacValid$ Creature.nonBlack
-DeckHints:Type$Kraken|Leviathan|Serpent
 Oracle:Intimidate\nWhenever a creature with power 8 or greater enters the battlefield under your control, target opponent sacrifices a nonblack creature.

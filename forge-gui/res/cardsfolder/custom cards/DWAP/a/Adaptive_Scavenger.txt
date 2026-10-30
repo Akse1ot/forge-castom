@@ -17,5 +17,5 @@ SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNu
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 SVar:X:Count$ValidExile Card.ExiledWithSource$CardTypes
 SVar:Y:Count$ValidExile Card.ExiledWithSource+NotDefinedRemembered$CardTypes
-DeckHas:Ability$Counters & Ability$Graveyard
+DeckHas:Ability$Counters
 Oracle:Adaptive Scavenger has hexproof from each card type among exiled cards.\n{1}: Exile target card from a graveyard. Put a +1/+1 counter on Adaptive Scavenger if it has a type not found among cards exiled with Adaptive Scavenger.

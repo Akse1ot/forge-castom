@@ -1,0 +1,9 @@
+Name:Elrond, Kind as Summer
+ManaCost:2 W U
+Types:Legendary Creature Elf Noble
+PT:3/3
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn | TriggerDescription$ When CARDNAME enters the battlefield, return target creature, instant or sorcery from your graveyard to your hand.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn,Instant.YouOwn,Sorcery.YouOwn
+DeckHas:Ability$Graveyard
+Oracle:Lifelink\nWhen Elrond, Kind as Summer enters the battlefield, return target creature, instant or sorcery from your graveyard to your hand.

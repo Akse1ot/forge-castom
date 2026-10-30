@@ -41,6 +41,26 @@ import java.util.regex.Pattern;
  * The Class CostExile.
  */
 public class CostExile extends CostPartWithList {
+    /** Optional final cost field: ExileFromGrave<1/Creature/ExileTag=Donor>. */
+    public static final String TAGGED_PAID_LIST_PREFIX = "ExiledCost_";
+    private String exileTag;
+
+    public String getExileTag() {
+        return exileTag;
+    }
+
+    public void setExileTag(final String tag) {
+        if (tag == null || exileTag != null || !tag.matches("[A-Za-z][A-Za-z0-9_]*")) {
+            throw new IllegalArgumentException("Invalid or duplicate ExileTag: " + tag);
+        }
+        exileTag = tag;
+    }
+
+    @Override
+    protected String getAdditionalHashForCardList() {
+        return exileTag == null ? null : TAGGED_PAID_LIST_PREFIX + exileTag;
+    }
+
     // Exile<Num/Type{/TypeDescription}>
     // ExileFromHand<Num/Type{/TypeDescription}>
     // ExileFromGrave<Num/Type{/TypeDescription}>
