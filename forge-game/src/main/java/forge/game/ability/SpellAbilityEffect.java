@@ -749,7 +749,11 @@ public abstract class SpellAbilityEffect {
                 eff.copyChangedTextFrom(host);
             }
 
-            game.getEndOfTurn().addUntil(() -> game.getAction().exileEffect(eff));
+            if ("UntilStateBasedActionChecked".equals(sa.getParam("ReplaceDyingDuration"))) {
+                game.addSBACheckedCommand(() -> game.getAction().exileEffect(eff));
+            } else {
+                game.getEndOfTurn().addUntil(() -> game.getAction().exileEffect(eff));
+            }
 
             game.getAction().moveToCommand(eff, sa);
         }
