@@ -1,0 +1,8 @@
+Name:Firehollow Phoenix
+ManaCost:4 R R
+Types:Creature Phoenix
+PT:3/3
+K:Flying
+K:Double Strike
+K:Unearth:2 R
+Oracle:Flying, double strike\nUnearth {2}{R} ({2}{R}: Return this card from your graveyard to the battlefield. It gains haste. Exile it at the beginning of the end step or if it would leave the battlefield. Unearth only as a sorcery.)

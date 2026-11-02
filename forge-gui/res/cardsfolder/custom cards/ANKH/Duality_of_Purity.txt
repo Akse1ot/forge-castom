@@ -1,0 +1,9 @@
+Name:Duality of Purity
+ManaCost:2 W W
+Types:Sorcery
+A:SP$ Charm | Choices$ PurityCreatures,PurityObjects,PurityHuman,PurityLife | ModalChoiceGroups$ 2,2
+SVar:PurityCreatures:DB$ DestroyAll | ValidCards$ Creature | SpellDescription$ Destroy all creatures.
+SVar:PurityObjects:DB$ Destroy | ValidTgts$ Artifact,Enchantment | TargetMin$ 0 | TargetMax$ 2 | SpellDescription$ Destroy up to two target artifacts and/or enchantments.
+SVar:PurityHuman:DB$ Token | TokenScript$ w_1_1_human | TokenAmount$ 1 | TokenOwner$ ChoosingPlayer | SpellDescription$ That opponent creates a 1/1 white Human creature token.
+SVar:PurityLife:DB$ GainLife | Defined$ ChoosingPlayer | LifeAmount$ 5 | SpellDescription$ That opponent gains 5 life.
+Oracle:Choose one —\n• Destroy all creatures.\n• Destroy up to two target artifacts and/or enchantments.\nAn opponent chooses one —\n• He or she creates a 1/1 white Human creature token.\n• He or she gains 5 life.

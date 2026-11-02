@@ -1,0 +1,8 @@
+Name:Indomitable Elephant
+ManaCost:6 G G
+Types:Creature Elephant
+PT:6/7
+T:Mode$ AttackerBlocked | ValidCard$ Card.Self | Execute$ ElephantDamage | TriggerDescription$ Whenever CARDNAME becomes blocked, it deals damage equal to its power to defending player or planeswalker.
+SVar:ElephantDamage:DB$ DealDamage | Defined$ TriggeredDefender.Opponent & Valid Planeswalker.TriggeredDefender | NumDmg$ Power
+SVar:Power:Count$CardPower
+Oracle:Whenever Indomitable Elephant becomes blocked, it deals damage equal to its power to defending player or planeswalker (in addition to combat damage to its blockers).

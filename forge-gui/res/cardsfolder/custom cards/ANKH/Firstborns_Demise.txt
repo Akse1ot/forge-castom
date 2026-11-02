@@ -1,0 +1,7 @@
+Name:Firstborn's Demise
+ManaCost:W B
+Types:Instant
+A:SP$ Pump | ValidTgts$ Player | RememberObjects$ Targeted | SubAbility$ HighestSacrifice | SpellDescription$ Target player sacrifices the creature they control with the highest mana value. If two or more creatures are tied, that player chooses one.
+SVar:HighestSacrifice:DB$ Sacrifice | Defined$ Targeted | SacValid$ Creature.greatestCMC_CreatureControlledByRemembered | Amount$ 1 | SubAbility$ Clean
+SVar:Clean:DB$ Cleanup | ClearRemembered$ True
+Oracle:Target player sacrifices the creature he or she controls with the highest converted mana cost. If two or more creatures that player controls are tied for highest cost, that player chooses one.

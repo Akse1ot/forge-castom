@@ -8,7 +8,7 @@ T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ 
 SVar:TrigReturn:AB$ ChangeZone | Cost$ PayLife<X> | Defined$ ExiledWith | Origin$ Exile | Destination$ Battlefield | GainControl$ True | StaticEffect$ Animate
 SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Skeleton
 SVar:X:ExiledWith$CardManaCost
-DeckHas:Ability$Graveyard
+DeckHas:Ability$Graveyard|Sacrifice
 DeckHints:Ability$Graveyard|Mill
 DeckNeeds:Type$Creature|Planeswalker
 AlternateMode:Modal
@@ -26,5 +26,4 @@ S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddAbility$ Plus | Description
 SVar:Plus:AB$ DealDamage | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Any | TgtPrompt$ Select any target to distribute damage to | NumDmg$ 2 | TargetMin$ 1 | TargetMax$ 2 | DividedAsYouChoose$ 2 | SpellDescription$ CARDNAME deals 2 damage divided as you choose among one or two targets.
 S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddAbility$ Ult | Description$ Enchanted permanent has “[-3]: Target opponent sacrifices a permanent.”
 SVar:Ult:AB$ Sacrifice | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Opponent | SacValid$ Permanent | SpellDescription$ Target opponent sacrifices a permanent.
-DeckNeeds:Type$Creature|Planeswalker
 Oracle:Enchant creature or planeswalker.\nEnchanted permanent has double strike and is a Dragon in addition to its other types.\nEnchanted permanent has “[+1]: This permanent deals 2 damage divided as you choose among one or two targets.” and “[-3]: Target opponent sacrifices a permanent.”

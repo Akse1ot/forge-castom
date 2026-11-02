@@ -1,0 +1,10 @@
+Name:Duality of Ambition
+ManaCost:1 B B
+Types:Instant
+A:SP$ Charm | Choices$ AmbitionDiscard,AmbitionShrink,AmbitionDraw,AmbitionSacrifice | ModalChoiceGroups$ 2,2
+SVar:AmbitionDiscard:DB$ Discard | ValidTgts$ Player | NumCards$ 2 | Mode$ Random | SpellDescription$ Target player discards two cards at random.
+SVar:AmbitionShrink:DB$ Pump | ValidTgts$ Creature | NumAtt$ -4 | NumDef$ -4 | IsCurse$ True | SpellDescription$ Target creature gets -4/-4 until end of turn.
+SVar:AmbitionDraw:DB$ Draw | Defined$ ChoosingPlayer | NumCards$ 1 | SubAbility$ AmbitionLifeLoss | SpellDescription$ That opponent draws a card and loses 2 life.
+SVar:AmbitionLifeLoss:DB$ LoseLife | Defined$ ChoosingPlayer | LifeAmount$ 2
+SVar:AmbitionSacrifice:DB$ Sacrifice | Defined$ You | SacValid$ Creature | Amount$ 1 | SpellDescription$ This spell's controller sacrifices a creature.
+Oracle:Choose one —\n• Target player discards two cards at random.\n• Target creature gets -4/-4 until end of turn.\nAn opponent chooses one —\n• He or she draws a card and loses 2 life.\n• Duality of Ambition’s controller sacrifices a creature.

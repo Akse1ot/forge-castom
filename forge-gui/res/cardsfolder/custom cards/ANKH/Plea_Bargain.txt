@@ -1,0 +1,5 @@
+Name:Plea Bargain
+ManaCost:B
+Types:Sorcery
+A:SP$ PleaBargain | ValidTgts$ Opponent | SpellDescription$ Target opponent reveals all but one card from their hand. Choose a revealed nonland card or the unrevealed card. That player discards that card.
+Oracle:Target opponent reveals all the cards in his or her hand except one. You choose a nonland card revealed this way or the card that wasn’t revealed. That player discards that card.

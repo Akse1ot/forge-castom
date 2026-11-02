@@ -1,0 +1,10 @@
+Name:Atun, God of the Sun
+ManaCost:2 W W
+Types:Legendary Enchantment Creature God
+PT:4/5
+K:Lifelink
+K:Indestructible
+S:Mode$ CantAttack,CantBlock | ValidCard$ Card.Self | CheckSVar$ Counters | SVarCompare$ EQ0 | Description$ CARDNAME can't attack or block unless it has a +1/+1 counter on it.
+SVar:Counters:Count$CardCounters.P1P1
+S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1 | Description$ Other creatures you control get +1/+1.
+Oracle:Lifelink, indestructible\nAtun, God of the Sun can’t attack or block unless he has a +1/+1 counter on him.\nOther creatures you control get +1/+1.

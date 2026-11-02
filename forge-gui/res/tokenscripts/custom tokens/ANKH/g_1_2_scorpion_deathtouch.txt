@@ -1,0 +1,7 @@
+Name:Scorpion Token
+ManaCost:no cost
+Colors:green
+Types:Creature Scorpion
+PT:1/2
+K:Deathtouch
+Oracle:Deathtouch

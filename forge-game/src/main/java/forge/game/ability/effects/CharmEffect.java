@@ -20,6 +20,7 @@ import forge.game.player.Player;
 import forge.game.spellability.AbilitySub;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.ModalChoiceContext;
+import forge.game.spellability.ModalChoiceGroups;
 import forge.util.Aggregates;
 import forge.util.Lang;
 import forge.util.Localizer;
@@ -63,6 +64,9 @@ public class CharmEffect extends SpellAbilityEffect {
         return makeFormatedDescription(sa, true);
     }
     public static String makeFormatedDescription(SpellAbility sa, boolean includeChosen) {
+        if (sa.hasParam(ModalChoiceGroups.PARAM)) {
+            return ModalChoiceGroups.description(sa, includeChosen);
+        }
         Card source = sa.getHostCard();
 
         List<AbilitySub> list = CharmEffect.makePossibleOptions(sa);
@@ -210,6 +214,9 @@ public class CharmEffect extends SpellAbilityEffect {
         // CR 700.2g
         if (sa.isCopied()) {
             return true;
+        }
+        if (sa.hasParam(ModalChoiceGroups.PARAM)) {
+            return ModalChoiceGroups.makeChoices(sa);
         }
 
         // reset all previous choices

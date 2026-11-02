@@ -1,0 +1,7 @@
+Name:Lammasu Token
+ManaCost:no cost
+Colors:white
+Types:Creature Lammasu
+PT:5/5
+K:Flying
+Oracle:Flying

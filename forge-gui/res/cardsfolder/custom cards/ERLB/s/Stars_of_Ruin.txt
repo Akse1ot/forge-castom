@@ -3,8 +3,11 @@ ManaCost:1 U B
 Types:Legendary Instant
 Text:(You may cast a legendary instant only if you control a legendary creature or planeswalker.)
 A:SP$ Destroy | Cost$ 1 U B Mill<X> | ValidTgts$ Creature.cmcEQX,Planeswalker.cmcEQX | SubAbility$ DBDraw | SpellDescription$ Destroy target creature or planeswalker with mana value X. If two or more other instant and/or sorcery cards were put into your graveyard this turn, draw a card.
-SVar:DBDraw:DB$ Draw | CheckSVar$ Y | SVarCompare$ GE2
+SVar:DBDraw:DB$ Draw | Defined$ You | ConditionCheckSVar$ Y | ConditionSVarCompare$ GE2
 SVar:X:Count$xPaid
-SVar:Y:Count$ThisTurnEntered_Graveyard_Card.Sorcery.YouOwn,Instant.YouOwn
+SVar:Y:Count$ThisTurnEntered_Graveyard_Sorcery.Other+YouOwn,Instant.Other+YouOwn
 K:Flashback:U B ExileFromGrave<12/Card>
+DeckHas:Ability$Mill|Graveyard|Exile
+DeckHints:Ability$Graveyard|Mill
+DeckNeeds:Type$Legendary & Type$Creature|Planeswalker
 Oracle:(You may cast a legendary instant only if you control a legendary creature or planeswalker.)\nAs an additional cost to cast this spell, mill X cards.\nDestroy target creature or planeswalker with mana value X. If two or more other instant and/or sorcery cards were put into your graveyard this turn, draw a card.\nFlashback—{U}{B}, Exile twelve cards from your graveyard.

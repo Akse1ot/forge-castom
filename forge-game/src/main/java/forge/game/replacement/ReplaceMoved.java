@@ -25,6 +25,10 @@ public class ReplaceMoved extends ReplacementEffect {
      */
     @Override
     public boolean canReplace(Map<AbilityKey, Object> runParams) {
+        if (hasParam("LandPlayed") && Boolean.parseBoolean(getParam("LandPlayed"))
+                != Boolean.TRUE.equals(runParams.get(AbilityKey.LandPlayed))) {
+            return false;
+        }
         if (hasParam("Destination")) {
             ZoneType zt = (ZoneType) runParams.get(AbilityKey.Destination);
             if (!ZoneType.listValueOf(getParam("Destination")).contains(zt)) {

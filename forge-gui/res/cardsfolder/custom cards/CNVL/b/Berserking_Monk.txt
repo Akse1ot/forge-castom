@@ -3,7 +3,7 @@ ManaCost:3 R R
 Types:Creature Human Berserker
 PT:4/4
 K:Haste
-S:Mode$ MustAttack | ValidCreature$ Card.Self | Description$ CARDNAME attacks each combat if able.
+S:Mode$ MustAttack | ValidCreature$ Card.Self+!attackedThisTurn | Description$ CARDNAME attacks each turn if able.
 T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCanNotBlock | TriggerDescription$ Whenever you cast an instant or sorcery spell, target creature can’t block this turn.
-SVar:TrigCanNotBlock:DB$ Pump | ValidTgts$ Creature.OppCtrl | KW$ HIDDEN CARDNAME can't block. | TgtPrompt$ Select target creature an opponent controls | IsCurse$ True
+SVar:TrigCanNotBlock:DB$ Pump | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | TgtPrompt$ Select target creature | IsCurse$ True
 Oracle:Haste\nBerserking Monk attacks each turn if able.\nWhenever you cast an instant or sorcery spell, target creature can’t block this turn.

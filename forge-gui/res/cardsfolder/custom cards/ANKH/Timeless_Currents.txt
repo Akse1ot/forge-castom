@@ -1,0 +1,6 @@
+Name:Timeless Currents
+ManaCost:U
+Types:Instant
+A:SP$ TapOrUntap | ValidTgts$ Creature | SpellDescription$ You may tap or untap target creature.
+K:Decipher:2 U
+Oracle:You may tap or untap target creature.\nDecipher {2}{U} (When you cast this spell for its decipher cost, copy it for each instant and sorcery card in your graveyard. You may choose new targets for the copies.)

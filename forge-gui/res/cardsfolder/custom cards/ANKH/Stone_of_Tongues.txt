@@ -1,0 +1,5 @@
+Name:Stone of Tongues
+ManaCost:5
+Types:Artifact
+S:Mode$ AlternativeCost | ValidSA$ Spell | ValidCard$ Instant,Sorcery | ValidPlayer$ You | Cost$ W U B R G | AlternativeCost$ Decipher | Description$ Each instant and sorcery spell you cast has decipher {W}{U}{B}{R}{G}.
+Oracle:Each instant and sorcery spell you cast has decipher {W}{U}{B}{R}{G}. (When you cast a spell for its decipher cost, copy it for each instant or sorcery card in your graveyard. You may choose new targets for the copies.)

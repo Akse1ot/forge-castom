@@ -1,0 +1,5 @@
+Name:Zebra Behemoth
+ManaCost:2 R
+Types:Creature Horse Beast
+PT:3/2
+Oracle:

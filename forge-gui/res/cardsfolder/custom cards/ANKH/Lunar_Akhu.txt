@@ -1,0 +1,6 @@
+Name:Lunar Akhu
+ManaCost:U
+Types:Creature Spirit
+PT:1/1
+S:Mode$ CantBlockBy | ValidAttacker$ Card.Self | Description$ CARDNAME can't be blocked.
+Oracle:Lunar Akhu can’t be blocked.

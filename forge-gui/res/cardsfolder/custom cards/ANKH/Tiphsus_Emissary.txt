@@ -1,0 +1,6 @@
+Name:Tiphsu's Emissary
+ManaCost:1 G
+Types:Creature Human Bird Wizard
+PT:2/1
+A:AB$ Scry | Cost$ 3 U T | ScryNum$ 2 | SpellDescription$ Scry 2.
+Oracle:{3}{U}, {T}: Scry 2. (To scry 2, look at the top two cards of your library, then put any number of them on the bottom of your library and the rest on top in any order.)

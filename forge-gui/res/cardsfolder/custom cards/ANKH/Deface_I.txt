@@ -1,0 +1,6 @@
+Name:Deface I
+ManaCost:1 U
+Types:Sorcery
+A:SP$ Mill | ValidTgts$ Player | NumCards$ 3 | SpellDescription$ Target player mills three cards.
+K:Decipher:6 U
+Oracle:Target player puts the top three cards from his or her library into his or her graveyard.\nDecipher {6}{U} (When you cast this spell for its decipher cost, copy it for each instant and sorcery card in your graveyard. You may choose new targets for the copies.)

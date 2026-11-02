@@ -1,0 +1,9 @@
+Name:Master of Mysteries
+ManaCost:5 U
+Types:Creature Sphinx
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigETB | TriggerDescription$ When CARDNAME enters, draw a card, then discard a card.
+SVar:TrigETB:DB$ Draw | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+Oracle:Flying\nWhen Master of Mysteries enters the battlefield, draw a card, then discard a card.

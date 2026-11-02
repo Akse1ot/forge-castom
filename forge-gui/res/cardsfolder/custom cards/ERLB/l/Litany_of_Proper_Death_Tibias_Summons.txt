@@ -5,7 +5,7 @@ A:SP$ Destroy | ValidTgts$ Creature.tapped | TgtPrompt$ Select target tapped cre
 SVar:DBImmediateTrigger:DB$ ImmediateTrigger | ConditionDefined$ RememberedLKI | ConditionPresent$ Card.Black | RememberObjects$ Remembered | Execute$ TrigChangeZone | SubAbility$ DBCleanup | TriggerDescription$ When you do, if that creature was black, exile it from its owner's graveyard.
 SVar:TrigChangeZone:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Graveyard | Destination$ Exile
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-DeckHas:Ability$Graveyard
+DeckHas:Ability$Graveyard|Exile
 AlternateMode:Modal
 Oracle:Destroy target tapped creature. When you do, if that creature was black, exile it from its owner’s graveyard.
 
@@ -17,7 +17,5 @@ Types:Sorcery
 A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | TargetMin$ 0 | TargetMax$ 3 | MaxTotalTargetCMC$ 6 | ValidTgts$ Creature.YouOwn | TargetEitherFace$ True | TgtPrompt$ Select up to three target creature cards with total mana value 6 or less | Tapped$ True | StaticEffect$ Animate | SpellDescription$ Return up to three target creature cards with total mana value 6 or less from your graveyard to the battlefield tapped. Those creatures become Skeletons in addition to their other types.
 SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Skeleton
 Text:You may choose either face of a double-faced card for this spell’s targets.
-DeckHas:Ability$Graveyard
 DeckHints:Ability$Graveyard|Mill
-DeckNeeds:Type$Creature
 Oracle:You may choose either face of a double-faced card for this spell’s targets.\nReturn up to three target creature cards with total mana value 6 or less from your graveyard to the battlefield tapped. Those creatures become Skeletons in addition to their other types.

@@ -1,0 +1,6 @@
+Name:Cursebreaker Mage
+ManaCost:2 U
+Types:Creature Human Wizard
+PT:2/2
+K:Hexproof
+Oracle:Hexproof

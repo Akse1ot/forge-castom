@@ -1,0 +1,6 @@
+Name:Solar Restoration
+ManaCost:5 W
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReturn | TriggerDescription$ At the beginning of your upkeep, return target Human creature card in your graveyard to the battlefield.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.Human+YouOwn
+Oracle:At the beginning of your upkeep, return target Human creature card in your graveyard to the battlefield.

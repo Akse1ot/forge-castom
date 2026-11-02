@@ -1,0 +1,9 @@
+Name:Sphincolich Loremaster
+ManaCost:5 U B
+Types:Creature Skeleton Sphinx
+PT:4/5
+K:Flying
+K:Unearth:2 U B
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ LoremasterPlay | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, you may cast an instant or sorcery card from that player's graveyard without paying its mana cost.
+SVar:LoremasterPlay:DB$ Play | Valid$ Instant.OwnedBy TriggeredTarget,Sorcery.OwnedBy TriggeredTarget | ValidZone$ Graveyard | Controller$ You | WithoutManaCost$ True | Optional$ True
+Oracle:Flying\nWhenever Sphincolich Loremaster deals combat damage to a player, you may cast an instant or sorcery card from that player’s graveyard without paying its mana cost.\nUnearth {2}{U}{B} ({2}{U}{B}: Return this card from your graveyard to the battlefield. It gains haste. Exile it at the beginning of the end step or if it would leave the battlefield. Unearth only as a sorcery.)

@@ -1,0 +1,6 @@
+Name:Archaic Remnant
+ManaCost:4
+Types:Artifact Creature Golem
+PT:5/1
+K:Unearth:2
+Oracle:Unearth {2} ({2}: Return this card from your graveyard to the battlefield. It gains haste. Exile it at the beginning of the end step or if it would leave the battlefield. Unearth only as a sorcery.)

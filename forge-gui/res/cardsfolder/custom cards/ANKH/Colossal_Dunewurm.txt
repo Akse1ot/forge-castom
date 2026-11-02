@@ -1,0 +1,6 @@
+Name:Colossal Dunewurm
+ManaCost:4 G G
+Types:Creature Wurm
+PT:6/5
+K:Trample
+Oracle:Trample

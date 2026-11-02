@@ -1,0 +1,7 @@
+Name:Mortician's Touch
+ManaCost:3 B B
+Types:Sorcery
+A:SP$ Destroy | ValidTgts$ Creature | SubAbility$ DBGainLife | SpellDescription$ Destroy target creature. You gain life equal to its toughness.
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ X
+SVar:X:Targeted$CardToughness
+Oracle:Destroy target creature. You gain life equal to its toughness.

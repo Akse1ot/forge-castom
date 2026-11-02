@@ -3,13 +3,14 @@ ManaCost:1 W
 Types:Legendary Artifact Equipment
 S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddKeyword$ Lifelink | CanBlockAny$ True | Description$ Equipped creature has lifelink and “This creature can block any number of creatures.”
 T:Mode$ Blocks | ValidCard$ Creature.EquippedBy | Execute$ TrigPumpBlock | TriggerDescription$ Whenever equipped creature blocks or becomes blocked by one or more creatures, it gets +1/+1 until end of turn for each of those creatures.
-SVar:TrigPumpBlock:DB$ Pump | Defined$ Equipped | NumAtt$ +X | NumDef$ +X
-SVar:X:Count$Valid Creature.blockedBySource
+SVar:TrigPumpBlock:DB$ Pump | Defined$ TriggeredBlocker | NumAtt$ X | NumDef$ X
+SVar:X:TriggerObjectsAttackers$Amount
 T:Mode$ AttackerBlocked | ValidCard$ Creature.EquippedBy | Execute$ TrigPumpBlocked | TriggerDescription$ Whenever equipped creature blocks or becomes blocked by one or more creatures, it gets +1/+1 until end of turn for each of those creatures.
-SVar:TrigPumpBlocked:DB$ Pump | Defined$ Equipped | NumAtt$ +Y | NumDef$ +Y
-SVar:Y:Count$Valid Creature.blockingSource
+SVar:TrigPumpBlocked:DB$ Pump | Defined$ TriggeredAttacker | NumAtt$ Y | NumDef$ Y
+SVar:Y:TriggerObjectsBlockers$Amount
 K:Equip:2 W
 AlternateMode:Modal
+DeckHas:Ability$Token|LifeGain & Type$Artifact|Rune
 Oracle:Equipped creature has lifelink and “This creature can block any number of creatures.”\nWhenever equipped creature blocks or becomes blocked by one or more creatures, it gets +1/+1 until end of turn for each of those creatures.\nEquip {2}{W}
 
 ALTERNATE

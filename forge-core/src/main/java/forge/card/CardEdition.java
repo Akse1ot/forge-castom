@@ -809,13 +809,17 @@ public final class CardEdition implements Comparable<CardEdition> {
 
             res.boosterSlots = boosterSlots;
             String boosterDesc = metadata.get("Booster");
+            String boosterCollation = metadata.get("BoosterCollation");
+            if (boosterCollation != null && (res.boosterSlots != null || !metadata.contains("Booster"))) {
+                throw new IllegalArgumentException("BoosterCollation requires a plain Booster template: " + res.code);
+            }
 
             if (metadata.contains("Booster")) {
                 // Historical naming convention in Forge for "DraftBooster"
                 if (res.boosterSlots != null) {
                     res.boosterTpl = new SealedTemplateWithSlots(res.code, SealedTemplate.Reader.parseSlots(boosterDesc), res.boosterSlots);
                 } else {
-                    res.boosterTpl = new SealedTemplate(res.code, SealedTemplate.Reader.parseSlots(boosterDesc));
+                    res.boosterTpl = new SealedTemplate(res.code, SealedTemplate.Reader.parseSlots(boosterDesc), boosterCollation);
                 }
 
                 res.boosterTemplates.put("Draft", res.boosterTpl);

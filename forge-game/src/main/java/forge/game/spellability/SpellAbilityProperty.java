@@ -26,7 +26,9 @@ import java.util.Set;
 
 public class SpellAbilityProperty {
     public static boolean hasProperty(SpellAbility sa, Player sourceController, Card source, String property, CardTraitBase spellAbility) {
-        if (property.equals("ManaAbility")) {
+        if (property.equals("CastWithoutManaCostOrForAlternativeCost")) {
+            return AlternativeCostRuleUtil.usesAlternativeOrFreeCost(sa);
+        } else if (property.equals("ManaAbility")) {
             return sa.isManaAbility();
         } else if (property.equals("withoutXCost")) {
             return !sa.costHasManaX();

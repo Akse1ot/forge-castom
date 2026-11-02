@@ -1,0 +1,7 @@
+Name:Griffin Mummy
+ManaCost:3 B B
+Types:Creature Zombie Griffin
+PT:3/4
+K:Flying
+K:Unearth:2 B
+Oracle:Flying\nUnearth {2}{B} ({2}{B}: Return this card from your graveyard to the battlefield. It gains haste. Exile it at the beginning of the end step or if it would leave the battlefield. Unearth only as a sorcery.)

@@ -1,0 +1,8 @@
+Name:Game of Passing
+ManaCost:1
+Types:Artifact
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ PawnCounter | TriggerDescription$ At the beginning of your upkeep, you may put a pawn counter on CARDNAME.
+SVar:PawnCounter:DB$ PutCounter | Defined$ Self | CounterType$ pawn | CounterNum$ 1
+A:AB$ ExchangeControl | Cost$ T Sac<1/CARDNAME> | ValidTgts$ Creature.cmcEQX | TargetMin$ 2 | TargetMax$ 2 | SpellDescription$ Exchange control of two target creatures with mana value equal to the number of pawn counters on CARDNAME.
+SVar:X:Count$CardCounters.pawn
+Oracle:At the beginning of your upkeep, you may put a pawn counter on Game of Passing.\n{T}, Sacrifice Game of Passing: Exchange control of two target creatures with converted mana cost equal to the number of pawn counters on Game of Passing.

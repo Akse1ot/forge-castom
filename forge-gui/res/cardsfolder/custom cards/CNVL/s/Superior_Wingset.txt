@@ -8,6 +8,5 @@ SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap du
 A:AB$ Attach | Cost$ 2 | ValidTgts$ Creature.namedWingless Prodigy | SpellDescription$ Attach CARDNAME to Wingless Prodigy.
 K:Equip:2 W U
 SVar:AE:SVar:HasAttackEffect:TRUE
-Oracle:Equipped creature gets +2/+2 and has flying and “whenever this creature attacks, tap target creature an opponent controls. It doesn’t untap during its controllers next untap step.”\n
-{2}: Attach Superior Wingset to Wingless Prodigy.\n
-Equip {2}{W}{U}
+DeckHints:Name$Wingless Prodigy
+Oracle:Equipped creature gets +2/+2 and has flying and “whenever this creature attacks, tap target creature an opponent controls. It doesn’t untap during its controllers next untap step.”\n{2}: Attach Superior Wingset to Wingless Prodigy.\nEquip {2}{W}{U}

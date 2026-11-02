@@ -1,0 +1,7 @@
+Name:Dune Enchantress
+ManaCost:1 G W
+Types:Creature Human Shaman
+PT:2/2
+T:Mode$ SpellCast | ValidCard$ Enchantment | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever you cast an enchantment spell, draw a card.
+SVar:TrigDraw:DB$ Draw | NumCards$ 1
+Oracle:Whenever you cast an enchantment spell, draw a card.

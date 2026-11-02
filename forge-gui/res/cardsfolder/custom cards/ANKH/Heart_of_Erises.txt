@@ -1,0 +1,7 @@
+Name:Heart of Erises
+ManaCost:2
+Types:Legendary Artifact
+K:Indestructible
+A:AB$ Scry | Cost$ 1 T | ScryNum$ 1 | SpellDescription$ Scry 1.
+A:AB$ ChangeZone | Cost$ T Sac<4/Artifact.namedPiece of Erises> Sac<1/CARDNAME> | Origin$ Sideboard | Destination$ Battlefield | ChangeType$ God.YouOwn | ChangeNum$ 1 | Hidden$ True | Mandatory$ True | WithCountersType$ P1P1 | WithCountersAmount$ 4 | SpellDescription$ Put a God card you own from outside the game onto the battlefield with four additional +1/+1 counters on it.
+Oracle:Indestructible\n{1}, {T}: Scry 1.\n{T}, Sacrifice four artifacts named Piece of Erises, Sacrifice Heart of Erises: Put a God card you own from outside the game onto the battlefield with four additional +1/+1 counters on it.

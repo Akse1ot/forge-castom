@@ -1,0 +1,5 @@
+Name:Divine Revelation
+ManaCost:W
+Types:Sorcery
+A:SP$ PumpAll | Cost$ W Or(3~Reveal<1/Spirit;Angel;God>) | ValidCards$ Creature.YouCtrl | NumAtt$ 2 | NumDef$ 2 | SpellDescription$ As an additional cost to cast this spell, pay {3} or reveal a Spirit, Angel, and/or God card from your hand. Creatures you control get +2/+2 until end of turn.
+Oracle:As an additional cost to cast Divine Revelation, pay {3} or reveal a Spirit, Angel, and/or God card from your hand.\nCreatures you control get +2/+2 until end of turn.

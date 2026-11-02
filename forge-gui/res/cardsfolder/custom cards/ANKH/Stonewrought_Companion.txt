@@ -1,0 +1,7 @@
+Name:Stonewrought Companion
+ManaCost:3
+Types:Artifact Creature Construct
+PT:2/2
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 2 | CheckSVar$ Expedition | SVarCompare$ GE5 | Description$ Expedition — As long as you control five or more lands with different names, CARDNAME gets +2/+2.
+SVar:Expedition:Count$Valid Land.YouCtrl$DifferentCardNames
+Oracle:Expedition — As long as you control five or more lands with different names, Stonewrought Companion gets +2/+2.

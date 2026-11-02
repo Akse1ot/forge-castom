@@ -1,0 +1,14 @@
+Name:Pharaoh Nimseput
+ManaCost:1 W W
+Types:Legendary Creature Human
+PT:1/4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Opponent | Execute$ PharaohChoose | TriggerDescription$ At the beginning of each opponent's upkeep, that player chooses a nondevout creature they control. That creature gains worship {2}. At the beginning of the next end step, that player sacrifices that creature if it hasn't worshipped CARDNAME this turn.
+SVar:PharaohChoose:DB$ ChooseCard | Defined$ TriggeredPlayer | Choices$ Creature.!IsDevout | ControlledByPlayer$ Chooser | Mandatory$ True | SubAbility$ PharaohGrant
+SVar:PharaohGrant:DB$ Pump | Defined$ ChosenCard | KW$ Worship:2 | Duration$ Permanent | SubAbility$ PharaohWatch
+SVar:PharaohWatch:DB$ Effect | CopyForSimulation$ True | RememberObjects$ ChosenCard & TriggeredPlayer | ImprintCards$ Self | Triggers$ PharaohWorship,PharaohEnd | SubAbility$ PharaohClean
+SVar:PharaohWorship:Mode$ Worship | ValidCard$ Card.IsDefined RememberedLKI | ValidTarget$ Card.IsDefined ImprintedLKI | Execute$ PharaohDone
+SVar:PharaohDone:DB$ Cleanup | ClearRemembered$ True
+SVar:PharaohEnd:Mode$ Phase | Phase$ End of Turn | Execute$ PharaohSac | TriggerDescription$ Sacrifice the creature unless it worshipped that Pharaoh.
+SVar:PharaohSac:DB$ SacrificeAll | Defined$ RememberedLKI | Controller$ Remembered
+SVar:PharaohClean:DB$ Cleanup | ClearChosenCard$ True
+Oracle:At the beginning of each opponent’s upkeep, that player chooses a nondevout creature he or she controls. It gains worship {2}. At the beginning of the next end step, the player sacrifices that creature if it has not worshiped Pharaoh Nimseput.

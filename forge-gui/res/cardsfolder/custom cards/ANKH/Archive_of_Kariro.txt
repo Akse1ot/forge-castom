@@ -1,0 +1,6 @@
+Name:Archive of Kariro
+ManaCost:no cost
+Types:Legendary Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ Draw | Cost$ T | NumCards$ 1 | PresentZone$ Hand | IsPresent$ Card.YouOwn | PresentCompare$ EQ8 | SpellDescription$ Draw a card. Activate only if you have exactly eight cards in hand.
+Oracle:{T}: Add {C} to your mana pool.\n{T}: Draw a card. Activate this ability only if you have exactly eight cards in hand.

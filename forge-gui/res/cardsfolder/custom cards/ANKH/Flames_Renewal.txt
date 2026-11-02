@@ -1,0 +1,9 @@
+Name:Flame's Renewal
+ManaCost:R
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+A:AB$ Pump | Cost$ R | Defined$ Enchanted | NumAtt$ 1 | SpellDescription$ Enchanted creature gets +1/+0 until end of turn.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigDies | TriggerDescription$ When enchanted creature dies, it deals 1 damage to target creature or player.
+SVar:TrigDies:DB$ DealDamage | DamageSource$ TriggeredCardLKICopy | NumDmg$ 1 | ValidTgts$ Creature,Player
+Oracle:Enchant creature\n{R}: Enchanted creature gets +1/+0 until end of turn.\nWhen enchanted creature dies, it deals 1 damage to target creature or player.

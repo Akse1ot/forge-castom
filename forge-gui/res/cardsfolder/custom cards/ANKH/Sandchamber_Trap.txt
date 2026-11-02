@@ -1,0 +1,7 @@
+Name:Sandchamber Trap
+ManaCost:2 W
+Types:Sorcery Trap
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ W | CheckSVar$ OpponentQualifies | SVarCompare$ GE1 | Description$ If an opponent controls two or more tapped creatures, you may pay {W} rather than pay CARDNAME's mana cost.
+A:SP$ Destroy | ValidTgts$ Creature.tapped | SpellDescription$ Destroy target tapped creature.
+SVar:OpponentQualifies:PlayerCountOpponents$HasPropertycontrols_Creature.tapped_GE2
+Oracle:If an opponent controls two or more tapped creatures, you may pay {W} rather than pay Sandchamber Trap’s mana cost.\nDestroy target tapped creature.

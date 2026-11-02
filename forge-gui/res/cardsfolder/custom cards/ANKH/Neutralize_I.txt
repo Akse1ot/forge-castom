@@ -1,0 +1,5 @@
+Name:Neutralize I
+ManaCost:1 U U
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | Destination$ BottomOfLibrary | SpellDescription$ Counter target spell. If that spell is countered this way, put it on the bottom of its owner's library instead of into its owner's graveyard.
+Oracle:Counter target spell. If that spell is countered this way, put it on the bottom of its owner’s library instead of into his or her graveyard.

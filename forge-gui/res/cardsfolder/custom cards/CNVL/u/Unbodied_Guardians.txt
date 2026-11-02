@@ -4,4 +4,5 @@ Types:Creature Djinn
 PT:4/3
 K:Flying
 A:AB$ Aetherise | Cost$ U | Defined$ Self | SpellDescription$ Aetherise CARDNAME. (Put the aetherised card on top of its owner’s library.)
+DeckHas:Ability$Aetherise
 Oracle:Flying\n{U}: Aetherise Unbodied Guardians. (Put the aetherised card on top of its owner’s library.)

@@ -1,0 +1,5 @@
+Name:Blood Offering
+ManaCost:B B
+Types:Sorcery
+A:SP$ Draw | Cost$ B B Or(Sac<1/Human>~PayLife<3>) | Defined$ You | NumCards$ 2 | SpellDescription$ As an additional cost to cast this spell, sacrifice a Human or pay 3 life. Draw two cards.
+Oracle:As an additional cost to cast Blood Offering, sacrifice a Human or pay 3 life.\nDraw two cards.

@@ -53,6 +53,7 @@ public enum Keyword {
     DASH("Dash", KeywordWithCost.class, false, "You may cast this spell for its dash cost. If you do, it gains haste, and it's returned from the battlefield to its owner's hand at the beginning of the next end step."),
     DAYBOUND("Daybound", SimpleKeyword.class, true, "If a player casts no spells during their own turn, it becomes night next turn."),
     DEATHTOUCH("Deathtouch", SimpleKeyword.class, true, "Any amount of damage this deals to a creature is enough to destroy it."),
+    DECIPHER("Decipher", KeywordWithCost.class, false, "When you cast this spell for its decipher cost, copy it for each instant or sorcery card in your graveyard. You may choose new targets for the copies."),
     DECAYED("Decayed", SimpleKeyword.class, true, "This creature can't block. When it attacks, sacrifice it at end of combat."),
     DEFENDER("Defender", SimpleKeyword.class, true, "This creature can't attack."),
     DELVE("Delve", SimpleKeyword.class, true, "As an additional cost to cast this spell, you may exile any number of cards from your graveyard. Each card exiled this way reduces the cost to cast this spell by {1}."),
@@ -231,6 +232,7 @@ public enum Keyword {
     WARP("Warp", KeywordWithCost.class, false, "You may cast this card from your hand for its warp cost. Exile this creature at the beginning of the next end step, then you may cast it from exile on a later turn."),
     WEB_SLINGING("Web-slinging", KeywordWithCost.class, false, "You may cast this spell for %s if you also return a tapped creature you control to its owner’s hand."),
     WITHER("Wither", SimpleKeyword.class, true, "This deals damage to creatures in the form of -1/-1 counters."),
+    WORSHIP("Worship", KeywordWithCost.class, false, "%s, {T}: If this isn't devout, put a +1/+1 counter on both this creature and target creature without worship, then this becomes devout. Worship only as a sorcery."),
 
     // mayflash additional cast
     MAYFLASHCOST("MayFlashCost", KeywordWithCost.class, false, "You may cast CARDNAME as though it had flash if you pay %s more to cast it."),

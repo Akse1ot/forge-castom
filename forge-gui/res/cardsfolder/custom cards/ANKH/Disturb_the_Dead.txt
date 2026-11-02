@@ -1,0 +1,8 @@
+Name:Disturb the Dead
+ManaCost:3 B
+Types:Sorcery
+A:SP$ ChangeZone | ValidTgts$ Creature.YouOwn | TgtZone$ Graveyard | Origin$ Graveyard | Destination$ Battlefield | RememberChanged$ True | SubAbility$ DisturbLoss | SpellDescription$ Return target creature card from your graveyard to the battlefield. If you do, you lose 3 life.
+SVar:DisturbLoss:DB$ LoseLife | Defined$ You | LifeAmount$ 3 | ConditionDefined$ Remembered | ConditionPresent$ Card.inZoneBattlefield | SubAbility$ DisturbClean
+SVar:DisturbClean:DB$ Cleanup | ClearRemembered$ True
+K:Decipher:4 B B
+Oracle:Return target creature card from your graveyard to the battlefield. If you do, you lose 3 life.\nDecipher {4}{B}{B} (When you cast this spell for its decipher cost, copy it for each instant and sorcery card in your graveyard. You may choose new targets for the copies.)

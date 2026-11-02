@@ -1,0 +1,14 @@
+Name:Iun, World Reborn
+ManaCost:5 R R
+Types:Legendary Creature Phoenix
+PT:4/4
+K:Flying
+K:Haste
+S:Mode$ MustAttack | ValidCreature$ Card.Self | UnlessAttacked$ True
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | IunRestartTrigger$ True | Execute$ IunExile | TriggerDescription$ When CARDNAME dies, exile it and all other Phoenix cards on the battlefield and in graveyards. Restart the game, leaving in exile all cards exiled with CARDNAME. Then put those cards onto the battlefield under your control, and CARDNAME loses this ability.
+SVar:IunExile:DB$ ChangeZoneAll | Origin$ Battlefield,Graveyard | Destination$ Exile | ChangeType$ Phoenix,Card.IsDefined TriggeredCard | SubAbility$ IunRestart
+SVar:IunRestart:DB$ RestartGame | RestrictFromZone$ Exile | RestrictFromValid$ Card.!ExiledWithSource | SubAbility$ IunReturn
+SVar:IunReturn:DB$ ChangeZoneAll | Origin$ Exile | Destination$ Battlefield | ChangeType$ Permanent.ExiledWithSource | GainControl$ True | ForgetOtherRemembered$ True | RememberChanged$ True | SubAbility$ IunFinish
+SVar:IunFinish:DB$ IunPostRestart | SubAbility$ IunClear
+SVar:IunClear:DB$ Cleanup | ClearRemembered$ True
+Oracle:Flying, haste\nIun, World Reborn attacks each turn if able.\nWhen Iun dies, exile it and all other Phoenix cards on the battlefield and in graveyards. Restart the game, leaving in exile all cards exiled with Iun. Then put those cards onto the battlefield under your control, and Iun loses this ability.

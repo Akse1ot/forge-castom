@@ -1,0 +1,6 @@
+Name:Name
+ManaCost:2 W
+Types:Creature Incarnation
+PT:2/2
+A:AB$ Tap | Cost$ 4 W ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 5 | TargetsWithDifferentNames$ True | SpellDescription$ Tap up to five target creatures with different names.
+Oracle:{4}{W}, Exile Name from your graveyard: Tap up to five target creatures with different names.

@@ -1,0 +1,8 @@
+Name:Warden of Life
+ManaCost:3 G
+Types:Creature Human Shaman
+PT:3/4
+K:Worship:1 G
+T:Mode$ Worship | ValidCard$ Card.Self | ValidTarget$ Creature.nonSkeleton+nonZombie | Execute$ UntapSelf | TriggerDescription$ Whenever CARDNAME worships a non-Skeleton, non-Zombie creature, untap CARDNAME.
+SVar:UntapSelf:DB$ Untap | Defined$ Self
+Oracle:Worship {1}{G} ({1}{G}, {T}: If this isn’t devout, put a +1/+1 counter on both this creature and target creature without worship, then this becomes devout. Worship only as a sorcery.)\nWhen Warden of Life worships a non-Skeleton, non-Zombie creature, untap Warden of Life.

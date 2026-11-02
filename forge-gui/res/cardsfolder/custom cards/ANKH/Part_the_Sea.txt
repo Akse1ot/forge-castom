@@ -1,0 +1,6 @@
+Name:Part the Sea
+ManaCost:2 U
+Types:Sorcery
+A:SP$ Effect | StaticAbilities$ Unblockable | SpellDescription$ Creatures you control can't be blocked this turn.
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Creature.YouCtrl | Description$ Creatures you control can't be blocked this turn.
+Oracle:Creatures you control can’t be blocked this turn.

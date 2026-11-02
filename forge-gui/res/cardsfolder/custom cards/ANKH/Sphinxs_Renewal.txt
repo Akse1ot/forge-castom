@@ -1,0 +1,9 @@
+Name:Sphinx's Renewal
+ManaCost:U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | AffectedDefined$ Enchanted | AddKeyword$ Flying | Description$ Enchanted creature has flying.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigDies | TriggerDescription$ When enchanted creature dies, draw a card.
+SVar:TrigDies:DB$ Draw | NumCards$ 1
+Oracle:Enchant creature\nEnchanted creature has flying.\nWhen enchanted creature dies, draw a card.

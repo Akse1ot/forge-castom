@@ -119,7 +119,7 @@ public abstract class GameEntity implements GameObject, IIdentifiable {
                 if ("Immortal Coil".equals(ca.getName())) {
                     continue;
                 }
-                if (!re.matchesValidParam("ValidSource", source)) {
+                if (!re.matchesDamageSource(source)) {
                     continue;
                 }
                 if (!re.matchesValidParam("ValidTarget", this)) {

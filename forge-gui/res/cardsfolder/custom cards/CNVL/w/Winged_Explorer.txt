@@ -3,7 +3,9 @@ ManaCost:4 W W
 Types:Creature Dryad
 PT:2/4
 K:Flying
-T:Mode$ CounterAdded | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | CounterType$ P1P1 | Execute$ TrigGainLife | ActivationLimit$ 1 | TriggerDescription$ Whenever a +1/+1 counter is put on a creature you control, you gain 1 life.
+T:Mode$ CounterAdded | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | CounterType$ P1P1 | Execute$ TrigGainLife | TriggerDescription$ Whenever a +1/+1 counter is put on a creature you control, you gain 1 life.
 SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
 AI:RemoveDeck:Random
+DeckHas:Ability$LifeGain
+DeckHints:Ability$Counters
 Oracle:Flying\nWhenever a +1/+1 counter is put on a creature you control, you gain 1 life.

@@ -3,5 +3,6 @@ ManaCost:3 W W
 Types:Creature Bird Soldier
 PT:3/4
 K:Flying
-S:Mode$ Continuous | ValidCard$ Card.Self+enchanted,Card.Self+equipped | Affected$ Creature.Other+YouCtrl | AddKeyword$ Vigilance & First Strike | Description$ As long as CARDNAME is enchanted or equipped, other creatures you control have first strike and vigilance.
+S:Mode$ Continuous | IsPresent$ Card.Self+enchanted,Card.Self+equipped | Affected$ Creature.Other+YouCtrl | AddKeyword$ Vigilance & First Strike | Description$ As long as CARDNAME is enchanted or equipped, other creatures you control have first strike and vigilance.
+DeckHints:Type$Aura|Equipment
 Oracle:Flying\nAs long as Retired Commander is enchanted or equipped, other creatures you control have first strike and vigilance.

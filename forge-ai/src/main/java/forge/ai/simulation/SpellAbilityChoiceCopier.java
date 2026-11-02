@@ -33,6 +33,9 @@ final class SpellAbilityChoiceCopier {
         destination.setCastFromPlayEffect(source.isCastFromPlayEffect());
         destination.setXManaCostPaid(source.getXManaCostPaid());
         destination.setCausalitySelection(source.getCausalitySelection());
+        if (source.hasParam(forge.game.spellability.ModalChoiceGroups.PARAM) && source.getChoosingPlayer() != null) {
+            destination.setChoosingPlayer(player.getGame().getPlayer(source.getChoosingPlayer().getId()));
+        }
         return copyChosenModes(source, destination) ? destination : null;
     }
 

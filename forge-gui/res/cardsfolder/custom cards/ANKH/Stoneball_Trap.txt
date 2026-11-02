@@ -1,0 +1,7 @@
+Name:Stoneball Trap
+ManaCost:4 R R
+Types:Instant Trap
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ 3 R | CheckSVar$ LandsEntered | Description$ If an opponent had two or more lands enter the battlefield under their control this turn, you may pay {3}{R} rather than pay this spell's mana cost.
+SVar:LandsEntered:PlayerCountOpponents$ConditionGE2 ThisTurnEntered_Battlefield_Land.YouCtrl
+A:SP$ Destroy | ValidTgts$ Land | TargetMin$ 2 | TargetMax$ 2 | SpellDescription$ Destroy two target lands.
+Oracle:If an opponent had two or more lands enter the battlefield under his or her control this turn, you may pay {3}{R} rather than pay Stoneball Trap’s mana cost.\nDestroy two target lands.

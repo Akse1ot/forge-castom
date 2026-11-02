@@ -1,0 +1,5 @@
+Name:Champion of Ainorek
+ManaCost:2 W
+Types:Creature Jackal Soldier
+PT:3/2
+Oracle:

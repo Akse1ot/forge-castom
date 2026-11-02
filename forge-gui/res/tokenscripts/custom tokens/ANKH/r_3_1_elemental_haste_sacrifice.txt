@@ -1,0 +1,9 @@
+Name:Elemental Token
+ManaCost:no cost
+Colors:red
+Types:Creature Elemental
+PT:3/1
+K:Haste
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ SacSelf | TriggerDescription$ At the beginning of the end step, sacrifice this creature.
+SVar:SacSelf:DB$ Sacrifice | SacValid$ Self
+Oracle:Haste\nAt the beginning of the end step, sacrifice this creature.

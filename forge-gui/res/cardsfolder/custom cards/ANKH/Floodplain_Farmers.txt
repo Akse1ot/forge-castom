@@ -1,0 +1,6 @@
+Name:Floodplain Farmers
+ManaCost:W
+Types:Creature Human
+PT:1/1
+K:Worship:W
+Oracle:Worship {W} ({W}, {T}: If this isn’t devout, put a +1/+1 counter on both this creature and target creature without worship, then this becomes devout. Worship only as a sorcery.)

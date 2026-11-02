@@ -1,0 +1,6 @@
+Name:Eager Ainok
+ManaCost:2 R
+Types:Creature Jackal Warrior
+PT:3/1
+S:Mode$ Continuous | Affected$ Creature.Self+attacking | AddKeyword$ First Strike | Description$ CARDNAME has first strike as long as it's attacking.
+Oracle:Eager Ainok has first strike as long as it’s attacking.

@@ -7,4 +7,6 @@ T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.S
 SVar:TrigDestroy:DB$ Destroy | TargetMin$ 0 | TargetMax$ 1 | ValidTgts$ Creature.toughnessGE4 | TgtPrompt$ Select target creature with toughness 4 or greater
 S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddToughness$ X | Description$ Enchanted creature gets +1/+1 for each different way it is modified.
 SVar:X:Count$ModifiedWays.Affected
+DeckHints:Type$Equipment & Ability$Counters
+SVar:AttachAILogic:Pump
 Oracle:Ash of War (This Aura can enchant creatures or Equipment. If it enchants an Equipment, creatures equipped with that Equipment are treated as if they were enchanted by this Aura.)\nWhen this enchantment enters, destroy up to one target creature with toughness 4 or greater.\nEnchanted creature gets +1/+1 for each different way it is modified.

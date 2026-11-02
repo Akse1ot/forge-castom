@@ -1,0 +1,8 @@
+Name:Wings of Afterlife
+ManaCost:2 W
+Types:Creature Spirit
+PT:2/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigETB | TriggerDescription$ When CARDNAME enters, return target permanent you control to its owner's hand.
+SVar:TrigETB:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Permanent.YouCtrl
+Oracle:Flying\nWhen Wings of Afterlife enters the battlefield, return target permanent you control to its owner’s hand.

@@ -5,4 +5,6 @@ PT:1/8
 T:Mode$ DamageDealtOnce | CombatDamage$ True | ValidSource$ Card.Self | Execute$ TrigGainLife | TriggerDescription$ When CARDNAME deals combat damage, you gain life equal to the total power of creatures you control.
 SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
 SVar:X:Count$Valid Creature.YouCtrl$CardPower
+DeckHas:Ability$LifeGain
+DeckHints:Type$Creature & Ability$Token|Counters
 Oracle:Whenever Giant of Harvest deals combat damage, you gain life equal to the total power of creatures you control.

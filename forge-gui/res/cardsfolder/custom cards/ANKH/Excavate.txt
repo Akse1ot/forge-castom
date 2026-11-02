@@ -1,0 +1,6 @@
+Name:Excavate
+ManaCost:2 G
+Types:Sorcery
+A:SP$ Mill | Defined$ You | NumCards$ 7 | SubAbility$ DBReturn | SpellDescription$ Mill seven cards, then return a card at random from your graveyard to your hand.
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType$ Card.YouOwn | ChangeNum$ 1 | Hidden$ True | AtRandom$ True
+Oracle:Put the top seven cards of your library into your graveyard, then return a card at random from your graveyard to your hand.

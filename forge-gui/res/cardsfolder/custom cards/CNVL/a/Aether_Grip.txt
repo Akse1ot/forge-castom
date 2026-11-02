@@ -2,4 +2,5 @@ Name:Aether Grip
 ManaCost:2 U
 Types:Instant
 A:SP$ Aetherise | ValidTgts$ Creature.attacking,Creature.blocking | SpellDescription$ Aetherise target attacking or blocking creature.
+DeckHas:Ability$Aetherise
 Oracle:Aetherise target attacking or blocking creature. (Put the aetherised card on top of its owner’s library.)

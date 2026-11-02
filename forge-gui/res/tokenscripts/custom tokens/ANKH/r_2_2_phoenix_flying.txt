@@ -1,0 +1,7 @@
+Name:Phoenix Token
+ManaCost:no cost
+Colors:red
+Types:Creature Phoenix
+PT:2/2
+K:Flying
+Oracle:Flying

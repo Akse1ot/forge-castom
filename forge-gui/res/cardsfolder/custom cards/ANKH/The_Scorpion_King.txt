@@ -1,0 +1,7 @@
+Name:The Scorpion King
+ManaCost:1 B G
+Types:Legendary Creature Human Scorpion
+PT:1/4
+K:Deathtouch
+S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl+withDeathtouch | AddPower$ 1 | AddToughness$ 4 | Description$ Other creatures you control with deathtouch get +1/+4.
+Oracle:Deathtouch\nOther creatures you control with deathtouch get +1/+4.

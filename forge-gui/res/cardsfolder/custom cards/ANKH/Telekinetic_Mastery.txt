@@ -1,0 +1,6 @@
+Name:Telekinetic Mastery
+ManaCost:3 U
+Types:Instant
+A:SP$ Tap | ValidTgts$ Permanent | TargetMin$ 0 | TargetMax$ 2 | SubAbility$ DBFreeze | SpellDescription$ Tap up to two target permanents. Those permanents don't untap during their controller's next untap step.
+SVar:DBFreeze:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+Oracle:Tap up to two target permanents. Those permanents don’t untap during their controller’s next untap step.

@@ -1,0 +1,8 @@
+Name:Nutkeb's Titan
+ManaCost:3 R G
+Types:Creature Elemental
+PT:2/5
+K:Reach
+A:AB$ Pump | Cost$ R G | Defined$ Self | NumAtt$ X | ActivationLimit$ 1 | SpellDescription$ CARDNAME gets +X/+0 until end of turn, where X is the number of lands you control. Activate only once each turn.
+SVar:X:Count$Valid Land.YouCtrl
+Oracle:Reach\n{R}{G}: Nutkeb’s Titan gets +X/+0 until end of turn, where X is the number of lands you control. Activate this ability only once each turn.

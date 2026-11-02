@@ -1,0 +1,7 @@
+Name:Palace Harpist
+ManaCost:1 U
+Types:Creature Human Bard
+PT:1/2
+K:Prowess
+K:Worship:U
+Oracle:Prowess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)\nWorship {U} ({U}, {T}: If this isn’t devout, put a +1/+1 counter on both this creature and target creature without worship, then this becomes devout. Worship only as a sorcery.)

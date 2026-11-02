@@ -1,0 +1,6 @@
+Name:Rotting Giraffe
+ManaCost:2 B
+Types:Creature Zombie Giraffe
+PT:3/2
+K:Unearth:1 R
+Oracle:Unearth {1}{R} ({1}{R}: Return this card from your graveyard to the battlefield. It gains haste. Exile it at the beginning of the end step or if it would leave the battlefield. Unearth only as a sorcery.)

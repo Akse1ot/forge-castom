@@ -9,5 +9,6 @@ SVar:EquipMe:Once
 S:Mode$ Continuous | Affected$ Card.Self+enchanted | AddKeyword$ Trample | Description$ As long as CARDNAME is enchanted, it has trample.
 SVar:EnchantMe:Once
 S:Mode$ ReduceCost | ValidCard$ Card | ValidSpell$ Activated.Equip | Activator$ You | Amount$ 1 | Description$ Equip abilities you activate cost {1} less to activate.
+DeckHints:Type$Aura|Equipment & Ability$Counters
 Oracle:This creature gets +1/+1 for each different way it is modified.\nAs long as this creature is equipped, it has first strike.\nAs long as this creature is enchanted, it has trample.\nEquip abilities you activate cost {1} less to activate.
 

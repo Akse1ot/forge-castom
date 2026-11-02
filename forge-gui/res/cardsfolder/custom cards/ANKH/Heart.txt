@@ -1,0 +1,9 @@
+Name:Heart
+ManaCost:2 R
+Types:Creature Incarnation
+PT:2/2
+A:AB$ Discard | Cost$ 4 R ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | Defined$ You | Mode$ TgtChoose | NumCards$ 5 | Optional$ True | RememberDiscarded$ True | SubAbility$ DBDraw | SpellDescription$ Discard up to five cards, then draw that many cards.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBCleanup
+SVar:X:Remembered$Amount
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:{4}{R}, Exile Heart from your graveyard: Discard up to five cards, then draw that many cards.

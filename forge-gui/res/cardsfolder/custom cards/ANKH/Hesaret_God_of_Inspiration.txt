@@ -1,0 +1,14 @@
+Name:Hesaret, God of Inspiration
+ManaCost:4 R R
+Types:Legendary Enchantment Creature God
+PT:6/6
+K:Indestructible
+S:Mode$ CantAttack | ValidCard$ Card.Self+counters_EQ0_P1P1 | Description$ CARDNAME can't attack unless it has a +1/+1 counter on it.
+S:Mode$ CantBlock | ValidCard$ Card.Self+counters_EQ0_P1P1 | Description$ CARDNAME can't block unless it has a +1/+1 counter on it.
+K:Prowess
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ InspirationExile | TriggerDescription$ Whenever you cast a noncreature spell, exile the top card of your library. Until end of turn, you may play that card.
+SVar:InspirationExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ InspirationPermission
+SVar:InspirationPermission:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ InspirationPlay | ForgetOnMoved$ Exile | SubAbility$ Clean
+SVar:InspirationPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:Clean:DB$ Cleanup | ClearRemembered$ True
+Oracle:Prowess, indestructible\nHesaret, God of Inspiration can’t attack or block unless she has a +1/+1 counter on her.\nWhenever you cast a noncreature spell, exile the top card of your library. Until end of turn, you may play that card.

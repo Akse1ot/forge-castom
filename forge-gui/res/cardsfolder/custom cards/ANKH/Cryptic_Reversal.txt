@@ -1,0 +1,8 @@
+Name:Cryptic Reversal
+ManaCost:2 U B
+Types:Sorcery
+A:SP$ ChangeZoneAll | ValidTgts$ Opponent | Origin$ Graveyard | Destination$ Hand | ChangeType$ Card | SubAbility$ CrypticWatch | SpellDescription$ Return all cards in target opponent's graveyard to their hand. Until your next turn, whenever that player discards a card, they lose 2 life.
+SVar:CrypticWatch:DB$ Effect | RememberObjects$ Targeted | Duration$ UntilYourNextTurn | Triggers$ CrypticDiscard
+SVar:CrypticDiscard:Mode$ Discarded | ValidPlayer$ Player.IsRemembered | TriggerZones$ Command | Execute$ CrypticLoss | TriggerDescription$ Whenever that player discards a card, they lose 2 life.
+SVar:CrypticLoss:DB$ LoseLife | Defined$ TriggeredPlayer | LifeAmount$ 2
+Oracle:Return all cards in target opponent’s graveyard to his or her hand. Until your next turn, whenever that player discards a card, he or she loses 2 life.

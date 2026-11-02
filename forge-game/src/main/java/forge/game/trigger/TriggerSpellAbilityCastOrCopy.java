@@ -130,6 +130,10 @@ public class TriggerSpellAbilityCastOrCopy extends Trigger {
             return false;
         }
 
+        if (hasParam("ManaSpentByYou") && manaSpentBy(spellAbility, getHostCard().getController()) == 0) {
+            return false;
+        }
+
         if (hasParam("AltCost")) {
             boolean matched = false;
 
@@ -288,6 +292,10 @@ public class TriggerSpellAbilityCastOrCopy extends Trigger {
     @Override
     public final void setTriggeringObjects(final SpellAbility sa, Map<AbilityKey, Object> runParams) {
         final SpellAbility cause = (SpellAbility) runParams.get(AbilityKey.SpellAbility);
+        if (hasParam("ManaSpentByYou")) {
+            // Keep the amount on this trigger, not on the permanent or the later spell state.
+            sa.setTriggeringObject(AbilityKey.Amount, manaSpentBy(cause, sa.getActivatingPlayer()));
+        }
         sa.setTriggeringObject(AbilityKey.Card, cause.getHostCard());
         sa.setTriggeringObject(AbilityKey.SpellAbility, cause);
         final List<TargetChoices> allTgts = cause.getAllTargetChoices();
@@ -306,6 +314,16 @@ public class TriggerSpellAbilityCastOrCopy extends Trigger {
                 AbilityKey.CurrentStormCount,
                 AbilityKey.CurrentCastSpells
                 );
+    }
+
+    private static int manaSpentBy(final SpellAbility spell, final Player payer) {
+        int amount = 0;
+        for (final Mana mana : spell.getPayingMana()) {
+            if (payer.equals(mana.getPlayer())) {
+                amount++;
+            }
+        }
+        return amount;
     }
 
     @Override

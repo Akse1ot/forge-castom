@@ -1,0 +1,6 @@
+Name:Unexpected Flood
+ManaCost:U
+Types:Enchantment Aura
+K:Enchant:Land
+S:Mode$ Continuous | AffectedDefined$ Enchanted | AddType$ Plains & Island | RemoveLandTypes$ True | SetName$ Floodplain | Description$ Enchanted land is a Plains Island named Floodplain.
+Oracle:Enchant land\nEnchanted land is a Plains Island named Floodplain. (It loses all abilities and gains “{T}: Add {W} or {U} to your mana pool.”)

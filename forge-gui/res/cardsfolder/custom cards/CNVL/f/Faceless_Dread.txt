@@ -5,4 +5,5 @@ PT:1/2
 K:Derange
 DeckHas:Ability$Mill|Graveyard
 DeckHints:Ability$Mill|Graveyard
+SVar:HasAttackEffect:TRUE
 Oracle:Derange (Whenever this creature attacks, you may mill a card. If you do, defending player loses 1 life.)

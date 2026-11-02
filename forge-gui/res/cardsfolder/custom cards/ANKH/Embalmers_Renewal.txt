@@ -1,0 +1,9 @@
+Name:Embalmer's Renewal
+ManaCost:B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | AffectedDefined$ Enchanted | AddKeyword$ Deathtouch | Description$ Enchanted creature has deathtouch.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigDies | TriggerDescription$ When enchanted creature dies, target player mills five cards.
+SVar:TrigDies:DB$ Mill | ValidTgts$ Player | NumCards$ 5
+Oracle:Enchant creature\nEnchanted creature has deathtouch.\nWhen enchanted creature dies, target player puts the top five cards of his or library into his or her graveyard.

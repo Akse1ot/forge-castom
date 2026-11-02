@@ -35,6 +35,10 @@ public class SwitchBlockEffect extends SpellAbilityEffect {
 
     @Override
     public void resolve(SpellAbility sa) {
+        if (sa.hasParam("TransferBlockers")) {
+            TransferBlockersSupport.resolve(sa);
+            return;
+        }
         final Card host = sa.getHostCard();
         final Game game = host.getGame();
         final Combat combat = game.getPhaseHandler().getCombat();

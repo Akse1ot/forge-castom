@@ -1,0 +1,8 @@
+Name:Travelling Stargazer
+ManaCost:4 G U
+Types:Creature Human Wizard
+PT:3/6
+T:Mode$ Phase | Phase$ End Of Turn | ValidPlayer$ Player.Other | TriggerZones$ Battlefield | CheckSVar$ Expedition | SVarCompare$ GE5 | Execute$ TrigTurn | TriggerDescription$ Expedition — At the beginning of each other player's end step, if you control five or more lands with different names, take an extra turn after this one.
+SVar:TrigTurn:DB$ AddTurn | Defined$ You | NumTurns$ 1
+SVar:Expedition:Count$Valid Land.YouCtrl$DifferentCardNames
+Oracle:Expedition — At the beginning of each other player’s end step, if you control five or more lands with different names, take an extra turn after this one.

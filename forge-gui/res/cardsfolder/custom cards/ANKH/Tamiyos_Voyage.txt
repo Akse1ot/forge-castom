@@ -1,0 +1,6 @@
+Name:Tamiyo's Voyage
+ManaCost:1 U U
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | IsPresent$ Land.YouCtrl+sharesNameWith TriggeredCard+!TriggeredCard | PresentCompare$ EQ0 | Execute$ VoyageDraw | TriggerDescription$ Whenever a land enters the battlefield under your control, if you control no other lands with the same name as that land, draw a card.
+SVar:VoyageDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Whenever a land enters the battlefield under your control, if you control no other lands with the same name as that land, draw a card.

@@ -8,4 +8,7 @@ T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage
 SVar:TrigDraw:DB$ Draw | Defined$ You | SubAbility$ DBDiscard
 SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
 K:Spirit Ash:4 U ExileFromGrave<2/Card.Other+nonCreature/other noncreature>
-Oracle:When this creature enters, create a token that’s a copy of it, except it has base power and toughness 2/1 and doesn’t have this ability.\Whenever this creature deals combat damage to a player, draw a card, then discard a card.\nSpirit Ash—{4}{U}, Exile two other noncreature cards from your graveyard.
+DeckHas:Ability$Token|Discard|Graveyard|Exile & Type$Enchantment|Spirit
+DeckHints:Ability$Graveyard|Mill
+SVar:HasCombatEffect:TRUE
+Oracle:When this creature enters, create a token that’s a copy of it, except it has base power and toughness 2/1 and doesn’t have this ability.\nWhenever this creature deals combat damage to a player, draw a card, then discard a card.\nSpirit Ash—{4}{U}, Exile two other noncreature cards from your graveyard.

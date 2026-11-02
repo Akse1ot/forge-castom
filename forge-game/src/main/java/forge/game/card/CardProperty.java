@@ -1939,6 +1939,10 @@ public class CardProperty {
             if (!card.isUnearthed()) {
                 return false;
             }
+        } else if (property.equals("IsDevout")) {
+            if (!card.isDevout()) {
+                return false;
+            }
         } else if (property.equals("IsRenowned")) {
             if (!card.isRenowned()) {
                 return false;
@@ -2008,6 +2012,10 @@ public class CardProperty {
             if (!card.isPrepared()) {
                 return false;
             }
+        } else if (property.startsWith("IsDefined ")) {
+            // Object identity includes its zone-change timestamp, unlike Card.equals.
+            return AbilityUtils.getDefinedCards(source, property.substring(10), spellAbility)
+                    .anyMatch(c -> c.equalsWithGameTimestamp(card));
         } else if (property.equals("IsRemembered")) {
             if (!source.isRemembered(card)) {
                 return false;

@@ -1,0 +1,6 @@
+Name:Living Sandstorm
+ManaCost:4 G
+Types:Creature Elemental
+PT:4/5
+K:Reach
+Oracle:Reach

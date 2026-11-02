@@ -1,0 +1,6 @@
+Name:Continual Sandstorm
+ManaCost:3 G
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.OppCtrl+withFlying | AddPower$ -2 | AddToughness$ -1 | Description$ Creatures with flying your opponents control get -2/-1.
+A:AB$ Fog | Cost$ Sac<1/CARDNAME> | SpellDescription$ Prevent all combat damage that would be dealt this turn.
+Oracle:Creatures with flying your opponents control get -2/-1.\nSacrifice Continual Sandstorm: Prevent all combat damage that would be dealt this turn.

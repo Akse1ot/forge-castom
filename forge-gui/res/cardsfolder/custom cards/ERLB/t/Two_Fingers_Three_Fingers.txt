@@ -4,6 +4,7 @@ Types:Creature Fungus Avatar
 PT:2/2
 S:Mode$ Continuous | Affected$ Creature.YouCtrl+counters_GE1_P1P1 | AddKeyword$ Protection:Creature.counters_LT1_P1P1:creatures without +1/+1 counters on them | Description$ Each creature you control with a +1/+1 counter on it has protection from creatures without +1/+1 counters on them. (This creature can’t be blocked, targeted or dealt damage by creatures without +1/+1 counters on them.)
 AlternateMode:Modal
+DeckHints:Ability$Counters|Discard & Type$Creature|Planeswalker
 Oracle:Each creature you control with a +1/+1 counter on it has protection from creatures without +1/+1 counters on them. (This creature can’t be blocked, targeted or dealt damage by creatures without +1/+1 counters on them.)
 
 ALTERNATE

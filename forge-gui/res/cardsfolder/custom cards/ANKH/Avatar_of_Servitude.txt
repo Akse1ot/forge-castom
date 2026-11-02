@@ -1,0 +1,11 @@
+Name:Avatar of Servitude
+ManaCost:4 B B
+Types:Creature Avatar
+PT:4/5
+T:Mode$ Worship | ValidCard$ Creature.YouCtrl | ValidTarget$ Card.StrictlySelf | Execute$ AvatarSac | TriggerDescription$ Whenever a creature you control worships CARDNAME, sacrifice that creature. If you do, put X +1/+1 counters on CARDNAME, where X is that creature's toughness, then create a 1/1 white Spirit creature token with flying.
+SVar:AvatarSac:DB$ SacrificeAll | Defined$ TriggeredCardLKICopy | RememberSacrificed$ True | SubAbility$ AvatarCounters
+SVar:AvatarCounters:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ SacToughness | ConditionDefined$ RememberedLKI | ConditionPresent$ Card | SubAbility$ AvatarToken
+SVar:SacToughness:RememberedLKI$CardToughness
+SVar:AvatarToken:DB$ Token | TokenScript$ w_1_1_spirit_flying | TokenAmount$ 1 | ConditionDefined$ RememberedLKI | ConditionPresent$ Card | SubAbility$ AvatarClean
+SVar:AvatarClean:DB$ Cleanup | ClearRemembered$ True
+Oracle:Whenever a creature you control worships Avatar of Servitude, sacrifice that creature. If you do, put a number of +1/+1 counters equal to that creature’s toughness on Avatar of Servitude, then create a 1/1 white Spirit creature token with flying.

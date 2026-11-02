@@ -1,0 +1,8 @@
+Name:Iun's Flameweaver
+ManaCost:4 R R
+Types:Creature Human Warrior
+PT:3/2
+K:First strike
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ PhoenixAttack | TriggerDescription$ Whenever CARDNAME attacks, create a 2/2 red Phoenix creature token with flying that's tapped and attacking. Exile that token at end of combat.
+SVar:PhoenixAttack:DB$ Token | TokenScript$ r_2_2_phoenix_flying | TokenTapped$ True | TokenAttacking$ True | AtEOT$ ExileCombat
+Oracle:First strike\nWhenever Iun’s Flameweaver attacks, create a 2/2 red Phoenix creature token with flying that’s tapped and attacking. Exile that token at end of combat.

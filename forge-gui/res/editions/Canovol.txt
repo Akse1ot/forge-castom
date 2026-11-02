@@ -358,7 +358,7 @@ Replace=.011F Mythic:fromSheet("CNVL cards")
 7 r_1_1_insect_samurai
 8 g_9_9_beast
 9 rg_4_4_orc
-10 gu_3_3_lizard
+10 gu_3_3_lizard_mutant
 11 g_1_1_plant
 12 wb_1_1_kithkin_serf
 13 bg_1_2_spider

@@ -1,0 +1,6 @@
+Name:Essence
+ManaCost:2 G
+Types:Creature Incarnation
+PT:2/2
+A:AB$ ChangeZone | Cost$ 4 G ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.YouOwn+cmcLE5 | SpellDescription$ Return target card with mana value five or less from your graveyard to your hand.
+Oracle:{4}{G}, Exile Essence from your graveyard: Return target card with converted mana cost five or less from your graveyard to your hand.

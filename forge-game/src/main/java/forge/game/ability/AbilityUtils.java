@@ -1733,6 +1733,16 @@ public class AbilityUtils {
         Iterable<Card> someCards = null;
         final Game game = c.getGame();
 
+        if (sq[0].equals("OpponentGainedControlOfOwnedPermanentThisTurn")) {
+            return doXMath(game.getTrapTurnHistory().ownedPermanentTaken(player) ? 1 : 0, expr, c, ctb);
+        }
+        if (sq[0].equals("OpponentCastOrActivatedInCombatThisTurn")) {
+            return doXMath(game.getTrapTurnHistory().opponentCombatAction(player) ? 1 : 0, expr, c, ctb);
+        }
+        if (sq[0].equals("OpponentCreatureEnteredOutsideOwnMainThisTurn")) {
+            return doXMath(game.getTrapTurnHistory().opponentOffMainEntry(player) ? 1 : 0, expr, c, ctb);
+        }
+
         // Count$ModifiedWays
         // Count$ModifiedWays.Equipping
         if (sq[0].equalsIgnoreCase("ModifiedWays")) {
@@ -3758,6 +3768,10 @@ public class AbilityUtils {
 
         final String[] sq = l[0].split("\\.");
         final String value = sq[0];
+
+        if (value.equals("YouScryThisTurn")) {
+            return doXMath(player.getScryThisTurn(), m, source, ctb);
+        }
 
         if (value.contains("NumPowerSurgeLands")) {
             return doXMath(player.getNumPowerSurgeLands(), m, source, ctb);

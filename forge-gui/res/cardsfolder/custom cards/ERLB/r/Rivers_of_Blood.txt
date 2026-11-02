@@ -6,4 +6,6 @@ S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$
 SVar:TrigDamageDone:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken | TriggerZones$ Battlefield | TriggerDescription$ Whenever this creature deals combat damage to a player, create a Blood token.
 SVar:TrigToken:DB$ Token | TokenScript$ c_a_blood_draw | TokenOwner$ You
 A:AB$ Pump | Cost$ Sac<1/Blood.token/Blood token> | Defined$ Equipped | KW$ Double Strike | SorcerySpeed$ True | SpellDescription$ Equipped creature gains double strike until end of turn. Activate only as a sorcery.
+DeckHas:Ability$Token & Type$Artifact|Blood
+DeckHints:Type$Blood
 Oracle:Equipped creature gets +2/+1 and has "Whenever this creature deals combat damage to a player, create a Blood token."\nSacrifice a Blood token: Equipped creature gains double strike until end of turn. Activate only as a sorcery.\nEquip {2}

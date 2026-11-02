@@ -1,0 +1,5 @@
+Name:Face the Truth
+ManaCost:W
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Battlefield,Graveyard | Destination$ Exile | TgtZone$ Battlefield,Graveyard | ValidTgts$ Enchantment | SpellDescription$ Exile target enchantment on the battlefield or enchantment card in a graveyard.
+Oracle:Exile target enchantment on the battlefield or enchantment card in a graveyard.

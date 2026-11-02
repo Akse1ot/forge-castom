@@ -1,0 +1,7 @@
+Name:Nabuto Cavalry
+ManaCost:3 G
+Types:Creature Human Warrior
+PT:4/3
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 2 | AddToughness$ 3 | CheckSVar$ Expedition | SVarCompare$ GE5 | Description$ Expedition — CARDNAME gets +2/+3 as long as you control five or more lands with different names.
+SVar:Expedition:Count$Valid Land.YouCtrl$DifferentCardNames
+Oracle:Expedition — Nabuto Cavalry gets +2/+3 as long as you control five or more lands with different names.

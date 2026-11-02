@@ -1,0 +1,8 @@
+Name:Glintsand Lammasu
+ManaCost:4 W
+Types:Creature Lammasu
+PT:3/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigETB | TriggerDescription$ When CARDNAME enters, you gain 3 life.
+SVar:TrigETB:DB$ GainLife | Defined$ You | LifeAmount$ 3
+Oracle:Flying\nWhen Glintsand Lammasu enters the battlefield, you gain 3 life.

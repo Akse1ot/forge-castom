@@ -1,0 +1,5 @@
+Name:Weigh the Heart
+ManaCost:1 W
+Types:Instant
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.totalPTGE07 | SpellDescription$ Exile target creature with total power and toughness 7 or greater.
+Oracle:Exile target creature with total power and toughness 7 or greater.

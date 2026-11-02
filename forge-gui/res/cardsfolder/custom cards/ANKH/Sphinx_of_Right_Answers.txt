@@ -1,0 +1,13 @@
+Name:Sphinx of Right Answers
+ManaCost:3 U U
+Types:Creature Sphinx
+PT:4/6
+K:Flying
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.Self | ValidTarget$ Opponent | ReplaceWith$ NameAnswer | Description$ If CARDNAME would deal damage to an opponent, instead choose a nonland card name, then exile a number of cards equal to CARDNAME's power from the top of that player's library. For each card with the chosen name exiled this way, put a +1/+1 counter on CARDNAME.
+SVar:NameAnswer:DB$ NameCard | Defined$ You | ValidCards$ Card.nonLand | ValidDescription$ nonland card | SubAbility$ ExileAnswers
+SVar:ExileAnswers:DB$ Dig | Defined$ ReplacedTarget | DigNum$ PowerNow | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ AnswerCounters
+SVar:AnswerCounters:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ RightAnswers | SubAbility$ Clean
+SVar:PowerNow:Count$CardPower
+SVar:RightAnswers:Count$ValidExile Card.IsRemembered+NamedCard
+SVar:Clean:DB$ Cleanup | ClearRemembered$ True
+Oracle:Flying\nIf Sphinx of Right Answers would deal damage to an opponent, instead choose a nonland card name, then exile a number of cards equal to Sphinx of Right Answers’s power from the top of that player’s library. For each card with the chosen name exiled this way, put a +1/+1 counter on Sphinx of Right Answers.

@@ -1,0 +1,7 @@
+Name:Lighthouse Pirates
+ManaCost:2 U
+Types:Creature Human Pirate
+PT:1/3
+A:AB$ Discard | Cost$ R T | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | SubAbility$ DBDraw | SpellDescription$ Discard a card, then draw a card.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:{R}, {T}: Discard a card, then draw a card.

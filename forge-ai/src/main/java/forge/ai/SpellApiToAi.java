@@ -19,6 +19,10 @@ public enum SpellApiToAi {
     private final Map<ApiType, Class<? extends SpellAbilityAi>> apiToClass = Maps.newEnumMap(ImmutableMap
             .<ApiType, Class<? extends SpellAbilityAi>>builder()
             .put(ApiType.Abandon, AlwaysPlayAi.class)
+            .put(ApiType.Worship, WorshipAi.class)
+            .put(ApiType.PleaBargain, PleaBargainAi.class)
+            .put(ApiType.IunPostRestart, AlwaysPlayAi.class)
+            .put(ApiType.SwitchBlock, TransferBlockersAi.class)
             .put(ApiType.ActivateAbility, ActivateAbilityAi.class)
             .put(ApiType.AddOrRemoveCounter, CountersPutOrRemoveAi.class)
             .put(ApiType.AddPhase, AddPhaseAi.class)

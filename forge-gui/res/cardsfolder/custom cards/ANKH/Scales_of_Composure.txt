@@ -1,0 +1,10 @@
+Name:Scales of Composure
+ManaCost:5
+Types:Artifact
+R:Event$ GameLoss | ActiveZones$ Battlefield | ValidPlayer$ You | Layer$ CantHappen | CheckSVar$ Life | SVarCompare$ NE0 | Description$ You can't lose the game unless your life total is exactly 0.
+R:Event$ GameWin | ActiveZones$ Battlefield | ValidPlayer$ Opponent | Layer$ CantHappen | CheckSVar$ Life | SVarCompare$ NE0 | Description$ Your opponents can't win the game unless your life total is exactly 0.
+SVar:Life:Count$YourLifeTotal
+R:Event$ LifeReduced | ActiveZones$ Battlefield | ValidPlayer$ You.lifeLE0 | IsDamage$ True | ReplaceWith$ DamageGain | Description$ As long as you have 0 or less life, damage that would cause you to lose life causes you to gain that much life instead.
+SVar:DamageGain:DB$ GainLife | Defined$ ReplacedPlayer | LifeAmount$ GainAmount
+SVar:GainAmount:ReplaceCount$Amount
+Oracle:You can’t lose the game and your opponents can’t win the game unless your life total is exactly 0.\nAs long as you have 0 or less life, damage that would cause you to lose life causes you to gain that much life instead.

@@ -1,0 +1,11 @@
+Name:Ibis Angel
+ManaCost:4 W W
+Types:Creature Angel
+PT:4/4
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigBird | TriggerDescription$ Whenever CARDNAME attacks, create a 1/1 blue Bird creature token with flying for each +1/+1 counter on it.
+SVar:TrigBird:DB$ Token | TokenScript$ u_1_1_bird_flying | TokenAmount$ X | TokenOwner$ You
+SVar:X:Count$CardCounters.P1P1
+T:Mode$ Blocks | ValidCard$ Card.Self | Execute$ TrigCounter | TriggerDescription$ Whenever CARDNAME blocks, put a +1/+1 counter on it.
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+Oracle:Flying\nWhenever Ibis Angel attacks, create a 1/1 blue Bird creature token with flying for each +1/+1 counter on Ibis Angel.\nWhenever Ibis Angel blocks, put a +1/+1 counter on it.

@@ -6,5 +6,7 @@ K:Vigilance
 K:First Strike
 K:Lifelink
 S:Mode$ RaiseCost | ValidCard$ Card.nonLegendary | Type$ Spell | Amount$ 1 | Description$ Nonlegendary spells cost {1} more to cast.
-A:AB$ Token | Cost$ 1 Sac<1/Creature.Other;Planeswalker/another creature or planeswalker> | TokenScript$ c_a_Rune_sac | TokenAmount$ 1 | TokenOwner$ You | SpellDescription$ {1}, Sacrifice another creature or planeswalker: Create a Rune token.
+A:AB$ Token | Cost$ 1 Sac<1/Creature.Other;Planeswalker.Other/another creature or planeswalker> | TokenScript$ c_a_Rune_sac | TokenAmount$ 1 | TokenOwner$ You | SpellDescription$ Create a Rune token.
+DeckHas:Ability$Token|LifeGain & Type$Artifact|Rune
+DeckHints:Ability$Token
 Oracle:Vigilance, first strike, lifelink\nNonlegendary spells cost {1} more to cast.\n{1}, Sacrifice another creature or planeswalker: Create a Rune token.

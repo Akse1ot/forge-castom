@@ -2,7 +2,9 @@ Name:Merchant Kale
 ManaCost:B R
 Types:Legendary Creature Human Bard
 PT:1/2
-T:Mode$ Discarded | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever you discard a card, create a Rune token. (It’s an artifact with “{T}, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)
+T:Mode$ Discarded | ValidPlayer$ You | ValidCard$ Card | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever you discard a card, create a Rune token. (It’s an artifact with “{T}, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)
 SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac
-K:Madness:BR
-Oracle:Whenever you discard a card, create a Rune token. (It’s an artifact with “{T}, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)\nMadness BR (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)
+K:Madness:B R
+DeckHas:Ability$Token & Type$Artifact|Rune
+DeckHints:Ability$Discard
+Oracle:Whenever you discard a card, create a Rune token. (It’s an artifact with “{T}, Sacrifice this artifact: Put a +1/+1 counter on target creature you control. Activate only as a sorcery.”)\nMadness {B}{R} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

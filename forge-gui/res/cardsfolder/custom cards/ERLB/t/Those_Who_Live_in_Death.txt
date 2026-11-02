@@ -7,4 +7,6 @@ SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Skeleton
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever a nontoken creature you control dies, create a 2/1 black Skeleton creature token with “This creature can’t block.”
 SVar:TrigToken:DB$ Token | TokenScript$ b_2_1_skeleton_noblock
+DeckHas:Ability$Graveyard|Token & Type$Skeleton
+DeckHints:Type$Creature & Ability$Graveyard|Mill
 Oracle:When this enchantment enters, return target creature card from your graveyard to the battlefield. You may choose either face of a double-faced card for this ability’s targets. It’s a Skeleton in addition to its other types.\nWhenever a nontoken creature you control dies, create a 2/1 black Skeleton creature token with “This creature can’t block.”

@@ -12,6 +12,7 @@ import forge.game.spellability.AbilitySub;
 import forge.game.spellability.OptionalCost;
 import forge.game.spellability.OptionalCostValue;
 import forge.game.spellability.SpellAbility;
+import forge.game.spellability.ModalChoiceGroups;
 import forge.util.Aggregates;
 import forge.util.MyRandom;
 import forge.util.collect.FCollection;
@@ -26,6 +27,9 @@ public class CharmAi extends SpellAbilityAi {
     protected AiAbilityDecision checkApiLogic(Player ai, SpellAbility sa) {
         final Card source = sa.getHostCard();
         List<AbilitySub> choices = CharmEffect.makePossibleOptions(sa);
+        if (sa.hasParam(ModalChoiceGroups.PARAM)) {
+            choices = new java.util.ArrayList<>(ModalChoiceGroups.firstGroupOptions(sa, choices));
+        }
 
         final int num;
         final int min;

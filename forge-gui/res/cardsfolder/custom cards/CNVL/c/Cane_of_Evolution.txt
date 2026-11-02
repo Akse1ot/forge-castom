@@ -4,4 +4,5 @@ Types:Artifact
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+Green,Creature.YouCtrl+Blue | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a green or blue creature enters the battlefield under your control, you gain 1 life.
 SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
 A:AB$ Mana | Cost$ T | Produced$ Combo G B | SpellDescription$ Add {G} or {B}.
+DeckHas:Ability$Mana|LifeGain
 Oracle:Whenever a green or blue creature enters the battlefield under your control, you gain 1 life.\n{T}: Add {G} or {B}.

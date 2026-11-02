@@ -3,4 +3,5 @@ ManaCost:no cost
 Types:Land
 A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
 A:AB$ Mana | Cost$ RG T | Produced$ R G | SpellDescription$ Add {R}{G}.
+DeckHas:Ability$Mana
 Oracle:{T}: Add {C}.\n{RG}, {T}: Add {R}{G}.

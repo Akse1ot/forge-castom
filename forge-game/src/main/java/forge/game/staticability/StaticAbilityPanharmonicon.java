@@ -179,7 +179,7 @@ public class StaticAbilityPanharmonicon {
                 return false;
             }
             if (trigMode.equals(TriggerType.DamageDone)) {
-                if (!stAb.matchesValidParam("ValidSource", runParams.get(AbilityKey.DamageSource))) {
+                if (!stAb.matchesDamageSource(runParams.get(AbilityKey.DamageSource))) {
                     return false;
                 }
                 if (!stAb.matchesValidParam("ValidTarget", runParams.get(AbilityKey.DamageTarget))) {
@@ -195,15 +195,14 @@ public class StaticAbilityPanharmonicon {
                 // 1. check it's valid cause for static
                 // 2. and it must also be valid for trigger event
                 if (dmgMap.keySet().stream().noneMatch(
-                        GameObjectPredicates.matchesValidParam(stAb, "ValidSource")
-                                .and(GameObjectPredicates.matchesValidParam(trigger, "ValidSource"))
+                        c -> stAb.matchesDamageSource(c) && trigger.matchesDamageSource(c)
                 )) {
                     return false;
                 }
                 // DamageAmount$ can be ignored for now (its usage doesn't interact with ValidSource from either)
             }
             if (trigMode.equals(TriggerType.DamageDealtOnce)) {
-                if (!stAb.matchesValidParam("ValidSource", runParams.get(AbilityKey.DamageSource))) {
+                if (!stAb.matchesDamageSource(runParams.get(AbilityKey.DamageSource))) {
                     return false;
                 }
                 @SuppressWarnings("unchecked")

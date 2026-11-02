@@ -1,0 +1,6 @@
+Name:Lightning Effigy
+ManaCost:2 R
+Types:Sorcery
+A:SP$ Token | TokenScript$ r_3_1_elemental_haste_sacrifice | TokenAmount$ 1 | SpellDescription$ Create a 3/1 red Elemental creature token with haste and "At the beginning of the end step, sacrifice this creature."
+K:Decipher:4 R R R
+Oracle:Create a 3/1 red Elemental creature token with haste and “At the beginning of the end step, sacrifice this creature.”\nDecipher {4}{R}{R}{R} (When you cast this spell for its decipher cost, copy it for each instant and sorcery card in your graveyard. You may choose new targets for the copies.)

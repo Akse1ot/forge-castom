@@ -10,6 +10,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 public class SealedTemplate {
@@ -27,6 +28,11 @@ public class SealedTemplate {
     protected final List<Pair<String, Integer>> slots;
 
     protected final String name;
+    private final String collation;
+
+    public String getCollation() {
+        return collation;
+    }
 
     public final String getName() {
         return name;
@@ -56,8 +62,13 @@ public class SealedTemplate {
     }
 
     public SealedTemplate(String name0, Iterable<Pair<String, Integer>> itrSlots) {
+        this(name0, itrSlots, null);
+    }
+
+    public SealedTemplate(String name0, Iterable<Pair<String, Integer>> itrSlots, String collation0) {
         slots = Lists.newArrayList(itrSlots);
         name = name0;
+        collation = collation0;
     }
 
     public SealedTemplate(String code, String boosterDesc) {
@@ -100,13 +111,14 @@ public class SealedTemplate {
 
         SealedTemplate template = (SealedTemplate) o;
 
-        return slots.equals(template.slots) && name.equals(template.name);
+        return slots.equals(template.slots) && name.equals(template.name) && Objects.equals(collation, template.collation);
     }
 
     @Override
     public int hashCode() {
         int result = slots.hashCode();
         result = 31 * result + name.hashCode();
+        result = 31 * result + Objects.hashCode(collation);
         return result;
     }
 

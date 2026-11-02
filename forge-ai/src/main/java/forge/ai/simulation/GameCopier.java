@@ -107,6 +107,7 @@ public class GameCopier {
             newPlayer.setLifeLostThisTurn(origPlayer.getLifeLostThisTurn());
             newPlayer.setGreatestLifeLostAtOnceThisTurn(origPlayer.getGreatestLifeLostAtOnceThisTurn());
             newPlayer.setLifeGainedThisTurn(origPlayer.getLifeGainedThisTurn());
+            newPlayer.setScryThisTurn(origPlayer.getScryThisTurn());
             newPlayer.setCommitedCrimeThisTurn(origPlayer.getCommittedCrimeThisTurn());
             newPlayer.setLifeStartedThisTurnWith(origPlayer.getLifeStartedThisTurnWith());
             newPlayer.setDamageReceivedThisTurn(origPlayer.getDamageReceivedThisTurn());
@@ -182,6 +183,8 @@ public class GameCopier {
             }
         }
 
+        forge.game.ability.effects.EffectEffect.copyForSimulation(origGame, newGame);
+
         // Undo effects first before calculating them below, to avoid them applying twice.
         for (StaticEffect effect : origGame.getStaticEffects().getEffects()) {
             effect.removeMapped(gameObjectMap);
@@ -196,6 +199,7 @@ public class GameCopier {
 
         if (copyStack)
             copyStack(origGame, newGame, gameObjectMap);
+        newGame.getTrapTurnHistory().copyFrom(origGame.getTrapTurnHistory(), gameObjectMap);
 
         // TODO update thisTurnCast
 
@@ -235,6 +239,7 @@ public class GameCopier {
             if (newSa != null) {
                 newSa.setActivatingPlayer(map.map(origSa.getActivatingPlayer()));
                 newSa.setFocused(origSa.isFocused());
+                  forge.game.spellability.ModalChoiceGroups.copyChoices(origSa, newSa, map);
                 for (SpellAbility originalPart = origSa, copiedPart = newSa;
                         originalPart != null && copiedPart != null;
                         originalPart = originalPart.getSubAbility(), copiedPart = copiedPart.getSubAbility()) {
@@ -483,6 +488,7 @@ public class GameCopier {
             if (c.isRenowned()) {
                 newCard.setRenowned(true);
             }
+            newCard.setDevout(c.isDevout());
             if (c.isSolved()) {
                 newCard.setSolved(true);
             }

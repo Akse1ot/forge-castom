@@ -36,6 +36,7 @@ import forge.game.mana.ManaRefundService;
 import forge.game.player.Player;
 import forge.game.player.PlayerPredicates;
 import forge.game.spellability.AbilityStatic;
+import forge.game.spellability.DecipherSupport;
 import forge.game.spellability.NextSpellColorHelper;
 import forge.game.spellability.ResonanceHelper;
 import forge.game.spellability.SpellAbility;
@@ -448,6 +449,7 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
                         && source.getOwner().equals(activator)) {
                     activator.incCommanderCast(source);
                 }
+                DecipherSupport.registerCastTrigger(sp);
                 game.getTriggerHandler().runTrigger(TriggerType.SpellCast, runParams, true);
             }
 

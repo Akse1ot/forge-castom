@@ -1,0 +1,6 @@
+Name:Desert Colossus
+ManaCost:4 R
+Types:Creature Giant
+PT:4/3
+A:AB$ Pump | Cost$ 2 G | Defined$ Self | NumAtt$ 3 | NumDef$ 3 | ActivationLimit$ 1 | SpellDescription$ CARDNAME gets +3/+3 until end of turn. Activate only once each turn.
+Oracle:{2}{G}: Desert Colossus gets +3/+3 until end of turn. Activate this ability only once each turn.

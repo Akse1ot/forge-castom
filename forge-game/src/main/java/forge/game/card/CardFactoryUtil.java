@@ -1778,6 +1778,14 @@ public class CardFactoryUtil {
             sa.setIntrinsic(intrinsic);
             trigger.setOverridingAbility(sa);
             inst.addTrigger(trigger);
+        } else if (keyword.startsWith("Worship:")) {
+            final String cost = keyword.split(":", 2)[1];
+            final SpellAbility worship = AbilityFactory.getAbility(
+                    "AB$ Worship | Cost$ " + cost + " T | SorcerySpeed$ True"
+                    + " | ValidTgts$ Creature.!withWorship | SpellDescription$ Worship ("
+                    + inst.getReminderText() + ")", card);
+            worship.setIntrinsic(intrinsic);
+            inst.addSpellAbility(worship);
         } else if (keyword.startsWith("Renown")) {
             final String[] k = keyword.split(":");
 
@@ -3921,6 +3929,15 @@ public class CardFactoryUtil {
             final SpellAbility sa = AbilityFactory.getAbility(effect, card);
             sa.setIntrinsic(intrinsic);
             inst.addSpellAbility(sa);
+        } else if (keyword.startsWith("Decipher:")) {
+            final Cost cost = new Cost(keyword.split(":", 2)[1], false);
+            final SpellAbility variant = card.getFirstSpellAbility()
+                    .copyWithManaCostReplaced(host.getController(), cost);
+            variant.setAlternativeCost(AlternativeCost.Decipher);
+            variant.setBasicSpell(false);
+            variant.setDescription(variant.getDescription() + " (Decipher " + cost.toSimpleString() + ")");
+            variant.setIntrinsic(intrinsic);
+            inst.addSpellAbility(variant);
         } else if (keyword.startsWith("Spectacle")) {
             final String[] k = keyword.split(":");
             final Cost cost = new Cost(k[1], false);

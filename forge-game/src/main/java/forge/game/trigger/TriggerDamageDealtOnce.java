@@ -66,7 +66,7 @@ public class TriggerDamageDealtOnce extends Trigger {
             }
         }
 
-        if (!matchesValidParam("ValidSource", runParams.get(AbilityKey.DamageSource))) {
+        if (!matchesDamageSource(runParams.get(AbilityKey.DamageSource))) {
             return false;
         }
 

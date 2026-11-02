@@ -1,8 +1,10 @@
 package forge.game.replacement;
 
 import java.util.Map;
+import java.util.Arrays;
 
 import org.apache.commons.lang3.StringUtils;
+import forge.card.MagicColor;
 
 import forge.game.ability.AbilityKey;
 import forge.game.ability.AbilityUtils;
@@ -41,6 +43,11 @@ public class ReplaceProduceMana extends ReplacementEffect {
             return false;
         }
         if (!matchesValid(runParams.get(AbilityKey.AbilityMana), getParamOrDefault("ValidSA", "Activated.hasTapCost+ManaAbility").split(","), getHostCard())) {
+            return false;
+        }
+
+        if (hasParam("ManaContains") && !Arrays.asList(StringUtils.split((String) runParams.get(AbilityKey.Mana)))
+                .contains(MagicColor.toShortString(getParam("ManaContains")))) {
             return false;
         }
 

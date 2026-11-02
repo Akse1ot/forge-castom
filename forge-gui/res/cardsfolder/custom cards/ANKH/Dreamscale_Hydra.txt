@@ -1,0 +1,13 @@
+Name:Dreamscale Hydra
+ManaCost:5 G G
+Types:Creature Hydra
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ HydraSearch | TriggerDescription$ When CARDNAME enters, search your library for up to five Aura cards with different names, reveal those cards, exile them in a face-down pile, and shuffle that pile. Then shuffle your library.
+SVar:HydraSearch:DB$ ChangeZone | Origin$ Library | Destination$ Exile | ChangeType$ Aura | ChangeNum$ 5 | DifferentNames$ True | ShuffleChangedPile$ True | ExileFaceDown$ True | RememberChanged$ True
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | ValidCard$ Card.IsRemembered | Static$ True | Execute$ ForgetMoved
+SVar:ForgetMoved:DB$ Pump | ForgetObjects$ TriggeredCard
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Static$ True | Execute$ ResetPile
+SVar:ResetPile:DB$ Cleanup | ClearRemembered$ True
+A:AB$ SetState | Cost$ T | Defined$ RememberedFirst | Mode$ TurnFaceUp | SubAbility$ HydraAttach | SpellDescription$ Turn the top card of the exiled pile face up. If it could enchant CARDNAME, put it onto the battlefield attached to it.
+SVar:HydraAttach:DB$ ChangeZone | Defined$ RememberedFirst | Origin$ Exile | Destination$ Battlefield | AttachedTo$ Self | GainControl$ True
+Oracle:When Dreamscale Hydra enters the battlefield, search your library for up to five Aura cards with different names, reveal those cards, exile them in a face-down pile, and shuffle that pile. Then shuffle your library.\n{T}: Turn the top card of the exiled pile face up. If it could enchant Dreamscale Hydra, put it onto the battlefield attached to it.

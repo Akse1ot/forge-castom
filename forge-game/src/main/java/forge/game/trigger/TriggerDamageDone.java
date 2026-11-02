@@ -57,7 +57,7 @@ public class TriggerDamageDone extends Trigger {
      */
     @Override
     public final boolean performTest(final Map<AbilityKey, Object> runParams) {
-        if (!matchesValidParam("ValidSource", runParams.get(AbilityKey.DamageSource))) {
+        if (!matchesDamageSource(runParams.get(AbilityKey.DamageSource))) {
             return false;
         }
         if (!matchesValidParam("ValidTarget", runParams.get(AbilityKey.DamageTarget))) {

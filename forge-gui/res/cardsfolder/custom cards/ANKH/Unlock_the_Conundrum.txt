@@ -1,0 +1,6 @@
+Name:Unlock the Conundrum
+ManaCost:U
+Types:Sorcery
+A:SP$ Draw | Defined$ You | NumCards$ 1 | SpellDescription$ Draw a card.
+K:Decipher:8 U
+Oracle:Draw a card.\nDecipher {8}{U} (When you cast this spell for its decipher cost, copy it for each instant and sorcery card in your graveyard. You may choose new targets for the copies.)

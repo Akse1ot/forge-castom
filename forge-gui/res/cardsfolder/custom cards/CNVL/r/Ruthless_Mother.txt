@@ -2,7 +2,9 @@ Name:Ruthless Mother
 ManaCost:1 B G
 Types:Creature Spider
 PT:2/2
-S:Mode$ ReduceCost | ValidCard$ Creature | Type$ Spell | Activator$ You | Amount$ X | Description$ Creature spells you cast cost {1} less to cast for each +1/+1 counter on NICKNAME.
-T:Mode$ ChangesZone | Origin$ Graveyard | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a creature enters the battlefield from your graveyard, you gain 3 life.
+S:Mode$ ReduceCost | ValidCard$ Creature | Type$ Spell | Activator$ You | Amount$ 1 | Description$ Creature spells you cast cost {1} less to cast.
+T:Mode$ ChangesZone | Origin$ Graveyard | Destination$ Battlefield | ValidCard$ Creature.YouOwn | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a creature enters the battlefield from your graveyard, you gain 3 life.
 SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 3
+DeckHas:Ability$LifeGain
+DeckHints:Type$Creature & Keyword$Reanimate
 Oracle:Creature spells you cast cost {1} less to cast.\nWhenever a creature enters the battlefield from your graveyard, you gain 3 life.

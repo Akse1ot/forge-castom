@@ -3,10 +3,14 @@ ManaCost:3 G
 Types:Legendary Creature Turtle Cleric
 PT:1/6
 K:Ward:2
-A:AB$ Effect | Cost$ 1 G G T | TargetMin$ 2 | TargetMax$ 2 | TargetsWithDifferentControllers$ True | ValidTgts$ Creature | RememberObjects$ Targeted | Duration$ EndOfTurn | ReplacementEffects$ RPreventBy,RPreventTo | SpellDescription$ Choose two target creatures controlled by different players. Prevent all combat damage that would be dealt by or to those creatures this turn. When damage is prevented this way, create a Rune token and gain 1 life.
-SVar:RPreventBy:Event$ DamageDone | ValidSource$ Card.IsRemembered | IsCombat$ True | PreventionEffect$ True | ReplaceWith$ DBImmediateTrigger | Description$ Prevent all combat damage that would be dealt by or to those creatures this turn. When damage is prevented this way, create a Rune token and gain 1 life.
-SVar:RPreventTo:Event$ DamageDone | ValidTarget$ Card.IsRemembered | IsCombat$ True | PreventionEffect$ True | ReplaceWith$ DBImmediateTrigger | Description$ Prevent all combat damage that would be dealt by or to those creatures this turn. When damage is prevented this way, create a Rune token and gain 1 life. | Secondary$ True
+A:AB$ Effect | Cost$ 1 G G T | TargetMin$ 2 | TargetMax$ 2 | TargetsWithDifferentControllers$ True | ValidTgts$ Creature | RememberObjects$ Targeted | Duration$ EndOfTurn | CopyForSimulation$ True | ReplacementEffects$ RPreventBy,RPreventTo | SpellDescription$ Choose two target creatures controlled by different players. Prevent all combat damage that would be dealt by or to those creatures this turn. When damage is prevented this way, create a Rune token and gain 1 life.
+SVar:RPreventBy:Event$ DamageDone | ValidSource$ Card.IsRemembered | IsCombat$ True | PreventionEffect$ True | ReplaceWith$ DBCheckReward | Description$ Prevent all combat damage that would be dealt by or to those creatures this turn. When damage is prevented this way, create a Rune token and gain 1 life.
+SVar:RPreventTo:Event$ DamageDone | ValidTarget$ Card.IsRemembered | IsCombat$ True | PreventionEffect$ True | ReplaceWith$ DBCheckReward | Description$ Prevent all combat damage that would be dealt by or to those creatures this turn. When damage is prevented this way, create a Rune token and gain 1 life. | Secondary$ True
+SVar:DBCheckReward:DB$ Branch | BranchConditionSVar$ MirielRewardUsed | BranchConditionSVarCompare$ EQ0 | TrueSubAbility$ DBMarkReward
+SVar:DBMarkReward:DB$ StoreSVar | SVar$ MirielRewardUsed | Type$ Number | Expression$ 1 | SubAbility$ DBImmediateTrigger
+SVar:MirielRewardUsed:Number$0
 SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ DBToken | TriggerDescription$ When damage is prevented this way, create a Rune token and gain 1 life.
 SVar:DBToken:DB$ Token | TokenScript$ c_a_Rune_sac | SubAbility$ DBGainLife
 SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+DeckHas:Ability$Token|LifeGain & Type$Artifact|Rune
 Oracle:Ward {2}\n{1}{G}{G}, {T}: Choose two target creatures controlled by different players. Prevent all combat damage that would be dealt by or to those creatures this turn. When damage is prevented this way, create a Rune token and gain 1 life.

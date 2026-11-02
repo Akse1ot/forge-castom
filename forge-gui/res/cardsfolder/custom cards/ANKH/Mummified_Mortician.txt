@@ -1,0 +1,7 @@
+Name:Mummified Mortician
+ManaCost:3 B R
+Types:Creature Zombie Wizard
+PT:4/3
+S:Mode$ ReduceCost | ValidCard$ Card | Activator$ You | ValidSpell$ Activated.Unearth | Amount$ 2 | Description$ Unearth costs you pay cost {2} less.
+K:Unearth:B R
+Oracle:Unearth costs you pay cost {2} less (as long as this creature is on the battlefield).\nUnearth {B}{R} ({B}{R}: Return this card from your graveyard to the battlefield. It gains haste. Exile it at the beginning of the end step or if it would leave the battlefield. Unearth only as a sorcery.)

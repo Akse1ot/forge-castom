@@ -1,0 +1,7 @@
+Name:Sunset Pyramids
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigETB | TriggerDescription$ When CARDNAME enters, you may discard a card. If you do, draw a card.
+SVar:TrigETB:DB$ Draw | NumCards$ 1 | UnlessCost$ Discard<1/Card> | UnlessPayer$ You | UnlessSwitched$ True
+Oracle:When Sunset Pyramids enters the battlefield, you may discard a card. If you do, draw a card.\n{T}: Add {C} to your mana pool.

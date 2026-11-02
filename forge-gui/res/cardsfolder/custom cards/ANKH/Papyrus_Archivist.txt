@@ -1,0 +1,7 @@
+Name:Papyrus Archivist
+ManaCost:4 R
+Types:Creature Human Wizard
+PT:2/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigETB | TriggerDescription$ When CARDNAME enters, return an instant or sorcery card at random from your graveyard to your hand.
+SVar:TrigETB:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType$ Instant.YouOwn,Sorcery.YouOwn | ChangeNum$ 1 | Hidden$ True | AtRandom$ True
+Oracle:When Papyrus Archivist enters the battlefield, return an instant or sorcery card at random from your graveyard to your hand.

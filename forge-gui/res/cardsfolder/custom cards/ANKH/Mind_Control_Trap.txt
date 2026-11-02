@@ -1,0 +1,9 @@
+Name:Mind Control Trap
+ManaCost:5 U U
+Types:Sorcery Trap
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ 3 U | CheckSVar$ OppCreatures | SVarCompare$ GE1 | Description$ If an opponent controls more creatures than you, you may pay {3}{U} rather than pay CARDNAME's mana cost.
+SVar:OppCreatures:PlayerCountOpponents$HasPropertywithMoreCreaturesThanYou
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature | RememberTargets$ True | SubAbility$ DBReturn | SpellDescription$ Exile target creature, then return that card to the battlefield under your control.
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ All | Destination$ Battlefield | GainControl$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:If an opponent controls more creatures than you, you may pay {3}{U} rather than pay Mind Control Trap’s mana cost.\nExile target creature, then return that card to the battlefield under your control.

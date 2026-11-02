@@ -1,0 +1,7 @@
+Name:Tomb Robbers
+ManaCost:1 R
+Types:Creature Human Rogue
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigETB | TriggerDescription$ When CARDNAME enters, you may discard a card. If you do, draw a card.
+SVar:TrigETB:DB$ Draw | NumCards$ 1 | UnlessCost$ Discard<1/Card> | UnlessPayer$ You | UnlessSwitched$ True
+Oracle:When Tomb Robbers enters the battlefield, you may discard a card. If you do, draw a card.

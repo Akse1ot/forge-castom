@@ -1,0 +1,7 @@
+Name:Nabuto Ambusher
+ManaCost:3 W
+Types:Creature Human Nomad
+PT:2/4
+K:Vigilance
+K:Worship:1 W
+Oracle:Vigilance\nWorship {1}{W} ({1}{W}, {T}: If this isn’t devout, put a +1/+1 counter on both this creature and target creature without worship, then this becomes devout. Worship only as a sorcery.)

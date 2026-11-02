@@ -1,0 +1,9 @@
+Name:Nutkeb's Explorer
+ManaCost:2 U
+Types:Creature Bird Scout
+PT:2/2
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | CheckSVar$ Expedition | SVarCompare$ GE5 | Execute$ TrigDraw | TriggerDescription$ Expedition — Whenever CARDNAME deals combat damage to a player, if you control five or more lands with different names, draw a card.
+SVar:TrigDraw:DB$ Draw | NumCards$ 1
+SVar:Expedition:Count$Valid Land.YouCtrl$DifferentCardNames
+Oracle:Flying\nExpedition — Whenever Nutkeb’s Explorer deals combat damage to a player, if you control five or more lands with different names, draw a card.

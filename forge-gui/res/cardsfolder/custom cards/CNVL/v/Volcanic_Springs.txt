@@ -4,5 +4,7 @@ Types:Legendary Land
 R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ This land enters tapped.
 SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
 A:AB$ Mana | Cost$ T | Produced$ Combo U R | SpellDescription$ Add {U} or {R}.
-A:AB$ CopySpellAbility | Cost$ 3 U R T | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | MayChooseTarget$ True | SpellDescription$ Copy target instant or sorcery spell you control. You may choose new targets for the copy.
+A:AB$ CopySpellAbility | Cost$ 3 U R T | TargetType$ Spell | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | MayChooseTarget$ True | SpellDescription$ Copy target instant or sorcery spell you control. You may choose new targets for the copy.
+DeckHas:Ability$Mana
+DeckHints:Type$Instant|Sorcery
 Oracle:This land enters tapped.\n{T}: Add {U} or {R}.\n{3}{U}{R}, {T}: Copy target instant or sorcery spell you control. You may choose new targets for the copy.

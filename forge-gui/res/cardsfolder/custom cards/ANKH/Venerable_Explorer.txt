@@ -1,0 +1,7 @@
+Name:Venerable Explorer
+ManaCost:2 G
+Types:Creature Human Scout
+PT:1/2
+A:AB$ PumpAll | Cost$ 1 G Sac<1/CARDNAME> | ValidCards$ Creature.YouCtrl | NumAtt$ 3 | NumDef$ 3 | CheckSVar$ Expedition | SVarCompare$ GE5 | SpellDescription$ Expedition — Creatures you control get +3/+3 until end of turn. Activate only if you control five or more lands with different names.
+SVar:Expedition:Count$Valid Land.YouCtrl$DifferentCardNames
+Oracle:Expedition — {1}{G}, Sacrifice Venerable Explorer: Creatures you control get +3/+3 until end of turn. Activate this ability only if you control five or more lands with different names.

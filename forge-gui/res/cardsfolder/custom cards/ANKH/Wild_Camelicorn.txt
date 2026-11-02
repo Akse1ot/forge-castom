@@ -1,0 +1,5 @@
+Name:Wild Camelicorn
+ManaCost:1 G
+Types:Creature Camel Unicorn
+PT:2/3
+Oracle:

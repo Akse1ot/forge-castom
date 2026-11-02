@@ -9,4 +9,6 @@ S:Mode$ Continuous | Affected$ Creature.token+YouCtrl | AddKeyword$ Haste | Desc
 SVar:PlayMain1:TRUE
 A:AB$ Pump | Cost$ 5 R R T  | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Choose target creature you control | AILogic$ Fight | SpellDescription$ Target creature you control fights target creature you don't control. | SubAbility$ DBFight
 SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl | TgtPrompt$ Select target creature you don't control
+DeckHas:Ability$Token & Type$Warrior
+DeckHints:Ability$Token
 Oracle:Defender\nAt the beginning of combat on your turn, create a 2/1 red Warrior creature token.\nCreature tokens you control have haste.\n{5}{R}{R},{T} Target creature you control fights target creature you don't control.

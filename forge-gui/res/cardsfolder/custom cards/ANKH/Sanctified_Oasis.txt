@@ -1,0 +1,9 @@
+Name:Sanctified Oasis
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ CARDNAME enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+K:etbCounter:Respite:1
+A:AB$ Mana | Cost$ T | Produced$ W | SpellDescription$ Add {W}.
+A:AB$ GainLife | Cost$ 5 T SubCounter<1/Respite> | Defined$ You | LifeAmount$ 5 | SpellDescription$ You gain 5 life.
+Oracle:Sanctified Oasis enters the battlefield tapped with a respite counter on it.\n{T}: Add {W} to your mana pool.\n{5}, {T}, Remove a respite counter from Sanctified Oasis: You gain 5 life.

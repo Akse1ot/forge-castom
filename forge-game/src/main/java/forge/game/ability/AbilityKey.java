@@ -26,6 +26,8 @@ public enum AbilityKey {
     AttackingPlayer("AttackingPlayer"),
     AttackedTarget("AttackedTarget"),
     Blocker("Blocker"),
+    PreviousBlockers("PreviousBlockers"),
+    WasBlocked("WasBlocked"),
     Blockers("Blockers"),
     CanReveal("CanReveal"),
     Card("Card"),
@@ -86,6 +88,7 @@ public enum AbilityKey {
     LastStateBattlefield("LastStateBattlefield"),
     LastStateGraveyard("LastStateGraveyard"),
     LibraryPosition("LibraryPosition"),
+    LandPlayed("LandPlayed"),
     LifeAmount("LifeAmount"), //TODO confirm that this and LifeGained can be merged
     LifeGained("LifeGained"),
     LoseReason("LoseReason"),

@@ -8,4 +8,6 @@ SVar:DBSacSelf:DB$ Sacrifice | UnlessCost$ Discard<1/Card> | UnlessPayer$ You
 SVar:NeedsToPlayVar:Y GE1
 SVar:Y:Count$ValidHand Card.YouOwn
 K:Reanimate
+DeckHas:Ability$Graveyard
+DeckHints:Ability$Mill|Graveyard
 Oracle:Trample\nWhen Ravenous Oppressor enters the battlefield, sacrifice it unless you discard a card.\nReanimate (You may cast this card from your graveyard by sacrificing a creature in addition to paying its other costs.)

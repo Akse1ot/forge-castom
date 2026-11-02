@@ -4,4 +4,5 @@ Types:Creature Bird Soldier
 PT:3/4
 K:Defender
 S:Mode$ Continuous | Affected$ Card.Self+enchanted,Card.Self+equipped | RemoveKeyword$ Defender | Description$ CARDNAME loses defender as long as it's enchanted or equipped.
+DeckHints:Type$Aura|Equipment
 Oracle:Defender\nFallen Watchman loses defender as long as it’s enchanted or equipped.

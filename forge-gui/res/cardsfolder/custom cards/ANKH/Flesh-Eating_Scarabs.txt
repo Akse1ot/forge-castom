@@ -1,0 +1,10 @@
+Name:Flesh-Eating Scarabs
+ManaCost:B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | AffectedDefined$ Enchanted | AddPower$ NegX | AddToughness$ NegX | Description$ Enchanted creature gets -1/-1 for each depth counter on CARDNAME.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ Player.EnchantedController | TriggerZones$ Battlefield | Execute$ TrigCounter | TriggerDescription$ At the beginning of the upkeep of enchanted creature's controller, put a depth counter on CARDNAME.
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ Depth | CounterNum$ 1
+SVar:NegX:Count$CardCounters.Depth/Negative
+Oracle:Enchant creature\nAt the beginning of the upkeep of enchanted creature’s controller, put a depth counter on Flesh-Eating Scarabs.\nEnchanted creature gets -1/-1 for each depth counter on Flesh-Eating Scarabs.

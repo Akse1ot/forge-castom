@@ -39,6 +39,66 @@ public class EffectEffect extends SpellAbilityEffect {
      *            a {@link forge.game.spellability.SpellAbility} object.
      */
 
+    /** Preserve opted-in dynamic command effects, using the existing characteristic copier. */
+    public static void copyForSimulation(Game from, Game to) {
+        for (Card original : from.getCardsIn(ZoneType.Command)) {
+            boolean damageProxy = DamageSourceProxy.isProxy(original);
+            if (!damageProxy && !"True".equals(original.getSVar("CopyForSimulation"))) {
+                continue;
+            }
+            Card copied = to.findById(original.getId());
+            if (copied == null) {
+                continue;
+            }
+            copied.getCurrentState().copyFrom(original.getCurrentState(), false);
+            copied.setSVars(original.getSVars());
+            copied.setGameTimestamp(original.getGameTimestamp());
+            if (damageProxy) {
+                copied.setController(to.getPlayer(original.getController().getId()), original.getGameTimestamp());
+            }
+            copied.setEffectSource((SpellAbility) null);
+            copied.setEffectSource(mapEffectCard(original.getEffectSource(), to));
+            copied.clearRemembered();
+            for (Object remembered : original.getRemembered()) {
+                if (remembered instanceof Card c) {
+                    copied.addRemembered(mapEffectCard(c, to));
+                } else if (remembered instanceof Player player) {
+                    copied.addRemembered(to.getPlayer(player.getId()));
+                } else if (!(remembered instanceof GameObject)) {
+                    copied.addRemembered(remembered);
+                } else {
+                    throw new IllegalArgumentException("Unsupported CopyForSimulation remembered object");
+                }
+            }
+            copied.clearImprintedCards();
+            for (Card imprinted : original.getImprintedCards()) {
+                copied.addImprintedCard(mapEffectCard(imprinted, to));
+            }
+            if (!damageProxy) {
+                to.getEndOfTurn().addUntil(() -> {
+                    if (to.getCardsIn(ZoneType.Command).contains(copied)) {
+                        to.getAction().exileEffect(copied);
+                    }
+                });
+            }
+        }
+    }
+
+    private static Card mapEffectCard(Card original, Game to) {
+        if (original == null) {
+            return null;
+        }
+        Card mapped = to.findById(original.getId());
+        if (mapped != null && mapped.getGameTimestamp() == original.getGameTimestamp()) {
+            return mapped;
+        }
+        // A reference to an old zone object must not become a reference to its new incarnation.
+        Card lki = new CardCopyService(original, to).copyCard(false, to.getPlayer(original.getOwner().getId()));
+        lki.setGameTimestamp(original.getGameTimestamp());
+        lki.setController(to.getPlayer(original.getController().getId()), original.getGameTimestamp());
+        return lki;
+    }
+
     @Override
     public void resolve(SpellAbility sa) {
         final Card hostCard = sa.getHostCard();
@@ -177,6 +237,17 @@ public class EffectEffect extends SpellAbilityEffect {
 
         for (Player controller : effectOwner) {
             final Card eff = createEffect(sa, controller, name, image);
+            if ("True".equals(sa.getParam("DamageSourceProxy"))) {
+                eff.setSVar(DamageSourceProxy.MARKER, "True");
+                eff.setColor(forge.card.ColorSet.C);
+            }
+            // Explicitly supported only for effects lasting until this turn's cleanup.
+            if (sa.hasParam("CopyForSimulation")) {
+                if (duration != null && !duration.equals("EndOfTurn")) {
+                    throw new IllegalArgumentException("CopyForSimulation requires end-of-turn duration");
+                }
+                eff.setSVar("CopyForSimulation", "True");
+            }
             if (sa.hasParam("Boon")) {
                 eff.setBoon(true);
             }

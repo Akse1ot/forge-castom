@@ -21,6 +21,7 @@ import forge.game.card.CardLists;
 import forge.game.card.CardPredicates;
 import forge.game.card.CardState;
 import forge.game.card.CardView;
+import forge.game.card.DamageSourceProxy;
 import forge.game.card.IHasCardView;
 import forge.game.keyword.Keyword;
 import forge.game.keyword.KeywordInterface;
@@ -266,6 +267,30 @@ public abstract class CardTraitBase implements GameObject, IHasCardView, IHasSVa
 
     public boolean matchesValidParam(String param, final Object o) {
         return matchesValidParam(param, o, getHostCard());
+    }
+
+    /** Explicit damage-source check; ordinary filters and object selection are unchanged. */
+    public boolean matchesDamageSource(final Object source) {
+        if (!hasParam("ValidSource")) {
+            return !hasParam("InvertValidSource");
+        }
+        return matchesDamageSource(source, getParam("ValidSource").split(","))
+                != hasParam("InvertValidSource");
+    }
+
+    private boolean matchesDamageSource(final Object source, final String[] restrictions) {
+        if (source instanceof Card card && DamageSourceProxy.isProxy(card)) {
+            return matchesValid(card, DamageSourceProxy.sourceRestrictions(restrictions));
+        }
+        if (source instanceof Iterable<?> sources) {
+            for (Object item : sources) {
+                if (matchesDamageSource(item, restrictions)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return matchesValid(source, restrictions);
     }
 
     /**

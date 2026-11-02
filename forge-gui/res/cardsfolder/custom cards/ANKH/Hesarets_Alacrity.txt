@@ -1,0 +1,8 @@
+Name:Hesaret's Alacrity
+ManaCost:R
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | SubAbility$ AlacrityDouble | SpellDescription$ Target creature gains first strike until end of turn. If it already has first strike, it gains double strike instead.
+SVar:AlacrityDouble:DB$ Pump | Defined$ Targeted | KW$ Double Strike | ConditionDefined$ Targeted | ConditionPresent$ Creature.withFirst Strike | SubAbility$ AlacrityFirst
+SVar:AlacrityFirst:DB$ Pump | Defined$ Targeted | KW$ First Strike | ConditionDefined$ Targeted | ConditionPresent$ Creature.!withFirst Strike
+K:Decipher:2 R
+Oracle:Target creature gains first strike until end of turn. If it already has first strike, it gains double strike instead.\nDecipher {2}{R} (When you cast this spell for its decipher cost, copy it for each instant and sorcery card in your graveyard. You may choose new targets for the copies.)

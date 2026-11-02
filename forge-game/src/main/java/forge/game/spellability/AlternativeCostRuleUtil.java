@@ -10,8 +10,16 @@ public final class AlternativeCostRuleUtil {
     static final String MARK_POST_PROCESSED = "AltCostPostProcessed";
     public static final String PARAM_ADDITIONAL_REDUCE = "AltCostAdditionalReduce";
     public static final String PARAM_ADDITIONAL_RAISE = "AltCostAdditionalRaise";
+    public static final String PARAM_SELECTED_ALTERNATIVE = "SelectedAlternativeCost";
 
     private AlternativeCostRuleUtil() {
+    }
+
+    public static boolean usesAlternativeOrFreeCost(final SpellAbility ability) {
+        final SpellAbility spell = ability.getRootAbility();
+        return spell.isSpell() && (spell.getAlternativeCost() != null
+                || spell.isOptionalCostPaid(OptionalCost.AltCost) || spell.hasParam("WithoutManaCost")
+                || "True".equals(spell.getParam(PARAM_SELECTED_ALTERNATIVE)));
     }
 
     static boolean isAltSpell(final SpellAbility sa) {

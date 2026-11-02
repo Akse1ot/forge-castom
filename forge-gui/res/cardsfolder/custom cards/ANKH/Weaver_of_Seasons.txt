@@ -1,0 +1,8 @@
+Name:Weaver of Seasons
+ManaCost:1 G
+Types:Creature Human Shaman
+PT:1/1
+A:AB$ Mill | Cost$ T | Defined$ You | NumCards$ 1 | RememberMilled$ True | SubAbility$ DBUntap | SpellDescription$ Mill a card. If it's a land card, untap target land.
+SVar:DBUntap:DB$ Untap | ValidTgts$ Land | ConditionDefined$ Remembered | ConditionPresent$ Land | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:{T}: Put the top card of your library into your graveyard. If it’s a land card, untap target land.

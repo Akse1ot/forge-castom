@@ -1,0 +1,7 @@
+Name:Serpent of Myth
+ManaCost:U
+Types:Creature Serpent
+PT:6/6
+S:Mode$ CantAttack,CantBlock | ValidCard$ Card.Self | CheckSVar$ Expedition | SVarCompare$ LT5 | Description$ Expedition — CARDNAME can't attack or block unless you control five or more lands with different names.
+SVar:Expedition:Count$Valid Land.YouCtrl$DifferentCardNames
+Oracle:Expedition — Serpent of Myth can’t attack or block unless you control five or more lands with different names.

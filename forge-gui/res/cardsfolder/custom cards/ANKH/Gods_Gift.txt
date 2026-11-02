@@ -1,0 +1,6 @@
+Name:Gods' Gift
+ManaCost:1 G
+Types:Sorcery
+A:SP$ GainLife | Defined$ You | LifeAmount$ 7 | SubAbility$ DBOthers | SpellDescription$ You gain 7 life. Each other player gains 2 life.
+SVar:DBOthers:DB$ GainLife | Defined$ Player.Other | LifeAmount$ 2
+Oracle:You gain 7 life. Each other player gains 2 life.

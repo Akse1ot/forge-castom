@@ -5,14 +5,20 @@ PT:4/3
 K:Menace
 K:Reach
 T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDestroy | TriggerDescription$ Whenever CARDNAME attacks, you may unattach an Equipment from it or discard a card. If you do, ravage target land.
-SVar:TrigDestroy:AB$ Destroy | Cost$ Or(Unattach<Equipment.Attached/an Equipment attached to NICKNAME>~Discard<1/Card>) | ValidTgts$ Land | TgtPrompt$ Choose target land. | RememberLKI$ True | SubAbility$ DBToken | SpellDescription$ Ravage target land. (Destroy that land. When you do, if its controller doesn’t control the most lands, that player creates a tapped Wastes token.)
-SVar:DBToken:DB$ Token | ConditionDefined$ RememberedLKI | ConditionPresent$ Card | ConditionCompare$ GE1 | ConditionCheckSVar$ CtrlLands | ConditionSVarCompare$ LTMostLands | TokenScript$ c_Wastes | TokenAmount$ 1 | TokenTapped$ True | TokenOwner$ TargetedController | SubAbility$ DBCleanup
+SVar:TrigDestroy:AB$ Destroy | Cost$ Or(Unattach<Equipment.Attached/an Equipment attached to NICKNAME>~Discard<1/Card>) | ValidTgts$ Land | TgtPrompt$ Choose target land. | RememberLKI$ True | SubAbility$ DBRavageEach | SpellDescription$ Ravage target land. (Destroy that land. When you do, if its controller doesn’t control the most lands, that player creates a tapped Wastes token.)
+SVar:DBRavageEach:DB$ RepeatEach | UseImprinted$ True | DefinedCards$ RememberedLKI | RepeatSubAbility$ DBRavageTrigger | SubAbility$ DBCleanup
+SVar:DBRavageTrigger:DB$ ImmediateTrigger | ConditionCheckSVar$ RavageLandsBefore | ConditionSVarCompare$ LTMostLands | RememberObjects$ ImprintedLKI | Execute$ DBRavageToken | TriggerDescription$ When you do, if that land's controller doesn't control the most lands, that player creates a tapped Wastes token.
+SVar:DBRavageToken:DB$ Token | ConditionCheckSVar$ RavageLandsAfter | ConditionSVarCompare$ LTMostLands | TokenScript$ c_Wastes | TokenAmount$ 1 | TokenTapped$ True | TokenOwner$ DelayTriggerRememberedController
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:CtrlLands:TargetedController$Valid Land.YouCtrl
+SVar:RavageLandsBefore:PlayerCountDefinedImprintedController$Valid Land.YouCtrl
+SVar:RavageLandsAfter:PlayerCountDefinedDelayTriggerRememberedController$Valid Land.YouCtrl
 SVar:MostLands:PlayerCountPlayers$HighestValid Land.YouCtrl
 T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Land | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ Whenever a land is put into a graveyard from the battlefield, CARDNAME deals 2 damage to that land's controller.
 SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredCardController | NumDmg$ 2
 AlternateMode:Modal
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Discard|Graveyard|Token & Type$Artifact|Rune
+DeckHints:Type$Equipment|Aura
 Oracle:Menace, reach\nWhenever this creature attacks, you may unattach an Equipment from it or discard a card. If you do, ravage target land.\nWhenever a land is put into a graveyard from the battlefield, this creature deals 2 damage to that land’s controller.
 
 
@@ -25,12 +31,16 @@ PT:6/6
 K:AlternateAdditionalCost:Sac<1/Aura;Equipment/Aura or Equipment>:Discard<1/Aura;Equipment/Aura card or Equipment card>
 K:Menace
 K:Trample
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, create that many tapped Treasure tokens.
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigToken | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, create that many Rune tokens, then ravage target land that player controls.
 SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac | TokenAmount$ X | SubAbility$ DBDestroy
-SVar:DBDestroy:DB$ Destroy | ValidTgts$ Land.ControlledBy TriggeredTarget | TgtPrompt$ Choose target land damaged player controls | RememberLKI$ True | SubAbility$ DBToken | SpellDescription$ Ravage target land. (Destroy that land. When you do, if its controller doesn’t control the most lands, that player creates a tapped Wastes token.)
-SVar:DBToken:DB$ Token | ConditionDefined$ RememberedLKI | ConditionPresent$ Card | ConditionCompare$ GE1 | ConditionCheckSVar$ CtrlLands | ConditionSVarCompare$ LTMostLands | TokenScript$ c_Wastes | TokenAmount$ 1 | TokenTapped$ True | TokenOwner$ TargetedController | SubAbility$ DBCleanup
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Land.ControlledBy TriggeredTarget | TgtPrompt$ Choose target land damaged player controls | RememberLKI$ True | SubAbility$ DBRavageEach | SpellDescription$ Ravage target land. (Destroy that land. When you do, if its controller doesn’t control the most lands, that player creates a tapped Wastes token.)
+SVar:DBRavageEach:DB$ RepeatEach | UseImprinted$ True | DefinedCards$ RememberedLKI | RepeatSubAbility$ DBRavageTrigger | SubAbility$ DBCleanup
+SVar:DBRavageTrigger:DB$ ImmediateTrigger | ConditionCheckSVar$ RavageLandsBefore | ConditionSVarCompare$ LTMostLands | RememberObjects$ ImprintedLKI | Execute$ DBRavageToken | TriggerDescription$ When you do, if that land's controller doesn't control the most lands, that player creates a tapped Wastes token.
+SVar:DBRavageToken:DB$ Token | ConditionCheckSVar$ RavageLandsAfter | ConditionSVarCompare$ LTMostLands | TokenScript$ c_Wastes | TokenAmount$ 1 | TokenTapped$ True | TokenOwner$ DelayTriggerRememberedController
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:CtrlLands:TargetedController$Valid Land.YouCtrl
+SVar:RavageLandsBefore:PlayerCountDefinedImprintedController$Valid Land.YouCtrl
+SVar:RavageLandsAfter:PlayerCountDefinedDelayTriggerRememberedController$Valid Land.YouCtrl
 SVar:MostLands:PlayerCountPlayers$HighestValid Land.YouCtrl
 SVar:X:TriggerCount$DamageAmount
+SVar:HasCombatEffect:TRUE
 Oracle:As an additional cost to cast this spell, sacrifice an Aura or Equipment or discard an Aura or Equipment card.\nMenace, trample\nWhenever this creature deals combat damage to a player, create that many Rune tokens, then ravage target land that player controls.

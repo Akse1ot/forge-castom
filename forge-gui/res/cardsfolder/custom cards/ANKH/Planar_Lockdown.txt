@@ -1,0 +1,6 @@
+Name:Planar Lockdown
+ManaCost:1 G
+Types:Enchantment
+S:Mode$ IgnorePlaneswalkerZeroLoyaltyRule | ValidCard$ Planeswalker | Description$ Planeswalkers don't leave the battlefield for having 0 loyalty.
+S:Mode$ CantPutCounter | ValidCard$ Planeswalker | CounterType$ LOYALTY | Description$ Loyalty counters can't be put on planeswalkers.
+Oracle:Planeswalkers don’t leave the battlefield for having 0 loyalty.\nLoyalty counters can’t be put on planeswalkers. (Abilities that add loyalty counters can’t be activated.)

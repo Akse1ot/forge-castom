@@ -1,0 +1,5 @@
+Name:Riddle of Existence
+ManaCost:2 U
+Types:Instant
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Permanent.nonSphinx | SpellDescription$ Return target non-Sphinx permanent to its owner's hand.
+Oracle:Return target non-Sphinx permanent to its owner’s hand.

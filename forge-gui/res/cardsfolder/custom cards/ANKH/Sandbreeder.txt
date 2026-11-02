@@ -1,0 +1,8 @@
+Name:Sandbreeder
+ManaCost:3 G
+Types:Creature Human Shaman
+PT:2/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ Expedition | SVarCompare$ GE5 | Execute$ TrigToken | TriggerDescription$ Expedition — At the beginning of your upkeep, if you control five or more lands with different names, create a 1/2 green Scorpion creature token with deathtouch.
+SVar:TrigToken:DB$ Token | TokenScript$ g_1_2_scorpion_deathtouch | TokenOwner$ You
+SVar:Expedition:Count$Valid Land.YouCtrl$DifferentCardNames
+Oracle:Expedition — At the beginning of your upkeep, if you control five or more lands with different names, create a 1/2 green Scorpion creature token with deathtouch.

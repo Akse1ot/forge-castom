@@ -1,0 +1,7 @@
+Name:Brass-Sting Guardian
+ManaCost:3
+Types:Artifact Creature Scorpion
+PT:1/3
+S:Mode$ MustBlock | ValidCreature$ Card.Self | Description$ CARDNAME blocks each combat if able.
+A:AB$ Pump | Cost$ 2 | Defined$ Self | KW$ Deathtouch | SpellDescription$ CARDNAME gains deathtouch until end of turn.
+Oracle:Brass-Sting Guardian blocks each combat if able.\n{2}: Brass-Sting Guardian gains deathtouch until end of turn.

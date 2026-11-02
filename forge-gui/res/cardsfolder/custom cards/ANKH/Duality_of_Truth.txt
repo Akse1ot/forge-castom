@@ -1,0 +1,11 @@
+Name:Duality of Truth
+ManaCost:U U
+Types:Instant
+A:SP$ Charm | Choices$ TruthCounter,TruthBounce,TruthScry,TruthChooseLands | ModalChoiceGroups$ 2,2
+SVar:TruthCounter:DB$ Counter | ValidTgts$ Spell | SpellDescription$ Counter target spell.
+SVar:TruthBounce:DB$ ChangeZone | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Hand | SpellDescription$ Return target nonland permanent to its owner's hand.
+SVar:TruthScry:DB$ Scry | Defined$ ChoosingPlayer | ScryNum$ 2 | SpellDescription$ That opponent scries 2.
+SVar:TruthChooseLands:DB$ ChooseCard | Defined$ ChoosingPlayer | Choices$ Land | ControlledByPlayer$ Chooser | Amount$ 2 | Mandatory$ True | SubAbility$ TruthUntap | SpellDescription$ That opponent untaps two lands of their choice.
+SVar:TruthUntap:DB$ Untap | Defined$ ChosenCard | SubAbility$ TruthClean
+SVar:TruthClean:DB$ Cleanup | ClearChosenCard$ True
+Oracle:Choose one —\n• Counter target spell.\n• Return target nonland permanent to its owner’s hand.\nAn opponent chooses one —\n• He or she scries 2.\n• He or she untaps two lands of his or her choice.

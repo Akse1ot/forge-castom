@@ -1,0 +1,11 @@
+Name:Treasure Room of Akhamesses
+ManaCost:no cost
+Types:Legendary Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ Expedition | SVarCompare$ GE5 | Execute$ TreasureChoose | TriggerDescription$ Expedition — When CARDNAME enters, if you control five or more lands with different names, you may pay {X}{X}. If you do, draw X cards.
+SVar:Expedition:Count$Valid Land.YouCtrl$DifferentCardNames
+SVar:TreasureChoose:DB$ ChooseNumber | Defined$ You | ChooseAnyNumber$ True | ListTitle$ Choose X for the optional {X}{X} payment | SubAbility$ TreasureDraw
+SVar:TreasureDraw:DB$ Draw | Defined$ You | NumCards$ Chosen | UnlessCost$ Payment | UnlessPayer$ You | UnlessSwitched$ True
+SVar:Chosen:Count$ChosenNumber
+SVar:Payment:Count$ChosenNumber/Twice
+Oracle:Expedition — When Treasure Room of Akhamesses enters the battlefield, if you control five or more lands with different names, you may pay {X}{X}. If you do, draw X cards.\n{T}: Add {C} to your mana pool.

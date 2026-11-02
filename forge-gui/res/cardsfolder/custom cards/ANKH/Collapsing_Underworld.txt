@@ -1,0 +1,6 @@
+Name:Collapsing Underworld
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ Pump | Cost$ B R T | ValidTgts$ Creature.ThisTurnEnteredFrom_Graveyard | NumAtt$ 3 | NumDef$ 3 | KW$ Haste & Trample | SpellDescription$ Target creature that entered the battlefield from a graveyard this turn gets +3/+3 and gains haste and trample until end of turn.
+Oracle:{T}: Add {C} to your mana pool.\n{B}{R}, {T}: Target creature that entered the battlefield from a graveyard this turn gets +3/+3 and gains haste and trample until end of turn.

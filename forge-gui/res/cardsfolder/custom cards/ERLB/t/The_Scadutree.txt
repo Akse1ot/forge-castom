@@ -5,4 +5,5 @@ R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ 
 SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Creature.Legendary+YouCtrl | ConditionCompare$ EQ0
 A:AB$ Mana | Cost$ T | Produced$ B | SpellDescription$ Add {B}.
 A:AB$ Mana | Cost$ T Discard<1/Card> PayLife<2> | Produced$ B B | SpellDescription$ Add {B}{B}.
+DeckHas:Ability$Discard|Graveyard
 Oracle:The Scadutree enters tapped unless you control a legendary creature.\n{T}: Add {B}.\n{T}, Discard a card, Pay 2 life: Add {B}{B}.

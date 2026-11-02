@@ -1,0 +1,12 @@
+Name:Wayfarer Giant
+ManaCost:4 G
+Types:Creature Giant Nomad
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigETB | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters, you may search your library for a basic land card, reveal it, put it into your hand, then shuffle.
+SVar:TrigETB:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic | ChangeNum$ 1 | ShuffleNonMandatory$ True
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Vigilance | IsPresent$ Plains.YouCtrl | Description$ As long as you control a Plains, CARDNAME has vigilance.
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Hexproof | IsPresent$ Island.YouCtrl | Description$ As long as you control a Island, CARDNAME has hexproof.
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Menace | IsPresent$ Swamp.YouCtrl | Description$ As long as you control a Swamp, CARDNAME has menace.
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Haste | IsPresent$ Mountain.YouCtrl | Description$ As long as you control a Mountain, CARDNAME has haste.
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Trample | IsPresent$ Forest.YouCtrl | Description$ As long as you control a Forest, CARDNAME has trample.
+Oracle:When Wayfarer Giant enters the battlefield, you may search your library for a basic land card, reveal it, put it into your hand, then shuffle your library.\nAs long as you control a Plains, Wayfarer Giant has vigilance. The same is true for Island and hexproof, Swamp and menace, Mountain and haste, and Forest and trample.

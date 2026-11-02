@@ -1,0 +1,8 @@
+Name:Lammasu Sentinel Trap
+ManaCost:4 W W
+Types:Instant Trap
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ W | CheckSVar$ Stolen | Description$ If an opponent gained control of a permanent you own this turn, you may pay {W} rather than pay CARDNAME's mana cost.
+SVar:Stolen:Count$OpponentGainedControlOfOwnedPermanentThisTurn
+A:SP$ Token | TokenScript$ w_5_5_lammasu_flying | TokenAmount$ 1 | SubAbility$ Reclaim | SpellDescription$ Create a 5/5 white Lammasu creature token with flying, then gain control of all permanents you own.
+SVar:Reclaim:DB$ GainControl | AllValid$ Permanent.YouOwn
+Oracle:If an opponent gained control of a permanent you own this turn, you may pay {W} rather than pay Lammasu Sentinel Trap’s mana cost.\nCreate a 5/5 white Lammasu creature token with flying, then gain control of all permanents you own.

@@ -1,0 +1,12 @@
+Name:Exodus Pilgrim
+ManaCost:1 W
+Types:Creature Human Nomad
+PT:2/2
+K:Worship:1 W
+T:Mode$ Worship | ValidCard$ Card.Self | ValidTarget$ Creature.YouOwn | Execute$ PilgrimChoose | TriggerDescription$ Whenever CARDNAME worships a creature you own, you may exile CARDNAME and/or that creature. Return those cards to the battlefield under your control at the beginning of the next end step.
+SVar:PilgrimChoose:DB$ ChooseCard | Defined$ You | Choices$ Card.StrictlySelf,Card.IsDefined TriggeredTargetLKICopy | Amount$ 2 | MinAmount$ 0 | Mandatory$ True | ChoiceTitle$ Choose the Pilgrim and/or worshipped creature to exile | SubAbility$ PilgrimExile
+SVar:PilgrimExile:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ PilgrimDelay
+SVar:PilgrimDelay:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ PilgrimReturn | RememberObjects$ RememberedLKI | TriggerDescription$ Return the exiled cards under your control. | SubAbility$ PilgrimClean
+SVar:PilgrimReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Battlefield | GainControl$ True
+SVar:PilgrimClean:DB$ Cleanup | ClearRemembered$ True
+Oracle:Worship {1}{W} ({1}{W}, {T}: If this isn’t devout, put a +1/+1 counter on both this creature and target creature without worship, then this becomes devout. Worship only as a sorcery.)\nWhen Exodus Pilgrim worships a creature you own, you may exile Exodus Pilgrim and/or that creature. Return all cards exiled this way to the battlefield under your control at the beginning of the next end step.

@@ -5,4 +5,5 @@ A:SP$ Token | TokenScript$ r_1_1_insect_samurai | SubAbility$ DBDealDamage | Spe
 SVar:DBDealDamage:DB$ DealDamage | ValidTgts$ Player | NumDmg$ X | SpellDescription$ 
 SVar:X:Count$Valid Creature.token+YouCtrl
 DeckHints:Ability$Token
+DeckHas:Ability$Token & Type$Insect|Samurai
 Oracle:Create a 1/1 red Insect Samurai creature token.\nSwarm Strike deals damage to target player equal to the number of creature tokens you control.

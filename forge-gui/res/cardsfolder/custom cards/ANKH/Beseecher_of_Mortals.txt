@@ -1,0 +1,15 @@
+Name:Beseecher of Mortals
+ManaCost:6 W U
+Types:Creature Sphinx
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ DrawFour | TriggerDescription$ When CARDNAME enters, draw four cards, then discard two cards, then draw three cards. Reveal a card from your hand. If it's a Human card, gain life equal to its mana value. Otherwise, discard your hand.
+SVar:DrawFour:DB$ Draw | NumCards$ 4 | SubAbility$ DiscardTwo
+SVar:DiscardTwo:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 2 | SubAbility$ DrawThree
+SVar:DrawThree:DB$ Draw | NumCards$ 3 | SubAbility$ RevealMortal
+SVar:RevealMortal:DB$ Reveal | Defined$ You | NumCards$ 1 | RememberRevealed$ True | SubAbility$ MortalLife
+SVar:MortalLife:DB$ GainLife | Defined$ You | LifeAmount$ MortalValue | ConditionDefined$ Remembered | ConditionPresent$ Human | SubAbility$ MortalFailure
+SVar:MortalFailure:DB$ Discard | Defined$ You | Mode$ Hand | ConditionDefined$ Remembered | ConditionPresent$ Human | ConditionCompare$ EQ0 | SubAbility$ Clean
+SVar:MortalValue:Remembered$CardManaCost
+SVar:Clean:DB$ Cleanup | ClearRemembered$ True
+Oracle:Flying\nWhen Beseecher of Mortals enters the battlefield, draw four cards, then discard two cards, then draw three cards. Reveal a card from your hand. If it’s a Human card, you gain life equal to its converted mana cost. Otherwise, discard your hand.

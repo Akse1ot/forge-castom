@@ -1,0 +1,5 @@
+Name:Unbreakable Bond I
+ManaCost:W
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | TargetMin$ 2 | TargetMax$ 2 | KW$ Indestructible | SpellDescription$ Two target creatures you control gain indestructible until end of turn.
+Oracle:Two target creatures you control gain indestructible until end of turn. (You must control at least two creatures to cast this spell.)

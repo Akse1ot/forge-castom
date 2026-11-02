@@ -1,0 +1,11 @@
+Name:Iterinis, God of Waters
+ManaCost:3 U U
+Types:Legendary Enchantment Creature God
+PT:4/4
+K:Flying
+K:Indestructible
+S:Mode$ CantAttack | ValidCard$ Card.Self+counters_EQ0_P1P1 | Description$ CARDNAME can't attack unless she has a +1/+1 counter on her.
+S:Mode$ CantBlock | ValidCard$ Card.Self+counters_EQ0_P1P1 | Description$ CARDNAME can't block unless she has a +1/+1 counter on her.
+R:Event$ ProduceMana | ActiveZones$ Battlefield | ValidCard$ Land.YouCtrl | ValidSA$ Activated.ManaAbility | ManaContains$ U | ReplaceWith$ IterinisMana | Description$ If a land you control would produce {U}, it produces {U}{U} instead.
+SVar:IterinisMana:DB$ ReplaceMana | MultiplyColor$ U | Factor$ 2
+Oracle:Flying, indestructible\nIterinis, God of Waters can’t attack or block unless she has a +1/+1 counter on her.\nIf a land you control would produce {U}, it produces {U}{U} instead.

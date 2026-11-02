@@ -1,0 +1,9 @@
+Name:Scholar of Enigmas
+ManaCost:2 U U
+Types:Creature Human Wizard
+PT:3/4
+K:Worship:2 U
+T:Mode$ Worship | ValidCard$ Card.Self | Execute$ ScholarDraw | TriggerDescription$ Whenever CARDNAME worships a creature, draw a card. If that creature is a Sphinx, draw two cards instead.
+SVar:ScholarDraw:DB$ Draw | Defined$ You | NumCards$ ScholarCards
+SVar:ScholarCards:CardTriggeredTarget$Valid Sphinx/Plus.1
+Oracle:Worship {2}{U} ({2}{U}, {T}: If this isn’t devout, put a +1/+1 counter on both this creature and target creature without worship, then this becomes devout. Worship only as a sorcery.)\nWhen Scholar of Enigmas worships a creature, draw a card. If that creature is a Sphinx, draw two cards instead.

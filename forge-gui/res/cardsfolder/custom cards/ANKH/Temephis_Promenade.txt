@@ -1,0 +1,6 @@
+Name:Temephis Promenade
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ Pump | Cost$ G W T | ValidTgts$ Creature | KW$ Vigilance & Lifelink | SpellDescription$ Target creature gains vigilance and lifelink until end of turn.
+Oracle:{T}: Add {C} to your mana pool.\n{G}{W}, {T}: Target creature gains vigilance and lifelink until end of turn.

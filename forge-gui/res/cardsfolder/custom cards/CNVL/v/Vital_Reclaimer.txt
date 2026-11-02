@@ -8,4 +8,5 @@ SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionCheckSVar$ Forest
 SVar:DBDamage:DB$ DealDamage | NumDmg$ 2 | ValidTgts$ Any | DamageSource$ Self | ConditionCheckSVar$ MountainInExile | ConditionSVarCompare$ GE1
 SVar:ForestInExile:Count$ValidExile Card.YouOwn+Forest/LimitMax.1
 SVar:MountainInExile:Count$ValidExile Card.YouOwn+Mountain/LimitMax.1
+DeckHints:Type$Forest|Mountain & Keyword$Territorial
 Oracle:Territorial (As this enters the battlefield, you may exile a land card from your hand or graveyard. When this leaves the battlefield, return the exiled card to your hand.)\nWhenever a creature enters the battlefield under your control, if you own a Forest card in exile, draw a card. If you own a Mountain card in exile, Vital Reclaimer deals 2 damage to any target.

@@ -5,4 +5,5 @@ R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementRe
 SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
 A:AB$ Mana | Cost$ T | Produced$ Combo W R | SpellDescription$ Add {W} or {R}.
 A:AB$ Destroy | Cost$ 2 W R Sac<1/CARDNAME> | ValidTgts$ Creature.blocking | TgtPrompt$ Select target blocking creature | AITgts$ BetterThanSource | SpellDescription$ Destroy target blocking creature.
-Oracle:Skybound Acropolis enters tapped.\n{T}: Add {W} or {R}.\n{2}{W}{R}, Sacrifice Holy Passage: Destroy target blocking creature.
+DeckHas:Ability$Mana
+Oracle:Holy Passage enters tapped.\n{T}: Add {W} or {R}.\n{2}{W}{R}, Sacrifice Holy Passage: Destroy target blocking creature.

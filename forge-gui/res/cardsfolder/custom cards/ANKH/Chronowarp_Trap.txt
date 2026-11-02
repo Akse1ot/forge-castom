@@ -1,0 +1,7 @@
+Name:Chronowarp Trap
+ManaCost:5 U
+Types:Instant Trap
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ 1 U | CheckSVar$ Scried | Description$ If an opponent scried this turn, you may pay {1}{U} rather than pay this spell's mana cost.
+SVar:Scried:PlayerCountOpponents$YouScryThisTurn
+A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 1 | SpellDescription$ Put target creature into its owner's library second from the top.
+Oracle:If an opponent scried this turn, you may pay {1}{U} rather than pay Chronowarp Trap’s mana cost.\nPut target creature into its owner’s library second from the top.

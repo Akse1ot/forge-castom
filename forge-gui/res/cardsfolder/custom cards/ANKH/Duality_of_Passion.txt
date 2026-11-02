@@ -1,0 +1,10 @@
+Name:Duality of Passion
+ManaCost:1 R
+Types:Instant
+A:SP$ Charm | Choices$ PassionMana,PassionDamage,PassionOpponentMana,PassionDiscard | ModalChoiceGroups$ 2,2
+SVar:PassionMana:DB$ Mana | Defined$ You | Produced$ R | Amount$ 3 | SpellDescription$ Add {R}{R}{R}.
+SVar:PassionDamage:DB$ DealDamage | ValidTgts$ Creature,Player | NumDmg$ 3 | SpellDescription$ CARDNAME deals 3 damage to target creature or player.
+SVar:PassionOpponentMana:DB$ Mana | Defined$ ChoosingPlayer | Produced$ Any | Amount$ 3 | SpellDescription$ That opponent adds three mana of any one color.
+SVar:PassionDiscard:DB$ Discard | Defined$ ChoosingPlayer | NumCards$ 2 | Mode$ TgtChoose | SubAbility$ PassionDraw | SpellDescription$ That opponent discards two cards, then draws two cards.
+SVar:PassionDraw:DB$ Draw | Defined$ ChoosingPlayer | NumCards$ 2
+Oracle:Choose one —\n• Add {R}{R}{R} to your mana pool.\n• Duality of Passion deals 3 damage to target creature or player.\nAn opponent chooses one —\n• He or she adds three mana of any one color to his or her mana pool.\n• He or she discards two cards, then draws two cards.

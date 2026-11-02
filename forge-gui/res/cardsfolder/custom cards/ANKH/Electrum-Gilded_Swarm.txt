@@ -1,0 +1,9 @@
+Name:Electrum-Gilded Swarm
+ManaCost:X X
+Types:Artifact Creature Insect
+PT:0/0
+K:Flying
+K:etbCounter:P1P1:X
+SVar:X:Count$xPaid
+A:AB$ Mana | Cost$ SubCounter<1/P1P1> | Produced$ Any | ActivationLimit$ 1 | SpellDescription$ Add one mana of any color. Activate only once each turn.
+Oracle:Flying\nElectrum-Gilded Swarm enters the battlefield with X +1/+1 counters on it.\nRemove a +1/+1 counter from Electrum-Gilded Swarm: Add one mana of any color to your mana pool. Activate this ability only once each turn.

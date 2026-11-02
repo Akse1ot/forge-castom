@@ -1,0 +1,9 @@
+Name:Hatseket, Great Archivist
+ManaCost:3 U R
+Types:Legendary Creature Human Wizard
+PT:4/2
+S:Mode$ Continuous | Affected$ Instant.YouOwn,Sorcery.YouOwn | AffectedZone$ Graveyard | MayPlay$ True | Description$ You may cast instant and sorcery cards from your graveyard.
+S:Mode$ CantBeCast | Caster$ You | ValidCard$ Instant,Sorcery | Origin$ Hand,Library,Exile,Command | Description$ You can't cast instant and sorcery cards from anywhere other than your graveyard.
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Stack | Destination$ Graveyard | ValidCard$ Instant,Sorcery | ValidStackSa$ Spell.YouCtrl | Fizzle$ False | ReplaceWith$ ReturnResolved | Description$ As an instant or sorcery spell you control resolves, put it into your hand instead of putting it into your graveyard.
+SVar:ReturnResolved:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Hand
+Oracle:You may cast instant and sorcery cards from your graveyard, but not from anywhere else.\nAs an instant or sorcery spell you control resolves, put it into your hand instead of putting it into your graveyard.

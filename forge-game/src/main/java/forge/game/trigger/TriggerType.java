@@ -33,6 +33,8 @@ public enum TriggerType {
     BecomeMonarch(TriggerBecomeMonarch.class),
     BecomeMonstrous(TriggerBecomeMonstrous.class),
     BecomeRenowned(TriggerBecomeRenowned.class),
+    BecomeDevout(TriggerBecomeDevout.class),
+    Worship(TriggerWorship.class),
     BecomesCrewed(TriggerBecomesCrewed.class),
     BecomesPlotted(TriggerBecomesPlotted.class),
     BecomesSaddled(TriggerBecomesSaddled.class),

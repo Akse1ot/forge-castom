@@ -1,0 +1,6 @@
+Name:Mummify
+ManaCost:2 B B
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Creature,Planeswalker | SubAbility$ DBToken | SpellDescription$ Destroy target creature or planeswalker. Create a 2/2 black Zombie creature token.
+SVar:DBToken:DB$ Token | TokenScript$ b_2_2_zombie | TokenOwner$ You
+Oracle:Destroy target creature or planeswalker.\nCreate a 2/2 black Zombie creature token.

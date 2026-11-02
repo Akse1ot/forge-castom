@@ -27,7 +27,7 @@ public class TriggerDamageDoneOnceByController extends Trigger {
             return false;
         }
 
-        if (!matchesValidParam("ValidSource", runParams.get(AbilityKey.DamageSource))) {
+        if (!matchesDamageSource(runParams.get(AbilityKey.DamageSource))) {
             return false;
         }
 

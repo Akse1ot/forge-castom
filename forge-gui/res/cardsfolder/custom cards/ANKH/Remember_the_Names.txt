@@ -1,0 +1,5 @@
+Name:Remember the Names
+ManaCost:2 W
+Types:Sorcery
+A:SP$ Token | TokenScript$ w_1_1_spirit_flying | TokenAmount$ 2 | TokenOwner$ You | SpellDescription$ Create two 1/1 white Spirit creature tokens with flying.
+Oracle:Create two 1/1 white Spirit creature tokens with flying.

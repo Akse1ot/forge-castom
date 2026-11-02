@@ -1,0 +1,7 @@
+Name:Act of Betrayal
+ManaCost:3 R
+Types:Sorcery
+A:SP$ GainControl | ValidTgts$ Permanent.nonEnchantment | LoseControl$ EOT | SubAbility$ UntapCreature | SpellDescription$ Gain control of target nonenchantment permanent until end of turn. If it's a creature, untap it and it gains haste until end of turn.
+SVar:UntapCreature:DB$ Untap | Defined$ Targeted | ConditionDefined$ Targeted | ConditionPresent$ Creature | SubAbility$ HasteCreature
+SVar:HasteCreature:DB$ Pump | Defined$ Targeted | KW$ Haste | ConditionDefined$ Targeted | ConditionPresent$ Creature
+Oracle:Gain control of target nonenchantment permanent until end of turn. If it’s a creature, untap it and it gains haste until end of turn.

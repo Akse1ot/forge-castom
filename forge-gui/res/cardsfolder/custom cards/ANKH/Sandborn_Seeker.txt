@@ -1,0 +1,7 @@
+Name:Sandborn Seeker
+ManaCost:1 W
+Types:Creature Spirit
+PT:2/1
+S:Mode$ Continuous | Affected$ Card.Self | AddKeyword$ Flying | CheckSVar$ Counters | SVarCompare$ GE1 | Description$ CARDNAME has flying as long as it has a +1/+1 counter on it.
+SVar:Counters:Count$CardCounters.P1P1
+Oracle:Sandborn Seeker has flying as long as it has a +1/+1 counter on it.

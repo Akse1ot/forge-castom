@@ -1,5 +1,5 @@
 Name:Drowned Geist
-ManaCost:W/U W/U
+ManaCost:WU WU
 Types:Creature Spirit
 PT:1/2
 A:AB$ Tap | Cost$ T tapXType<1/Creature.Other> | ValidTgts$ Creature | TgtPrompt$ Select target creature | SpellDescription$ Tap target creature.

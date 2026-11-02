@@ -1,0 +1,9 @@
+Name:Shifting Sands
+ManaCost:1 W
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Permanent.YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ SandDelay | SpellDescription$ Exile target permanent you control, then return that card to the battlefield under your control at the beginning of the next end step.
+SVar:SandDelay:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | Execute$ SandReturn | RememberObjects$ RememberedLKI | TriggerDescription$ Return the exiled permanent under your control. | SubAbility$ SandClean
+SVar:SandReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Exile | Destination$ Battlefield | GainControl$ True
+SVar:SandClean:DB$ Cleanup | ClearRemembered$ True
+K:Decipher:3 W
+Oracle:Exile target permanent you control, then return that card to the battlefield under your control at the beginning of the next end step.\nDecipher {3}{W} (When you cast this spell for its decipher cost, copy it for each instant and sorcery card in your graveyard. You may choose new targets for the copies.)

@@ -4,4 +4,5 @@ Types:Instant
 S:Mode$ OptionalCost | EffectZone$ All | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ Sac<1/Land> | Description$ As an additional cost to cast this spell, you may sacrifice a land.
 A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ X | SpellDescription$ CARDNAME deals 2 damage to any target. If you sacrificed a land, it deals 3 damage instead.
 SVar:X:Count$OptionalGenericCostPaid.3.2
+DeckHints:Type$Land & Keyword$Territorial
 Oracle:As an additional cost to cast this spell, you may sacrifice a land.\nPrimal Fury deals 2 damage to any target. If you sacrificed a land, it deals 3 damage instead.

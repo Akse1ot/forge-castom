@@ -1,0 +1,10 @@
+Name:Duality of Destiny
+ManaCost:3 G G
+Types:Instant
+A:SP$ Charm | Choices$ DestinyPump,DestinyDraw,DestinyPlants,DestinyLand | ModalChoiceGroups$ 2,2
+SVar:DestinyPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ 3 | NumDef$ 3 | KW$ Trample | SpellDescription$ Creatures you control get +3/+3 and gain trample until end of turn.
+SVar:DestinyDraw:DB$ Draw | Defined$ You | NumCards$ DestinyCount | SpellDescription$ Draw a card for each creature you control.
+SVar:DestinyCount:Count$Valid Creature.YouCtrl
+SVar:DestinyPlants:DB$ Token | TokenOwner$ ChoosingPlayer | TokenScript$ g_0_1_plant | TokenAmount$ 3 | SpellDescription$ That opponent creates three 0/1 green Plant creature tokens.
+SVar:DestinyLand:DB$ ChangeZone | DefinedPlayer$ ChoosingPlayer | Chooser$ ChoosingPlayer | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land | ChangeNum$ 1 | Hidden$ True | Mandatory$ True | SpellDescription$ That opponent puts a land card from their hand onto the battlefield.
+Oracle:Choose one —\n• Creatures you control get +3/+3 and gain trample until end of turn.\n• Draw a card for each creature you control.\nAn opponent chooses one —\n• He or she creates three 0/1 green Plant creature tokens.\n• He or she puts a land card from his or her hand onto the battlefield.

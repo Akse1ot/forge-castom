@@ -1,0 +1,9 @@
+Name:Bloodstone Oasis
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ CARDNAME enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+K:etbCounter:Respite:1
+A:AB$ Mana | Cost$ T | Produced$ R | SpellDescription$ Add {R}.
+A:AB$ DealDamage | Cost$ 5 T SubCounter<1/Respite> | ValidTgts$ Player | NumDmg$ 3 | SpellDescription$ CARDNAME deals 3 damage to target player.
+Oracle:Bloodstone Oasis enters the battlefield tapped with a respite counter on it.\n{T}: Add {R} to your mana pool.\n{5}, {T}, Remove a respite counter from Bloodstone Oasis: Bloodstone Oasis deals 3 damage to target player.

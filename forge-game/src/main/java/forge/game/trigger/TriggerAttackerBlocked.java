@@ -69,6 +69,15 @@ public class TriggerAttackerBlocked extends Trigger {
             if (!Expressions.compare(attackers, param, amount)) {
                 return false;
             }
+            // Opt-in block transfers report the whole before/after assignment, once.
+            if (runParams.containsKey(AbilityKey.PreviousBlockers)) {
+                int previous = CardLists.getValidCardCount((Iterable<Card>) runParams.get(AbilityKey.PreviousBlockers), getParam("ValidBlocker"), getHostCard().getController(), getHostCard(), this);
+                if (Expressions.compare(previous, param, amount)) {
+                    return false;
+                }
+            }
+        } else if (Boolean.TRUE.equals(runParams.get(AbilityKey.WasBlocked))) {
+            return false;
         }
 
         return true;

@@ -1,0 +1,9 @@
+Name:Dack's Trickery
+ManaCost:1 R
+Types:Sorcery
+A:SP$ Dig | ValidTgts$ Opponent | DigNum$ 3 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ TrickeryPermission | SpellDescription$ Exile the top three cards of target opponent's library. Until end of turn, you may play cards exiled this way, and you may spend red mana as though it were mana of any color to do so.
+SVar:TrickeryPermission:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ TrickeryPlay,TrickeryMana | ForgetOnMoved$ Exile | SubAbility$ Clean
+SVar:TrickeryPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile
+SVar:TrickeryMana:Mode$ ManaConvert | ValidPlayer$ You | ValidCard$ Card.IsRemembered | ValidSA$ Spell.MayPlaySource | ManaConversion$ R->AnyColor
+SVar:Clean:DB$ Cleanup | ClearRemembered$ True
+Oracle:Exile the top three cards of target opponent’s library. Until end of turn, you may play cards exiled this way, and you may spend red mana as though it were mana of any color to do so. (You control permanents played this way.)

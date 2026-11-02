@@ -1,0 +1,10 @@
+Name:Ma'at, God of Harmony
+ManaCost:3 G G
+Types:Legendary Enchantment Creature God
+PT:5/7
+K:Vigilance
+K:Indestructible
+S:Mode$ CantAttack,CantBlock | ValidCard$ Card.Self | CheckSVar$ Counters | SVarCompare$ EQ0 | Description$ CARDNAME can't attack or block unless it has a +1/+1 counter on it.
+SVar:Counters:Count$CardCounters.P1P1
+S:Mode$ UntapOtherPlayer | ValidCard$ Permanent.Other+YouCtrl | Description$ Untap all other permanents you control during each other player's untap step.
+Oracle:Vigilance, indestructible\nMa’at, God of Harmony can’t attack or block unless she has a +1/+1 counter on her.\nUntap all other permanents you control during each other player’s untap step.

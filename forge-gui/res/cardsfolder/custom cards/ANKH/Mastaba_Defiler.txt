@@ -1,0 +1,8 @@
+Name:Mastaba Defiler
+ManaCost:3 B
+Types:Creature Skeleton Cleric
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigETB | TriggerDescription$ When CARDNAME enters, you lose 4 life unless there are four or more creature cards in your graveyard.
+SVar:TrigETB:DB$ LoseLife | Defined$ You | LifeAmount$ 4 | ConditionCheckSVar$ Creatures | ConditionSVarCompare$ LT4
+SVar:Creatures:Count$ValidGraveyard Creature.YouOwn
+Oracle:When Mastaba Defiler enters the battlefield, you lose 4 life unless there are four or more creature cards in your graveyard.

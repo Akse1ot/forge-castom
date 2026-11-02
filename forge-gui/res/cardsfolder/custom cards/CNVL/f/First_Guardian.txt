@@ -6,4 +6,5 @@ T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creatu
 SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
 SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
 DeckHas:Ability$LifeGain
+DeckHints:Ability$Token
 Oracle:Whenever another creature enters the battlefield under your control, each opponent loses 1 life and you gain 1 life.

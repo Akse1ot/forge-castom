@@ -1,0 +1,8 @@
+Name:Plaguetouch Mummy
+ManaCost:3 B
+Types:Creature Zombie
+PT:1/2
+K:Unearth:2 B
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigETB | TriggerDescription$ When CARDNAME enters, each player sacrifices a creature.
+SVar:TrigETB:DB$ Sacrifice | Defined$ Player | SacValid$ Creature
+Oracle:When Plaguetouch Mummy enters the battlefield, each player sacrifices a creature.\nUnearth {2}{B} ({2}{B}: Return this card from your graveyard to the battlefield. It gains haste. Exile it at the beginning of the end step or if it would leave the battlefield. Unearth only as a sorcery.)

@@ -1,0 +1,17 @@
+Name:Sobki, World Severer
+ManaCost:1 G G
+Types:Planeswalker Sobki
+Loyalty:3
+A:AB$ Pump | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | KW$ Indestructible | Duration$ UntilYourNextTurn | SpellDescription$ Up to one target creature gains indestructible until your next turn.
+A:AB$ DealDamage | Cost$ 0 | Planeswalker$ True | ValidTgts$ Player | NumDmg$ CurrentLoyalty | SubAbility$ MakeRetaliationSource | SpellDescription$ Sobki deals damage equal to his current loyalty to target player. That player deals damage equal to the number of lands he or she controls to Sobki.
+SVar:CurrentLoyalty:Count$CardCounters.LOYALTY
+SVar:RetaliationDamage:PlayerCountDefinedTargeted$Valid Land.YouCtrl
+SVar:MakeRetaliationSource:DB$ Effect | EffectOwner$ Targeted | Name$ Sobki Retaliation Proxy | DamageSourceProxy$ True | Duration$ Permanent | ImprintOnHost$ True | SubAbility$ WithRetaliationSource
+SVar:WithRetaliationSource:DB$ RepeatEach | RepeatCards$ Effect.IsImprinted+namedSobki Retaliation Proxy | Zone$ Command | RepeatSubAbility$ UnimprintRetaliationSource
+SVar:UnimprintRetaliationSource:DB$ RepeatEach | DefinedCards$ RememberedLast | UseImprinted$ True | RepeatSubAbility$ Retaliate
+SVar:Retaliate:DB$ DealDamage | Defined$ Self | DamageSource$ RememberedLast | NumDmg$ RetaliationDamage | ConditionCheckSVar$ RetaliationDamage | ConditionSVarCompare$ GT0 | SubAbility$ RemoveRetaliationSource
+SVar:RemoveRetaliationSource:DB$ ChangeZone | Defined$ RememberedLast | Origin$ Command | Destination$ Exile
+A:AB$ ChooseCard | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | ValidTgts$ Player | Defined$ Targeted | Choices$ Land.Basic | ControlledByPlayer$ Chooser | Amount$ 3 | Mandatory$ True | RememberChosen$ True | ForgetOtherRemembered$ True | SubAbility$ SacrificeOtherLands | SpellDescription$ Target player chooses three basic lands they control, then sacrifices all other lands.
+SVar:SacrificeOtherLands:DB$ SacrificeAll | Controller$ Targeted | ValidCards$ Land.!IsRemembered | SubAbility$ CleanupChosen
+SVar:CleanupChosen:DB$ Cleanup | ClearRemembered$ True
+Oracle:+2: Up to one target creature gains indestructible until your next turn.\n0: Sobki deals damage equal to his current loyalty to target player. That player deals damage equal to the number of lands he or she controls to Sobki.\n-6: Target player chooses three basic lands he or she controls, then sacrifices all other lands.\nStarting loyalty: 3

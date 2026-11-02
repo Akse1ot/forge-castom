@@ -1,0 +1,6 @@
+Name:Etiolate
+ManaCost:3 B
+Types:Sorcery
+A:SP$ Discard | ValidTgts$ Player | Mode$ TgtChoose | NumCards$ 3 | SubAbility$ DBDraw | SpellDescription$ Target player discards three cards then draws a card.
+SVar:DBDraw:DB$ Draw | Defined$ Targeted | NumCards$ 1
+Oracle:Target player discards three cards then draws a card.

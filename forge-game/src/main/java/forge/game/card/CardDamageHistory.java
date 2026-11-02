@@ -265,7 +265,7 @@ public class CardDamageHistory {
                 continue;
             }
             if (sourceToTarget != null) {
-                if (validSourceCard != null && !sourceToTarget.getLeft().isValid(validSourceCard.split(","), sourceController, source == null ? sourceToTarget.getLeft() : source, ctb)) {
+                if (validSourceCard != null && !DamageSourceProxy.isValid(sourceToTarget.getLeft(), validSourceCard.split(","), sourceController, source == null ? sourceToTarget.getLeft() : source, ctb)) {
                     continue;
                 }
                 if (validTargetEntity != null && !sourceToTarget.getRight().isValid(validTargetEntity.split(","), sourceController, source, ctb)) {

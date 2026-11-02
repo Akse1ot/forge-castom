@@ -1,0 +1,7 @@
+Name:Burial Chamber
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigETB | TriggerDescription$ When CARDNAME enters, target player mills two cards.
+SVar:TrigETB:DB$ Mill | ValidTgts$ Player | NumCards$ 2
+Oracle:When Burial Chamber enters the battlefield, target player puts the top two cards of his or her library into his or her graveyard.\n{T}: Add {C} to your mana pool.

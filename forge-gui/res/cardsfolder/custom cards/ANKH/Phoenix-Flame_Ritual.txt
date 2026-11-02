@@ -1,0 +1,7 @@
+Name:Phoenix-Flame Ritual
+ManaCost:3 R
+Types:Instant
+A:SP$ Mana | Produced$ R | Amount$ 5 | AILogic$ ManaRitual | SubAbility$ DBDraw | SpellDescription$ Add {R}{R}{R}{R}{R}. If a creature died this turn, draw a card.
+SVar:DBDraw:DB$ Draw | NumCards$ 1 | ConditionCheckSVar$ Morbid | ConditionSVarCompare$ GE1
+SVar:Morbid:Count$ThisTurnEntered_Graveyard_from_Battlefield_Creature
+Oracle:Add {R}{R}{R}{R}{R} to your mana pool.\nIf a creature died this turn, draw a card.

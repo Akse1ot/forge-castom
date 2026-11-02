@@ -231,6 +231,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     private boolean monstrous;
     private boolean harnessed;
     private boolean renowned;
+    private boolean devout;
     private boolean solved;
     private boolean tributed;
     private Card preparedEffect;
@@ -2959,6 +2960,9 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         }
         if (renowned) {
             sb.append("Renowned\r\n");
+        }
+        if (devout) {
+            sb.append("Devout\r\n");
         }
         if (solved) {
             sb.append("Solved\r\n");
@@ -6825,6 +6829,13 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         renowned = renowned0;
     }
 
+    public final boolean isDevout() {
+        return devout;
+    }
+    public final void setDevout(final boolean value) {
+        devout = value;
+    }
+
     public final boolean isSolved() {
         return solved;
     }
@@ -8547,7 +8558,26 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         if (destination == this) {
             return;
         }
+        // Worship grants are persistent mechanic state; snapshots rebuild printed characteristics.
+        // Leave mixed/ordinary keyword modifications on their existing copying path.
+        boolean worshipChanged = false;
+        for (Table.Cell<Long, Long, KeywordsChange> entry : new ArrayList<>(destination.changedCardKeywords.cellSet())) {
+            if (isWorshipGrant(entry.getValue())) {
+                destination.changedCardKeywords.remove(entry.getRowKey(), entry.getColumnKey());
+                worshipChanged = true;
+            }
+        }
+        for (Table.Cell<Long, Long, KeywordsChange> entry : changedCardKeywords.cellSet()) {
+            if (isWorshipGrant(entry.getValue())) {
+                destination.changedCardKeywords.put(entry.getRowKey(), entry.getColumnKey(), entry.getValue().copy(destination, true));
+                worshipChanged = true;
+            }
+        }
+        if (worshipChanged) {
+            destination.updateKeywordsCache();
+        }
         destination.craftedWithColors = craftedWithColors;
+        forge.game.ability.effects.IunPostRestartEffect.copyState(this, destination);
         destination.focused = focused;
         destination.numberAbilityResolvedGroups.clear();
         destination.numberAbilityResolvedGroups.putAll(numberAbilityResolvedGroups);
@@ -8558,6 +8588,12 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
                 destination.addActivatedThisLoyaltyAbilityThisTurn(mapped);
             }
         }
+    }
+
+    private static boolean isWorshipGrant(KeywordsChange change) {
+        return !change.getKeywords().isEmpty() && !change.isRemoveAllKeywords()
+                && change.getRemoveKeywords().isEmpty() && change.getRemovedKeywordInstances().isEmpty()
+                && change.getKeywords().stream().allMatch(keyword -> keyword.getKeyword() == Keyword.WORSHIP);
     }
 
     public void copyFrom(Card in) {

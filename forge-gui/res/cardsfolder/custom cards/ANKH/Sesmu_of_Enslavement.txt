@@ -1,0 +1,9 @@
+Name:Sesmu of Enslavement
+ManaCost:4 B B
+Types:Creature Demon
+PT:3/5
+K:Flying
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.DamagedBy | TriggerZones$ Battlefield | Execute$ ReturnServant | TriggerDescription$ Whenever a creature dealt damage by CARDNAME this turn dies, return it to the battlefield under your control. Its base power and toughness become 1/1.
+SVar:ReturnServant:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | StaticEffect$ OneOne
+SVar:OneOne:Mode$ Continuous | Affected$ Card.IsRemembered | SetPower$ 1 | SetToughness$ 1
+Oracle:Flying\nWhenever a creature dealt damage by Sesmu of Enslavement this turn dies, return it to the battlefield under your control. That creature’s base power and toughness become 1/1.

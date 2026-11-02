@@ -1,0 +1,8 @@
+Name:Insatiable Ammit
+ManaCost:3 B B
+Types:Creature Beast
+PT:3/3
+K:Haste
+A:AB$ ChangeZone | Cost$ T | ValidTgts$ Creature | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBCounter | SpellDescription$ Exile target creature card in a graveyard. Put a +1/+1 counter on CARDNAME.
+SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+Oracle:Haste\n{T}: Exile target creature card in a graveyard. Put a +1/+1 counter on Insatiable Ammit.

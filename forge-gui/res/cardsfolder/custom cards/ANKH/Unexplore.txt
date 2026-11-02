@@ -1,0 +1,6 @@
+Name:Unexplore
+ManaCost:U
+Types:Instant
+A:SP$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ValidTgts$ Land.YouCtrl | SubAbility$ DBDraw | SpellDescription$ Return target land you control to its owner's hand. Draw a card.
+SVar:DBDraw:DB$ Draw | NumCards$ 1
+Oracle:Return target land you control to its owner’s hand.\nDraw a card.

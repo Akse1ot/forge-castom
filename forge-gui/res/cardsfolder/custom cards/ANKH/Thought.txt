@@ -1,0 +1,6 @@
+Name:Thought
+ManaCost:2 U
+Types:Creature Incarnation
+PT:2/2
+A:AB$ Dig | Cost$ 4 U ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | DigNum$ 5 | ChangeNum$ All | ChangeValid$ Instant,Sorcery | DestinationZone$ Hand | DestinationZone2$ Graveyard | Reveal$ True | SpellDescription$ Reveal the top five cards of your library. Put all instant and sorcery cards revealed this way into your hand and the rest into your graveyard.
+Oracle:{4}{U}, Exile Thought from your graveyard: Reveal the top five cards of your library. Put all instant and sorcery cards revealed this way into your hand and the rest into your graveyard.

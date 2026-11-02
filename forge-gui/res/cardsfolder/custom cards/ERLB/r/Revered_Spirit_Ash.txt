@@ -1,9 +1,11 @@
 Name:Revered Spirit Ash
 ManaCost:2 W U
 Types:Enchantment
-T:Mode$ SpellCast | ValidSA$ SpiritAsh | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ Whenever you activate a Spirit Ash ability, put a reverence counter on this enchantment and draw a card.
+T:Mode$ AbilityCast | ValidSA$ Activated.SpiritAsh | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ Whenever you activate a Spirit Ash ability, put a reverence counter on this enchantment and draw a card.
 SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ REVERENCE | CounterNum$ 1 | SubAbility$ DBDraw
 SVar:DBDraw:DB$ Draw
-S:Mode$ Continuous | Affected$ Spirit.YouCtrl | AddPower$ X | AddToughness$ X | Description$ Spirits you control get +1/+1 for each reverence counter on this enchantment.
+S:Mode$ Continuous | Affected$ Creature.Spirit+YouCtrl | AddPower$ X | AddToughness$ X | Description$ Spirits you control get +1/+1 for each reverence counter on this enchantment.
 SVar:X:Count$CardCounters.REVERENCE
+DeckHas:Ability$Counters
+DeckHints:Keyword$Spirit Ash & Type$Spirit
 Oracle:Whenever you activate a Spirit Ash ability, put a reverence counter on this enchantment and draw a card.\nSpirits you control get +1/+1 for each reverence counter on this enchantment.

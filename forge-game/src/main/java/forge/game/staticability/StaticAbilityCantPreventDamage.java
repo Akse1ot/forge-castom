@@ -29,7 +29,7 @@ public class StaticAbilityCantPreventDamage {
             }
         }
 
-        if (!stAb.matchesValidParam("ValidSource", source)) {
+        if (!stAb.matchesDamageSource(source)) {
             return false;
         }
         return true;

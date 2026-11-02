@@ -1,0 +1,6 @@
+Name:Confabulate
+ManaCost:1 U
+Types:Instant
+A:SP$ Counter | ValidTgts$ Spell | UnlessCost$ 1 | SpellDescription$ Counter target spell unless its controller pays {1}.
+K:Decipher:2 U
+Oracle:Counter target spell unless its controller pays {1}.\nDecipher {2}{U} (When you cast this spell for its decipher cost, copy it for each instant and sorcery card in your graveyard. You may choose new targets for the copies.)

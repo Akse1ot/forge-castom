@@ -7,4 +7,5 @@ SVar:DBDraw:DB$ Draw | Defined$ You
 SVar:X:Count$Valid Artifact.YouCtrl
 SVar:PlayMain1:TRUE
 DeckHints:Type$Artifact
+DeckHas:Ability$LifeGain
 Oracle:You scry X and gain X life, where X is the number of artifacts you control, then draw a card.

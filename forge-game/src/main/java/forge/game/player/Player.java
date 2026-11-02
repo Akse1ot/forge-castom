@@ -1153,6 +1153,9 @@ public class Player extends GameEntity implements Comparable<Player> {
     public int getScryThisTurn() {
         return scryThisTurn;
     }
+    public void setScryThisTurn(final int amount) {
+        scryThisTurn = amount;
+    }
     public void incScryThisTurn() {
         scryThisTurn++;
     }
@@ -1720,7 +1723,9 @@ public class Player extends GameEntity implements Comparable<Player> {
         runParams.put(AbilityKey.Origin, land.getZone().getZoneType().name());
 
         game.copyLastState();
-        final Card c = game.getAction().moveTo(getZone(ZoneType.Battlefield), land, cause);
+        final Map<AbilityKey, Object> moveParams = AbilityKey.newMap();
+        moveParams.put(AbilityKey.LandPlayed, true);
+        final Card c = game.getAction().moveTo(getZone(ZoneType.Battlefield), land, cause, moveParams);
 
         if (playFaceDown && !c.isInPlay()) {
             c.setBackSide(false);

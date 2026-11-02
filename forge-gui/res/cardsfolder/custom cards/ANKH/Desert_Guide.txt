@@ -1,0 +1,7 @@
+Name:Desert Guide
+ManaCost:2 G
+Types:Creature Human Nomad
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigETB | TriggerDescription$ When CARDNAME enters, reveal cards from the top of your library until you reveal a land card. Put that card into your hand and the rest into your graveyard.
+SVar:TrigETB:DB$ DigUntil | Valid$ Land | FoundDestination$ Hand | RevealedDestination$ Graveyard | Amount$ 1
+Oracle:When Desert Guide enters the battlefield, reveal cards from the top of your library until you reveal a land card. Put that card into your hand and the rest into your graveyard.

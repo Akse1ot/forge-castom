@@ -1,0 +1,6 @@
+Name:Lizard Mutant Token
+ManaCost:no cost
+Colors:green,blue
+Types:Creature Lizard Mutant
+PT:3/3
+Oracle:

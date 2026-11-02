@@ -1,0 +1,9 @@
+Name:Rotting Oasis
+ManaCost:no cost
+Types:Land
+K:etbTapped
+K:ETBReplacement:Other:Respite
+SVar:Respite:DB$ PutCounter | Defined$ Self | CounterType$ respite | CounterNum$ 1 | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ B | SpellDescription$ Add {B}.
+A:AB$ ChangeZone | Cost$ 5 T SubCounter<1/respite> | ValidTgts$ Card | TgtZone$ Graveyard | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 3 | TargetsWithSameController$ True | SpellDescription$ Exile up to three cards in a single graveyard.
+Oracle:Rotting Oasis enters the battlefield tapped with a respite counter on it.\n{T}: Add {B} to your mana pool.\n{5}, {T}, Remove a respite counter from Rotting Oasis: Exile up to three cards in a single graveyard.

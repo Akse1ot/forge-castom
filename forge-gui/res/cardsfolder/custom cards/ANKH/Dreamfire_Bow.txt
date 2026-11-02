@@ -1,0 +1,9 @@
+Name:Dreamfire Bow
+ManaCost:2
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddAbility$ BowShot | AddSVar$ BowPower & GraveEnchantments | Description$ Equipped creature has "{T}: This creature deals X damage to target creature or player, where X is the number of enchantments you control plus the number of enchantment cards in your graveyard."
+SVar:BowShot:AB$ DealDamage | Cost$ T | ValidTgts$ Creature,Player | NumDmg$ BowPower | SpellDescription$ This creature deals damage equal to the number of enchantments you control plus the number of enchantment cards in your graveyard to target creature or player.
+SVar:BowPower:Count$Valid Enchantment.YouCtrl/Plus.GraveEnchantments
+SVar:GraveEnchantments:Count$ValidGraveyard Enchantment.YouOwn
+Oracle:Equipped creature has “{T}: This creature deals X damage to target creature or player, where X is the number of enchantments you control plus the number of enchantment cards in your graveyard.”\nEquip {2}

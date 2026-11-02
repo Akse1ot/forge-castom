@@ -1,0 +1,8 @@
+Name:Merchant Caravan
+ManaCost:G
+Types:Creature Human Nomad
+PT:1/1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ Expedition | SVarCompare$ GE5 | Execute$ TrigLife | TriggerDescription$ Expedition — At the beginning of your upkeep, if you control five or more lands with different names, you gain 2 life.
+SVar:TrigLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+SVar:Expedition:Count$Valid Land.YouCtrl$DifferentCardNames
+Oracle:Expedition — At the beginning of your upkeep, if you control five or more lands with different names, you gain 2 life.

@@ -55,7 +55,7 @@ public class ReplaceDamage extends ReplacementEffect {
             // If no actual damage is dealt, there is nothing to replace
             return false;
         }
-        if (!matchesValidParam("ValidSource", runParams.get(AbilityKey.DamageSource))) {
+        if (!matchesDamageSource(runParams.get(AbilityKey.DamageSource))) {
             return false;
         }
         if (!matchesValidParam("ValidTarget", runParams.get(AbilityKey.Affected))) {

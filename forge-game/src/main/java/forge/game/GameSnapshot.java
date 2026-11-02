@@ -149,6 +149,8 @@ public class GameSnapshot {
             }
         }
 
+        forge.game.ability.effects.EffectEffect.copyForSimulation(fromGame, toGame);
+
         // Undo effects first before calculating them below, to avoid them applying twice.
 //        for (StaticEffect effect : fromGame.getStaticEffects().getEffects()) {
 //            effect.removeMapped(gameObjectMap);
@@ -167,6 +169,8 @@ public class GameSnapshot {
         if (includeStack) {
             copyStack(fromGame, toGame);
         }
+        // Stack reconstruction emits ordinary events; history must remain exactly the source snapshot's.
+        toGame.getTrapTurnHistory().copyFrom(fromGame.getTrapTurnHistory(), gameObjectMap);
 
         if (!restore) {
             fromGame.getTriggerHandler().copyFocusDelayedTriggersTo(toGame.getTriggerHandler(), gameObjectMap);
@@ -198,6 +202,7 @@ public class GameSnapshot {
         newPlayer.setLifeLostThisTurn(origPlayer.getLifeLostThisTurn());
         newPlayer.setGreatestLifeLostAtOnceThisTurn(origPlayer.getGreatestLifeLostAtOnceThisTurn());
         newPlayer.setLifeGainedThisTurn(origPlayer.getLifeGainedThisTurn());
+        newPlayer.setScryThisTurn(origPlayer.getScryThisTurn());
         newPlayer.setLifeStartedThisTurnWith(origPlayer.getLifeStartedThisTurnWith());
         newPlayer.setDamageReceivedThisTurn(origPlayer.getDamageReceivedThisTurn());
         newPlayer.setLandsPlayedThisTurn(origPlayer.getLandsPlayedThisTurn());
@@ -278,6 +283,7 @@ public class GameSnapshot {
             SpellAbilityStackInstance instance = stackIds.getOrDefault(id, null);
 
             if (instance != null) {
+                  forge.game.spellability.ModalChoiceGroups.copyChoices(origEntry.getSpellAbility(), instance.getSpellAbility(), gameObjectMap);
                 copiedStackAbilities.put(origEntry.getSpellAbility(), instance.getSpellAbility());
                 if (!restore) {
                     System.out.println("Might need to alter " + origEntry.getSpellAbility() + " on stack");
@@ -301,6 +307,7 @@ public class GameSnapshot {
                 newSa.setActivatingPlayer(findBy(toGame, origSa.getActivatingPlayer()));
                 newSa.setFocused(origSa.isFocused());
                 newSa.setCausalitySelection(origSa.getCausalitySelection());
+                  forge.game.spellability.ModalChoiceGroups.copyChoices(origSa, newSa, gameObjectMap);
                 for (SpellAbility originalPart = origSa, copiedPart = newSa;
                         originalPart != null && copiedPart != null;
                         originalPart = originalPart.getSubAbility(), copiedPart = copiedPart.getSubAbility()) {
@@ -536,6 +543,7 @@ public class GameSnapshot {
         newCard.setFaceDown(fromCard.isFaceDown());
         newCard.setManifested(fromCard.getManifestedSA());
         newCard.setSickness(fromCard.hasSickness());
+        newCard.setDevout(fromCard.isDevout());
         //newCard.setForetold(fromCard.isForetold());
         //newCard.setForetoldCostByEffect(fromCard.isForetoldCostByEffect());
         newCard.setBackSide(fromCard.isBackSide());

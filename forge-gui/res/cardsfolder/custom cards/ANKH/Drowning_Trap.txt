@@ -1,0 +1,8 @@
+Name:Drowning Trap
+ManaCost:4 U
+Types:Instant Trap
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ 1 U | CheckSVar$ Drawn | SVarCompare$ GE2 | Description$ If an opponent drew two or more cards this turn, you may pay {1}{U} rather than pay CARDNAME's mana cost.
+SVar:Drawn:PlayerCountOpponents$HighestCardsDrawn
+A:SP$ Mill | ValidTgts$ Opponent | NumCards$ 7 | SubAbility$ DBScry | SpellDescription$ Target opponent mills seven cards. Scry 2.
+SVar:DBScry:DB$ Scry | ScryNum$ 2
+Oracle:If an opponent drew two or more cards this turn, you may pay {1}{U} rather than pay Drowning Trap’s mana cost.\nTarget opponent puts the top seven cards of his or her library into his or her graveyard. Scry 2.

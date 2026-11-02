@@ -1,0 +1,6 @@
+Name:Royal Archaeomancer
+ManaCost:1 U
+Types:Creature Human Wizard
+PT:2/1
+A:AB$ Mill | Cost$ 3 B | ValidTgts$ Player | NumCards$ 2 | SpellDescription$ Target player mills two cards.
+Oracle:{3}{B}: Target player puts the top two cards from his or her library into his or her graveyard.

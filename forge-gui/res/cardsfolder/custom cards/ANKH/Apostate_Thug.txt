@@ -1,0 +1,7 @@
+Name:Apostate Thug
+ManaCost:3 R
+Types:Creature Human Rogue
+PT:3/3
+K:Worship:1 R
+S:Mode$ MustAttack | ValidCreature$ Card.Self+!IsDevout+!attackedThisTurn | Description$ CARDNAME attacks each turn if able unless it's devout.
+Oracle:Worship {1}{R} ({1}{R}, {T}: If this isn’t devout, put a +1/+1 counter on both this creature and target creature without worship, then this becomes devout. Worship only as a sorcery.)\nApostate Thug attacks each turn if able unless it’s devout.

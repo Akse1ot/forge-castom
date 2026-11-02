@@ -1,0 +1,251 @@
+//Rank|Name|Rarity|Set
+//Provisional Limited estimates; ordinal, not empirical win rates.
+#1|Tamiyo, Moonseeker|M|ANKH
+#2|Dack, Tomb Raider|M|ANKH
+#3|Atun, God of the Sun|M|ANKH
+#4|Duality of Purity|R|ANKH
+#5|Mummify|R|ANKH
+#6|Iun, World Reborn|M|ANKH
+#7|Mind Control Trap|R|ANKH
+#8|Pharaoh Nimseput|M|ANKH
+#9|Adorned Dragon|R|ANKH
+#10|Sun God's Ire|R|ANKH
+#11|Sarcophagus Sealer|U|ANKH
+#12|Cone of Flame|U|ANKH
+#13|Duality of Destiny|R|ANKH
+#14|Iterinis, God of Waters|M|ANKH
+#15|Firehollow Phoenix|R|ANKH
+#16|Ma'at, God of Harmony|M|ANKH
+#17|Sentesh, God of Secrets|M|ANKH
+#18|Hesaret, God of Inspiration|M|ANKH
+#19|Sphinx's Revelation|M|ANKH
+#20|Electrify the Soul|U|ANKH
+#21|Warlord Rejanak|R|ANKH
+#22|Sobki, World Severer|M|ANKH
+#23|Bonerise Trap|R|ANKH
+#24|Lammasu Sentinel Trap|R|ANKH
+#25|Ash Akhu|U|ANKH
+#26|Sesmu of Enslavement|R|ANKH
+#27|Firstborn's Demise|R|ANKH
+#28|Duality of Truth|R|ANKH
+#29|Pendulum Trap|U|ANKH
+#30|Foretell with Fire|C|ANKH
+#31|Sphinx of Right Answers|R|ANKH
+#32|Final Answer|C|ANKH
+#33|Scholar of Enigmas|U|ANKH
+#34|Travelling Stargazer|M|ANKH
+#35|Duality of Passion|R|ANKH
+#36|Dying of Thirst|C|ANKH
+#37|Mortician's Touch|C|ANKH
+#38|Weigh the Heart|U|ANKH
+#39|Exodus Pilgrim|R|ANKH
+#40|Plaguetouch Mummy|U|ANKH
+#41|Vengeful Pharaoh|R|ANKH
+#42|Atun's Steward|U|ANKH
+#43|Wayfarer Giant|U|ANKH
+#44|Hunter's Triumph|C|ANKH
+#45|Disturb the Dead|U|ANKH
+#46|Ibis Angel|R|ANKH
+#47|Sandchamber Trap|C|ANKH
+#48|Sphincolich Loremaster|R|ANKH
+#49|Bonds of Faith|C|ANKH
+#50|Desert Tornado|R|ANKH
+#51|Remember the Names|C|ANKH
+#52|Mirror Mirage|R|ANKH
+#53|The Scorpion King|R|ANKH
+#54|Sundisk's Messenger|U|ANKH
+#55|Tamiyo's Voyage|R|ANKH
+#56|Griffin Mummy|U|ANKH
+#57|Desert Guide|C|ANKH
+#58|Ainok General|U|ANKH
+#59|Pack's Sandlancer|U|ANKH
+#60|Neutralize I|C|ANKH
+#61|Bloodrite Priest|U|ANKH
+#62|Sobki's Ambusher|U|ANKH
+#63|Acolyte of Coils|U|ANKH
+#64|Nutkeb's Explorer|C|ANKH
+#65|Sentesh's Rattlesnake|C|ANKH
+#66|Mastaba Defiler|U|ANKH
+#67|Underworld Escort|U|ANKH
+#68|Chronowarp Trap|U|ANKH
+#69|Soulcatcher Obelisk|R|ANKH
+#70|Pilgrim's Eye|U|ANKH
+#71|Cartographer of Kariro|U|ANKH
+#72|Shadow|U|ANKH
+#73|Cobra Trap|U|ANKH
+#74|Acid Spray Trap|U|ANKH
+#75|Duality of Ambition|R|ANKH
+#76|Telekinetic Mastery|U|ANKH
+#77|Mana Confluence|R|ANKH
+#78|Master of Mysteries|U|ANKH
+#79|Colossal Dunewurm|C|ANKH
+#80|Stonekeep Sphinx|U|ANKH
+#81|Gelid Pyramids|R|ANKH
+#82|Warden of Life|C|ANKH
+#83|Mummified Mortician|U|ANKH
+#84|Scribe's Fetich|U|ANKH
+#85|Secrets Forgotten|U|ANKH
+#86|Solar Restoration|R|ANKH
+#87|Undead Ainok|C|ANKH
+#88|Glintsand Lammasu|C|ANKH
+#89|Giant Growth|C|ANKH
+#90|Flesh-Eating Scarabs|U|ANKH
+#91|Insatiable Ammit|U|ANKH
+#92|Blood Offering|C|ANKH
+#93|Godsent Ankh|U|ANKH
+#94|Daughter of Iterinis|C|ANKH
+#95|Divination|C|ANKH
+#96|Papyrus Archivist|U|ANKH
+#97|Wild Camelicorn|C|ANKH
+#98|Ainok Vanguard|U|ANKH
+#99|Reflector Trap|U|ANKH
+#100|Fervent Charioteer|C|ANKH
+#101|Electrum-Gilded Swarm|R|ANKH
+#102|Nabuto Cavalry|C|ANKH
+#103|Piece of Erises|U|ANKH
+#104|Living Sandstorm|C|ANKH
+#105|Riddle of Existence|C|ANKH
+#106|Reimagine|R|ANKH
+#107|Scales of Composure|M|ANKH
+#108|Glintsand Gatherer|U|ANKH
+#109|Sacred Bennu|C|ANKH
+#110|Essence|U|ANKH
+#111|Tomb Robbers|C|ANKH
+#112|Dreamfire Bow|U|ANKH
+#113|Savage Hippo|C|ANKH
+#114|Apostate Thug|C|ANKH
+#115|Infernal Apophis|C|ANKH
+#116|Confabulate|C|ANKH
+#117|Nabuto Ambusher|C|ANKH
+#118|Bronze Khopesh|C|ANKH
+#119|Iun's Flameweaver|U|ANKH
+#120|Rotting Giraffe|C|ANKH
+#121|Scavenging Petsuchos|C|ANKH
+#122|Lawmage of Kismut|C|ANKH
+#123|Wings of Afterlife|C|ANKH
+#124|Sky Barge|C|ANKH
+#125|Glintsand Cloak|C|ANKH
+#126|Necropolis Seneschal|C|ANKH
+#127|Shortcut|C|ANKH
+#128|Floodplain Farmers|C|ANKH
+#129|Restless Mummy|C|ANKH
+#130|Valley of Pyramids|U|ANKH
+#131|Annex|U|ANKH
+#132|Fade into Antiquity|C|ANKH
+#133|Beseecher of Mortals|R|ANKH
+#134|Nutkeb's Titan|U|ANKH
+#135|Palace Harpist|C|ANKH
+#136|Dune Enchantress|R|ANKH
+#137|Name|U|ANKH
+#138|Thought|U|ANKH
+#139|Tranquil Oasis|U|ANKH
+#140|Sandbreeder|R|ANKH
+#141|Dreamscale Hydra|R|ANKH
+#142|Priest of Echoes|C|ANKH
+#143|Eager Ainok|C|ANKH
+#144|Divine Revelation|U|ANKH
+#145|Heart|U|ANKH
+#146|Lurking Mummy|C|ANKH
+#147|Crossroads Sands|C|ANKH
+#148|Slumbering Pharaoh|C|ANKH
+#149|Tiphsu's Emissary|C|ANKH
+#150|Archaic Remnant|U|ANKH
+#151|Desolate Lighthouse|R|ANKH
+#152|Unbreakable Bond I|C|ANKH
+#153|Origin of Life|U|ANKH
+#154|Mass Decrypt|M|ANKH
+#155|Plea Bargain|U|ANKH
+#156|Disciple of the Lost Moon|C|ANKH
+#157|Face the Truth|C|ANKH
+#158|Sandborn Seeker|C|ANKH
+#159|Careless Archaeologist|C|ANKH
+#160|Expedition Map|C|ANKH
+#161|Hesaret's Alacrity|C|ANKH
+#162|Avatar of Servitude|R|ANKH
+#163|Pharaonic Proportions|U|ANKH
+#164|Cursebreaker Mage|C|ANKH
+#165|Archive's Loreblade|C|ANKH
+#166|Etiolate|C|ANKH
+#167|Unlock the Conundrum|R|ANKH
+#168|Lighthouse Pirates|C|ANKH
+#169|Jackal Familiar|C|ANKH
+#170|Desert Temple|C|ANKH
+#171|Garden Oasis|U|ANKH
+#172|Opener of the Way|R|ANKH
+#173|Plague of Locusts|U|ANKH
+#174|Brass-Sting Guardian|U|ANKH
+#175|Game of Passing|U|ANKH
+#176|Desert Colossus|C|ANKH
+#177|Act of Betrayal|C|ANKH
+#178|Champion of Ainorek|C|ANKH
+#179|Indomitable Elephant|U|ANKH
+#180|Sphinx's Renewal|C|ANKH
+#181|Stonewrought Companion|C|ANKH
+#182|Venerable Explorer|U|ANKH
+#183|Shifting Sands|C|ANKH
+#184|Water to Blood|C|ANKH
+#185|Dack's Trickery|U|ANKH
+#186|Devouring Scarab|C|ANKH
+#187|Lunar Akhu|C|ANKH
+#188|Ainok Browbeater|U|ANKH
+#189|Incandescent Hieroglyphs|C|ANKH
+#190|Hatseket, Great Archivist|R|ANKH
+#191|Crumbling Vestige|C|ANKH
+#192|Zebra Behemoth|C|ANKH
+#193|Cave-In Trap|C|ANKH
+#194|Unexpected Flood|C|ANKH
+#195|Disentomb|C|ANKH
+#196|Memory Lane|R|ANKH
+#197|Royal Archaeomancer|C|ANKH
+#198|Sunset Pyramids|C|ANKH
+#199|Recorder of Stories|C|ANKH
+#200|Unknown Shores|C|ANKH
+#201|Timeless Currents|C|ANKH
+#202|Continual Sandstorm|U|ANKH
+#203|Excavate|U|ANKH
+#204|Part the Sea|U|ANKH
+#205|Sleeping Guardian|C|ANKH
+#206|Horned Heartstoker|C|ANKH
+#207|Forgotten Necropolis|R|ANKH
+#208|Temephis Promenade|R|ANKH
+#209|Embalmer's Renewal|C|ANKH
+#210|Lightning Effigy|U|ANKH
+#211|Disciple of Hesaret|U|ANKH
+#212|Mortal's Renewal|C|ANKH
+#213|Serpent of Myth|U|ANKH
+#214|Servant of Erises|C|ANKH
+#215|Grand Finale|R|ANKH
+#216|Treasure Room of Akhamesses|R|ANKH
+#217|Trapmaker's Secret|U|ANKH
+#218|Scapeshift|R|ANKH
+#219|Trapmaker's Detonator|U|ANKH
+#220|Bloodstone Oasis|U|ANKH
+#221|Sanctified Oasis|U|ANKH
+#222|Stoneball Trap|R|ANKH
+#223|Boon Magnification|U|ANKH
+#224|Curse of the Pharaoh|U|ANKH
+#225|Ark of Extinction|R|ANKH
+#226|Nomad's Renewal|C|ANKH
+#227|Granary's Bane|C|ANKH
+#228|Rotting Oasis|U|ANKH
+#229|Collapsing Underworld|R|ANKH
+#230|Flame's Renewal|C|ANKH
+#231|Merchant Caravan|C|ANKH
+#232|Drowning Trap|C|ANKH
+#233|Weaver of Seasons|C|ANKH
+#234|Demolish|C|ANKH
+#235|Heart of Erises|R|ANKH
+#236|Phoenix-Flame Ritual|C|ANKH
+#237|Sphere of Faith|U|ANKH
+#238|Burial Chamber|C|ANKH
+#239|Deface I|U|ANKH
+#240|Monument Building|U|ANKH
+#241|Unexplore|R|ANKH
+#242|Archive of Kariro|M|ANKH
+#243|Isle Turtle|C|ANKH
+#244|Stone of Tongues|R|ANKH
+#245|Sanctuary Cat|C|ANKH
+#246|Harness the Storm|R|ANKH
+#247|Gods' Gift|C|ANKH
+#248|Planar Lockdown|R|ANKH
+#249|Cryptic Reversal|U|ANKH

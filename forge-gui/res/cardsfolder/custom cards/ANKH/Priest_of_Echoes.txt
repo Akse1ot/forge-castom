@@ -1,0 +1,6 @@
+Name:Priest of Echoes
+ManaCost:3 W
+Types:Creature Human Cleric
+PT:3/3
+A:AB$ Pump | Cost$ B | ValidTgts$ Creature.Spirit | NumAtt$ 1 | NumDef$ 1 | SpellDescription$ Target Spirit creature gets +1/+1 until end of turn.
+Oracle:{B}: Target Spirit creature gets +1/+1 until end of turn.

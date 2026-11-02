@@ -1,0 +1,7 @@
+Name:Sphere of Faith
+ManaCost:1 W U
+Types:Creature Wall
+PT:0/4
+K:Defender
+A:AB$ Pump | Cost$ T | ValidTgts$ Creature.blocking+withWorship | KW$ Indestructible | SpellDescription$ Target blocking creature with worship gains indestructible until end of turn.
+Oracle:Defender\n{T}: Target blocking creature with worship gains indestructible until end of turn.

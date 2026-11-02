@@ -1,0 +1,7 @@
+Name:Final Answer
+ManaCost:1 B
+Types:Instant
+A:SP$ Branch | ValidTgts$ Creature | BranchConditionSVar$ Targeted$Valid Creature.Sphinx | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBSacrifice | FalseSubAbility$ DBPump | SpellDescription$ Target creature gets -2/-2 until end of turn. If it's a Sphinx, its controller sacrifices it instead.
+SVar:DBSacrifice:DB$ SacrificeAll | Defined$ Targeted
+SVar:DBPump:DB$ Pump | Defined$ Targeted | NumAtt$ -2 | NumDef$ -2
+Oracle:Target creature gets -2/-2 until end of turn. If it’s a Sphinx, its controller sacrifices it instead.

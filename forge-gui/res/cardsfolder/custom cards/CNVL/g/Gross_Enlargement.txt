@@ -4,8 +4,9 @@ Types:Creature Elemental Nightmare
 PT:1/1
 K:Flying
 T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill | TriggerDescription$ At the beginning of your end step, mill two cards.
-SVar:TrigMill:DB$ Mill | NumCards$ 4 | Defined$ You
+SVar:TrigMill:DB$ Mill | NumCards$ 2 | Defined$ You
 K:Derange
 DeckHas:Ability$Mill|Graveyard
 DeckHints:Ability$Mill|Graveyard
-Oracle:Flying\nAt the beginning of your end step, mill two cards\n.Derange (Whenever this creature attacks, you may mill a card. If you do, defending player loses 1 life.)
+SVar:HasAttackEffect:TRUE
+Oracle:Flying\nAt the beginning of your end step, mill two cards.\nDerange (Whenever this creature attacks, you may mill a card. If you do, defending player loses 1 life.)

@@ -1,0 +1,10 @@
+Name:Tranquil Oasis
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ CARDNAME enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+K:etbCounter:Respite:1
+A:AB$ Mana | Cost$ T | Produced$ U | SpellDescription$ Add {U}.
+A:AB$ Draw | Cost$ 5 T SubCounter<1/Respite> | NumCards$ 2 | SubAbility$ DBDiscard | SpellDescription$ Draw two cards, then discard a card.
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+Oracle:Tranquil Oasis enters the battlefield tapped with a respite counter on it.\n{T}: Add {U} to your mana pool.\n{5}, {T}, Remove a respite counter from Tranquil Oasis: Draw two cards, then discard a card.

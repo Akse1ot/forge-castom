@@ -1,0 +1,7 @@
+Name:Acid Spray Trap
+ManaCost:4 R
+Types:Instant Trap
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ 1 R | IsPresent$ Creature.attacking+Enchanted,Creature.attacking+Equipped | Description$ If an enchanted and/or equipped creature is attacking, you may pay {1}{R} rather than pay this spell's mana cost.
+A:SP$ DealDamage | ValidTgts$ Creature.attacking | NumDmg$ 5 | SubAbility$ DestroyEquipment | SpellDescription$ CARDNAME deals 5 damage to target attacking creature. Destroy all Equipment attached to it.
+SVar:DestroyEquipment:DB$ DestroyAll | ValidCards$ Equipment.AttachedTo Targeted
+Oracle:If an enchanted and/or equipped creature is attacking, you may pay {1}{R} rather than pay Acid Spray Trap’s mana cost.\nAcid Spray Trap deals 5 damage to target attacking creature. Destroy all Equipment attached to it.

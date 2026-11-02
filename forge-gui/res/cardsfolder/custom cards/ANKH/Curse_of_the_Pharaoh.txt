@@ -1,0 +1,7 @@
+Name:Curse of the Pharaoh
+ManaCost:2 B
+Types:Enchantment Aura Curse
+K:Enchant:Player
+T:Mode$ ChangesZoneAll | Origin$ Graveyard | Destination$ Any | ValidCards$ Card.YouOwn | TriggerZones$ Battlefield | Execute$ CurseLoss | TriggerDescription$ Whenever one or more cards leave your graveyard, enchanted player loses 2 life.
+SVar:CurseLoss:DB$ LoseLife | Defined$ Enchanted | LifeAmount$ 2
+Oracle:Enchant player\nWhenever one or more cards leave your graveyard, enchanted player loses 2 life.

@@ -1,0 +1,11 @@
+Name:Reimagine
+ManaCost:2 G U
+Types:Instant
+A:SP$ StoreSVar | ValidTgts$ Permanent,Card.inZoneStack | TgtZone$ Battlefield,Stack | SVar$ Unused | Type$ Number | Expression$ 0 | SubAbility$ RememberController | SpellDescription$ Exile target spell or permanent. Its controller reveals the top card of their library. If it's a land card, that player puts it onto the battlefield. Otherwise, they may cast that card without paying its mana cost.
+SVar:RememberController:DB$ Pump | RememberObjects$ TargetedController | SubAbility$ ReimagineExile
+SVar:ReimagineExile:DB$ ChangeZone | Defined$ Targeted | Origin$ Battlefield,Stack | Destination$ Exile | SubAbility$ ReimagineReveal
+SVar:ReimagineReveal:DB$ PeekAndReveal | Defined$ Remembered | NoPeek$ True | RememberRevealed$ True | SubAbility$ ReimagineLand
+SVar:ReimagineLand:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Battlefield | GainControl$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Land | SubAbility$ ReimagineSpell
+SVar:ReimagineSpell:DB$ Play | Defined$ Remembered | Controller$ Remembered | WithoutManaCost$ True | Optional$ True | ValidSA$ Spell | ConditionDefined$ Remembered | ConditionPresent$ Card.nonLand | SubAbility$ Clean
+SVar:Clean:DB$ Cleanup | ClearRemembered$ True
+Oracle:Exile target spell or permanent. Its controller reveals the top card of his or her library. If it’s a land card, that player puts it onto the battlefield. Otherwise, he or she may cast that card without paying its mana cost.

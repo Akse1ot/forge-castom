@@ -90,6 +90,9 @@ public class BoosterGenerator {
     }
 
     public static List<PaperCard> getBoosterPack(SealedTemplate template) {
+        if (template.getCollation() != null) {
+            return AnkheretBoosterCollation.generate(template);
+        }
         if (template instanceof SealedTemplateWithSlots slots) {
             return BoosterGenerator.getBoosterPack(slots);
         }

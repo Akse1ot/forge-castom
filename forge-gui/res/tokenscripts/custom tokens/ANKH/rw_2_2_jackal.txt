@@ -1,0 +1,6 @@
+Name:Jackal Token
+ManaCost:no cost
+Colors:red,white
+Types:Creature Jackal
+PT:2/2
+Oracle:

@@ -6,6 +6,7 @@ public enum AlternativeCost {
     Bestow,
     Blitz,
     Dash,
+    Decipher,
     Disturb,
     Emerge,
     Escape,

@@ -1,0 +1,8 @@
+Name:Pack's Sandlancer
+ManaCost:4 W
+Types:Creature Jackal Soldier
+PT:3/3
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigETB | IsPresent$ Jackal.Other+YouCtrl | TriggerDescription$ When CARDNAME enters, if you control another Jackal, CARDNAME deals 3 damage to target attacking or blocking creature.
+SVar:TrigETB:DB$ DealDamage | ValidTgts$ Creature.attacking,Creature.blocking | NumDmg$ 3
+Oracle:Flash (You may cast this spell any time you could cast an instant.)\nWhen Pack’s Sandlancer enters the battlefield, if you control another Jackal, Pack’s Sandlancer deals 3 damage to target attacking or blocking creature.

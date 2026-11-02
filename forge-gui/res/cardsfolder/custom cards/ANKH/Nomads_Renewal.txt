@@ -1,0 +1,9 @@
+Name:Nomad's Renewal
+ManaCost:G
+Types:Enchantment Aura
+K:Enchant:Creature.YouCtrl:creature you control
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | AffectedDefined$ Enchanted | AddPower$ 1 | AddToughness$ 1 | Description$ Enchanted creature gets +1/+1.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.AttachedBy | Execute$ TrigDies | OptionalDecider$ You | TriggerDescription$ When enchanted creature dies, you may return target land card from your graveyard to your hand.
+SVar:TrigDies:DB$ ChangeZone | ValidTgts$ Land.YouOwn | Origin$ Graveyard | Destination$ Hand
+Oracle:Enchant creature you control\nEnchanted creature gets +1/+1.\nWhen enchanted creature dies, you may return target land card from your graveyard to your hand.

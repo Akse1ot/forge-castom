@@ -3,4 +3,5 @@ ManaCost:1 W B
 Types:Enchantment
 T:Mode$ LifeGained | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever you gain life, you may tap an untapped creature you control. If you do, draw a card.
 SVar:TrigDraw:AB$ Draw | Cost$ tapXType<1/Creature>
+DeckHints:Ability$LifeGain|Token
 Oracle:Whenever you gain life, you may tap an untapped creature you control. If you do, draw a card.

@@ -461,6 +461,7 @@ Dellian
 Dihada
 Domri
 Dovin
+Dung Eater
 Dyfed
 Ellywick
 Elminster
@@ -505,6 +506,7 @@ Nixilis
 Oko
 Olas
 Ofnir
+Patches
 Quintorius
 Ral
 Roderika

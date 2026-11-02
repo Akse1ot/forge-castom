@@ -4,4 +4,5 @@ Types:Creature Spider
 PT:1/2
 T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigSac | TriggerDescription$ When CARDNAME dies, you gain 3 life.
 SVar:TrigSac:DB$ GainLife | Defined$ TriggeredCardController | LifeAmount$ 3
-Oracle:When Anodet Lurker dies, you gain 3 life.
+DeckHas:Ability$LifeGain
+Oracle:When Newborn Arachnid dies, you gain 3 life.

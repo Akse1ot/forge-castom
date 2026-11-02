@@ -4,6 +4,8 @@ Types:Creature Spider
 PT:6/7
 K:Trample
 K:Reach
-S:Mode$ ReduceCost | ValidCard$ Card.Self+wasCastFromYourGraveyard | Type$ Spell | Activator$ You | Amount$ 2 | Description$ CARDNAME  costs {2} less to cast when you cast it from your graveyard.
+S:Mode$ ReduceCost | ValidCard$ Card.Self+wasCastFromYourGraveyard | Type$ Spell | EffectZone$ All | Activator$ You | Amount$ 2 | Description$ CARDNAME  costs {2} less to cast when you cast it from your graveyard.
 K:Reanimate
+DeckHas:Ability$Graveyard
+DeckHints:Ability$Mill|Discard
 Oracle:Trample, Reach\nCaveborn Elder costs {2} less to cast when you cast it from your graveyard.\nReanimate (You may cast this card from your graveyard by sacrificing a creature in addition to paying its other costs.)

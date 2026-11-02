@@ -1,0 +1,11 @@
+Name:Ark of Extinction
+ManaCost:4
+Types:Artifact
+S:Mode$ Continuous | Affected$ Creature | AddAbility$ Blindness | AddSVar$ Blindness | Description$ Each creature has "{3}, {T}: Put a blindness counter on this creature."
+SVar:Blindness:AB$ PutCounter | Cost$ 3 T | Defined$ Self | CounterType$ blindness | CounterNum$ 1 | SpellDescription$ Put a blindness counter on this creature.
+S:Mode$ CantAttack | ValidCard$ Creature.counters_GE1_blindness | Description$ Creatures with blindness counters on them can't attack.
+S:Mode$ CantBlock | ValidCard$ Creature.counters_GE1_blindness | Description$ Creatures with blindness counters on them can't block.
+A:AB$ SacrificeAll | Cost$ 7 | Activator$ Player | Defined$ Self | Controller$ SourceController | SubAbility$ ArkDestroy | SpellDescription$ CARDNAME's controller sacrifices it. Destroy all creatures without blindness counters on them, then remove all blindness counters from all creatures. Any player may activate this ability.
+SVar:ArkDestroy:DB$ DestroyAll | ValidCards$ Creature.counters_EQ0_blindness | SubAbility$ ArkClear
+SVar:ArkClear:DB$ RemoveCounterAll | ValidCards$ Creature | CounterType$ blindness
+Oracle:Each creature has “{3}, {T}: Put a blindness counter on this creature.”\nCreatures with blindness counters on them can’t attack or block.\n{7}: Ark of Extinction’s controller sacrifices it. Destroy all creatures without blindness counters on them, then remove all blindness counters from all creatures. Any player may activate this ability.

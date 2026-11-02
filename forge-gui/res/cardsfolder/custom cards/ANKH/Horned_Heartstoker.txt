@@ -1,0 +1,7 @@
+Name:Horned Heartstoker
+ManaCost:1 R
+Types:Creature Goat Shaman
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigETB | TriggerDescription$ When CARDNAME enters, target creature can't block this turn.
+SVar:TrigETB:DB$ Pump | ValidTgts$ Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True
+Oracle:When Horned Heartstoker enters the battlefield, target creature can’t block this turn.

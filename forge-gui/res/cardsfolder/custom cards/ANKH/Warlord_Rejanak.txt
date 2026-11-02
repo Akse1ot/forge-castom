@@ -1,0 +1,11 @@
+Name:Warlord Rejanak
+ManaCost:2 R W
+Types:Legendary Creature Jackal Soldier
+PT:2/3
+K:Vigilance
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | IsPresent$ Creature.Jackal+attacking+Other | PresentCompare$ GE2 | NoResolvingCheck$ True | Execute$ JackalCombat | TriggerDescription$ Whenever CARDNAME and at least two other Jackals attack, you choose which creatures block this combat and how those creatures block.
+SVar:JackalCombat:DB$ Effect | Duration$ UntilEndOfCombat | StaticAbilities$ JackalBlocks
+SVar:JackalBlocks:Mode$ Continuous | Affected$ Player | DeclaresBlockers$ You
+A:AB$ Token | Cost$ 1 R W T | TokenScript$ rw_2_2_jackal | SpellDescription$ Create a 2/2 red and white Jackal creature token.
+Oracle:Vigilance, haste\nWhenever Warlord Rejanak and at least two other Jackals attack, you choose which creatures block this combat and how those creatures block.\n{1}{R}{W}, {T}: Create a 2/2 red and white Jackal creature token.

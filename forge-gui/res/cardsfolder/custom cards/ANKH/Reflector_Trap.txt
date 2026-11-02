@@ -1,0 +1,12 @@
+Name:Reflector Trap
+ManaCost:5 W W
+Types:Instant Trap
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ 2 W | CheckSVar$ CombatAction | Description$ If an opponent cast a spell or activated an ability during combat this turn, you may pay {2}{W} rather than pay CARDNAME's mana cost.
+SVar:CombatAction:Count$OpponentCastOrActivatedInCombatThisTurn
+A:SP$ Effect | ValidTgts$ Creature | RememberObjects$ Targeted | CopyForSimulation$ True | ReplacementEffects$ ReflectorShield | Triggers$ ReflectorForget | SpellDescription$ Prevent all damage that would be dealt to you and permanents you control this turn. If damage is prevented this way, you may have CARDNAME deal that much damage to target creature.
+SVar:ReflectorShield:Event$ DamageDone | ValidTarget$ You,Permanent.YouCtrl | ReplaceWith$ ReflectDamage | PreventionEffect$ True | Description$ Prevent all damage that would be dealt to you and permanents you control this turn. If damage is prevented this way, you may have EFFECTSOURCE deal that much damage to the chosen creature.
+SVar:ReflectDamage:DB$ DealDamage | Defined$ RememberedLKI | DamageSource$ EffectSource | NumDmg$ Prevented | OptionalDecider$ You | ConditionDefined$ RememberedLKI | ConditionPresent$ Card.inZoneBattlefield
+SVar:ReflectorForget:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.IsDefined RememberedLKI | TriggerZones$ Command | Static$ True | Execute$ ReflectorClear
+SVar:ReflectorClear:DB$ Cleanup | ClearRemembered$ True
+SVar:Prevented:ReplaceCount$DamageAmount
+Oracle:If an opponent cast a spell or activated an ability during combat this turn, you may pay {2}{W} rather than pay Reflector Trap’s mana cost.\nPrevent all damage that would be dealt to you and permanents you control this turn. If damage is prevented this way, you may have Reflector Trap deal that much damage to target creature.

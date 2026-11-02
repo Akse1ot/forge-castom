@@ -1,0 +1,7 @@
+Name:Scribe's Fetich
+ManaCost:3
+Types:Artifact
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigMill | TriggerDescription$ Whenever you draw a card, target player mills a card.
+SVar:TrigMill:DB$ Mill | ValidTgts$ Player | NumCards$ 1
+A:AB$ Draw | Cost$ 5 T | NumCards$ 1 | SpellDescription$ Draw a card.
+Oracle:Whenever you draw a card, target player puts the top card of his or her library into his or her graveyard.\n{5}, {T}: Draw a card.

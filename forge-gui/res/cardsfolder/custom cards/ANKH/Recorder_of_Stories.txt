@@ -1,0 +1,7 @@
+Name:Recorder of Stories
+ManaCost:1 W
+Types:Creature Human Wizard
+PT:1/2
+A:AB$ Draw | Cost$ 1 U T Return<1/Creature> | SorcerySpeed$ True | NumCards$ 1 | SubAbility$ DBDiscard | SpellDescription$ Draw a card, then discard a card.
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+Oracle:{1}{U}, {T}, Return a creature you control to its owner’s hand: Draw a card, then discard a card. Activate this ability only any time you could cast a sorcery.

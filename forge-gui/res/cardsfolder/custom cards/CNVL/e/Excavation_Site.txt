@@ -5,5 +5,5 @@ T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.S
 SVar:TrigChange:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Card | TgtPrompt$ Select up to two target cards from a graveyard
 A:AB$ Draw | Cost$ 4 Sac<1/CARDNAME> | NumCards$ 2 | SpellDescription$ Draw two cards.
 DeckHas:Ability$Graveyard
-Oracle:When Excavation Site enters the battlefield, exile up to two target cards from a graveyard.
-{4}, Sacrifice Excavation Site: Draw two cards.
+DeckHints:Ability$Graveyard
+Oracle:When Excavation Site enters the battlefield, exile up to two target cards from a graveyard.\n{4}, Sacrifice Excavation Site: Draw two cards.

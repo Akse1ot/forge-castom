@@ -1,0 +1,6 @@
+Name:Ainok Vanguard
+ManaCost:W
+Types:Creature Jackal Soldier
+PT:2/1
+S:Mode$ Continuous | Affected$ Creature.Self | AddToughness$ 1 | IsPresent$ Jackal.Other+YouCtrl | Description$ CARDNAME gets +0/+1 as long as you control another Jackal.
+Oracle:Ainok Vanguard gets +0/+1 as long as you control another Jackal.

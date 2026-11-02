@@ -1,0 +1,6 @@
+Name:Daughter of Iterinis
+ManaCost:3 U
+Types:Creature Nymph
+PT:3/2
+K:Flying
+Oracle:Flying

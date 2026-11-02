@@ -11,6 +11,7 @@ import forge.game.card.CardCollection;
 import forge.game.cost.Cost;
 import forge.game.player.Player;
 import forge.game.spellability.AlternativeCost;
+import forge.game.spellability.AlternativeCostRuleUtil;
 import forge.game.spellability.OptionalCost;
 import forge.game.spellability.SpellAbility;
 import forge.game.zone.ZoneType;
@@ -88,6 +89,11 @@ public class StaticAbilityAlternativeCost {
 
                 newSA.setActivatingPlayer(pl);
                 newSA.setBasicSpell(false);
+                if (sa.isSpell()) {
+                    // External alternatives need not have a keyword-specific AlternativeCost enum.
+                    newSA.putParam(AlternativeCostRuleUtil.PARAM_SELECTED_ALTERNATIVE, "True");
+                    newSA.getOriginalMapParams().put(AlternativeCostRuleUtil.PARAM_SELECTED_ALTERNATIVE, "True");
+                }
 
                 if (stAb.hasParam("XAlternative")) {
                     newSA.putParam("XAlternative", stAb.getParam("XAlternative"));

@@ -1,0 +1,6 @@
+Name:Gelid Pyramids
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ Tap | Cost$ 1 W U T | ValidTgts$ Creature | SpellDescription$ Tap target creature.
+Oracle:{T}: Add {C} to your mana pool.\n{1}{W}{U}, {T}: Tap target creature.

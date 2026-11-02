@@ -94,6 +94,7 @@ public class Game {
     private final PhaseHandler phaseHandler;
     private final StaticEffects staticEffects = new StaticEffects();
     private final TriggerHandler triggerHandler = new TriggerHandler(this);
+    private final TrapTurnHistory trapTurnHistory = new TrapTurnHistory();
     private final ReplacementHandler replacementHandler = new ReplacementHandler(this);
     private final EventBus events = new EventBus("game events");
     private final GameLog gameLog = new GameLog();
@@ -504,6 +505,9 @@ public class Game {
     }
     public final TriggerHandler getTriggerHandler() {
         return triggerHandler;
+    }
+    public final TrapTurnHistory getTrapTurnHistory() {
+        return trapTurnHistory;
     }
     public final PhaseHandler getPhaseHandler() {
         return phaseHandler;
@@ -1456,6 +1460,7 @@ public class Game {
     }
 
     public void clearCountersThisTurn() {
+        trapTurnHistory.clear();
         countersAddedThisTurn.clear();
         countersRemovedThisTurn.clear();
     }

@@ -1,0 +1,8 @@
+Name:Bonerise Trap
+ManaCost:5 B
+Types:Instant Trap
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ 2 B | CheckSVar$ GraveTrap | Description$ If three or more cards were put into an opponent's graveyard from anywhere this turn, you may pay {2}{B} rather than pay this spell's mana cost.
+SVar:GraveTrap:PlayerCountOpponents$ConditionGE3 ThisTurnEntered_Graveyard_Card.YouCtrl
+A:SP$ ChangeZone | ValidTgts$ Creature | TgtZone$ Graveyard | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | StaticEffect$ AddSkeleton | SpellDescription$ Put target creature card from a graveyard onto the battlefield under your control. That creature is a Skeleton in addition to its other types.
+SVar:AddSkeleton:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Skeleton
+Oracle:If three or more cards were put into an opponent’s graveyard from anywhere this turn, you may pay {2}{B} rather than pay Bonerise Trap’s mana cost.\nPut target creature card from a graveyard onto the battlefield under your control. That creature is a Skeleton in addition to its other types.

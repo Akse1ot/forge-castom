@@ -1,0 +1,12 @@
+Name:Dack, Tomb Raider
+ManaCost:3 U R
+Types:Planeswalker Dack
+Loyalty:4
+A:AB$ Draw | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumCards$ 2 | SubAbility$ DackDiscard | SpellDescription$ Draw two cards, then discard a card.
+SVar:DackDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+A:AB$ ChangeZone | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidTgts$ Card.YouOwn | TgtZone$ Graveyard | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DackSteal | SpellDescription$ Exile target card from your graveyard. Gain control of target nonland permanent if it has the same mana value as the exiled card.
+SVar:DackSteal:DB$ GainControl | ValidTgts$ Permanent.nonLand | TgtZone$ Battlefield | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCheckSVar$ Targeted$CardManaCost | ConditionSVarCompare$ EQExileValue | SubAbility$ Clean
+SVar:ExileValue:Remembered$CardManaCost
+SVar:Clean:DB$ Cleanup | ClearRemembered$ True
+A:AB$ CopyPermanent | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | ValidTgts$ Creature | NumCopies$ 3 | Keywords$ Haste | SpellDescription$ Create three tokens that are copies of target creature, except they have haste.
+Oracle:+1: Draw two cards, then discard a card.\n-3: Exile target card from your graveyard. Gain control of target nonland permanent if it has the same converted mana cost as the exiled card.\n-7: Create three tokens that are copies of target creature, except they have haste.\nStarting loyalty: 4

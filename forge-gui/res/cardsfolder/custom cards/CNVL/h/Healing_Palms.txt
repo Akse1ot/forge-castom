@@ -4,4 +4,5 @@ Types:Enchantment Aura
 K:Enchant:Creature
 SVar:AttachAILogic:Pump
 S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddKeyword$ Lifelink | Description$ Enchanted creature has lifelink.
+DeckNeeds:Type$Creature
 Oracle:Enchant creature\nEnchanted creature has lifelink.

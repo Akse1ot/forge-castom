@@ -3,4 +3,6 @@ ManaCost:2 U B
 Types:Creature Djinn
 PT:2/4
 S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerGTX | Description$ NICKNAME can't be blocked by creatures with greater power.
+SVar:X:Count$CardPower
+DeckHints:Ability$Counters & Type$Aura|Equipment
 Oracle:Distorter of Senses can’t be blocked by creatures with greater power.

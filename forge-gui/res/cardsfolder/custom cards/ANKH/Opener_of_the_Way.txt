@@ -1,0 +1,6 @@
+Name:Opener of the Way
+ManaCost:3 W
+Types:Creature Jackal Scout
+PT:2/5
+A:AB$ SwitchBlock | Cost$ 3 | TransferBlockers$ True | ValidTgts$ Creature.blocked | IsPresent$ Card.Self+attacking | SpellDescription$ All creatures blocking target blocked creature now block CARDNAME, then that creature becomes unblocked. Activate only if CARDNAME is attacking.
+Oracle:{3}: Choose target blocked creature. All creatures blocking that creature now block Opener of the Way, then that creature becomes unblocked. Activate this ability only if Opener of the Way is attacking.

@@ -1,0 +1,9 @@
+Name:Sobki's Ambusher
+ManaCost:3 G G
+Types:Creature Crocodile Warrior
+PT:2/4
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigETB | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters, you may have it deal damage equal to its power to target creature or planeswalker.
+SVar:TrigETB:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | NumDmg$ X
+SVar:X:Count$CardPower
+Oracle:Flash (You may cast this spell any time you could cast an instant.)\nWhen Sobki’s Ambusher enters the battlefield, you may have it deal damage equal to its power to target creature or planeswalker.

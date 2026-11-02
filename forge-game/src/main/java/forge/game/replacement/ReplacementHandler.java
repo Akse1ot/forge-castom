@@ -80,8 +80,9 @@ public class ReplacementHandler {
             // if it was caused by an replacement effect, use the already calculated RE list
             // otherwise the RIOT card would cause a StackError
             final ReplacementEffect causeRE = (ReplacementEffect) runParams.get(AbilityKey.ReplacementEffect);
-            if (causeRE != null && !causeRE.getOtherChoices().isEmpty()
-                    && ReplacementType.Moved.equals(causeRE.getMode()) && layer.equals(causeRE.getLayer())) {
+            if (causeRE != null && ReplacementType.Moved.equals(causeRE.getMode())
+                    && causeRE.getOtherChoices() != null && !causeRE.getOtherChoices().isEmpty()
+                    && layer.equals(causeRE.getLayer())) {
                 // only return for same layer
                 return causeRE.getOtherChoices();
             }

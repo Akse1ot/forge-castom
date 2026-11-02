@@ -272,6 +272,7 @@ public class TriggerHandler {
         if (isTriggerSuppressed(mode)) {
             return;
         }
+        game.getTrapTurnHistory().record(game, mode, runParams);
 
         // too many waiting triggers might cause OutOfMemory exception
         // such high amount usually happens from looping on one type:

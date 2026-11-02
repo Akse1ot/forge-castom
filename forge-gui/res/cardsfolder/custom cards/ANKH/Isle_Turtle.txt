@@ -1,0 +1,5 @@
+Name:Isle Turtle
+ManaCost:4 U
+Types:Creature Turtle
+PT:3/4
+Oracle:

@@ -70,6 +70,19 @@ public class ReplaceManaEffect extends SpellAbilityEffect {
                     replaced = replaced.replace(s, color);
                 }
             }
+        } else if (sa.hasParam("MultiplyColor")) {
+            final String color = MagicColor.toShortString(sa.getParam("MultiplyColor"));
+            final int factor = Integer.parseInt(sa.getParamOrDefault("Factor", "2"));
+            if (factor < 1) {
+                throw new IllegalArgumentException("MultiplyColor requires a positive Factor");
+            }
+            String[] mana = StringUtils.split(replaced);
+            for (int i = 0; i < mana.length; i++) {
+                if (mana[i].equals(color)) {
+                    mana[i] = StringUtils.repeat(color, " ", factor);
+                }
+            }
+            replaced = String.join(" ", mana);
         } else if (sa.hasParam("ReplaceAmount")) {
             // replace amount = multiples
             replaced = StringUtils.repeat(replaced, " ", Integer.parseInt(sa.getParam("ReplaceAmount")));

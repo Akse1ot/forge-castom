@@ -4,11 +4,13 @@ Types:Legendary Creature Human Wizard
 PT:0/1
 K:Defender
 K:Flying
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When this creature enters, create three 0/1 blue Wizard creature tokens with “legendary Wizards you control get +0/+1 and have ward .”
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When this creature enters, create three 0/1 blue Wizard creature tokens with “legendary Wizards you control get +0/+1 and have ward {1}.”
 SVar:TrigToken:DB$ Token | TokenScript$ u_0_1_wizard_pump | TokenAmount$ 3
-S:Mode$ ReduceCost | ValidCard$ Card | ValidSpell$ Activated.SpiritAsh | Activator$ You | Amount$ 2 | Description$ Spirit Ash abilities of creature cards in your graveyard cost {2} less to activate.
+S:Mode$ ReduceCost | ValidCard$ Creature.YouOwn | ValidSpell$ Activated.SpiritAsh | AffectedZone$ Graveyard | Activator$ You | Amount$ 2 | Description$ Spirit Ash abilities of creature cards in your graveyard cost {2} less to activate.
 AlternateMode:Modal
-Oracle:Defender, Flying\nWhen this creature enters, create three 0/1 blue Wizard creature tokens with “legendary Wizards you control get +0/+1 and have ward .”\nSpirit Ash abilities of creature cards in your graveyard cost {2} less to activate.
+DeckHas:Ability$Token & Type$Wizard|Enchantment|Spirit
+DeckHints:Type$Instant|Sorcery & Keyword$Spirit Ash
+Oracle:Defender, Flying\nWhen this creature enters, create three 0/1 blue Wizard creature tokens with “legendary Wizards you control get +0/+1 and have ward {1}.”\nSpirit Ash abilities of creature cards in your graveyard cost {2} less to activate.
 
 ALTERNATE
 

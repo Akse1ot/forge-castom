@@ -1,0 +1,7 @@
+Name:Disciple of Hesaret
+ManaCost:2 R
+Types:Creature Human Wizard
+PT:1/1
+K:Prowess
+A:AB$ Mana | Cost$ T | Produced$ R | RestrictValid$ Spell.Instant,Spell.Sorcery | SpellDescription$ Add {R}. Spend this mana only to cast instant or sorcery spells.
+Oracle:Prowess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)\n{T}: Add {R} to your mana pool. Spend this mana only to cast instant or sorcery spells.

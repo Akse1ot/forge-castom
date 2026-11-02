@@ -1,0 +1,9 @@
+Name:Cave-In Trap
+ManaCost:3 R
+Types:Instant Trap
+S:Mode$ AlternativeCost | ValidSA$ Spell.Self | EffectZone$ All | Cost$ R | CheckSVar$ LandsEntered | Description$ If an opponent had a land enter the battlefield under their control this turn, you may pay {R} rather than pay CARDNAME's mana cost.
+SVar:LandsEntered:Count$ThisTurnEntered_Battlefield_Land.OppCtrl
+A:SP$ Effect | ValidTgts$ Creature | StaticAbilities$ MustAttack | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | SubAbility$ DBDraw | SpellDescription$ Target creature attacks this turn if able. Draw a card.
+SVar:MustAttack:Mode$ MustAttack | ValidCreature$ Creature.IsRemembered | Description$ This creature attacks this turn if able.
+SVar:DBDraw:DB$ Draw | NumCards$ 1
+Oracle:If an opponent had a land enter the battlefield under his or her control this turn, you may pay {R} rather than pay Cave-In Trap’s mana cost.\nTarget creature attacks this turn if able.\nDraw a card.

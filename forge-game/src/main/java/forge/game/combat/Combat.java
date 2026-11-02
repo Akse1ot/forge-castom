@@ -401,6 +401,54 @@ public class Combat {
         }
     }
 
+    /** Opt-in reassignment: preserve other members of a band and a blocker's other assignments. */
+    public CardCollection transferBlockers(Card from, Card to) {
+        separateAttackerForBlockTransfer(from);
+        if (from != to) {
+            separateAttackerForBlockTransfer(to);
+        }
+        CardCollection moved = new CardCollection(getBlockers(from));
+        CardCollection added = new CardCollection();
+        // Rebuild the two affected orders only after the state mutation is complete.
+        blockersOrderedForDamageAssignment.get().remove(from);
+        blockersOrderedForDamageAssignment.get().remove(to);
+        for (Card blocker : moved) {
+            removeBlockAssignment(from, blocker);
+            if (from != to && !isBlocking(blocker, to)) {
+                addBlocker(to, blocker);
+                added.add(blocker);
+            }
+        }
+        setBlocked(from, false);
+        if (from != to && !getBlockers(to).isEmpty()) {
+            setBlocked(to, true);
+        }
+        orderBlockersForDamageAssignment(from, getBlockers(from));
+        if (from != to) {
+            orderBlockersForDamageAssignment(to, getBlockers(to));
+        }
+        for (Card blocker : moved) {
+            orderAttackersForDamageAssignment(blocker);
+            blocker.updateBlockingForView();
+        }
+        return added;
+    }
+
+    private void separateAttackerForBlockTransfer(Card attacker) {
+        AttackingBand band = getBandOfAttackerNotNull(attacker);
+        if (band.getAttackers().size() == 1) {
+            return;
+        }
+        GameEntity defender = getDefenderByAttacker(band);
+        AttackingBand single = new AttackingBand(attacker);
+        if (band.isBlocked() != null) {
+            single.setBlocked(band.isBlocked());
+        }
+        band.removeAttacker(attacker);
+        attackedByBands.get().put(defender, single);
+        blockedBands.get().putAll(single, new CardCollection(getBlockers(band)));
+    }
+
     // remove blocker from specific attacker
     public final void removeBlockAssignment(final Card attacker, final Card blocker) {
         AttackingBand band = getBandOfAttackerNotNull(attacker);

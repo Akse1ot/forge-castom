@@ -5,11 +5,10 @@ PT:1/2
 K:Reach
 A:AB$ Mana | Cost$ T | Produced$ Any | SubAbility$ DBGainLife | SpellDescription$ Add one mana of any color and gain 1 life.
 SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
-A:AB$ Mana | Cost$ B T PayLife<3> | Produced$ Combo Any | Amount$ 3 | SpellDescription$
+A:AB$ Mana | Cost$ B T PayLife<3> | Produced$ Combo Any | Amount$ 3 | SpellDescription$ Add three mana in any combination of colors.
 AlternateMode:Modal
-Oracle:Reach\n
-{T}: Add one mana of any color and gain 1 life.\n
-{B}, {T}, Pay 3 life: Add three mana in any combination of colors.
+DeckHas:Ability$LifeGain|Mana
+Oracle:Reach\n{T}: Add one mana of any color and gain 1 life.\n{B}, {T}, Pay 3 life: Add three mana in any combination of colors.
 
 ALTERNATE
 
@@ -19,5 +18,6 @@ Types:Legendary Creature Human Warrior
 PT:3/3
 K:Menace
 T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigSac | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, that player sacrifices a land unless they pay 3 life.
-SVar:TrigSac:DB$ Sacrifice | Defined$ TriggeredTarget | SacValid$ Land | UnlessCost$ PayLife<3>  | UnlessPayer$ TriggeredCardController
+SVar:TrigSac:DB$ Sacrifice | Defined$ TriggeredTarget | SacValid$ Land | UnlessCost$ PayLife<3>  | UnlessPayer$ TriggeredTarget
+SVar:HasCombatEffect:TRUE
 Oracle:Menace\nWhenever this creature deals combat damage to a player, that player sacrifices a land unless they pay 3 life.

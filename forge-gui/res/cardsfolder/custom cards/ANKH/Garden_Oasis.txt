@@ -1,0 +1,9 @@
+Name:Garden Oasis
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ CARDNAME enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+K:etbCounter:Respite:1
+A:AB$ Mana | Cost$ T | Produced$ G | SpellDescription$ Add {G}.
+A:AB$ ChangeZone | Cost$ 5 T SubCounter<1/Respite> | Origin$ Graveyard | Destination$ Hand | ChangeType$ Card.YouOwn | ChangeNum$ 1 | Hidden$ True | AtRandom$ True | SpellDescription$ Return a card at random from your graveyard to your hand.
+Oracle:Garden Oasis enters the battlefield tapped with a respite counter on it.\n{T}: Add {G} to your mana pool.\n{5}, {T}, Remove a respite counter from Garden Oasis: Return a card at random from your graveyard to your hand.

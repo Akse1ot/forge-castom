@@ -1,0 +1,8 @@
+Name:Water to Blood
+ManaCost:2 B
+Types:Sorcery
+A:SP$ DamageAll | ValidCards$ Creature | NumDmg$ 1 | RememberAmount$ True | SubAbility$ DamageLife | SpellDescription$ CARDNAME deals 1 damage to each creature. You gain life equal to the damage dealt this way.
+SVar:DamageLife:DB$ GainLife | Defined$ You | LifeAmount$ Dealt | SubAbility$ Clean
+SVar:Dealt:Count$RememberedNumber
+SVar:Clean:DB$ Cleanup | ClearRemembered$ True
+Oracle:Water to Blood deals 1 damage to each creature. You gain life equal to the damage dealt this way.

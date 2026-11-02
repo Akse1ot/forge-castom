@@ -1,0 +1,8 @@
+Name:Sleeping Guardian
+ManaCost:4
+Types:Artifact Creature Jackal Construct
+PT:3/4
+K:Defender
+S:Mode$ CanAttackDefender | ValidCard$ Card.Self | CheckSVar$ Counters | SVarCompare$ GE1 | Description$ CARDNAME can attack as though it didn't have defender as long as it has a +1/+1 counter on it.
+SVar:Counters:Count$CardCounters.P1P1
+Oracle:Defender\nSleeping Guardian can attack as though it didn’t have defender as long as it has a +1/+1 counter on it.

@@ -1,0 +1,9 @@
+Name:Adorned Dragon
+ManaCost:5 R
+Types:Creature Dragon
+PT:5/5
+K:Flying
+T:Mode$ SpellCast | ValidSA$ Spell.IsTargeting Self | ManaSpentByYou$ True | Execute$ DragonDamage | TriggerDescription$ Whenever you spend mana to cast a spell that targets CARDNAME, CARDNAME deals that much damage to target creature.
+SVar:DragonDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ ManaSpent
+SVar:ManaSpent:TriggerCount$Amount
+Oracle:Flying\nWhenever you spend mana to cast a spell that targets Adorned Dragon, Adorned Dragon deals that much damage to target creature.

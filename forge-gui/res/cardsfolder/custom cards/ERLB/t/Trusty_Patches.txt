@@ -7,6 +7,8 @@ T:Mode$ Discarded | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDesc
 SVar:TrigToken:DB$ Token | TokenScript$ c_a_Rune_sac | TokenOwner$ You
 A:AB$ Discard | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | NumCards$ 1 | Mode$ TgtChoose | Defined$ Player | SpellDescription$ Each player discards a card.
 A:AB$ Sacrifice | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Defined$ Player | SacValid$ Creature | SpellDescription$ Each player sacrifices a creature.
-A:AB$ Draw | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | ValidTgts$ Opponent | NumCards$ X | SpellDescription$ Draw a card for each nonland card in target opponent's graveyard.
+A:AB$ Draw | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | ValidTgts$ Opponent | Defined$ You | NumCards$ X | SpellDescription$ Draw a card for each nonland card in target opponent's graveyard.
 SVar:X:PlayerCountDefinedTargeted$ValidGraveyard Card.nonLand
+DeckHas:Ability$Token|Discard & Type$Artifact|Rune
+DeckHints:Ability$Token
 Oracle:Whenever a player sacrifices a creature or discards a card, create a Rune token.\n[+1]: Each player discards a card.\n[+1]: Each player sacrifices a creature.\n[-8]: Draw a card for each nonland card in target opponent’s graveyard.

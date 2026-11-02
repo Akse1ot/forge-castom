@@ -326,6 +326,7 @@ public class CardCopyService {
         newCopy.setUnearthed(copyFrom.isUnearthed());
         newCopy.setMonstrous(copyFrom.isMonstrous());
         newCopy.setRenowned(copyFrom.isRenowned());
+        newCopy.setDevout(copyFrom.isDevout());
         newCopy.setSolved(copyFrom.isSolved());
         newCopy.setPromisedGift(copyFrom.getPromisedGift());
         newCopy.setSaddled(copyFrom.isSaddled());

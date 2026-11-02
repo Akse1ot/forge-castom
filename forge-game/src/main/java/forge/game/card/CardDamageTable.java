@@ -189,7 +189,8 @@ public class CardDamageTable extends ForwardingTable<Card, GameEntity, Integer> 
         Set<Card> filteredSource = null;
         Set<GameEntity> filteredTarget = null;
         if (validSource != null) {
-            filteredSource = rowKeySet().stream().filter(GameObjectPredicates.restriction(validSource.split(","), host.getController(), host, sa)).collect(Collectors.toSet());
+            String[] restrictions = validSource.split(",");
+            filteredSource = rowKeySet().stream().filter(c -> DamageSourceProxy.isValid(c, restrictions, host.getController(), host, sa)).collect(Collectors.toSet());
         }
         if (validTarget != null) {
             filteredTarget = columnKeySet().stream().filter(GameObjectPredicates.restriction(validTarget.split(","), host.getController(), host, sa)).collect(Collectors.toSet());

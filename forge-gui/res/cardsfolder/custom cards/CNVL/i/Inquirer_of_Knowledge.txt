@@ -4,4 +4,5 @@ Types:Creature Djinn
 PT:2/3
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAetherise | TriggerDescription$ When CARDNAME enters, target player aetherises a card from their hand. (Put the aetherised card on top of its owner’s library.)
 SVar:TrigAetherise:DB$ Aetherise | Origin$ Hand | DefinedPlayer$ Targeted | ValidTgts$ Player | ChangeType$ Card | ChangeNum$ 1 | Mandatory$ True
+DeckHas:Ability$Aetherise
 Oracle:When Inquirer of Knowledge enters the battlefield, target player aetherises a card from their hand. (Put the aetherised card on top of its owner’s library.)

@@ -1,0 +1,5 @@
+Name:Mass Decrypt
+ManaCost:2 B B
+Types:Sorcery
+A:SP$ PumpAll | PumpZone$ Graveyard | ValidCards$ Creature.YouOwn | KW$ Unearth:B | SpellDescription$ Each creature card in your graveyard gains unearth {B} until end of turn.
+Oracle:Each creature card in your graveyard gains unearth {B} until end of turn. (They have “{B}: Return this card from your graveyard to the battlefield. It gains haste. Exile it at the beginning of the end step or if it would leave the battlefield. Unearth only as a sorcery.”)

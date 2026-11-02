@@ -1,0 +1,6 @@
+Name:Incandescent Hieroglyphs
+ManaCost:R
+Types:Sorcery
+A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 1 | SpellDescription$ CARDNAME deals 1 damage to target creature.
+K:Decipher:4 R
+Oracle:Incandescent Hieroglyphs deals 1 damage to target creature.\nDecipher {4}{R} (When you cast this spell for its decipher cost, copy it for each instant and sorcery card in your graveyard. You may choose new targets for the copies.)

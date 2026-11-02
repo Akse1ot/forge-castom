@@ -1,0 +1,7 @@
+Name:Lawmage of Kismut
+ManaCost:3 R
+Types:Creature Jackal Wizard
+PT:2/2
+K:Haste
+A:AB$ Tap | Cost$ W T | ValidTgts$ Creature | SpellDescription$ Tap target creature.
+Oracle:Haste\n{W}, {T}: Tap target creature.

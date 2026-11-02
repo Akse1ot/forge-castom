@@ -2,10 +2,12 @@ Name:Regal Ancestor Spirit
 ManaCost:4 G G
 Types:Legendary Enchantment Creature Elk Spirit
 PT:5/5
-T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Enchantment.Other+YouCtrl | Execute$ TrigDraw | TriggerDescription$ Whenever CARDNAME or another enchantment you control enters, draw a card.
+T:Mode$ ChangesZone | TriggerZones$ Battlefield | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Enchantment.Other+YouCtrl | Execute$ TrigDraw | TriggerDescription$ Whenever CARDNAME or another enchantment you control enters, draw a card.
 SVar:TrigDraw:DB$ Draw
-T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Enchantment.Other+YouCtrl | Execute$ TrigGainLife | TriggerDescription$ Whenever CARDNAME or another enchantment you control is put into a graveyard from the battlefield, gain life equal to its mana value.
+T:Mode$ ChangesZone | TriggerZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Enchantment.Other+YouCtrl | Execute$ TrigGainLife | TriggerDescription$ Whenever CARDNAME or another enchantment you control is put into a graveyard from the battlefield, gain life equal to its mana value.
 SVar:TrigGainLife:DB$ GainLife | LifeAmount$ X
 SVar:X:TriggeredCard$CardManaCost
 K:Spirit Ash:G G G Sac<3/Enchantment>
+DeckHas:Ability$Token|Graveyard|Exile|LifeGain
+DeckHints:Type$Enchantment
 Oracle:Whenever this creature or another enchantment you control enters, draw a card.\nWhenever this creature or another enchantment you control is put into a graveyard from the battlefield, gain life equal to its mana value.\nSpirit Ash—{G}{G}{G}, Sacrifice three enchantments.

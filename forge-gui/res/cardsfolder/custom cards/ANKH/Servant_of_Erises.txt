@@ -1,0 +1,6 @@
+Name:Servant of Erises
+ManaCost:2 B
+Types:Creature Zombie Cleric
+PT:1/2
+A:AB$ ChangeZone | Cost$ G Sac<1/CARDNAME> | ValidTgts$ Card.YouOwn | Origin$ Graveyard | Destination$ Library | LibraryPosition$ 0 | SpellDescription$ Put target card in your graveyard on top of your library.
+Oracle:{G}, Sacrifice Servant of Erises: Put target card in your graveyard on top of your library.

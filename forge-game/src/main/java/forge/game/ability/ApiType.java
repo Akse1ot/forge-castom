@@ -222,6 +222,9 @@ public enum ApiType {
     VillainousChoice (VillainousChoiceEffect.class),
     Vote (VoteEffect.class),
     WinsGame (GameWinEffect.class),
+    Worship (WorshipEffect.class),
+    PleaBargain (PleaBargainEffect.class),
+    IunPostRestart (IunPostRestartEffect.class),
 
     BlankLine (BlankLineEffect.class),
     DamageResolve (DamageResolveEffect.class),

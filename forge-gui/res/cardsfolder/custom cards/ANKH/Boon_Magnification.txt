@@ -1,0 +1,7 @@
+Name:Boon Magnification
+ManaCost:1 W
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+enchanted | AddKeyword$ Vigilance | AddPower$ AffectedBonus | AddToughness$ AffectedBonus | Description$ Each enchanted creature you control has vigilance and gets +1/+1 for each Aura attached to it.
+SVar:AffectedBonus:SVar$AffectedAuraCount
+SVar:AffectedAuraCount:Count$Valid Aura.Attached
+Oracle:Each enchanted creature you control has vigilance and gets +1/+1 for each Aura attached to it.

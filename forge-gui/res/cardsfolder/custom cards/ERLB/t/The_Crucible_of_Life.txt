@@ -7,4 +7,6 @@ SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3 | SpellDescription$ 
 SVar:DBDraw:DB$ Draw | SpellDescription$ Draw a card.
 SVar:DBMana:DB$ Mana | Produced$ Any | SpellDescription$ Add one mana of any color.
 SVar:DBToken:DB$ Token | TokenScript$ c_a_Rune_sac | SpellDescription$ Create a Rune token.
+DeckHas:Ability$Token|LifeGain|Mana & Type$Artifact|Rune
+DeckHints:Type$Enchantment
 Oracle:Whenever another enchantment you control enters, choose one that hasn’t been chosen this turn—\n• Gain 3 life.\n• Draw a card.\n• Add one mana of any color.\n• Create a Rune token.

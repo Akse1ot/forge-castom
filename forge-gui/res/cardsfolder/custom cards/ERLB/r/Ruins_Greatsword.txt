@@ -8,9 +8,12 @@ SVar:TrigImmediateTrig:AB$ ImmediateTrigger | Cost$ 2 R | Execute$ TrigCharm | R
 SVar:TrigCharm:DB$ Charm | Choices$ DBDamage,DBDestroy,DBRavage | ChoiceRestriction$ ThisGame
 SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 4 | SpellDescription$ CARDNAME deals 4 damage to any target.
 SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact | SpellDescription$ Destroy target artifact.
-SVar:DBRavage:DB$ Destroy | ValidTgts$ Land | TgtPrompt$ Choose target land. | RememberLKI$ True | SubAbility$ DBToken | SpellDescription$ Ravage target land. (Destroy that land. When you do, if its controller doesn’t control the most lands, that player creates a tapped Wastes token.)
-SVar:DBToken:DB$ Token | ConditionDefined$ RememberedLKI | ConditionPresent$ Card | ConditionCompare$ GE1 | ConditionCheckSVar$ CtrlLands | ConditionSVarCompare$ LTMostLands | TokenScript$ c_Wastes | TokenAmount$ 1 | TokenTapped$ True | TokenOwner$ TargetedController | SubAbility$ DBCleanup
+SVar:DBRavage:DB$ Destroy | ValidTgts$ Land | TgtPrompt$ Choose target land. | RememberLKI$ True | SubAbility$ DBRavageEach | SpellDescription$ Ravage target land. (Destroy that land. When you do, if its controller doesn’t control the most lands, that player creates a tapped Wastes token.)
+SVar:DBRavageEach:DB$ RepeatEach | UseImprinted$ True | DefinedCards$ RememberedLKI | RepeatSubAbility$ DBRavageTrigger | SubAbility$ DBCleanup
+SVar:DBRavageTrigger:DB$ ImmediateTrigger | ConditionCheckSVar$ RavageLandsBefore | ConditionSVarCompare$ LTMostLands | RememberObjects$ ImprintedLKI | Execute$ DBRavageToken | TriggerDescription$ When you do, if that land's controller doesn't control the most lands, that player creates a tapped Wastes token.
+SVar:DBRavageToken:DB$ Token | ConditionCheckSVar$ RavageLandsAfter | ConditionSVarCompare$ LTMostLands | TokenScript$ c_Wastes | TokenAmount$ 1 | TokenTapped$ True | TokenOwner$ DelayTriggerRememberedController
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-SVar:CtrlLands:TargetedController$Valid Land.YouCtrl
+SVar:RavageLandsBefore:PlayerCountDefinedImprintedController$Valid Land.YouCtrl
+SVar:RavageLandsAfter:PlayerCountDefinedDelayTriggerRememberedController$Valid Land.YouCtrl
 SVar:MostLands:PlayerCountPlayers$HighestValid Land.YouCtrl
 Oracle:Equipped creature gets +2/+0 and has trample.\nWhenever equipped creature attacks, you may pay {2}{R}. If you do, choose one that hasn’t been chosen —\n•This artifact deals 4 damage to any target.\n•Destroy target artifact.\n•Ravage target land.\nEquip {2}

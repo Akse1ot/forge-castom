@@ -1,0 +1,7 @@
+Name:Cartographer of Kariro
+ManaCost:1 G U
+Types:Creature Human Wizard
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X | Description$ CARDNAME's power and toughness are each equal to the number of differently named lands you control.
+SVar:X:Count$Valid Land.YouCtrl$DifferentCardNames
+Oracle:Cartographer of Kariro’s power and toughness are each equal to the number of lands with different names you control.

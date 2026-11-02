@@ -5,4 +5,5 @@ A:SP$ Discard | ValidTgts$ Opponent | Mode$ RevealYouChoose | Optional$ True | D
 SVar:DBToken:DB$ Token | TokenScript$ c_a_blood_draw | TokenAmount$ X | TokenOwner$ You | SubAbility$ DBCleanup
 SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
 SVar:X:Remembered$CardManaCost/HalfUp
+DeckHas:Ability$Discard|Token & Type$Artifact|Blood
 Oracle:Target opponent reveals their hand. You may choose a creature or planeswalker card from it. That player discards that card. Create a number of Blood tokens equal to half the discarded card’s mana value, rounded up. (They’re artifacts with “{1}, {T}, Discard a card, Sacrifice this artifact: Draw a card.”)

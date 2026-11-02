@@ -1,0 +1,8 @@
+Name:Scavenging Petsuchos
+ManaCost:4 G
+Types:Creature Zombie Crocodile
+PT:3/4
+K:Unearth:4 G
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ TrigLife | TriggerDescription$ When CARDNAME leaves the battlefield, you gain 2 life.
+SVar:TrigLife:DB$ GainLife | LifeAmount$ 2
+Oracle:When Scavenging Petsuchos leaves the battlefield, you gain 2 life.\nUnearth {4}{G} ({4}{G}: Return this card from your graveyard to the battlefield. It gains haste. Exile it at the beginning of the end step or if it would leave the battlefield. Unearth only as a sorcery.)
