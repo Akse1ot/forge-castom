@@ -81,6 +81,9 @@ public class Zone implements java.io.Serializable, Iterable<Card> {
     }
 
     public final void reorder(final Card c, final int index) {
+        if (zoneType == ZoneType.Library && cardList.contains(c)) {
+            LibraryRevealHelper.reordered(game, getPlayer(), List.of(c));
+        }
         cardList.remove(c);
         cardList.add(index, c);
     }
@@ -259,6 +262,9 @@ public class Zone implements java.io.Serializable, Iterable<Card> {
     }
 
     public void shuffle() {
+        if (zoneType == ZoneType.Library) {
+            LibraryRevealHelper.reordered(game, getPlayer(), cardList);
+        }
         Collections.shuffle(cardList, MyRandom.getRandom());
         onChanged();
     }

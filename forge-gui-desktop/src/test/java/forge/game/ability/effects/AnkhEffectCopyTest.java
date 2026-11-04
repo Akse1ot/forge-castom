@@ -13,12 +13,132 @@ import forge.game.card.CardFactory;
 import forge.game.keyword.Keyword;
 import forge.game.player.Player;
 import forge.game.zone.ZoneType;
+import forge.game.card.CounterType;
+import forge.game.phase.PhaseType;
+import org.testng.annotations.DataProvider;
 import forge.item.PaperCard;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.util.List;
 
 public class AnkhEffectCopyTest extends AITest {
+    @DataProvider
+    public Object[][] permanentBackends() {
+        return new Object[][] {{false}, {true}};
+    }
+
+    @Test(dataProvider = "permanentBackends")
+    public void sleykinPermanentEffectKeepsDynamicTriggersAndReturnsOnlyInCopiedWorld(boolean snapshot) {
+        Game original = sleykinGame();
+        Player player = original.getPlayers().get(1);
+        Card exiled = original.getCardsIn(ZoneType.Exile).getFirst();
+        Card effect = player.getCardsIn(ZoneType.Command).getFirst();
+        Game copy = snapshot ? new GameSnapshot(original).makeCopy(null, false)
+                : new GameCopier(original).withStack(false).makeCopy();
+        Player copiedPlayer = copy.getPlayer(player.getId());
+        Card copiedEffect = copy.findById(effect.getId());
+        Assert.assertEquals(copiedEffect.getTriggers().size(), 3);
+        Assert.assertEquals(copiedEffect.getSVar("CopyForSimulation"), "Permanent");
+        Assert.assertEquals(copy.findById(exiled.getId()).getCounters(CounterType.getType("REBIRTH")), 3);
+        Assert.assertSame(copiedEffect.getEffectSource().getGame(), copy);
+        for (Object remembered : copiedEffect.getRemembered()) {
+            Assert.assertSame(((Card) remembered).getGame(), copy);
+        }
+        for (var trigger : copiedEffect.getTriggers()) {
+            Assert.assertSame(trigger.getHostCard().getGame(), copy);
+            Assert.assertSame(trigger.getOverridingAbility().getHostCard().getGame(), copy);
+            if (trigger.getOverridingAbility().getCardState() != null) {
+                Assert.assertSame(trigger.getOverridingAbility().getCardState().getCard().getGame(), copy);
+            }
+        }
+        copy.getEndOfTurn().executeUntil();
+        Assert.assertTrue(copiedPlayer.getCardsIn(ZoneType.Command).contains(copiedEffect));
+        for (int remaining = 2; remaining >= 0; remaining--) {
+            nextOwnUpkeep(copy, copiedPlayer);
+            Card current = copy.findById(exiled.getId());
+            Assert.assertEquals(current.getCounters(CounterType.getType("REBIRTH")), remaining);
+            Assert.assertTrue(current.isInZone(remaining == 0 ? ZoneType.Battlefield : ZoneType.Exile));
+        }
+        Assert.assertTrue(copiedPlayer.getCardsIn(ZoneType.Command).isEmpty());
+        Assert.assertEquals(exiled.getCounters(CounterType.getType("REBIRTH")), 3);
+        Assert.assertTrue(exiled.isInZone(ZoneType.Exile));
+        Assert.assertTrue(player.getCardsIn(ZoneType.Command).contains(effect));
+    }
+
+    @Test(dataProvider = "permanentBackends")
+    public void movingRememberedCardRemovesOnlyItsCopiedPermanentEffect(boolean snapshot) {
+        Game original = sleykinGame();
+        Card exiled = original.getCardsIn(ZoneType.Exile).getFirst();
+        Game copy = snapshot ? new GameSnapshot(original).makeCopy(null, false)
+                : new GameCopier(original).withStack(false).makeCopy();
+        copy.getTriggerHandler().resetActiveTriggers();
+        Card departed = copy.getAction().moveToHand(copy.findById(exiled.getId()), null);
+        drainPermanent(copy);
+        Assert.assertTrue(copy.getCardsIn(ZoneType.Command).isEmpty());
+        Card returned = copy.getAction().exile(departed, null, null);
+        Assert.assertFalse(returned.equalsWithGameTimestamp(exiled));
+        Assert.assertTrue(copy.getCardsIn(ZoneType.Command).isEmpty());
+        Assert.assertEquals(original.getCardsIn(ZoneType.Command).size(), 1);
+    }
+
+    @Test
+    public void sleykinSnapshotRestoresThePermanentEffectAfterExternalLastCounterRemoval() {
+        Game game = sleykinGame();
+        Card exiled = game.getCardsIn(ZoneType.Exile).getFirst();
+        GameSnapshot snapshot = new GameSnapshot(game);
+        snapshot.makeCopy(null, false);
+        exiled.subtractCounter(CounterType.getType("REBIRTH"), 3, exiled.getOwner());
+        drainPermanent(game);
+        Assert.assertTrue(game.findById(exiled.getId()).isInPlay());
+        snapshot.restoreGameState(game);
+        Card restored = game.findById(exiled.getId());
+        Assert.assertTrue(restored.isInZone(ZoneType.Exile));
+        Assert.assertEquals(restored.getCounters(CounterType.getType("REBIRTH")), 3);
+        Assert.assertEquals(game.getCardsIn(ZoneType.Command).size(), 1);
+        game.getEndOfTurn().executeUntil();
+        Assert.assertEquals(game.getCardsIn(ZoneType.Command).size(), 1);
+    }
+
+    private Game sleykinGame() {
+        Game game = initAndCreateGame();
+        Player player = game.getPlayers().get(1);
+        for (Player p : game.getPlayers()) {
+            for (int i = 0; i < 10; i++) {
+                addCardToZone("Forest", p, ZoneType.Library);
+            }
+        }
+        Card sleykin = addCard("Sleykin, Curious Wanderer", player);
+        game.copyLastState();
+        game.getTriggerHandler().resetActiveTriggers();
+        var dies = AbilityFactory.getAbility("DB$ Destroy | Defined$ Self", sleykin);
+        dies.setActivatingPlayer(player);
+        AbilityUtils.resolve(dies);
+        drainPermanent(game);
+        Assert.assertEquals(player.getCardsIn(ZoneType.Command).size(), 1,
+                "Sleykin ended in " + game.findById(sleykin.getId()).getZone());
+        Assert.assertEquals(game.findById(sleykin.getId()).getCounters(CounterType.getType("REBIRTH")), 3);
+        return game;
+    }
+
+    private void nextOwnUpkeep(Game game, Player player) {
+        do {
+            Assert.assertTrue(game.getPhaseHandler().devAdvanceThroughTurnEnd(PhaseType.UPKEEP,
+                    () -> drainPermanent(game)));
+            drainPermanent(game);
+        } while (game.getPhaseHandler().getPlayerTurn() != player);
+    }
+
+    private void drainPermanent(Game game) {
+        for (int i = 0; i < 30; i++) {
+            game.getTriggerHandler().runWaitingTriggers();
+            game.getStack().addAllTriggeredAbilitiesToStack();
+            if (game.getStack().isEmpty()) {
+                return;
+            }
+            game.getStack().resolveStack();
+        }
+        Assert.fail("Permanent effect stack did not drain");
+    }
     private Card effect(Game g, Player p) {
         var rules = CardRules.fromScript(List.of("Name:Copy effect fixture", "Types:Instant", "ManaCost:W",
                 "A:SP$ Effect | CopyForSimulation$ True | RememberObjects$ Targeted & You | ValidTgts$ Creature | ImprintCards$ Self | ReplacementEffects$ Prevent | Triggers$ Seen",

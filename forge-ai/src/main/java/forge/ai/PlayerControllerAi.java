@@ -1378,6 +1378,9 @@ public class PlayerControllerAi extends PlayerController {
             chosen = brains.doTrigger(copy, !ownSpell);
             for (SpellAbility s = copy; chosen && s != null; s = s.getSubAbility()) {
                 chosen = !s.usesTargeting() || s.isTargetNumberValid();
+                if (chosen && copy.getForbiddenNewTargetsFilter() != null) {
+                    chosen = s.getTargets().stream().allMatch(copy.getForbiddenNewTargetsFilter());
+                }
             }
         }
 

@@ -108,7 +108,9 @@ public class AbilityUtils {
             player = hostCard.getController();
         }
 
-        if (defined.equals("Self")) {
+        if (defined.equals("TrackedLibraryReveal")) {
+            return LibraryRevealHelper.getTracked(hostCard);
+        } else if (defined.equals("Self")) {
             c = hostCard;
         } else if (defined.equals("CorrectedSelf")) {
             c = game.getCardState(hostCard);
@@ -3202,6 +3204,9 @@ public class AbilityUtils {
         return getSpellsFromPlayEffect(tgtCard, controller, CardStateName.Original, false, null);
     }
     public static final List<SpellAbility> getSpellsFromPlayEffect(final Card tgtCard, final Player controller, CardStateName state, boolean withAltCost, Predicate<SpellAbility> validSA) {
+        return getSpellsFromPlayEffect(tgtCard, controller, state, withAltCost, validSA, false);
+    }
+    public static final List<SpellAbility> getSpellsFromPlayEffect(final Card tgtCard, final Player controller, CardStateName state, boolean withAltCost, Predicate<SpellAbility> validSA, boolean focused) {
         List<SpellAbility> sas = new ArrayList<>();
         List<SpellAbility> list = new ArrayList<>();
         collectSpellsForPlayEffect(list, tgtCard.getState(tgtCard.getCurrentStateName()), controller, withAltCost);
@@ -3236,6 +3241,7 @@ public class AbilityUtils {
                 final Spell newSA = (Spell) s.copy(controller);
                 newSA.getRestrictions().setZone(null);
                 newSA.setCastFromPlayEffect(true);
+                newSA.setFocused(focused);
                 // extra timing restrictions still apply
                 Card newHost = newSA.canPlayFromHost();
                 if (newHost != null) {

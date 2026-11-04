@@ -12,6 +12,7 @@ import forge.game.keyword.Keyword;
 import forge.game.player.Player;
 import forge.game.player.PlayerActionConfirmMode;
 import forge.game.spellability.Spell;
+import forge.game.spellability.FocusHelper;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityPredicates;
 import forge.game.spellability.SpellPermanent;
@@ -166,7 +167,8 @@ public class PlayAi extends SpellAbilityAi {
         List<Card> tgtCards = CardLists.filter(options, c -> {
             // TODO needs to be aligned for MDFC along with getAbilityToPlay so the knowledge
             // of which spell was the reason for the choice can be used there
-            for (SpellAbility s : AbilityUtils.getSpellsFromPlayEffect(c, ai, state, false, validSA)) {
+            for (SpellAbility s : AbilityUtils.getSpellsFromPlayEffect(c, ai, state, false, validSA,
+                    FocusHelper.isFocusedCastFromEffect(sa, c))) {
                 if (s.isLandAbility()) {
                     // might want to run some checks here but it's rare anyway
                     return true;
@@ -233,7 +235,10 @@ public class PlayAi extends SpellAbilityAi {
 
         if (cards != null & sa.hasParam("ValidSA")) {
             final String valid[] = sa.getParam("ValidSA").split(",");
-            final List<Card> invalid = cards.stream().filter(c -> !IterableUtil.any(AbilityUtils.getBasicSpellsFromPlayEffect(c, ai), SpellAbilityPredicates.isValid(valid, ai, source, sa))).collect(Collectors.toList());
+            final List<Card> invalid = cards.stream().filter(c -> !IterableUtil.any(
+                    AbilityUtils.getSpellsFromPlayEffect(c, ai, CardStateName.Original, false, null,
+                            FocusHelper.isFocusedCastFromEffect(sa, c)),
+                    SpellAbilityPredicates.isValid(valid, ai, source, sa))).collect(Collectors.toList());
             if (!invalid.isEmpty())
                 cards.removeAll(invalid);
         }

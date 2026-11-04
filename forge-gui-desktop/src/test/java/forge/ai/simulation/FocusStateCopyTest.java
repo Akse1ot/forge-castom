@@ -6,6 +6,7 @@ import forge.card.MagicColor;
 import forge.game.Game;
 import forge.game.GameSnapshot;
 import forge.game.ability.ApiType;
+import forge.game.ability.AbilityUtils;
 import forge.game.card.Card;
 import forge.game.mana.Mana;
 import forge.game.phase.PhaseType;
@@ -15,15 +16,48 @@ import forge.game.spellability.SpellAbility;
 import forge.game.trigger.Trigger;
 import forge.game.trigger.TriggerHandler;
 import forge.game.zone.ZoneType;
+import forge.gui.interfaces.IGuiGame;
+import forge.player.PlayerControllerHuman;
+import forge.game.spellability.SpellAbilityView;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Proxy;
 import java.util.List;
 
 import static org.testng.Assert.*;
 
 public class FocusStateCopyTest extends AITest {
+    @DataProvider
+    public Object[][] playCards() {
+        return new Object[][] {{"Shock"}, {"Delver of Secrets"}, {"Halvar, God of Battle"}};
+    }
+
+    @Test(dataProvider = "playCards")
+    public void ordinaryPlayAiKeepsFrontFaceEnumerationForNormalDfcAndMdfc(String name) throws ReflectiveOperationException {
+        Game game = prepareGame();
+        Player player = game.getPlayers().get(1);
+        Card source = addCard("Forest", player);
+        Card target = addCardToZone(name, player, ZoneType.Exile);
+        forge.card.CardStateName state = target.getCurrentStateName();
+        source.addRemembered(target);
+        SpellAbility play = forge.game.ability.AbilityFactory.getAbility(
+                "DB$ Play | Defined$ Remembered | ValidSA$ Spell | WithoutManaCost$ True", source);
+        play.setActivatingPlayer(player);
+        java.lang.reflect.Method enumerate = forge.ai.ability.PlayAi.class.getDeclaredMethod(
+                "getPlayableCards", SpellAbility.class, Player.class);
+        enumerate.setAccessible(true);
+        assertTrue(((List<?>) enumerate.invoke(null, play, player)).contains(target));
+        assertEquals(target.getCurrentStateName(), state, "A probe must not change a card's current face");
+        List<SpellAbility> spells = AbilityUtils.getSpellsFromPlayEffect(target, player,
+                forge.card.CardStateName.Original, false, null, false);
+        assertTrue(spells.stream().anyMatch(s -> s.getCardStateName() == forge.card.CardStateName.Original));
+        if (target.isModal()) {
+            assertTrue(spells.stream().anyMatch(s -> s.getCardStateName() == forge.card.CardStateName.Backside));
+        }
+    }
+
     @DataProvider
     public Object[][] backends() {
         return new Object[][] {{false}, {true}};
@@ -239,6 +273,57 @@ public class FocusStateCopyTest extends AITest {
             fillLibrary(player, 8);
         }
         return game;
+    }
+
+    @Test(dataProvider = "variants")
+    public void humanMenuDisablesTheWrongFocusVariant(String name, boolean focused) {
+        Game game = prepareGame();
+        Player player = game.getPlayers().get(1);
+        PlayerControllerHuman human = new PlayerControllerHuman(game, player, player.getLobbyPlayer());
+        player.dangerouslySetController(human);
+        human.setGui((IGuiGame) Proxy.newProxyInstance(IGuiGame.class.getClassLoader(),
+                new Class<?>[] {IGuiGame.class}, (proxy, method, args) -> {
+                    if (method.getName().equals("getAbilityToPlay")) {
+                        List<?> views = (List<?>) args[1];
+                        List<SpellAbilityView> enabled = views.stream().map(SpellAbilityView.class::cast)
+                                .filter(SpellAbilityView::canPlay).toList();
+                        assertEquals(enabled.size(), 1);
+                        return enabled.get(0);
+                    }
+                    if (method.getReturnType() == void.class) {
+                        return null;
+                    }
+                    throw new AssertionError("Unexpected GUI call: " + method.getName());
+                }));
+        Card card = addCardToZone(name, player, ZoneType.Hand);
+        List<SpellAbility> choices = card.getSpells().stream().map(sa -> {
+            SpellAbility choice = sa.copyWithNoManaCost(player);
+            choice.setFocused(focused);
+            return choice;
+        }).toList();
+        SpellAbility selected = human.getAbilityToPlay(card, choices);
+        assertEquals(selected.getParam("Condition"), focused ? "Focused" : "NotFocused");
+    }
+
+    @Test(dataProvider = "variants")
+    public void sharedCastGuardAndPlayEnumerationUseTheExplicitContext(String name, boolean focused) {
+        Game game = prepareGame();
+        Player player = game.getPlayers().get(1);
+        Card card = addCardToZone(name, player, ZoneType.Hand);
+        for (SpellAbility original : card.getSpells()) {
+            SpellAbility choice = original.copyWithNoManaCost(player);
+            choice.setFocused(focused);
+            assertEquals(choice.canPlay(), (focused ? "Focused" : "NotFocused").equals(choice.getParam("Condition")));
+        }
+        card = game.getAction().exile(card, null, null);
+        card.setFocused(true); // Historical exile marker must not override an explicit cast context.
+        List<SpellAbility> choices = AbilityUtils.getSpellsFromPlayEffect(card, player,
+                card.getCurrentStateName(), false, null, focused);
+        assertEquals(choices.size(), 1);
+        assertEquals(choices.get(0).getParam("Condition"), focused ? "Focused" : "NotFocused");
+        assertEquals(choices.get(0).isFocused(), focused);
+        assertTrue(card.isFocused());
+        assertTrue(card.getSpells().stream().noneMatch(SpellAbility::isFocused));
     }
 
     private Card focus(Game game, Player player) {

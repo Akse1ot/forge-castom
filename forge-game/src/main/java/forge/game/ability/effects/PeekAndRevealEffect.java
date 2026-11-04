@@ -50,6 +50,10 @@ public class PeekAndRevealEffect extends SpellAbilityEffect {
     @Override
     public void resolve(SpellAbility sa) {
         final Card source = sa.getHostCard();
+        final boolean trackLibraryReveal = sa.hasParam("TrackLibraryReveal");
+        if (trackLibraryReveal) {
+            LibraryRevealHelper.clear(source);
+        }
         final boolean rememberRevealed = sa.hasParam("RememberRevealed");
         final boolean imprintRevealed = sa.hasParam("ImprintRevealed");
         final boolean noPeek = sa.hasParam("NoPeek");
@@ -88,6 +92,13 @@ public class PeekAndRevealEffect extends SpellAbilityEffect {
                 peekingPlayer.getGame().getAction().reveal(revealableCards, srcZone, zoneToPeek, !noPeek,
                         source.getTranslatedName() + " - " +
                                 Localizer.getInstance().getMessage("lblRevealingCardFrom"));
+
+                if (trackLibraryReveal) {
+                    if (srcZone != ZoneType.Library) {
+                        throw new IllegalArgumentException("TrackLibraryReveal requires Library");
+                    }
+                    LibraryRevealHelper.track(source, zoneToPeek, revealableCards);
+                }
 
                 if (rememberRevealed) {
                     Map<Integer, Card> cachedMap = Maps.newHashMap();

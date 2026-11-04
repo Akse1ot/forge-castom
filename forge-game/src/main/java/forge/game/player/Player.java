@@ -1689,6 +1689,7 @@ public class Player extends GameEntity implements Comparable<Player> {
 
     public final void shuffle(final SpellAbility sa) {
         final CardCollection list = new CardCollection(getCardsIn(ZoneType.Library));
+        LibraryRevealHelper.reordered(game, this, list);
 
         // Note: Shuffling once is sufficient.
         Collections.shuffle(list, MyRandom.getRandom());

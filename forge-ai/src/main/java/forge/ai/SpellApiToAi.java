@@ -28,6 +28,8 @@ public enum SpellApiToAi {
             .put(ApiType.AddPhase, AddPhaseAi.class)
             .put(ApiType.AddTurn, AddTurnAi.class)
             .put(ApiType.AdvanceCrank, AdvanceCrankAi.class)
+            .put(ApiType.Aetherise, ChangeZoneAi.class)
+            .put(ApiType.AetheriseAll, ChangeZoneAllAi.class)
             .put(ApiType.Airbend, AirbendAi.class)
             .put(ApiType.AlterAttribute, AlterAttributeAi.class)
             .put(ApiType.Amass, AmassAi.class)

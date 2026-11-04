@@ -3,11 +3,14 @@ package forge.ai.ability;
 import forge.ai.*;
 import forge.game.Game;
 import forge.game.ability.ApiType;
+import forge.game.ability.AbilityUtils;
+import forge.game.GameEntity;
 import forge.game.cost.Cost;
 import forge.game.player.Player;
 import forge.game.player.PlayerActionConfirmMode;
 import forge.game.spellability.Spell;
 import forge.game.spellability.SpellAbility;
+import forge.game.trigger.WrappedAbility;
 import forge.util.MyRandom;
 import forge.util.collect.FCollectionView;
 
@@ -117,6 +120,32 @@ public class CopySpellAbilityAi extends SpellAbilityAi {
 
         if (logic.contains("Always")) {
             return new AiAbilityDecision(100, AiPlayDecision.WillPlay);
+        }
+
+        if (sa.hasParam("NewTargetCantBe") && sa.hasParam("Defined")) {
+            // Evaluate the defined copy with the existing API heuristics, without changing the original.
+            for (SpellAbility original : AbilityUtils.getDefinedSpellAbilities(sa.getHostCard(), sa.getParam("Defined"), sa)) {
+                if (original.cantBeCopied() || original.getApi() == ApiType.CopySpellAbility) {
+                    continue;
+                }
+                SpellAbility template = original.isWrapper() ? ((WrappedAbility) original).getWrappedAbility() : original;
+                SpellAbility probe = template.copy(aiPlayer);
+                for (SpellAbility part = probe; part != null; part = part.getSubAbility()) {
+                    part.clearTargets();
+                }
+                for (GameEntity forbidden : AbilityUtils.getDefinedEntities(sa.getHostCard(), sa.getParam("NewTargetCantBe"), sa)) {
+                    probe.addForbiddenNewTarget(forbidden);
+                }
+                boolean useful = ((PlayerControllerAi) aiPlayer.getController()).getAi().doTrigger(probe, false);
+                for (SpellAbility part = probe; useful && part != null; part = part.getSubAbility()) {
+                    useful = (!part.usesTargeting() || part.isTargetNumberValid())
+                            && (probe.getForbiddenNewTargetsFilter() == null
+                                || part.getTargets().stream().allMatch(probe.getForbiddenNewTargetsFilter()));
+                }
+                if (useful) {
+                    return new AiAbilityDecision(100, AiPlayDecision.WillPlay);
+                }
+            }
         }
 
         return new AiAbilityDecision(0, AiPlayDecision.CantPlayAi);

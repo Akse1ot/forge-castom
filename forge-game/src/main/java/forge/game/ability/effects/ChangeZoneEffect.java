@@ -121,6 +121,14 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
     protected void onCardMoved(final SpellAbility sa, final Card movedCard, final Zone originZone, final ZoneType destination) {
     }
 
+    protected Card captureMoveInstruction(final SpellAbility sa, final Card card) {
+        return null;
+    }
+
+    protected void onMoveInstruction(final SpellAbility sa, final Card lki, final Card result,
+                                     final Zone origin, final ZoneType destination) {
+    }
+
     @Override
     public boolean movesCardToOrFromLibrary(final SpellAbility sa) {
         return zoneParamIsLibrary(sa, "Origin") || zoneParamIsLibrary(sa, "Destination");
@@ -884,7 +892,9 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                     handleExiledWith(gameCard, sa);
                 }
 
+                final Card instructionLki = captureMoveInstruction(sa, gameCard);
                 movedCard = game.getAction().moveTo(destination, gameCard, libPos, sa, moveParams);
+                onMoveInstruction(sa, instructionLki, movedCard, originZone, destination);
 
                 if (destination.equals(ZoneType.Exile) && lastStateBattlefield.contains(gameCard) && hostCard.equals(gameCard)) {
                     // support Parallax Wave returning itself
@@ -1487,7 +1497,9 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
                     movedCard = c;
                 }
                 else if (destination.equals(ZoneType.Library)) {
+                    final Card instructionLki = captureMoveInstruction(sa, c);
                     movedCard = game.getAction().moveToLibrary(c, libraryPos, sa, moveParams);
+                    onMoveInstruction(sa, instructionLki, movedCard, originZone, destination);
                 }
                 else if (destination.equals(ZoneType.Battlefield)) {
                     moveParams.put(AbilityKey.SimultaneousETB, chosenCards);
@@ -1835,7 +1847,10 @@ public class ChangeZoneEffect extends SpellAbilityEffect {
             } else if (destination == ZoneType.Hand) {
                 movedCard = game.getAction().moveToHand(tgtHost, srcSA, params);
             } else if (destination == ZoneType.Library) {
+                final Zone originZone = tgtHost.getZone();
+                final Card instructionLki = captureMoveInstruction(srcSA, tgtHost);
                 movedCard = game.getAction().moveToLibrary(tgtHost, libPos, srcSA, params);
+                onMoveInstruction(srcSA, instructionLki, movedCard, originZone, destination);
                 if (srcSA.hasParam("Shuffle") && "True".equals(srcSA.getParam("Shuffle"))) {
                     tgtHost.getOwner().shuffle(srcSA);
                 }

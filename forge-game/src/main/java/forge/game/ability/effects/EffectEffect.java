@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.HashMultiset;
 
 import forge.ImageKeys;
 import forge.StaticData;
 import forge.game.Game;
+import forge.game.CardTraitBase;
 import forge.game.GameObject;
 import forge.game.ability.AbilityFactory;
 import forge.game.ability.AbilityKey;
@@ -43,7 +45,8 @@ public class EffectEffect extends SpellAbilityEffect {
     public static void copyForSimulation(Game from, Game to) {
         for (Card original : from.getCardsIn(ZoneType.Command)) {
             boolean damageProxy = DamageSourceProxy.isProxy(original);
-            if (!damageProxy && !"True".equals(original.getSVar("CopyForSimulation"))) {
+            boolean permanent = "Permanent".equals(original.getSVar("CopyForSimulation"));
+            if (!damageProxy && !permanent && !"True".equals(original.getSVar("CopyForSimulation"))) {
                 continue;
             }
             Card copied = to.findById(original.getId());
@@ -53,7 +56,15 @@ public class EffectEffect extends SpellAbilityEffect {
             copied.getCurrentState().copyFrom(original.getCurrentState(), false);
             copied.setSVars(original.getSVars());
             copied.setGameTimestamp(original.getGameTimestamp());
-            if (damageProxy) {
+            if (permanent) {
+                for (Trigger trigger : copied.getTriggers()) {
+                    remapEffectTraitState(trigger, to);
+                    for (SpellAbility part = trigger.getOverridingAbility(); part != null; part = part.getSubAbility()) {
+                        remapEffectTraitState(part, to);
+                    }
+                }
+            }
+            if (damageProxy || permanent) {
                 copied.setController(to.getPlayer(original.getController().getId()), original.getGameTimestamp());
             }
             copied.setEffectSource((SpellAbility) null);
@@ -61,7 +72,20 @@ public class EffectEffect extends SpellAbilityEffect {
             copied.clearRemembered();
             for (Object remembered : original.getRemembered()) {
                 if (remembered instanceof Card c) {
-                    copied.addRemembered(mapEffectCard(c, to));
+                    if (permanent && c.equalsWithGameTimestamp(from.getCardState(c, null))) {
+                        Card currentCopy = to.findById(c.getId());
+                        if (currentCopy != null) {
+                            // Preserve the live linked incarnation, not an old LKI reference.
+                            currentCopy.setGameTimestamp(c.getGameTimestamp());
+                            currentCopy.setCounters(HashMultiset.create(c.getCounters()));
+                        }
+                    }
+                    Card mapped = mapEffectCard(c, to);
+                    if (permanent) {
+                        // Generic non-battlefield copies do not preserve these counters.
+                        mapped.setCounters(HashMultiset.create(c.getCounters()));
+                    }
+                    copied.addRemembered(mapped);
                 } else if (remembered instanceof Player player) {
                     copied.addRemembered(to.getPlayer(player.getId()));
                 } else if (!(remembered instanceof GameObject)) {
@@ -74,13 +98,20 @@ public class EffectEffect extends SpellAbilityEffect {
             for (Card imprinted : original.getImprintedCards()) {
                 copied.addImprintedCard(mapEffectCard(imprinted, to));
             }
-            if (!damageProxy) {
+            if (!damageProxy && !permanent) {
                 to.getEndOfTurn().addUntil(() -> {
                     if (to.getCardsIn(ZoneType.Command).contains(copied)) {
                         to.getAction().exileEffect(copied);
                     }
                 });
             }
+        }
+    }
+
+    private static void remapEffectTraitState(final CardTraitBase trait, final Game to) {
+        CardState state = trait.getCardState();
+        if (state != null && state.getCard().getGame() != to) {
+            trait.setCardState(mapEffectCard(state.getCard(), to).getState(state.getStateName()));
         }
     }
 
@@ -241,12 +272,16 @@ public class EffectEffect extends SpellAbilityEffect {
                 eff.setSVar(DamageSourceProxy.MARKER, "True");
                 eff.setColor(forge.card.ColorSet.C);
             }
-            // Explicitly supported only for effects lasting until this turn's cleanup.
+            // Permanent opts in separately; the existing True mode still expires at cleanup.
             if (sa.hasParam("CopyForSimulation")) {
-                if (duration != null && !duration.equals("EndOfTurn")) {
+                final boolean permanent = "Permanent".equals(sa.getParam("CopyForSimulation"));
+                if (permanent && !"Permanent".equals(duration)) {
+                    throw new IllegalArgumentException("CopyForSimulation Permanent requires Permanent duration");
+                }
+                if (!permanent && duration != null && !duration.equals("EndOfTurn")) {
                     throw new IllegalArgumentException("CopyForSimulation requires end-of-turn duration");
                 }
-                eff.setSVar("CopyForSimulation", "True");
+                eff.setSVar("CopyForSimulation", permanent ? "Permanent" : "True");
             }
             if (sa.hasParam("Boon")) {
                 eff.setBoon(true);

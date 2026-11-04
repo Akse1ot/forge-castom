@@ -6,6 +6,7 @@ import forge.game.card.Card;
 import forge.game.card.CardCollection;
 import forge.game.card.CardCollectionView;
 import forge.game.card.CardCopyService;
+import forge.game.card.LibraryRevealHelper;
 import forge.game.combat.Combat;
 import forge.game.event.GameEventSnapshotRestored;
 import forge.game.keyword.MelodyUtil;
@@ -150,6 +151,7 @@ public class GameSnapshot {
         }
 
         forge.game.ability.effects.EffectEffect.copyForSimulation(fromGame, toGame);
+        LibraryRevealHelper.copyForSimulation(fromGame, toGame);
 
         // Undo effects first before calculating them below, to avoid them applying twice.
 //        for (StaticEffect effect : fromGame.getStaticEffects().getEffects()) {

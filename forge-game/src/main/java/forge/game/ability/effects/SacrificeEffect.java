@@ -98,9 +98,9 @@ public class SacrificeEffect extends SpellAbilityEffect {
                         Localizer.getInstance().getMessage("lblDoYouWantSacrificeThis", host.getDisplayName()), null))) {
                 Card lKICopy = zoneMovements.getLastStateBattlefield().get(host);
                 CardCollection sacrificed = game.getAction().sacrifice(new CardCollection(host), sa, true, params);
-                if (sacrificed != null) {
+                if (!sacrificed.isEmpty()) {
                     if (sa.isKeyword(Keyword.MARTYR) && lKICopy != null) {
-                        game.getTriggerHandler().runTrigger(TriggerType.BecomesMartyr, AbilityKey.mapFromCard(lKICopy), false);
+                        triggerMartyr(game, sa, lKICopy);
                     }
                     if (remSacrificed) {
                         host.addRemembered(host);
@@ -181,7 +181,7 @@ public class SacrificeEffect extends SpellAbilityEffect {
                             game.getTriggerHandler().runTrigger(TriggerType.Exploited, runParams, false);
                         }
                         if (sa.isKeyword(Keyword.MARTYR) && lKICopy != null) {
-                            game.getTriggerHandler().runTrigger(TriggerType.BecomesMartyr, AbilityKey.mapFromCard(lKICopy), false);
+                            triggerMartyr(game, sa, lKICopy);
                         }
                         if (remSacrificed) {
                             host.addRemembered(lKICopy);
@@ -192,6 +192,13 @@ public class SacrificeEffect extends SpellAbilityEffect {
         }
 
         zoneMovements.triggerChangesZoneAll(game, sa);
+    }
+
+    private void triggerMartyr(final Game game, final SpellAbility sa, final Card lki) {
+        final Map<AbilityKey, Object> runParams = AbilityKey.mapFromCard(lki);
+        final Integer xPaid = sa.getRootAbility().getXManaCostPaid();
+        runParams.put(AbilityKey.Amount, xPaid == null ? 0 : xPaid);
+        game.getTriggerHandler().runTrigger(TriggerType.BecomesMartyr, runParams, false);
     }
 
     @Override

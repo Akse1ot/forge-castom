@@ -204,6 +204,7 @@ public class CopySpellAbilityEffect extends SpellAbilityEffect {
                     SpellAbility copy = CardFactory.copySpellAbilityAndPossiblyHost(sa, spellToCopy, controller);
                     // extra copies added with CopySpellReplacenment currently always has new choose targets
                     copy.setMayChooseNewTargets(true);
+                    addForbiddenNewTargets(copy, sa);
                     copies.add(copy);
                 }
             }

@@ -2214,7 +2214,8 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
         }
     }
 
-    private Predicate<GameObject> getForbiddenNewTargetsFilter() {
+    /** Filter for newly selected copy targets; null leaves ordinary copying unchanged. */
+    public Predicate<GameObject> getForbiddenNewTargetsFilter() {
         if (forbiddenNewTargets.isEmpty()) {
             return null;
         }

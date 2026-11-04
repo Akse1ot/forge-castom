@@ -68,7 +68,7 @@ public final class FocusHelper {
         return null;
     }
 
-    /** Only the custom Focus variants affect the AI's otherwise unchanged first-choice policy. */
+    /** Only the custom Focus variants constrain the available cast choices. */
     public static boolean matchesCastCondition(SpellAbility ability) {
         Card host = ability.getHostCard();
         if (!host.hasKeyword(Keyword.FOCUS)) {
@@ -78,5 +78,10 @@ public final class FocusHelper {
         String condition = ability.getParam("Condition");
         return (!"Focused".equals(condition) || focused)
                 && (!"NotFocused".equals(condition) || !focused);
+    }
+
+    public static boolean isFocusedCastFromEffect(final SpellAbility effect, final Card card) {
+        return effect.hasParam("Focus")
+                || (effect.hasParam("FocusIfHasFocus") && card.hasKeyword(Keyword.FOCUS));
     }
 }

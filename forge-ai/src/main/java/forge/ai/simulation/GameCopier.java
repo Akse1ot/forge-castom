@@ -14,6 +14,7 @@ import forge.game.card.CardCloneStates;
 import forge.game.card.CardCopyService;
 import forge.game.card.CardFactory;
 import forge.game.card.CounterType;
+import forge.game.card.LibraryRevealHelper;
 import forge.game.card.token.TokenInfo;
 import forge.game.combat.Combat;
 import forge.game.keyword.MelodyUtil;
@@ -184,6 +185,7 @@ public class GameCopier {
         }
 
         forge.game.ability.effects.EffectEffect.copyForSimulation(origGame, newGame);
+        LibraryRevealHelper.copyForSimulation(origGame, newGame);
 
         // Undo effects first before calculating them below, to avoid them applying twice.
         for (StaticEffect effect : origGame.getStaticEffects().getEffects()) {

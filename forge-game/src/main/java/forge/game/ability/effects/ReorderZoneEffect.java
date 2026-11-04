@@ -6,6 +6,7 @@ import java.util.List;
 import forge.game.ability.SpellAbilityEffect;
 import forge.game.card.CardCollection;
 import forge.game.card.CardCollectionView;
+import forge.game.card.LibraryRevealHelper;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
 import forge.game.zone.ZoneType;
@@ -35,9 +36,15 @@ public class ReorderZoneEffect extends SpellAbilityEffect {
             CardCollection list = new CardCollection(p.getCardsIn(zone));
             if (shuffle) {
                 Collections.shuffle(list, MyRandom.getRandom());
+                if (zone == ZoneType.Library) {
+                    LibraryRevealHelper.reordered(p.getGame(), p, list);
+                }
                 p.getZone(zone).setCards(list);
             } else {
                 CardCollectionView orderedCards = p.getController().orderMoveToZoneList(list, zone, sa);
+                if (zone == ZoneType.Library) {
+                    LibraryRevealHelper.reordered(p.getGame(), p, list);
+                }
                 p.getZone(zone).setCards(orderedCards);
             }
         }

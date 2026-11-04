@@ -39,6 +39,7 @@ import forge.game.spellability.AlternativeCost;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityPredicates;
 import forge.game.spellability.TargetEitherFaceUtil;
+import forge.game.spellability.FocusHelper;
 import forge.game.zone.Zone;
 import forge.game.zone.ZoneType;
 import forge.item.PaperCard;
@@ -198,7 +199,7 @@ public class PlayEffect extends SpellAbilityEffect {
             validSA = SpellAbilityPredicates.isValid(sa.getParam("ValidSA").split(","), controller, source, sa);
             tgtCards.removeIf(c -> AbilityUtils.getSpellsFromPlayEffect(c, controller,
                     TargetEitherFaceUtil.isEnabled(sa) ? TargetEitherFaceUtil.getTargetedStateOrOriginal(sa, c) : CardStateName.Original,
-                    false, validSA).isEmpty());
+                    false, validSA, FocusHelper.isFocusedCastFromEffect(sa, c)).isEmpty());
             if (tgtCards.isEmpty()) {
                 return;
             }
@@ -320,18 +321,9 @@ public class PlayEffect extends SpellAbilityEffect {
 
             SpellAbility tgtSA;
 
-            if (focusIfHasFocus) {
-                tgtCard.setFocused(true);
-            }
-
-            try {
-                List<SpellAbility> sas = AbilityUtils.getSpellsFromPlayEffect(tgtCard, controller, state, !altCost, validSA);
-
-                if (controller.getController().isAI() && (sa.hasParam("Focus") || focusIfHasFocus)) {
-                    for (SpellAbility spell : sas) {
-                        spell.setFocused(true);
-                    }
-                }
+            {
+                List<SpellAbility> sas = AbilityUtils.getSpellsFromPlayEffect(tgtCard, controller, state, !altCost,
+                        validSA, FocusHelper.isFocusedCastFromEffect(sa, tgtCard));
 
                 if (explicitState && TargetEitherFaceUtil.isEnabled(sa)) {
                     final CardStateName spellState = state;
@@ -361,10 +353,6 @@ public class PlayEffect extends SpellAbilityEffect {
                     tgtSA.setCastFromPlayEffect(true);
                 } else {
                     tgtSA = controller.getController().getAbilityToPlay(tgtCard, sas);
-                }
-            } finally {
-                if (focusIfHasFocus) {
-                    tgtCard.setFocused(false);
                 }
             }
 
@@ -541,6 +529,7 @@ public class PlayEffect extends SpellAbilityEffect {
             controller.popPaidForSA();
         }
     }
+
 
     public static void addReplaceGraveyardEffect(Card c, Card hostCard, SpellAbility sa, SpellAbility tgtSA, String zone) {
         final Game game = hostCard.getGame();
