@@ -54,6 +54,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -154,6 +155,10 @@ public abstract class ItemManager<T extends InventoryItem> extends JPanel implem
 
     protected ImageView<T> createImageView(final ItemManagerModel<T> model0) {
         return new ImageView<>(this, model0, this.showRanking);
+    }
+
+    public void setCardScoreOverlay(Function<? super T, forge.itemmanager.views.DraftScoreOverlay.Label> lookup) {
+        imageView.setCardScoreOverlay(lookup);
     }
 
     protected ItemManagerModel<T> getModel() {

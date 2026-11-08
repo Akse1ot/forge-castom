@@ -24,13 +24,18 @@ import forge.deck.DeckSection;
 import forge.game.GameType;
 import forge.gamemodes.limited.BoosterDraft;
 import forge.gamemodes.limited.IBoosterDraft;
+import forge.gamemodes.limited.FullChaosDraftPicker;
 import forge.gamemodes.limited.IDraftLog;
 import forge.gamemodes.limited.LimitedPlayer;
 import forge.gui.framework.DragCell;
 import forge.gui.framework.FScreen;
 import forge.item.PaperCard;
 import forge.itemmanager.CardManager;
+import forge.itemmanager.ItemColumn;
+import forge.itemmanager.ItemColumnConfig;
 import forge.itemmanager.ItemManagerConfig;
+import forge.itemmanager.ColumnDef;
+import forge.itemmanager.views.ItemTableColumn;
 import forge.model.FModel;
 import forge.screens.deckeditor.CDeckEditorUI;
 import forge.screens.deckeditor.views.*;
@@ -41,6 +46,8 @@ import forge.util.ItemPool;
 import forge.util.Localizer;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 /**
@@ -65,6 +72,8 @@ public class CEditorDraftingProcess extends ACEditorBase<PaperCard, DeckGroup> i
     private boolean saved = false;
     private final Localizer localizer = Localizer.getInstance();
     private final DraftPicksSections picksSections;
+    private final DraftPackPreview packPreview = new DraftPackPreview();
+    private ItemPool<PaperCard> displayedPack;
 
     /**
      * Updates the deck editor UI as necessary draft selection mode.
@@ -74,6 +83,7 @@ public class CEditorDraftingProcess extends ACEditorBase<PaperCard, DeckGroup> i
 
         final CardManager catalogManager = new CardManager(cDetailPicture0, false, false, true);
         final CardManager deckManager = new CardManager(cDetailPicture0, false, false, true);
+        catalogManager.setCardScoreOverlay(packPreview::overlay);
 
         //hide filters and options panel so more of pack is visible by default
         catalogManager.setHideViewOptions(1, true);
@@ -95,6 +105,12 @@ public class CEditorDraftingProcess extends ACEditorBase<PaperCard, DeckGroup> i
      *            the in_booster draft
      */
     public final void showGui(final IBoosterDraft inBoosterDraft) {
+        packPreview.clear();
+        displayedPack = null;
+        saved = false;
+        if (getCatalogManager().getPool() != null) {
+            getCatalogManager().setPool(new ItemPool<>(PaperCard.class));
+        }
         this.boosterDraft = inBoosterDraft;
         picksSections.setDraft(inBoosterDraft);
         this.boosterDraft.setLogEntry(this);
@@ -127,7 +143,12 @@ public class CEditorDraftingProcess extends ACEditorBase<PaperCard, DeckGroup> i
 
         // get next booster pack if we aren't picking again from this pack
         DeckSection section = DraftPicksSections.getPickSection(toAlternate);
-        this.boosterDraft.setChoice(card, section);
+        var snapshot = packPreview.takeSnapshot();
+        if (snapshot != null && boosterDraft instanceof BoosterDraft draft) {
+            draft.setChoice(card, section, snapshot);
+        } else {
+            this.boosterDraft.setChoice(card, section);
+        }
         picksSections.refresh();
         showPackToDraft();
     }
@@ -144,6 +165,9 @@ public class CEditorDraftingProcess extends ACEditorBase<PaperCard, DeckGroup> i
             this.showChoices(pool);
         }
         else {
+            packPreview.clear();
+            displayedPack = null;
+            getCatalogManager().setPool(new ItemPool<>(PaperCard.class));
             boosterDraft.postDraftActions();
 
             this.saveDraft();
@@ -182,6 +206,12 @@ public class CEditorDraftingProcess extends ACEditorBase<PaperCard, DeckGroup> i
      *            a {@link ItemPool<PaperCard>} object.
      */
     private void showChoices(final ItemPool<PaperCard> list) {
+        packPreview.clear();
+        if (list == null) {
+            displayedPack = new ItemPool<>(PaperCard.class);
+            getCatalogManager().setPool(displayedPack);
+            return;
+        }
         int packNumber = ((BoosterDraft) boosterDraft).getCurrentBoosterIndex() + 1;
 
         this.getCatalogManager().setCaption(localizer.getMessage("lblPackNCards", String.valueOf(packNumber)));
@@ -190,11 +220,32 @@ public class CEditorDraftingProcess extends ACEditorBase<PaperCard, DeckGroup> i
 
         if (boosterDraft.getHumanPlayer().hasArchdemonCurse()) {
             // Only show facedown cards with no information
-            this.getCatalogManager().setPool(generateFakePaperCards(count));
+            displayedPack = generateFakePaperCards(count);
         } else {
-            this.getCatalogManager().setPool(list);
+            displayedPack = list;
+            if (FullChaosDraftPicker.needsHumanEvaluation(boosterDraft)) {
+                List<PaperCard> visible = list.toFlatList();
+                packPreview.show(visible, () -> FullChaosDraftPicker.evaluateVisiblePack(boosterDraft,
+                        visible, boosterDraft.getHumanPlayer().getDeck()), FullChaosDraftPicker.showHumanHints(boosterDraft),
+                        Boolean.parseBoolean(System.getProperty("forge.chaosDraft.humanOverlay", "true")));
+            }
         }
+        getCatalogManager().setPool(displayedPack);
     } // showChoices()
+
+    private void setupPackView() {
+        ItemManagerConfig config = ItemManagerConfig.DRAFT_PACK;
+        if (!FullChaosDraftPicker.showHumanHints(boosterDraft)) {
+            getCatalogManager().setup(config);
+            return;
+        }
+        ItemColumnConfig score = new ItemColumnConfig(ColumnDef.CHAOS_SCORE);
+        score.setIndex(config.getCols().size());
+        ItemColumn column = new ItemColumn(score,
+                entry -> packPreview.sortValue((PaperCard) entry.getKey()),
+                entry -> packPreview.display((PaperCard) entry.getKey()));
+        getCatalogManager().setup(config, Map.of(ColumnDef.CHAOS_SCORE, new ItemTableColumn(column)));
+    }
 
     private ItemPool<PaperCard> generateFakePaperCards(int count) {
         ItemPool<PaperCard> pool = new ItemPool<>(PaperCard.class);
@@ -261,8 +312,10 @@ public class CEditorDraftingProcess extends ACEditorBase<PaperCard, DeckGroup> i
         }
         finishedDraft.setHumanDeck(humanDeck);
         finishedDraft.addAiDecks(computer);
+        FullChaosDraftPicker.identifyDraftDecks(boosterDraft, humanDeck, computer);
 
         FModel.getDecks().getDraft().add(finishedDraft);
+        FullChaosDraftPicker.reportDraftDecks(boosterDraft, humanDeck, computer);
 
         saved = true;
 
@@ -318,7 +371,7 @@ public class CEditorDraftingProcess extends ACEditorBase<PaperCard, DeckGroup> i
      */
     @Override
     public void update() {
-        this.getCatalogManager().setup(ItemManagerConfig.DRAFT_PACK);
+        setupPackView();
         this.getDeckManager().setup(ItemManagerConfig.DRAFT_POOL);
 
         if (VEditorLog.SINGLETON_INSTANCE.getParentCell() == null) {
@@ -328,11 +381,11 @@ public class CEditorDraftingProcess extends ACEditorBase<PaperCard, DeckGroup> i
 
         ccAddLabel = this.getBtnAdd().getText();
 
-        if (this.getCatalogManager().getPool() == null) { //avoid showing next choice again when switching back to Draft screen
+        if (displayedPack == null) { //avoid showing next choice again when switching back to Draft screen
             this.showChoices(this.boosterDraft.nextChoice());
         }
         else {
-            this.showChoices(this.getCatalogManager().getPool());
+            this.showChoices(displayedPack);
         }
         picksSections.refresh();
 
@@ -367,7 +420,8 @@ public class CEditorDraftingProcess extends ACEditorBase<PaperCard, DeckGroup> i
     public boolean canSwitchAway(boolean isClosing) {
         if (isClosing && !saved && this.boosterDraft.hasNextChoice()) {
             String userPrompt = localizer.getMessage("lblEndDraftConfirm");
-            return FOptionPane.showConfirmDialog(userPrompt, localizer.getMessage("lblLeaveDraft"), localizer.getMessage("lblLeave"), localizer.getMessage("lblCancel"), false);
+            return packPreview.confirmClose(() -> FOptionPane.showConfirmDialog(userPrompt,
+                    localizer.getMessage("lblLeaveDraft"), localizer.getMessage("lblLeave"), localizer.getMessage("lblCancel"), false));
         }
         return true;
     }
@@ -377,6 +431,7 @@ public class CEditorDraftingProcess extends ACEditorBase<PaperCard, DeckGroup> i
      */
     @Override
     public void resetUIChanges() {
+        packPreview.clear();
         //Re-rename buttons
         this.getBtnAdd().setText(ccAddLabel);
         this.getCbxSection().setVisible(false);

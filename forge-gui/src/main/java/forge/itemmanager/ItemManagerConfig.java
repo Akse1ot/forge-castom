@@ -315,6 +315,9 @@ public enum ItemManagerConfig {
                         try { //capture enum parse errors without losing other column preferences
                             final Element colEl = (Element) cols.item(j);
                             ItemColumnConfig colConfig = config.cols.get(Enum.valueOf(ColumnDef.class, colEl.getAttribute("name")));
+                            if (colConfig == null) {
+                                continue;
+                            }
                             if (colEl.hasAttribute("width")) {
                                 colConfig.setPreferredWidth(Integer.parseInt(colEl.getAttribute("width")));
                             }

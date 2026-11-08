@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 
 public class ImageView<T extends InventoryItem> extends ItemView<T> {
@@ -1268,6 +1269,12 @@ public class ImageView<T extends InventoryItem> extends ItemView<T> {
                     g.drawString(value, x-w/2, y);
                     g.setClip(clip);
                 }
+                if (cardScoreOverlay != null && item != PaperCard.FAKE_CARD) {
+                    DraftScoreOverlay.Label label = cardScoreOverlay.apply(itemInfo.item);
+                    if (label != null) {
+                        DraftScoreOverlay.draw(g, new Rectangle(drawX, drawY, drawWidth, drawHeight), label);
+                    }
+                }
             }
         }
 
@@ -1288,5 +1295,12 @@ public class ImageView<T extends InventoryItem> extends ItemView<T> {
                 // Silently ignore if deck context is not available
             }
         }
+    }
+
+    private Function<? super T, DraftScoreOverlay.Label> cardScoreOverlay;
+
+    public void setCardScoreOverlay(Function<? super T, DraftScoreOverlay.Label> lookup) {
+        cardScoreOverlay = lookup;
+        display.repaintSelf();
     }
 }

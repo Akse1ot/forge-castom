@@ -51,6 +51,14 @@ import java.util.stream.Collectors;
  * Booster Draft Format.
  */
 public class BoosterDraft implements IBoosterDraft {
+    private ChaosDraftReport chaosReport;
+
+    synchronized ChaosDraftReport chaosReport() {
+        if (chaosReport == null) {
+            chaosReport = new ChaosDraftReport(FullChaosDraftPicker.reportDirectory());
+        }
+        return chaosReport;
+    }
 
     private int nextId = 0;
     public static final int N_PLAYERS = 8;
@@ -858,6 +866,10 @@ public class BoosterDraft implements IBoosterDraft {
     // Return false is the pack will be passed
     @Override
     public boolean setChoice(final PaperCard c, DeckSection section) {
+        return setChoice(c, section, null);
+    }
+
+    public boolean setChoice(final PaperCard c, DeckSection section, ChaosDraftEvaluator.PackEvaluation snapshot) {
         final DraftPack thisBooster = this.localPlayer.nextChoice();
 
         if (!thisBooster.contains(c)) {
@@ -868,7 +880,11 @@ public class BoosterDraft implements IBoosterDraft {
 
         recordDraftPick(thisBooster, c);
 
+        boolean visible = snapshot != null && !this.localPlayer.hasArchdemonCurse();
         boolean passPack = this.localPlayer.draftCard(c, section);
+        if (visible) {
+            FullChaosDraftPicker.recordHumanPick(this, snapshot, c, getCurrentBoosterIndex() + 1, currentBoosterPick + 1);
+        }
         if (passPack) {
             // Computer players do their extra drafts in computerChoose.
             // Human players get handed the same pack twice by nextChoice.

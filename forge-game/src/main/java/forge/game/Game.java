@@ -98,6 +98,15 @@ public class Game {
     private final ReplacementHandler replacementHandler = new ReplacementHandler(this);
     private final EventBus events = new EventBus("game events");
     private final GameLog gameLog = new GameLog();
+    private GameObservation localObservation;
+
+    public GameObservation getLocalObservation() {
+        return localObservation;
+    }
+
+    public void setLocalObservation(GameObservation observation) {
+        localObservation = observation;
+    }
 
     private final Zone stackZone = new Zone(ZoneType.Stack, this);
     public int AI_TIMEOUT = 5;

@@ -159,10 +159,17 @@ public final class ItemListView<T extends InventoryItem> extends ItemView<T> {
                 columns.add(colOverrides.get(colConfig.getDef()));
             }
         }
+        if (colOverrides != null) {
+            colOverrides.forEach((def, column) -> {
+                if (!config.getCols().containsKey(def)) {
+                    columns.add(column);
+                }
+            });
+        }
         columns.sort(Comparator.comparingInt(ItemTableColumn::getIndex));
 
         //hide table header if only showing single string column
-        final boolean hideHeader = (config.getCols().size() == 1 && config.getCols().containsKey(ColumnDef.STRING));
+        final boolean hideHeader = (columns.size() == 1 && config.getCols().containsKey(ColumnDef.STRING));
 
         getPnlOptions().removeAll();
 

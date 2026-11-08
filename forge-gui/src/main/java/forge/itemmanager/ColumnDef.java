@@ -199,6 +199,8 @@ public enum ColumnDef {
     RANKING("lblRanking", "lblDraftRanking", 50, true, SortState.ASC,
             from -> toRanking(from.getKey(), false),
             from -> toRanking(from.getKey(), true)),
+    CHAOS_SCORE("Chaos", "Chaos", 66, true, SortState.DESC,
+            null, null),
     /**
      * The quantity column.
      */

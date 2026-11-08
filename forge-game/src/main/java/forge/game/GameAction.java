@@ -2423,6 +2423,10 @@ public class GameAction {
                 if (backupPlans.initializeExtraHands()) {
                     backupPlans.chooseHand();
                 }
+                GameObservation observation = game.getLocalObservation();
+                if (observation != null) {
+                    observation.openingHand(p1, false);
+                }
             }
 
             if (game.getRules().getGameType() != GameType.Puzzle) {
@@ -2430,6 +2434,12 @@ public class GameAction {
             }
             if (game.isGameOver()) { break; } // conceded during "mulligan" prompt
 
+            GameObservation observation = game.getLocalObservation();
+            if (observation != null) {
+                for (Player player : game.getRegisteredPlayers()) {
+                    observation.openingHand(player, true);
+                }
+            }
             game.setAge(GameStage.Play);
 
             //<THIS CODE WILL WORK WITH PHASE = NULL>

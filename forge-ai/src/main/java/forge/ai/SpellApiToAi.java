@@ -235,6 +235,11 @@ public enum SpellApiToAi {
         return get(api);
     }
 
+    /** Static evidence for callers that must not instantiate or run an AI handler. */
+    public boolean hasExplicitPlayVeto(final ApiType api) {
+        return apiToClass.get(api) == CannotPlayAi.class;
+    }
+
     public SpellAbilityAi get(final ApiType api) {
         SpellAbilityAi result = apiToInstance.get(api);
         if (null == result) {

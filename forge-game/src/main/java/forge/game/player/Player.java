@@ -1289,6 +1289,10 @@ public class Player extends GameEntity implements Comparable<Player> {
 
             c = game.getAction().moveTo(hand, c, cause, params);
             drawn.add(c);
+            forge.game.GameObservation observation = game.getLocalObservation();
+            if (observation != null) {
+                observation.cardDrawn(this, c);
+            }
 
             // CR 121.6c additional actions can't be performed when draw gets replaced
             // but "drawn this way" effects should still count them

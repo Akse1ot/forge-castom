@@ -51,11 +51,12 @@ public class LimitedPlayerAI extends LimitedPlayer {
             final ColorSet chosenColors = deckCols.getChosenColors();
             final boolean canAddMoreColors = deckCols.canChoseMoreColors();
 
-            List<PaperCard> rankedCards = rankCardsInPack(chooseFrom, pool.toFlatList(), chosenColors, canAddMoreColors);
-            bestPick = rankedCards.get(0);
+            List<PaperCard> picked = pool.toFlatList();
+            List<PaperCard> rankedCards = rankCardsInPack(chooseFrom, picked, chosenColors, canAddMoreColors);
+            bestPick = FullChaosDraftPicker.choose(rankedCards, picked, deckCols, order, draft, deck);
 
-            if (canAddMoreColors) {
-                deckCols.addColorsOf(bestPick);
+            if (canAddMoreColors || picked.size() < 12 && FullChaosDraftPicker.isEnabledForDraft(draft)) {
+                FullChaosDraftPicker.updateColors(deckCols, bestPick, draft, picked);
             }
         }
 
@@ -64,7 +65,7 @@ public class LimitedPlayerAI extends LimitedPlayer {
 
     public Deck buildDeck(String landSetCode) {
         CardPool section = deck.getOrCreate(DeckSection.Sideboard);
-        return new BoosterDeckBuilder(section.toFlatList(), deckCols).buildDeck(landSetCode);
+        return FullChaosDraftPicker.buildDeck(section.toFlatList(), deckCols, landSetCode, order, draft, deck);
     }
 
     @Override

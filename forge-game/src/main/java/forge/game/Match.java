@@ -313,6 +313,10 @@ public class Match {
                 }
             }
 
+            GameObservation observation = game.getLocalObservation();
+            if (observation != null) {
+                observation.deckPrepared(player, myDeck.getLeft());
+            }
             preparePlayerZone(player, ZoneType.Library, myDeck.getLeft().getMain(), psc.useRandomFoil());
             if (myDeck.getLeft().has(DeckSection.Sideboard)) {
                 preparePlayerZone(player, ZoneType.Sideboard, myDeck.getLeft().get(DeckSection.Sideboard), psc.useRandomFoil());

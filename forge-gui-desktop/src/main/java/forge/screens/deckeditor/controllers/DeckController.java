@@ -328,6 +328,9 @@ public class DeckController<T extends DeckBase> {
 
         // copy to new instance before adding to current folder so further changes are auto-saved
         currentFolder.add((T) model.copyTo(model.getName()));
+        if (model instanceof forge.deck.DeckGroup group) {
+            forge.gamemodes.limited.ChaosDraftReport.humanDeckSaved(group.getHumanDeck());
+        }
         model.setDirectory(DeckProxy.getDeckDirectory(currentFolder));
         modelInStorage = true;
         setSaved(true);

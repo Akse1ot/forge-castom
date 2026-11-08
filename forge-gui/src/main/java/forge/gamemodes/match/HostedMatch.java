@@ -21,6 +21,8 @@ import forge.game.player.RegisteredPlayer;
 import forge.gamemodes.net.NetworkGameEventListener;
 import forge.gamemodes.net.server.HostingServer;
 import forge.gamemodes.replay.ReplaySession;
+import forge.gamemodes.limited.ChaosDraftReport;
+import forge.gamemodes.limited.ChaosMatchReport;
 import forge.gamemodes.quest.QuestController;
 import forge.gui.FThreads;
 import forge.gui.GuiBase;
@@ -61,6 +63,7 @@ public class HostedMatch {
     private final MatchUiEventVisitor visitor = new MatchUiEventVisitor();
     private final Map<PlayerControllerHuman, NextGameDecision> nextGameDecisions = Maps.newHashMap();
     private boolean isMatchOver = false;
+    private ChaosMatchReport chaosReport;
     public int subGameCount = 0;
 
     public HostedMatch() {}
@@ -135,6 +138,12 @@ public class HostedMatch {
             title = TextUtil.concatNoSpace("Multiplayer Game (", String.valueOf(sortedPlayers.size()), " players)");
         }
         this.match = new Match(gameRules, sortedPlayers, title);
+        boolean localDraft = gameRules.getGameType() == GameType.Draft && !HostingServer.isHosting()
+                && this.guis.values().stream().noneMatch(forge.gamemodes.net.ProtocolGuiGame.class::isInstance);
+        chaosReport = ChaosMatchReport.open(match, localDraft);
+        if (localDraft && sortedPlayers.get(0).getPlayer() instanceof LobbyPlayerHuman) {
+            ChaosDraftReport.humanDeckConfirmed(sortedPlayers.get(0).getDeck());
+        }
         this.match.subscribeToEvents(SoundSystem.instance);
         this.match.subscribeToEvents(HapticEngine.instance);
         this.match.subscribeToEvents(visitor);
@@ -143,11 +152,14 @@ public class HostedMatch {
     }
 
     public void continueMatch() {
-        endCurrentGame();
+        endCurrentGame(true);
         startGame();
     }
 
     public void restartMatch() {
+        if (chaosReport != null) {
+            chaosReport.finish(match, "restart");
+        }
         endCurrentGame();
         startMatch(match.getRules(), null, match.getPlayers(), this.guis, this.matchPlaylist);
     }
@@ -157,6 +169,11 @@ public class HostedMatch {
         SoundSystem.instance.setBackgroundMusic(this.matchPlaylist == null ? MusicPlaylist.MATCH : this.matchPlaylist);
 
         game = match.createGame();
+        final ChaosMatchReport currentReport = chaosReport;
+        final Match reportedMatch = match;
+        if (currentReport != null) {
+            currentReport.attach(game);
+        }
         //game.EXPERIMENTAL_RESTORE_SNAPSHOT = FModel.getPreferences().getPrefBoolean(FPref.MATCH_EXPERIMENTAL_RESTORE);
         game.AI_TIMEOUT = FModel.getPreferences().getPrefInt(FPref.MATCH_AI_TIMEOUT);
         game.AI_FLAT_MONTE_CARLO = FModel.getPreferences().getPrefBoolean(FPref.MATCH_AI_FLAT_MONTE_CARLO);
@@ -297,10 +314,16 @@ public class HostedMatch {
             try {
                 match.startGame(currentGame, startGameHook);
             } catch (final RuntimeException | Error ex) {
+                if (currentReport != null) {
+                    currentReport.finish(reportedMatch, "game_error");
+                }
                 if (replay != null) {
                     replay.abort();
                 }
                 throw ex;
+            }
+            if (currentReport != null) {
+                currentReport.finish(reportedMatch, null);
             }
             // this function waits?
             if (endGameHook != null) {
@@ -378,6 +401,13 @@ public class HostedMatch {
     }
 
     public void endCurrentGame() {
+        endCurrentGame(false);
+    }
+
+    private void endCurrentGame(boolean continuing) {
+        if (!continuing && chaosReport != null) {
+            chaosReport.finish(match, "closed");
+        }
         if (game == null) { return; }
         boolean isMatchOver = game.getView().isMatchOver();
 

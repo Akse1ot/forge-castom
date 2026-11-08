@@ -226,6 +226,10 @@ public class AbilityManaPart implements java.io.Serializable {
         }
 
         manaPool.addMana(this.lastManaProduced);
+        forge.game.GameObservation observation = game.getLocalObservation();
+        if (observation != null) {
+            observation.manaProduced(source, root, player, afterReplace);
+        }
 
         final Map<AbilityKey, Object> runParams = AbilityKey.mapFromCard(source);
         runParams.put(AbilityKey.Player, player);
