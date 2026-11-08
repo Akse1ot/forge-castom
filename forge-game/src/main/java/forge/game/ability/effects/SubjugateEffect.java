@@ -46,7 +46,14 @@ public class SubjugateEffect extends SpellAbilityEffect {
 
         // Use the token's rules with a non-token printing. CardFactory would
         // otherwise create a real TOKEN, including when rebuilding it in a new zone.
-        return new PaperCard(template.getRules(), template.getEdition(), template.getRarity());
+        // Keep the image key on the printing so those rebuilds preserve it.
+        final String imageKey = template.getImageKey(0);
+        return new PaperCard(template.getRules(), template.getEdition(), template.getRarity()) {
+            @Override
+            public String getImageKey(boolean altState) {
+                return imageKey;
+            }
+        };
     }
 
     @Override

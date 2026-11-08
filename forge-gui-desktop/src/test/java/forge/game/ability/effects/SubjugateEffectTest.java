@@ -1,5 +1,6 @@
 package forge.game.ability.effects;
 
+import forge.ImageKeys;
 import forge.StaticData;
 import forge.ai.AITest;
 import forge.ai.ComputerUtil;
@@ -130,16 +131,20 @@ public class SubjugateEffectTest extends AITest {
         AbilityUtils.resolve(sa);
         Card card = recipient.getCardsIn(ZoneType.Library).get(0);
         int id = card.getId();
+        String imageKey = card.getView().getCurrentState().getTrackableImageKey();
+        assertEquals(imageKey.split("\\|", 2)[0], ImageKeys.getTokenKey(SCRIPT));
 
         for (ZoneType zone : List.of(ZoneType.Hand, ZoneType.Graveyard, ZoneType.Exile, ZoneType.Library)) {
             card = game.getAction().moveTo(zone, card, sa, AbilityKey.newMap());
             game.getAction().checkStateEffects(false);
             assertNightmare(card, recipient, zone);
+            assertEquals(card.getView().getCurrentState().getTrackableImageKey(), imageKey);
             assertEquals(card.getId(), id);
             assertSame(game.findById(id), card);
         }
         Card drawn = recipient.drawCard().get(0);
         assertNightmare(drawn, recipient, ZoneType.Hand);
+        assertEquals(drawn.getView().getCurrentState().getTrackableImageKey(), imageKey);
         assertEquals(drawn.getId(), id);
     }
 
