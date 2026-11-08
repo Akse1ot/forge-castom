@@ -6,6 +6,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -57,8 +58,12 @@ public class CardTranslation {
                 }
             }
         } catch (IOException e) {
+            // Russian UI resources are shipped without a card translation file.
+            if (e instanceof NoSuchFileException && "ru-RU".equalsIgnoreCase(language)) {
+                return;
+            }
             if (!"en-US".equalsIgnoreCase(language))
-                System.err.println("Error reading translation file: cardnames-" + language + ".txt");
+                System.err.println("Error reading translation file: " + filename);
         }
     }
 
