@@ -1,282 +1,276 @@
 //Rank|Name|Rarity|Set
 #1|Agnar, Winter's Wrath|M|DWAP
-#2|Cavern of Souls|M|DWAP
-#3|Elof, Fabled Bulwark|M|DWAP
-#4|Hammer of Ancestry|M|DWAP
-#5|Herald of Chilling Dusk|M|DWAP
-#6|Herald of Warming Dawn|M|DWAP
-#7|Hraungandr, The First Eruption|M|DWAP
-#8|Jarlorn, Storm-Roar|M|DWAP
-#9|Kaldrbursti, the First Blizzard|M|DWAP
-#10|Keiko, Travelling Trickster|M|DWAP
-#11|Lostwoods Shapestealer|M|DWAP
-#12|One With the Aurora|M|DWAP
-#13|Peak of Destruction|M|DWAP
-#14|Sara Van Helsa, Nightchaser|M|DWAP
-#15|Sivfrida, Life-Warden|M|DWAP
-#16|Skogdrengr, the First Apex|M|DWAP
-#17|Steinar, Molten Will|M|DWAP
-#18|The Original Valkyria|M|DWAP
-#19|Tungskul, Gelid Moon|M|DWAP
-#20|Winter's Tomb|M|DWAP
-#21|Adaptive Scavenger|R|DWAP
-#22|Agnar's Meditation|R|DWAP
-#23|Ari, Adventure Seeker|R|DWAP
-#24|Armament Repurposer|R|DWAP
-#25|Arnfinn & Sif, Aerscouts|R|DWAP
-#26|Assembled Procession|R|DWAP
-#27|Blazing Retribution|R|DWAP
-#28|Brunhild, Raider Queen|R|DWAP
-#29|Cage the Soul|R|DWAP
-#30|Cojocar Huntress|R|DWAP
-#31|Consuming Matriarch|R|DWAP
-#32|Crack the Shells|R|DWAP
-#33|Crush of Frost|R|DWAP
-#34|Dire Elimination|R|DWAP
-#35|Disciple of Devotion|R|DWAP
-#36|Dritta, Shadewrought|R|DWAP
-#37|Enevenomed Scribe|R|DWAP
-#38|Ferros, Encased Thunder|R|DWAP
-#39|Firebaiting|R|DWAP
-#40|Gelid Vessel|R|DWAP
-#41|Gor-Narg, Iskari Prince|R|DWAP
-#42|Grave Reckoning|R|DWAP
-#43|Growing Starlight|R|DWAP
-#44|Hodur, Varloch Elder|R|DWAP
-#45|Hoenir, Reclaimed Might|R|DWAP
-#46|Horrific Splintering|R|DWAP
-#47|Inherited Talents|R|DWAP
-#48|Intrepidity|R|DWAP
-#49|Keiko's Distraction|R|DWAP
-#50|Lay the Seeds|R|DWAP
-#51|Lostwoods Skywarden|R|DWAP
-#52|Magni, the Unbreakable|R|DWAP
-#53|Malignatus, Prison-Breaker|R|DWAP
-#54|Moonbird's Invocation|R|DWAP
-#55|Mountainbreaker Colossus|R|DWAP
-#56|Mythweaver Sprite|R|DWAP
-#57|Nanna, Small but Mighty|R|DWAP
-#58|Overgrown Steelsheell|R|DWAP
-#59|Quickstep Wildcaller|R|DWAP
-#60|Regurgitating Gorger|R|DWAP
-#61|Rind, Head Priestess|R|DWAP
-#62|Rolling Joysphere|R|DWAP
-#63|Skadi, Fierce Protectress|R|DWAP
-#64|Smuggled Firebombs|R|DWAP
-#65|Solace's Shadow|R|DWAP
-#66|Spiritual Order|R|DWAP
-#67|Star-Herd Ascender|R|DWAP
-#68|Star-High Dreamer|R|DWAP
-#69|Summit Guardians|R|DWAP
-#70|Sunbird's Invocation|R|DWAP
-#71|Sunfeather Ascetic|R|DWAP
-#72|Sven, Fjord Cliffdancer|R|DWAP
-#73|Temple to True Ice|R|DWAP
-#74|Underbridge Takeover|R|DWAP
-#75|Unrelenting Champion|R|DWAP
-#76|Urdie, Inquisite Scholar|R|DWAP
-#77|Van Helsa's Aptitude|R|DWAP
-#78|Van Helsa's Paragon|R|DWAP
-#79|Wildform Reclaimer|R|DWAP
-#80|Yeti's Call|R|DWAP
-#81|Adventurous Coercion|U|DWAP
-#82|Anaru Omenseer|U|DWAP
+#2|Winter's Tomb|M|DWAP
+#3|Skadi, Fierce Protectress|R|DWAP
+#4|Tungskul, Gelid Moon|M|DWAP
+#5|Gor-Narg, Iskari Prince|R|DWAP
+#6|Arnfinn & Sif, Aerscouts|R|DWAP
+#7|Shadowcleave|U|DWAP
+#8|Dire Elimination|R|DWAP
+#9|Smuggled Firebombs|R|DWAP
+#10|Steinar, Molten Will|M|DWAP
+#11|Van Helsa's Paragon|R|DWAP
+#12|Malignatus, Prison-Breaker|R|DWAP
+#13|Hodur, Varloch Elder|R|DWAP
+#14|Sven, Fjord Cliffdancer|R|DWAP
+#15|Lostwoods Skywarden|R|DWAP
+#16|Sacred Binding|U|DWAP
+#17|Slumbering Snowtoad|U|DWAP
+#18|Herald of Chilling Dusk|M|DWAP
+#19|Excited Artillerist|C|DWAP
+#20|Growing Starlight|R|DWAP
+#21|Blizzard Bulwark|U|DWAP
+#22|Horrific Reclamation|U|DWAP
+#23|Risen Greatwyrm|U|DWAP
+#24|Hoenir, Reclaimed Might|R|DWAP
+#25|Aurora Strix|U|DWAP
+#26|Sara Van Helsa, Nightchaser|M|DWAP
+#27|Brunhild, Raider Queen|R|DWAP
+#28|Blazing Retribution|R|DWAP
+#29|Rolling Joysphere|R|DWAP
+#30|Overgrown Steelsheell|R|DWAP
+#31|The Original Valkyria|M|DWAP
+#32|Mountainbreaker Colossus|R|DWAP
+#33|Jarlorn's Blessed|U|DWAP
+#34|Firebaiting|R|DWAP
+#35|Keiko, Travelling Trickster|M|DWAP
+#36|Lostwoods Shapestealer|M|DWAP
+#37|Flash Freeze|U|DWAP
+#38|Learned Ascetic|U|DWAP
+#39|Crack the Shells|R|DWAP
+#40|Peak of Destruction|M|DWAP
+#41|Varloch Flamewright|U|DWAP
+#42|Enevenomed Scribe|R|DWAP
+#43|Herald of Warming Dawn|M|DWAP
+#44|Magni, the Unbreakable|R|DWAP
+#45|Mountainback Ox|U|DWAP
+#46|Crush of Frost|R|DWAP
+#47|Primal Rebuke|C|DWAP
+#48|Runed Headcarver|U|DWAP
+#49|Walking Range|U|DWAP
+#50|Star-Herd Blaze|U|DWAP
+#51|Gunvald, Unsparing Raider|U|DWAP
+#52|Snowslide Runner|U|DWAP
+#53|Raider's Sabotage|U|DWAP
+#54|Titanic Odds|U|DWAP
+#55|Raze the Halls|C|DWAP
+#56|Unrelenting Champion|R|DWAP
+#57|Snowslide|U|DWAP
+#58|Gelid Entombing|C|DWAP
+#59|Ari, Adventure Seeker|R|DWAP
+#60|Defiant Sacrifice|C|DWAP
+#61|Lethal Chill|C|DWAP
+#62|Awoken Sapling|U|DWAP
+#63|Moonlit Summons|U|DWAP
+#64|Hopebringer Valkyria|U|DWAP
+#65|Carve a Path|U|DWAP
+#66|Star-Herd Ascender|R|DWAP
+#67|Flamespitter Wyrm|C|DWAP
+#68|Raider's Spirit|U|DWAP
+#69|Firehorn Crusher|U|DWAP
+#70|Posessed Deadwood|U|DWAP
+#71|Glimpse of Winter|U|DWAP
+#72|Calamitous Reading|U|DWAP
+#73|Collective Repulse|C|DWAP
+#74|Gor-narg's Leadership|C|DWAP
+#75|Kaldrbursti, the First Blizzard|M|DWAP
+#76|Hraungandr, The First Eruption|M|DWAP
+#77|Jarlorn, Storm-Roar|M|DWAP
+#78|Cage the Soul|R|DWAP
+#79|Moonbird's Invocation|R|DWAP
+#80|Jarlorns Fury|C|DWAP
+#81|Rind, Head Priestess|R|DWAP
+#82|Van Helsa's Blade|C|DWAP
 #83|Artistic Invocator|U|DWAP
-#84|Aurora Strix|U|DWAP
-#85|Aurora Weaver|U|DWAP
-#86|Awoken Sapling|U|DWAP
-#87|Blazing Valkyria|U|DWAP
-#88|Blizzard Bulwark|U|DWAP
-#89|Blizzard Stalker|U|DWAP
-#90|Brunhild's Tactics|U|DWAP
-#91|Calamitous Reading|U|DWAP
-#92|Caller of Nightmare|U|DWAP
-#93|Carve a Path|U|DWAP
-#94|Centaur Omenreader|U|DWAP
-#95|Content Furball|U|DWAP
-#96|Curious Imitator|U|DWAP
-#97|Dangerous Bloom|U|DWAP
-#98|Dawnpeak Herdmaster|U|DWAP
-#99|Defiant Trapbreaker|U|DWAP
-#100|Direfloe Strix|U|DWAP
-#101|Dreamcatcher's Rod|U|DWAP
-#102|Elder Protector|U|DWAP
-#103|Enthralled Huntress|U|DWAP
-#104|Expand Horizons|U|DWAP
-#105|Expedition Leader|U|DWAP
-#106|Fabled Weaponsmith|U|DWAP
-#107|Firehorn Crusher|U|DWAP
-#108|Flash Freeze|U|DWAP
-#109|Forbidden Insight|U|DWAP
-#110|Forged in Duty|U|DWAP
-#111|Forgesteppe Barrier|U|DWAP
-#112|Freeze Momentum|U|DWAP
-#113|Frosted Bastion|U|DWAP
-#114|Frosted Grotto|U|DWAP
-#115|Frosted River|U|DWAP
-#116|Frosted Steppe|U|DWAP
-#117|Frosted Village|U|DWAP
-#118|Frostmoon Pathleader|U|DWAP
-#119|Frostmoon Vindicator|U|DWAP
-#120|Glimpse of Winter|U|DWAP
-#121|Grove Sentinel|U|DWAP
-#122|Gunvald, Unsparing Raider|U|DWAP
-#123|Hammer of the Admired|U|DWAP
-#124|Hilda, the Oneiromancer|U|DWAP
-#125|Hopebringer Valkyria|U|DWAP
-#126|Horrific Priest|U|DWAP
-#127|Horrific Reclamation|U|DWAP
-#128|Iceshelf Crasher|U|DWAP
-#129|Iceshelf Screecher|U|DWAP
-#130|Improvised Juggernaut|U|DWAP
-#131|Invoke the Stars|U|DWAP
-#132|Invoked Protector|U|DWAP
-#133|Jarlorn's Blessed|U|DWAP
-#134|Lead the Avalanche|U|DWAP
-#135|Learned Ascetic|U|DWAP
-#136|Lostwoods Soulherder|U|DWAP
-#137|Moonlit Summons|U|DWAP
-#138|Mountainback Ox|U|DWAP
-#139|Nurture the Lostwoods|U|DWAP
-#140|Persistent Croaker|U|DWAP
-#141|Posessed Deadwood|U|DWAP
-#142|Prismatic Chasm|U|DWAP
-#143|Raider's Huntmaster|U|DWAP
-#144|Raider's Intimidator|U|DWAP
-#145|Raider's Sabotage|U|DWAP
-#146|Raider's Spirit|U|DWAP
-#147|Rimefield Teachings|U|DWAP
-#148|Rimefield's Blessing|U|DWAP
-#149|Risen Greatwyrm|U|DWAP
-#150|Rotroot Hydra|U|DWAP
-#151|Runed Headcarver|U|DWAP
-#152|Sacred Binding|U|DWAP
-#153|Selfless Guardianship|U|DWAP
-#154|Shadowcleave|U|DWAP
-#155|Slumbering Snowtoad|U|DWAP
-#156|Slumbering Warden|U|DWAP
-#157|Smithed Legacy|U|DWAP
-#158|Smithing Instructor|U|DWAP
-#159|Snowfield Burdenbeast|U|DWAP
-#160|Snowslide|U|DWAP
-#161|Snowslide Runner|U|DWAP
-#162|Song of Winter|U|DWAP
-#163|Spinner of Souls|U|DWAP
-#164|Star-Herd Apprentice|U|DWAP
-#165|Star-Herd Blaze|U|DWAP
-#166|Steinar's Crucible|U|DWAP
-#167|Steppe Stampede|U|DWAP
-#168|Stoneskin|U|DWAP
-#169|Those Who Thaw|U|DWAP
-#170|Titanic Odds|U|DWAP
-#171|Trapped Trail|U|DWAP
-#172|Twisted-horn Flockhand|U|DWAP
-#173|Unstoppable Behemoth|U|DWAP
-#174|Varloch Flamewright|U|DWAP
-#175|Varloch Troublemaker|U|DWAP
-#176|Walking Range|U|DWAP
-#177|Wandering Gemcrafter|U|DWAP
-#178|Wandering Sprite|U|DWAP
-#179|Wild Reproach|U|DWAP
-#180|Yearling Warrior|U|DWAP
-#181|Alpine Meadow|C|DWAP
-#182|Arctic Treeline|C|DWAP
-#183|Aspirant of the Hunt|C|DWAP
-#184|Auroric Landscape|C|DWAP
-#185|Avalanche Charge|C|DWAP
-#186|Battle Brewer|C|DWAP
-#187|Berserker's Will|C|DWAP
-#188|Blaze Scryer|C|DWAP
-#189|Blessed Workshop|C|DWAP
-#190|Bloodfang Wildcat|C|DWAP
-#191|Call Reinforcements|C|DWAP
-#192|Charting Efforts|C|DWAP
-#193|Chillbloom Spider|C|DWAP
-#194|Cliffwalker Adept|C|DWAP
-#195|Collective Repulse|C|DWAP
-#196|Defiant Sacrifice|C|DWAP
-#197|Disturbed Orbweaver|C|DWAP
-#198|Dread Scavenger|C|DWAP
-#199|Eager Geologist|C|DWAP
-#200|Excited Artillerist|C|DWAP
-#201|Explorers Raft|C|DWAP
-#202|Firmament Channeler|C|DWAP
-#203|Fjord Raptor|C|DWAP
-#204|Fjord Thrasher|C|DWAP
-#205|Flamespitter Wyrm|C|DWAP
-#206|Foraging Raccoon|C|DWAP
-#207|Frostmoon Priestess|C|DWAP
-#208|Frostmoon Temple|C|DWAP
-#209|Fungal Storyteller|C|DWAP
-#210|Gelid Entombing|C|DWAP
-#211|Glacial Floodplain|C|DWAP
-#212|Gor-narg's Leadership|C|DWAP
-#213|Gunvald's Forerunner|C|DWAP
-#214|Haunt-Pass Charger|C|DWAP
-#215|Highland Forest|C|DWAP
-#216|Hilda's Dismissal|C|DWAP
-#217|Huntpack Ambush|C|DWAP
-#218|Huntpack Guardian|C|DWAP
-#219|Ice Tunnel|C|DWAP
-#220|Icicle Snare|C|DWAP
-#221|Iron Giant|C|DWAP
-#222|Iskari Floechanter|C|DWAP
-#223|Iskari Pathleader|C|DWAP
-#224|Iskari Totem|C|DWAP
-#225|Jarlorns Fury|C|DWAP
-#226|Kindle Runner|C|DWAP
-#227|Kindly Herder|C|DWAP
-#228|Learn From the Cold|C|DWAP
-#229|Lethal Chill|C|DWAP
-#230|Lostwoods Caretaker|C|DWAP
-#231|Lostwoods Corruption|C|DWAP
-#232|Maddenned Ramblings|C|DWAP
-#233|Malleable Fae|C|DWAP
-#234|Martyr's Soul|C|DWAP
-#235|Omenreading|C|DWAP
-#236|Peak Performance|C|DWAP
-#237|Primal Rebuke|C|DWAP
-#238|Protective Hearthsmith|C|DWAP
-#239|Raider's Initiate|C|DWAP
-#240|Ranging Falcon|C|DWAP
-#241|Raze the Halls|C|DWAP
-#242|Reed-Crowned Flutist|C|DWAP
-#243|Release From Frost|C|DWAP
-#244|Render Insignificant|C|DWAP
-#245|Rimewood Falls|C|DWAP
-#246|Rockspine Drake|C|DWAP
-#247|Shamanic Leader|C|DWAP
-#248|Skadi's Muster|C|DWAP
-#249|Skred|C|DWAP
-#250|Smith's Resolve|C|DWAP
-#251|Snow-Covered Forest|C|DWAP
-#252|Snow-Covered Island|C|DWAP
-#253|Snow-Covered Mountain|C|DWAP
-#254|Snow-Covered Plains|C|DWAP
-#255|Snow-Covered Swamp|C|DWAP
-#256|Snow-Covered Wastes|C|DWAP
-#257|Snowfield Sinkhole|C|DWAP
-#258|Spikeback Hog|C|DWAP
-#259|Steadfast Ascetic|C|DWAP
-#260|Stormbane Strix|C|DWAP
-#261|Strait-Deep Lurker|C|DWAP
-#262|Sulfurous Mire|C|DWAP
-#263|Take up Blades|C|DWAP
-#264|Totemic Visions|C|DWAP
-#265|Tranquil Scryer|C|DWAP
-#266|Treetop Hunter|C|DWAP
-#267|Trumpeting Rampager|C|DWAP
-#268|Unexpected Breach|C|DWAP
-#269|Unformed Devourer|C|DWAP
-#270|Unhallowed Awakening|C|DWAP
-#271|Unto Death|C|DWAP
-#272|Van Helsa's Blade|C|DWAP
-#273|Volatile Fjord|C|DWAP
-#274|Woodland Chasm|C|DWAP
-#275|Yeti Youngling|C|DWAP
-#276|Forest|L|DWAP
-#277|Island|L|DWAP
-#278|Mountain|L|DWAP
-#279|Plains|L|DWAP
-#280|Swamp|L|DWAP
-#281|Wastes|L|DWAP
+#84|Skred|C|DWAP
+#85|Protective Hearthsmith|C|DWAP
+#86|Iceshelf Screecher|U|DWAP
+#87|Stormbane Strix|C|DWAP
+#88|Adaptive Scavenger|R|DWAP
+#89|Skogdrengr, the First Apex|M|DWAP
+#90|Ranging Falcon|C|DWAP
+#91|Blazing Valkyria|U|DWAP
+#92|Sunbird's Invocation|R|DWAP
+#93|Direfloe Strix|U|DWAP
+#94|Curious Imitator|U|DWAP
+#95|Trapped Trail|U|DWAP
+#96|Regurgitating Gorger|R|DWAP
+#97|Wild Reproach|U|DWAP
+#98|Dangerous Bloom|U|DWAP
+#99|Fungal Storyteller|C|DWAP
+#100|Lostwoods Soulherder|U|DWAP
+#101|Wildform Reclaimer|R|DWAP
+#102|Charting Efforts|C|DWAP
+#103|Frostmoon Pathleader|U|DWAP
+#104|Enthralled Huntress|U|DWAP
+#105|Lostwoods Caretaker|C|DWAP
+#106|Raider's Intimidator|U|DWAP
+#107|Invoke the Stars|U|DWAP
+#108|Render Insignificant|C|DWAP
+#109|Hammer of the Admired|U|DWAP
+#110|Huntpack Ambush|C|DWAP
+#111|Hilda, the Oneiromancer|U|DWAP
+#112|Prismatic Chasm|U|DWAP
+#113|Twisted-horn Flockhand|U|DWAP
+#114|Trumpeting Rampager|C|DWAP
+#115|Spinner of Souls I|U|DWAP
+#116|Tranquil Scryer|C|DWAP
+#117|Unexpected Breach|C|DWAP
+#118|Improvised Juggernaut|U|DWAP
+#119|Freeze Momentum|U|DWAP
+#120|Star-High Dreamer|R|DWAP
+#121|Nurture the Lostwoods|U|DWAP
+#122|Song of Winter|U|DWAP
+#123|Content Furball|U|DWAP
+#124|Elof, Fabled Bulwark|M|DWAP
+#125|Gunvald's Forerunner|C|DWAP
+#126|Iskari Totem|C|DWAP
+#127|Mythweaver Sprite|R|DWAP
+#128|Smith's Resolve|C|DWAP
+#129|Wandering Sprite|U|DWAP
+#130|Blessed Workshop|C|DWAP
+#131|Brunhild's Tactics|U|DWAP
+#132|Yeti Youngling|C|DWAP
+#133|Release From Frost|C|DWAP
+#134|Explorers Raft|C|DWAP
+#135|Fabled Weaponsmith|U|DWAP
+#136|Raider's Huntmaster|U|DWAP
+#137|Unhallowed Awakening|C|DWAP
+#138|Defiant Trapbreaker|U|DWAP
+#139|Iceshelf Crasher|U|DWAP
+#140|Rockspine Drake|C|DWAP
+#141|Kindly Herder|C|DWAP
+#142|Fjord Raptor|C|DWAP
+#143|Dread Scavenger|C|DWAP
+#144|Frostmoon Vindicator|U|DWAP
+#145|Totemic Visions|C|DWAP
+#146|Treetop Hunter|C|DWAP
+#147|Iskari Pathleader|C|DWAP
+#148|Persistent Croaker|U|DWAP
+#149|Urdie, Inquisite Scholar|R|DWAP
+#150|Forged in Duty|U|DWAP
+#151|Grave Reckoning|R|DWAP
+#152|Steppe Stampede|U|DWAP
+#153|Ferros, Encased Thunder|R|DWAP
+#154|Unstoppable Behemoth|U|DWAP
+#155|Gelid Vessel|R|DWAP
+#156|Dawnpeak Herdmaster|U|DWAP
+#157|Hammer of Ancestry|M|DWAP
+#158|Maddenned Ramblings|C|DWAP
+#159|Iskari Floechanter|C|DWAP
+#160|Nanna, Small but Mighty|R|DWAP
+#161|Cliffwalker Adept|C|DWAP
+#162|Grove Sentinel|U|DWAP
+#163|Quickstep Wildcaller|R|DWAP
+#164|Blizzard Stalker|U|DWAP
+#165|Eager Geologist|C|DWAP
+#166|Hilda's Dismissal|C|DWAP
+#167|Disturbed Orbweaver|C|DWAP
+#168|Expedition Leader|U|DWAP
+#169|Malleable Fae|C|DWAP
+#170|Cojocar Huntress|R|DWAP
+#171|Auroric Landscape|C|DWAP
+#172|Avalanche Charge|C|DWAP
+#173|Horrific Splintering|R|DWAP
+#174|Peak Performance|C|DWAP
+#175|Dreamcatcher's Rod|U|DWAP
+#176|Star-Herd Apprentice|U|DWAP
+#177|Horrific Priest|U|DWAP
+#178|Firmament Channeler|C|DWAP
+#179|Bloodfang Wildcat|C|DWAP
+#180|Expand Horizons|U|DWAP
+#181|Selfless Guardianship|U|DWAP
+#182|Aurora Weaver|U|DWAP
+#183|Lead the Avalanche|U|DWAP
+#184|Unto Death|C|DWAP
+#185|Dritta, Shadewrought|R|DWAP
+#186|Forbidden Insight|U|DWAP
+#187|Frosted Bastion|U|DWAP
+#188|Agnar's Meditation|R|DWAP
+#189|Yearling Warrior|U|DWAP
+#190|Kindle Runner|C|DWAP
+#191|Rotroot Hydra|U|DWAP
+#192|Slumbering Warden|U|DWAP
+#193|Aspirant of the Hunt|C|DWAP
+#194|Solace's Shadow|R|DWAP
+#195|Wandering Gemcrafter|U|DWAP
+#196|Frosted River|U|DWAP
+#197|Frosted Steppe|U|DWAP
+#198|Fjord Thrasher|C|DWAP
+#199|Rimefield's Blessing|U|DWAP
+#200|Take up Blades|C|DWAP
+#201|Martyr's Soul|C|DWAP
+#202|Berserker's Will|C|DWAP
+#203|Spikeback Hog|C|DWAP
+#204|Invoked Protector|U|DWAP
+#205|Sivfrida, Life-Warden|M|DWAP
+#206|Inherited Talents|R|DWAP
+#207|Call Reinforcements|C|DWAP
+#208|Spiritual Order|R|DWAP
+#209|Reed-Crowned Flutist|C|DWAP
+#210|Summit Guardians|R|DWAP
+#211|Lostwoods Corruption|C|DWAP
+#212|Frostmoon Priestess|C|DWAP
+#213|Frosted Village|U|DWAP
+#214|Skadi's Muster|C|DWAP
+#215|Steadfast Ascetic|C|DWAP
+#216|Armament Repurposer|R|DWAP
+#217|Raider's Initiate|C|DWAP
+#218|Frosted Grotto|U|DWAP
+#219|Smithed Legacy|U|DWAP
+#220|One With the Aurora|M|DWAP
+#221|Those Who Thaw|U|DWAP
+#222|Icicle Snare|C|DWAP
+#223|Alpine Meadow|C|DWAP
+#224|Arctic Treeline|C|DWAP
+#225|Glacial Floodplain|C|DWAP
+#226|Highland Forest|C|DWAP
+#227|Ice Tunnel|C|DWAP
+#228|Rimewood Falls|C|DWAP
+#229|Snowfield Sinkhole|C|DWAP
+#230|Sulfurous Mire|C|DWAP
+#231|Volatile Fjord|C|DWAP
+#232|Woodland Chasm|C|DWAP
+#233|Centaur Omenreader|U|DWAP
+#234|Foraging Raccoon|C|DWAP
+#235|Van Helsa's Aptitude|R|DWAP
+#236|Steinar's Crucible|U|DWAP
+#237|Consuming Matriarch|R|DWAP
+#238|Cavern of Souls|M|DWAP
+#239|Anaru Omenseer|U|DWAP
+#240|Battle Brewer|C|DWAP
+#241|Yeti's Call|R|DWAP
+#242|Adventurous Coercion|U|DWAP
+#243|Varloch Troublemaker|U|DWAP
+#244|Rimefield Teachings|U|DWAP
+#245|Unformed Devourer|C|DWAP
+#246|Frostmoon Temple|C|DWAP
+#247|Blaze Scryer|C|DWAP
+#248|Snowfield Burdenbeast|U|DWAP
+#249|Chillbloom Spider|C|DWAP
+#250|Shamanic Leader|C|DWAP
+#251|Iron Giant|C|DWAP
+#252|Haunt-Pass Charger|C|DWAP
+#253|Huntpack Guardian|C|DWAP
+#254|Learn From the Cold|C|DWAP
+#255|Smithing Instructor|U|DWAP
+#256|Elder Protector|U|DWAP
+#257|Strait-Deep Lurker|C|DWAP
+#258|Caller of Nightmare|U|DWAP
+#259|Sunfeather Ascetic|R|DWAP
+#260|Keiko's Distraction|R|DWAP
+#261|Lay the Seeds|R|DWAP
+#262|Disciple of Devotion|R|DWAP
+#263|Snow-Covered Forest|C|DWAP
+#264|Snow-Covered Island|C|DWAP
+#265|Snow-Covered Mountain|C|DWAP
+#266|Snow-Covered Plains|C|DWAP
+#267|Snow-Covered Swamp|C|DWAP
+#268|Omenreading|C|DWAP
+#269|Intrepidity|R|DWAP
+#270|Assembled Procession|R|DWAP
+#271|Forgesteppe Barrier|U|DWAP
+#272|Temple to True Ice|R|DWAP
+#273|Underbridge Takeover|R|DWAP
+#274|Stoneskin|U|DWAP
+#275|Snow-Covered Wastes|C|DWAP

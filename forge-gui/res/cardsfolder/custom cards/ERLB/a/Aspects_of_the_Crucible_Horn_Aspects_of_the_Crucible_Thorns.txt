@@ -1,3 +1,17 @@
+Name:Aspects of the Crucible Horn
+ManaCost:2 G
+Types:Enchantment Aura
+K:Enchant:Equipment,Creature:creatures or Equipment
+K:Ash of War
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 2 | AddToughness$ 1 | Description$ Enchanted creature gets +2/+1.
+S:Mode$ MinMaxBlocker | ValidCard$ Creature.EnchantedBy | Max$ 1 | Description$ Enchanted creature can't be blocked by more than one creature.
+DeckHints:Type$Equipment
+AlternateMode:Modal
+Oracle:Ash of War (This Aura can enchant creatures or Equipment. If it enchants an Equipment, creatures equipped with that Equipment are treated as if they were enchanted by this Aura.)\nEnchanted creature gets +2/+1 and has "This creature can't be blocked by more than one creature."
+
+ALTERNATE
+
 Name:Aspects of the Crucible Thorns
 ManaCost:3 G
 Types:Enchantment Aura

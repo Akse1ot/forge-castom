@@ -1,4 +1,4 @@
-Name:Take Flight CNVL
+Name:Take Flight I
 ManaCost:U
 Types:Instant
 A:SP$ Charm | Choices$ DBReturn,DBFlying

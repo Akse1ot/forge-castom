@@ -57,7 +57,7 @@ Replace=.011F Mythic:fromSheet("CNVL cards")
 20 C Standard Responder
 21 C Stern Guardian
 22 C Surveillance Engine
-23 C Swift Response CNVL
+23 C Swift Response I
 24 C Vernal Cultivator
 25 U Winged Explorer
 26 C Aether Grip
@@ -83,7 +83,7 @@ Replace=.011F Mythic:fromSheet("CNVL cards")
 46 R Subjugate
 47 R Submerge the Weak
 48 C Swellskin Diver
-49 C Take Flight CNVL
+49 C Take Flight I
 50 C Take Knowledge
 51 U Unbodied Guardians
 52 R Vivify the Elements
