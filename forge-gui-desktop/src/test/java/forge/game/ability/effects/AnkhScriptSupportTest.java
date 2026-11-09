@@ -43,7 +43,7 @@ public class AnkhScriptSupportTest extends AITest {
         for(int i=0;i<3;i++)cast.getPayingMana().add(new forge.game.mana.Mana(forge.card.MagicColor.GREEN,theirs,theirs.getManaAbilities().get(0).getManaPart(),q));
         var event=forge.game.ability.AbilityKey.mapFromPlayer(q);event.put(forge.game.ability.AbilityKey.SpellAbility,cast);event.put(forge.game.ability.AbilityKey.Activator,q);
         var trigger=dragon.getTriggers().get(0);Assert.assertTrue(trigger.performTest(event),"another player may cast using your mana");
-        var ability=trigger.ensureAbility();ability.setActivatingPlayer(p);trigger.setTriggeringObjects(ability,event);
+        var ability=trigger.ensureAbility();ability.setActivatingPlayer(p);ability.setTriggeringObjects(trigger.buildTriggeringObjects(event));
         Assert.assertEquals(ability.getTriggeringObject(forge.game.ability.AbilityKey.Amount),2);
         cast.clearManaPaid();Assert.assertFalse(trigger.performTest(event));
         dragon.setController(q,g.getNextTimestamp());

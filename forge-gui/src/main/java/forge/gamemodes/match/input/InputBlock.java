@@ -26,7 +26,6 @@ import forge.game.event.GameEventCombatUpdate;
 import forge.game.player.Player;
 import forge.game.zone.ZoneType;
 import forge.gamemodes.match.Selection;
-import forge.gui.FThreads;
 import forge.gui.events.UiEventBlockerAssigned;
 import forge.player.PlayerControllerHuman;
 import forge.util.ITriggerEvent;
@@ -44,7 +43,7 @@ import java.util.List;
  * @version $Id: InputBlock.java 24769 2014-02-09 13:56:04Z Hellfish $
  */
 public class InputBlock extends InputSyncronizedBase {
-    /** Constant <code>serialVersionUID=6120743598368928128L</code>. */
+
     private static final long serialVersionUID = 6120743598368928128L;
 
     private Card currentAttacker = null;
@@ -61,8 +60,7 @@ public class InputBlock extends InputSyncronizedBase {
         for (final Card attacker : combat.getAttackers()) {
             for (final Card c : defender.getCreaturesInPlay()) {
                 if (CombatUtil.canBlock(attacker, c, combat)) {
-                    //must set current attacker on EDT
-                    FThreads.invokeInEdtNowOrLater(() -> currentAttacker = attacker);
+                    currentAttacker = attacker;
                     return;
                 }
             }

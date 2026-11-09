@@ -7,14 +7,10 @@ import forge.ai.LobbyPlayerAi;
 import forge.card.CardRarity;
 import forge.card.CardRules;
 import forge.card.CardType;
+import forge.card.CardStateName;
 import forge.game.*;
 import forge.game.ability.effects.DetachedCardEffect;
-import forge.game.card.Card;
-import forge.game.card.CardCloneStates;
-import forge.game.card.CardCopyService;
-import forge.game.card.CardFactory;
-import forge.game.card.CounterType;
-import forge.game.card.LibraryRevealHelper;
+import forge.game.card.*;
 import forge.game.card.token.TokenInfo;
 import forge.game.combat.Combat;
 import forge.game.keyword.MelodyUtil;
@@ -33,6 +29,7 @@ import forge.game.zone.ZoneType;
 import forge.item.PaperCard;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Iterator;
 import java.util.Map;
@@ -55,7 +52,7 @@ public class GameCopier {
     private GameSnapshot snapshot = null;
     /** Copy the spells on the stack too (see {@link GameSimulator#COPY_STACK}); decided per copier. */
     private boolean copyStack = GameSimulator.COPY_STACK;
-    private final java.util.Map<SpellAbility, SpellAbility> stackMap = new java.util.HashMap<>();
+    private final Map<SpellAbility, SpellAbility> stackMap = new HashMap<>();
 
     public GameCopier(Game origGame) {
         this.origGame = origGame;
@@ -74,8 +71,27 @@ public class GameCopier {
         return origGame;
     }
 
+    /**
+     * Cuts every link to the game this copy was made from (and the maps between the two). Only the copied game stays
+     * alive. For search nodes that are kept for a long time; after this {@link #find} and {@link #reverseFind} find
+     * nothing, and {@link #makeCopy} must not be called again.
+     */
+    public void release() {
+        if (gameObjectMap != null) {
+            releasedGame = gameObjectMap.getGame();
+        }
+        origGame = null;
+        playerMap = HashBiMap.create();
+        cardMap = HashBiMap.create();
+        stackMap.clear();
+        gameObjectMap = null;
+        snapshot = null;
+    }
+
+    private Game releasedGame;
+
     public Game getCopiedGame() {
-        return gameObjectMap.getGame();
+        return gameObjectMap != null ? gameObjectMap.getGame() : releasedGame;
     }
 
     public Game makeCopy() {
@@ -96,6 +112,7 @@ public class GameCopier {
         GameRules currentRules = origGame.getRules();
         Match newMatch = new Match(currentRules, newPlayers, origGame.getView().getTitle());
         Game newGame = new Game(newPlayers, currentRules, newMatch);
+        newGame.markAsSimulationCopy();
         newGame.setNoGUIUser();
         newGame.dangerouslySetTimestamp(origGame.getTimestamp());
 
@@ -110,6 +127,7 @@ public class GameCopier {
             newPlayer.setLifeGainedThisTurn(origPlayer.getLifeGainedThisTurn());
             newPlayer.setScryThisTurn(origPlayer.getScryThisTurn());
             newPlayer.setCommitedCrimeThisTurn(origPlayer.getCommittedCrimeThisTurn());
+            newPlayer.setDilemmasFacedThisTurn(origPlayer.getDilemmasFacedThisTurn());
             newPlayer.setLifeStartedThisTurnWith(origPlayer.getLifeStartedThisTurnWith());
             newPlayer.setDamageReceivedThisTurn(origPlayer.getDamageReceivedThisTurn());
             newPlayer.setLandsPlayedThisTurn(origPlayer.getLandsPlayedThisTurn());
@@ -188,8 +206,15 @@ public class GameCopier {
         LibraryRevealHelper.copyForSimulation(origGame, newGame);
 
         // Undo effects first before calculating them below, to avoid them applying twice.
+        // The effects hold the card they came from as it was when the state was last checked, and GameAction checks
+        // with the copies a zone change made ("TODO filter out old copies from zone change"): such a source is a
+        // different object than the card in the zone, with the same id. Find it by id too, and skip an effect whose
+        // card is no longer in the game at all, there is nothing to undo for it in the copy.
+        final IEntityMap lenient = lenientMap(newGame);
         for (StaticEffect effect : origGame.getStaticEffects().getEffects()) {
-            effect.removeMapped(gameObjectMap);
+            if (lenient.map(effect.getSource()) != null) {
+                effect.removeMapped(lenient);
+            }
         }
 
         if (origPhaseHandler.getCombat() != null) {
@@ -241,13 +266,19 @@ public class GameCopier {
             if (newSa != null) {
                 newSa.setActivatingPlayer(map.map(origSa.getActivatingPlayer()));
                 newSa.setFocused(origSa.isFocused());
-                  forge.game.spellability.ModalChoiceGroups.copyChoices(origSa, newSa, map);
-                for (SpellAbility originalPart = origSa, copiedPart = newSa;
-                        originalPart != null && copiedPart != null;
-                        originalPart = originalPart.getSubAbility(), copiedPart = copiedPart.getSubAbility()) {
-                    if (originalPart.usesTargeting()) {
-                        copiedPart.setTargets(originalPart.getTargets().copyMapped(map::map));
+                try {
+                    forge.game.spellability.ModalChoiceGroups.copyChoices(origSa, newSa, map);
+                    for (SpellAbility originalPart = origSa, copiedPart = newSa;
+                            originalPart != null && copiedPart != null;
+                            originalPart = originalPart.getSubAbility(), copiedPart = copiedPart.getSubAbility()) {
+                        if (originalPart.usesTargeting()) {
+                            copiedPart.setTargets(originalPart.getTargets().copyMapped(map::map));
+                        }
                     }
+                } catch (final RuntimeException e) {
+                    // Leave out a stack entry with an unmappable target.
+                    stackMap.remove(origSa);
+                    continue;
                 }
                 newGame.getStack().add(newSa);
                 stackMap.put(origSa, newSa);
@@ -325,9 +356,6 @@ public class GameCopier {
             if (card.getSaddledByThisTurn() != null) {
                 otherCard.setSaddledByThisTurn(card.getSaddledByThisTurn());
             }
-            if (card.getEffectSource() != null) {
-                otherCard.setEffectSource(cardMap.get(card.getEffectSource()));
-            }
             if (card.isPaired()) {
                 otherCard.setPairedWith(cardMap.get(card.getPairedWith()));
             }
@@ -349,6 +377,13 @@ public class GameCopier {
         for (Map.Entry<Card, Card> entry : cardMap.entrySet()) {
             Card copied = entry.getValue();
             entry.getKey().copyCustomStateToSnapshot(copied, ability -> findSAInCard(ability, copied));
+        }
+        for (Card card : origGame.getCardsIn(ZoneType.Command)) {
+            Card otherCard = cardMap.get(card);
+            if (otherCard != null && card.getEffectSource() != null) {
+                // this matters for correct MayPlay matching
+                otherCard.setEffectSource(cardMap.get(card.getEffectSource()));
+            }
         }
 
         copyLeftThisTurn(newGame, aiPlayer);
@@ -397,6 +432,15 @@ public class GameCopier {
         if (c.isToken() && !c.isImmutable()) {
             Card result = new TokenInfo(c).makeOneToken(newOwner, c.getId());
             new CardCopyService(c).copyCopiableCharacteristics(result, null, null);
+            // a token copy of a transforming (or otherwise multi-faced) permanent has its other faces too, and may be
+            // showing one of them: without them it cannot be put back in the state it is in
+            for (final CardStateName state : c.getStates()) {
+                if (!result.hasState(state)) {
+                    result.addAlternateState(state, false);
+                    result.getState(state).copyFrom(c.getState(state), false);
+                }
+            }
+            result.setBackSide(c.isBackSide());
             return result;
         }
         if (USE_FROM_PAPER_CARD && !c.isImmutable() && c.getPaperCard() != null) {
@@ -593,8 +637,63 @@ public class GameCopier {
         }
     }
 
+    /**
+     * Maps what a static effect refers to, as far as the copy has it: a card is looked up by identity, then by id (a
+     * card that changed zones is a new object with the same id), and what is not there is left out instead of throwing.
+     * Only for undoing effects; {@link #find} stays strict for everything that must exist in the copy.
+     */
+    private IEntityMap lenientMap(final Game newGame) {
+        final Map<Integer, Card> byId = new HashMap<>();
+        for (final Card c : newGame.getCardsInGame()) {
+            byId.put(c.getId(), c);
+        }
+        return new IEntityMap() {
+            @Override
+            public Game getGame() {
+                return newGame;
+            }
+
+            @Override
+            public GameObject map(final GameObject o) {
+                if (o instanceof Card) {
+                    final Card found = cardMap.get(o);
+                    return found != null ? found : byId.get(((Card) o).getId());
+                }
+                if (o instanceof Player) {
+                    return playerMap.get(o);
+                }
+                return null;
+            }
+
+            @Override
+            public CardCollection mapCollection(final CardCollectionView cards) {
+                final CardCollection out = new CardCollection();
+                for (final Card c : cards) {
+                    final Card m = map(c);
+                    if (m != null) {
+                        out.add(m);
+                    }
+                }
+                return out;
+            }
+
+            @Override
+            @SuppressWarnings("unchecked")
+            public <T extends GameObject> List<T> mapList(final List<T> objects) {
+                final List<T> out = new ArrayList<>();
+                for (final T o : objects) {
+                    final GameObject m = map(o);
+                    if (m != null) {
+                        out.add((T) m);
+                    }
+                }
+                return out;
+            }
+        };
+    }
+
     public <T extends GameObject> T find(T o) {
-        if (origGame.EXPERIMENTAL_RESTORE_SNAPSHOT) {
+        if (origGame != null && origGame.EXPERIMENTAL_RESTORE_SNAPSHOT) {
             return (T) snapshot.find(o);
         }
 
@@ -621,7 +720,7 @@ public class GameCopier {
         return result;
     }
     public GameObject reverseFind(GameObject o) {
-        if (origGame.EXPERIMENTAL_RESTORE_SNAPSHOT) {
+        if (origGame != null && origGame.EXPERIMENTAL_RESTORE_SNAPSHOT) {
             return snapshot.reverseFind(o);
         }
 

@@ -45,11 +45,11 @@ public class TriggerDamagePreventedBySource extends Trigger {
     }
 
     @Override
-    public final void setTriggeringObjects(final SpellAbility sa, final Map<AbilityKey, Object> runParams) {
-        sa.setTriggeringObject(AbilityKey.Source,
+    public final void setTriggeringObjects(final Map<AbilityKey, Object> objects, final Map<AbilityKey, Object> runParams) {
+        objects.put(AbilityKey.Source,
                 CardCopyService.getLKICopy((Card) runParams.get(AbilityKey.DamageSource)));
-        sa.setTriggeringObject(AbilityKey.Target, runParams.get(AbilityKey.DamageTarget));
-        sa.setTriggeringObjectsFrom(runParams, AbilityKey.DamageAmount);
+        objects.put(AbilityKey.Target, runParams.get(AbilityKey.DamageTarget));
+        AbilityKey.copyKeys(runParams, objects, AbilityKey.DamageAmount);
     }
 
     @Override

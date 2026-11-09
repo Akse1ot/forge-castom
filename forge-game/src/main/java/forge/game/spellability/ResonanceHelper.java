@@ -1,6 +1,7 @@
 package forge.game.spellability;
 
 import com.google.common.collect.Maps;
+import forge.card.CardStateName;
 import forge.card.ColorSet;
 import forge.game.Game;
 import forge.game.ability.AbilityFactory;
@@ -74,6 +75,24 @@ public final class ResonanceHelper {
 
     public static CastAttempt prepareCast(Game game, Player player, SpellAbility root) {
         return prepareCast(game, player, root, null);
+    }
+
+    /** Whether this cast can reach Resonance preparation, including an alternate spell face. */
+    public static boolean mayMergeOnCast(final Player activator, final SpellAbility root) {
+        if (activator == null || activator.getPendingResonance().isEmpty()
+                || root == null || !root.isSpell() || root.isCopied() || root.isCastFaceDown()) {
+            return false;
+        }
+        final Card host = root.getHostCard();
+        if (host == null) {
+            return false;
+        }
+        final CardStateName state = root.getCardStateName();
+        if (!host.isInPlay() && state != null && state != host.getCurrentStateName() && host.hasState(state)) {
+            final var type = host.getState(state).getType();
+            return type.isInstant() || type.isSorcery();
+        }
+        return host.isInstant() || host.isSorcery();
     }
 
     /** Remove a previous cast's additions before Splice or modes inspect a reused ability. */
@@ -261,16 +280,11 @@ public final class ResonanceHelper {
     private static SpellAbility mergeOnCast(Game game, Player activator, SpellAbility root,
             Predicate<SpellAbility> chooseEffects) {
 
-        if (root == null || !root.isSpell() || root.isCopied()) return root;
+        if (!mayMergeOnCast(activator, root)) return root;
         if (!root.getSVar(SVAR_RESONANCE_PREPARED).isEmpty()) return root;
 
         final Card host = root.getHostCard();
-        if (host == null) return root;
-        if (!host.isInstant() && !host.isSorcery()) return root;
-        if (activator == null) return root;
-
         List<Card> pending = new ArrayList<>(activator.getPendingResonance());
-        if (pending.isEmpty()) return root;
         root.setSVar(SVAR_RESONANCE_PREPARED, "True");
 
         boolean originalTargetPromptAdjusted = false;

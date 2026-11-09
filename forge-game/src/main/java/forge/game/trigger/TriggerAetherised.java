@@ -43,8 +43,8 @@ public class TriggerAetherised extends Trigger {
     }
 
     @Override
-    public final void setTriggeringObjects(final SpellAbility sa, final Map<AbilityKey, Object> runParams) {
-        sa.setTriggeringObjectsFrom(runParams, AbilityKey.Card, AbilityKey.CardLKI, AbilityKey.Player,
+    public final void setTriggeringObjects(final Map<AbilityKey, Object> objects, final Map<AbilityKey, Object> runParams) {
+        AbilityKey.copyKeys(runParams, objects, AbilityKey.Card, AbilityKey.CardLKI, AbilityKey.Player,
                 AbilityKey.Source, AbilityKey.SourceSA, AbilityKey.SpellAbility);
     }
 

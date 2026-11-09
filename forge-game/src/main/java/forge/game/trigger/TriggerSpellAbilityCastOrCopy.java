@@ -290,25 +290,25 @@ public class TriggerSpellAbilityCastOrCopy extends Trigger {
 
     /** {@inheritDoc} */
     @Override
-    public final void setTriggeringObjects(final SpellAbility sa, Map<AbilityKey, Object> runParams) {
+    public final void setTriggeringObjects(final Map<AbilityKey, Object> objects, Map<AbilityKey, Object> runParams) {
         final SpellAbility cause = (SpellAbility) runParams.get(AbilityKey.SpellAbility);
         if (hasParam("ManaSpentByYou")) {
-            // Keep the amount on this trigger, not on the permanent or the later spell state.
-            sa.setTriggeringObject(AbilityKey.Amount, manaSpentBy(cause, sa.getActivatingPlayer()));
+            // Capture the amount when the trigger observes the cast.
+            objects.put(AbilityKey.Amount, manaSpentBy(cause, getHostCard().getController()));
         }
-        sa.setTriggeringObject(AbilityKey.Card, cause.getHostCard());
-        sa.setTriggeringObject(AbilityKey.SpellAbility, cause);
+        objects.put(AbilityKey.Card, cause.getHostCard());
+        objects.put(AbilityKey.SpellAbility, cause);
         final List<TargetChoices> allTgts = cause.getAllTargetChoices();
         if (!allTgts.isEmpty()) {
             final FCollection<GameEntity> saTargets = new FCollection<>();
             for (TargetChoices tc : allTgts) {
                 saTargets.addAll(tc.getTargetEntities());
             }
-            sa.setTriggeringObject(AbilityKey.SpellAbilityTargets, saTargets);
+            objects.put(AbilityKey.SpellAbilityTargets, saTargets);
         }
-        sa.setTriggeringObject(AbilityKey.LifeAmount, cause.getAmountLifePaid());
-        sa.setTriggeringObjectsFrom(
-                runParams,
+        objects.put(AbilityKey.LifeAmount, cause.getAmountLifePaid());
+        AbilityKey.copyKeys(
+                runParams, objects,
                 AbilityKey.CardLKI,
                 AbilityKey.Activator,
                 AbilityKey.CurrentStormCount,

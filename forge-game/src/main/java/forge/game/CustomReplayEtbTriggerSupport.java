@@ -224,7 +224,7 @@ public final class CustomReplayEtbTriggerSupport {
         }
 
         sa.setTrigger(trigger);
-        trigger.setTriggeringObjects(sa, runParams);
+        sa.setTriggeringObjects(trigger.buildTriggeringObjects(runParams));
 
         if (trigger.hasParam("TriggerController")) {
             final List<Player> players = AbilityUtils.getDefinedPlayers(

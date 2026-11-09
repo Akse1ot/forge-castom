@@ -24,13 +24,18 @@ public final class AnkheretBoosterCollation {
     private AnkheretBoosterCollation() { }
 
     public static List<PaperCard> generate(SealedTemplate template) {
+        return generate(template, Set.of());
+    }
+
+    static List<PaperCard> generate(SealedTemplate template, Collection<String> excludedNames) {
         if (!PROFILE.equals(template.getCollation()) || !template.getSlots().equals(List.of(
                 Pair.of(BoosterSlots.COMMON,10), Pair.of(BoosterSlots.UNCOMMON,3),
                 Pair.of(BoosterSlots.RARE_MYTHIC,1), Pair.of(BoosterSlots.LAND,1)))) {
             throw new IllegalArgumentException("Unsupported custom booster collation/template: " + template);
         }
         var data = StaticData.instance();
-        return generate(pools(data.getCommonCards(), data.getEditions().get(template.getEdition())), MyRandom.getRandom());
+        return generate(pools(data.getCommonCards(), data.getEditions().get(template.getEdition())),
+                MyRandom.getRandom(), excludedNames == null ? Set.of() : excludedNames);
     }
 
     private static synchronized Pools pools(CardDb db, CardEdition edition) {
@@ -101,27 +106,76 @@ public final class AnkheretBoosterCollation {
     }
 
     static List<PaperCard> generate(Pools pools, Random random) {
+        return generate(pools, random, Set.of());
+    }
+
+    static List<PaperCard> generate(Pools pools, Random random, Collection<String> excludedNames) {
         List<PaperCard> result = new ArrayList<>(15);
-        List<List<PaperCard>> available = new ArrayList<>();
-        for(int i=0;i<6;i++) {
-            List<PaperCard> group = new ArrayList<>(pools.commons.get(i));available.add(group);
-            if(i<5)result.add(take(group,random));
+        List<List<PaperCard>> available = new ArrayList<>(6);
+        int[] groupWeights = {17, 17, 17, 17, 17, 10};
+        for (int i = 0; i < groupWeights.length; i++) {
+            List<PaperCard> group = excluding(pools.commons.get(i), excludedNames);
+            available.add(group);
+            if (i < 5 && !group.isEmpty()) {
+                result.add(take(group, random));
+            }
         }
         // Fixed group weights compensate the five locked cards; select within each remaining group.
         // Each of 95 commons has marginal probability 2/19, without duplicates, including the locks.
-        for(int i=0;i<5;i++) {
-            int ticket=random.nextInt(95);
-            result.add(take(available.get(ticket<85?ticket/17:5),random));
+        while (result.size() < 10) {
+            int weight = 0;
+            for (int i = 0; i < groupWeights.length; i++) {
+                if (available.get(i).isEmpty()) {
+                    groupWeights[i] = 0;
+                }
+                weight += groupWeights[i];
+            }
+            if (weight == 0) {
+                break;
+            }
+            int ticket = random.nextInt(weight);
+            int group = 0;
+            while (ticket >= groupWeights[group]) {
+                ticket -= groupWeights[group++];
+            }
+            result.add(take(available.get(group), random));
         }
-        List<PaperCard> uncommon = new ArrayList<>(pools.uncommons);
-        for(int i=0;i<3;i++)result.add(take(uncommon,random));
-        int rareTicket=random.nextInt(2*pools.rares.size()+pools.mythics.size());
-        result.add(rareTicket<2*pools.rares.size()?pools.rares.get(rareTicket/2):pools.mythics.get(rareTicket-2*pools.rares.size()));
-        int landTicket=random.nextInt(18816);
-        for(int i=0;i<pools.lands.size();i++) {
-            landTicket-=pools.landWeights.get(i);
-            if(landTicket<0){result.add(pools.lands.get(i));break;}
+        List<PaperCard> uncommon = excluding(pools.uncommons, excludedNames);
+        for (int i = 0; i < 3 && !uncommon.isEmpty(); i++) {
+            result.add(take(uncommon, random));
+        }
+        List<PaperCard> rares = excluding(pools.rares, excludedNames);
+        List<PaperCard> mythics = excluding(pools.mythics, excludedNames);
+        int rareWeight = 2 * rares.size();
+        if (rareWeight + mythics.size() > 0) {
+            int ticket = random.nextInt(rareWeight + mythics.size());
+            result.add(ticket < rareWeight ? rares.get(ticket / 2) : mythics.get(ticket - rareWeight));
+        }
+        int landWeight = 0;
+        for (int i = 0; i < pools.lands.size(); i++) {
+            if (!excludedNames.contains(pools.lands.get(i).getName())) {
+                landWeight += pools.landWeights.get(i);
+            }
+        }
+        if (landWeight > 0) {
+            int ticket = random.nextInt(landWeight);
+            for (int i = 0; i < pools.lands.size(); i++) {
+                PaperCard land = pools.lands.get(i);
+                if (!excludedNames.contains(land.getName())) {
+                    ticket -= pools.landWeights.get(i);
+                    if (ticket < 0) {
+                        result.add(land);
+                        break;
+                    }
+                }
+            }
         }
         return result;
+    }
+
+    private static List<PaperCard> excluding(List<PaperCard> cards, Collection<String> excludedNames) {
+        List<PaperCard> available = new ArrayList<>(cards);
+        available.removeIf(card -> excludedNames.contains(card.getName()));
+        return available;
     }
 }

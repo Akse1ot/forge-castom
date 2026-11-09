@@ -63,7 +63,7 @@ public class ResonanceCounterLkiTest extends AITest {
         }
         Card watcher = addCard("Darksteel Relic", ai);
         AtomicReference<Map<AbilityKey, Object>> event = new AtomicReference<>();
-        AtomicReference<SpellAbility> triggered = new AtomicReference<>();
+        AtomicReference<Map<AbilityKey, Object>> triggered = new AtomicReference<>();
         AtomicInteger eventCount = new AtomicInteger();
         Map<String, String> captureParams = Map.of("Mode", "Countered", "ValidCard", "Card",
                 "ValidSA", "Spell", "TriggerZones", "Battlefield", "Static", "True");
@@ -81,9 +81,9 @@ public class ResonanceCounterLkiTest extends AITest {
             }
 
             @Override
-            public void setTriggeringObjects(SpellAbility sa, Map<AbilityKey, Object> params) {
-                standard.setTriggeringObjects(sa, params);
-                triggered.set(sa);
+            public void setTriggeringObjects(Map<AbilityKey, Object> objects, Map<AbilityKey, Object> params) {
+                standard.setTriggeringObjects(objects, params);
+                triggered.set(objects);
                 eventCount.incrementAndGet();
             }
 
@@ -147,8 +147,8 @@ public class ResonanceCounterLkiTest extends AITest {
         assertEquals(eventCard.getColor().hasBlue(), resonance);
         assertEquals(eventCard.getColor().hasRed(), nextColor);
         assertFalse(eventCard.getColor().hasWhite());
-        assertSame(triggered.get().getTriggeringObject(AbilityKey.Card), eventCard);
-        assertSame(triggered.get().getTriggeringObject(AbilityKey.SpellAbility), eventSA);
+        assertSame(triggered.get().get(AbilityKey.Card), eventCard);
+        assertSame(triggered.get().get(AbilityKey.SpellAbility), eventSA);
         if (resonance || nextColor) {
             assertNotSame(eventCard, oldHost);
             assertNotSame(eventSA, original);
@@ -178,7 +178,7 @@ public class ResonanceCounterLkiTest extends AITest {
         assertTrue(cast(opponent, counter));
         game.getStack().resolveStack();
         assertTrue(game.getStack().isEmpty());
-        assertEquals(trap.getSVar("SetTrap"), "Number$1");
+        assertEquals(AbilityUtils.calculateAmount(trap, trap.getSVar("SetTrap"), trap.getFirstSpellAbility()), 1);
         assertEquals(game.findById(creature.getHostCard().getId()).getColor(), ColorSet.G);
     }
 

@@ -27,7 +27,7 @@ public class TriggerDrawnOnce extends Trigger {
     }
 
     @Override
-    public final void setTriggeringObjects(final SpellAbility sa, final Map<AbilityKey, Object> runParams) {
+    public final void setTriggeringObjects(final Map<AbilityKey, Object> objects, final Map<AbilityKey, Object> runParams) {
         CardCollection cards = (CardCollection) runParams.get(AbilityKey.Cards);
 
         if (hasParam("ValidCard")) {
@@ -35,9 +35,9 @@ public class TriggerDrawnOnce extends Trigger {
                     getHostCard().getController(), getHostCard(), this);
         }
 
-        sa.setTriggeringObject(AbilityKey.Cards, cards);
-        sa.setTriggeringObject(AbilityKey.Amount, cards.size());
-        sa.setTriggeringObjectsFrom(runParams, AbilityKey.Player, AbilityKey.Cause);
+        objects.put(AbilityKey.Cards, cards);
+        objects.put(AbilityKey.Amount, cards.size());
+        AbilityKey.copyKeys(runParams, objects, AbilityKey.Player, AbilityKey.Cause);
     }
 
     @Override

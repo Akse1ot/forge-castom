@@ -1,5 +1,7 @@
 package forge.gamemodes.limited;
 
+import forge.card.CardAiHints;
+import forge.card.CardRulesPredicates;
 import forge.card.ColorSet;
 import forge.card.MagicColor;
 import forge.deck.Deck;
@@ -228,9 +230,9 @@ public final class ChaosDraftEvaluator {
         // Match both the initial LimitedDeckBuilder filter and its later
         // checkRemRandomDeckCards phase. A Random hint can be permitted by
         // DeckNeeds/DeckHints, but do not guess that support in the MVP.
-        return card.getRules().getAiHints().getRemAIDecks()
-                || card.getRules().getAiHints().getRemNonCommanderDecks()
-                || card.getRules().getAiHints().getRemRandomDecks();
+        var rules = card.getRules();
+        return !CardRulesPredicates.IS_KEPT_IN_AI_LIMITED_DECKS.test(rules)
+                || CardAiHints.isRemovedFromRandomDecks(rules);
     }
 
     static boolean eligible(final PaperCard card, final ColorSet chosen, final int maxColors) {

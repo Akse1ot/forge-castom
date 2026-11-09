@@ -1,6 +1,7 @@
 package forge.gamemodes.limited;
 
 import forge.ai.SpellApiToAi;
+import forge.card.CardAiHints;
 import forge.card.CardRulesPredicates;
 import forge.card.DeckHints;
 import forge.game.ability.ApiType;
@@ -22,7 +23,7 @@ final class ChaosAiEvidence {
             return false;
         }
         var hints = rules.getAiHints();
-        if (!hints.getRemRandomDecks()) {
+        if (!CardAiHints.isRemovedFromRandomDecks(rules)) {
             return true;
         }
         if (ChaosManaAmount.hasAssemblyRequirement(card)) {

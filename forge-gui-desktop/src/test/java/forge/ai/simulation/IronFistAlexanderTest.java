@@ -339,7 +339,7 @@ public class IronFistAlexanderTest extends AITest {
             charm.setTrigger(trigger);
             Map<AbilityKey, Object> params = AbilityKey.mapFromCard(game.getCardState(lki));
             params.put(AbilityKey.CardLKI, lki);
-            trigger.setTriggeringObjects(charm, params);
+            charm.setTriggeringObjects(trigger.buildTriggeringObjects(params));
             return charm;
         }
     }

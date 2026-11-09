@@ -18,11 +18,15 @@ public class TriggerBecomesMartyr extends Trigger {
     }
 
     @Override
-    public final void setTriggeringObjects(final SpellAbility sa, Map<AbilityKey, Object> runParams) {
-        sa.setTriggeringObjectsFrom(runParams, AbilityKey.Card, AbilityKey.Amount);
+    public final void setTriggeringObjects(final Map<AbilityKey, Object> objects, Map<AbilityKey, Object> runParams) {
+        AbilityKey.copyKeys(runParams, objects, AbilityKey.Card, AbilityKey.Amount);
+    }
+
+    void prepareTriggeredAbility(final SpellAbility sa) {
         // Set the executable root before the trigger's targets are chosen.
-        sa.getRootAbility().setXManaCostPaid((Integer) runParams.getOrDefault(AbilityKey.Amount, 0));
-        final Card martyr = (Card) runParams.get(AbilityKey.Card);
+        final Integer amount = (Integer) sa.getTriggeringObject(AbilityKey.Amount);
+        sa.getRootAbility().setXManaCostPaid(amount == null ? 0 : amount);
+        final Card martyr = (Card) sa.getTriggeringObject(AbilityKey.Card);
         if (martyr != null && getHostCard().getId() == martyr.getId()) {
             // The battlefield controller still controls the creature's own trigger.
             // Its registered host may already be the new object after the sacrifice.

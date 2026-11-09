@@ -18,8 +18,8 @@ public final class TriggerWorship extends Trigger {
                 && matchesValidParam("ValidPlayer", event.get(AbilityKey.Player));
     }
     @Override
-    public void setTriggeringObjects(final SpellAbility sa, final Map<AbilityKey, Object> event) {
-        sa.setTriggeringObjectsFrom(event, AbilityKey.Card, AbilityKey.Source, AbilityKey.Target, AbilityKey.Player);
+    public void setTriggeringObjects(final Map<AbilityKey, Object> objects, final Map<AbilityKey, Object> event) {
+        AbilityKey.copyKeys(event, objects, AbilityKey.Card, AbilityKey.Source, AbilityKey.Target, AbilityKey.Player);
     }
     @Override
     public String getImportantStackObjects(final SpellAbility sa) {

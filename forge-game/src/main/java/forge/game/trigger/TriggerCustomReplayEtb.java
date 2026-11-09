@@ -24,9 +24,9 @@ public class TriggerCustomReplayEtb extends Trigger {
     }
 
     @Override
-    public void setTriggeringObjects(final SpellAbility sa,
+    public void setTriggeringObjects(final Map<AbilityKey, Object> objects,
                                      final Map<AbilityKey, Object> runParams) {
-        sa.setTriggeringObjectsFrom(runParams, AbilityKey.Player);
+        AbilityKey.copyKeys(runParams, objects, AbilityKey.Player);
     }
 
     @Override

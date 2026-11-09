@@ -260,6 +260,11 @@ public class DigEffect extends SpellAbilityEffect {
                     }
                 }
 
+                // no choice dialog follows, so show the looked-at cards here
+                if (valid.isEmpty() && delayedReveal != null) {
+                    chooser.getController().reveal(delayedReveal);
+                }
+
                 CardCollection movedCards;
                 if (changeAll) {
                     movedCards = new CardCollection(valid);
@@ -268,9 +273,6 @@ public class DigEffect extends SpellAbilityEffect {
                     movedCards = CardLists.getRandomSubList(valid, numChanging);
                 } else if (totalCMC) {
                     movedCards = new CardCollection();
-                    if (p == chooser) {
-                        chooser.getController().tempShowCards(top);
-                    }
                     if (valid.isEmpty()) {
                         chooser.getController().notifyOfValue(sa, null,
                                 Localizer.getInstance().getMessage("lblNoValidCards"));
@@ -287,7 +289,6 @@ public class DigEffect extends SpellAbilityEffect {
                         totcmc = totcmc - chosen.getCMC();
                         valid = CardLists.getValidCards(valid, "Card.cmcLE" + totcmc, cont, host, sa);
                     }
-                    chooser.getController().endTempShowCards();
                     if (!movedCards.isEmpty()) {
                         game.getAction().reveal(movedCards, chooser, true,
                                 Localizer.getInstance().getMessage("lblPlayerPickedChosen",
@@ -295,9 +296,6 @@ public class DigEffect extends SpellAbilityEffect {
                     }
                 } else if (sa.hasParam("ForEachColorPair")) {
                     movedCards = new CardCollection();
-                    if (p == chooser) {
-                        chooser.getController().tempShowCards(top);
-                    }
                     for (final byte pair : MagicColor.COLORPAIR) {
                         Card chosen = chooser.getController().chooseSingleEntityForEffect(CardLists.filter(valid,
                                 CardPredicates.isExactlyColor(pair)), delayedReveal, sa,
@@ -306,7 +304,6 @@ public class DigEffect extends SpellAbilityEffect {
                             movedCards.add(chosen);
                         }
                     }
-                    chooser.getController().endTempShowCards();
                     if (!movedCards.isEmpty()) {
                         game.getAction().reveal(movedCards, chooser, true, Localizer.getInstance().getMessage("lblPlayerPickedChosen", chooser.getName(), ""));
                     }
@@ -347,17 +344,11 @@ public class DigEffect extends SpellAbilityEffect {
                     if (valid.isEmpty()) {
                         chooser.getController().notifyOfValue(sa, null, Localizer.getInstance().getMessage("lblNoValidCards"));
                     } else {
-                        if (p == chooser) { // the digger can still see all the dug cards when choosing
-                            chooser.getController().tempShowCards(top);
-                        }
-
                         int max = anyNumber ? valid.size() : Math.min(valid.size(), destZone1ChangeNum);
                         int min = (anyNumber || optional) ? 0 : max;
                         if (max > 0) { // if max is 0 don't make a choice
                             movedCards.addAll(chooser.getController().chooseEntitiesForEffect(valid, min, max, delayedReveal, sa, prompt, p, null));
                         }
-
-                        chooser.getController().endTempShowCards();
                     }
 
                     if (!changeValid.isEmpty() && !sa.hasParam("ExileFaceDown") && !sa.hasParam("NoReveal")) {

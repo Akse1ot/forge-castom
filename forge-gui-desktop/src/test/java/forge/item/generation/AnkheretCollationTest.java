@@ -25,7 +25,7 @@ public class AnkheretCollationTest extends AITest {
         for(int i=0;i<5;i++)result.add(card("Common colorless "+i,"Artifact","1",CardRarity.Common));
         for(int i=0;i<73;i++)result.add(card("Uncommon "+i,"Artifact","1",CardRarity.Uncommon));
         for(int i=0;i<45;i++)result.add(card("Rare "+i,"Artifact","1",CardRarity.Rare));
-        for(int i=0;i<13;i++)result.add(card("Mythic "+i,"Artifact","1",CardRarity.MythicRare));
+        for(int i=0;i<14;i++)result.add(card("Mythic "+i,"Artifact","1",CardRarity.MythicRare));
         var rarities=List.of(CardRarity.Common,CardRarity.Uncommon,CardRarity.Rare,CardRarity.MythicRare);int[] counts={6,7,8,1};
         for(int r=0;r<4;r++)for(int i=0;i<counts[r];i++)result.add(card("Land "+r+" "+i,"Land","no cost",rarities.get(r)));
         result.add(card("Basic fixture","Basic Land Plains","no cost",CardRarity.Common));return result;
@@ -45,7 +45,8 @@ public class AnkheretCollationTest extends AITest {
         double commonExpected=samples*2.0/19;
         Assert.assertEquals(commonHits.size(),95);
         for(int hits:commonHits.values())Assert.assertEquals((double)hits,commonExpected,6*Math.sqrt(samples*(2.0/19)*(17.0/19)));
-        Assert.assertEquals((double)mythics,samples*13.0/103,6*Math.sqrt(samples*(13.0/103)*(90.0/103)));
+        double mythicRate = 14.0 / 104;
+        Assert.assertEquals((double)mythics, samples * mythicRate, 6 * Math.sqrt(samples * mythicRate * (1 - mythicRate)));
         int[] weights={80,24,7,1};for(int i=0;i<4;i++){double p=weights[i]/112.0;Assert.assertEquals((double)landHits[i],samples*p,6*Math.sqrt(samples*p*(1-p)));}
     }
     @Test public void incompleteOrDuplicatePoolsFailInsteadOfApproximating() {
@@ -61,5 +62,18 @@ public class AnkheretCollationTest extends AITest {
     }
     @Test public void ordinaryOfficialBoosterStillUsesStandardGeneration() {
         var template=StaticData.instance().getEditions().get("M21").getBoosterTemplate();Assert.assertNull(template.getCollation());var pack=BoosterGenerator.getBoosterPack(template);Assert.assertEquals(pack.size(),template.getNumberOfCardsExpected());Assert.assertTrue(pack.stream().allMatch(c->c.getEdition().equals("M21")));
+    }
+
+    @Test
+    public void restrictedNamesDoNotMutateTheExactPools() {
+        var pools = new AnkheretBoosterCollation.Pools(cards());
+        var excluded = List.of("Common W 0", "Uncommon 0", "Rare 0", "Mythic 0", "Land 0 0");
+        var random = new Random(8128);
+        for (int i = 0; i < 200; i++) {
+            var pack = AnkheretBoosterCollation.generate(pools, random, excluded);
+            Assert.assertEquals(pack.size(), 15);
+            Assert.assertTrue(pack.stream().noneMatch(card -> excluded.contains(card.getName())));
+        }
+        Assert.assertTrue(pools.commons.get(0).stream().anyMatch(card -> card.getName().equals("Common W 0")));
     }
 }

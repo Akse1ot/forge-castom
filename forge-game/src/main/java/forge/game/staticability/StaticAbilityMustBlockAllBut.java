@@ -37,10 +37,6 @@ public class StaticAbilityMustBlockAllBut {
 
     private static String validateBlocks(final StaticAbility stAb, final Combat combat, final Player defending,
                                          final List<Card> freeBlockers) {
-        if (stAb.hasParam("ValidDefender") && !stAb.matchesValidParam("ValidDefender", defending)) {
-            return null;
-        }
-
         final List<Card> affectedAttackers = getAffectedAttackers(stAb, combat, defending);
         if (affectedAttackers.isEmpty()) {
             return null;
@@ -70,7 +66,16 @@ public class StaticAbilityMustBlockAllBut {
         }
 
         final int missingBlocks = requiredBlocked - alreadyBlocked;
-        final List<Card> availableBlockers = new ArrayList<>(freeBlockers != null ? freeBlockers : defending.getCreaturesInPlay());
+        final List<Card> availableBlockers;
+        if (freeBlockers == null) {
+            final List<Card> army = new ArrayList<>();
+            for (final Player teammate : defending.getSharedTeam()) {
+                army.addAll(teammate.getCreaturesInPlay());
+            }
+            availableBlockers = CombatUtil.findFreeBlockers(army, combat);
+        } else {
+            availableBlockers = new ArrayList<>(freeBlockers);
+        }
 
         // Try the most constrained attackers first, so a rare blocker is not spent on an easy block.
         unblockedAttackers.sort(Comparator.comparingInt(attacker ->
@@ -93,7 +98,9 @@ public class StaticAbilityMustBlockAllBut {
         final List<Card> result = new ArrayList<>();
 
         for (final Card attacker : combat.getAttackers()) {
-            if (combat.getDefenderPlayerByAttacker(attacker) != defending) {
+            final Player attacked = combat.getDefenderPlayerByAttacker(attacker);
+            if (!defending.sharesTeamWith(attacked)
+                    || (stAb.hasParam("ValidDefender") && !stAb.matchesValidParam("ValidDefender", attacked))) {
                 continue;
             }
             if (!stAb.matchesValidParam("ValidAttacker", attacker)) {

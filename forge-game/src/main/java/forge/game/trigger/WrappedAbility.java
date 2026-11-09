@@ -412,8 +412,8 @@ public class WrappedAbility extends Ability {
         final Trigger regtrig = getTrigger();
 
         if (!TriggerType.Always.equals(regtrig.getMode()) && !regtrig.hasParam("NoResolvingCheck")) {
-            // Most State triggers don't have "Intervening If"
-            if (!checkTriggerRequirements(game, regtrig)) {
+            // recheck "intervening if" conditions and requirements on the triggered objects (e.g. evolve)
+            if (!regtrig.checkWith(this, () -> checkTriggerRequirements(game, regtrig))) {
                 return;
             }
         }

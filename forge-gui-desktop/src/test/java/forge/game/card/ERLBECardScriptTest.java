@@ -128,7 +128,7 @@ public class ERLBECardScriptTest extends AITest {
         SpellAbility ability = named(stars, trigger.getParam("Execute"), player);
         Map<AbilityKey, Object> event = AbilityKey.newMap();
         event.put(attacking ? AbilityKey.Attacker : AbilityKey.Blocker, enemy);
-        trigger.setTriggeringObjects(ability, event);
+        ability.setTriggeringObjects(trigger.buildTriggeringObjects(event));
         int life = player.getLife();
         AbilityUtils.resolve(ability);
         assertEquals(enemy.getDamage(), 2 * counters);
@@ -155,7 +155,7 @@ public class ERLBECardScriptTest extends AITest {
         event.put(AbilityKey.Activator, opponent);
         assertTrue(trigger.performTest(event));
         SpellAbility counter = named(watchdog, trigger.getParam("Execute"), player);
-        trigger.setTriggeringObjects(counter, event);
+        counter.setTriggeringObjects(trigger.buildTriggeringObjects(event));
         assertEquals(AbilityUtils.getDefinedSpellAbilities(watchdog, counter.getParam("Defined"), counter),
                 java.util.List.of(activation));
         assertEquals(AbilityUtils.getDefinedPlayers(watchdog, counter.getParam("UnlessPayer"), counter),

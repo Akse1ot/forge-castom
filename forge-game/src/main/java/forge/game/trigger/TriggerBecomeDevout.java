@@ -14,8 +14,8 @@ public final class TriggerBecomeDevout extends Trigger {
         return matchesValidParam("ValidCard", event.get(AbilityKey.Card));
     }
     @Override
-    public void setTriggeringObjects(final SpellAbility sa, final Map<AbilityKey, Object> event) {
-        sa.setTriggeringObjectsFrom(event, AbilityKey.Card);
+    public void setTriggeringObjects(final Map<AbilityKey, Object> objects, final Map<AbilityKey, Object> event) {
+        AbilityKey.copyKeys(event, objects, AbilityKey.Card);
     }
     @Override
     public String getImportantStackObjects(final SpellAbility sa) {

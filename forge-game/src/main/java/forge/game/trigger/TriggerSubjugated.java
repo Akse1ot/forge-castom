@@ -30,10 +30,9 @@ public class TriggerSubjugated extends Trigger {
     }
 
     @Override
-    public void setTriggeringObjects(final SpellAbility sa,
+    public void setTriggeringObjects(final Map<AbilityKey, Object> objects,
                                      final Map<AbilityKey, Object> runParams) {
-        sa.setTriggeringObjectsFrom(
-                runParams,
+        AbilityKey.copyKeys(runParams, objects,
                 AbilityKey.Player,
                 AbilityKey.Amount,
                 AbilityKey.Cards,

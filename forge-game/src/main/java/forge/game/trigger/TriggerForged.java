@@ -38,7 +38,7 @@ public class TriggerForged extends Trigger {
     }
 
     @Override
-    public void setTriggeringObjects(final SpellAbility sa,
+    public void setTriggeringObjects(final Map<AbilityKey, Object> objects,
                                      final Map<AbilityKey, Object> runParams) {
         @SuppressWarnings("unchecked")
         final Iterable<Card> created =
@@ -56,11 +56,10 @@ public class TriggerForged extends Trigger {
             );
         }
 
-        sa.setTriggeringObject(AbilityKey.Cards, cards);
-        sa.setTriggeringObject(AbilityKey.Amount, cards.size());
+        objects.put(AbilityKey.Cards, cards);
+        objects.put(AbilityKey.Amount, cards.size());
 
-        sa.setTriggeringObjectsFrom(
-                runParams,
+        AbilityKey.copyKeys(runParams, objects,
                 AbilityKey.Player,
                 AbilityKey.Cause
         );
