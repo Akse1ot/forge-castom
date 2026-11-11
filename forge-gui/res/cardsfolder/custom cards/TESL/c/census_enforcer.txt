@@ -1,0 +1,8 @@
+Name:Census Enforcer
+ManaCost:3 W
+Types:Creature Human Soldier
+PT:3/3
+S:Mode$ TeslaLaw | Law$ ThreeCreatures | Description$ It is against the law for an opponent to control three or more creatures.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ JusticeOffendersOfTriggeredPlayer | Execute$ TrigJustice | OptionalDecider$ You | TriggerDescription$ Justice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, you may tap target creature.
+SVar:TrigJustice:DB$ Tap | ValidTgts$ Creature
+Oracle:It is against the law for an opponent to control three or more creatures.\nJustice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, you may tap target creature.

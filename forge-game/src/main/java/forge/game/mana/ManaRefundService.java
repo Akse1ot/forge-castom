@@ -32,7 +32,8 @@ public class ManaRefundService {
             payers.add(e.getKey());
         }
 
-        sa.getPayingMana().clear();
+        sa.refundRecordedManaSpend();
+        sa.clearManaPaid();
 
         List<SpellAbility> payingAbilities = sa.getPayingManaAbilities();
 

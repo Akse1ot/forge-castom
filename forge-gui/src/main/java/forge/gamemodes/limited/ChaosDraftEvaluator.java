@@ -86,7 +86,7 @@ public final class ChaosDraftEvaluator {
         this.picked = picked;
         this.chosen = chosen;
         this.profiles = profiles;
-        plan = new ChaosDraftPlan(picked, chosen);
+        plan = new ChaosDraftPlan(picked, chosen, card -> profile(card).manaSource());
         support = new ChaosCardProfile.Context(picked.stream()
                 .filter(card -> (!forAi || ChaosAiEvidence.deckAllowed(card, picked))
                         && (mana == null ? ChaosManaPlan.fitsColors(card, chosen)
@@ -104,10 +104,20 @@ public final class ChaosDraftEvaluator {
 
     double poolValue(PaperCard card, ChaosCardProfile.Strength strength, double unrated) {
         double base = strength.value() == null ? unrated : strength.value();
-        if (card.getMainFace().getType().isLand()) {
-            return strength.enhancedLand() ? base : Math.min(base, plan.landCeiling(ChaosManaPlan.readSource(card)));
+        var source = profile(card).manaSource();
+        if (formatUnavailable(source)) {
+            return Math.min(base, 1);
         }
-        return profile(card).manaOnly() ? Math.min(base, plan.rockCeiling(ChaosManaPlan.readSource(card))) : base;
+        if (strength.enhancedLand() || !source.land() && source.traits().kind() == ChaosManaTraits.Kind.ORDINARY
+                && (source.output() == 0 || !profile(card).manaOnly() && !card.getMainFace().getType().isCreature())) {
+            return base;
+        }
+        return Math.min(base, plan.sourceCeiling(card, source, strength.standalone()));
+    }
+
+    private static boolean formatUnavailable(ChaosManaPlan.Source source) {
+        return source.traits().kind() == ChaosManaTraits.Kind.FORMAT_UNAVAILABLE
+                && source.produces() == 0 && !source.traits().independentEffect();
     }
 
     double landUtility(ChaosManaPlan.Source source) {
@@ -126,36 +136,52 @@ public final class ChaosDraftEvaluator {
                 continue;
             }
             ChaosCardProfile.Strength strength = strength(card);
+            var mana = profile(card).manaSource();
+            boolean unavailable = formatUnavailable(mana);
             String exclusion = null;
             if (ordinaryBasic(card)) {
                 exclusion = "free_basic_land";
             } else if (forAi && !ChaosAiEvidence.deckAllowed(card, picked)) {
                 exclusion = "native_ai_deck_restriction";
+            } else if (forAi && unavailable) {
+                exclusion = "format_mana_unavailable";
             } else if (forAi && picked.size() >= 12 && !ChaosManaPlan.fitsColors(card, chosen)
                     && Integer.bitCount(chosen.getColor() | (ChaosManaPlan.demand(card) & 31)) > maxColors
                     && !plan.splash(card)) {
                 exclusion = "color_cap";
-            } else if (strength.value() == null) {
+            } else if (strength.value() == null && !unavailable) {
                 exclusion = "unrated";
             }
             // A weak or early color plan can still change when a strong new spell appears.
             double colorPenalty = plan.colorPenalty(card);
             double curve = curveBonus(card, picked, chosen);
-            boolean isLand = card.getMainFace().getType().isLand();
-            ChaosManaPlan.Source mana = isLand || profile(card).manaOnly() ? ChaosManaPlan.readSource(card) : null;
-            double land = mana == null ? 0 : plan.landBonus(mana);
-            double manaBonus = mana == null ? 0 : plan.rockBonus(mana);
+            boolean isLand = mana.land();
+            double land = plan.landBonus(mana);
+            double manaBonus = plan.rockBonus(mana);
             double nativeBonus = Math.max(0, 4 - i * 0.5);
-            double poolBase = poolValue(card, strength, 0);
-            double score = strength.value() == null ? Double.NEGATIVE_INFINITY
+            double poolBase = poolValue(card, strength, unavailable ? 1 : 0);
+            double score = unavailable ? poolBase : strength.value() == null ? Double.NEGATIVE_INFINITY
                     : poolBase - colorPenalty + curve + land + nativeBonus + manaBonus;
             String reason = isLand ? (land > 0 ? "mana_supports_plan" : "no_fixing_bonus")
                     : plan.splash(card) ? "supported_splash" : colorPenalty > 0 ? "outside_color_plan" : "fits_color_plan";
             if (strength.value() != null && poolBase < strength.value()) {
                 reason += isLand ? ",land_source_ceiling" : ",mana_source_ceiling";
             }
+            if (mana.traits().kind() != ChaosManaTraits.Kind.ORDINARY) {
+                reason += "," + mana.traits().kind().name();
+            }
+            var support = strength.support();
+            if (unavailable) {
+                support = ChaosCardProfile.Support.UNAVAILABLE;
+            } else if (support == ChaosCardProfile.Support.INDEPENDENT) {
+                support = switch (mana.traits().kind()) {
+                    case UNKNOWN -> ChaosCardProfile.Support.UNKNOWN;
+                    case LAND_THRESHOLD, STORAGE, FODDER, REFLECTED, AURA -> ChaosCardProfile.Support.POTENTIAL;
+                    default -> support;
+                };
+            }
             candidates.add(new Candidate(card, i, strength.external(), strength.source(), exclusion,
-                    strength.support(), colorPenalty, curve, land, nativeBonus, score, strength, poolBase, manaBonus, reason));
+                    support, colorPenalty, curve, land, nativeBonus, score, strength, poolBase, manaBonus, reason));
         }
         return candidates;
     }
@@ -172,7 +198,8 @@ public final class ChaosDraftEvaluator {
             if (candidate.selectable()) {
                 // The same printing may occur twice in one pack. Keep its highest native-order bonus.
                 visible.putIfAbsent(candidate.card(), candidate);
-                if (best == null || candidate.score() > best.score()) {
+                if (!formatUnavailable(profile(candidate.card()).manaSource())
+                        && (best == null || candidate.score() > best.score())) {
                     best = candidate;
                 }
             }

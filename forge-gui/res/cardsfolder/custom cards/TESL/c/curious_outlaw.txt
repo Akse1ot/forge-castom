@@ -1,0 +1,17 @@
+Name:Curious Outlaw
+ManaCost:2 R
+Types:Creature Human Rogue
+PT:2/2
+AlternateMode:DoubleFaced
+A:AB$ SetState | Mode$ Transform | Cost$ T tapXType<2/Creature> | PrecostDesc$ Revolution | SorcerySpeed$ True | Defined$ Valid Card.YouCtrl+hasAbilityLabelRevolution | SpellDescription$ Transform all permanents with revolution you control. Revolt only as a sorcery.
+Oracle:Revolution ({T}, Tap two untapped creatures you control: Transform all permanents with revolution you control. Revolt only as a sorcery.)
+ALTERNATE
+Name:War Correspondent
+ManaCost:no cost
+Types:Creature Human Rogue
+Colors:red
+PT:3/3
+R:Event$ Moved | ActiveZones$ Battlefield | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+hasAbilityLabelRevolution | Layer$ Transform | ReplacementResult$ Updated | ReplaceWith$ EnterBack | Description$ Creatures you control with revolution enter transformed.
+SVar:EnterBack:DB$ SetState | Defined$ ReplacedCard | Mode$ Transform | ETB$ True
+K:First Strike
+Oracle:First strike\nCreatures you control with revolution enter the battlefield transformed.

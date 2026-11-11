@@ -1,0 +1,8 @@
+Name:Siv’s Legacy
+ManaCost:3 R R
+Types:Instant
+A:SP$ RepeatEach | RepeatPlayers$ You | RepeatSubAbility$ DBTransform | SubAbility$ DBCombat | SpellDescription$ Transform all permanents with revolution you control. You choose which creatures attack this turn. You choose which creatures block this turn and how those creatures block.
+SVar:DBTransform:DB$ SetState | Defined$ Valid Card.YouCtrl+hasAbilityLabelRevolution | Mode$ Transform
+SVar:DBCombat:DB$ Effect | StaticAbilities$ DeclareCombatants | CopyForSimulation$ True
+SVar:DeclareCombatants:Mode$ Continuous | Affected$ Player | DeclaresAttackers$ You | DeclaresBlockers$ You | Description$ You choose which creatures attack this turn. You choose which creatures block this turn and how those creatures block.
+Oracle:Transform all permanents with revolution you control.\nYou choose which creatures attack this turn.\nYou choose which creatures block this turn and how those creatures block.

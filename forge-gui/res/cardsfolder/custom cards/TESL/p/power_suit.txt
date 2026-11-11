@@ -1,0 +1,6 @@
+Name:Power Suit
+ManaCost:4
+Types:Artifact Equipment
+S:Mode$ Continuous | AffectedDefined$ Equipped | Affected$ Creature | AddPower$ 4 | AddToughness$ 4 | AddKeyword$ Trample | Description$ Equipped creature gets +4/+4 and has trample.
+K:Equip:4
+Oracle:Equipped creature gets +4/+4 and has trample.\nEquip {4}

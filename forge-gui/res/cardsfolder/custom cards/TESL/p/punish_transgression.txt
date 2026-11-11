@@ -1,0 +1,6 @@
+Name:Punish Transgression
+ManaCost:X W W
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Creature.attacking,Creature.blocking | NumDmg$ X | TargetMin$ 0 | TargetMax$ X | DividedAsYouChoose$ X | SpellDescription$ CARDNAME deals X damage divided as you choose among any number of target attacking or blocking creatures.
+SVar:X:Count$xPaid
+Oracle:Punish Transgression deals X damage divided as you choose among any number of target attacking or blocking creatures.

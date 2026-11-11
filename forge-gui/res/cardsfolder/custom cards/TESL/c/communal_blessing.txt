@@ -1,0 +1,5 @@
+Name:Communal Blessing
+ManaCost:2 G W
+Types:Sorcery
+A:SP$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 6 | TargetMin$ 0 | TargetMax$ 6 | DividedAsYouChoose$ 6 | SpellDescription$ Distribute six +1/+1 counters among any number of target creatures.
+Oracle:Distribute six +1/+1 counters among any number of target creatures.

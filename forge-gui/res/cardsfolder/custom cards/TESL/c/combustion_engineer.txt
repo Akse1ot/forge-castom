@@ -1,0 +1,6 @@
+Name:Combustion Engineer
+ManaCost:2 R R
+Types:Creature Human Artificer
+PT:2/1
+A:AB$ DealDamage | Cost$ R T Sac<1/Artifact;Creature/an artifact or creature> | ValidTgts$ Any | NumDmg$ 2 | SpellDescription$ CARDNAME deals 2 damage to any target.
+Oracle:{R}, {T}, Sacrifice an artifact or creature: Combustion Engineer deals 2 damage to any target.

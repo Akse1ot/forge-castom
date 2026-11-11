@@ -1,0 +1,7 @@
+Name:Pleasure to Burn
+ManaCost:2 R
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Artifact | RememberLKI$ True | AlwaysRemember$ True | SubAbility$ DBHit | SpellDescription$ Destroy target artifact. CARDNAME deals 3 damage to that artifact's controller.
+SVar:DBHit:DB$ DealDamage | Defined$ RememberedController | NumDmg$ 3 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Destroy target artifact. Pleasure to Burn deals 3 damage to that artifact’s controller.

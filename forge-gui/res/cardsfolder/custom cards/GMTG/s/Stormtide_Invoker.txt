@@ -1,6 +1,6 @@
 Name:Stormtide Invoker
 ManaCost:2 U
-Types:Creature Naga Wizard
+Types:Creature Snake Wizard
 PT:2/3
 K:Abyssal
 A:AB$ PumpAll | Cost$ 8 | ValidCards$ Creature.OppCtrl | NumAtt$ -5 | SpellDescription$ Creatures your opponents control get -5/-0 until end of turn.

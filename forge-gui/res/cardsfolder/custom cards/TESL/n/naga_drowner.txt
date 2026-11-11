@@ -1,0 +1,7 @@
+Name:Naga Drowner
+ManaCost:1 B
+Types:Creature Snake Wizard
+PT:2/2
+A:AB$ Tap | Cost$ 7 U | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | SubAbility$ DBFreeze | SpellDescription$ Tap up to two target creatures. They don't untap during their controllers' next untap steps.
+SVar:DBFreeze:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+Oracle:{7}{U}: Tap up to two target creatures. They don’t untap during their controllers’ next untap step.

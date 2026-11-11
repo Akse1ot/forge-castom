@@ -1,0 +1,7 @@
+Name:Stamp Out
+ManaCost:3 B B
+Types:Sorcery
+A:SP$ Destroy | ValidTgts$ Creature | RememberLKI$ True | AlwaysRemember$ True | SubAbility$ DBDiscard | SpellDescription$ Destroy target creature. If that creature was tapped, its controller discards a card.
+SVar:DBDiscard:DB$ Discard | Defined$ RememberedController | Mode$ TgtChoose | NumCards$ 1 | ConditionDefined$ RememberedLKI | ConditionPresent$ Card.tapped | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Destroy target creature. If that creature was tapped, its controller discards a card.

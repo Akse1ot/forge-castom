@@ -1,0 +1,5 @@
+Name:Transhumanism
+ManaCost:3 W W
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Creature.nonArtifact | SpellDescription$ Destroy all nonartifact creatures.
+Oracle:Destroy all nonartifact creatures.

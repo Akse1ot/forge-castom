@@ -1,0 +1,7 @@
+Name:Reinforcing Armor
+ManaCost:1
+Types:Artifact Equipment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounter | TriggerDescription$ At the beginning of your upkeep, put a +1/+1 counter on equipped creature.
+SVar:TrigCounter:DB$ PutCounter | Defined$ Equipped | CounterType$ P1P1 | CounterNum$ 1
+K:Equip:3
+Oracle:At the beginning of your upkeep, put a +1/+1 counter on equipped creature.\nEquip {3}

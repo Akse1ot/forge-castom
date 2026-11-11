@@ -1,0 +1,9 @@
+Name:Siv Katari, Rebel Technician
+ManaCost:1 U R
+Types:Legendary Creature Human Artificer
+PT:2/2
+K:Prowess
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ Whenever NICKNAME attacks, create a tapped and attacking X/X colorless Construct artifact creature token with prowess, where X is NICKNAME's power. Exile that token at end of combat.
+SVar:TrigToken:DB$ Token | TokenScript$ c_x_x_a_construct_prowess | TokenOwner$ You | TokenPower$ X | TokenToughness$ X | TokenTapped$ True | TokenAttacking$ True | AtEOT$ ExileCombat
+SVar:X:Count$CardPower
+Oracle:Prowess\nWhenever Siv Katari, Rebel Technician attacks, create a tapped and attacking X/X colorless Construct artifact creature token with prowess, where X is Siv Katari’s power. Exile that token at end of combat.

@@ -1,0 +1,9 @@
+Name:Avatar of Authority
+ManaCost:6 W W
+Types:Creature Avatar
+PT:6/6
+K:Flying
+S:Mode$ TeslaLaw | Law$ AttackYou | Description$ It is against the law for an opponent to attack you with one or more creatures.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ JusticeOffendersOfTriggeredPlayer | Execute$ TrigJustice | TriggerDescription$ Justice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, put a +1/+1 counter on each creature you control.
+SVar:TrigJustice:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1
+Oracle:Flying\nIt is against the law for an opponent to attack you with one or more creatures.\nJustice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, put a +1/+1 counter on each creature you control.

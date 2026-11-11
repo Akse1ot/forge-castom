@@ -1,0 +1,12 @@
+Name:Avatar of the Old Ways
+ManaCost:6 G G G
+Types:Creature Avatar
+PT:0/0
+K:etbCounter:P1P1:AbsDiff
+SVar:Life:Count$YourLifeTotal
+SVar:Start:Count$YourStartingLife
+SVar:Diff:Count$YourLifeTotal/Minus.Start
+SVar:AbsDiff:SVar$Diff/Abs
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ Life | SVarCompare$ LTStart | Execute$ TrigLife | TriggerDescription$ When CARDNAME enters, if your life total is less than your starting life total, it becomes your starting life total.
+SVar:TrigLife:DB$ SetLife | Defined$ You | LifeAmount$ Start
+Oracle:Avatar of the Old Ways enters the battlefield with a number of +1/+1 counters on it equal to the difference between your current and starting life total.\nWhen Avatar of the Old Ways enters the battlefield, if your life total is less than your starting life total, it becomes your starting life total.

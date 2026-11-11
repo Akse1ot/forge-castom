@@ -1,0 +1,8 @@
+Name:Self-Perfecting Construct
+ManaCost:3
+Types:Artifact Creature Construct
+PT:1/1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPut | TriggerDescription$ At the beginning of your end step, put a +1/+1 counter on CARDNAME.
+SVar:TrigPut:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ CopyPermanent | Cost$ T SubCounter<3/P1P1> | Defined$ Self | SpellDescription$ Create a token that's a copy of CARDNAME.
+Oracle:At the beginning of your end step, put a +1/+1 counter on Self-Perfecting Construct.\n{T}, Remove three +1/+1 counters from Self-Perfecting Construct: Create a token that’s a copy of it.

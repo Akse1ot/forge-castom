@@ -1,0 +1,6 @@
+Name:Disloyalty
+ManaCost:1 R
+Types:Sorcery
+A:SP$ GainControl | ValidTgts$ Creature.tapped | TgtPrompt$ Select target tapped creature | Untap$ True | LoseControl$ EOT | SubAbility$ DBPump | SpellDescription$ Gain control of target tapped creature until end of turn. Untap that creature. It gains haste until end of turn.
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ Haste
+Oracle:Gain control of target tapped creature until end of turn. Untap that creature. It gains haste until end of turn.

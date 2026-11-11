@@ -1,0 +1,8 @@
+Name:Gilded Taskmaster
+ManaCost:4 B B
+Types:Creature Demon
+PT:5/4
+K:Flying
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigSac | TriggerDescription$ At the beginning of each player's end step, that player sacrifices all tapped non-Demon creatures they control.
+SVar:TrigSac:DB$ SacrificeAll | ValidCards$ Creature.tapped+nonDemon | Controller$ TriggeredPlayer
+Oracle:Flying\nAt the beginning of each player’s end step, that player sacrifices all tapped non-Demon creatures they control.

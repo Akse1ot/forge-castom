@@ -1,0 +1,8 @@
+Name:Cloudcrash Skywhale
+ManaCost:3 U U U U
+Types:Creature Whale
+PT:4/5
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigUntap | TriggerDescription$ Whenever CARDNAME attacks, untap up to four target permanents.
+SVar:TrigUntap:DB$ Untap | ValidTgts$ Permanent | TargetMin$ 0 | TargetMax$ 4
+Oracle:Flying\nWhenever Cloudcrash Skywhale attacks, untap up to four target permanents.

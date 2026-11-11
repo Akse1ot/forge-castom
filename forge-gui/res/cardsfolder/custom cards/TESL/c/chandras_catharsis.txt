@@ -1,0 +1,10 @@
+Name:Chandras Catharsis
+ManaCost:2 R
+Types:Instant
+A:SP$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBPlay | SpellDescription$ Exile the top two cards of your library. Until end of turn, you may play cards exiled this way. Raid — If you attacked this turn, add {R}{R}.
+SVar:DBPlay:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | ForgetOnMoved$ Exile | CopyForSimulation$ True | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True | Description$ You may play the exiled cards this turn.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBMana
+SVar:DBMana:DB$ Mana | Produced$ R | Amount$ 2 | ConditionCheckSVar$ RaidTest
+SVar:RaidTest:Count$AttackersDeclared
+Oracle:Exile the top two cards of your library. Until end of turn, you may play cards exiled this way.\nRaid — If you attacked with a creature this turn, add {R}{R}.

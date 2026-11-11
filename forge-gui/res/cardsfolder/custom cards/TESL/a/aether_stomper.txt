@@ -1,0 +1,7 @@
+Name:Aether Stomper
+ManaCost:1 G U
+Types:Creature Beast
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn | TriggerDescription$ When CARDNAME enters, return a nonland permanent you control to its owner's hand.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Permanent.nonLand+YouCtrl
+Oracle:When Aether Stomper enters the battlefield, return a nonland permanent you control to its owner’s hand.

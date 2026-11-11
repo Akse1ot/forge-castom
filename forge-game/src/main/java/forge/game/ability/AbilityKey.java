@@ -20,6 +20,7 @@ public enum AbilityKey {
     Amount("Amount"),
     AttachSource("AttachSource"),
     AttachTarget("AttachTarget"),
+    AttachmentId("AttachmentId"),
     Attacked("Attacked"),
     Attacker("Attacker"),
     Attackers("Attackers"),

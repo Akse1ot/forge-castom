@@ -1,0 +1,8 @@
+Name:Courtroom Guardian
+ManaCost:5
+Types:Artifact Creature Construct
+PT:*/*
+S:Mode$ Continuous | CharacteristicDefining$ True | Affected$ Card.Self | SetPower$ X | SetToughness$ X | Description$ CARDNAME's power and toughness are each equal to the number of creatures you control plus the number of artifacts you control.
+SVar:X:Count$Valid Creature.YouCtrl/Plus.Y
+SVar:Y:Count$Valid Artifact.YouCtrl
+Oracle:Courtroom Guardian’s power and toughness are each equal to the number of creatures you control plus the number of artifacts you control.

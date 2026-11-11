@@ -1,0 +1,8 @@
+Name:Unstoppable Experiment
+ManaCost:5 B
+Types:Creature Mutant Horror
+PT:6/4
+K:Menace
+A:AB$ ChangeZone | Cost$ 1 B | PrecostDesc$ Raid — | Defined$ Self | Origin$ Graveyard | Destination$ Hand | ActivationZone$ Graveyard | CheckSVar$ RaidTest | SpellDescription$ Return CARDNAME from your graveyard to your hand. Activate only if you attacked this turn.
+SVar:RaidTest:Count$AttackersDeclared
+Oracle:Menace\nRaid — {1}{B}: Return Unstoppable Experiment from your graveyard to your hand. Activate this ability only if you attacked with a creature this turn.

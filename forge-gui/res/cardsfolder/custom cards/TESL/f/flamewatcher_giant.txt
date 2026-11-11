@@ -1,0 +1,25 @@
+Name:Flamewatcher Giant
+ManaCost:5 R
+Types:Creature Giant Shaman
+PT:5/5
+AlternateMode:DoubleFaced
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDiscard | TriggerDescription$ At the beginning of your upkeep, discard a card. If you do, draw a card.
+SVar:TrigDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ SetState | Mode$ Transform | Cost$ T tapXType<2/Creature.Other/other creatures you control> | PrecostDesc$ Revolution | SorcerySpeed$ True | Defined$ Valid Creature.YouCtrl+hasAbilityLabelRevolution | SpellDescription$ Transform all creatures with revolution you control. Revolt only as a sorcery.
+Oracle:Revolution ({T}, Tap two other untapped creatures you control: Transform all creatures with revolution you control. Revolt only as a sorcery.)\nAt the beginning of your upkeep, discard a card. If you do, draw a\ncard.
+ALTERNATE
+Name:Flamebreaker Giant
+ManaCost:no cost
+Types:Creature Giant Shaman
+Colors:red
+PT:6/6
+R:Event$ Moved | ActiveZones$ Battlefield | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+hasAbilityLabelRevolution | Layer$ Transform | ReplacementResult$ Updated | ReplaceWith$ EnterBack | Description$ Creatures you control with revolution enter transformed.
+SVar:EnterBack:DB$ SetState | Defined$ ReplacedCard | Mode$ Transform | ETB$ True
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig | TriggerDescription$ At the beginning of your upkeep, exile the top card of your library. Until end of turn, you may play that card.
+SVar:TrigDig:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile | CopyForSimulation$ True
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | Description$ You may play the exiled card.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Creatures with revolution you control enter the battlefield transformed.\nAt the beginning of your upkeep, exile the top card of your library. Until end of turn, you may play that card.

@@ -1,0 +1,5 @@
+Name:Tyrannic Brutality
+ManaCost:1 B B
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Creature.YouDontCtrl+powerLE2 | SpellDescription$ Destroy each creature you don't control with power 2 or less.
+Oracle:Destroy each creature you don’t control with power 2 or less.

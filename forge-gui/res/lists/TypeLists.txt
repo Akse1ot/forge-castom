@@ -239,7 +239,6 @@ Mutant:Mutants
 Myr:Myrs
 Mystic:Mystics
 Na'kuhl:Na'kuhl
-Naga:Nagas
 Nautilus:Nautili
 Necron:Necrons
 Nephilim:Nephilims
@@ -350,6 +349,7 @@ Sponge:Sponges
 Spy:Spies
 Squid:Squids
 Squirrel:Squirrels
+Stag:Stags
 Starfish:Starfish
 Surrakar:Surrakars
 Symbiote:Symbiotes

@@ -1,0 +1,7 @@
+Name:Consulate Emergency
+ManaCost:2 W
+Types:Instant
+A:SP$ Charm | Choices$ DBPut,DBToken | CharmNum$ 2 | CanRepeatModes$ True
+SVar:DBPut:DB$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1 | SpellDescription$ Put a +1/+1 counter on target creature.
+SVar:DBToken:DB$ Token | TokenScript$ c_1_1_a_thopter_flying | TokenOwner$ You | SpellDescription$ Create a 1/1 colorless Thopter artifact creature token with flying.
+Oracle:Choose two. You may choose the same mode more than once.\n• Put a +1/+1 counter on target creature.\n• Create a 1/1 colorless Thopter artifact creature token with flying.

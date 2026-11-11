@@ -1,0 +1,13 @@
+Name:Tiran, Judge of the Fifth Court
+ManaCost:2 B B
+Types:Legendary Creature Human Advisor
+PT:2/4
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAsk | TriggerDescription$ At the beginning of your upkeep, for each creature you don't control, its controller sacrifices it unless they pay 1 life. You gain life equal to the amount paid this way.
+SVar:TrigAsk:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBTheirCreatures | ClearRemembered$ True | SubAbility$ DBSacrifice
+SVar:DBTheirCreatures:DB$ RepeatEach | DefinedCards$ Valid Creature.RememberedPlayerCtrl | UseImprinted$ True | RepeatSubAbility$ DBPay
+SVar:DBPay:DB$ ChooseCard | Choices$ Creature.IsImprinted | Mandatory$ True | RememberChosen$ True | ChoiceTitle$ Keep the creature you paid life for | UnlessCost$ PayLife<1> | UnlessPayer$ Remembered | UnlessSwitched$ True
+SVar:DBSacrifice:DB$ SacrificeAll | ValidCards$ Creature.YouDontCtrl+!IsRemembered | SubAbility$ DBGain
+SVar:DBGain:DB$ GainLife | Defined$ You | LifeAmount$ Paid | SubAbility$ DBCleanup
+SVar:Paid:Count$RememberedSize
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+Oracle:At the beginning of your upkeep, for each creature you don’t control, its controller sacrifices it unless they pay 1 life. You gain life equal to the amount paid this way.

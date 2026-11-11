@@ -1,0 +1,7 @@
+Name:Comptometer
+ManaCost:4
+Types:Artifact
+A:AB$ Draw | Cost$ 6 T | Defined$ You | SpellDescription$ Draw a card. This ability costs {1} less to activate for each other artifact you control.
+S:Mode$ ReduceCost | Type$ Ability | ValidCard$ Card.Self | Amount$ X | Secondary$ True
+SVar:X:Count$Valid Artifact.Other+YouCtrl
+Oracle:{6}, {T}: Draw a card. This ability costs {1} less to activate for each other artifact you control.

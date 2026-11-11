@@ -1,0 +1,11 @@
+Name:Courtroom Executor
+ManaCost:1 B
+Types:Creature Human Advisor
+PT:2/2
+S:Mode$ TeslaLaw | Law$ NoSpells | Description$ It is against the law for an opponent to cast no spells during their turn.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ JusticeOffendersOfTriggeredPlayer | Execute$ TrigJustice | OptionalDecider$ You | TriggerDescription$ Justice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, you may reveal the top card of your library and put that card into your hand. If you do, you lose life equal to its converted mana cost.
+SVar:TrigJustice:DB$ Dig | Defined$ You | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Card | DestinationZone$ Hand | RememberChanged$ True | SubAbility$ DBLose
+SVar:DBLose:DB$ LoseLife | Defined$ You | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:X:Remembered$CardManaCost
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:It is against the law for an opponent to cast no spells during their turn.\nJustice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, you may reveal the top card of your library and put that card into your hand. If you do, you lose life equal to its converted mana cost.

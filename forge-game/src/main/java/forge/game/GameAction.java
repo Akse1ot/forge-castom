@@ -349,9 +349,13 @@ public class GameAction {
                 }
 
                 if (repres == ReplacementResult.Prevented) {
-                    c.clearControllers();
+                    final boolean stoppedBatchSacrifice = fromBattlefield && cause != null
+                            && cause.getApi() == ApiType.SacrificeInAPNAP;
+                    if (!stoppedBatchSacrifice) {
+                        c.clearControllers();
+                    }
                     cleanStaticEffect(staticEff, copied);
-                    if (cause != null) {
+                    if (cause != null && !stoppedBatchSacrifice) {
                         if (cause.hasParam("Transformed") || cause.hasParam("FaceDown")) {
                             c.setBackSide(false);
                             c.changeToState(CardStateName.Original);
@@ -1497,6 +1501,10 @@ public class GameAction {
 
             checkStaticAbilities(false, affectedCards, CardCollection.EMPTY);
 
+            if (game.getTeslaJustice() != null) {
+                game.getTeslaJustice().checkState(game);
+            }
+
             CardZoneTable table = new CardZoneTable(game.getLastStateBattlefield(), game.getLastStateGraveyard());
             Map<AbilityKey, Object> mapParams = AbilityKey.newMap();
             AbilityKey.addCardZoneTableParams(mapParams, table);
@@ -2226,6 +2234,52 @@ public class GameAction {
             game.getTriggerHandler().runTrigger(TriggerType.SacrificedOnce, runParams, false);
         }
         return result;
+    }
+
+    /**
+     * Sacrifices a chosen group as one effect and returns the pre-move state of each successful sacrifice.
+     * All sacrifice restrictions are evaluated before any member moves.
+     */
+    public final CardCollection sacrificeBatch(final Iterable<Card> selected, final SpellAbility cause,
+                                               final CardZoneTable table) {
+        final CardCollection eligible = new CardCollection();
+        for (Card card : selected) {
+            if (table.getLastStateBattlefield().contains(card) && card.canBeSacrificedBy(cause, true)) {
+                eligible.add(card);
+            }
+        }
+
+        final Map<AbilityKey, Object> params = AbilityKey.newMap();
+        AbilityKey.addCardZoneTableParams(params, table);
+        final CardCollection sacrificed = new CardCollection();
+        final Map<Player, CardCollection> byController = new LinkedHashMap<>();
+        for (Card card : GameActionUtil.orderCardsByTheirOwners(game, eligible, ZoneType.Graveyard, cause)) {
+            Card current = game.getCardState(card, null);
+            if (current == null || !current.equalsWithGameTimestamp(card) || !current.isInPlay()) {
+                continue;
+            }
+            sacrificeDestroy(current, cause, params);
+            // A replacement can send the permanent elsewhere or prevent it from leaving at all.
+            boolean leftBattlefield = table.row(ZoneType.Battlefield).entrySet().stream()
+                    .anyMatch(entry -> entry.getKey() != ZoneType.Battlefield && entry.getValue().contains(card));
+            if (leftBattlefield) {
+                Card lki = table.getLastStateBattlefield().get(card);
+                sacrificed.add(lki);
+                byController.computeIfAbsent(lki.getController(), player -> new CardCollection()).add(lki);
+            }
+        }
+        for (Map.Entry<Player, CardCollection> entry : byController.entrySet()) {
+            Player controller = entry.getKey();
+            for (Card lki : entry.getValue()) {
+                controller.addSacrificedThisTurn(lki, cause, table.getLastStateBattlefield());
+            }
+            final Map<AbilityKey, Object> event = AbilityKey.mapFromPlayer(controller);
+            event.put(AbilityKey.Cards, entry.getValue());
+            event.put(AbilityKey.Cause, cause);
+            event.put(AbilityKey.LastStateBattlefield, table.getLastStateBattlefield());
+            game.getTriggerHandler().runTrigger(TriggerType.SacrificedOnce, event, false);
+        }
+        return sacrificed;
     }
 
     public final boolean destroy(final Card c, final SpellAbility sa, final boolean regenerate, Map<AbilityKey, Object> params) {

@@ -1,0 +1,21 @@
+Name:Shady Consultant
+ManaCost:2 B B
+Types:Creature Human Advisor
+PT:4/4
+AlternateMode:DoubleFaced
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLose | TriggerDescription$ At the beginning of your upkeep, you lose 1 life.
+SVar:TrigLose:DB$ LoseLife | Defined$ You | LifeAmount$ 1
+T:Mode$ Always | CheckSVar$ Life | SVarCompare$ LE10 | TriggerZones$ Battlefield | Execute$ TrigTurn | TriggerDescription$ When you have 10 or less life, transform CARDNAME.
+SVar:Life:Count$YourLifeTotal
+SVar:TrigTurn:DB$ SetState | Defined$ Self | Mode$ Transform
+Oracle:At the beginning of your upkeep, you lose 1 life.\nWhen you have 10 or less life, transform Shady Consultant.
+ALTERNATE
+Name:Courtroom Magister
+ManaCost:no cost
+Types:Creature Human Advisor
+Colors:black
+PT:4/6
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ At the beginning of your upkeep, you draw a card and lose 1 life.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLose
+SVar:DBLose:DB$ LoseLife | Defined$ You | LifeAmount$ 1
+Oracle:At the beginning of your upkeep, you draw a card and you lose 1 life.

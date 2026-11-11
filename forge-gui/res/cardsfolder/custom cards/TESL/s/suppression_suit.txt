@@ -1,0 +1,6 @@
+Name:Suppression Suit
+ManaCost:2
+Types:Artifact Equipment
+S:Mode$ Continuous | AffectedDefined$ Equipped | Affected$ Creature | AddPower$ 1 | AddKeyword$ Trample | Description$ Equipped creature gets +1/+0 and has trample.
+K:Equip:1
+Oracle:Equipped creature gets +1/+0 and has trample.\nEquip {1}

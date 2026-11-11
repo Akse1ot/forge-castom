@@ -192,6 +192,7 @@ public enum SpellApiToAi {
             .put(ApiType.RunChaos, AlwaysPlayAi.class)
             .put(ApiType.Sacrifice, SacrificeAi.class)
             .put(ApiType.SacrificeAll, SacrificeAllAi.class)
+            .put(ApiType.SacrificeInAPNAP, SacrificeInAPNAPAi.class)
             .put(ApiType.Scry, ScryAi.class)
             .put(ApiType.Seek, AlwaysPlayAi.class)
             .put(ApiType.SetInMotion, AlwaysPlayAi.class)

@@ -1,0 +1,7 @@
+Name:Soldier of Tomorrow
+ManaCost:3 W
+Types:Creature Human Soldier
+PT:3/3
+K:Vigilance
+S:Mode$ Continuous | AffectedDefined$ Self | AddPower$ 1 | AddKeyword$ First Strike | IsPresent$ Artifact.YouCtrl | Description$ As long as you control an artifact, CARDNAME gets +1/+0 and has first strike.
+Oracle:Vigilance\nAs long as you control an artifact, Soldier of Tomorrow gets +1/+0 and has first strike.

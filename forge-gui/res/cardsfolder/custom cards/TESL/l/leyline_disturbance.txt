@@ -1,0 +1,6 @@
+Name:Leyline Disturbance
+ManaCost:1 G
+Types:Instant
+K:AlternateAdditionalCost:Sac<1/Creature>:ExileFromGrave<1/Creature/a creature card>
+A:SP$ GainLife | Defined$ You | LifeAmount$ 7 | SpellDescription$ You gain 7 life.
+Oracle:As an additional cost to cast this spell, sacrifice a creature or exile a creature card from your graveyard.\nYou gain 7 life.

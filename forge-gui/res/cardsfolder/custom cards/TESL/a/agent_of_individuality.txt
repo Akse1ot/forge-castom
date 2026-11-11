@@ -1,0 +1,6 @@
+Name:Agent of Individuality
+ManaCost:1 W
+Types:Creature Human Scout
+PT:3/1
+R:Event$ CreateToken | ActiveZones$ Battlefield | Layer$ CantHappen | Prevent$ True | Description$ Tokens can't be created.
+Oracle:Tokens can’t be created.

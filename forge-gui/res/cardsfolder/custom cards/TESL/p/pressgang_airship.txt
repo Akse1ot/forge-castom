@@ -1,0 +1,6 @@
+Name:Pressgang Airship
+ManaCost:4
+Types:Artifact Creature Ship
+PT:0/4
+A:AB$ Pump | Cost$ tapXType<2/Creature.Other/two other untapped creatures you control> | Defined$ Self | NumAtt$ 4 | KW$ Flying | ActivationLimit$ 1 | SpellDescription$ CARDNAME gets +4/+0 and gains flying until end of turn. Activate only once each turn.
+Oracle:Tap two other untapped creatures you control: Pressgang Airship gets +4/+0 and gains flying until end of turn. Activate this ability only once each turn.

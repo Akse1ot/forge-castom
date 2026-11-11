@@ -1,0 +1,11 @@
+Name:Suljet, the Cog Mind
+ManaCost:5 W U
+Types:Legendary Artifact Creature Artificer
+PT:5/7
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigScry | TriggerDescription$ At the beginning of your upkeep, scry X, where X is the number of artifacts you control.
+SVar:TrigScry:DB$ Scry | Defined$ You | ScryNum$ X
+SVar:X:Count$Valid Artifact.YouCtrl
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Artifact.Other+YouCtrl | Execute$ TrigCounter | TriggerDescription$ Whenever another artifact enters the battlefield under your control, put a research counter on CARDNAME. Then if CARDNAME has ten or more research counters on it, you win the game.
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ RESEARCH | CounterNum$ 1 | SubAbility$ DBWin
+SVar:DBWin:DB$ WinsGame | Defined$ You | ConditionDefined$ Self | ConditionPresent$ Card.Self+counters_GE10_RESEARCH
+Oracle:At the beginning of your upkeep, scry X, where X is the number of artifacts you control.\nWhenever another artifact enters the battlefield under your control, put a research counter on Suljet, the Cog Mind. Then if Suljet has ten or more research counters on it, you win the game.

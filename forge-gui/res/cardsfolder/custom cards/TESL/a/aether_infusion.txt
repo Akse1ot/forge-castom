@@ -1,0 +1,9 @@
+Name:Aether Infusion
+ManaCost:G
+Types:Enchantment Aura
+K:Enchant:Creature
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPut | TriggerDescription$ When CARDNAME enters, put a +1/+1 counter on enchanted creature.
+SVar:TrigPut:DB$ PutCounter | Defined$ Enchanted | CounterType$ P1P1 | CounterNum$ 1
+S:Mode$ Continuous | AffectedDefined$ Enchanted | Affected$ Creature | AddAbility$ Double | Description$ Enchanted creature has "{5}{G}: Double the number of +1/+1 counters on this creature."
+SVar:Double:AB$ MultiplyCounter | Cost$ 5 G | Defined$ Self | CounterType$ P1P1 | SpellDescription$ Double the number of +1/+1 counters on CARDNAME.
+Oracle:Enchant creature\nWhen Aether Infusion enters the battlefield, put a +1/+1 counter on enchanted creature.\nEnchanted creature has “{5}{G}: Double the number of +1/+1 counters on this creature.”

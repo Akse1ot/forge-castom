@@ -1,0 +1,7 @@
+Name:Aether-Warped Predator
+ManaCost:2 G
+Types:Creature Beast Mutant
+PT:1/1
+K:Trample
+A:AB$ PutCounter | Cost$ T | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SorcerySpeed$ True | SpellDescription$ Put a +1/+1 counter on CARDNAME. Activate only as a sorcery.
+Oracle:Trample\n{T}: Put a +1/+1 counter on Aether-Warped Predator. Activate this ability only any time you could cast a sorcery.

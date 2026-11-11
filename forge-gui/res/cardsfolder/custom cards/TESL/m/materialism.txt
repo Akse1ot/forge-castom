@@ -1,0 +1,11 @@
+Name:Materialism
+ManaCost:3 B B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ Total | SVarCompare$ GE30 | Execute$ TrigWin | TriggerDescription$ At the beginning of your upkeep, if the total number of your artifacts and creatures on the battlefield and artifact and creature cards in your graveyard is thirty or more, you win the game.
+SVar:Total:SVar$Artifacts/Plus.Creatures
+SVar:Artifacts:Count$Valid Artifact.YouCtrl/Plus.GraveArtifacts
+SVar:Creatures:Count$Valid Creature.YouCtrl/Plus.GraveCreatures
+SVar:GraveArtifacts:Count$ValidGraveyard Artifact.YouOwn
+SVar:GraveCreatures:Count$ValidGraveyard Creature.YouOwn
+SVar:TrigWin:DB$ WinsGame | Defined$ You
+Oracle:At the beginning of your upkeep, if the number of artifacts you control plus the number of creatures you control plus the number of artifact cards in your graveyard plus the number of creature cards in your graveyard is thirty or more, you win the game.

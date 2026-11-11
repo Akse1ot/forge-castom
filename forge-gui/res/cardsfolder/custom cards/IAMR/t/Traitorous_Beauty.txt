@@ -1,6 +1,6 @@
 Name:Traitorous Beauty
 ManaCost:4 R
-Types:Creature Naga Shaman
+Types:Creature Snake Shaman
 PT:3/2
 K:First Strike
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDelayAttack | TriggerZones$ Battlefield | TriggerDescription$ When CARDNAME enters the battlefield, target creature attacks during its controller's next turn if able.

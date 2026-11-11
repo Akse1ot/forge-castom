@@ -1,0 +1,6 @@
+Name:Jump Ahead
+ManaCost:U
+Types:Sorcery
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl+powerLE2 | KW$ Flying | SubAbility$ DBDraw | SpellDescription$ Creatures you control with power 2 or less gain flying until end of turn. Draw a card.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Creatures you control with power 2 or less gain flying until end of turn.\nDraw a card.

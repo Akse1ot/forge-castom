@@ -1,0 +1,10 @@
+Name:Sky Pirate
+ManaCost:3 B
+Types:Creature Human Pirate
+PT:3/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ RaidTest | Execute$ TrigLose | TriggerDescription$ Raid — When CARDNAME enters, if you attacked this turn, each opponent loses 2 life and you gain 2 life.
+SVar:RaidTest:Count$AttackersDeclared
+SVar:TrigLose:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 2 | SubAbility$ DBGain
+SVar:DBGain:DB$ GainLife | Defined$ You | LifeAmount$ 2
+Oracle:Flying\nRaid — When Sky Pirate enters the battlefield, if you attacked with a creature this turn, each opponent loses 2 life and you gain 2 life.

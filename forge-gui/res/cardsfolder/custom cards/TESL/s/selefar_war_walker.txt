@@ -1,0 +1,9 @@
+Name:Selefar War-Walker
+ManaCost:7
+Types:Artifact Creature Construct
+PT:6/6
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigExile | OptionalDecider$ You | TriggerDescription$ Whenever CARDNAME attacks, you may exile target permanent. If you do, CARDNAME doesn't untap during your next untap step.
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Permanent | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBFreeze
+SVar:DBFreeze:DB$ Pump | Defined$ Self | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent | ConditionDefined$ Remembered | ConditionPresent$ Card.inZoneExile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Whenever Selefar War-Walker attacks, you may exile target permanent. If you do, Selefar War-Walker doesn’t untap during your next untap step.

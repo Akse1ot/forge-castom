@@ -1,0 +1,6 @@
+Name:Construct Token
+ManaCost:no cost
+Types:Artifact Creature Construct
+PT:0/0
+K:Prowess
+Oracle:Prowess

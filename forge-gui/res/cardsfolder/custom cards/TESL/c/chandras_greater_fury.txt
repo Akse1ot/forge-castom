@@ -1,0 +1,7 @@
+Name:Chandra’s Greater Fury
+ManaCost:4 R
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 4 | DamageMap$ True | SubAbility$ DBAll | SpellDescription$ CARDNAME deals 4 damage to target creature and 1 damage to each other creature you don't control.
+SVar:DBAll:DB$ DamageAll | ValidCards$ Creature.YouDontCtrl+!targetedBy | NumDmg$ 1 | SubAbility$ DBResolve
+SVar:DBResolve:DB$ DamageResolve
+Oracle:Chandra’s Greater Fury deals 4 damage to target creature and 1 damage to each other creature you don’t control.

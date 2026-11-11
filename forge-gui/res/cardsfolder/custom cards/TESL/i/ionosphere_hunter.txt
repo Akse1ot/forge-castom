@@ -1,0 +1,8 @@
+Name:Ionosphere Hunter
+ManaCost:5 U
+Types:Creature Elemental Fish
+PT:3/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn | TriggerDescription$ When CARDNAME enters, return target creature to its owner's hand.
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature | TgtPrompt$ Select target creature | Origin$ Battlefield | Destination$ Hand
+Oracle:Flying\nWhen Ionosphere Hunter enters the battlefield, return target creature to its owner’s hand.

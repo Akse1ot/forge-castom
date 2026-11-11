@@ -121,6 +121,8 @@ public class Player extends GameEntity implements Comparable<Player> {
     private int numRollsThisTurn;
     private List<Integer> diceRollsThisTurn = Lists.newArrayList();
     private int expentThisTurn;
+    private int manaSpentThisTurn;
+    private long manaSpendingTurn;
     private int numLibrarySearchedOwn; //The number of times this player has searched his library
     private int venturedThisTurn;
     private int attractionsVisitedThisTurn;
@@ -2462,6 +2464,11 @@ public class Player extends GameEntity implements Comparable<Player> {
     }
 
     public final void addSacrificedThisTurn(final Card cpy, final SpellAbility source) {
+        addSacrificedThisTurn(cpy, source, null);
+    }
+
+    public final void addSacrificedThisTurn(final Card cpy, final SpellAbility source,
+                                           final CardCollectionView sacrificeBattlefield) {
         // Play the Sacrifice sound
         game.fireEvent(new GameEventCardSacrificed(CardView.get(cpy)));
 
@@ -2473,6 +2480,9 @@ public class Player extends GameEntity implements Comparable<Player> {
         runParams.put(AbilityKey.Cause, source);
         runParams.put(AbilityKey.CostStack, game.costPaymentStack);
         runParams.put(AbilityKey.IndividualCostPaymentInstance, game.costPaymentStack.peek());
+        if (sacrificeBattlefield != null) {
+            runParams.put(AbilityKey.LastStateBattlefield, sacrificeBattlefield);
+        }
         game.getTriggerHandler().runTrigger(TriggerType.Sacrificed, runParams, false);
     }
 
@@ -3016,6 +3026,8 @@ public class Player extends GameEntity implements Comparable<Player> {
         }
         toPlayer.lifePaidThisTurn = lifePaidThisTurn;
         toPlayer.lifePaidLastTurn = lifePaidLastTurn;
+        toPlayer.manaSpentThisTurn = manaSpentThisTurn;
+        toPlayer.manaSpendingTurn = manaSpendingTurn;
         toPlayer.subjugatedThisTurn = subjugatedThisTurn;
         // ColorSet is immutable; the pending card list must be independent and remapped.
         toPlayer.nextSpellAddColors = nextSpellAddColors;
@@ -4299,6 +4311,25 @@ public class Player extends GameEntity implements Comparable<Player> {
 
     public int getExpentThisTurn() {
         return expentThisTurn;
+    }
+
+    public int getManaSpentThisTurn() {
+        return manaSpentThisTurn;
+    }
+
+    public long getManaSpendingTurn() {
+        return manaSpendingTurn;
+    }
+
+    public void adjustManaSpentThisTurn(long turn, int delta) {
+        if (manaSpendingTurn == turn) {
+            manaSpentThisTurn += delta;
+        }
+    }
+
+    public void resetManaSpentThisTurn() {
+        manaSpendingTurn++;
+        manaSpentThisTurn = 0;
     }
     public void setExpentThisTurn(int v) {
         expentThisTurn = v;

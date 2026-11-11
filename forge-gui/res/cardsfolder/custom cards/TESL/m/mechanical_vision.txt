@@ -1,0 +1,13 @@
+Name:Mechanical Vision
+ManaCost:3 U U
+Types:Sorcery
+AlternateMode:DoubleFaced
+A:SP$ Draw | Defined$ You | NumCards$ 3 | SpellDescription$ Draw three cards.
+A:AB$ ChangeZone | Cost$ 4 | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | Transformed$ True | SorcerySpeed$ True | SpellDescription$ Put CARDNAME from your graveyard onto the battlefield transformed. Activate only as a sorcery.
+Oracle:Draw three cards.\n{4}: Put Mechanical Vision from your graveyard onto the battlefield transformed. Activate this ability only any time you could cast a sorcery.
+ALTERNATE
+Name:Observation Machine
+ManaCost:no cost
+Types:Artifact
+A:AB$ Draw | Cost$ 4 T | Defined$ You | NumCards$ 1 | SpellDescription$ Draw a card.
+Oracle:{4}, {T}: Draw a card.

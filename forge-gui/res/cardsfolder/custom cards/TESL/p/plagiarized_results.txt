@@ -1,0 +1,8 @@
+Name:Plagiarized Results
+ManaCost:1 U
+Types:Instant
+A:SP$ RevealHand | ValidTgts$ Player | RememberRevealed$ True | SubAbility$ DBChoose | SpellDescription$ Target player reveals their hand. Choose an instant, sorcery, or artifact card from it and copy it. You may cast the copy and may spend mana as though it were mana of any type to cast it.
+SVar:DBChoose:DB$ ChooseCard | Defined$ You | ChoiceZone$ Hand | Mandatory$ True | Choices$ Instant.IsRemembered,Sorcery.IsRemembered,Artifact.IsRemembered | Amount$ 1 | ChoiceTitle$ Choose an instant, sorcery, or artifact card | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ ChosenCard | ValidSA$ Spell | CopyCard$ True | Optional$ True | ManaConversion$ AnyType->AnyType | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+Oracle:Target player reveals their hand. Choose an instant, sorcery, or artifact card from it and copy it. You may cast the copy and may spend mana as though it were mana of any type to cast it. (A copy of an artifact spell becomes a token copy of that artifact as it resolves.)

@@ -1,0 +1,8 @@
+Name:Aether Animist
+ManaCost:2 G U
+Types:Creature Human Artificer
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRecharge | TriggerDescription$ When CARDNAME enters, recharge twice.
+SVar:TrigRecharge:DB$ Token | TokenScript$ c_a_canister_untap | TokenOwner$ You | TokenAmount$ 2
+S:Mode$ Continuous | Affected$ Artifact.Canister+YouCtrl | AddType$ Creature | SetPower$ 2 | SetToughness$ 2 | Description$ Canisters you control are artifact creatures with base power and toughness 2/2.
+Oracle:When Aether Animist enters the battlefield, recharge twice. (Create two colorless Canister artifact tokens with “{T}, Sacrifice this artifact: Untap target permanent. Activate this ability only during your turn.”)\nCanisters you control are artifact creatures with base power and toughness 2/2.

@@ -1,0 +1,6 @@
+Name:Repurpose
+ManaCost:1 U U
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | Destination$ Graveyard | SubAbility$ DBRecharge | SpellDescription$ Counter target spell. Recharge.
+SVar:DBRecharge:DB$ Token | TokenScript$ c_a_canister_untap | TokenOwner$ You
+Oracle:Counter target spell.\nRecharge. (Create a colorless Canister artifact token with “{T}, Sacrifice this artifact: Untap target permanent. Activate this ability only during your turn.”)

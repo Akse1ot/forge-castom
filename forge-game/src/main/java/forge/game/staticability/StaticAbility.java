@@ -256,6 +256,9 @@ public class StaticAbility extends CardTraitBase implements IIdentifiable, Clone
         if (hasParam("Mode")) {
             setMode(StaticAbilityMode.setValueOf(getParam("Mode")));
         }
+        if (checkMode(StaticAbilityMode.TeslaLaw) && host.getGame() != null) {
+            host.getGame().enableTeslaJustice();
+        }
         this.layers = this.generateLayer();
     }
 

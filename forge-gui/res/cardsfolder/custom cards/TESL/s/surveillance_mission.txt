@@ -1,0 +1,9 @@
+Name:Surveillance Mission
+ManaCost:1 U
+Types:Enchantment Aura
+K:Enchant:Creature
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRecharge | TriggerDescription$ When CARDNAME enters, recharge.
+SVar:TrigRecharge:DB$ Token | TokenScript$ c_a_canister_untap | TokenOwner$ You
+S:Mode$ Continuous | AffectedDefined$ Enchanted | Affected$ Creature | AddAbility$ Scry | Description$ Enchanted creature has "{T}: Scry 1."
+SVar:Scry:AB$ Scry | Cost$ T | ScryNum$ 1 | SpellDescription$ Scry 1.
+Oracle:Enchant creature\nWhen Surveillance Mission enters the battlefield, recharge. (Create a colorless Canister artifact token with “{T}, Sacrifice this artifact: Untap target permanent. Activate this ability only during your turn.”)\nEnchanted creature has “{T}: Scry 1.”

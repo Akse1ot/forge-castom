@@ -1,0 +1,6 @@
+Name:Siege Tank
+ManaCost:6
+Types:Artifact Creature Construct
+PT:5/5
+A:AB$ Pump | Cost$ tapXType<2/Creature.Other/two other untapped creatures you control> | Defined$ Self | NumAtt$ 5 | NumDef$ 5 | KW$ Indestructible | ActivationLimit$ 1 | SpellDescription$ CARDNAME gets +5/+5 and gains indestructible until end of turn. Activate only once each turn.
+Oracle:Tap two other untapped creatures you control: Siege Tank gets +5/+5 and gains indestructible until end of turn. Activate this ability only once each turn.

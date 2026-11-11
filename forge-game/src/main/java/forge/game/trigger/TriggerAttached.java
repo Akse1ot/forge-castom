@@ -73,6 +73,7 @@ public class TriggerAttached extends Trigger {
     public final void setTriggeringObjects(final Map<AbilityKey, Object> objects, Map<AbilityKey, Object> runParams) {
         objects.put(AbilityKey.Source, runParams.get(AbilityKey.AttachSource));
         objects.put(AbilityKey.Target, runParams.get(AbilityKey.AttachTarget));
+        AbilityKey.copyKeys(runParams, objects, AbilityKey.AttachmentId);
     }
 
     @Override

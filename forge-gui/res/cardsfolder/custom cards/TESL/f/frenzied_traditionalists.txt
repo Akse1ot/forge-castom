@@ -1,0 +1,9 @@
+Name:Frenzied Traditionalists
+ManaCost:1 G G
+Types:Creature Cat Monk
+PT:2/2
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ RaidTest | Execute$ TrigDestroy | OptionalDecider$ You | TriggerDescription$ Raid — When CARDNAME enters, if you attacked this turn, you may destroy target artifact or enchantment.
+SVar:RaidTest:Count$AttackersDeclared
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment
+Oracle:Deathtouch\nRaid — When Frenzied Traditionalists enters the battlefield, if you attacked with a creature this turn, you may destroy target artifact or enchantment.

@@ -1,0 +1,20 @@
+Name:Caretaker of the City
+ManaCost:4 W W
+Types:Creature Human Cleric
+PT:4/5
+AlternateMode:DoubleFaced
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReturn | TriggerDescription$ At the beginning of your end step, return target nonland permanent card from your graveyard to your hand.
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Permanent.nonLand+YouOwn | TgtZone$ Graveyard | Origin$ Graveyard | Destination$ Hand
+A:AB$ SetState | Mode$ Transform | Cost$ T tapXType<2/Creature> | PrecostDesc$ Revolution | SorcerySpeed$ True | Defined$ Valid Card.YouCtrl+hasAbilityLabelRevolution | SpellDescription$ Transform all permanents with revolution you control. Revolt only as a sorcery.
+Oracle:Revolution ({T}, Tap two untapped creatures you control: Transform all permanents with revolution you control. Revolt only as a sorcery.)\nAt the beginning of your end step, return target nonland permanent card from your graveyard to your hand.
+ALTERNATE
+Name:Savior of the City
+ManaCost:no cost
+Types:Creature Human Soldier
+Colors:white
+PT:5/6
+R:Event$ Moved | ActiveZones$ Battlefield | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+hasAbilityLabelRevolution | Layer$ Transform | ReplacementResult$ Updated | ReplaceWith$ EnterBack | Description$ Creatures you control with revolution enter transformed.
+SVar:EnterBack:DB$ SetState | Defined$ ReplacedCard | Mode$ Transform | ETB$ True
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReturn | TriggerDescription$ At the beginning of your end step, return target nonland permanent card from your graveyard to the battlefield.
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Permanent.nonLand+YouOwn | TgtZone$ Graveyard | Origin$ Graveyard | Destination$ Battlefield
+Oracle:Creatures with revolution you control enter the battlefield transformed.\nAt the beginning of your end step, return target nonland permanent card from your graveyard to the battlefield.

@@ -1,0 +1,6 @@
+Name:Rise Up I
+ManaCost:3 G
+Types:Instant
+A:SP$ Untap | ValidTgts$ Creature | SubAbility$ DBPump | SpellDescription$ Untap target creature. It gets +4/+4 and gains reach until end of turn.
+SVar:DBPump:DB$ Pump | Defined$ Targeted | NumAtt$ 4 | NumDef$ 4 | KW$ Reach
+Oracle:Untap target creature. It gets +4/+4 and gains reach until end of turn.

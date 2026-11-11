@@ -1,0 +1,5 @@
+Name:Freedom Fighter
+ManaCost:1 R R
+Types:Creature Human Rogue
+PT:4/2
+Oracle:

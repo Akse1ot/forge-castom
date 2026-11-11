@@ -21,6 +21,11 @@ public class SetStateAi extends SpellAbilityAi {
         final Card source = sa.getHostCard();
         final String mode = sa.getParam("Mode");
 
+        if (sa.isActivatedAbility() && "Revolution".equals(sa.getParam("PrecostDesc"))) {
+            // The phase check already evaluates the entire group, including activations from single-faced copies.
+            return new AiAbilityDecision(100, AiPlayDecision.WillPlay);
+        }
+
         // turning face is most likely okay
         // TODO only do this at beneficial moment (e.g. surprise during combat or morph trigger), might want to reserve mana to protect them from easy removal
         if ("TurnFaceUp".equals(mode) || "TurnFaceDown".equals(mode)) {
@@ -53,6 +58,10 @@ public class SetStateAi extends SpellAbilityAi {
         final String mode = sa.getParam("Mode");
         final Card source = sa.getHostCard();
         final String logic = sa.getParamOrDefault("AILogic", "");
+
+        if (sa.isActivatedAbility() && "Revolution".equals(sa.getParam("PrecostDesc"))) {
+            return TeslaRevolutionAi.shouldActivate(ai, sa);
+        }
 
         if ("Transform".equals(mode)) {
             if (!sa.usesTargeting()) {
@@ -212,7 +221,7 @@ public class SetStateAi extends SpellAbilityAi {
         return valueCard <= valueTransformed;
     }
 
-    private boolean isSafeToTransformIntoLegendary(Player aiPlayer, Card source) {
+    static boolean isSafeToTransformIntoLegendary(Player aiPlayer, Card source) {
         // Prevent transform into legendary creature if copy already exists
         // Check first if Legend Rule does still apply
         if (!source.ignoreLegendRule()) {

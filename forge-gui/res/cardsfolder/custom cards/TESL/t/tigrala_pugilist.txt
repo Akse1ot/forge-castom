@@ -1,0 +1,10 @@
+Name:Tigrala Pugilist
+ManaCost:2 R
+Types:Creature Cat Monk
+PT:3/2
+A:AB$ SacrificeInAPNAP | Cost$ 7 B | Defined$ Player.Opponent | SacValid$ Creature | RememberSacrificed$ True | SacrificerLosesToughness$ True | SubAbility$ DBRepeat | SpellDescription$ Each opponent sacrifices a creature, then loses life equal to that creature's toughness.
+SVar:DBRepeat:DB$ RepeatEach | DefinedCards$ RememberedLKI | UseImprinted$ True | LoseLifeMap$ True | RepeatSubAbility$ DBLoseLife | SubAbility$ DBCleanup
+SVar:DBLoseLife:DB$ LoseLife | Defined$ ImprintedController | LifeAmount$ Toughness
+SVar:Toughness:ImprintedLKI$CardToughness
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:{7}{B}: Each opponent sacrifices a creature, then loses life equal to that creature’s toughness.

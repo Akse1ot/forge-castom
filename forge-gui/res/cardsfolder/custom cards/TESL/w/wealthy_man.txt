@@ -1,0 +1,19 @@
+Name:Wealthy Man
+ManaCost:1 G
+Types:Creature Human Citizen
+PT:2/2
+AlternateMode:DoubleFaced
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ Spend | SVarCompare$ GE8 | Execute$ TrigTransform | TriggerDescription$ At the beginning of each end step, if you spent eight or more mana this turn, transform CARDNAME.
+SVar:Spend:PlayerCountPropertyYou$ManaSpentThisTurn
+SVar:TrigTransform:DB$ SetState | Mode$ Transform
+Oracle:{T}: Add {C}.\nAt the beginning of each end step, if you spent eight or more mana this turn, transform Wealthy Man.
+ALTERNATE
+Name:Worldly Man
+ManaCost:no cost
+Types:Creature Human Warrior
+Colors:green
+PT:2/2
+S:Mode$ Continuous | AffectedDefined$ Self | AddPower$ X | AddToughness$ X | Description$ CARDNAME gets +1/+1 for each land you control.
+SVar:X:Count$Valid Land.YouCtrl
+Oracle:Worldly Man gets +1/+1 for each land you control.

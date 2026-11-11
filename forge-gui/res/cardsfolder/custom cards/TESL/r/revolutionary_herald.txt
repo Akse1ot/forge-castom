@@ -1,0 +1,23 @@
+Name:Revolutionary Herald
+ManaCost:2 R R
+Types:Creature Human Soldier
+PT:2/1
+AlternateMode:DoubleFaced
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCitizen | TriggerDescription$ When CARDNAME enters, create two 1/1 red Citizen creature tokens.
+SVar:TrigCitizen:DB$ Token | TokenScript$ r_1_1_citizen | TokenOwner$ You | TokenAmount$ 2
+A:AB$ SetState | Mode$ Transform | Cost$ T tapXType<2/Creature> | PrecostDesc$ Revolution | SorcerySpeed$ True | Defined$ Valid Card.YouCtrl+hasAbilityLabelRevolution | SpellDescription$ Transform all permanents with revolution you control. Revolt only as a sorcery.
+Oracle:Revolution ({T}, Tap two untapped creatures you control: Transform all permanents with revolution you control. Revolt only as a sorcery.)\nWhen Revolutionary Herald enters the battlefield, create two 1/1 red Citizen creature tokens.
+ALTERNATE
+Name:Revolutionary Veteran
+ManaCost:no cost
+Types:Creature Human Soldier
+Colors:red
+PT:3/2
+R:Event$ Moved | ActiveZones$ Battlefield | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+hasAbilityLabelRevolution | Layer$ Transform | ReplacementResult$ Updated | ReplaceWith$ EnterBack | Description$ Creatures you control with revolution enter transformed.
+SVar:EnterBack:DB$ SetState | Defined$ ReplacedCard | Mode$ Transform | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCitizen | TriggerDescription$ When CARDNAME enters or transforms into this face, create two 1/1 red Citizen creature tokens.
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigCitizen | Secondary$ True | TriggerDescription$ When CARDNAME enters or transforms into this face, create two 1/1 red Citizen creature tokens.
+SVar:TrigCitizen:DB$ Token | TokenScript$ r_1_1_citizen | TokenOwner$ You | TokenAmount$ 2
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPump | TriggerDescription$ Whenever CARDNAME attacks, creatures you control get +1/+0 until end of turn.
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ 1
+Oracle:Creatures with revolution you control enter the battlefield transformed.\nWhen this creature enters the battlefield or transforms into Revolutionary Veteran, create two 1/1 red Citizen creature tokens.\nWhenever Revolutionary Veteran attacks, creatures you control get +1/+0 until end of turn.

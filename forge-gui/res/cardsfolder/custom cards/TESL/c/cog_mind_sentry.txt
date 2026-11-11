@@ -1,0 +1,5 @@
+Name:Cog Mind Sentry
+ManaCost:2
+Types:Artifact Creature Construct Scout
+PT:2/1
+Oracle:

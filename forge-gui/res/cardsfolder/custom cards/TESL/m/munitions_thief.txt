@@ -1,0 +1,8 @@
+Name:Munitions Thief
+ManaCost:3 R
+Types:Creature Human Rogue
+PT:2/2
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigCounter | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, put a +1/+1 counter on it.
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+Oracle:Menace\nWhenever Munitions Thief deals combat damage to a player, put a +1/+1 counter on it.

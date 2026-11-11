@@ -1,0 +1,9 @@
+Name:Lurking Crustacean
+ManaCost:4 U
+Types:Creature Crab
+PT:6/6
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap | TriggerDescription$ When CARDNAME enters, tap it. It doesn't untap during your next untap step.
+SVar:TrigTap:DB$ Tap | Defined$ Self | SubAbility$ DBFreeze
+SVar:DBFreeze:DB$ Pump | Defined$ Self | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+Oracle:Trample\nWhen Lurking Crustacean enters the battlefield, tap it. It doesn’t untap during your next untap step.

@@ -813,6 +813,9 @@ public class ComputerUtilMana {
         // not worth checking if it makes sense to not spend floating first
         if (manapool.payManaCostFromPool(cost, sa, test, manaSpentToPay)) {
             CostPayment.handleOfferings(sa, test, cost.isPaid());
+            if (!test) {
+                sa.confirmManaSpend(cost);
+            }
             // paid all from floating mana
             return paymentList;
         }
@@ -834,7 +837,7 @@ public class ComputerUtilMana {
                 // would we ever not want to use pool mana?
                 boolean found = false;
                 for (byte color : ManaAtom.MANATYPES) {
-                    if (manapool.tryPayCostWithColor(color, sa, cost, manaSpentToPay)) {
+                    if (manapool.tryPayCostWithColor(color, sa, cost, manaSpentToPay, test)) {
                         found = true;
                         break;
                     }
@@ -1032,6 +1035,7 @@ public class ComputerUtilMana {
                     unpaid.add(cost);
                 }
             } else {
+                sa.refundRecordedManaSpend();
                 System.out.println("ComputerUtilMana: payManaCost() cost was not paid for " + sa + " (" +  sa.getHostCard().getName() + "). Didn't find what to pay for " + toPay);
                 sa.setSkip(true);
             }
@@ -1041,6 +1045,8 @@ public class ComputerUtilMana {
         if (test) {
             manapool.refundMana(manaSpentToPay);
             resetPayment(paymentList);
+        } else {
+            sa.confirmManaSpend(cost);
         }
 
         return paymentList;

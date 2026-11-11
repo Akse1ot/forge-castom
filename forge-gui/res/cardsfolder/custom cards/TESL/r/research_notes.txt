@@ -1,0 +1,7 @@
+Name:Research Notes
+ManaCost:1
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerDescription$ When CARDNAME enters, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+A:AB$ Draw | Cost$ 5 Sac<1/CARDNAME> | Defined$ You | NumCards$ 1 | SpellDescription$ Draw a card.
+Oracle:When Research Notes enters the battlefield, draw a card.\n{5}, Sacrifice Research Notes: Draw a card.

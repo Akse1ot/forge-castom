@@ -1,0 +1,7 @@
+Name:Neural Serum
+ManaCost:1 U
+Types:Instant
+A:SP$ Tap | ValidTgts$ Creature | SubAbility$ DBFreeze | SpellDescription$ Tap target creature. It doesn't untap during its controller's next untap step. Recharge.
+SVar:DBFreeze:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent | SubAbility$ DBRecharge
+SVar:DBRecharge:DB$ Token | TokenScript$ c_a_canister_untap | TokenOwner$ You
+Oracle:Tap target creature. It doesn’t untap during its controller’s next untap step.\nRecharge. (Create a colorless Canister artifact token with “{T}, Sacrifice this artifact: Untap target permanent. Activate this ability only during your turn.”)

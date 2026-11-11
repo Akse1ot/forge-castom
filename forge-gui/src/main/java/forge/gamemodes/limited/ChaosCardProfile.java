@@ -70,10 +70,18 @@ final class ChaosCardProfile {
     private int primarySpellRoots;
     private boolean rollsMatter;
     private boolean unknown;
+    private ChaosManaPlan.Source manaSource;
 
     private ChaosCardProfile(PaperCard card) {
         this.card = card;
         unknown = card.getRules().isVariant();
+    }
+
+    ChaosManaPlan.Source manaSource() {
+        if (manaSource == null) {
+            manaSource = ChaosManaPlan.readSource(card);
+        }
+        return manaSource;
     }
 
     static ChaosCardProfile read(PaperCard card) {

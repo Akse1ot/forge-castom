@@ -1,0 +1,6 @@
+Name:Clockwork Perfection
+ManaCost:5 U
+Types:Instant
+A:SP$ Draw | Defined$ You | NumCards$ 3 | SubAbility$ DBDiscard | SpellDescription$ Draw three cards. If you control no artifacts, discard a card.
+SVar:DBDiscard:DB$ Discard | Defined$ You | ConditionPresent$ Artifact.YouCtrl | ConditionCompare$ EQ0 | Mode$ TgtChoose
+Oracle:Draw three cards. If you control no artifacts, discard a card.

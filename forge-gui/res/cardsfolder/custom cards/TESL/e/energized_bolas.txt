@@ -1,0 +1,7 @@
+Name:Energized Bolas
+ManaCost:0
+Types:Artifact Equipment
+K:Equip:3
+S:Mode$ Continuous | AffectedDefined$ Equipped | Affected$ Creature | AddKeyword$ Reach | AddAbility$ BolasDamage | Description$ Equipped creature has reach and "{T}: CARDNAME deals 1 damage to target player or planeswalker."
+SVar:BolasDamage:AB$ DealDamage | Cost$ T | ValidTgts$ Player,Planeswalker | NumDmg$ 1 | DamageSource$ OriginalHost | SpellDescription$ ORIGINALHOST deals 1 damage to target player or planeswalker.
+Oracle:Equipped creature has reach and “{T}: Energized Bolas deals 1 damage to target player or planeswalker.”\nEquip {3}

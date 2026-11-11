@@ -1,0 +1,19 @@
+Name:Fugitive Mage
+ManaCost:U
+Types:Creature Human Wizard
+PT:1/2
+AlternateMode:DoubleFaced
+K:Prowess
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Instant.YouOwn,Sorcery.YouOwn | PresentZone$ Graveyard | PresentCompare$ GE3 | Execute$ TrigTurn | TriggerDescription$ At the beginning of your upkeep, if you have three or more instant and/or sorcery cards in your graveyard, transform CARDNAME.
+SVar:TrigTurn:DB$ SetState | Defined$ Self | Mode$ Transform
+Oracle:Prowess\nAt the beginning of your upkeep, if you have three or more instant and/or sorcery cards in your graveyard, transform Fugitive Mage.
+ALTERNATE
+Name:Fugitive Arcanist
+ManaCost:no cost
+Types:Creature Human Wizard
+Colors:blue
+PT:3/2
+K:Prowess
+T:Mode$ Transformed | ValidCard$ Card.Self | Execute$ TrigReturn | OptionalDecider$ You | TriggerDescription$ When this creature transforms into CARDNAME, you may return target instant or sorcery card from your graveyard to your hand.
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | TgtZone$ Graveyard | Origin$ Graveyard | Destination$ Hand
+Oracle:Prowess\nWhen this creature transforms into Fugitive Arcanist, you may return target instant or sorcery card from your graveyard to your hand.

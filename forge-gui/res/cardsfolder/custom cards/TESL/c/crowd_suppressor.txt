@@ -1,0 +1,8 @@
+Name:Crowd Suppressor
+ManaCost:3 U U
+Types:Creature Human Artificer
+PT:3/5
+S:Mode$ TeslaLaw | Law$ ThreeCreatures | Description$ It is against the law for an opponent to control three or more creatures.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ JusticeOffendersOfTriggeredPlayer | Execute$ TrigJustice | TriggerDescription$ Justice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, gain control of target creature one of those players controls until CARDNAME leaves the battlefield.
+SVar:TrigJustice:DB$ GainControl | ValidTgts$ Creature | TargetsWithDefinedController$ JusticeOffenders | LoseControl$ LeavesPlay
+Oracle:It is against the law for an opponent to control three or more creatures.\nJustice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, gain control of target creature one of those players controls until Crowd Suppressor leaves the battlefield.

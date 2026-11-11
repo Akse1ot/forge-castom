@@ -1,0 +1,9 @@
+Name:Garuda Windmaster
+ManaCost:W U
+Types:Creature Bird Soldier
+PT:2/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Creature.Other+YouCtrl+withFlying | Execute$ TrigPump | TriggerDescription$ Whenever another creature with flying enters the battlefield under your control, CARDNAME gets +1/+1 until end of turn.
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ 1 | NumDef$ 1
+S:Mode$ CastWithFlash | ValidCard$ Creature.withFlying | ValidSA$ Spell | Caster$ You | Description$ You may cast creature spells with flying as though they had flash.
+Oracle:Flying\nWhenever another creature with flying enters the battlefield under your control, Garuda Windmaster gets +1/+1 until end of turn.\nYou may cast creature spells with flying as though they had flash.

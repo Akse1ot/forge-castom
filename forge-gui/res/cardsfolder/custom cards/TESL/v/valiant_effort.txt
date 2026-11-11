@@ -1,0 +1,6 @@
+Name:Valiant Effort
+ManaCost:3 R W
+Types:Instant
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Double Strike & Lifelink & Haste | SubAbility$ DBUntap | SpellDescription$ Creatures you control gain double strike, lifelink, and haste until end of turn. Untap those creatures.
+SVar:DBUntap:DB$ UntapAll | ValidCards$ Creature.YouCtrl
+Oracle:Creatures you control gain double strike, lifelink, and haste until end of turn. Untap those creatures.

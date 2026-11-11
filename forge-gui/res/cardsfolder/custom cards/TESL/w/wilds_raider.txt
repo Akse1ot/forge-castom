@@ -1,0 +1,9 @@
+Name:Wilds Raider
+ManaCost:2 R G
+Types:Creature Cat Berserker
+PT:5/3
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ RaidTest | Execute$ TrigFight | OptionalDecider$ You | TriggerDescription$ Raid — When CARDNAME enters, if you attacked with a creature this turn, you may have CARDNAME fight target creature you don't control.
+SVar:RaidTest:Count$AttackersDeclared
+SVar:TrigFight:DB$ Fight | Defined$ Self | ValidTgts$ Creature.YouDontCtrl
+Oracle:Trample\nRaid — When Wilds Raider enters the battlefield, if you attacked with a creature this turn, you may have Wilds Raider fight target creature you don’t control. (Each deals damage equal to its power to the other.)

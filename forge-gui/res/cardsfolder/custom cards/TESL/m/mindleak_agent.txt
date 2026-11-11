@@ -1,0 +1,8 @@
+Name:Mindleak Agent
+ManaCost:1 U
+Types:Creature Human Wizard
+PT:1/3
+S:Mode$ TeslaLaw | Law$ NoSpells | Description$ It is against the law for an opponent to cast no spells during their turn.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ JusticeOffendersOfTriggeredPlayer | Execute$ TrigJustice | TriggerDescription$ Justice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, each opponent puts the top three cards of their library into their graveyard.
+SVar:TrigJustice:DB$ Mill | Defined$ Opponent | NumCards$ 3
+Oracle:It is against the law for an opponent to cast no spells during their turn.\nJustice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, each opponent puts the top three cards of their library into their graveyard.

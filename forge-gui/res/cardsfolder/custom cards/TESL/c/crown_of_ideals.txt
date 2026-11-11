@@ -1,0 +1,9 @@
+Name:Crown of Ideals
+ManaCost:4
+Types:Artifact Equipment
+T:Mode$ Attached | ValidSource$ Card.Self | ValidTarget$ Creature | TriggerZones$ Battlefield | Execute$ TrigCopyOthers | TriggerDescription$ Whenever CARDNAME becomes attached to a creature, all other creatures you control become a copy of that creature until CARDNAME becomes unattached from that creature.
+SVar:TrigCopyOthers:DB$ Clone | Defined$ Equipped | CloneTarget$ Valid Creature.YouCtrl | ExcludeChosen$ True | Duration$ UntilAttachmentEnds | AttachmentFromTrigger$ True | StackDescription$ SpellDescription | SpellDescription$ All other creatures you control become a copy of the creature this Equipment became attached to until it becomes unattached from that creature.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigCopyEntering | TriggerDescription$ Whenever a creature enters the battlefield under your control, it becomes a copy of equipped creature until CARDNAME becomes unattached from that creature.
+SVar:TrigCopyEntering:DB$ Clone | Defined$ Equipped | CloneTarget$ TriggeredCardLKICopy | Duration$ UntilAttachmentEnds | StackDescription$ SpellDescription | SpellDescription$ The creature that entered becomes a copy of the equipped creature until this Equipment becomes unattached from that creature.
+K:Equip:4
+Oracle:Whenever Crown of Ideals becomes attached to a creature, all other creatures you control become a copy of that creature until Crown of Ideals becomes unattached from that creature.\nWhenever a creature enters the battlefield under your control, it becomes a copy of equipped creature until Crown of Ideals becomes unattached from that creature.\nEquip {4}

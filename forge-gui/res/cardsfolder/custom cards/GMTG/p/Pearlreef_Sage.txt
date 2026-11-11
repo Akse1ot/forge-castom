@@ -1,6 +1,6 @@
 Name:Pearlreef Sage
 ManaCost:1 U
-Types:Creature Naga Wizard
+Types:Creature Snake Wizard
 PT:2/1
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig | TriggerDescription$ When CARDNAME enters the battlefield, look at the top two cards of your library. Put one of them on top of your library and the other on the bottom of your library.
 SVar:TrigDig:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ 1 | DestinationZone$ Library | LibraryPosition$ 0 | DestinationZone2$ Library | LibraryPosition2$ -1

@@ -1,0 +1,6 @@
+Name:Jetpack
+ManaCost:2
+Types:Artifact Equipment
+S:Mode$ Continuous | AffectedDefined$ Equipped | Affected$ Creature | AddKeyword$ Flying & Haste | Description$ Equipped creature has flying and haste.
+K:Equip:1
+Oracle:Equipped creature has flying and haste.\nEquip {1}

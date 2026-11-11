@@ -144,6 +144,9 @@ public class BoosterGenerator {
 
     private static List<PaperCard> getBoosterPackInternal(SealedTemplate template) {
         if (template.getCollation() != null) {
+            if (TeslaBoosterCollation.PROFILE.equals(template.getCollation())) {
+                return TeslaBoosterCollation.generate(template, EXCLUDED_NAMES.get());
+            }
             return AnkheretBoosterCollation.generate(template, EXCLUDED_NAMES.get());
         }
         if (template instanceof SealedTemplateWithSlots slots) {

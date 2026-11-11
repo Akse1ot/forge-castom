@@ -1,0 +1,5 @@
+Name:Hastily Enforced Curfew
+ManaCost:2 U U
+Types:Instant
+A:SP$ ChangeZoneAll | ChangeType$ Creature.powerGE3 | Origin$ Battlefield | Destination$ Hand | SpellDescription$ Return all creatures with power 3 or greater to their owners' hands.
+Oracle:Return all creatures with power 3 or greater to their owners’ hands.

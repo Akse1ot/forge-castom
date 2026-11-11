@@ -1,0 +1,16 @@
+Name:Chainbound Ogre
+ManaCost:4 R
+Types:Creature Ogre Warrior
+PT:4/4
+AlternateMode:DoubleFaced
+A:AB$ SetState | Mode$ Transform | Cost$ T tapXType<2/Creature> | PrecostDesc$ Revolution | SorcerySpeed$ True | Defined$ Valid Card.YouCtrl+hasAbilityLabelRevolution | SpellDescription$ Transform all permanents with revolution you control. Revolt only as a sorcery.
+Oracle:Revolution ({T}, Tap two untapped creatures you control: Transform all permanents with revolution you control. Revolt only as a sorcery.)
+ALTERNATE
+Name:Chainwhip Ogre
+ManaCost:no cost
+Types:Creature Ogre Warrior
+Colors:red
+PT:7/7
+R:Event$ Moved | ActiveZones$ Battlefield | Destination$ Battlefield | ValidCard$ Creature.YouCtrl+hasAbilityLabelRevolution | Layer$ Transform | ReplacementResult$ Updated | ReplaceWith$ EnterBack | Description$ Creatures you control with revolution enter transformed.
+SVar:EnterBack:DB$ SetState | Defined$ ReplacedCard | Mode$ Transform | ETB$ True
+Oracle:Creatures you control with revolution enter the battlefield transformed.

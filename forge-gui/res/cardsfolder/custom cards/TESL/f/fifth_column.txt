@@ -1,0 +1,8 @@
+Name:Fifth Column
+ManaCost:4 B
+Types:Creature Human Assassin
+PT:4/3
+S:Mode$ TeslaLaw | Law$ ThreeCreatures | Description$ It is against the law for an opponent to control three or more creatures.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ JusticeOffendersOfTriggeredPlayer | Execute$ TrigJustice | TriggerDescription$ Justice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, each of those players sacrifices a creature.
+SVar:TrigJustice:DB$ SacrificeInAPNAP | Defined$ JusticeOffenders | SacValid$ Creature
+Oracle:It is against the law for an opponent to control three or more creatures.\nJustice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, each of those players sacrifices a creature.

@@ -1,0 +1,7 @@
+Name:Bio-Research
+ManaCost:2 G
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRecharge | TriggerDescription$ At the beginning of your upkeep, recharge.
+SVar:TrigRecharge:DB$ Token | TokenScript$ c_a_canister_untap | TokenOwner$ You
+A:AB$ ChangeZone | Cost$ Sac<6/Canister/six Canisters> | Origin$ Library | Destination$ Battlefield | ChangeType$ Creature | SpellDescription$ Search your library for a creature card, put it onto the battlefield, then shuffle.
+Oracle:At the beginning of your upkeep, recharge. (Create a colorless Canister artifact token with “{T}, Sacrifice this artifact: Untap target permanent. Activate this ability only during your turn.”)\nSacrifice six Canisters: Search your library for a creature card, put it onto the battlefield, then shuffle your library.

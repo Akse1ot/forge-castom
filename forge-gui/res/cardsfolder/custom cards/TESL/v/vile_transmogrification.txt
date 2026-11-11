@@ -1,0 +1,5 @@
+Name:Vile Transmogrification
+ManaCost:B
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | NumAtt$ 3 | KW$ Menace | AtEOT$ Sacrifice | SpellDescription$ Target creature you control gets +3/+0 and gains menace until end of turn. Sacrifice it at the beginning of the next end step.
+Oracle:Target creature you control gets +3/+0 and gains menace until end of turn. Sacrifice it at the beginning of the next end step.

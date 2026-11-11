@@ -1,6 +1,6 @@
 Name:Lady Kaladrin
 ManaCost:U B R
-Types:Legendary Creature Naga Wizard
+Types:Legendary Creature Snake Wizard
 PT:3/4
 K:Level up:1
 S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 3 | SetToughness$ 6 | AddKeyword$ First Strike & Deathtouch | IsPresent$ Card.Self+counters_GE3_LEVEL+counters_LE7_LEVEL | Description$ LEVEL 3-7 3/6 First strike, deathtouch

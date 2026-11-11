@@ -1,0 +1,6 @@
+Name:Mechanical Mutt
+ManaCost:2
+Types:Artifact Creature Dog Construct
+PT:1/2
+S:Mode$ Continuous | AffectedDefined$ Self | AddPower$ 1 | AddToughness$ 1 | IsPresent$ Artifact.Other+YouCtrl | Description$ As long as you control another artifact, CARDNAME gets +1/+1.
+Oracle:As long as you control another artifact, Mechanical Mutt gets +1/+1.

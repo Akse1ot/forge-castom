@@ -1,0 +1,17 @@
+Name:Endangered Animal
+ManaCost:2 G
+Types:Creature Wolf
+PT:3/3
+AlternateMode:DoubleFaced
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | ValidSource$ Ability.Artifact | TriggerZones$ Battlefield | Execute$ TrigTurn | TriggerDescription$ Whenever CARDNAME becomes the target of an ability from an artifact source, transform it.
+SVar:TrigTurn:DB$ SetState | Defined$ Self | Mode$ Transform
+Oracle:Whenever Endangered Animal becomes the target of an ability from an artifact source, transform it.
+ALTERNATE
+Name:Adapted Animal
+ManaCost:no cost
+Types:Creature Wolf Mutant
+Colors:green
+PT:5/3
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact | TriggerZones$ Battlefield | Execute$ TrigGain | TriggerDescription$ Whenever an artifact is put into a graveyard from the battlefield, you gain 3 life.
+SVar:TrigGain:DB$ GainLife | Defined$ You | LifeAmount$ 3
+Oracle:Whenever an artifact is put into a graveyard from the battlefield, you gain 3 life.

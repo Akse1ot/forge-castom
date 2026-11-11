@@ -1,0 +1,9 @@
+Name:Outland Apex
+ManaCost:3 R G
+Types:Creature Wurm
+PT:7/6
+K:Haste
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ RaidTest | SVarCompare$ EQ0 | Execute$ TrigReturn | TriggerDescription$ Raid — At the beginning of your end step, CARDNAME's owner shuffles it into their library unless you attacked with a creature this turn.
+SVar:RaidTest:Count$AttackersDeclared
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Library | Shuffle$ True
+Oracle:Haste\nRaid — At the beginning of your end step, Outland Apex’s owner shuffles it into their library unless you attacked with a creature this turn.

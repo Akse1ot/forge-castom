@@ -1,0 +1,9 @@
+Name:Overworked Prole
+ManaCost:B
+Types:Creature Human Citizen
+PT:1/1
+S:Mode$ CantBlock | ValidCard$ Card.Self | Description$ CARDNAME can't block.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerDescription$ When CARDNAME dies, you draw a card and you lose 1 life.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLose
+SVar:DBLose:DB$ LoseLife | Defined$ You | LifeAmount$ 1
+Oracle:Overworked Prole can’t block.\nWhen Overworked Prole dies, you draw a card and you lose 1 life.

@@ -1,0 +1,9 @@
+Name:Corrupt Lieutenant
+ManaCost:W B
+Types:Creature Human Soldier
+PT:2/2
+S:Mode$ TeslaLaw | Law$ NoSpells | Description$ It is against the law for an opponent to cast no spells during their turn.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ JusticeOffendersOfTriggeredPlayer | Execute$ TrigJustice | TriggerDescription$ Justice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, each of those players loses 2 life and you gain 2 life.
+SVar:TrigJustice:DB$ LoseLife | Defined$ JusticeOffenders | LifeAmount$ 2 | SubAbility$ DBGain
+SVar:DBGain:DB$ GainLife | Defined$ You | LifeAmount$ 2
+Oracle:It is against the law for an opponent to cast no spells during their turn.\nJustice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, each of those players loses 2 life and you gain 2 life.

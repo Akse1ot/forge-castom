@@ -1,0 +1,7 @@
+Name:Vanara Thrillseeker
+ManaCost:1 R
+Types:Creature Ape Rogue
+PT:2/2
+K:Reach
+S:Mode$ CantBlockBy | ValidBlocker$ Card.Self | ValidAttacker$ Creature.withoutFlying | Description$ CARDNAME can only block creatures with flying.
+Oracle:Reach\nVanara Thrillseeker can only block creatures with flying.

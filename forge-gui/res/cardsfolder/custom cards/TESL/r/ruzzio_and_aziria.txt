@@ -1,0 +1,10 @@
+Name:Ruzzio and Aziria
+ManaCost:1 B R
+Types:Legendary Creature Human Warrior
+PT:2/1
+K:Double Strike
+K:Trample
+T:Mode$ DamageDone | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield | ValidSource$ Card.Self | Execute$ TrigDraw | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, you draw a card and you lose 1 life.
+SVar:TrigDraw:DB$ Draw | Defined$ You | SubAbility$ DBLose
+SVar:DBLose:DB$ LoseLife | Defined$ You | LifeAmount$ 1
+Oracle:Double strike, trample\nWhenever Ruzzio and Aziria deals combat damage to a player, you draw a card and you lose 1 life.

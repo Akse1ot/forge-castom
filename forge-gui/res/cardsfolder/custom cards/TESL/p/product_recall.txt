@@ -1,0 +1,6 @@
+Name:Product Recall
+ManaCost:2 U
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature | TargetMin$ 0 | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBArtifact | SpellDescription$ Return up to one target creature and up to one target artifact to their owners' hands.
+SVar:DBArtifact:DB$ ChangeZone | ValidTgts$ Artifact | TargetMin$ 0 | Origin$ Battlefield | Destination$ Hand
+Oracle:Return up to one target creature and up to one target artifact to their owners’ hands.

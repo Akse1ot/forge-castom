@@ -5,6 +5,7 @@ import forge.card.mana.ManaCostShard;
 import forge.item.PaperCard;
 
 import java.util.List;
+import java.util.function.Function;
 
 /** Draft commitment from spell demand and independently usable sources in the visible pool. */
 final class ChaosDraftPlan {
@@ -18,24 +19,33 @@ final class ChaosDraftPlan {
     private final boolean needsColorless;
     private final int landCount;
     private final int genericPayoffs;
+    private final int rampPayoffs;
+    private final int artifacts;
 
-    ChaosDraftPlan(List<PaperCard> picked, ColorSet colors) {
+    ChaosDraftPlan(List<PaperCard> picked, ColorSet colors, Function<PaperCard, ChaosManaPlan.Source> sourceOf) {
         this.colors = colors;
         int coloredSpells = 0;
         int supportedSpells = 0;
         int lands = 0;
         int payoffs = 0;
         int fetchCount = 0;
+        int expensive = 0;
+        int material = 0;
         boolean colorless = false;
         for (PaperCard card : picked) {
+            if (card.getMainFace().getType().isArtifact() && ChaosManaPlan.fitsColors(card, colors)) {
+                material++;
+            }
             if (card.getMainFace().getType().isLand()) {
                 if (ChaosDraftEvaluator.ordinaryBasic(card)) {
                     continue;
                 }
-                lands++;
-                var source = ChaosManaPlan.readSource(card);
+                var source = sourceOf.apply(card);
+                if (source.fetchesBasic() || source.produces() != 0 && source.turn() < 5) {
+                    lands++;
+                }
                 fetchCount += source.fetchesBasic() ? 1 : 0;
-                if ((source.produces() & colors.getColor()) != 0) {
+                if (source.traits().kind() != ChaosManaTraits.Kind.CHOSEN && (source.produces() & colors.getColor()) != 0) {
                     for (int i = 0; i < fixing.length; i++) {
                         fixing[i] += (source.produces() & (1 << i)) == 0 ? 0 : 1;
                     }
@@ -48,7 +58,10 @@ final class ChaosDraftPlan {
                 supportedSpells += ChaosManaPlan.fitsColors(card, colors) ? 1 : 0;
             }
             colorless |= (mask & COLORLESS) != 0;
-            payoffs += card.getMainFace().getManaCost().getGenericCost() >= 3 ? 1 : 0;
+            if (ChaosManaPlan.fitsColors(card, colors)) {
+                payoffs += card.getMainFace().getManaCost().getGenericCost() >= 3 ? 1 : 0;
+                expensive += card.getMainFace().getManaCost().getCMC() >= 4 ? 1 : 0;
+            }
             for (int i = 0; i < demand.length; i++) {
                 demand[i] += (mask & (1 << i)) == 0 ? 0 : 1;
             }
@@ -62,6 +75,8 @@ final class ChaosDraftPlan {
         landCount = lands;
         needsColorless = colorless;
         genericPayoffs = payoffs;
+        rampPayoffs = expensive;
+        artifacts = material;
     }
 
     double commitment() {
@@ -107,23 +122,70 @@ final class ChaosDraftPlan {
             return 0;
         }
         if (source.fetchesBasic()) {
-            return colors.countColors() >= 2 ? 3 : 0;
+            return colors.countColors() >= 2 ? Math.max(0, 3 - landCount / 3.0) : 0;
         }
         int useful = usefulColors(source);
-        return useful == 0 ? 0 : Math.max(0, useful * 3 - (source.turn() - 1) - landCount / 3.0);
+        if (source.traits().kind() == ChaosManaTraits.Kind.CHOSEN) {
+            useful = Math.min(1, useful);
+        }
+        double existing = 0;
+        for (int i = 0; i < fixing.length; i++) {
+            if ((source.produces() & colors.getColor() & (1 << i)) != 0) {
+                existing += Math.min(3, fixing[i]) * .35;
+            }
+        }
+        return useful == 0 ? 0 : Math.max(0, useful * 3 - (source.turn() - 1) - existing - landCount / 3.0);
     }
 
     double landCeiling(ChaosManaPlan.Source source) {
-        if (source.fetchesBasic() || source.produces() == 0 || usefulColors(source) > 1) {
+        if (source.fetchesBasic()) {
+            return (colors.countColors() >= 2 ? 62 : 49) - Math.min(7, landCount);
+        }
+        if (source.traits().kind() == ChaosManaTraits.Kind.CHOSEN) {
+            return (colors.countColors() >= 2 ? 71 : 61) - Math.min(7, landCount);
+        }
+        if (source.traits().kind() == ChaosManaTraits.Kind.LAND_THRESHOLD && !source.traits().independentEffect()) {
+            return 24 + Math.min(22, rampPayoffs * 3) + (needsColorless ? 5 : 0);
+        }
+        if (source.produces() == 0) {
             return 100;
         }
+        if (usefulColors(source) > 1) {
+            return 91 - Math.min(8, landCount);
+        }
         if (usefulColors(source) == 1) {
-            return (source.produces() & COLORS) == colors.getColor() && colors.countColors() == 1 ? 78 : 70;
+            return ((source.produces() & COLORS) == colors.getColor() && colors.countColors() == 1 ? 69 : 72)
+                    - Math.min(8, landCount);
         }
         if (colors.isColorless() && (source.produces() & COLORS) != 0) {
             return 64;
         }
-        return 26 + Math.min(8, genericPayoffs) - Math.max(0, source.turn() - 1) * 3;
+        return 30 - 10 * commitment * commitment + Math.min(8, genericPayoffs) - Math.max(0, source.turn() - 1) * 3;
+    }
+
+    double sourceCeiling(PaperCard card, ChaosManaPlan.Source source, Double standalone) {
+        var traits = source.traits();
+        if (traits.kind() == ChaosManaTraits.Kind.FORMAT_UNAVAILABLE && source.produces() == 0 && !traits.independentEffect()) {
+            return 1;
+        }
+        if (traits.kind() == ChaosManaTraits.Kind.UNKNOWN && source.produces() == 0 && !traits.independentEffect()) {
+            return 54;
+        }
+        if (source.land()) {
+            return landCeiling(source);
+        }
+        int body = standalone == null ? 0 : standalone.intValue();
+        return switch (traits.kind()) {
+            case STORAGE -> 22;
+            case FODDER -> 18 + Math.min(30, Math.max(0, artifacts - 1) * 4);
+            case ONE_SHOT -> 35 + Math.min(14, rampPayoffs * 2) + 7 * Math.max(0, traits.threshold() - 1);
+            case AURA -> (ChaosManaPlan.fitsColors(card, colors) ? 55 : 42) + Math.min(15, rampPayoffs * 2);
+            case REFLECTED -> Math.max(body, 47 + Math.min(16, rampPayoffs * 2));
+            default -> card.getMainFace().getType().isCreature() && source.output() > source.activation()
+                    ? Math.max(body, 60 + Math.min(24, rampPayoffs * 3) + (source.payment() <= 1 ? 9 : 0)
+                            - (ChaosManaPlan.fitsColors(card, colors) ? 0 : 12))
+                    : rockCeiling(source);
+        };
     }
 
     double rockCeiling(ChaosManaPlan.Source source) {
@@ -138,7 +200,7 @@ final class ChaosDraftPlan {
             if (colors.isColorless()) {
                 return 61 - Math.max(0, source.turn() - 2) * 5;
             }
-            return (source.payment() == 0 ? 50 : 32) + Math.min(8, genericPayoffs);
+            return (source.payment() == 0 ? 50 : 38) - 6 * commitment * commitment + Math.min(8, genericPayoffs);
         }
         int produced = Integer.bitCount(source.produces() & 63);
         if (source.activation() > 0 && useful < produced) {

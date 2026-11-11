@@ -1,0 +1,8 @@
+Name:Avaricious Asura
+ManaCost:1 B B
+Types:Creature Horror
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self,Permanent.YouCtrl+Other | Execute$ TrigLose | TriggerDescription$ Whenever CARDNAME or another permanent you control is put into a graveyard from the battlefield, each opponent loses 1 life and you gain 1 life.
+SVar:TrigLose:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1 | SubAbility$ DBGain
+SVar:DBGain:DB$ GainLife | Defined$ You | LifeAmount$ 1
+Oracle:Whenever Avaricious Asura or another permanent you control is put into a graveyard from the battlefield, each opponent loses 1 life and you gain 1 life.

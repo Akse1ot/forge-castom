@@ -203,6 +203,10 @@ public class PhaseHandler implements IHasForgeLog {
 
             if (turnEnded) {
                 turn++;
+                game.getRegisteredPlayers().forEach(Player::resetManaSpentThisTurn);
+                if (game.getTeslaJustice() != null) {
+                    game.getTeslaJustice().startTurns(getActivePlayers());
+                }
                 extraPhases.clear();
                 game.updateTurnForView();
                 game.fireEvent(new GameEventTurnBegan(PlayerView.get(playerTurn), turn));
@@ -945,9 +949,14 @@ public class PhaseHandler implements IHasForgeLog {
         extraPhases.clear();
         extraTurns.clear();
         turn = 0;
+        game.getRegisteredPlayers().forEach(Player::resetManaSpentThisTurn);
+        game.resetTeslaJustice();
     }
 
     private Player handleNextTurn() {
+        if (game.getTeslaJustice() != null) {
+            game.getTeslaJustice().finishTurns(game, getActivePlayers());
+        }
         game.getStack().onNextTurn();
 
         game.getTriggerHandler().clearThisTurnDelayedTrigger();

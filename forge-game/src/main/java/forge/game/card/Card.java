@@ -132,6 +132,8 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     private SpellAbility tokenSpawningAbility;
 
     private GameEntity entityAttachedTo;
+    private long attachmentId;
+    private List<GameCommand> attachmentEndCommands;
 
     // changes by AF animate and continuous static effects
 
@@ -175,6 +177,8 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     protected final Table<Long, Long, CardManaCost> changedCardManaCost = FSnapshotTable.createTree(); // Layer 3
 
     private final NavigableMap<Long, CardCloneStates> clonedStates = Maps.newTreeMap(); // Layer 1
+    private record AttachmentCloneMemory(Long predecessor, GameCommand restore) {}
+    private Map<Long, AttachmentCloneMemory> attachmentCloneMemory;
 
     private final Table<Long, Long, Map<String, String>> changedSVars = FSnapshotTable.createTree();
 
@@ -3690,6 +3694,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     }
 
     public final void runLeavesPlayCommands() {
+        endAttachment();
         for (final GameCommand c : leavePlayCommandList) {
             c.run();
         }
@@ -3978,6 +3983,31 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         if (entityAttachedTo == e) { return; }
         entityAttachedTo = e;
         view.updateAttachedTo(this);
+        endAttachment();
+    }
+
+    public final long getAttachmentId() {
+        return attachmentId;
+    }
+
+    public final void addAttachmentEndCommand(final long id, final GameCommand command) {
+        if (id == 0 || attachmentId != id) {
+            command.run();
+            return;
+        }
+        if (attachmentEndCommands == null) {
+            attachmentEndCommands = new ArrayList<>();
+        }
+        attachmentEndCommands.add(command);
+    }
+
+    private void endAttachment() {
+        attachmentId = 0;
+        if (attachmentEndCommands != null) {
+            List<GameCommand> commands = attachmentEndCommands;
+            attachmentEndCommands = null;
+            commands.forEach(GameCommand::run);
+        }
     }
     public final void removeAttachedTo(final GameEntity e) {
         if (entityAttachedTo == e) {
@@ -4035,7 +4065,9 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         // They use double links... it's doubtful
         setEntityAttachedTo(entity);
         // 613.7e An Aura, Equipment, or Fortification receives a new timestamp each time it becomes attached to an object or player.
-        setLayerTimestamp(getGame().getNextTimestamp());
+        final long newAttachmentId = getGame().getNextTimestamp();
+        attachmentId = newAttachmentId;
+        setLayerTimestamp(newAttachmentId);
         entity.addAttachedCard(this);
 
         // Play the Equip sound
@@ -4050,6 +4082,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         final Map<AbilityKey, Object> runParams = AbilityKey.newMap();
         runParams.put(AbilityKey.AttachSource, this);
         runParams.put(AbilityKey.AttachTarget, entity);
+        runParams.put(AbilityKey.AttachmentId, newAttachmentId);
         getController().getGame().getTriggerHandler().runTrigger(TriggerType.Attached, runParams, false);
 
         if (hasKeyword(Keyword.RECONFIGURE)) {
@@ -4392,6 +4425,35 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         return false;
     }
 
+    public final void addAttachmentCloneMemory(final long timestamp, final GameCommand restore) {
+        if (attachmentCloneMemory == null) {
+            attachmentCloneMemory = new HashMap<>();
+        }
+        attachmentCloneMemory.put(timestamp, new AttachmentCloneMemory(clonedStates.lowerKey(timestamp), restore));
+    }
+
+    public final boolean removeAttachmentCloneState(final long timestamp) {
+        if (attachmentCloneMemory == null) {
+            return false;
+        }
+        final AttachmentCloneMemory memory = attachmentCloneMemory.remove(timestamp);
+        final Long successor = clonedStates.higherKey(timestamp);
+        final AttachmentCloneMemory successorMemory = attachmentCloneMemory.get(successor);
+        if (attachmentCloneMemory.isEmpty()) {
+            attachmentCloneMemory = null;
+        }
+        if (memory == null || !removeCloneState(timestamp)) {
+            return false;
+        }
+        if (successor == null) {
+            memory.restore().run();
+        } else if (successorMemory != null && Long.valueOf(timestamp).equals(successorMemory.predecessor())) {
+            // The successor saved this layer's memory. Skip it when the successor eventually ends.
+            attachmentCloneMemory.put(successor, memory);
+        }
+        return true;
+    }
+
     public final boolean removeCloneState(final CardTraitBase ctb) {
         boolean changed = false;
         List<Long> toRemove = Lists.newArrayList();
@@ -4420,6 +4482,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     }
 
     public final boolean removeCloneStates() {
+        attachmentCloneMemory = null;
         if (clonedStates.isEmpty()) {
             return false;
         }

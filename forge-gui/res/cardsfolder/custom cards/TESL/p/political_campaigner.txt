@@ -1,0 +1,8 @@
+Name:Political Campaigner
+ManaCost:1 B
+Types:Creature Human Advisor
+PT:2/1
+S:Mode$ TeslaLaw | Law$ MoreLife | Description$ It is against the law for an opponent to have more life than you.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ JusticeOffendersOfTriggeredPlayer | Execute$ TrigJustice | TriggerDescription$ Justice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, creatures you control gain menace until end of turn.
+SVar:TrigJustice:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Menace
+Oracle:It is against the law for an opponent to have more life than you.\nJustice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, creatures you control gain menace until end of turn.

@@ -1,0 +1,251 @@
+//Rank|Name|Rarity|Set
+//Provisional Limited estimates; ordinal, not empirical win rates.
+#1|Chandra, Heart of the Revolt|M|TESL
+#2|Gravedebt Demon|M|TESL
+#3|Alchemic Blaze|U|TESL
+#4|Nissa, Planar Pilgrim|M|TESL
+#5|Consulate Baron|R|TESL
+#6|Gilded Taskmaster|R|TESL
+#7|Clockwork Battlecrafter|R|TESL
+#8|Skyship Prodigies|R|TESL
+#9|Extract Essence|U|TESL
+#10|Outlands Hellkite|M|TESL
+#11|Crowd Suppressor|R|TESL
+#12|Outland Apex|R|TESL
+#13|Tiran, Judge of the Fifth Court|R|TESL
+#14|Claim of the Wastes|R|TESL
+#15|Punish Transgression|U|TESL
+#16|Tyrannic Brutality|R|TESL
+#17|Communal Blessing|R|TESL
+#18|Chandra’s Greater Fury|U|TESL
+#19|Caretaker of the City|R|TESL
+#20|Siv Katari, Rebel Technician|R|TESL
+#21|Skywhale Cloudlord|M|TESL
+#22|Heroic Valor|U|TESL
+#23|Matrix Resonator|U|TESL
+#24|Wilds Raider|U|TESL
+#25|Aether-Touched Hydra|U|TESL
+#26|Aether Stomper|U|TESL
+#27|Skyship Admiral|R|TESL
+#28|Untamed Hydra|R|TESL
+#29|Guerilla Warfare|C|TESL
+#30|Nurturer of the Old Ways|R|TESL
+#31|Ruzzio and Aziria|R|TESL
+#32|Shady Consultant|U|TESL
+#33|Exploit the Outlands|U|TESL
+#34|Revolutionary Herald|R|TESL
+#35|Undercity Negotiator|R|TESL
+#36|Mechanical Vision|U|TESL
+#37|Naga Spymaster|U|TESL
+#38|Garuda Windmaster|R|TESL
+#39|Bio-Research|R|TESL
+#40|Transhumanism|R|TESL
+#41|Will of the People|R|TESL
+#42|Blade of Choices|R|TESL
+#43|Jace, Oath Keeper|M|TESL
+#44|Wealthy Man|U|TESL
+#45|Reconnaisance Man|U|TESL
+#46|District Lockdown|U|TESL
+#47|Selefar War-Walker|R|TESL
+#48|Aerial Mayhem|U|TESL
+#49|House Arrest|U|TESL
+#50|Sieze Supplies|C|TESL
+#51|Aetherguard Rhino|U|TESL
+#52|Avaricious Asura|U|TESL
+#53|Aerial Commander|U|TESL
+#54|Fifth Column|U|TESL
+#55|Consulate Emergency|U|TESL
+#56|Grip of Regression|C|TESL
+#57|Stamp Out|C|TESL
+#58|Galvanic Investiture|U|TESL
+#59|Airheaded Lookout|U|TESL
+#60|Unstoppable Experiment|U|TESL
+#61|Rooftop Thief|R|TESL
+#62|Co-Creation Marvel|R|TESL
+#63|Civil Unrest|C|TESL
+#64|Crown of Ideals|M|TESL
+#65|Make Obsolete|U|TESL
+#66|Primal Resistance|U|TESL
+#67|Subduing Strike|C|TESL
+#68|Aether Animist|R|TESL
+#69|Combustion Engineer|U|TESL
+#70|Self-Perfecting Construct|R|TESL
+#71|Baral, Blade of Retribution|M|TESL
+#72|Siv’s Legacy|R|TESL
+#73|Mana Drone|U|TESL
+#74|Product Recall|C|TESL
+#75|Repurpose|U|TESL
+#76|Ruthless Collector|U|TESL
+#77|Malfunctioning Ravager|U|TESL
+#78|Enforcer Knight|U|TESL
+#79|Paradise Gearwing|C|TESL
+#80|Valiant Effort|R|TESL
+#81|Suljet, the Cog Mind|M|TESL
+#82|Fugitive Freelancer|C|TESL
+#83|Magnetic Repulse|C|TESL
+#84|Neural Serum|C|TESL
+#85|Necrotic Resonator|R|TESL
+#86|Perimeter Controller|U|TESL
+#87|Aggressive Recruiter|U|TESL
+#88|Unwilling Recruit|U|TESL
+#89|Echowisp|R|TESL
+#90|Ionosphere Hunter|C|TESL
+#91|Frenzied Traditionalists|U|TESL
+#92|Courtroom Executor|R|TESL
+#93|Rebel Inventor|U|TESL
+#94|Information Extraction|U|TESL
+#95|Scouring Sands|C|TESL
+#96|Will-Liberator|R|TESL
+#97|Research Notes|C|TESL
+#98|Tigrala Wildfist|U|TESL
+#99|Suppressing Agent|U|TESL
+#100|Avatar of Authority|M|TESL
+#101|Cloudcrash Skywhale|U|TESL
+#102|Propaganda Artist|U|TESL
+#103|Jace’s Informant|C|TESL
+#104|Alloy Array|R|TESL
+#105|Gifted Electrician|U|TESL
+#106|Captain of Industry|U|TESL
+#107|Siv’s Lieutenant|U|TESL
+#108|Courtroom Guardian|U|TESL
+#109|Outland Avenger|R|TESL
+#110|Pioneer Researcher|C|TESL
+#111|Crowd Dispersal|C|TESL
+#112|Explosive Apparatus|C|TESL
+#113|Prepare a Hideout|C|TESL
+#114|Comptometer|U|TESL
+#115|Good as New|U|TESL
+#116|Siege Tank|R|TESL
+#117|Jetpack|C|TESL
+#118|Canister Courier|C|TESL
+#119|Rhox Savage|C|TESL
+#120|Unnatural Wretch|C|TESL
+#121|Controversial Experiment|C|TESL
+#122|Induction Field|C|TESL
+#123|Overseer Agent|C|TESL
+#124|Suljet’s Perfection|U|TESL
+#125|Favorable Winds|U|TESL
+#126|Equality Enforcer|U|TESL
+#127|Living Autopsy|C|TESL
+#128|Power Suit|U|TESL
+#129|Aether-Warped Predator|C|TESL
+#130|Outlands Bandit|C|TESL
+#131|Ghirapur Gearcrafter|C|TESL
+#132|Sky Pirate|C|TESL
+#133|Tigrala Pugilist|C|TESL
+#134|Meddling Instigator|U|TESL
+#135|Corrupt Lieutenant|U|TESL
+#136|Outlands Abomination|C|TESL
+#137|Aether Plantation|R|TESL
+#138|Corrupt Courtroom|R|TESL
+#139|District Slums|R|TESL
+#140|Factory Reactor|R|TESL
+#141|Weapons Cache|R|TESL
+#142|Munitions Maker|U|TESL
+#143|Kindly Guard|C|TESL
+#144|Mutated Man|C|TESL
+#145|Sudden Armor|C|TESL
+#146|Surveillance Airship|U|TESL
+#147|Assault Automaton|U|TESL
+#148|Garuda Vanguard|C|TESL
+#149|Vanara Terror|C|TESL
+#150|Census Enforcer|C|TESL
+#151|Nothing Lost|R|TESL
+#152|Daitya Survivor|U|TESL
+#153|Soldier of Tomorrow|U|TESL
+#154|Jungle Elephant|C|TESL
+#155|Mechanical Mutt|C|TESL
+#156|Opportunist Berserker|C|TESL
+#157|Hunting Roc|C|TESL
+#158|Siv’s Messenger|U|TESL
+#159|Hastily Enforced Curfew|R|TESL
+#160|Pleasure to Burn|C|TESL
+#161|Endangered Animal|U|TESL
+#162|Jintara Cannoneer|C|TESL
+#163|Naga Drowner|C|TESL
+#164|Overworked Prole|C|TESL
+#165|Border Sentry|C|TESL
+#166|Flamewatcher Giant|U|TESL
+#167|Delivery Automaton|C|TESL
+#168|Clockwork Perfection|C|TESL
+#169|Jump Ahead|C|TESL
+#170|Mortician’s Work|C|TESL
+#171|Political Campaigner|U|TESL
+#172|Production Enhancer|R|TESL
+#173|Lurking Crustacean|U|TESL
+#174|District Patroller|C|TESL
+#175|Gearcrafted Gardener|C|TESL
+#176|Frighten|C|TESL
+#177|Isolated Citizen|U|TESL
+#178|Tigrala Ravagers|C|TESL
+#179|Reinforcing Armor|U|TESL
+#180|Rise Up I|C|TESL
+#181|Wisdom of the Mighty|R|TESL
+#182|Canister Addict|C|TESL
+#183|Vanara Thrillseeker|C|TESL
+#184|Consulate Colonists|C|TESL
+#185|Ghirapur Technician|C|TESL
+#186|Outlands Detachment|C|TESL
+#187|Munitions Thief|C|TESL
+#188|Agent of Individuality|R|TESL
+#189|Consulate Agent|U|TESL
+#190|Freedom Fighter|C|TESL
+#191|Armor Deliverer|C|TESL
+#192|Fugitive Mage|U|TESL
+#193|Access Denied I|C|TESL
+#194|Aether Infusion|C|TESL
+#195|Cinder Barrens|U|TESL
+#196|Meandering River|U|TESL
+#197|Submerged Boneyard|U|TESL
+#198|Timber Gorge|U|TESL
+#199|Tranquil Expanse|U|TESL
+#200|Pressgang Airship|U|TESL
+#201|Chainbound Ogre|C|TESL
+#202|Restless District|R|TESL
+#203|Zila Officer|C|TESL
+#204|Chandras Catharsis|U|TESL
+#205|Augmented Critter|R|TESL
+#206|Disloyalty|C|TESL
+#207|Plea Bargain|U|TESL
+#208|Utopian District|C|TESL
+#209|Crowd Breaker|C|TESL
+#210|Garuda Tactician|C|TESL
+#211|Vicious Seengshir|C|TESL
+#212|Patrol Vehicle|C|TESL
+#213|Frontier Outpost|C|TESL
+#214|Curious Outlaw|C|TESL
+#215|Better and Stronger|C|TESL
+#216|Plagiarized Results|R|TESL
+#217|Suppression Suit|C|TESL
+#218|Under the Radar|C|TESL
+#219|Apprehend the Ringleader|C|TESL
+#220|Hungry Hippo|C|TESL
+#221|Vile Transmogrification|C|TESL
+#222|Cog Mind Sentry|C|TESL
+#223|Temple Rats|C|TESL
+#224|Surveillance Mission|U|TESL
+#225|Battery Golem|C|TESL
+#226|Negate|C|TESL
+#227|Consulate Faithful|C|TESL
+#228|Mutated Gaur|C|TESL
+#229|City Sentinel|C|TESL
+#230|Mindleak Agent|C|TESL
+#231|Energized Bolas|C|TESL
+#232|Halt Innovation|C|TESL
+#233|Perfected Production|M|TESL
+#234|Aether Jets|C|TESL
+#235|Hungry Shade|U|TESL
+#236|Anti-Air Turret|C|TESL
+#237|Canal Smuggler|C|TESL
+#238|Courtroom Custodians|C|TESL
+#239|Prosperity Engine|M|TESL
+#240|Rage Against the System|C|TESL
+#241|Crazy Conspiracy|R|TESL
+#242|Timid Citizen|C|TESL
+#243|Road to Progress|C|TESL
+#244|Possibility Titan|M|TESL
+#245|Leyline Disturbance|C|TESL
+#246|Materialism|M|TESL
+#247|Constant Scrutiny|R|TESL
+#248|Consulate Conditioning|R|TESL
+#249|Avatar of the Old Ways|M|TESL

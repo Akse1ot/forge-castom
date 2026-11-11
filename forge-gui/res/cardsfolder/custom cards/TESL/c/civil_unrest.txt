@@ -1,0 +1,7 @@
+Name:Civil Unrest
+ManaCost:1 R
+Types:Instant
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | RememberDamaged$ True | SubAbility$ DBNoBlock | SpellDescription$ CARDNAME deals 2 damage to any target. If a creature is dealt damage this way, it can't block this turn.
+SVar:DBNoBlock:DB$ Pump | Defined$ Remembered | ConditionDefined$ Remembered | ConditionPresent$ Creature | KW$ HIDDEN CARDNAME can't block. | IsCurse$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Civil Unrest deals 2 damage to any target. If a creature is dealt damage this way, it can’t block this turn.

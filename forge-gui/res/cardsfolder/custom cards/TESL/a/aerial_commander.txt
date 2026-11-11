@@ -1,0 +1,8 @@
+Name:Aerial Commander
+ManaCost:2 W U
+Types:Creature Bird Soldier
+PT:2/2
+K:Flying
+S:Mode$ Continuous | AffectedDefined$ Self | AddPower$ X | AddToughness$ X | Description$ CARDNAME gets +1/+1 for each other creature with flying you control.
+SVar:X:Count$Valid Creature.Other+YouCtrl+withFlying
+Oracle:Flying\nAerial Commander gets +1/+1 for each other creature with flying you control.

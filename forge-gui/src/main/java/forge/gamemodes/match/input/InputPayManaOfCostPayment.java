@@ -62,6 +62,7 @@ public class InputPayManaOfCostPayment extends InputPayMana {
         if (this.phyLifeToLose > 0) {
             player.payLife(this.phyLifeToLose, saPaidFor, this.effect);
         }
+        saPaidFor.confirmManaSpend(manaCost);
     }
 
     @Override

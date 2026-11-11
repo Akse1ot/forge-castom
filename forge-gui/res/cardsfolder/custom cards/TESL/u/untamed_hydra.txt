@@ -1,0 +1,10 @@
+Name:Untamed Hydra
+ManaCost:2 G G
+Types:Creature Hydra
+PT:0/0
+K:Trample
+K:etbCounter:P1P1:2
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ RaidTest | Execute$ TrigDouble | TriggerDescription$ Raid — At the beginning of your end step, if you attacked this turn, double the number of each kind of counter on CARDNAME.
+SVar:TrigDouble:DB$ MultiplyCounter | Defined$ Self
+SVar:RaidTest:Count$AttackersDeclared
+Oracle:Untamed Hydra enters the battlefield with two +1/+1 counters on it.\nTrample\nRaid — At the beginning of your end step, if you attacked with a creature this turn, double the number of each kind of counter on Untamed Hydra.

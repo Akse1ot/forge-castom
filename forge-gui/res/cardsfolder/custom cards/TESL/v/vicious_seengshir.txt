@@ -1,0 +1,7 @@
+Name:Vicious Seengshir
+ManaCost:5 R
+Types:Creature Cat Beast
+PT:5/4
+K:Haste
+S:Mode$ MustAttack | ValidCreature$ Card.Self | Description$ CARDNAME attacks each combat if able.
+Oracle:Haste\nVicious Seengshir attacks each combat if able.

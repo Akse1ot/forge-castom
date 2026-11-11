@@ -1,0 +1,16 @@
+Name:Gifted Electrician
+ManaCost:2 U
+Types:Creature Human Citizen
+PT:1/4
+AlternateMode:DoubleFaced
+T:Mode$ TokenCreated | ValidPlayer$ You | ValidToken$ Artifact | TriggerZones$ Battlefield | Execute$ TrigTurn | TriggerDescription$ When you create an artifact token, transform CARDNAME.
+SVar:TrigTurn:DB$ SetState | Defined$ Self | Mode$ Transform
+Oracle:When you create an artifact token, transform Gifted Electrician.
+ALTERNATE
+Name:Static Channeler
+ManaCost:no cost
+Types:Creature Human Artificer
+Colors:blue
+PT:2/4
+A:AB$ ChangeZone | Cost$ T tapXType<3/Artifact> | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand | SpellDescription$ Return target creature to its owner's hand.
+Oracle:{T}, Tap three untapped artifacts you control: Return target creature to its owner’s hand.

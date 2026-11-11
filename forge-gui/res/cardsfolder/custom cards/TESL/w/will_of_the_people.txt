@@ -1,0 +1,6 @@
+Name:Will of the People
+ManaCost:2 U U
+Types:Enchantment Aura
+K:Enchant:Creature
+S:Mode$ Continuous | AffectedDefined$ Enchanted | GainControl$ You | IsPresent$ Creature.YouCtrl+!EnchantedBy | PresentCompare$ GE2 | Description$ You control enchanted creature as long as you control two or more other creatures.
+Oracle:Enchant creature\nYou control enchanted creature as long as you control two or more other creatures.

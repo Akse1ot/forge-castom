@@ -1,0 +1,7 @@
+Name:Consulate Colonists
+ManaCost:1 G
+Types:Creature Human Soldier
+PT:3/3
+K:Defender
+S:Mode$ CanAttackDefender | ValidCard$ Card.Self | IsPresent$ Creature.YouCtrl+counters_GE1_P1P1 | Description$ As long as you control a creature with a +1/+1 counter on it, CARDNAME can attack as though it didn't have defender.
+Oracle:Defender\nAs long as you control a creature with a +1/+1 counter on it, Consulate Colonists can attack as though it didn’t have defender.

@@ -1,0 +1,8 @@
+Name:Aggressive Recruiter
+ManaCost:2 B R
+Types:Creature Human Rogue
+PT:2/2
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGain | TriggerDescription$ When CARDNAME enters, gain control of target creature an opponent controls with power 3 or less until end of turn. Untap that creature. It gains haste until end of turn.
+SVar:TrigGain:DB$ GainControl | LoseControl$ EOT | Untap$ True | AddKWs$ Haste | ValidTgts$ Creature.OppCtrl+powerLE3
+Oracle:Deathtouch\nWhen Aggressive Recruiter enters the battlefield, gain control of target creature an opponent controls with power 3 or less until end of turn. Untap that creature. It gains haste until end of turn.

@@ -1,0 +1,16 @@
+Name:Aetherguard Rhino
+ManaCost:4 G
+Types:Creature Rhino
+PT:3/4
+AlternateMode:DoubleFaced
+K:Hexproof
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn | TriggerDescription$ When CARDNAME dies, return it to the battlefield transformed under your control.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredNewCardLKICopy | Transformed$ True | GainControl$ True
+Oracle:Hexproof\nWhen Aetherguard Rhino dies, return it to the battlefield transformed under your control.
+ALTERNATE
+Name:Aetherguard Armor
+ManaCost:no cost
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | AffectedDefined$ Equipped | Affected$ Creature | AddPower$ 1 | AddToughness$ 2 | AddKeyword$ Hexproof | Description$ Equipped creature gets +1/+2 and has hexproof.
+Oracle:Equipped creature gets +1/+2 and has hexproof.\nEquip {2}

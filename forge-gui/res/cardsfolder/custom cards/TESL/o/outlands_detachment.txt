@@ -1,0 +1,6 @@
+Name:Outlands Detachment
+ManaCost:2 W
+Types:Creature Human Soldier
+PT:3/2
+A:AB$ PutCounterAll | Cost$ 7 G | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SpellDescription$ Put a +1/+1 counter on each creature you control.
+Oracle:{7}{G}: Put a +1/+1 counter on each creature you control.

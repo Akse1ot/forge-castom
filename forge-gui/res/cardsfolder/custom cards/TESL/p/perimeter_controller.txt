@@ -1,0 +1,8 @@
+Name:Perimeter Controller
+ManaCost:4 W
+Types:Creature Human Artificer
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create two 1/1 colorless Thopter artifact creature tokens with flying.
+SVar:TrigToken:DB$ Token | TokenScript$ c_1_1_a_thopter_flying | TokenOwner$ You | TokenAmount$ 2
+S:Mode$ Continuous | Affected$ Creature.Artifact+YouCtrl | AddKeyword$ Vigilance | Description$ Artifact creatures you control have vigilance.
+Oracle:When Perimeter Controller enters the battlefield, create two 1/1 colorless Thopter artifact creature tokens with flying.\nArtifact creatures you control have vigilance.

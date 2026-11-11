@@ -1,6 +1,6 @@
 Name:Queen of the Depths
 ManaCost:5 B B B
-Types:Creature Naga Wizard
+Types:Creature Snake Wizard
 PT:8/5
 K:Swallow
 K:Trample

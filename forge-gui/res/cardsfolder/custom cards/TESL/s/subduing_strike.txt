@@ -1,0 +1,8 @@
+Name:Subduing Strike
+ManaCost:2 B
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Creature | RememberLKI$ True | AlwaysRemember$ True | SubAbility$ DBLose | SpellDescription$ Destroy target creature. You lose life equal to that creature's toughness.
+SVar:DBLose:DB$ LoseLife | Defined$ You | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:X:Remembered$CardToughness
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Destroy target creature. You lose life equal to that creature’s toughness.

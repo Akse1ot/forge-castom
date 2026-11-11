@@ -1,0 +1,8 @@
+Name:House Arrest
+ManaCost:W
+Types:Enchantment Aura
+K:Enchant:Creature
+S:Mode$ TeslaLaw | Law$ EnchantedCombat | Description$ It is against the law for an opponent to attack or block with enchanted creature.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ JusticeOffendersOfTriggeredPlayer | Execute$ TrigJustice | TriggerDescription$ Justice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, exile enchanted creature.
+SVar:TrigJustice:DB$ ChangeZone | Defined$ Enchanted | Origin$ Battlefield | Destination$ Exile
+Oracle:Enchant creature\nIt is against the law for an opponent to attack or block with enchanted creature.\nJustice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, exile enchanted creature.

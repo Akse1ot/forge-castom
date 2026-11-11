@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import forge.GameCommand;
 import forge.StaticData;
 import forge.game.Game;
+import forge.game.ability.AbilityKey;
 import forge.game.ability.AbilityUtils;
 import forge.game.ability.SpellAbilityEffect;
 import forge.game.card.*;
@@ -50,7 +51,8 @@ public class CloneEffect extends SpellAbilityEffect {
 
     @Override
     public void resolve(SpellAbility sa) {
-        if (!checkValidDuration(sa.getParam("Duration"), sa)) {
+        final String duration = sa.getParam("Duration");
+        if (!checkValidDuration(duration, sa)) {
             return;
         }
 
@@ -58,6 +60,23 @@ public class CloneEffect extends SpellAbilityEffect {
         final Player activator = sa.getActivatingPlayer();
         List<Card> cloneTargets = new ArrayList<>();
         final Game game = activator.getGame();
+        final boolean attachmentBound = "UntilAttachmentEnds".equals(duration);
+        final Card attachmentHost = attachmentBound ? game.getCardState(host, null) : null;
+        final long attachmentId;
+        if (attachmentBound) {
+            if (attachmentHost == null || !attachmentHost.equalsWithGameTimestamp(host)
+                    || !attachmentHost.isInPlay() || !attachmentHost.isAttachedToEntity()) {
+                return;
+            }
+            attachmentId = attachmentHost.getAttachmentId();
+            if (attachmentId == 0 || (sa.hasParam("AttachmentFromTrigger")
+                    && !Long.valueOf(attachmentId).equals(sa.getRootAbility().getTriggeringObject(AbilityKey.AttachmentId)))) {
+                return;
+            }
+        } else {
+            attachmentId = 0;
+        }
+
         final List<String> pumpKeywords = Lists.newArrayList();
 
         if (sa.hasParam("PumpKeywords")) {
@@ -108,7 +127,8 @@ public class CloneEffect extends SpellAbilityEffect {
                     Localizer.getInstance().getMessage("lblChooseaCard") + " ";
             cardToCopy = activator.getController().chooseSingleEntityForEffect(choices, sa, title, choiceOpt, null);
         } else if (sa.hasParam("Defined")) {
-            List<Card> cloneSources = AbilityUtils.getDefinedCards(host, sa.getParam("Defined"), sa);
+            List<Card> cloneSources = AbilityUtils.getDefinedCards(attachmentBound ? attachmentHost : host,
+                    sa.getParam("Defined"), sa);
             if (!cloneSources.isEmpty()) {
                 cardToCopy = cloneSources.get(0);
             }
@@ -149,7 +169,11 @@ public class CloneEffect extends SpellAbilityEffect {
 
         final long ts = game.getNextTimestamp();
 
-        for (Card tgtCard : cloneTargets) {
+        for (Card target : cloneTargets) {
+            final Card tgtCard = attachmentBound ? game.getCardState(target, null) : target;
+            if (attachmentBound && (tgtCard == null || !tgtCard.equalsWithGameTimestamp(target) || !tgtCard.isInPlay())) {
+                continue;
+            }
             if (sa.hasParam("CloneZone") &&
                     !tgtCard.isInZone(ZoneType.smartValueOf(sa.getParam("CloneZone")))) {
                 continue;
@@ -187,27 +211,40 @@ public class CloneEffect extends SpellAbilityEffect {
                 // if clone is temporary, target needs old values back after (keep Death-Mask Duplicant working)
                 final Iterable<Card> clonedImprinted = new CardCollection(tgtCard.getImprintedCards());
                 final Iterable<Object> clonedRemembered = new FCollection<>(tgtCard.getRemembered());
+                final GameCommand restoreMemory = () -> {
+                    // remove values gained while being cloned
+                    cloneCard.clearImprintedCards();
+                    cloneCard.clearRemembered();
+                    // restore original Remembered and Imprinted, ignore cards from players who lost
+                    cloneCard.addImprintedCards(IterableUtil.filter(clonedImprinted, CardPredicates.ownerLives()));
+                    cloneCard.addRemembered(IterableUtil.filter(clonedRemembered, Player.class));
+                    cloneCard.addRemembered(IterableUtil.filter(IterableUtil.filter(clonedRemembered, Card.class), CardPredicates.ownerLives()));
+                };
 
                 final GameCommand unclone = new GameCommand() {
                     private static final long serialVersionUID = -78375985476256279L;
 
                     @Override
                     public void run() {
-                        if (cloneCard.removeCloneState(ts)) {
-                            // remove values gained while being cloned
-                            cloneCard.clearImprintedCards();
-                            cloneCard.clearRemembered();
-                            // restore original Remembered and Imprinted, ignore cards from players who lost
-                            cloneCard.addImprintedCards(IterableUtil.filter(clonedImprinted, CardPredicates.ownerLives()));
-                            cloneCard.addRemembered(IterableUtil.filter(clonedRemembered, Player.class));
-                            cloneCard.addRemembered(IterableUtil.filter(IterableUtil.filter(clonedRemembered, Card.class), CardPredicates.ownerLives()));
-                            cloneCard.updateStateForView();
-                            game.fireEvent(new GameEventCardStatsChanged(cloneCard));
+                        if (attachmentBound) {
+                            if (game.getCardState(cloneCard, null) != cloneCard || !cloneCard.removeAttachmentCloneState(ts)) {
+                                return;
+                            }
+                        } else {
+                            if (!cloneCard.removeCloneState(ts)) {
+                                return;
+                            }
+                            restoreMemory.run();
                         }
+                        cloneCard.updateStateForView();
+                        game.fireEvent(new GameEventCardStatsChanged(cloneCard));
                     }
                 };
 
-                if ("UntilDefinedLeavesZone".equals(sa.getParam("Duration"))) {
+                if (attachmentBound) {
+                    cloneCard.addAttachmentCloneMemory(ts, restoreMemory);
+                    attachmentHost.addAttachmentEndCommand(attachmentId, unclone);
+                } else if ("UntilDefinedLeavesZone".equals(duration)) {
                     addUntilDefinedLeavesZoneCommand(unclone, durationDefined);
                 } else {
                     addUntilCommand(sa, unclone);

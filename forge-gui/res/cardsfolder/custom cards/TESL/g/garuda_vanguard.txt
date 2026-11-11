@@ -1,0 +1,7 @@
+Name:Garuda Vanguard
+ManaCost:1 U
+Types:Creature Bird Scout
+PT:1/3
+K:Flying
+A:AB$ Pump | Cost$ 7 W | Defined$ Self | NumAtt$ 3 | NumDef$ 3 | KW$ Lifelink | SpellDescription$ CARDNAME gets +3/+3 and gains lifelink until end of turn.
+Oracle:Flying\n{7}{W}: Garuda Vanguard gets +3/+3 and gains lifelink until end of turn.

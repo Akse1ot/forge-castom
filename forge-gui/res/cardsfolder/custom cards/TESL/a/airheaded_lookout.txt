@@ -1,0 +1,19 @@
+Name:Airheaded Lookout
+ManaCost:2 W
+Types:Creature Human Scout
+PT:2/1
+AlternateMode:DoubleFaced
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a 1/1 colorless Thopter artifact creature token with flying.
+SVar:TrigToken:DB$ Token | TokenScript$ c_1_1_a_thopter_flying | TokenOwner$ You
+T:Mode$ DamageDone | CombatDamage$ True | ValidSource$ Creature.YouCtrl+withFlying | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigTurn | TriggerDescription$ Whenever a creature with flying you control deals combat damage to a player, transform CARDNAME.
+SVar:TrigTurn:DB$ SetState | Defined$ Self | Mode$ Transform
+Oracle:When Airheaded Lookout enters the battlefield, create a 1/1 colorless Thopter artifact creature token with flying.\nWhenever a creature with flying you control deals combat damage to a player, transform Airheaded Lookout.
+ALTERNATE
+Name:Airborne Visionary
+ManaCost:no cost
+Types:Creature Human Artificer
+Colors:white
+PT:2/3
+K:Flying
+A:AB$ Token | Cost$ 4 W | TokenScript$ c_1_1_a_thopter_flying | TokenOwner$ You | SpellDescription$ Create a 1/1 colorless Thopter artifact creature token with flying.
+Oracle:Flying\n{4}{W}: Create a 1/1 colorless Thopter artifact creature token with flying.

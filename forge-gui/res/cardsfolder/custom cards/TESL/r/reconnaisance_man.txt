@@ -1,0 +1,9 @@
+Name:Reconnaisance Man
+ManaCost:1 U U
+Types:Creature Human Scout
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a 1/1 colorless Thopter artifact creature token with flying.
+SVar:TrigToken:DB$ Token | TokenScript$ c_1_1_a_thopter_flying | TokenOwner$ You
+T:Mode$ AttackerBlocked | ValidCard$ Creature.Artifact+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever an artifact creature you control becomes blocked, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:When Reconnaisance Man enters the battlefield, create a 1/1 colorless Thopter artifact creature token with flying.\nWhenever an artifact creature you control becomes blocked, draw a card.

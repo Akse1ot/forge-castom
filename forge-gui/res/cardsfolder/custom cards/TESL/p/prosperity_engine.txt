@@ -1,0 +1,5 @@
+Name:Prosperity Engine
+ManaCost:7
+Types:Legendary Artifact
+S:Mode$ AlternativeCost | ValidCard$ Artifact | ValidSA$ Spell | ValidPlayer$ You | Cost$ 0 | Description$ You may pay {0} rather than pay the mana cost for artifact spells you cast.
+Oracle:You may pay {0} rather than pay the mana cost for artifact spells you cast.

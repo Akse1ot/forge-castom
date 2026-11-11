@@ -1,0 +1,6 @@
+Name:Outlands Abomination
+ManaCost:3 B B
+Types:Creature Snake Mutant
+PT:4/5
+K:Menace
+Oracle:Menace

@@ -1,0 +1,6 @@
+Name:Wisdom of the Mighty
+ManaCost:5 G
+Types:Sorcery
+A:SP$ Draw | Defined$ You | NumCards$ Total | SpellDescription$ Draw a number of cards equal to the total number of +1/+1 counters on creatures you control.
+SVar:Total:Count$Valid Creature.YouCtrl$CardCounters.P1P1
+Oracle:Draw a number of cards equal to the total number of +1/+1 counters on creatures you control.

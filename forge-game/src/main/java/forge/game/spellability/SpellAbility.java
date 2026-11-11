@@ -57,6 +57,7 @@ import forge.game.keyword.Keyword;
 import forge.game.keyword.KeywordInterface;
 import forge.game.mana.Mana;
 import forge.game.mana.ManaCostBeingPaid;
+import forge.game.mana.ManaSpendReceipt;
 import forge.game.player.Player;
 import forge.game.player.PlayerCollection;
 import forge.game.replacement.ReplacementEffect;
@@ -226,6 +227,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
 
     protected ApiType api = null;
     private List<Mana> payingMana = Lists.newArrayList();
+    private ManaSpendReceipt manaSpendReceipt;
     private List<SpellAbility> paidAbilities = Lists.newArrayList();
     private Integer xManaCostPaid = null;
     private TreeBasedTable<String, Boolean, CardCollection> paidLists = TreeBasedTable.create();
@@ -1044,6 +1046,27 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
     }
     public final void clearManaPaid() {
         payingMana.clear();
+        manaSpendReceipt = null;
+    }
+
+    public final void recordManaSpend(ManaCostBeingPaid cost, Player player) {
+        if (manaSpendReceipt == null) {
+            manaSpendReceipt = new ManaSpendReceipt();
+        }
+        manaSpendReceipt.record(cost, player);
+    }
+
+    public final void confirmManaSpend(ManaCostBeingPaid cost) {
+        if (manaSpendReceipt != null) {
+            manaSpendReceipt.confirm(cost);
+        }
+    }
+
+    public final void refundRecordedManaSpend() {
+        if (manaSpendReceipt != null) {
+            manaSpendReceipt.refund();
+            manaSpendReceipt = null;
+        }
     }
 
     public final int getSpendPhyrexianMana() {
@@ -1497,6 +1520,7 @@ public abstract class SpellAbility extends CardTraitBase implements ISpellAbilit
             }
 
             clone.payingMana = Lists.newArrayList(payingMana);
+            clone.manaSpendReceipt = null;
             clone.paidAbilities = Lists.newArrayList();
             clone.setPaidHash(getPaidHash());
             clone.paidByMelody = new CardCollection(paidByMelody);

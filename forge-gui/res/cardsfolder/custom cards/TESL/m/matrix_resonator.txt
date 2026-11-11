@@ -1,0 +1,6 @@
+Name:Matrix Resonator
+ManaCost:3
+Types:Artifact
+S:Mode$ Continuous | Affected$ Creature.Artifact+YouCtrl | AddPower$ 1 | AddToughness$ 1 | Description$ Artifact creatures you control get +1/+1.
+A:AB$ Token | Cost$ 7 | TokenScript$ c_1_1_a_thopter_flying | TokenOwner$ You | SpellDescription$ Create a 1/1 colorless Thopter artifact creature token with flying.
+Oracle:Artifact creatures you control get +1/+1.\n{7}: Create a 1/1 colorless Thopter artifact creature token with flying.

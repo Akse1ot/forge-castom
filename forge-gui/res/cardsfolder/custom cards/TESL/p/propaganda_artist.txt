@@ -1,0 +1,7 @@
+Name:Propaganda Artist
+ManaCost:2 R
+Types:Creature Human Rogue
+PT:3/3
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Haste | Description$ Creatures you control have haste.
+S:Mode$ MustAttack | ValidCreature$ Creature.YouCtrl | Description$ Creatures you control attack each combat if able.
+Oracle:Creatures you control have haste and attack each combat if able.

@@ -1,0 +1,6 @@
+Name:Consulate Conditioning
+ManaCost:3 B
+Types:Sorcery
+A:SP$ ChangeZone | ValidTgts$ Player | Origin$ Library | Destination$ Exile | DefinedPlayer$ Targeted | Chooser$ You | ChangeType$ Card | ChangeNum$ 4 | Hidden$ True | SubAbility$ DBDraw | SpellDescription$ Search target player's library for up to four cards, exile them, then that player shuffles. Draw a card.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Search target player’s library for up to four cards, exile them, then that player shuffles their library.\nDraw a card.

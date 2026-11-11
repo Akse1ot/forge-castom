@@ -1,0 +1,6 @@
+Name:Malfunctioning Ravager
+ManaCost:1
+Types:Artifact Creature Construct
+PT:1/1
+A:AB$ PutCounter | Cost$ Sac<1/Artifact.Other/another artifact> | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SpellDescription$ Put a +1/+1 counter on CARDNAME.
+Oracle:Sacrifice another artifact: Put a +1/+1 counter on Malfunctioning Ravager.

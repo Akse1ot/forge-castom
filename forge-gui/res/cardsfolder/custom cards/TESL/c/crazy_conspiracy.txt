@@ -1,0 +1,20 @@
+Name:Crazy Conspiracy
+ManaCost:1 R
+Types:Enchantment
+AlternateMode:DoubleFaced
+A:AB$ Draw | Cost$ 1 R ExileFromHand<1/Card/a card> | Defined$ You | NumCards$ 1 | SpellDescription$ Draw a card.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | IsPresent$ Card.ExiledWithSource | PresentZone$ Exile | PresentCompare$ GE5 | Execute$ TrigTransform | TriggerDescription$ At the beginning of your upkeep, if five or more cards are exiled with CARDNAME, transform it.
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+Oracle:{1}{R}, Exile a card from your hand: Draw a card.\nAt the beginning of your upkeep, if five or more cards are exiled with Crazy Conspiracy, transform it.
+ALTERNATE
+Name:Groundbreaking Discovery
+ManaCost:no cost
+Types:Enchantment
+Colors:red
+S:Mode$ Continuous | Affected$ Card.ExiledWithSource | AffectedZone$ Exile | MayPlay$ True | Description$ You may play cards exiled with this permanent.
+T:Mode$ SpellCast | ValidCard$ Card.ExiledWithSourceLKI | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ Whenever you play a card exiled with this permanent, CARDNAME deals 2 damage to target player or planeswalker.
+T:Mode$ LandPlayed | ValidCard$ Land.ExiledWithSourceLKI | TriggerZones$ Battlefield | Secondary$ True | Execute$ TrigDamage | TriggerDescription$ Whenever you play a card exiled with this permanent, CARDNAME deals 2 damage to target player or planeswalker.
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Player,Planeswalker | NumDmg$ 2
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigSac | TriggerDescription$ At the beginning of the end step, sacrifice CARDNAME.
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Self
+Oracle:You may play cards exiled with this permanent.\nWhenever you play a card exiled with this permanent, Groundbreaking Discovery deals 2 damage to target player or planeswalker.\nAt the beginning of the end step, sacrifice Groundbreaking Discovery.

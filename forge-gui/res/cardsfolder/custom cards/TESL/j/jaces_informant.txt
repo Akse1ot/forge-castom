@@ -1,0 +1,9 @@
+Name:Jace’s Informant
+ManaCost:2 U
+Types:Creature Human Rogue
+PT:2/3
+K:Prowess
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever you cast a noncreature spell, draw a card, then discard a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+Oracle:Prowess\nWhenever you cast a noncreature spell, draw a card, then discard a card.

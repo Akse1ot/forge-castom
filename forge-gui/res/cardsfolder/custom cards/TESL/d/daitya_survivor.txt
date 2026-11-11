@@ -1,0 +1,7 @@
+Name:Daitya Survivor
+ManaCost:4 G G G G
+Types:Creature Giant
+PT:9/9
+K:Reach
+K:Trample
+Oracle:Reach, trample

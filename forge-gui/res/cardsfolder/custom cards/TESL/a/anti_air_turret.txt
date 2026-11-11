@@ -1,0 +1,7 @@
+Name:Anti-Air Turret
+ManaCost:4
+Types:Artifact Creature Construct
+PT:1/4
+K:Vigilance
+K:Reach
+Oracle:Vigilance, reach

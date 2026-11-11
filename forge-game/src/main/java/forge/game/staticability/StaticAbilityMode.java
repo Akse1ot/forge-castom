@@ -5,6 +5,7 @@ import java.util.Set;
 
 public enum StaticAbilityMode {
     Continuous,
+    TeslaLaw,
 
     // StaticAbility
     CantAttackUnless,

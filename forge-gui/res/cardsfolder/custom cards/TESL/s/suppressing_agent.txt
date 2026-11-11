@@ -1,0 +1,8 @@
+Name:Suppressing Agent
+ManaCost:3 U
+Types:Creature Human Soldier
+PT:3/3
+S:Mode$ TeslaLaw | Law$ ThreeCreatures | Description$ It is against the law for an opponent to control three or more creatures.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ JusticeOffendersOfTriggeredPlayer | Execute$ TrigJustice | TriggerDescription$ Justice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, draw a card.
+SVar:TrigJustice:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:It is against the law for an opponent to control three or more creatures.\nJustice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, draw a card.

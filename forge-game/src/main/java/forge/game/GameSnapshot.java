@@ -90,6 +90,7 @@ public class GameSnapshot {
         }
 
         copyGameState(fromGame, toGame);
+        toGame.copyTeslaJusticeFrom(fromGame);
 
         for (Player p : fromGame.getPlayers()) {
             Player toPlayer = findBy(toGame, p);

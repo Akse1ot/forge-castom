@@ -1,0 +1,7 @@
+Name:Assault Automaton
+ManaCost:3
+Types:Artifact Creature Construct
+PT:4/3
+S:Mode$ CantBeCast | ValidCard$ Card.Self | EffectZone$ All | CheckSVar$ RaidTest | SVarCompare$ EQ0 | Description$ Raid — Cast this spell only if you attacked with a creature this turn.
+SVar:RaidTest:Count$AttackersDeclared
+Oracle:Raid — Cast this spell only if you attacked with a creature this turn.

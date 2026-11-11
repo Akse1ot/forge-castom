@@ -1,0 +1,10 @@
+Name:Nissa, Planar Pilgrim
+ManaCost:2 G G
+Types:Legendary Planeswalker Nissa
+Loyalty:4
+A:AB$ Animate | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Land.YouCtrl | Power$ 5 | Toughness$ 5 | Types$ Creature,Elemental | RemoveCardTypes$ True | Keywords$ Haste | SpellDescription$ Target land you control becomes a 5/5 Elemental creature with haste until end of turn.
+A:AB$ Destroy | Cost$ SubCounter<X/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent.nonCreature+nonLand+cmcEQX | SpellDescription$ Destroy target noncreature, nonland permanent with mana value X.
+A:AB$ Dig | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | Defined$ You | DigNum$ 10 | Reveal$ True | ChangeNum$ Any | ChangeValid$ Permanent | DestinationZone$ Battlefield | DestinationZone2$ Library | SubAbility$ DBShuffle | SpellDescription$ Reveal the top ten cards of your library. Put any number of permanent cards revealed this way onto the battlefield and shuffle the rest into your library.
+SVar:X:Count$xPaid
+SVar:DBShuffle:DB$ Shuffle | Defined$ You
+Oracle:+1: Target land you control becomes a 5/5 Elemental creature with haste until end of turn.\n-X: Destroy target noncreature, nonland permanent with converted mana cost X.\n-8: Reveal the top ten cards of your library. Put any number of permanent cards revealed this way onto the battlefield and shuffle the rest into your library.

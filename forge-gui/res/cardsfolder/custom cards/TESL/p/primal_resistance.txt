@@ -1,0 +1,6 @@
+Name:Primal Resistance
+ManaCost:4 G
+Types:Sorcery
+A:SP$ Pump | AILogic$ Fight | ValidTgts$ Creature.YouCtrl | NumAtt$ 3 | NumDef$ 3 | KW$ Trample | SubAbility$ DBFight | SpellDescription$ Target creature you control gets +3/+3 and gains trample until end of turn. It fights target creature you don't control.
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | AILogic$ Always | ValidTgts$ Creature.YouDontCtrl
+Oracle:Target creature you control gets +3/+3 and gains trample until end of turn. It fights target creature you don’t control.

@@ -1,0 +1,8 @@
+Name:Patrol Vehicle
+ManaCost:3
+Types:Artifact Creature Construct
+PT:3/2
+K:Defender
+A:AB$ Pump | Cost$ tapXType<2/Creature.Other/two other untapped creatures you control> | Defined$ Self | NumAtt$ 2 | NumDef$ 2 | ActivationLimit$ 1 | SubAbility$ DBRemove | SpellDescription$ CARDNAME gets +2/+2 and loses defender until end of turn. Activate only once each turn.
+SVar:DBRemove:DB$ Animate | Defined$ Self | RemoveKeywords$ Defender
+Oracle:Defender\nTap two other untapped creatures you control: Patrol Vehicle gets +2/+2 and loses defender until end of turn. Activate this ability only once each turn.

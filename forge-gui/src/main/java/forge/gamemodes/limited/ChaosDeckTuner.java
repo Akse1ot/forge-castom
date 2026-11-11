@@ -80,14 +80,21 @@ final class ChaosDeckTuner {
             for (PaperCard replacement : in) {
                 for (int index : out) {
                     PaperCard original = main.get(index);
-                    if (original.equals(replacement)
-                            || original.getRules().getType().isLand() != replacement.getRules().getType().isLand()) {
+                    boolean originalLand = original.getRules().getType().isLand();
+                    boolean replacementLand = replacement.getRules().getType().isLand();
+                    boolean trimLand = originalLand && !replacementLand && current.lands() > 19
+                            && mana.earlyAcceleration() >= 2 && mana.castability(replacement) >= .65;
+                    if (original.equals(replacement) || originalLand != replacementLand && !trimLand) {
                         continue;
                     }
                     trial.set(index, replacement);
                     Metrics value = metrics(trial, seed);
                     trial.set(index, original);
                     String rejection = reject(value, current, before);
+                    if (rejection == null && trimLand && value.castability() / (main.size() - value.lands()) + .015
+                            < current.castability() / (main.size() - current.lands())) {
+                        rejection = "excess_land_castability";
+                    }
                     if (rejection == null && ChaosManaPlan.hasUnmodeledLandAbility(original)
                             && (value.uncastable() >= current.uncastable() || value.castability() < current.castability() + 1)) {
                         rejection = "unmodeled_land_ability";

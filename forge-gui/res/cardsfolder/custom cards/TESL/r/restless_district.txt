@@ -1,0 +1,7 @@
+Name:Restless District
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ Effect | Cost$ T Sac<1/CARDNAME> | Duration$ EndOfTurn | StaticAbilities$ Alternative | CopyForSimulation$ True | SpellDescription$ Until end of turn, you may pay {T} rather than pay the costs to activate revolution abilities.
+SVar:Alternative:Mode$ AlternativeCost | EffectZone$ Command | ValidPlayer$ You | ValidSA$ Activated.TeslaRevolution | Cost$ T | Description$ Until end of turn, you may pay {T} rather than pay the costs to activate revolution abilities.
+Oracle:{T}: Add {C}.\n{T}, Sacrifice Restless District: Until end of turn, you may pay {T} rather than pay the costs to activate revolution abilities.

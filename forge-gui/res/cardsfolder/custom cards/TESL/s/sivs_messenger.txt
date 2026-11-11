@@ -1,0 +1,7 @@
+Name:Siv’s Messenger
+ManaCost:1 R
+Types:Creature Human Rogue
+PT:2/1
+K:Haste
+K:Prowess
+Oracle:Haste, prowess

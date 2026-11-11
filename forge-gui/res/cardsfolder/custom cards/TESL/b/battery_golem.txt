@@ -1,0 +1,6 @@
+Name:Battery Golem
+ManaCost:4
+Types:Artifact Creature Golem
+PT:4/4
+R:Event$ Untap | ValidCard$ Card.Self | ValidStepTurnToController$ You | Layer$ CantHappen | Description$ CARDNAME doesn't untap during your untap step.
+Oracle:Battery Golem doesn’t untap during your untap step.

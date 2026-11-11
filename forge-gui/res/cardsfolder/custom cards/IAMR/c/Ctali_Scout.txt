@@ -1,6 +1,6 @@
 Name:Ctali Scout
 ManaCost:2 U
-Types:Creature Naga Scout
+Types:Creature Snake Scout
 PT:2/3
 K:Level up:1 U
 S:Mode$ Continuous | Affected$ Card.Self | SetPower$ 3 | SetToughness$ 4 | AddTrigger$ TrigCombatDamage | IsPresent$ Card.Self+counters_GE2_LEVEL+counters_LE4_LEVEL | Description$ LEVEL 2-4 3/4 Whenever CARDNAME deals combat damage to a player, draw a card.

@@ -1,0 +1,10 @@
+Name:Echowisp
+ManaCost:X R
+Types:Creature Elemental
+PT:0/0
+K:Haste
+K:etbCounter:P1P1:X
+SVar:X:Count$xPaid
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigReturn | TriggerDescription$ At the beginning of the end step, return CARDNAME to its owner's hand.
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand
+Oracle:Haste\nEchowisp enters the battlefield with X +1/+1 counters on it.\nAt the beginning of the end step, return Echowisp to its owner’s hand.

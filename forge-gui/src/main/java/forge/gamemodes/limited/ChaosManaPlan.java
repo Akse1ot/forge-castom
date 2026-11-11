@@ -18,13 +18,17 @@ final class ChaosManaPlan {
     private static final int SNOW = 64;
     private static final int ALL_COLORS = 31;
 
-    record Source(int produces, int payment, int activation, int output, int turn, boolean land, boolean fetchesBasic) {}
+    record Source(int produces, int payment, int activation, int output, int turn, boolean land, boolean fetchesBasic,
+                  ChaosManaTraits traits) {}
 
     private final List<Source> sources;
     private final int[] landSources = new int[7];
     private final int landCount;
     private final int demand;
     private final int basicTargets;
+    private final int reflectedColors;
+    private final int earlyAcceleration;
+    private final int independentLands;
     private final Map<PaperCard, Source> included = new java.util.IdentityHashMap<>();
 
     ChaosManaPlan(List<PaperCard> cards, Map<PaperCard, Source> cache) {
@@ -33,12 +37,25 @@ final class ChaosManaPlan {
         int mask = 0;
         int count = 0;
         int basicMask = 0;
+        int landMask = 0;
+        int usableLands = 0;
         for (PaperCard card : cards) {
+            Source source = cache.computeIfAbsent(card, ChaosManaPlan::readSource);
             if (card.getRules().getType().isBasicLand()) {
-                basicMask |= cache.computeIfAbsent(card, ChaosManaPlan::readSource).produces();
+                basicMask |= source.produces();
+            }
+            if (source.land() && source.traits().kind() != ChaosManaTraits.Kind.LAND_THRESHOLD) {
+                if (source.traits().kind() != ChaosManaTraits.Kind.CHOSEN) {
+                    landMask |= source.produces();
+                }
+                if (source.output() > source.activation() && !source.fetchesBasic()) {
+                    usableLands++;
+                }
             }
         }
         basicTargets = basicMask;
+        reflectedColors = landMask & ALL_COLORS;
+        independentLands = usableLands;
         for (PaperCard card : cards) {
             boolean land = card.getRules().getType().isLand();
             if (land) {
@@ -70,10 +87,16 @@ final class ChaosManaPlan {
                 .filter(card -> lands.size() >= included.get(card).payment() && castability(card) >= .5)
                 .map(included::get).toList();
         sources.addAll(payable);
+        earlyAcceleration = (int) payable.stream().filter(source -> source.turn() <= 4
+                && source.output() > source.activation()).count();
     }
 
     int lands() {
         return landCount;
+    }
+
+    int earlyAcceleration() {
+        return earlyAcceleration;
     }
 
     List<Integer> landSources() {
@@ -179,7 +202,17 @@ final class ChaosManaPlan {
     }
 
     Source resolve(Source source) {
-        return source.fetchesBasic() ? new Source(basicTargets, 0, 0, 1, 2, true, true) : source;
+        if (source.fetchesBasic()) {
+            return new Source(basicTargets, 0, 0, 1, 2, true, true, source.traits());
+        }
+        if (source.traits().kind() == ChaosManaTraits.Kind.REFLECTED && source.produces() == 0) {
+            return new Source(reflectedColors, source.payment(), 0, 1, source.turn(), source.land(), false, source.traits());
+        }
+        if (source.traits().kind() == ChaosManaTraits.Kind.LAND_THRESHOLD && independentLands + 1 < source.traits().threshold()
+                || source.traits().kind() == ChaosManaTraits.Kind.AURA && independentLands < 2) {
+            return new Source(0, source.payment(), 0, 0, source.turn(), source.land(), false, source.traits());
+        }
+        return source;
     }
 
     static int demand(PaperCard card) {
@@ -226,6 +259,7 @@ final class ChaosManaPlan {
 
     static Source readSource(PaperCard card) {
         var face = card.getMainFace();
+        var traits = ChaosManaTraits.read(card);
         boolean land = face.getType().isLand();
         int mask = 0;
         int payment = Integer.MAX_VALUE;
@@ -243,9 +277,11 @@ final class ChaosManaPlan {
         for (String ability : face.getAbilities()) {
             Map<String, String> params = AbilityFactory.getMapParams(ability);
             if (land && basicFetch(params)) {
-                return new Source(0, 0, 0, 1, 2, true, true);
+                return new Source(0, 0, 0, 1, 2, true, true, traits);
             }
-            if (!simpleMana(params)) {
+            boolean chosen = traits.kind() == ChaosManaTraits.Kind.CHOSEN && ChaosManaTraits.chosenMana(params);
+            boolean delayed = traits.kind() == ChaosManaTraits.Kind.LAND_THRESHOLD && ChaosManaTraits.landThreshold(params) > 0;
+            if (!simpleMana(params) && !chosen && !delayed) {
                 continue;
             }
             int multiplier = ChaosManaAmount.read(params, face).guaranteed(card);
@@ -261,7 +297,7 @@ final class ChaosManaPlan {
             String produced = raw.replaceFirst("^Combo ", "");
             int producedMask = 0;
             int amount = 1;
-            if ("Any".equalsIgnoreCase(produced)) {
+            if (chosen || "Any".equalsIgnoreCase(produced)) {
                 producedMask = ALL_COLORS;
             } else if (produced.matches("[1-9]")) {
                 producedMask = COLORLESS;
@@ -283,8 +319,12 @@ final class ChaosManaPlan {
                 }
             }
         }
+        if (mask == 0 && traits.kind() == ChaosManaTraits.Kind.AURA) {
+            return new Source(ALL_COLORS, manaValue, 0, 1, manaValue + 1, false, false, traits);
+        }
         if (mask == 0) {
-            return new Source(0, 0, 0, 0, 0, land, false);
+            return new Source(0, land ? 0 : Math.max(0, manaValue), 0, 0,
+                    land ? 1 : Math.max(1, manaValue + 1), land, false, traits);
         }
         if (face.getType().isSnow()) {
             mask |= SNOW;
@@ -302,10 +342,13 @@ final class ChaosManaPlan {
         // A generic activation consumes a previously available source. Creatures wait a turn.
         int turn = land ? Math.max(1, payment + 1 + (tapped ? 1 : 0))
                 : Math.max(manaValue + 1, payment);
-        return new Source(mask, payment, payment - (land ? 0 : manaValue), output, turn, land, false);
+        if (traits.kind() == ChaosManaTraits.Kind.LAND_THRESHOLD) {
+            turn = Math.max(turn, traits.threshold());
+        }
+        return new Source(mask, payment, payment - (land ? 0 : manaValue), output, turn, land, false, traits);
     }
 
-    private static boolean simpleMana(Map<String, String> params) {
+    static boolean simpleMana(Map<String, String> params) {
         return "Mana".equals(params.get("AB")) && params.keySet().stream().allMatch(
                 java.util.Set.of("AB", "Cost", "Produced", "Amount", "SpellDescription", "Description", "Secondary")::contains)
                 && params.getOrDefault("Produced", "").matches("(?:Any|[1-9]|(?:Combo )?[WUBRGC](?: [WUBRGC])*)");

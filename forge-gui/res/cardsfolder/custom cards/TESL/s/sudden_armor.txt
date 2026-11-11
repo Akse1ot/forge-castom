@@ -1,0 +1,7 @@
+Name:Sudden Armor
+ManaCost:1 W
+Types:Instant
+A:SP$ PutCounter | ValidTgts$ Creature | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ DBPrevent | SpellDescription$ Put a +1/+1 counter on target creature. Prevent all combat damage that would be dealt to that creature this turn.
+SVar:DBPrevent:DB$ Effect | ReplacementEffects$ Prevent | RememberObjects$ Targeted | ExileOnMoved$ Battlefield
+SVar:Prevent:Event$ DamageDone | Prevent$ True | IsCombat$ True | ValidTarget$ Card.IsRemembered | Description$ Prevent all combat damage that would be dealt to the chosen creature this turn.
+Oracle:Put a +1/+1 counter on target creature. Prevent all combat damage that would be dealt to that creature this turn.

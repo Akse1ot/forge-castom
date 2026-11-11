@@ -1,0 +1,8 @@
+Name:Consulate Faithful
+ManaCost:2 W
+Types:Creature Human Soldier
+PT:1/4
+S:Mode$ TeslaLaw | Law$ NoSpells | Description$ It is against the law for an opponent to cast no spells during their turn.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ JusticeOffendersOfTriggeredPlayer | Execute$ TrigJustice | TriggerDescription$ Justice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, put a +1/+1 counter on CARDNAME.
+SVar:TrigJustice:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+Oracle:It is against the law for an opponent to cast no spells during their turn.\nJustice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, put a +1/+1 counter on Consulate Faithful.

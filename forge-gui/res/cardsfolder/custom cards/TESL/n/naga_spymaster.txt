@@ -1,0 +1,8 @@
+Name:Naga Spymaster
+ManaCost:2 U B
+Types:Creature Snake Rogue
+PT:2/3
+K:Deathtouch
+T:Mode$ DamageDone | CombatDamage$ True | ValidTarget$ Player | TriggerZones$ Battlefield | ValidSource$ Creature.YouCtrl+powerLE2 | Execute$ TrigDraw | TriggerDescription$ Whenever a creature you control with power 2 or less deals combat damage to a player, that player may pay 2 life. If they don't, you draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | UnlessCost$ PayLife<2> | UnlessPayer$ TriggeredTarget
+Oracle:Deathtouch\nWhenever a creature you control with power 2 or less deals combat damage to a player, that player may pay 2 life. If they don’t, you draw a card.

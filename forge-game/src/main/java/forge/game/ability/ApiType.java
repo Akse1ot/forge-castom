@@ -191,6 +191,7 @@ public enum ApiType {
     RunChaos (RunChaosEffect.class),
     Sacrifice (SacrificeEffect.class),
     SacrificeAll (SacrificeAllEffect.class),
+    SacrificeInAPNAP (SacrificeInAPNAPEffect.class),
     Scry (ScryEffect.class),
     Seek (SeekEffect.class),
     SetInMotion (SetInMotionEffect.class),

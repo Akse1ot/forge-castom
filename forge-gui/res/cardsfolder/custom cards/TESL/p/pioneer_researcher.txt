@@ -1,0 +1,7 @@
+Name:Pioneer Researcher
+ManaCost:1 G
+Types:Creature Human Scout
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRecharge | TriggerDescription$ When CARDNAME enters, recharge.
+SVar:TrigRecharge:DB$ Token | TokenScript$ c_a_canister_untap | TokenOwner$ You
+Oracle:When Pioneer Researcher enters the battlefield, recharge. (Create a colorless Canister artifact token with “{T}, Sacrifice this artifact: Untap target permanent. Activate this ability only during your turn.”)

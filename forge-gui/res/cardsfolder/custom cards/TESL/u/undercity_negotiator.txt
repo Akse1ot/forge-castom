@@ -1,0 +1,9 @@
+Name:Undercity Negotiator
+ManaCost:3 U B
+Types:Creature Snake Cleric
+PT:2/7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Creature.Other+YouCtrl+powerLE2 | Execute$ TrigTap | TriggerDescription$ Whenever another creature with power 2 or less enters the battlefield under your control, you may pay {1}. If you do, tap target creature an opponent controls. That creature doesn't untap during its controller's next untap step. Its controller loses 1 life.
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | UnlessCost$ 1 | UnlessPayer$ You | UnlessSwitched$ True | UnlessResolveSubs$ WhenPaid | SubAbility$ DBFreeze
+SVar:DBFreeze:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent | SubAbility$ DBLose
+SVar:DBLose:DB$ LoseLife | Defined$ TargetedController | LifeAmount$ 1
+Oracle:Whenever another creature with power 2 or less enters the battlefield under your control, you may pay {1}. If you do, tap target creature an opponent controls. That creature doesn’t untap during its controller’s next untap step. Its controller loses 1 life.

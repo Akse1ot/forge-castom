@@ -1,0 +1,6 @@
+Name:Constant Scrutiny
+ManaCost:2 W W
+Types:Enchantment
+S:Mode$ CantDraw | ValidPlayer$ Player | DrawLimit$ 1 | Description$ Each player can't draw more than one card each turn.
+S:Mode$ CantBeCast | ValidCard$ Card | Caster$ Player | NumLimitEachTurn$ 1 | Description$ Each player can't cast more than one spell each turn.
+Oracle:Each player can’t draw more than one card each turn.\nEach player can’t cast more than one spell each turn.

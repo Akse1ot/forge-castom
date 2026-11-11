@@ -94,6 +94,7 @@ public class Game {
     private final PhaseHandler phaseHandler;
     private final StaticEffects staticEffects = new StaticEffects();
     private final TriggerHandler triggerHandler = new TriggerHandler(this);
+    private TeslaJustice teslaJustice;
     private final TrapTurnHistory trapTurnHistory = new TrapTurnHistory();
     private final ReplacementHandler replacementHandler = new ReplacementHandler(this);
     private final EventBus events = new EventBus("game events");
@@ -528,6 +529,27 @@ public class Game {
     public final TriggerHandler getTriggerHandler() {
         return triggerHandler;
     }
+
+    public TeslaJustice getTeslaJustice() {
+        return teslaJustice;
+    }
+
+    public void enableTeslaJustice() {
+        if (teslaJustice == null) {
+            teslaJustice = new TeslaJustice();
+        }
+    }
+
+    public void copyTeslaJusticeFrom(Game source) {
+        teslaJustice = source.teslaJustice == null ? null : source.teslaJustice.copy(source);
+    }
+
+    public void resetTeslaJustice() {
+        if (teslaJustice != null) {
+            teslaJustice = new TeslaJustice();
+        }
+    }
+
     public final TrapTurnHistory getTrapTurnHistory() {
         return trapTurnHistory;
     }

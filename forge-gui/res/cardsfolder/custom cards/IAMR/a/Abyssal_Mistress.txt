@@ -1,6 +1,6 @@
 Name:Abyssal Mistress
 ManaCost:1 B B
-Types:Creature Naga Wizard
+Types:Creature Snake Wizard
 PT:2/2
 K:Intimidate
 T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.powerGE8+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigSacrifice | TriggerDescription$ Whenever a creature with power 8 or greater enters the battlefield under your control, target opponent sacrifices a nonblack creature.

@@ -1,0 +1,8 @@
+Name:Ruthless Collector
+ManaCost:2 B G
+Types:Creature Human Artificer
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRecharge | TriggerDescription$ When CARDNAME enters the battlefield, recharge, then each player sacrifices a nonland permanent.
+SVar:TrigRecharge:DB$ Token | TokenScript$ c_a_canister_untap | TokenOwner$ You | SubAbility$ DBSacrifice
+SVar:DBSacrifice:DB$ SacrificeInAPNAP | Defined$ Player | SacValid$ Permanent.nonLand | SacMessage$ nonland permanent
+Oracle:When Ruthless Collector enters the battlefield, recharge, then each player sacrifices a nonland permanent. (To recharge, create a colorless Canister artifact token with “{T}, Sacrifice this artifact: Untap target permanent. Activate this ability only during your turn.”)

@@ -1,0 +1,7 @@
+Name:Jungle Elephant
+ManaCost:3 G G
+Types:Creature Elephant
+PT:4/4
+K:Reach
+K:Trample
+Oracle:Reach (This creature can block creatures with flying.)\nTrample (This creature can deal excess combat damage to the player or planeswalker it’s attacking.)

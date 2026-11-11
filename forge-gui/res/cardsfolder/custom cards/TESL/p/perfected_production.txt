@@ -1,0 +1,6 @@
+Name:Perfected Production
+ManaCost:3 W W
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | Execute$ TrigReturn | TriggerDescription$ At the beginning of each end step, return to the battlefield all artifact cards in your graveyard that were put there from the battlefield this turn.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ ValidGraveyard Artifact.YouOwn+ThisTurnEnteredFrom_Battlefield
+Oracle:At the beginning of each end step, return to the battlefield all artifact cards in your graveyard that were put there from the battlefield this turn.

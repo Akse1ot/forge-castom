@@ -209,6 +209,14 @@ public class CopySpellAbilityEffect extends SpellAbilityEffect {
                 }
             }
 
+            if (Boolean.parseBoolean(sa.getParam("PutManaCopiesOnStack"))) {
+                for (SpellAbility copy : copies) {
+                    if (copy.isManaAbility()) {
+                        copy.putParam("PutManaCopiesOnStack", "True");
+                        copy.setUndoable(false);
+                    }
+                }
+            }
             controller.getController().orderAndPlaySimultaneousSa(copies);
 
             if (sa.hasParam("RememberCopies")) {

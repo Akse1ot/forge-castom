@@ -1006,7 +1006,16 @@ public class AbilityUtils {
         sa = adjustTriggerContext(incR, sa);
         String defined = incR[0];
 
-        if (defined.equals("Self") || defined.equals("TargetedCard") || defined.equals("ThisTargetedCard")
+        if (defined.equals("JusticeOffenders") || defined.equals("JusticeOffendersOfTriggeredPlayer")) {
+            Player lawController = player;
+            if (defined.equals("JusticeOffendersOfTriggeredPlayer")) {
+                Object triggeredPlayer = sa == null ? null : sa.getTriggeringObject(AbilityKey.Player);
+                lawController = triggeredPlayer instanceof Player active ? active : null;
+            }
+            if (lawController != null && game.getTeslaJustice() != null) {
+                players.addAll(game.getTeslaJustice().getOffenders(lawController));
+            }
+        } else if (defined.equals("Self") || defined.equals("TargetedCard") || defined.equals("ThisTargetedCard")
                 || defined.equals("Convoked")
                 || defined.startsWith("Valid") || getPaidCards(sa, incR[0]) != null || defined.equals("TargetedSource")
                 || defined.startsWith("CardUID_")) {
@@ -3858,6 +3867,9 @@ public class AbilityUtils {
 
         if (value.contains("LifePaidThisTurn")) {
             return doXMath(player.getLifePaidThisTurn(), m, source, ctb);
+        }
+        if (value.equals("ManaSpentThisTurn")) {
+            return doXMath(player.getManaSpentThisTurn(), m, source, ctb);
         }
         if (value.contains("LifePaidLastTurn")) {
             return doXMath(player.getLifePaidLastTurn(), m, source, ctb);

@@ -1,0 +1,11 @@
+Name:Possibility Titan
+ManaCost:12
+Types:Artifact Creature Construct
+PT:6/6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMode | TriggerDescription$ Whenever CARDNAME enters the battlefield or attacks, choose one —
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigMode | Secondary$ True | TriggerDescription$ Whenever CARDNAME enters the battlefield or attacks, choose one —
+SVar:TrigMode:DB$ Charm | Choices$ DBDestroy,DBDraw,DBToken
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Permanent.nonLand | SpellDescription$ Destroy target nonland permanent.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 2 | SpellDescription$ Draw two cards.
+SVar:DBToken:DB$ Token | TokenScript$ c_1_1_a_thopter_flying | TokenOwner$ You | TokenAmount$ 3 | SpellDescription$ Create three 1/1 colorless Thopter artifact creature tokens with flying.
+Oracle:Whenever Possibility Titan enters the battlefield or attacks, choose one —\n• Destroy target nonland permanent.\n• Draw two cards.\n• Create three 1/1 colorless Thopter\n  artifact creature tokens with flying.

@@ -1,0 +1,9 @@
+Name:Baral, Blade of Retribution
+ManaCost:W B
+Types:Legendary Creature Human Soldier
+PT:3/2
+K:Deathtouch
+S:Mode$ CantBeActivated | Activator$ Player | ValidCard$ Planeswalker.YouDontCtrl | ValidSA$ Activated.Loyalty | Description$ Loyalty abilities of planeswalkers you don't control can't be activated.
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Planeswalker | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigDestroy | TriggerDescription$ Whenever NICKNAME deals combat damage to a planeswalker, destroy that planeswalker.
+SVar:TrigDestroy:DB$ Destroy | Defined$ TriggeredTarget
+Oracle:Deathtouch\nLoyalty abilities of planeswalkers you don’t control can’t be activated.\nWhenever Baral, Blade of Retribution deals combat damage to a planeswalker, destroy that planeswalker.

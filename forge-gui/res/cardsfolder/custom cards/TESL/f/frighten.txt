@@ -1,0 +1,6 @@
+Name:Frighten
+ManaCost:1 B B
+Types:Sorcery
+A:SP$ Discard | ValidTgts$ Player | Mode$ TgtChoose | NumCards$ 2 | SubAbility$ DBScry | SpellDescription$ Target player discards two cards. Scry 1.
+SVar:DBScry:DB$ Scry | ScryNum$ 1
+Oracle:Target player discards two cards. Scry 1. (To scry 1, look at the top card of your library. You may put that card on the bottom of your library.)

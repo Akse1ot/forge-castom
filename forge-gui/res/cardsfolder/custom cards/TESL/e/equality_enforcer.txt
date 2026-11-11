@@ -1,0 +1,8 @@
+Name:Equality Enforcer
+ManaCost:1 W
+Types:Creature Human Soldier
+PT:2/2
+S:Mode$ TeslaLaw | Law$ MoreLife | Description$ It is against the law for an opponent to have more life than you.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ JusticeOffendersOfTriggeredPlayer | Execute$ TrigJustice | TriggerDescription$ Justice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, CARDNAME gets +1/+1 and gains lifelink until end of turn.
+SVar:TrigJustice:DB$ Pump | Defined$ Self | NumAtt$ 1 | NumDef$ 1 | KW$ Lifelink
+Oracle:It is against the law for an opponent to have more life than you.\nJustice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, Equality Enforcer gets +1/+1 and gains lifelink until end of turn.

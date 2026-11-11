@@ -1,0 +1,7 @@
+Name:Production Enhancer
+ManaCost:3 U
+Types:Creature Human Artificer
+PT:1/4
+R:Event$ CreateToken | ActiveZones$ Battlefield | ValidPlayer$ You | ValidToken$ Artifact | EffectOnly$ True | ReplaceWith$ DoubleToken | Description$ If an effect would create one or more artifact tokens under your control, it creates twice that many of those tokens instead.
+SVar:DoubleToken:DB$ ReplaceToken | Type$ Amount
+Oracle:If an effect would create one or more artifact tokens under your control, it creates twice that many of those tokens instead.

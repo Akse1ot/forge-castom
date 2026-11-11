@@ -1,0 +1,9 @@
+Name:Skywhale Cloudlord
+ManaCost:5 U U U
+Types:Creature Whale
+PT:6/6
+K:Flying
+K:Hexproof
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Creature.Other+YouCtrl+withFlying | TriggerZones$ Battlefield | Execute$ TrigDraw | OptionalDecider$ You | TriggerDescription$ Whenever CARDNAME or another creature with flying enters under your control, you may draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Flying, hexproof\nWhenever Skywhale Cloudlord or another creature you control with flying enters the battlefield, you may draw a card.

@@ -1,0 +1,8 @@
+Name:Alloy Array
+ManaCost:1
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Artifact.Other+YouCtrl | Execute$ TrigCounter | TriggerDescription$ Whenever another artifact enters the battlefield under your control, you may pay {1}. If you do, put a +1/+1 counter on CARDNAME, then you may have it become a 0/0 Construct artifact creature until end of turn.
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | UnlessCost$ 1 | UnlessPayer$ You | UnlessSwitched$ True | UnlessResolveSubs$ WhenPaid | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ Self | Power$ 0 | Toughness$ 0 | Types$ Construct,Artifact,Creature | Optional$ True | SpellDescription$ CARDNAME becomes a 0/0 Construct artifact creature until end of turn.
+A:AB$ Token | Cost$ 7 | TokenScript$ c_1_1_a_thopter_flying | TokenOwner$ You | SpellDescription$ Create a 1/1 colorless Thopter artifact creature token with flying.
+Oracle:Whenever another artifact enters the battlefield under your control, you may pay {1}. If you do, put a +1/+1 counter on Alloy Array, then you may have it become a 0/0 Construct artifact creature until end of turn.\n{7}: Create a 1/1 colorless Thopter artifact creature token with flying.

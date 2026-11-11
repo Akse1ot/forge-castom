@@ -1,0 +1,7 @@
+Name:Nothing Lost
+ManaCost:1 B
+Types:Enchantment
+T:Mode$ Sacrificed | ValidCard$ Permanent | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever you sacrifice a permanent, you may pay {1}. If you do, you draw a card and you lose 1 life.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | UnlessCost$ 1 | UnlessPayer$ You | UnlessSwitched$ True | UnlessResolveSubs$ WhenPaid | SubAbility$ DBLose
+SVar:DBLose:DB$ LoseLife | Defined$ You | LifeAmount$ 1
+Oracle:Whenever you sacrifice a permanent, you may pay {1}. If you do, you draw a card and you lose 1 life.

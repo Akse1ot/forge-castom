@@ -1,0 +1,8 @@
+Name:Zila Officer
+ManaCost:3 B
+Types:Creature Human Soldier
+PT:2/4
+S:Mode$ TeslaLaw | Law$ MoreLife | Description$ It is against the law for an opponent to have more life than you.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckDefinedPlayer$ JusticeOffendersOfTriggeredPlayer | Execute$ TrigJustice | TriggerDescription$ Justice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, CARDNAME gets +2/+0 until end of turn.
+SVar:TrigJustice:DB$ Pump | Defined$ Self | NumAtt$ 2
+Oracle:It is against the law for an opponent to have more life than you.\nJustice — At the beginning of your upkeep, if any opponents broke any laws since the beginning of your last turn, Zila Officer gets +2/+0 until end of turn.

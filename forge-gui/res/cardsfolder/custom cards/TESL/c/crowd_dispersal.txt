@@ -1,0 +1,5 @@
+Name:Crowd Dispersal
+ManaCost:1 W
+Types:Instant
+A:SP$ Sacrifice | ValidTgts$ Player | TgtPrompt$ Select target player (to sacrifice an attacking creature) | SacValid$ Creature.attacking | SacMessage$ Creature | SpellDescription$ Target player sacrifices an attacking creature.
+Oracle:Target player sacrifices an attacking creature.

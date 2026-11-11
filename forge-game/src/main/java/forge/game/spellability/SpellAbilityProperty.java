@@ -60,6 +60,8 @@ public class SpellAbilityProperty {
             return sa.isCraft();
         } else if (property.equals("Crew")) {
             return sa.isCrew();
+        } else if (property.equals("TeslaRevolution")) {
+            return sa.isActivatedAbility() && "Revolution".equals(sa.getParam("PrecostDesc"));
         } else if (property.equals("Saddle")) {
             return sa.isKeyword(Keyword.SADDLE);
         } else if (property.equals("Station")) {

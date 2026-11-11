@@ -1,0 +1,5 @@
+Name:Aerial Mayhem
+ManaCost:4 R
+Types:Sorcery
+A:SP$ Token | TokenScript$ c_1_1_a_thopter_flying | TokenOwner$ You | TokenAmount$ 3 | PumpKeywords$ Haste | PumpDuration$ EOT | SpellDescription$ Create three 1/1 colorless Thopter artifact creature tokens with flying. They gain haste until end of turn.
+Oracle:Create three 1/1 colorless Thopter artifact creature tokens with flying. They gain haste until end of turn.

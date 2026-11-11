@@ -1,0 +1,7 @@
+Name:Necrotic Resonator
+ManaCost:4
+Types:Artifact
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidSA$ Spell.SacrificedToPay | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopy | TriggerDescription$ Whenever you cast an instant or sorcery spell or activate an ability, if you sacrificed a permanent to cast or activate it, copy that spell or ability. You may choose new targets for the copy.
+T:Mode$ AbilityCast | ValidSA$ SpellAbility.SacrificedToPay | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopy | Secondary$ True | TriggerDescription$ Whenever you cast an instant or sorcery spell or activate an ability, if you sacrificed a permanent to cast or activate it, copy that spell or ability. You may choose new targets for the copy.
+SVar:TrigCopy:DB$ CopySpellAbility | PutManaCopiesOnStack$ True | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+Oracle:Whenever you cast an instant or sorcery spell or activate an ability, if you sacrificed a permanent to cast or activate it, copy that spell or ability. You may choose new targets for the copy.

@@ -1,0 +1,7 @@
+Name:Opportunist Berserker
+ManaCost:1 R
+Types:Creature Cat Berserker
+PT:2/1
+K:etbCounter:P1P1:1:CheckSVar$ RaidTest:Raid — CARDNAME enters with a +1/+1 counter on it if you attacked this turn.
+SVar:RaidTest:Count$AttackersDeclared
+Oracle:Raid — Opportunist Berserker enters the battlefield with a +1/+1 counter on it if you attacked with a creature this turn.

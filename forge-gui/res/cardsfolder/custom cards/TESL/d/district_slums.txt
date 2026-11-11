@@ -1,0 +1,9 @@
+Name:District Slums
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ EnterTapped | Description$ CARDNAME enters tapped.
+SVar:EnterTapped:DB$ Tap | Defined$ Self | ETB$ True
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMana | TriggerDescription$ When CARDNAME enters, add {C}.
+SVar:TrigMana:DB$ Mana | Produced$ C
+A:AB$ Mana | Cost$ T | Produced$ Combo B G
+Oracle:District Slums enters the battlefield tapped.\nWhen District Slums enters the battlefield, add {C}.\n{T}: Add {B} or {G}.

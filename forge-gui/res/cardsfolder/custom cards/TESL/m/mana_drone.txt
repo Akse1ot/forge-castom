@@ -1,0 +1,6 @@
+Name:Mana Drone
+ManaCost:3
+Types:Artifact
+A:AB$ Mana | Cost$ T | Produced$ Any | SpellDescription$ Add one mana of any color.
+A:AB$ Animate | Cost$ 1 | Defined$ Self | Power$ 1 | Toughness$ 1 | Types$ Artifact,Creature,Thopter | Keywords$ Flying | SpellDescription$ CARDNAME becomes a 1/1 Thopter artifact creature with flying until end of turn.
+Oracle:{T}: Add one mana of any color.\n{1}: Mana Drone becomes a 1/1 Thopter artifact creature with flying until end of turn.

@@ -1,0 +1,7 @@
+Name:Delivery Automaton
+ManaCost:1
+Types:Artifact Creature Construct
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigRecharge | TriggerDescription$ When CARDNAME dies, recharge.
+SVar:TrigRecharge:DB$ Token | TokenScript$ c_a_canister_untap | TokenOwner$ You
+Oracle:When Delivery Automaton dies, recharge. (Create a colorless Canister artifact token with “{T}, Sacrifice this artifact: Untap target permanent. Activate this ability only during your turn.”)

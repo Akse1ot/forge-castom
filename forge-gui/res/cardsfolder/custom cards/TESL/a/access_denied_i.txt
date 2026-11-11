@@ -1,0 +1,6 @@
+Name:Access Denied I
+ManaCost:1 U U
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | ValidTgts$ Creature | Destination$ Graveyard | SubAbility$ DBScry | SpellDescription$ Counter target creature spell. Scry 2.
+SVar:DBScry:DB$ Scry | ScryNum$ 2
+Oracle:Counter target creature spell. Scry 2. (To scry 2, look at the top two cards of your library, then put any number of them on the bottom of your library and the rest on top in any order.)

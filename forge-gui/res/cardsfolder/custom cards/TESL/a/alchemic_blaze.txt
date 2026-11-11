@@ -1,0 +1,13 @@
+Name:Alchemic Blaze
+ManaCost:1 R
+Types:Sorcery
+AlternateMode:DoubleFaced
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 3 | SpellDescription$ CARDNAME deals 3 damage to any target.
+A:AB$ ChangeZone | Cost$ 4 | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield | ActivationZone$ Graveyard | Transformed$ True | SorcerySpeed$ True | SpellDescription$ Put CARDNAME from your graveyard onto the battlefield transformed. Activate only as a sorcery.
+Oracle:Alchemic Blaze deals 3 damage to any target.\n{4}: Put Alchemic Blaze from your graveyard onto the battlefield transformed. Activate this ability only any time you could cast a sorcery.
+ALTERNATE
+Name:Naphfire Launcher
+ManaCost:no cost
+Types:Artifact
+A:AB$ DealDamage | Cost$ 3 T | ValidTgts$ Any | NumDmg$ 1 | SpellDescription$ CARDNAME deals 1 damage to any target.
+Oracle:{3}, {T}: Naphfire Launcher deals 1 damage to any target.

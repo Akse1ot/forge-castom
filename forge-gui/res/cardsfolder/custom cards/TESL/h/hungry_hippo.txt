@@ -1,0 +1,5 @@
+Name:Hungry Hippo
+ManaCost:4 U
+Types:Creature Hippo
+PT:4/5
+Oracle:

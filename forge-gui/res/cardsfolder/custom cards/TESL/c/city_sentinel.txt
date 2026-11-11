@@ -1,0 +1,5 @@
+Name:City Sentinel
+ManaCost:8
+Types:Artifact Creature Construct
+PT:8/8
+Oracle:

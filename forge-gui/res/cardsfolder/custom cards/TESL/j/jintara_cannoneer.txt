@@ -1,0 +1,9 @@
+Name:Jintara Cannoneer
+ManaCost:3 R
+Types:Creature Human Artificer
+PT:1/4
+K:Defender
+A:AB$ DamageAll | Cost$ T | ValidPlayers$ Opponent | NumDmg$ 1 | SpellDescription$ CARDNAME deals 1 damage to each opponent.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Artifact.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigUntap | TriggerDescription$ Whenever an artifact enters under your control, untap CARDNAME.
+SVar:TrigUntap:DB$ Untap | Defined$ Self
+Oracle:Defender\n{T}: Jintara Cannoneer deals 1 damage to each opponent.\nWhenever an artifact enters the battlefield under your control, untap Jintara Cannoneer.

@@ -1,0 +1,9 @@
+Name:Sieze Supplies
+ManaCost:2 R R
+Types:Sorcery
+A:SP$ DealDamage | ValidTgts$ Creature | NumDmg$ 4 | SubAbility$ DBDiscard | SpellDescription$ CARDNAME deals 4 damage to target creature. Raid — If you attacked this turn, you may discard a card. If you do, draw a card.
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | Optional$ True | RememberDiscarded$ True | ConditionCheckSVar$ RaidTest | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:RaidTest:Count$AttackersDeclared
+Oracle:Sieze Supplies deals 4 damage to target creature.\nRaid — If you attacked with a creature this turn, you may discard a card. If you do, draw a card.

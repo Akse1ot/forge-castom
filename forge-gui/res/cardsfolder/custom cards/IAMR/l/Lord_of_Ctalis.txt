@@ -1,8 +1,8 @@
 Name:Lord of Ctalis
 ManaCost:1 U B
-Types:Creature Naga Advisor
+Types:Creature Snake Advisor
 PT:2/2
-S:Mode$ Continuous | Affected$ Creature.Naga+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Intimidate | Description$ Other Naga creatures you control get +1/+1 and have intimidate.
-A:AB$ Mana | Cost$ Sac<1/Naga.Other/another Naga> | Produced$ C | Amount$ 2 | RestrictValid$ Spell.Creature+powerGE8 | SpellDescription$ Add {2}. Spend this mana only to cast creature spells with power 8 or greater.
-DeckHints:Type$Naga
-Oracle:Other Naga creatures you control get +1/+1 and have intimidate.\nSacrifice another Naga: Add {2}. Spend this mana only to cast creature spells with power 8 or greater.
+S:Mode$ Continuous | Affected$ Creature.Snake+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Intimidate | Description$ Other Snake creatures you control get +1/+1 and have intimidate.
+A:AB$ Mana | Cost$ Sac<1/Snake.Other/another Snake> | Produced$ C | Amount$ 2 | RestrictValid$ Spell.Creature+powerGE8 | SpellDescription$ Add {2}. Spend this mana only to cast creature spells with power 8 or greater.
+DeckHints:Type$Snake
+Oracle:Other Snake creatures you control get +1/+1 and have intimidate.\nSacrifice another Snake: Add {2}. Spend this mana only to cast creature spells with power 8 or greater.

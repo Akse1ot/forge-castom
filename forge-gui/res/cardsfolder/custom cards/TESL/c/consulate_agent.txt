@@ -1,0 +1,8 @@
+Name:Consulate Agent
+ManaCost:2 B
+Types:Creature Human Rogue
+PT:1/1
+K:Menace
+T:Mode$ Attacks | ValidCard$ Card.Self,Creature.YouCtrl+Other+powerLE2 | TriggerZones$ Battlefield | Execute$ TrigLose | TriggerDescription$ Whenever CARDNAME or another creature you control with power 2 or less attacks, defending player loses 1 life.
+SVar:TrigLose:DB$ LoseLife | Defined$ TriggeredDefendingPlayer | LifeAmount$ 1
+Oracle:Menace\nWhenever Consulate Agent or another creature you control with power 2 or less attacks, defending player loses 1 life.

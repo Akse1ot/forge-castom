@@ -1,0 +1,8 @@
+Name:Outlands Bandit
+ManaCost:2 G G
+Types:Creature Cat Warrior
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | CheckSVar$ RaidTest | Execute$ TrigDraw | TriggerDescription$ Raid — When CARDNAME enters, if you attacked this turn, draw a card.
+SVar:RaidTest:Count$AttackersDeclared
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Raid — When Outlands Bandit enters the battlefield, if you attacked with a creature this turn, draw a card.

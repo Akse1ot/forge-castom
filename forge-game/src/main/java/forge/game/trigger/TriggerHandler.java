@@ -270,6 +270,9 @@ public class TriggerHandler {
     }
 
     public final void runTrigger(final TriggerType mode, final Map<AbilityKey, Object> runParams, boolean holdTrigger) {
+        if (game.getTeslaJustice() != null) {
+            game.getTeslaJustice().observeCombat(game, mode, runParams);
+        }
         if (isTriggerSuppressed(mode)) {
             return;
         }
@@ -328,7 +331,8 @@ public class TriggerHandler {
         boolean checkStatics = false;
 
         // Static ones should happen first
-        for (final Trigger t : Lists.newArrayList(activeTriggers)) {
+        final Iterable<Trigger> candidates = eventCandidates(wt);
+        for (final Trigger t : Lists.newArrayList(candidates)) {
             if (t.isStatic() && canRunTrigger(t, wt)) {
                 int trigAmt = 1 + StaticAbilityPanharmonicon.handlePanharmonicon(game, t, runParams);
                 for (int i = 0; i < trigAmt; ++i) {
@@ -352,7 +356,7 @@ public class TriggerHandler {
         }
 
         final boolean wasCollected = wt.getTriggers() != null;
-        final Iterable<Trigger> triggers = wasCollected ? wt.getTriggers() : activeTriggers;
+        final Iterable<Trigger> triggers = wasCollected ? wt.getTriggers() : candidates;
 
         // the trigger will be ordered later in MagicStack
         for (final Trigger t : triggers) {
@@ -619,9 +623,38 @@ public class TriggerHandler {
     public List<Trigger> getActiveTrigger(final TriggerType mode, final Map<AbilityKey, Object> runParams) {
         return getActiveTrigger(new TriggerWaiting(mode, runParams));
     }
+    private Iterable<Trigger> eventCandidates(final TriggerWaiting wt) {
+        final TriggerType mode = wt.getMode();
+        if ((mode != TriggerType.Sacrificed && mode != TriggerType.SacrificedOnce)
+                || !(wt.getParams().get(AbilityKey.LastStateBattlefield) instanceof CardCollectionView battlefield)) {
+            return activeTriggers;
+        }
+
+        final Set<Trigger> candidates = new LinkedHashSet<>();
+        for (Trigger trigger : activeTriggers) {
+            Card host = trigger.getHostCard();
+            if (trigger.getMode() == mode && !host.isInPlay() && !battlefield.contains(host)) {
+                candidates.add(trigger);
+            }
+        }
+        // Battlefield triggers are evaluated using the ability set from before the entire sacrifice.
+        for (Card lki : battlefield) {
+            if (lki.isPhasedOut()) {
+                continue;
+            }
+            for (Trigger trigger : lki.getTriggers()) {
+                if (trigger.getMode() == mode && trigger.zonesCheck(lki.getLastKnownZone())
+                        && trigger.phasesCheck(game)) {
+                    candidates.add(trigger);
+                }
+            }
+        }
+        return candidates;
+    }
+
     private List<Trigger> getActiveTrigger(final TriggerWaiting wt) {
         List<Trigger> trigger = Lists.newArrayList();
-        for (final Trigger t : activeTriggers) {
+        for (final Trigger t : eventCandidates(wt)) {
             if (canRunTrigger(t, wt)) {
                 trigger.add(t);
             }

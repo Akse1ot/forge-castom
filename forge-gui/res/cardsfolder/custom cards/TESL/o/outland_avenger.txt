@@ -1,0 +1,7 @@
+Name:Outland Avenger
+ManaCost:8 G
+Types:Creature Elemental
+PT:10/10
+S:Mode$ ReduceCost | Type$ Spell | ValidCard$ Card.Self | EffectZone$ All | Amount$ X | Description$ This spell costs {1} less for each artifact card in a graveyard.
+SVar:X:Count$ValidGraveyard Artifact
+Oracle:This spell costs {1} less for each artifact card in a graveyard.

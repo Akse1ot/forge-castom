@@ -1,0 +1,7 @@
+Name:Will-Liberator
+ManaCost:3 R R
+Types:Creature Human Wizard
+PT:2/3
+T:Mode$ BecomesTarget | ValidTarget$ Creature.OppCtrl+inZoneBattlefield | ValidSource$ SpellAbility.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGain | TriggerDescription$ Whenever a creature an opponent controls becomes the target of a spell or ability you control, gain control of it until end of turn. Untap it. It gains haste until end of turn.
+SVar:TrigGain:DB$ GainControl | LoseControl$ EOT | Untap$ True | AddKWs$ Haste | Defined$ TriggeredTarget
+Oracle:Whenever a creature an opponent controls becomes the target of a spell or ability you control, gain control of that creature until end of turn. Untap it. It gains haste until end of turn.

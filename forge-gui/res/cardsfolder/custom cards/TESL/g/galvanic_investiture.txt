@@ -1,0 +1,6 @@
+Name:Galvanic Investiture
+ManaCost:3 U R
+Types:Enchantment
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigAnimate | OptionalDecider$ You | TriggerDescription$ At the beginning of combat on each turn, you may have target artifact you control become an artifact creature with base power and toughness 5/5 until end of turn. It gains haste until end of turn.
+SVar:TrigAnimate:DB$ Animate | ValidTgts$ Artifact.YouCtrl | Power$ 5 | Toughness$ 5 | Types$ Artifact,Creature | Keywords$ Haste
+Oracle:At the beginning of combat on each turn, you may have target artifact you control become an artifact creature with base power and toughness 5/5 until end of turn. It gains haste until end of turn.

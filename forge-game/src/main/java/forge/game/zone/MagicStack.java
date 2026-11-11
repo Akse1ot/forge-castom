@@ -299,8 +299,8 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
 
         recordUndoableActions(sp);
 
-        // Mana Abilities go straight through
-        if (sp.isManaAbility()) {
+        // Mana activations go straight through. An opted-in copy uses the ordinary copy path.
+        if (sp.isManaAbility() && !(sp.isCopied() && Boolean.parseBoolean(sp.getParam("PutManaCopiesOnStack")))) {
             // this can matter, if e.g. Vhal, Candlekeep Researcher toughness changes from tapping
             game.getAction().checkStaticAbilities();
 

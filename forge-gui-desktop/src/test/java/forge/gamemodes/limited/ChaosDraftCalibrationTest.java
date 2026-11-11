@@ -5,6 +5,7 @@ import forge.ai.AITest;
 import forge.card.ColorSet;
 import forge.card.MagicColor;
 import forge.deck.Deck;
+import forge.deck.DeckSection;
 import forge.item.PaperCard;
 import org.testng.annotations.Test;
 
@@ -22,6 +23,73 @@ public class ChaosDraftCalibrationTest extends AITest {
     private static final int RWG = MagicColor.RED | MagicColor.WHITE | MagicColor.GREEN;
     private static final int UR = MagicColor.BLUE | MagicColor.RED;
     private static final int UG = MagicColor.BLUE | MagicColor.GREEN;
+
+    @Test
+    public void recognizesManaPathsAndSeparatesUtilityFromExternalRating() throws IOException {
+        ChaosRatings ratings = ratings(directory());
+        List<PaperCard> candidates = List.of(card("Command Tower"), card("Path of Ancestry"),
+                card("Temple of the False God"), card("Jeweled Amulet"), card("Krark-Clan Ironworks"),
+                card("Forsaken Crossroads"), card("Harvester Druid"), card("Fertile Ground"),
+                card("Terramorphic Expanse"), card("Llanowar Elves"), card("Sol Ring"), card("Grizzly Bears"));
+        var late = new ArrayList<>(Collections.nCopies(10, card("Grizzly Bears")));
+        late.addAll(Collections.nCopies(6, card("Stone Giant")));
+        var early = evaluate(ratings, List.of(), 0, candidates, false);
+        var developed = evaluate(ratings, late, RWG, candidates, false);
+        var evaluator = new ChaosDraftEvaluator(ratings, List.of(), ColorSet.C, new Deck(), false);
+        var unusable = evaluator.preview(candidates.subList(0, 2));
+        for (PaperCard land : candidates.subList(0, 2)) {
+            assertEquals(unusable.get(land).value(), 1.0, land.getName());
+            assertFalse(unusable.get(land).recommended(), land.getName());
+            assertFalse(ChaosAiEvidence.deckAllowed(land, late));
+        }
+        assertEquals(ChaosManaPlan.readSource(candidates.get(2)).turn(), 5);
+        var temple = ChaosManaPlan.readSource(candidates.get(2));
+        assertEquals(new ChaosManaPlan(List.of(card("Island")), new java.util.IdentityHashMap<>()).resolve(temple).output(), 0);
+        assertEquals(new ChaosManaPlan(Collections.nCopies(4, card("Island")), new java.util.IdentityHashMap<>())
+                .resolve(temple).output(), 2);
+        var reflected = ChaosManaPlan.readSource(candidates.get(6));
+        assertEquals(new ChaosManaPlan(List.of(card("Forest")), new java.util.IdentityHashMap<>())
+                .resolve(reflected).produces(), (int) MagicColor.GREEN);
+        assertTrue(developed.get(2).poolBase() > early.get(2).poolBase());
+        assertEquals(early.get(3).poolBase(), 22.0);
+        assertEquals(early.get(4).poolBase(), 18.0);
+        var fodder = evaluate(ratings, Collections.nCopies(5, card("Sol Ring")), 0, candidates, false);
+        assertTrue(fodder.get(4).poolBase() > early.get(4).poolBase());
+        assertTrue(developed.get(5).poolBase() >= 65 && developed.get(5).poolBase() < 90);
+        assertTrue(developed.get(6).poolBase() > early.get(6).poolBase());
+        assertTrue(developed.get(7).poolBase() > early.get(7).poolBase());
+        assertTrue(developed.get(8).poolBase() >= 55 && developed.get(8).poolBase() < 80);
+        assertTrue(developed.get(9).poolBase() >= 85 && developed.get(9).poolBase() > early.get(9).poolBase());
+        assertEquals(developed.get(10).poolBase(), 98.0);
+        assertEquals(developed.get(11).poolBase(), 65.0);
+        var uncertain = evaluate(ratings, late, RWG, List.of(card("Reflecting Pool"), card("Maze of Ith")), false);
+        assertEquals(uncertain.get(0).support(), ChaosCardProfile.Support.UNKNOWN);
+        assertTrue(uncertain.get(0).poolBase() > 0 && uncertain.get(0).poolBase() < 90);
+        assertEquals(uncertain.get(1).poolBase(), 91.0);
+        for (int i = 0; i < candidates.size(); i++) {
+            System.out.printf(java.util.Locale.ROOT, "MANA %s %.2f %.2f %.2f%n", candidates.get(i).getName(),
+                    early.get(i).rating(), early.get(i).score(), developed.get(i).score());
+        }
+    }
+
+    @Test
+    public void trimsOnlyAnOverlandedDeckWithPayableAcceleration() throws IOException {
+        var ratings = ratings(directory());
+        for (int lands : List.of(18, 19, 20)) {
+            var deck = new Deck();
+            deck.getMain().add(card("Island"), lands / 2);
+            deck.getMain().add(card("Mountain"), lands - lands / 2);
+            deck.getMain().add(card("Izzet Signet"));
+            deck.getMain().add(card("Talisman of Indulgence"));
+            deck.getMain().add(card("Stone Giant"), 40 - lands - 2);
+            deck.getOrCreate(DeckSection.Sideboard).add(card("Incinerate"));
+            var stock = deck.getMain().toFlatList();
+            stock.add(card("Incinerate"));
+            var result = new ChaosDeckTuner(ratings, ColorSet.fromMask(UR)).improve(deck, stock);
+            assertEquals(result.deck().getMain().countAll(), 40);
+            assertEquals(result.after().lands(), Math.min(lands, 19), result.toString());
+        }
+    }
 
     @Test
     public void conditionalManaRequiresTheActualProvidersAndKeepsItsGuaranteedOutput() throws IOException {
@@ -155,7 +223,11 @@ public class ChaosDraftCalibrationTest extends AITest {
         Files.writeString(root.resolve("ratings.tsv"), "Urza's Mine\t78.8\nCabal Coffers\t90\n"
                 + "Sunken Hollow\t92.46\nRites of Spring\t57.47\nMarkov Waltzer\t34.8\nVanquish the Weak\t82.99\n"
                 + "Charcoal Diamond\t89.17\nBrain Freeze\t99.66\nDark Ritual\t99.24\nGrizzly Bears\t65\nSol Ring\t98\n"
-                + "Priest of Titania\t93\n");
+                + "Priest of Titania\t93\nCommand Tower\t99\nPath of Ancestry\t99\nTemple of the False God\t72\n"
+                + "Jeweled Amulet\t99\nKrark-Clan Ironworks\t99\nForsaken Crossroads\t98\nHarvester Druid\t93\n"
+                + "Fertile Ground\t95\nTerramorphic Expanse\t98\nLlanowar Elves\t98\nIncinerate\t93\n"
+                + "Stone Giant\t50\nIzzet Signet\t82\nTalisman of Indulgence\t80\n"
+                + "Reflecting Pool\t98\nMaze of Ith\t91\n");
         return new ChaosRatings(root);
     }
 }

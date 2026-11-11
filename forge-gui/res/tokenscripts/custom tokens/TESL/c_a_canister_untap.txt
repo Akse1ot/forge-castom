@@ -1,0 +1,5 @@
+Name:Canister Token
+ManaCost:no cost
+Types:Artifact Canister
+A:AB$ Untap | Cost$ T Sac<1/CARDNAME> | ValidTgts$ Permanent | TgtPrompt$ Select target permanent | PlayerTurn$ True | SpellDescription$ Untap target permanent. Activate only during your turn.
+Oracle:{T}, Sacrifice this artifact: Untap target permanent. Activate only during your turn.

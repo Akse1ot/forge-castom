@@ -1,0 +1,8 @@
+Name:Surveillance Airship
+ManaCost:4
+Types:Artifact Creature Ship
+PT:3/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLook | TriggerDescription$ When CARDNAME enters the battlefield, look at target player's hand.
+SVar:TrigLook:DB$ RevealHand | ValidTgts$ Player | Look$ True
+Oracle:Flying\nWhen Surveillance Airship enters the battlefield, look at target player’s hand.

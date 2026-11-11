@@ -1,0 +1,7 @@
+Name:Good as New
+ManaCost:2 G
+Types:Sorcery
+A:SP$ ChangeZone | ValidTgts$ Permanent.YouOwn | TgtZone$ Graveyard | Origin$ Graveyard | Destination$ Hand | SubAbility$ DBExile | SpellDescription$ Return target permanent card from your graveyard to your hand. Exile CARDNAME. Recharge.
+SVar:DBExile:DB$ ChangeZone | Defined$ Self | Origin$ Stack | Destination$ Exile | SubAbility$ DBRecharge
+SVar:DBRecharge:DB$ Token | TokenScript$ c_a_canister_untap | TokenOwner$ You
+Oracle:Return target permanent card from your graveyard to your hand. Exile Good as New.\nRecharge. (Create a colorless Canister artifact token with “{T}, Sacrifice this artifact: Untap target permanent. Activate this ability only during your turn.”)

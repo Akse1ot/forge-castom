@@ -1,0 +1,275 @@
+# STAGING TESL v1.05. Cards with pending scripts or validation remain commented.
+# TESL_REUBEN_V1 validated in Stage 7.
+[metadata]
+Code=TESL
+Code2=TESL
+Name=Tesla
+Date=2018-07-17
+Type=Custom_Set
+Foil=NotSupported
+Booster=9 Common:!dfc, 3 Uncommon:!dfc, 1 RareMythic:!dfc, 1 dfc
+BoosterCollation=TESL_REUBEN_V1
+
+[ArtifactTypes]
+Canister
+
+[cards]
+001 C Aether Jets @ Hideyoshi
+002 R Agent of Individuality @ thegryph
+003 U Airheaded Lookout @ Sean Sevestre
+004 C Apprehend the Ringleader @ Mark Bulahao
+005 M Avatar of Authority @ Fredaugis
+006 C Border Sentry @ Nicholas Kole
+007 R Caretaker of the City @ elmolol
+008 C Census Enforcer @ Ignacio Baz&#225;n Lazcano
+009 R Clockwork Battlecrafter @ Liang Xing
+010 R Constant Scrutiny @ Noah Bradley
+011 U Consulate Emergency @ celarx
+012 C Consulate Faithful @ Gorrem
+013 C Courtroom Custodians @ 1oshuart
+014 C Crowd Dispersal @ brobossa
+015 C District Patroller @ Anna Malkova
+016 U Enforcer Knight @ Jaan-Paul van Eeden
+017 U Equality Enforcer @ Eduard Kolokolov
+018 C Garuda Tactician @ Jerome Jacinto
+019 C Halt Innovation @ Kwok Shao Wen
+020 U Heroic Valor @ nosaj7541
+021 U House Arrest @ Damien Malinvaud
+022 C Hunting Roc @ Gonzalo Ord&#243;&#241;ez Arias
+023 C Induction Field @ darkenter
+024 U Isolated Citizen @ zartos at strikingly
+025 C Kindly Guard @ Hendry Iwanaga
+026 C Outlands Detachment @ Blake Henriksen
+027 M Perfected Production @ tituslunter
+028 U Perimeter Controller @ redan23
+029 U Punish Transgression @ Henry Peters
+030 C Road to Progress @ tyler edlin
+031 R Skyship Admiral @ arsenixc_fitire
+032 U Soldier of Tomorrow @ Luke Mancini
+033 C Sudden Armor @ Blake Henriksen
+034 U Suljet’s Perfection @ leadheavy
+035 C Timid Citizen @ Cristi Balanescu
+036 R Transhumanism @ ryan_davio
+037 C Access Denied I @ Dmitry Desyatov
+038 C Canal Smuggler @ Nicole Cardiff
+039 C Canister Courier @ Anne Stokes
+040 C Clockwork Perfection @ Julie Dillon
+041 U Cloudcrash Skywhale @ worldsadrift
+042 R Crowd Suppressor @ killmatthew33
+043 U District Lockdown @ Josh Corpus
+044 U Favorable Winds @ yongsub noh
+045 C Fugitive Freelancer @ shirohtakashiya
+046 U Fugitive Mage @ Sam Kurdenton
+047 C Garuda Vanguard @ srithanon eiamchan
+048 U Gifted Electrician @ hybridgothica
+049 R Hastily Enforced Curfew @ bluefley
+050 C Hungry Hippo @ Patsy Lindamood
+051 C Ionosphere Hunter @ Tansie Stephens
+052 M Jace, Oath Keeper @ Noxypia
+053 C Jace’s Informant @ Luis Melo
+054 C Jump Ahead @ Jean-Paul Van Eeeden
+055 U Lurking Crustacean @ Alex Konstad
+056 C Magnetic Repulse @ Bogdan_MRK
+057 U Mechanical Vision @ sux2beme
+058 C Mindleak Agent @ Johann Bodin
+059 C Negate @ Alexander Nanitchkov
+060 C Neural Serum @ Anthony Wolff
+061 C Overseer Agent @ Brooke Gillette
+062 R Plagiarized Results @ tranquilo
+063 C Product Recall @ Julie Dillon
+064 R Production Enhancer @ eddy shinjuku
+065 U Reconnaisance Man @ Anndr Kusuriruiri
+066 U Repurpose @ Tansie Stephens
+067 R Skyship Prodigies @ Antonio Caparo
+068 M Skywhale Cloudlord @ natehallian
+069 U Suppressing Agent @ Graey Erb
+070 U Surveillance Mission @ hybridgothica
+071 C Under the Radar @ Diego Cunha
+072 R Will of the People @ langxing
+073 U Avaricious Asura @ thedurrrrian
+074 C Canister Addict @ raggedy
+075 U Consulate Agent @ Paul Reck
+076 R Consulate Conditioning @ Aleksi Briclot
+077 C Controversial Experiment @ dfer32
+078 R Courtroom Executor @ Numera
+079 C Crowd Breaker @ Derrick Song
+080 U Extract Essence @ Scott Purdy
+081 U Fifth Column @ Fabien Jacques
+082 C Frighten @ Marc Brunet
+083 R Gilded Taskmaster @ Yulia misyul
+084 M Gravedebt Demon @ Christian Quinot
+085 U Hungry Shade @ Felipe Escobar Bravo
+086 U Information Extraction @ Michael Ivan
+087 C Living Autopsy @ ahbeejieh
+088 U Make Obsolete @ arsenicinshell
+089 M Materialism @ realnam
+090 C Mortician’s Work @ Vadim Marchenkov
+091 C Naga Drowner @ Ryan Barger
+092 R Nothing Lost @ macrebisz
+093 C Outlands Abomination @ Mateusz Ozminski
+094 C Overworked Prole @ Jan Wessbecher
+095 U Plea Bargain @ Alex Broeckel
+096 U Political Campaigner @ ladyavali
+097 U Shady Consultant @ bayardwu
+098 C Sky Pirate @ Daniel Kamarudin
+099 C Stamp Out @ Christian Quinot
+100 C Subduing Strike @ St&#233;phane Ducher
+101 C Temple Rats @ Carl Frank
+102 C Tigrala Ravagers @ Hendry Iwanaga
+103 R Tiran, Judge of the Fifth Court @ EveVentrue
+104 R Tyrannic Brutality @ Jason A. Engle
+105 C Unnatural Wretch @ marko_djurdjevic
+106 U Unstoppable Experiment @ Jeff Brown
+107 C Vile Transmogrification @ Andreas Zafiratos
+108 C Zila Officer @ Conor Burke
+109 U Aerial Mayhem @ Ameen Naksewee
+110 U Alchemic Blaze @ Chris Yang
+111 C Chainbound Ogre @ Alagoth Games
+112 M Chandra, Heart of the Revolt @ Jason Chan
+113 U Chandras Catharsis @ Aldin Viray
+114 U Chandra’s Greater Fury @ Ronald Prasetya Darma
+115 C Civil Unrest @ Kentaro Kanamoto
+116 U Combustion Engineer @ ArtMagix
+117 R Crazy Conspiracy @ Thomas Wievegg
+118 C Curious Outlaw @ Viktoria Gavrilenko
+119 C Disloyalty @ Jason Engle
+120 R Echowisp @ J. R. Coffron
+121 U Flamewatcher Giant @ Grace Liu
+122 C Freedom Fighter @ sakimichan
+123 C Ghirapur Gearcrafter @ Victor Adame Minguez
+124 C Ghirapur Technician @ Ignacio Baz&#225;n Lazcano
+125 C Jintara Cannoneer @ Jubjubjedi
+126 U Meddling Instigator @ Igor Kieryluk
+127 C Munitions Thief @ Jason Nguyen
+128 C Opportunist Berserker @ Julian G
+129 M Outlands Hellkite @ Ameeeeba
+130 C Pleasure to Burn @ discogangsta
+131 U Propaganda Artist @ Artshardz
+132 C Rage Against the System @ Fabien Jacques
+133 U Rebel Inventor @ Ana Fagarazzi
+134 R Revolutionary Herald @ LASAHIDO
+135 R Rooftop Thief @ Mike Capprotti
+136 C Scouring Sands @ Dinhosaur
+137 C Sieze Supplies @ Luis Lasahido
+138 R Siv’s Legacy @ Sergey Mikrob
+139 U Siv’s Messenger @ Luis Melo
+140 C Tigrala Pugilist @ Lorenz Hideyoshi Ruwwe
+141 U Unwilling Recruit @ Paul Guzenko
+142 C Vanara Thrillseeker @ Qiang Xiang
+143 C Vicious Seengshir @ Victor Adame Minguez
+144 R Will-Liberator @ juliedillon
+145 C Aether Infusion @ Yan Kyohara
+146 U Aether-Touched Hydra @ guterrez
+147 C Aether-Warped Predator @ Felipe Pesantezr
+148 U Aetherguard Rhino @ Andrew Hou
+149 C Armor Deliverer @ madspartan013
+150 R Augmented Critter @ Emmanuel Bou
+151 M Avatar of the Old Ways @ Henryca Sitra
+152 C Better and Stronger @ Derrick Song
+153 R Bio-Research @ jbrown67
+154 C Consulate Colonists @ BrainGhost
+155 U Daitya Survivor @ oshuart
+156 U Endangered Animal @ saeedramez
+157 U Exploit the Outlands @ nosaj7541
+158 U Frenzied Traditionalists @ Lucas Parolin
+159 U Good as New @ franklinchan
+160 C Grip of Regression @ Nigel Quarless
+161 C Guerilla Warfare @ Jack Zhang
+162 C Jungle Elephant @ Jamshed Jurabaev
+163 C Leyline Disturbance @ Anton Kagounkin Magdalina
+164 U Munitions Maker @ Brooke Gillette
+165 C Mutated Gaur @ Gaudi Buendia
+166 C Mutated Man @ Andrew Ryan
+167 M Nissa, Planar Pilgrim @ Igor Kieryluk
+168 R Nurturer of the Old Ways @ ZP-ZHANG
+169 R Outland Avenger @ Ptitvinc
+170 C Outlands Bandit @ Rakshasa
+171 C Pioneer Researcher @ Yan Kyohara
+172 C Prepare a Hideout @ Mathieu Latour-Duhaime
+173 U Primal Resistance @ Lorenz Hideyoshi Ruwwe
+174 C Rhox Savage @ Angel Palacios
+175 C Rise Up I @ NathanParkArt
+176 U Tigrala Wildfist @ Antonio Jos&#233; Manzanedo
+177 R Untamed Hydra @ Darkcloud013
+178 C Vanara Terror @ DeviantMidget
+179 U Wealthy Man @ mariusbota
+180 R Wisdom of the Mighty @ Kekai Kotaki
+181 U Aerial Commander @ Miyabi Kazashino
+182 R Aether Animist @ Dylan Pierpont
+183 U Aether Stomper @ Mark Bulahao
+184 U Aggressive Recruiter @ Parakorn
+185 M Baral, Blade of Retribution @ James Zapata
+186 U Captain of Industry @ Konev Alexey
+187 R Claim of the Wastes @ Zhang Qipeng
+188 R Communal Blessing @ rhads
+189 R Consulate Baron @ Ryan Barger
+190 U Corrupt Lieutenant @ Benedick Bana
+191 U Galvanic Investiture @ Jose Vega
+192 R Garuda Windmaster @ Juan Arrabal Hern&#225;ndez
+193 U Naga Spymaster @ John Stone
+194 R Outland Apex @ Kim Sung Hwan
+195 U Ruthless Collector @ Bopchara
+196 R Ruzzio and Aziria @ michalivan
+197 R Siv Katari, Rebel Technician @ Anthony Wolff
+198 U Siv’s Lieutenant @ hgjart
+199 M Suljet, the Cog Mind @ Julie Dillon
+200 R Undercity Negotiator @ Saryth Chareonpanichkul
+201 R Valiant Effort @ junc
+202 U Wilds Raider @ Jonathan Sisneros
+203 R Alloy Array @ Victor Adame Minguez
+204 C Anti-Air Turret @ Labyrinth
+205 U Assault Automaton @ aurel
+206 C Battery Golem @ Dmitry Burmak
+207 R Blade of Choices @ Bryan Marvin P. Sola
+208 C City Sentinel @ Sycra Yasin
+209 R Co-Creation Marvel @ Michael Rookard
+210 C Cog Mind Sentry @ Alexander Nanitchko
+211 U Comptometer @ Alexander Jansson
+212 U Courtroom Guardian @ Alexander Nanitchkov
+213 M Crown of Ideals @ sakimichan
+214 C Delivery Automaton @ artifica
+215 C Energized Bolas @ Labyrinth
+216 C Explosive Apparatus @ Kwok Shao Wen
+217 C Gearcrafted Gardener @ Julie Dillon
+218 C Jetpack @ likaspapaya
+219 U Malfunctioning Ravager @ Rams&#233;s Mel&#233;ndez
+220 U Mana Drone @ Tobias Watzl
+221 U Matrix Resonator @ Luke Mancini
+222 C Mechanical Mutt @ Fatafortuna
+223 R Necrotic Resonator @ kyzylhum
+224 C Paradise Gearwing @ ninel
+225 C Patrol Vehicle @ Luke Mancini
+226 M Possibility Titan @ bluefley_
+227 U Power Suit @ Nck Avallone
+228 U Pressgang Airship @ Enggar Ajar Adirasa
+229 M Prosperity Engine @ Gregory Fromenteau
+230 U Reinforcing Armor @ Jacob Atienza
+231 C Research Notes @ Alexander Nanitchkov
+232 R Selefar War-Walker @ Daniel Kamarudin
+233 R Self-Perfecting Construct @ juliedillon
+234 R Siege Tank @ eddy shinjuku
+235 C Suppression Suit @ AbelVera
+236 U Surveillance Airship @ pixiv
+237 R Aether Plantation @ Jordan Grimmer
+238 U Cinder Barrens @ Sebastian_Wagner
+239 R Corrupt Courtroom @ ChaoyuanXu
+240 R District Slums @ nurkhular
+241 R Factory Reactor @ antifan
+242 C Frontier Outpost @ Gregory Fromenteau
+243 U Meandering River @ tdtqr2
+244 R Restless District @ waqasmallick
+245 U Submerged Boneyard @ Camille Kuo
+246 U Timber Gorge @ ricardox
+247 U Tranquil Expanse @ min hao feng
+248 C Utopian District @ j c barquet
+249 R Weapons Cache @ Halls Boros
+250 L Plains @ tyler edlin
+251 L Island @ Irene Zeleskou
+252 L Swamp @ blinck
+253 L Mountain @ Alexander Thumler
+254 L Forest @ Philip Straub
+
+[tokens]
+001 r_1_1_citizen @ ryan moeck
+002 c_a_canister_untap @ Punchcawa
+003 c_1_1_a_thopter_flying @ Vasilyna Holod

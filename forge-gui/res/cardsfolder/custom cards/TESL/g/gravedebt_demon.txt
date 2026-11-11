@@ -1,0 +1,10 @@
+Name:Gravedebt Demon
+ManaCost:3 B B
+Types:Creature Demon
+PT:4/5
+K:Flying
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl | ReplaceWith$ Exile | Description$ If a creature an opponent controls would die, instead that player may pay 3 life. If they do, that creature dies. Otherwise, exile it.
+SVar:Exile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile | UnlessCost$ PayLife<3> | UnlessPayer$ ReplacedCardController | UnlessResolveSubs$ WhenPaid | SubAbility$ Resume
+SVar:Resume:DB$ ReplaceEffect
+S:Mode$ Continuous | Affected$ Card.nonLand+ExiledWithSource | AffectedZone$ Exile | MayPlay$ True | MayPlayIgnoreType$ True | Description$ You may cast cards exiled with CARDNAME and may spend mana as though it were mana of any type to cast them.
+Oracle:Flying\nIf a creature an opponent controls would die, instead that player may pay 3 life. If he or she does, that creature dies. Otherwise, exile that creature.\nYou may cast cards exiled with Gravedebt Demon and you may spend mana as though it were mana of any type to cast them.

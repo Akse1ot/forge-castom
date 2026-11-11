@@ -161,6 +161,7 @@ public class GameCopier {
         }
 
         copyGameState(newGame, aiPlayer);
+        newGame.copyTeslaJusticeFrom(origGame);
 
         for (Player origPlayer : playerMap.keySet()) {
             Player newPlayer = playerMap.get(origPlayer);

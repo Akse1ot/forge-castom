@@ -1,0 +1,5 @@
+Name:Magnetic Repulse
+ManaCost:3 U
+Types:Sorcery
+A:SP$ ChangeZone | ValidTgts$ Creature,Artifact | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 0 | SpellDescription$ Put target creature or artifact on top of its owner's library.
+Oracle:Put target creature or artifact on top of its owner’s library.

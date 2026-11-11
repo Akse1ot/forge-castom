@@ -1,0 +1,8 @@
+Name:Nurturer of the Old Ways
+ManaCost:1 G
+Types:Creature Human Druid
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Artifact | TriggerZones$ Battlefield | Execute$ TrigCounter | TriggerDescription$ Whenever an artifact is put into a graveyard from the battlefield, put a +1/+1 counter on CARDNAME.
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+A:AB$ Destroy | Cost$ 5 G | ValidTgts$ Artifact | TgtPrompt$ Select target artifact | SpellDescription$ Destroy target artifact.
+Oracle:Whenever an artifact is put into a graveyard from the battlefield, put a +1/+1 counter on Nurturer of the Old Ways.\n{5}{G}: Destroy target artifact.

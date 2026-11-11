@@ -1,0 +1,5 @@
+Name:Mutated Gaur
+ManaCost:5 G G
+Types:Creature Ox Mutant
+PT:7/6
+Oracle:

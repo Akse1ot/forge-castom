@@ -1,0 +1,5 @@
+Name:Living Autopsy
+ManaCost:3 B
+Types:Sorcery
+A:SP$ Draw | Cost$ 3 B Sac<1/Creature> | NumCards$ 3 | SpellDescription$ Draw three cards.
+Oracle:As an additional cost to cast Living Autopsy, sacrifice a creature.\nDraw three cards.

@@ -1,0 +1,7 @@
+Name:Suljet’s Perfection
+ManaCost:4 W
+Types:Sorcery
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 2 | Choices$ DBReturn,DBDestroy
+SVar:DBReturn:DB$ ChangeZone | ValidTgts$ Artifact.YouOwn | TgtZone$ Graveyard | Origin$ Graveyard | Destination$ Battlefield | SpellDescription$ Return target artifact card from your graveyard to the battlefield.
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact | SpellDescription$ Destroy target artifact.
+Oracle:Choose one or both —\n• Return target artifact card from your graveyard to the battlefield.\n• Destroy target artifact.

@@ -1,0 +1,7 @@
+Name:Grip of Regression
+ManaCost:1 G
+Types:Sorcery
+A:SP$ Charm | Choices$ DBFlyer,DBArtifact
+SVar:DBFlyer:DB$ Destroy | ValidTgts$ Creature.withFlying | SpellDescription$ Destroy target creature with flying.
+SVar:DBArtifact:DB$ Destroy | ValidTgts$ Artifact | SpellDescription$ Destroy target artifact.
+Oracle:Choose one —\n• Destroy target creature with flying.\n• Destroy target artifact.
