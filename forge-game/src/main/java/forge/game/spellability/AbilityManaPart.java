@@ -156,7 +156,7 @@ public class AbilityManaPart implements java.io.Serializable {
      * @param player
      *            a {@link forge.game.player.Player} object.
      * @param sa
-     *
+     * @return the mana after replacement, or an empty string if no mana was added
      */
     public final String produceMana(final String produced, final Player player, SpellAbility sa) {
         final Card source = this.getSourceCard();
@@ -180,6 +180,7 @@ public class AbilityManaPart implements java.io.Serializable {
                 afterReplace = (String) repParams.get(AbilityKey.Mana);
                 break;
             default:
+                this.lastManaProduced.clear();
                 return "";
             }
         }
@@ -187,9 +188,10 @@ public class AbilityManaPart implements java.io.Serializable {
         //clear lastProduced
         this.lastManaProduced.clear();
 
+        final String[] manaTokens = StringUtils.split(afterReplace);
         int producedCount = 0;
         if (this.triggersWhenSpentTogether && this.triggersWhenSpent != null) {
-            for (final String c : afterReplace.split(" ")) {
+            for (final String c : manaTokens) {
                 producedCount += StringUtils.isNumeric(c) ? Integer.parseInt(c) : 1;
             }
         }
@@ -201,7 +203,7 @@ public class AbilityManaPart implements java.io.Serializable {
         Map<Byte, Mana> manaHolder = Maps.newHashMap();
 
         // loop over mana produced string
-        for (final String c : afterReplace.split(" ")) {
+        for (final String c : manaTokens) {
             if (StringUtils.isNumeric(c)) {
                 this.lastManaProduced.add(
                         manaHolder.computeIfAbsent(
@@ -225,10 +227,14 @@ public class AbilityManaPart implements java.io.Serializable {
             }
         }
 
+        final boolean addedMana = !this.lastManaProduced.isEmpty();
         manaPool.addMana(this.lastManaProduced);
         forge.game.GameObservation observation = game.getLocalObservation();
         if (observation != null) {
             observation.manaProduced(source, root, player, afterReplace);
+        }
+        if (!addedMana) {
+            return "";
         }
 
         final Map<AbilityKey, Object> runParams = AbilityKey.mapFromCard(source);
@@ -249,6 +255,9 @@ public class AbilityManaPart implements java.io.Serializable {
 
         if (getSourceCard().isLand()) {
             root.getActivatingPlayer().setTappedLandForManaThisTurn(true);
+        }
+        if (mana.isEmpty()) {
+            return;
         }
 
         final Map<AbilityKey, Object> runParams = AbilityKey.mapFromCard(getSourceCard());

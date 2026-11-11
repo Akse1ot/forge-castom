@@ -344,6 +344,12 @@ public final class CardUtil {
 
                 colors = CardUtil.getReflectableManaColors(sa, ab, colors, parents);
             }
+        } else if (reflectProperty.equals("CannotProduce") && abMana == sa && sa.isTrigger() && !cards.isEmpty()) {
+            // Only a resolving trigger has a source to inspect. Do not enter this branch during reflection.
+            colors.addAll(MagicColor.Constant.ONLY_COLORS);
+            for (final Card source : cards) {
+                colors.removeAll(source.getProducibleColors());
+            }
         }
         return colors;
     }

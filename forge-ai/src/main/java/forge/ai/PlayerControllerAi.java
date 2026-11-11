@@ -66,6 +66,17 @@ import java.util.stream.Collectors;
  */
 public class PlayerControllerAi extends PlayerController {
     private final AiController brains;
+    private CannotProduceManaAi.Payment manaTriggerPayment;
+
+    void resolveManaPayment(SpellAbility source, CannotProduceManaAi.Payment payment) {
+        CannotProduceManaAi.Payment previous = manaTriggerPayment;
+        manaTriggerPayment = payment;
+        try {
+            getGame().getStack().addAndUnfreeze(source);
+        } finally {
+            manaTriggerPayment = previous;
+        }
+    }
 
     private boolean pilotsNonAggroDeck = false;
 
@@ -1570,6 +1581,9 @@ public class PlayerControllerAi extends PlayerController {
     @Override
     public boolean playTrigger(Card host, WrappedAbility wrapperAbility, boolean isMandatory) {
         if (prepareSingleSa(host, wrapperAbility, isMandatory)) {
+            if (manaTriggerPayment != null) {
+                manaTriggerPayment.apply(wrapperAbility);
+            }
             return ComputerUtil.playNoStack(wrapperAbility.getActivatingPlayer(), wrapperAbility, getGame(), true);
         }
         return false;

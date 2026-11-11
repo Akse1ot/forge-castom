@@ -534,9 +534,16 @@ public class ComputerUtilMana {
     }
 
     public static String predictMana(SpellAbility saPayment, Player ai, ManaCostShard toPay) {
-        Card hostCard = saPayment.getHostCard();
+        return predictMana(saPayment, ai, toPay, null, null, null);
+    }
 
-        StringBuilder manaProduced = new StringBuilder(predictManaReplacement(saPayment, ai, toPay));
+    private static String predictMana(SpellAbility saPayment, Player ai, ManaCostShard toPay,
+            ManaCostBeingPaid cost, SpellAbility paidFor, Map<Trigger, String> triggerChoices) {
+        Card hostCard = saPayment.getHostCard();
+        boolean hasCannotProduce = CannotProduceManaAi.canTriggerFrom(saPayment) && CannotProduceManaAi.hasTrigger(ai);
+
+        String baseMana = toPay.isSnow() && hostCard.isSnow() ? "S" : GameActionUtil.generatedTotalMana(saPayment);
+        StringBuilder manaProduced = new StringBuilder(predictManaReplacement(saPayment, ai, toPay, baseMana, hasCannotProduce));
         String originalProduced = manaProduced.toString();
 
         if (originalProduced.isEmpty()) {
@@ -597,7 +604,42 @@ public class ComputerUtilMana {
                 }
             }
         }
+        Map<Trigger, Set<String>> options = hasCannotProduce
+                ? CannotProduceManaAi.options(saPayment, ai, originalProduced) : Collections.emptyMap();
+        if (!options.isEmpty()) {
+            ManaCostBeingPaid remaining = cost == null ? null : new ManaCostBeingPaid(cost);
+            if (remaining != null) {
+                payMultipleMana(remaining, manaProduced.toString(), ai);
+            }
+            for (Map.Entry<Trigger, Set<String>> entry : options.entrySet()) {
+                String color = CannotProduceManaAi.choose(ai, paidFor, remaining, toPay, entry.getKey(), entry.getValue());
+                if (color == null) {
+                    continue;
+                }
+                manaProduced.append(" ").append(color);
+                if (remaining != null) {
+                    payMultipleMana(remaining, color, ai);
+                }
+                if (triggerChoices != null) {
+                    triggerChoices.put(entry.getKey(), color);
+                }
+            }
+        }
         return manaProduced.toString();
+    }
+
+    private static void resolveManaPayment(SpellAbility source, SpellAbility paidFor, Player player,
+            ManaCostBeingPaid cost, ManaCostShard toPay) {
+        if (player.getController() instanceof PlayerControllerAi controller
+                && CannotProduceManaAi.canTriggerFrom(source) && CannotProduceManaAi.hasTrigger(player)) {
+            Map<Trigger, String> choices = new HashMap<>();
+            predictMana(source, player, toPay, cost, paidFor, choices);
+            if (!choices.isEmpty()) {
+                controller.resolveManaPayment(source, new CannotProduceManaAi.Payment(source.getHostCard(), choices));
+                return;
+            }
+        }
+        player.getGame().getStack().addAndUnfreeze(source);
     }
 
     // no color is chosen yet for combination mana, so "Combo W U" would count as three mana for ManaAmount
@@ -605,20 +647,27 @@ public class ComputerUtilMana {
         return produced.startsWith("Combo ") ? StringUtils.repeat("C", " ", ma.amountOfManaGenerated(false)) : produced;
     }
 
-    private static String predictManaReplacement(SpellAbility saPayment, Player ai, ManaCostShard toPay) {
+    private static String predictManaReplacement(SpellAbility saPayment, Player ai, ManaCostShard toPay, String manaProduced,
+            boolean checkPrevention) {
         Card hostCard = saPayment.getHostCard();
         Game game = hostCard.getGame();
-        String manaProduced = toPay.isSnow() && hostCard.isSnow() ? "S" : GameActionUtil.generatedTotalMana(saPayment);
 
         final Map<AbilityKey, Object> repParams = AbilityKey.mapFromAffected(hostCard);
         repParams.put(AbilityKey.Mana, manaForReplacementCheck(manaProduced, saPayment));
         repParams.put(AbilityKey.Activator, ai);
         repParams.put(AbilityKey.AbilityMana, saPayment); // RootAbility
+        if (checkPrevention) {
+            repParams.put(AbilityKey.Player, ai);
+        }
 
         // TODO Damping Sphere might replace later?
 
         // add flags to replacementEffects to filter better?
         List<ReplacementEffect> reList = game.getReplacementHandler().getReplacementList(ReplacementType.ProduceMana, repParams, ReplacementLayer.Other);
+        if (checkPrevention && reList.size() == 1 && !reList.get(0).hasParam("Optional")
+                && ("True".equals(reList.get(0).getParam("Prevent")) || "True".equals(reList.get(0).getParam("Skip")))) {
+            return "";
+        }
 
         List<SpellAbility> replaceMana = Lists.newArrayList();
         List<SpellAbility> replaceType = Lists.newArrayList();
@@ -928,7 +977,7 @@ public class ComputerUtilMana {
                     }
                 }
 
-                String manaProduced = predictMana(saPayment, ai, toPay);
+                String manaProduced = predictMana(saPayment, ai, toPay, cost, sa, null);
                 payMultipleMana(cost, manaProduced, ai);
                 testLifeSpent += getLifeCost(saPayment);
                 // the mana to activate the ability has to come from the remaining sources
@@ -948,7 +997,7 @@ public class ComputerUtilMana {
                     continue;
                 }
 
-                ai.getGame().getStack().addAndUnfreeze(saPayment);
+                resolveManaPayment(saPayment, sa, ai, cost, toPay);
                 // subtract mana from mana pool
                 manapool.payManaFromAbility(sa, cost, saPayment);
 
@@ -1144,7 +1193,7 @@ public class ComputerUtilMana {
 
         // what the cost will look like once the filter has produced its mana
         final ManaCostBeingPaid remaining = new ManaCostBeingPaid(cost);
-        payMultipleMana(remaining, predictMana(filter, ai, toPay), ai);
+        payMultipleMana(remaining, predictMana(filter, ai, toPay, cost, sa, null), ai);
 
         final ManaCost toActivate = getManaCostToActivate(filter);
         final Set<SpellAbility> tried = new HashSet<>();
@@ -1199,7 +1248,7 @@ public class ComputerUtilMana {
                 }
                 continue;
             }
-            ai.getGame().getStack().addAndUnfreeze(chosen);
+            resolveManaPayment(chosen, filter, ai, toFloat, shard);
             paymentList.add(chosen);
             final SpellAbility used = chosen;
             if (!used.canPlay()) {
@@ -1318,6 +1367,11 @@ public class ComputerUtilMana {
     }
 
     private static boolean canPayShardWithSpellAbility(ManaCostShard toPay, Player ai, SpellAbility ma, SpellAbility sa, ManaCostBeingPaid cost, boolean checkCosts, Map<String, Integer> xManaCostPaidByColor) {
+        return canPayShardWithSpellAbility(toPay, ai, ma, sa, cost, checkCosts, xManaCostPaidByColor, true);
+    }
+
+    private static boolean canPayShardWithSpellAbility(ManaCostShard toPay, Player ai, SpellAbility ma, SpellAbility sa,
+            ManaCostBeingPaid cost, boolean checkCosts, Map<String, Integer> xManaCostPaidByColor, boolean allowCannotProduce) {
         final Card sourceCard = ma.getHostCard();
 
         // A Command-zone mana effect that is a piece of a known win combo is reserved for that combo's payoff.
@@ -1381,7 +1435,7 @@ public class ComputerUtilMana {
                     return true;
                 }
             }
-            return false;
+            return allowCannotProduce && canPayWithCannotProduce(toPay, ai, ma, sa, cost);
         }
 
         if (ma.getApi() == ApiType.ManaReflected) {
@@ -1401,7 +1455,7 @@ public class ComputerUtilMana {
                     return true;
                 }
             }
-            return false;
+            return allowCannotProduce && canPayWithCannotProduce(toPay, ai, ma, sa, cost);
         }
 
         if (!sa.allowsPayingWithShard(sourceCard, MagicColor.fromName(m.getOrigProduced()))) {
@@ -1436,6 +1490,43 @@ public class ComputerUtilMana {
         }
 
         return true;
+    }
+
+    private static boolean canPayWithCannotProduce(ManaCostShard toPay, Player ai, SpellAbility source,
+            SpellAbility paidFor, ManaCostBeingPaid cost) {
+        if (!CannotProduceManaAi.canTriggerFrom(source) || !CannotProduceManaAi.hasTrigger(ai)) {
+            return false;
+        }
+        Map<Trigger, Set<String>> options = CannotProduceManaAi.options(source, ai, potentialMana(source, ai, toPay));
+        boolean payable = options.entrySet().stream().anyMatch(entry -> CannotProduceManaAi.canPay(
+                ai, paidFor, toPay, entry.getValue(), entry.getKey().getHostCard(), cost));
+        if (!payable) {
+            return false;
+        }
+        List<ManaCostShard> shards = cost.getUnpaidShards();
+        Collections.sort(shards);
+        for (ManaCostShard shard : shards) {
+            if (shard != toPay && canPayShardWithSpellAbility(shard, ai, source, paidFor, cost,
+                    false, cost.getXManaCostPaidByColor(), false)) {
+                return true;
+            }
+        }
+        return canPayShardWithSpellAbility(ManaCostShard.GENERIC, ai, source, paidFor, cost,
+                false, cost.getXManaCostPaidByColor(), false);
+    }
+
+    private static String potentialMana(SpellAbility source, Player ai, ManaCostShard toPay) {
+        if (source.amountOfManaGenerated(false) <= 0) {
+            return "";
+        }
+        final String produced;
+        if (source.getApi() == ApiType.ManaReflected) {
+            produced = CardUtil.getReflectableManaColors(source).stream().findFirst().map(MagicColor::toShortString).orElse("");
+        } else {
+            AbilityManaPart part = source.getManaPart();
+            produced = part.isComboMana() ? part.getComboColors(source) : part.mana(source);
+        }
+        return produced.isEmpty() ? produced : predictManaReplacement(source, ai, toPay, produced, true);
     }
 
     // returns true if sourceCard is reserved as a mana source for payment
@@ -1714,6 +1805,7 @@ public class ComputerUtilMana {
     }
     public static int getAvailableManaEstimate(final Player p, final boolean checkPlayable) {
         int availableMana = 0;
+        final boolean hasCannotProduce = CannotProduceManaAi.hasTrigger(p);
 
         final CardCollectionView manaZones = CardCollection.combine(p.getCardsIn(ZoneType.Battlefield), p.getCardsIn(ZoneType.Command));
         final List<Card> srcs = CardLists.filter(manaZones, c -> !c.getManaAbilities().isEmpty());
@@ -1739,6 +1831,9 @@ public class ComputerUtilMana {
                     // a sub-ability can make the mana instead, when the first part's condition isn't met
                     for (SpellAbility part = ma; part != null; part = part.getSubAbility()) {
                         producedTotal += part.amountOfManaGenerated(true);
+                    }
+                    if (hasCannotProduce && CannotProduceManaAi.canTriggerFrom(ma)) {
+                        producedTotal += CannotProduceManaAi.options(ma, p, potentialMana(ma, p, ManaCostShard.GENERIC)).size();
                     }
                     int lifeSpentByAbility = 0;
                     final int lifeCost = getLifeCost(ma);
@@ -1970,6 +2065,7 @@ public class ComputerUtilMana {
                                                                                boolean checkPlayable, final CardCollectionView availableSources) {
         final ListMultimap<Integer, SpellAbility> manaMap = ArrayListMultimap.create();
         final Game game = ai.getGame();
+        final boolean hasCannotProduce = CannotProduceManaAi.hasTrigger(ai);
 
         final CardCollection manaSources = availableSources == null
                 ? getAvailableManaSources(ai, checkPlayable)
@@ -2069,6 +2165,16 @@ public class ComputerUtilMana {
                     tail = tail.getSubAbility();
                 }
 
+                if (hasCannotProduce && sourceCard.isLand() && abCost.hasTapCost()) {
+                    for (Set<String> colors : CannotProduceManaAi.options(m, ai, potentialMana(m, ai, ManaCostShard.GENERIC)).values()) {
+                        for (String color : colors) {
+                            int key = ManaAtom.fromName(color);
+                            if (!manaMap.containsEntry(key, m)) {
+                                manaMap.put(key, m);
+                            }
+                        }
+                    }
+                }
                 if (m.getHostCard().isSnow()) {
                     manaMap.put(ManaAtom.IS_SNOW, m);
                 }

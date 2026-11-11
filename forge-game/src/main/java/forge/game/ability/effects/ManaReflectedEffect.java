@@ -33,13 +33,17 @@ public class ManaReflectedEffect extends SpellAbilityEffect {
     public void resolve(SpellAbility sa) {
         final Collection<String> colors = CardUtil.getReflectableManaColors(sa);
         final AbilityManaPart ma = sa.getManaPart();
+        final boolean cannotProduce = "CannotProduce".equals(sa.getParam("ReflectProperty"));
 
         // Spells are not undoable
         sa.setUndoable(sa.isAbility() && sa.isUndoable() && sa.getSubAbility() == null);
 
         final StringBuilder producedMana = new StringBuilder();
         for (final Player player : getTargetPlayers(sa)) {
-            final String generated = generatedReflectedMana(sa, colors, player);
+            final String generated = generatedReflectedMana(sa, colors, player, cannotProduce);
+            if (cannotProduce && generated.isEmpty()) {
+                continue;
+            }
             producedMana.append(ma.produceMana(generated, player, sa));
         }
 
@@ -59,14 +63,19 @@ public class ManaReflectedEffect extends SpellAbilityEffect {
      *            a {@link java.util.ArrayList} object.
      * @param player
      *            a {@link forge.game.player.Player} object.
+     * @param cannotProduce whether the choice must be a color outside the source's capabilities
      * @return a {@link java.lang.String} object.
      */
-    private static String generatedReflectedMana(final SpellAbility sa, final Collection<String> colors, final Player player) {
+    private static String generatedReflectedMana(final SpellAbility sa, final Collection<String> colors, final Player player,
+            final boolean cannotProduce) {
+        if (cannotProduce && colors.isEmpty()) {
+            return "";
+        }
         // Calculate generated mana here for stack description and resolving
         final int amount = sa.hasParam("Amount") ? AbilityUtils.calculateAmount(sa.getHostCard(), sa.getParam("Amount"), sa) : 1;
         final StringBuilder sb = new StringBuilder();
 
-        if (sa.getManaPart().isComboMana()) {
+        if (!cannotProduce && sa.getManaPart().isComboMana()) {
             Map<Byte, Integer> choices = player.getController().specifyManaCombo(sa, ColorSet.fromNames(colors), amount, false);
             for (Map.Entry<Byte, Integer> e : choices.entrySet()) {
                 Byte chosenColor = e.getKey();
@@ -94,6 +103,9 @@ public class ManaReflectedEffect extends SpellAbilityEffect {
         for (int nChar = 0; nChar < expressChoiceColors.length(); nChar++) {
             mask |= MagicColor.fromName(expressChoiceColors.charAt(nChar));
         }
+        if (cannotProduce) {
+            mask &= ColorSet.fromNames(colors).getColor();
+        }
 
         if (mask == 0 && !expressChoiceColors.isEmpty() && colors.contains("colorless")) {
             baseMana = MagicColor.toShortString(player.getController().chooseColorAllowColorless(Localizer.getInstance().getMessage("lblSelectManaProduce"), sa.getHostCard(), ColorSet.fromMask(mask)));
@@ -119,6 +131,9 @@ public class ManaReflectedEffect extends SpellAbilityEffect {
             }
         }
 
+        if (cannotProduce && !colors.contains(MagicColor.toLongString(MagicColor.fromName(baseMana)))) {
+            return "";
+        }
         if (amount == 0) {
             sb.append("0");
         } else if (StringUtils.isNumeric(baseMana)) {
