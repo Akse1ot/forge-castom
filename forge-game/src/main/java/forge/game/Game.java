@@ -338,10 +338,10 @@ public class Game {
         private final ZoneType origin;
         private final ZoneType destination;
         private final Card card;
-        private final CardZoneTable batch;
+        private final Object batch;
 
         private ZoneChangeBatchRecord(final ZoneType origin, final ZoneType destination,
-                                      final Card card, final CardZoneTable batch) {
+                                      final Card card, final Object batch) {
             this.origin = origin;
             this.destination = destination;
             this.card = card;
@@ -1422,6 +1422,25 @@ public class Game {
         }
 
         return false;
+    }
+
+    public void copyZoneChangeBatchHistoryFrom(final Game source) {
+        if (source == this) {
+            return;
+        }
+        zoneChangeBatchRecordsThisTurn.clear();
+        if (source.zoneChangeBatchRecordsThisTurn.isEmpty()) {
+            return;
+        }
+        final Map<Object, Object> batches = new IdentityHashMap<>();
+        final Map<Card, Card> cards = new IdentityHashMap<>();
+        for (final ZoneChangeBatchRecord entry : source.zoneChangeBatchRecordsThisTurn) {
+            // Historical batches are used only for identity. Keep simultaneous entries together
+            // without carrying the event table and its snapshots into another game.
+            final Object batch = batches.computeIfAbsent(entry.batch, ignored -> new Object());
+            final Card card = CardCopyService.copyLkiForGame(entry.card, this, cards);
+            zoneChangeBatchRecordsThisTurn.add(new ZoneChangeBatchRecord(entry.origin, entry.destination, card, batch));
+        }
     }
 
     public void clearZoneChangeBatchRecordsThisTurn() {

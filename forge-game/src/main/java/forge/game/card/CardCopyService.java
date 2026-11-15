@@ -9,14 +9,24 @@ import forge.game.Game;
 import forge.game.GameEntity;
 import forge.game.ability.ApiType;
 import forge.game.ability.effects.DetachedCardEffect;
+import forge.game.card.perpetual.PerpetualAbilities;
+import forge.game.card.perpetual.PerpetualInterface;
+import forge.game.card.perpetual.PerpetualKeywords;
+import forge.game.card.perpetual.PerpetualTypes;
+import forge.game.combat.AttackingBand;
+import forge.game.combat.CombatLki;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
+import forge.game.zone.Zone;
+import forge.game.zone.ZoneType;
 import forge.trackable.TrackableProperty;
+import forge.util.collect.FCollection;
 import io.sentry.Breadcrumb;
 import io.sentry.Sentry;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static forge.game.card.CardFactory.getCard;
 
@@ -224,30 +234,70 @@ public class CardCopyService {
     }
 
     public Card getLKICopy(Map<Integer, Card> cachedMap) {
+        return getLKICopy(cachedMap, null);
+    }
+
+    /** Copies historical LKI by reference, since a card ID can occur in multiple zone-change records. */
+    public static Card copyLkiForGame(final Card card, final Game game, final Map<Card, Card> copies) {
+        return new CardCopyService(card, game).getLKICopy(null, copies);
+    }
+
+    private Card copyLkiCard(final Card card, final Map<Integer, Card> cachedMap, final Map<Card, Card> history) {
+        return history == null ? getLKICopy(card, cachedMap) : copyLkiForGame(card, toGame, history);
+    }
+
+    private GameEntity copyLkiEntity(final GameEntity entity, final Map<Card, Card> history) {
+        if (entity instanceof Card card) {
+            return copyLkiForGame(card, toGame, history);
+        }
+        return entity instanceof Player player ? toGame.getPlayer(player.getId()) : null;
+    }
+
+    private Zone mapZone(final Zone zone) {
+        if (zone == null || zone.is(ZoneType.None)) {
+            return null;
+        }
+        if (zone.is(ZoneType.Stack)) {
+            return toGame.getStackZone();
+        }
+        final Player player = zone.getPlayer();
+        return player == null ? new Zone(zone.getZoneType(), toGame) : toGame.getPlayer(player.getId()).getZone(zone.getZoneType());
+    }
+
+    private Card getLKICopy(final Map<Integer, Card> cachedMap, final Map<Card, Card> history) {
         if (copyFrom == null) {
             return null;
         }
-        Card cachedCard = cachedMap.get(copyFrom.getId());
+        final boolean historical = history != null;
+        Card cachedCard = historical ? history.get(copyFrom) : cachedMap.get(copyFrom.getId());
         if (cachedCard != null) {
             return cachedCard;
         }
 
-        String msg = "CardUtil:getLKICopy copy object";
-        Breadcrumb bread = new Breadcrumb(msg);
-        bread.setData("Card", copyFrom.getName());
-        bread.setData("CardState", copyFrom.getCurrentStateName().toString());
-        bread.setData("Player", copyFrom.getController().getName());
-        Sentry.addBreadcrumb(bread);
+        if (!historical) {
+            final Breadcrumb bread = new Breadcrumb("CardUtil:getLKICopy copy object");
+            bread.setData("Card", copyFrom.getName());
+            bread.setData("CardState", copyFrom.getCurrentStateName().toString());
+            bread.setData("Player", copyFrom.getController().getName());
+            Sentry.addBreadcrumb(bread);
+        }
 
         final Card newCopy;
-        if(copyFrom instanceof DetachedCardEffect)
-            newCopy = new DetachedCardEffect((DetachedCardEffect) copyFrom, false);
-        else
-            newCopy = new Card(copyFrom.getId(), copyFrom.getPaperCard(), copyFrom.getGame(), null, true);
-        cachedMap.put(copyFrom.getId(), newCopy);
+        if (historical) {
+            newCopy = new Card(copyFrom.getId(), copyFrom.getPaperCard(), toGame, null, true);
+            history.put(copyFrom, newCopy);
+            newCopy.setOwner((Player) copyLkiEntity(copyFrom.getOwner(), history));
+            newCopy.setController((Player) copyLkiEntity(copyFrom.getController(), history), 0);
+        } else {
+            if (copyFrom instanceof DetachedCardEffect)
+                newCopy = new DetachedCardEffect((DetachedCardEffect) copyFrom, false);
+            else
+                newCopy = new Card(copyFrom.getId(), copyFrom.getPaperCard(), copyFrom.getGame(), null, true);
+            cachedMap.put(copyFrom.getId(), newCopy);
+            newCopy.setOwner(copyFrom.getOwner());
+            newCopy.setController(copyFrom.getController(), 0);
+        }
         newCopy.setSetCode(copyFrom.getSetCode());
-        newCopy.setOwner(copyFrom.getOwner());
-        newCopy.setController(copyFrom.getController(), 0);
         newCopy.setCommander(copyFrom.isCommander());
         newCopy.setCollectible(copyFrom.isCollectible());
 
@@ -255,9 +305,9 @@ public class CardCopyService {
         // (e.g. Scrap Trawler + transformed Harvest Hand)
         newCopy.setLKICMC(copyFrom.getCMC());
         // used for the purpose of cards that care about the zone the card was known to be in last
-        newCopy.setLastKnownZone(copyFrom.getLastKnownZone());
+        newCopy.setLastKnownZone(historical ? mapZone(copyFrom.getLastKnownZone()) : copyFrom.getLastKnownZone());
         // copy EffectSource for description
-        newCopy.setEffectSource(getLKICopy(copyFrom.getEffectSource(), cachedMap));
+        newCopy.setEffectSource(copyLkiCard(copyFrom.getEffectSource(), cachedMap, history));
 
         if (copyFrom.isFlipCard()) {
             newCopy.getState(CardStateName.Original).copyFrom(copyFrom.getState(CardStateName.Original), true);
@@ -315,12 +365,18 @@ public class CardCopyService {
         // extra copy PT boost
         newCopy.setPTBoost(copyFrom.getPTBoostTable());
 
-        newCopy.copyFrom(copyFrom);
+        newCopy.copyFrom(copyFrom, historical);
+        if (historical) {
+            for (final CardStateName state : newCopy.getStates()) {
+                final CardState face = newCopy.getState(state);
+                face.setType(new CardType(face.getType()));
+            }
+        }
         newCopy.setCounters(HashMultiset.create(copyFrom.getCounters()));
 
         newCopy.setColor(copyFrom.getColor());
         newCopy.setCraftedWithColors(copyFrom.getCraftedWithColors());
-        newCopy.setPhasedOut(copyFrom.getPhasedOut());
+        newCopy.setPhasedOut(historical ? (Player) copyLkiEntity(copyFrom.getPhasedOut(), history) : copyFrom.getPhasedOut());
         newCopy.setTapped(copyFrom.isTapped());
         newCopy.setTributed(copyFrom.isTributed());
         newCopy.setUnearthed(copyFrom.isUnearthed());
@@ -330,38 +386,62 @@ public class CardCopyService {
         newCopy.setSolved(copyFrom.isSolved());
         newCopy.setPromisedGift(copyFrom.getPromisedGift());
         newCopy.setSaddled(copyFrom.isSaddled());
-        if (newCopy.isSaddled()) newCopy.setSaddledByThisTurn(copyFrom.getSaddledByThisTurn());
+        if (newCopy.isSaddled()) {
+            final CardCollection saddlers = copyFrom.getSaddledByThisTurn();
+            newCopy.setSaddledByThisTurn(historical && saddlers != null ? copyHistoryCards(saddlers, history) : saddlers);
+        }
         if (copyFrom.isSuspected()) {
             newCopy.setSuspectedStatic(copyFrom.getSuspectedStatic().copy(newCopy, true));
         }
 
-        newCopy.setDamageHistory(copyFrom.getDamageHistory());
-        newCopy.setDamageReceivedThisTurn(copyFrom.getDamageReceivedThisTurn());
+        if (historical) {
+            newCopy.setDamageHistory(copyFrom.getDamageHistory().copyForGame(entity -> copyLkiEntity(entity, history)));
+            newCopy.setDamageReceivedThisTurn(Lists.newArrayList(copyFrom.getDamageReceivedThisTurn()));
+            newCopy.getBlockedThisTurn().addAll(copyHistoryCards(copyFrom.getBlockedThisTurn(), history));
+            newCopy.getBlockedByThisTurn().addAll(copyHistoryCards(copyFrom.getBlockedByThisTurn(), history));
+            newCopy.setAttachedCards(copyHistoryCards(copyFrom.getAttachedCards(), history));
+            newCopy.setEntityAttachedTo(copyLkiEntity(copyFrom.getEntityAttachedTo(), history));
+        } else {
+            newCopy.setDamageHistory(copyFrom.getDamageHistory());
+            newCopy.setDamageReceivedThisTurn(copyFrom.getDamageReceivedThisTurn());
+
+            // these are LKI already
+            newCopy.getBlockedThisTurn().addAll(copyFrom.getBlockedThisTurn());
+            newCopy.getBlockedByThisTurn().addAll(copyFrom.getBlockedByThisTurn());
+            newCopy.setAttachedCards(getLKICopyList(copyFrom.getAttachedCards(), cachedMap));
+            newCopy.setEntityAttachedTo(getLKICopy(copyFrom.getEntityAttachedTo(), cachedMap));
+        }
         newCopy.setExcessDamageReceivedThisTurn(copyFrom.getExcessDamageThisTurn());
-
-        // these are LKI already
-        newCopy.getBlockedThisTurn().addAll(copyFrom.getBlockedThisTurn());
-        newCopy.getBlockedByThisTurn().addAll(copyFrom.getBlockedByThisTurn());
-
-        newCopy.setAttachedCards(getLKICopyList(copyFrom.getAttachedCards(), cachedMap));
-        newCopy.setEntityAttachedTo(getLKICopy(copyFrom.getEntityAttachedTo(), cachedMap));
-
-        newCopy.setCopiedPermanent(copyFrom.getCopiedPermanent());
-
-        newCopy.setHaunting(copyFrom.getHaunting());
+        newCopy.setCopiedPermanent(historical ? copyLkiCard(copyFrom.getCopiedPermanent(), cachedMap, history) : copyFrom.getCopiedPermanent());
+        newCopy.setHaunting(historical ? copyLkiCard(copyFrom.getHaunting(), cachedMap, history) : copyFrom.getHaunting());
         for (final Card haunter : copyFrom.getHauntedBy()) {
-            newCopy.addHauntedBy(haunter, false);
+            newCopy.addHauntedBy(historical ? copyLkiCard(haunter, cachedMap, history) : haunter, false);
         }
 
         newCopy.setIntensity(copyFrom.getIntensity(false));
         // Don't re-apply perpetual effects - they're already copied via copyFrom().
         // Re-applying would create duplicate ReplacementEffect objects that cause
         // infinite recursion in getReplacementList for "enters tapped" effects.
-        newCopy.setPerpetual(copyFrom, false);
-
-        newCopy.addRemembered(copyFrom.getRemembered());
-        newCopy.addImprintedCards(copyFrom.getImprintedCards());
-        newCopy.setChosenCards(copyFrom.getChosenCards());
+        if (historical) {
+            for (final PerpetualInterface perpetual : copyFrom.getPerpetual()) {
+                newCopy.addPerpetual(copyHistoricalPerpetual(perpetual, newCopy));
+            }
+            for (final Object remembered : copyFrom.getRemembered()) {
+                if (remembered instanceof GameEntity entity) {
+                    newCopy.addRemembered(copyLkiEntity(entity, history));
+                } else if (remembered instanceof String || remembered instanceof Number || remembered instanceof Enum<?>) {
+                    newCopy.addRemembered(remembered);
+                }
+            }
+            newCopy.addImprintedCards(copyHistoryCards(copyFrom.getImprintedCards(), history));
+            newCopy.setChosenCards(copyHistoryCards(copyFrom.getChosenCards(), history));
+            newCopy.setChosenPlayer((Player) copyLkiEntity(copyFrom.getChosenPlayer(), history));
+        } else {
+            newCopy.setPerpetual(copyFrom, false);
+            newCopy.addRemembered(copyFrom.getRemembered());
+            newCopy.addImprintedCards(copyFrom.getImprintedCards());
+            newCopy.setChosenCards(copyFrom.getChosenCards());
+        }
 
         newCopy.setChosenType(copyFrom.getChosenType());
         newCopy.setChosenType2(copyFrom.getChosenType2());
@@ -374,7 +454,9 @@ public class CardCopyService {
 
         // for getReplacementList (run after setChangedCardKeywords for caching)
         newCopy.setStoredKeywords(copyFrom.getStoredKeywords(), true);
-        newCopy.setStoredReplacements(copyFrom.getStoredReplacements());
+        if (!historical) {
+            newCopy.setStoredReplacements(copyFrom.getStoredReplacements());
+        }
 
         newCopy.copyChangedTextFrom(copyFrom);
         newCopy.changedCardKeywordsByWord = copyFrom.changedCardKeywordsByWord.copy(newCopy, true);
@@ -393,7 +475,7 @@ public class CardCopyService {
 
         newCopy.setPrepared(copyFrom.getPrepared());
 
-        newCopy.setMeldedWith(getLKICopy(copyFrom.getMeldedWith(), cachedMap));
+        newCopy.setMeldedWith(copyLkiCard(copyFrom.getMeldedWith(), cachedMap, history));
 
         // update keyword cache on all states
         for (CardStateName s : newCopy.getStates()) {
@@ -401,17 +483,23 @@ public class CardCopyService {
         }
 
         if (copyFrom.getCastSA() != null) {
-            SpellAbility castSA = copyFrom.getCastSA().copy(newCopy, true);
+            SpellAbility castSA = historical
+                    ? copyFrom.getCastSA().copy(newCopy, (Player) copyLkiEntity(copyFrom.getCastSA().getActivatingPlayer(), history), true)
+                    : copyFrom.getCastSA().copy(newCopy, true);
             castSA.setLastStateBattlefield(CardCollection.EMPTY);
             castSA.setLastStateGraveyard(CardCollection.EMPTY);
             newCopy.setCastSA(castSA);
         }
-        newCopy.setCastFrom(copyFrom.getCastFrom());
+        newCopy.setCastFrom(historical ? mapZone(copyFrom.getCastFrom()) : copyFrom.getCastFrom());
 
-        newCopy.setExiledBy(copyFrom.getExiledBy());
-        newCopy.setExiledWith(getLKICopy(copyFrom.getExiledWith(), cachedMap));
-        newCopy.setExiledSA(copyFrom.getExiledSA());
-        newCopy.addExiledCards(copyFrom.getExiledCards());
+        newCopy.setExiledBy(historical ? (Player) copyLkiEntity(copyFrom.getExiledBy(), history) : copyFrom.getExiledBy());
+        newCopy.setExiledWith(copyLkiCard(copyFrom.getExiledWith(), cachedMap, history));
+        if (historical) {
+            newCopy.addExiledCards(copyHistoryCards(copyFrom.getExiledCards(), history));
+        } else {
+            newCopy.setExiledSA(copyFrom.getExiledSA());
+            newCopy.addExiledCards(copyFrom.getExiledCards());
+        }
 
         newCopy.setDiscarded(copyFrom.wasDiscarded());
         newCopy.setMilled(copyFrom.wasMilled());
@@ -421,13 +509,55 @@ public class CardCopyService {
         newCopy.getAbilityActivatedThisGame().putAll(copyFrom.getAbilityActivatedThisGame());
         newCopy.getAbilityResolvedThisTurn().putAll(copyFrom.getAbilityResolvedThisTurn());
 
-        if (copyFrom.getGame().getCombat() != null && copyFrom.isPermanent()) {
+        if (historical) {
+            final CombatLki combat = copyFrom.getCombatLKI();
+            if (combat != null) {
+                final FCollection<AttackingBand> bands = new FCollection<>();
+                for (final AttackingBand band : combat.relatedBands) {
+                    final AttackingBand mapped = new AttackingBand(copyHistoryCards(band.getAttackers(), history));
+                    if (band.isBlocked() != null) {
+                        mapped.setBlocked(band.isBlocked());
+                    }
+                    bands.add(mapped);
+                }
+                newCopy.setCombatLKI(new CombatLki(combat.isAttacker, bands));
+            }
+        } else if (copyFrom.getGame().getCombat() != null && copyFrom.isPermanent()) {
             newCopy.setCombatLKI(copyFrom.getGame().getCombat().saveLKI(newCopy));
         }
 
-        newCopy.getGoadMap().putAll(copyFrom.getGoadMap());
+        if (historical) {
+            copyFrom.getGoadMap().forEach((timestamp, player) -> newCopy.getGoadMap().put(timestamp, (Player) copyLkiEntity(player, history)));
+        } else {
+            newCopy.getGoadMap().putAll(copyFrom.getGoadMap());
+        }
 
         return newCopy;
+    }
+
+    private static PerpetualInterface copyHistoricalPerpetual(final PerpetualInterface effect, final Card destination) {
+        if (effect instanceof PerpetualAbilities abilities) {
+            return new PerpetualAbilities(abilities.timestamp(), abilities.changes().copy(destination, true));
+        }
+        if (effect instanceof PerpetualKeywords keywords) {
+            return new PerpetualKeywords(keywords.timestamp(),
+                    keywords.addKeywords() == null ? null : List.copyOf(keywords.addKeywords()),
+                    keywords.removeKeywords() == null ? null : List.copyOf(keywords.removeKeywords()), keywords.removeAll());
+        }
+        if (effect instanceof PerpetualTypes types) {
+            return new PerpetualTypes(types.timestamp(), types.addTypes() == null ? null : new CardType(types.addTypes()),
+                    types.removeTypes() == null ? null : new CardType(types.removeTypes()),
+                    types.removeXTypes() == null ? null : Set.copyOf(types.removeXTypes()));
+        }
+        return effect;
+    }
+
+    private CardCollection copyHistoryCards(final Iterable<Card> cards, final Map<Card, Card> history) {
+        final CardCollection result = new CardCollection();
+        for (final Card card : cards) {
+            result.add(copyLkiForGame(card, toGame, history));
+        }
+        return result;
     }
 
 }

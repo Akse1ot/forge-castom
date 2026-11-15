@@ -12,6 +12,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 
 /** 
  * TODO: Write javadoc for this type.
@@ -40,6 +41,25 @@ public class CardDamageHistory {
     // only needed for The Fallen
     private final FCollection<GameEntity> damagedThisGame = new FCollection<>();
     Set<Boolean> hasdealtDamagetoAny = Sets.newHashSet();
+
+    CardDamageHistory copyForGame(final Function<GameEntity, GameEntity> map) {
+        final CardDamageHistory copy = new CardDamageHistory();
+        copy.attacksThisGame = attacksThisGame;
+        copy.creatureAttackedThisCombat = creatureAttackedThisCombat;
+        copy.creatureBlockedThisCombat = creatureBlockedThisCombat;
+        copy.creatureGotBlockedThisCombat = creatureGotBlockedThisCombat;
+        copy.attackedBattleThisTurn = attackedBattleThisTurn;
+        copy.damageDoneThisTurn.addAll(damageDoneThisTurn);
+        copy.hasdealtDamagetoAny.addAll(hasdealtDamagetoAny);
+        attackedThisTurn.forEach(entity -> copy.attackedThisTurn.add(map.apply(entity)));
+        damagedThisGame.forEach(entity -> copy.damagedThisGame.add(map.apply(entity)));
+        creatureAttackedLastTurnOf.forEach(player -> copy.creatureAttackedLastTurnOf.add((Player) map.apply(player)));
+        NotAttackedSinceLastUpkeepOf.forEach(player -> copy.NotAttackedSinceLastUpkeepOf.add((Player) map.apply(player)));
+        NotBlockedSinceLastUpkeepOf.forEach(player -> copy.NotBlockedSinceLastUpkeepOf.add((Player) map.apply(player)));
+        NotBeenBlockedSinceLastUpkeepOf.forEach(player -> copy.NotBeenBlockedSinceLastUpkeepOf.add((Player) map.apply(player)));
+        damagedThisCombat.forEach(player -> copy.damagedThisCombat.add((Player) map.apply(player)));
+        return copy;
+    }
 
     public final boolean getHasdealtDamagetoAny() {
         return !hasdealtDamagetoAny.isEmpty();

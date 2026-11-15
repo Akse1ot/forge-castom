@@ -8669,13 +8669,18 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     }
 
     public void copyFrom(Card in) {
+        copyFrom(in, false);
+    }
+
+    void copyFrom(Card in, boolean independent) {
         // clean is not needed?
         this.changedCardColors.putAll(in.changedCardColors);
         this.changedCardColorsCharacterDefining.putAll(in.changedCardColorsCharacterDefining);
 
         setChangedCardKeywords(in.getChangedCardKeywords());
         for (Table.Cell<Long, Long, List<String>> kw : in.hiddenExtrinsicKeywords.cellSet()) {
-            hiddenExtrinsicKeywords.put(kw.getRowKey(), kw.getColumnKey(), kw.getValue());
+            hiddenExtrinsicKeywords.put(kw.getRowKey(), kw.getColumnKey(),
+                    independent ? new ArrayList<>(kw.getValue()) : kw.getValue());
         }
 
         this.changedCardTypes.putAll(in.changedCardTypes);

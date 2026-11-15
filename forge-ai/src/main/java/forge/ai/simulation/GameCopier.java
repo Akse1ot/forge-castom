@@ -229,6 +229,7 @@ public class GameCopier {
 
         if (copyStack)
             copyStack(origGame, newGame, gameObjectMap);
+        newGame.copyZoneChangeBatchHistoryFrom(origGame);
         newGame.getTrapTurnHistory().copyFrom(origGame.getTrapTurnHistory(), gameObjectMap);
 
         // TODO update thisTurnCast

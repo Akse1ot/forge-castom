@@ -181,6 +181,7 @@ public class GameSnapshot {
             copyStack(fromGame, toGame);
         }
         // Stack reconstruction emits ordinary events; history must remain exactly the source snapshot's.
+        toGame.copyZoneChangeBatchHistoryFrom(fromGame);
         toGame.getTrapTurnHistory().copyFrom(fromGame.getTrapTurnHistory(), gameObjectMap);
 
         if (!restore) {
