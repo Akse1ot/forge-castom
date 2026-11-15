@@ -1,0 +1,8 @@
+Name:Redeemed Dead
+ManaCost:W B
+Types:Creature Skeleton Soldier
+PT:3/1
+K:Renown:1
+T:Mode$ ChangesZone | ValidCard$ Card.Self+IsRenowned | Origin$ Battlefield | Destination$ Graveyard | Execute$ TrigReturn | TriggerDescription$ When CARDNAME dies, if it was renowned, return it to the battlefield under its owner's control.
+SVar:TrigReturn:DB$ ChangeZone | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Battlefield
+Oracle:Renown 1 (When this creature deals combat damage to a player, if it isn't renowned, put a +1/+1 counter on it and it becomes renowned.)\nWhen Redeemed Dead dies, if it was renowned, return it to the battlefield under its owner's control.

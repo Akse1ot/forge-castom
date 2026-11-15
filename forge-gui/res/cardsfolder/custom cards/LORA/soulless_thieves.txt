@@ -1,0 +1,7 @@
+Name:Soulless Thieves
+ManaCost:5 B
+Types:Creature Spirit Rogue
+PT:4/4
+K:Renown:1
+K:Menace
+Oracle:Renown 1 (When this creature deals combat damage to a player, if it isn't renowned, put a +1/+1 counter on it and it becomes renowned.)\nMenace (This creature can't be blocked except by two or more creatures.)

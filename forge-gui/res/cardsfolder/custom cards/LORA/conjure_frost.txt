@@ -1,0 +1,9 @@
+Name:Conjure Frost
+ManaCost:1 U
+Types:Sorcery
+A:SP$ Tap | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Creature | SubAbility$ DBFreeze | SpellDescription$ Tap up to two target creatures. Those creatures don't untap during their controller's next untap step.
+SVar:DBFreeze:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+S:Mode$ AlternativeCost | EffectZone$ Hand,Graveyard,Exile,Library,Command | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ 3 U | Named$ Reflex | PreventAlternativeCostReplacement$ True | Description$ Reflex
+S:Mode$ CastWithFlash | EffectZone$ Hand,Graveyard,Exile,Library,Command | ValidCard$ Card.Self | ValidSA$ Spell.NamedAbilityReflex
+S:Mode$ Continuous | EffectZone$ Graveyard | AffectedZone$ Graveyard | Affected$ Card.Self | AddHiddenKeyword$ Reflex
+Oracle:Reflex {3}{U} (You may cast this spell any time you could cast an instant for its reflex cost.)\nTap up to two target creatures. Those creatures don't untap during their controller's next untap step.

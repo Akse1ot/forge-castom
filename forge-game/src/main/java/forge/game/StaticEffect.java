@@ -224,6 +224,9 @@ public class StaticEffect {
             }
 
             if (layers.contains(StaticAbilityLayer.TEXT)) {
+                if (hasParam("SetManaValue") && affectedCard.removeChangedManaValue(getTimestamp(), ability.getId())) {
+                    addCard(affectedPerLayer, StaticAbilityLayer.TEXT, affectedCard);
+                }
                 // Revert changed color words
                 if (hasParam("ChangeColorWordsTo")) {
                     affectedCard.removeChangedTextColorWord(getTimestamp(), ability.getId());

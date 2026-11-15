@@ -1,0 +1,9 @@
+Name:Tawneys Huckster
+ManaCost:2 U
+Types:Creature Human Rogue
+PT:1/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerDescription$ When CARDNAME enters, draw X cards, then discard X cards, where X is your longest straight.
+SVar:TrigDraw:DB$ Draw | NumCards$ X | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ X
+SVar:X:Count$LongestManaValueRun
+Oracle:When Tawney's Huckster enters the battlefield, draw X cards, then discard X cards, where X is your longest straight. (One or more nonland permanents you control with consecutive converted mana costs form a straight.)

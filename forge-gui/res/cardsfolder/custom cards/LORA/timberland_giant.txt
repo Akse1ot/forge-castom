@@ -1,0 +1,8 @@
+Name:Timberland Giant
+ManaCost:5 G G
+Types:Creature Giant
+PT:5/5
+K:Reach
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a 5/5 blue Ox creature token.
+SVar:TrigToken:DB$ Token | TokenAmount$ 1 | TokenScript$ u_5_5_ox | TokenOwner$ You
+Oracle:Reach (This creature can block creatures with flying.)\nWhen Timberland Giant enters the battlefield, create a 5/5 blue Ox creature token.

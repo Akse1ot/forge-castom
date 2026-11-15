@@ -1,0 +1,6 @@
+Name:Freight Train
+ManaCost:2
+Types:Artifact
+A:AB$ Draw | Cost$ 2 | NumCards$ 2 | SorcerySpeed$ True | SubAbility$ DBTop | SpellDescription$ Draw two cards, then put CARDNAME on top of its owner's library. Activate only as a sorcery.
+SVar:DBTop:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 0
+Oracle:{2}: Draw two cards, then put Freight Train on top of it's owner's library. Activate this ability only any time you could cast a sorcery.

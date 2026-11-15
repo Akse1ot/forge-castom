@@ -1,0 +1,11 @@
+Name:Rallyridge Quartermaster
+ManaCost:2 W
+Types:Creature Human Artificer
+PT:3/2
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ Blink | TriggerDescription$ When CARDNAME enters, exile target Equipment or Aura you control, then return it to the battlefield attached to target creature.
+SVar:Blink:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Aura.YouCtrl,Equipment.YouCtrl | RememberChanged$ True | SubAbility$ TargetCreature
+SVar:TargetCreature:DB$ Pump | ValidTgts$ Creature | SubAbility$ Return
+SVar:Return:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | AttachedTo$ Targeted.Creature | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Flash (You may cast this spell any time you could cast an instant.)\nWhen Rallyridge Quartermaster enters the battlefield, you exile target Equipment or Aura you control, then return it to the battlefield attached to target creature.

@@ -1,0 +1,5 @@
+Name:Pan the River
+ManaCost:3 U
+Types:Sorcery
+A:SP$ Dig | DigNum$ 4 | ChangeNum$ All | ChangeValid$ Card.nonLand | DestinationZone$ Hand | DestinationZone2$ Graveyard | Reveal$ True | SpellDescription$ Reveal the top four cards of your library. Put all nonland cards from among them into your hand and the rest into your graveyard.
+Oracle:Reveal the top four cards of your library. Put all nonland cards from among them into your hand and the rest into your graveyard.

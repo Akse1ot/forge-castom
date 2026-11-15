@@ -1,0 +1,7 @@
+Name:Quickdraw
+ManaCost:2 R
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage | TriggerDescription$ When CARDNAME enters, it deals 2 damage to any target.
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2
+T:Mode$ SpellCast | ValidCard$ Card.nonInstant | ValidActivatingPlayer$ You | OpponentTurn$ True | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ Whenever you cast a noninstant spell during an opponent's turn, CARDNAME deals 2 damage to any target.
+Oracle:When Quickdraw enters the battlefield, it deals 2 damage to any target.\nWhenever you cast a noninstant spell during an opponent's turn, Quickdraw deals 2 damage to any target.

@@ -569,7 +569,7 @@ public class AiAttackController {
 
                     if ((attackMax == null || attackMax > combat.getAttackers().size()) &&
                             (bandingMax == null || bandingMax > combat.getAttackersOf(defender).size())) {
-                        if (CombatUtil.canAttack(c, defender)) {
+                        if (CombatUtil.canAttack(c, defender) && restrict.allowsAdditionalAttacker(combat.getAttackers(), c)) {
                             combat.addAttacker(c, defender, combat.getBandOfAttacker(bestBand));
                         }
                     }
@@ -961,6 +961,9 @@ public class AiAttackController {
                                 if (combatClosed.get()) {
                                     return 0; // timed out: the caller already moved on, never touch combat after that
                                 }
+                                if (!restrict.allowsAdditionalAttacker(combat.getAttackers(), attacker)) {
+                                    return 0;
+                                }
                                 combat.addAttacker(attacker, mustAttackDef);
                                 attackersLeft.remove(attacker);
                                 numForcedAttackers.incrementAndGet();
@@ -1025,7 +1028,8 @@ public class AiAttackController {
             if (ai.getController().isAI()) {
                 // Only do this if |ai| is actually an AI - as we could be trying to predict how the human will attack.
                 for (Card attacker : this.attackers) {
-                    if (AiCardMemory.isRememberedCard(ai, attacker, AiCardMemory.MemorySet.TRICK_ATTACKERS)) {
+                    if (AiCardMemory.isRememberedCard(ai, attacker, AiCardMemory.MemorySet.TRICK_ATTACKERS)
+                            && restrict.allowsAdditionalAttacker(combat.getAttackers(), attacker)) {
                         combat.addAttacker(attacker, defender);
                         attackersLeft.remove(attacker);
                     }
@@ -1070,7 +1074,8 @@ public class AiAttackController {
                     // reached max, breakup
                     if (combat.getAttackers().size() >= attackMax)
                         break;
-                    if (canAttackWrapper(attacker, defender) && shouldAttack(attacker, this.blockers, combat, defender)) {
+                    if (canAttackWrapper(attacker, defender) && restrict.allowsAdditionalAttacker(combat.getAttackers(), attacker)
+                            && shouldAttack(attacker, this.blockers, combat, defender)) {
                         combat.addAttacker(attacker, defender);
                     }
                 }
@@ -1373,6 +1378,9 @@ public class AiAttackController {
                 }
             }
 
+            if (trackTimer && !nextTurn && !lightmineField && !seasonOfTheWitch && defender == defendingOpponent) {
+                PairAttackAi.consider(ai, combat, defender, attackersLeft, this.blockers);
+            }
             return aiAggression;
         } finally {
             if (trackTimer) {

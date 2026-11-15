@@ -1,0 +1,8 @@
+Name:Firstfeather Stormwing
+ManaCost:2 U
+Types:Creature Bird Shaman
+PT:2/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLoot | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters, you may draw a card. If you do, discard a card.
+SVar:TrigLoot:AB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | Cost$ Draw<1/You>
+Oracle:Flying\nWhen Firstfeather Stormwing enters the battlefield, you may draw a card. If you do, discard a card.

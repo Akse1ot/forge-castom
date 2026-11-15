@@ -1,0 +1,7 @@
+Name:Dual Magelocks
+ManaCost:2
+Types:Artifact Equipment
+K:etbCounter:CHARGE:3:no Condition:Loaded 3 (CARDNAME enters with 3 charge counters.)
+A:AB$ Pump | Cost$ SubCounter<1/CHARGE> | Defined$ Equipped | KW$ Double Strike | SpellDescription$ Equipped creature gains double strike until end of turn.
+K:Equip:2
+Oracle:Loaded 3 (This enters the battlefield with three charge counters.)\nRemove a charge counter from Dual Magelocks: Equipped creature gains double strike until end of turn.\nEquip {2}

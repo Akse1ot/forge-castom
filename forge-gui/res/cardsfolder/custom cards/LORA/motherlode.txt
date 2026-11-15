@@ -1,0 +1,7 @@
+Name:Motherlode
+ManaCost:4 G
+Types:Enchantment Aura
+K:Enchant:Land
+S:Mode$ Continuous | AffectedDefined$ Enchanted | Affected$ Land | AddAbility$ ABMana | Description$ Enchanted land has "{T}: Add {W}{U}{B}{R}{G}."
+SVar:ABMana:AB$ Mana | Cost$ T | Produced$ W U B R G | SpellDescription$ Add {W}{U}{B}{R}{G}.
+Oracle:Enchant land\nEnchanted land has “{T}: Add {W}{U}{B}{R}{G}.”

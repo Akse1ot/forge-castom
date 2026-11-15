@@ -1,0 +1,8 @@
+Name:Sammy Sixguns Steelman
+ManaCost:6
+Types:Legendary Artifact Creature Construct
+PT:0/0
+K:etbCounter:P1P1:6
+A:AB$ PutCounter | Cost$ 1 SubCounter<1/P1P1> | ValidTgts$ Permanent.nonCreature | CounterType$ CHARGE | CounterNum$ 1 | SpellDescription$ Put a charge counter on target noncreature permanent.
+A:AB$ PutCounter | Cost$ 1 SubCounter<1/CHARGE/Permanent.YouCtrl> | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SpellDescription$ Put a +1/+1 counter on CARDNAME.
+Oracle:Sammy ‘Sixguns' Steelman enters the battlefield with six +1/+1 counters on it.\n{1}, Remove a +1/+1 counter from Sammy ‘Sixguns' Steelman: Put a charge counter on target noncreature permanent.\n{1}, Remove a charge counter from a permanent you control: Put a +1/+1 counter on Sammy ‘Sixguns' Steelman.

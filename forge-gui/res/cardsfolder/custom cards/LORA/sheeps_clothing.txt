@@ -1,0 +1,11 @@
+Name:Sheeps Clothing
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a 2/2 green Wolf creature token and attach CARDNAME to it.
+SVar:TrigToken:DB$ Token | TokenScript$ g_2_2_wolf | RememberTokens$ True | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | AffectedDefined$ Equipped | Affected$ Creature | AddType$ Sheep | Description$ Equipped creature is a Sheep in addition to its other types and can't be blocked by Boar, Goat, Horse, Ox, or Sheep creatures.
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.EquippedBy | ValidBlocker$ Creature.Boar,Creature.Goat,Creature.Horse,Creature.Ox,Creature.Sheep | Secondary$ True
+Oracle:When Sheep's Clothing enters the battlefield, create a 2/2 green Wolf creature token and attach Sheep's Clothing to it.\nEquipped creature is a Sheep in addition to its other types and can't be blocked by Boar, Goat, Horse, Ox, or Sheep creatures.\nEquip {1}

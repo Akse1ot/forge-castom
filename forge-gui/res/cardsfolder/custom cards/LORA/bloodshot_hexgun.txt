@@ -1,0 +1,7 @@
+Name:Bloodshot Hexgun
+ManaCost:3
+Types:Artifact Equipment
+K:etbCounter:CHARGE:3:no Condition:Loaded 3 (CARDNAME enters with three charge counters.)
+A:AB$ Pump | Cost$ SubCounter<1/CHARGE> | ValidTgts$ Creature.inCombatWithEquipped | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True | SpellDescription$ Target creature blocking or blocked by equipped creature gets -1/-1 until end of turn.
+K:Equip:PayLife<3>
+Oracle:Loaded 3 (This enters the battlefield with three charge counters.)\nRemove a charge counter from Bloodshot Hexgun: Target creature blocking or blocked by equipped creature gets -1/-1 until end of turn.\nEquip—Pay 3 life.

@@ -1,0 +1,9 @@
+Name:Tinman Bushranger
+ManaCost:5
+Types:Artifact Creature Construct
+PT:3/3
+K:Renown:4
+K:Indestructible
+T:Mode$ BecomeRenowned | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigRemove | TriggerDescription$ When CARDNAME becomes renowned, it loses indestructible.
+SVar:TrigRemove:DB$ Animate | Defined$ Self | RemoveKeywords$ Indestructible | Duration$ Permanent
+Oracle:Renown 4 (When this creature deals combat damage to a player, if it isn't renowned, put four +1/+1 counters on it and it becomes renowned.)\nIndestructible (Damage and effects that say “destroy” don't destroy this creature.)\nWhen Tinman Bushranger becomes renowned, it loses indestructible.

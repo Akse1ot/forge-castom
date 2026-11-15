@@ -1,0 +1,10 @@
+Name:Briar Rabbit
+ManaCost:1 G U
+Types:Creature Rabbit
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBounce | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters, you may return target creature to its owner's hand.
+SVar:TrigBounce:DB$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand
+S:Mode$ AlternativeCost | EffectZone$ Hand,Graveyard,Exile,Library,Command | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ 3 G U | Named$ Reflex | PreventAlternativeCostReplacement$ True | Description$ Reflex
+S:Mode$ CastWithFlash | EffectZone$ Hand,Graveyard,Exile,Library,Command | ValidCard$ Card.Self | ValidSA$ Spell.NamedAbilityReflex
+S:Mode$ Continuous | EffectZone$ Graveyard | AffectedZone$ Graveyard | Affected$ Card.Self | AddHiddenKeyword$ Reflex
+Oracle:Reflex {3}{G}{U} (You may cast this spell any time you could cast an instant for its reflex cost.)\nWhen Briar Rabbit enters the battlefield, you may return target creature to its owner's hand.

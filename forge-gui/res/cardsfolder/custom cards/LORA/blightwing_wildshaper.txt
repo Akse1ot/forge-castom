@@ -1,0 +1,6 @@
+Name:Blightwing Wildshaper
+ManaCost:B
+Types:Creature Human Druid
+PT:1/1
+A:AB$ Animate | Cost$ B | Defined$ Self | Types$ Bird | RemoveCreatureTypes$ True | Power$ 1 | Toughness$ 2 | Keywords$ Flying & Deathtouch | SpellDescription$ Until end of turn, CARDNAME becomes a Bird with base power and toughness 1/2 and gains flying and deathtouch.
+Oracle:{B}: Until end of turn, Blightwing Wildshaper becomes a Bird with base power and toughness 1/2 and gains flying and deathtouch.

@@ -1,0 +1,5 @@
+Name:Blaze of Malastrix
+ManaCost:2 R R
+Types:Sorcery
+A:SP$ DamageAll | ValidCards$ Creature.withoutFlying | NumDmg$ 4 | SpellDescription$ CARDNAME deals 4 damage to each creature without flying.
+Oracle:Blaze of Malastrix deals 4 damage to each creature without flying.

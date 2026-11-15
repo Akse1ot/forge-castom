@@ -11,6 +11,7 @@ public final class AlternativeCostRuleUtil {
     public static final String PARAM_ADDITIONAL_REDUCE = "AltCostAdditionalReduce";
     public static final String PARAM_ADDITIONAL_RAISE = "AltCostAdditionalRaise";
     public static final String PARAM_SELECTED_ALTERNATIVE = "SelectedAlternativeCost";
+    public static final String PARAM_PREVENT_COST_REPLACEMENT = "PreventAlternativeCostReplacement";
 
     private AlternativeCostRuleUtil() {
     }

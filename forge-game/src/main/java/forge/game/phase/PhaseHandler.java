@@ -30,6 +30,7 @@ import forge.game.ability.effects.AddTurnEffect;
 import forge.game.ability.effects.SkipPhaseEffect;
 import forge.game.card.*;
 import forge.game.combat.Combat;
+import forge.game.combat.CombatDeclarationHistory;
 import forge.game.combat.CombatUtil;
 import forge.game.cost.CostEnlist;
 import forge.game.cost.CostExert;
@@ -89,6 +90,7 @@ public class PhaseHandler implements IHasForgeLog {
     private Player pPlayerPriority = null;
     private Player pFirstPriority = null;
     private Combat combat = null;
+    private final CombatDeclarationHistory combatDeclarationHistory = new CombatDeclarationHistory();
     private boolean skipDamageSteps = false;
     private boolean bRepeatCleanup = false;
 
@@ -203,6 +205,7 @@ public class PhaseHandler implements IHasForgeLog {
 
             if (turnEnded) {
                 turn++;
+                combatDeclarationHistory.clear();
                 game.getRegisteredPlayers().forEach(Player::resetManaSpentThisTurn);
                 if (game.getTeslaJustice() != null) {
                     game.getTeslaJustice().startTurns(getActivePlayers());
@@ -465,6 +468,7 @@ public class PhaseHandler implements IHasForgeLog {
 
                     // CR 514.2
                     for (final Card c : game.getCardsIncludePhasingIn(ZoneType.Battlefield)) {
+                        CreaturePairing.expire(c, turn);
                         if (!StaticAbilityNoCleanupDamage.damageNotRemoved(c)) {
                             c.setDamage(0);
                         }
@@ -752,7 +756,11 @@ public class PhaseHandler implements IHasForgeLog {
         game.fireEvent(new GameEventCombatChanged());
     }
 
-    private void declareBlockersFor(final Player p) {
+    public CombatDeclarationHistory getCombatDeclarationHistory() {
+        return combatDeclarationHistory;
+    }
+
+    private boolean declareBlockersFor(final Player p) {
         // Apply Odric's effect here
         Player whoDeclaresBlockers = Objects.requireNonNullElse(p.getDeclaresBlockers(), p);
         if (CombatUtil.canBlock(p, combat)) {
@@ -766,8 +774,10 @@ public class PhaseHandler implements IHasForgeLog {
                 }
                 // If not replaced, run normal declare blockers
                 whoDeclaresBlockers.getController().declareBlockers(p, combat);
+                return true;
             }
         }
+        return false;
     }
 
     private void declareBlockersTurnBasedAction() {
@@ -783,9 +793,13 @@ public class PhaseHandler implements IHasForgeLog {
             final PlayerCollection defendingTeam = p.getSharedTeam();
             declared.addAll(defendingTeam);
             String teamError;
+            final PlayerCollection declaringPlayers = new PlayerCollection();
             do {
+                declaringPlayers.clear();
                 for (final Player defender : defendingTeam) {
-                    declareBlockersFor(defender);
+                    if (declareBlockersFor(defender)) {
+                        declaringPlayers.add(defender);
+                    }
                     if (game.isGameOver()) { // they just like to close window at any moment
                         return;
                     }
@@ -841,6 +855,10 @@ public class PhaseHandler implements IHasForgeLog {
                     }
                 }
             } while (!reachedSteadyState);
+
+            for (final Card blocker : CardLists.filterControlledBy(combat.getAllBlockers(), declaringPlayers)) {
+                combatDeclarationHistory.recordBlocker(blocker);
+            }
 
             // Team is done declaring blockers - redraw UI at this point
 

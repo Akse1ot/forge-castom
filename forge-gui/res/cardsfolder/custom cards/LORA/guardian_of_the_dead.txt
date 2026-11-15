@@ -1,0 +1,7 @@
+Name:Guardian of the Dead
+ManaCost:W
+Types:Creature Human Soldier
+PT:2/1
+S:Mode$ CantTarget | AffectedZone$ Graveyard | Description$ Cards in graveyards can't be the target of spells or abilities.
+S:Mode$ CantExile | ValidCard$ Card.inZoneGraveyard | ForCost$ True | Description$ Players can't exile cards from graveyards to cast spells or activate abilities.
+Oracle:Cards in graveyards can't be the target of spells or abilities.\nPlayers can't exile cards from graveyards to cast spells or activate abilities.

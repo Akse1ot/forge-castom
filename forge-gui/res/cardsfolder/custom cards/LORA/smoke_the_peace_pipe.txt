@@ -1,0 +1,7 @@
+Name:Smoke the Peace Pipe
+ManaCost:W
+Types:Enchantment Aura
+K:Enchant:Creature
+S:Mode$ Continuous | AffectedDefined$ Enchanted | Affected$ Creature | AddAbility$ ABTap | Description$ Enchanted creature has "{T}: Tap target creature."
+SVar:ABTap:AB$ Tap | Cost$ T | ValidTgts$ Creature | TgtPrompt$ Select target creature | SpellDescription$ Tap target creature.
+Oracle:Enchant creature\nEnchanted creature has “{T}: Tap target creature.”

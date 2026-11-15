@@ -1,0 +1,6 @@
+Name:Descent of the Mothmen
+ManaCost:U B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Creature.YouOwn+!token | TriggerZones$ Battlefield | Execute$ TrigToken | OptionalDecider$ You | TriggerDescription$ Whenever a creature card is put into your graveyard from anywhere, you may pay {1}. If you do, create a 1/1 black Insect creature token with flying.
+SVar:TrigToken:AB$ Token | Cost$ 1 | TokenScript$ b_1_1_insect_flying | TokenOwner$ You
+Oracle:Whenever a creature card is put into your graveyard from anywhere, you may pay {1}. If you do, create a 1/1 black Insect creature token with flying.

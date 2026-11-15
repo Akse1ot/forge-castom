@@ -1,0 +1,7 @@
+Name:Campfire I
+ManaCost:G
+Types:Enchantment Aura
+K:Enchant:Land.Forest:Forest
+T:Mode$ TapsForMana | ValidCard$ Card.AttachedBy | Execute$ TrigMana | Static$ True | TriggerDescription$ Whenever enchanted Forest is tapped for mana, its controller adds an additional {R}.
+SVar:TrigMana:DB$ Mana | Produced$ R | Amount$ 1 | Defined$ TriggeredCardController
+Oracle:Enchant Forest\nWhenever enchanted Forest is tapped for mana, its controller adds an additional {R}.

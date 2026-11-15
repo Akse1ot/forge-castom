@@ -1,0 +1,10 @@
+Name:Ironskin Chief
+ManaCost:2 R W
+Types:Creature Human Warrior
+PT:4/3
+A:AB$ Effect | Cost$ 2 | ValidTgts$ Opponent | RememberObjects$ Self & Targeted | ReplacementEffects$ PreventDamage | ExileOnMoved$ Battlefield | SpellDescription$ The next time CARDNAME would be dealt damage this turn, prevent that damage and CARDNAME deals that much damage to target opponent.
+SVar:PreventDamage:Event$ DamageDone | ValidTarget$ Card.IsRemembered | PreventionEffect$ True | ReplaceWith$ DBDamage | Description$ The next time EFFECTSOURCE would be dealt damage this turn, prevent that damage and EFFECTSOURCE deals that much damage to the chosen opponent.
+SVar:DBDamage:DB$ DealDamage | Defined$ RememberedPlayer | DamageSource$ EffectSource | NumDmg$ X | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:X:ReplaceCount$DamageAmount
+Oracle:{2}: The next time Ironskin Chief would be dealt damage this turn, prevent that damage and Ironskin Chief deals that much damage to target opponent.

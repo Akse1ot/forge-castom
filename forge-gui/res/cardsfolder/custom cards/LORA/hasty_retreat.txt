@@ -1,0 +1,6 @@
+Name:Hasty Retreat
+ManaCost:U
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature.YouOwn | TargetMin$ 0 | TargetMax$ 1 | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBDraw | SpellDescription$ Return up to one target creature you own to your hand. Draw a card.
+SVar:DBDraw:DB$ Draw | NumCards$ 1
+Oracle:Return up to one target creature you own to your hand.\nDraw a card.

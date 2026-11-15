@@ -1,0 +1,8 @@
+Name:Off the River
+ManaCost:5 B
+Types:Sorcery
+A:SP$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Battlefield | RememberChanged$ True | SubAbility$ DBCounter | SpellDescription$ Return target creature card from your graveyard to the battlefield, then put X +1/+1 counters on it, where X is your longest straight.
+SVar:DBCounter:DB$ PutCounter | Defined$ Remembered | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$LongestManaValueRun
+Oracle:Return target creature card from your graveyard to the battlefield, then put X +1/+1 counters on it, where X is your longest straight. (One or more nonland permanents you control with consecutive converted mana costs form a straight.)

@@ -1,0 +1,7 @@
+Name:Expedition Corps
+ManaCost:4 G
+Types:Creature Human Scout
+PT:3/1
+S:Mode$ Continuous | Affected$ Land.YouOwn | MayPlay$ True | AffectedZone$ Graveyard | Description$ You may play lands from your graveyard.
+S:Mode$ Continuous | Affected$ You | AdjustLandPlays$ 1 | Description$ You may play an additional land on each of your turns.
+Oracle:You may play land cards from your graveyard.\nYou may play an additional land each turn.

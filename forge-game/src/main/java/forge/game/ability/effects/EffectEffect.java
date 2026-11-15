@@ -56,6 +56,9 @@ public class EffectEffect extends SpellAbilityEffect {
             copied.getCurrentState().copyFrom(original.getCurrentState(), false);
             copied.setSVars(original.getSVars());
             copied.setGameTimestamp(original.getGameTimestamp());
+            if (original.hasChosenNumber() && hasIncarnationStaticAbility(original)) {
+                copied.setChosenNumber(original.getChosenNumber());
+            }
             if (permanent) {
                 for (Trigger trigger : copied.getTriggers()) {
                     remapEffectTraitState(trigger, to);
@@ -106,6 +109,20 @@ public class EffectEffect extends SpellAbilityEffect {
                 });
             }
         }
+    }
+
+    public static boolean hasIncarnationEffect(final Game game) {
+        for (final Card effect : game.getCardsIn(ZoneType.Command)) {
+            if ("True".equals(effect.getSVar("CopyForSimulation")) && hasIncarnationStaticAbility(effect)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean hasIncarnationStaticAbility(final Card effect) {
+        return effect.getStaticAbilities().stream().anyMatch(ability ->
+                ability.getParamOrDefault("Affected", "").contains("IsRememberedIncarnation"));
     }
 
     private static void remapEffectTraitState(final CardTraitBase trait, final Game to) {

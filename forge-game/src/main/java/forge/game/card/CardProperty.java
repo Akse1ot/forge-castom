@@ -1086,6 +1086,8 @@ public class CardProperty {
             if (!card.isUntapped()) {
                 return false;
             }
+        } else if (property.equals("mayInspectFace")) {
+            return !card.isFaceDown() || card.mayPlayerLook(sourceController);
         } else if (property.startsWith("faceDownOriginalType")) {
             if (!card.isFaceDown() || !card.getState(CardStateName.Original).getType().hasStringType(property.substring("faceDownOriginalType".length()))) {
                 return false;
@@ -1606,7 +1608,9 @@ public class CardProperty {
             }
         }
         // These predicated refer to ongoing combat. If no combat happens, they'll return false (meaning not attacking/blocking ATM)
-        else if (property.startsWith("attacking")) {
+        else if (property.equals("inCombatLKI")) {
+            return lki.getCombatLKI() != null || (combat != null && (combat.isAttacking(lki) || combat.isBlocking(lki)));
+        } else if (property.startsWith("attacking")) {
             if (null == combat) return false;
             // check this always first to make sure lki is only used when the card provides it
             if (!(property.contains("LKI") ? lki : card).isAttacking()) return false;
@@ -1672,6 +1676,10 @@ public class CardProperty {
             if (defender instanceof Card && !card.equals(defender)) {
                 return false;
             }
+        } else if (property.equals("inCombatWithEquipped")) {
+            final Card equipped = source.getEquipping();
+            return combat != null && equipped != null
+                    && (combat.isBlocking(card, equipped) || combat.isBlocking(equipped, card));
         } else if (property.startsWith("blocking")) {
             if (combat == null || !combat.isBlocking(card)) return false;
             String what = property.substring("blocking".length());
@@ -2016,6 +2024,13 @@ public class CardProperty {
             // Object identity includes its zone-change timestamp, unlike Card.equals.
             return AbilityUtils.getDefinedCards(source, property.substring(10), spellAbility)
                     .anyMatch(c -> c.equalsWithGameTimestamp(card));
+        } else if (property.equals("IsRememberedIncarnation")) {
+            for (final Object remembered : source.getRemembered()) {
+                if (remembered instanceof Card original && card.equalsWithGameTimestamp(original)) {
+                    return true;
+                }
+            }
+            return false;
         } else if (property.equals("IsRemembered")) {
             if (!source.isRemembered(card)) {
                 return false;

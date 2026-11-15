@@ -1,0 +1,7 @@
+Name:Back in the Saddle
+ManaCost:1 W
+Types:Instant
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+cmcLE2 | RememberChanged$ True | SubAbility$ DBPump | SpellDescription$ Return target creature card with mana value 2 or less from your graveyard to the battlefield. It gains first strike until end of turn.
+SVar:DBPump:DB$ Pump | Defined$ Remembered | KW$ First Strike | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Return target creature card with converted mana cost 2 or less from your graveyard to the battlefield. It gains first strike until end of turn.

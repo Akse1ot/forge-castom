@@ -273,3 +273,6 @@ Canister
 001 r_1_1_citizen @ ryan moeck
 002 c_a_canister_untap @ Punchcawa
 003 c_1_1_a_thopter_flying @ Vasilyna Holod
+
+[other]
+004 emblem_chandra_heart_of_the_revolt

@@ -1,0 +1,6 @@
+Name:Brainless Scarecrow
+ManaCost:2
+Types:Artifact Creature Scarecrow
+PT:0/3
+A:AB$ Discard | Cost$ 1 B Sac<1/CARDNAME> | ValidTgts$ Player | TgtPrompt$ Select target player | NumCards$ 2 | Mode$ TgtChoose | SorcerySpeed$ True | SpellDescription$ Target player discards two cards. Activate only as a sorcery.
+Oracle:{1}{B}, Sacrifice Brainless Scarecrow: Target player discards two cards. Activate this ability only any time you could cast a sorcery.

@@ -9,11 +9,21 @@ import forge.game.zone.ZoneType;
 public class StaticAbilityAttackRestrict {
 
     static public Integer globalAttackRestrict(Game game) {
+        return globalAttackRestrict(game, false);
+    }
+
+    public static int turnAttackLimit(Game game) {
+        Integer max = globalAttackRestrict(game, true);
+        return max == null ? Integer.MAX_VALUE : max;
+    }
+
+    private static Integer globalAttackRestrict(Game game, boolean perTurn) {
         Integer max = null;
         for (final Card ca : game.getCardsIn(ZoneType.STATIC_ABILITIES_SOURCE_ZONES)) {
             for (final StaticAbility stAb : ca.getStaticAbilities()) {
                 if (!stAb.checkConditions(StaticAbilityMode.AttackRestrict)
-                        || stAb.hasParam("ValidDefender")) {
+                        || stAb.hasParam("ValidDefender")
+                        || "True".equals(stAb.getParam("PerTurn")) != perTurn) {
                     continue;
                 }
                 int stMax = AbilityUtils.calculateAmount(stAb.getHostCard(),

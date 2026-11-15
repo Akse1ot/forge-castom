@@ -1,0 +1,8 @@
+Name:Guns Blazing
+ManaCost:4 R
+Types:Sorcery
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ 5 | SpellDescription$ CARDNAME deals 5 damage to any target.
+S:Mode$ AlternativeCost | EffectZone$ Hand,Graveyard,Exile,Library,Command | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ 2 R R R | Named$ Reflex | PreventAlternativeCostReplacement$ True | Description$ Reflex
+S:Mode$ CastWithFlash | EffectZone$ Hand,Graveyard,Exile,Library,Command | ValidCard$ Card.Self | ValidSA$ Spell.NamedAbilityReflex
+S:Mode$ Continuous | EffectZone$ Graveyard | AffectedZone$ Graveyard | Affected$ Card.Self | AddHiddenKeyword$ Reflex
+Oracle:Reflex {2}{R}{R}{R} (You may cast this spell any time you could cast an instant for its reflex cost.)\nGuns Blazing deals 5 damage to any target.

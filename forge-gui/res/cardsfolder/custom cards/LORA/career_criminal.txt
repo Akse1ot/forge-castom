@@ -1,0 +1,9 @@
+Name:Career Criminal
+ManaCost:3 U
+Types:Creature Human Rogue
+PT:2/2
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigDraw | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, draw a card.
+SVar:TrigDraw:DB$ Draw | NumCards$ 1
+A:AB$ Effect | Cost$ Discard<1/Card> | RememberObjects$ Self | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | SpellDescription$ CARDNAME can't be blocked this turn.
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Creature.IsRemembered | Description$ This creature can't be blocked this turn.
+Oracle:Whenever Career Criminal deals combat damage to a player, draw a card.\nDiscard a card: Career Criminal can't be blocked this turn.

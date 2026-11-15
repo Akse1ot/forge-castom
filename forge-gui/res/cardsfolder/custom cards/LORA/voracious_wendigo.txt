@@ -1,0 +1,6 @@
+Name:Voracious Wendigo
+ManaCost:3 B
+Types:Creature Vampire
+PT:4/2
+A:AB$ Pump | Cost$ Sac<1/Creature> | Defined$ Self | KW$ Indestructible | SpellDescription$ CARDNAME gains indestructible until end of turn.
+Oracle:Sacrifice a creature: Voracious Wendigo gains indestructible until end of turn. (Damage and effects that say “destroy” don't destroy it.)

@@ -1,0 +1,291 @@
+# Staging edition. Uncomment an entry when its card script is ready.
+# Date comes from the publication timestamp of PlaneSculptors Version 24.
+[metadata]
+Code=LORA
+Code2=LORA
+Name=Lorado
+Date=2018-04-16
+Type=CUSTOM_SET
+Foil=NotSupported
+Booster=10 Common, 3 Uncommon, 1 RareMythic, 1 BasicLand LORA
+
+[CreatureTypes]
+Farmer
+
+[WalkerTypes]
+Farajo
+Gaile
+
+[cards]
+001 R Angelic Regulator @ryan pancoast
+003 U Arrest @Myron Jay Dorf
+005 U Back in the Saddle @fazfazfaz
+007 C Cattle Drive @gerard curtis delano
+009 C Circle the Wagons @ron embleton
+011 R Drag Behind @leashe
+013 M Empty Night @pixx_73
+015 M Farajo Peacemaker @Charles Frizzel
+017 U Farajos Blessing @fiction69 (Design:blydden)
+019 C Farajos Shield @Charles Frizzel
+020 C Featherswine @Jared Reisweber
+021 C Firstfeather Elders @leather Lynx
+022 M Fort Redemption Ranger @Durrrrian (design:fate1316)
+023 C Goat Herder @Gerard Curtis Delano
+024 U Grit @moggith (Design:caber)
+025 U Guardian of the Dead @JR Linton
+026 U Guthram Deputy @Lear1t
+027 R High Noon I @argonsky (design:righteousFighteous)
+028 C Hogtie @james walker
+029 C Into the Sunset @mohamed elhusseiny
+030 C Kill Shot @Roman Chaliy
+031 R Manifestation of Destiny @John Gast
+032 C Naaki Healer @azani
+033 U Naaki Shepherd @slfredo
+034 R Nimbus Hog @lio xan
+035 U Paragon Dragonslayer @moggith
+036 C Rallyridge Patrolman @greeni studio
+037 R Rallyridge Quartermaster @isdira
+038 C Redeemed Lawbringer @thienbao
+039 R Repel Siege @gamefan84
+040 C Roaming Buffalo @deskridge
+041 C Sacredhoof Wildshaper @Barbara Brown
+042 C Sheriffs Steed @stormwing93
+043 C Signature Strike @Jouey
+044 C Smoke the Peace Pipe @tyldestoop
+045 U Stunshot Centaur @brandywoods
+046 C Trinket Peddler @Durrrrian
+047 U Winged Constable @calonarang
+048 C Aerial Shootout @tuabak
+049 C Aven Dealer @J-C
+050 U Aven Deputy @xamosth
+051 U Bulletproof Barrier @brolken (Design:SoulofZendikar)
+052 C Call Your Bluff @Gabe Leonard
+053 U Career Criminal @Blackthorn (design:Kengaskhan)
+054 R Carnival Illusionist @Agios
+055 U Claim Jumper I @cedric payravern (design:ladsworld)
+056 C Conjure Frost @Jason Felix
+057 U Cyclone Rider @Bill Cigliano
+058 C Dowsing Prospector @grimbro
+059 C Drive Off @srdunko
+060 U Expel I @suiatsu
+061 C Firstfeather Stormwing @brenda Lyons
+062 C Foretell @Charles Frizzell(design:blydden)
+063 M Gaile Hannidy @jessibeans (design:fate1316)
+064 C Giant Catfish @Rick Lovell
+065 C Gone Fishin @Moggith
+066 U Hasty Retreat @moggith
+067 C Horned Serpent @deskridge
+068 C Hyastee Sigil @jocarra
+069 R Hyastee Sphinx @camelid (design:passthechips)
+070 C Lost in the Mist @deskridge
+071 R Mana Heist @Jouey (design:calibur)
+072 U Manastorm Twister @moggith
+073 M Mother Owls Herald @David Penfound (design:fate1316)
+074 C Nimble Spellslinger @smolin
+075 U Pan the River @Alfredo Rodriguez
+076 C Shellback Deputy @giddy griffin
+077 R Snake Oil Salesman @eenlikebean (design:goldenneckbeard)
+078 C Starry Visions @David Penfound
+079 R Tall Tales @Josephine Wall (design:pinkmoth)
+080 U Tawneys Huckster @EmilyEna
+081 M Titan of Cyclones @bombboy227
+082 R Train Robbery @Roman Chaliy
+083 C Triggerbane Ward @Ruined
+084 R Wisdom @Charles Frizzell
+085 C Wisewing Wildshaper @Charles Frizzell
+086 C Bad Blood @gregbrobowski
+087 C Blightwing Wildshaper @Charles Frizzell
+088 R Bloodshot Coachthief @nazier
+089 C Bloodshot Enforcer @dave wilkins (design:professionalecho)
+090 U Chupacabra @Luxdani
+091 C Coat with Venom @zhowee14
+092 C Dadgum Varmints @js4853
+093 R Dead Mans Hand @Andrew Dobell (design:corilyn)
+094 U Deal at the Crossroads @nfouque
+095 U Death Cheater @artozi
+096 U Devouring Wendigo @theresa Haller
+097 C Festering Blacklung @David Jankes
+098 U Gamblers Ruin @familyof6
+099 C Ghostly Presence @kingzog
+100 U Hang @svenart
+101 R Last Will and Testament @mick_o_maikeru (design:nerdyjoe)
+102 R Off the River @Jessica Dueck
+103 C Outlaw Necromancer @skazi
+104 R Pactbound Simians @razrroth
+105 C Penetrating Round @smiling demon
+106 C Pine Gulch Bandit @ros1
+107 C Riverboat Gambler @Tekey
+108 M Royal Flush @jimmyst1
+109 C Scavenging Vulture @ciameth
+110 C See You in Hell @VoltaStudio(design:3dspacejesus)
+111 C Sickening Revival @bnoch
+112 U Snallygaster @furiouskitten
+113 C Soulless Thieves @HarisovIldar
+114 C Tar Snare @Van Arno
+115 R Trail Sickness @Clark Kelly Price
+116 U Trestle Butcher @blewzen
+117 M Twisted Outlaw @art ozi
+118 U Up to No Good @hideyoshi
+119 C Voracious Wendigo @matthew Starbuck
+120 C Wanted @jabyre art
+121 U Wildcard @Jason Borrogo
+122 R Yorona Banshee @artgutierrez
+123 U Asigati Fireshaper @Lee Bogle (design:calibur)
+124 R Blaze of Malastrix @moggith
+125 U Bloodshot Desperada @stanislavnovarenko
+126 U Boomrider @zebes
+127 C Calamity Gunslinger @merely a
+128 C Caracole @Jouey
+129 C Cardhall Hooligan @Semour Fan
+130 U Cattle Rustler @digiartlink
+131 U Fan the Hammer @Jakub Kasper
+132 M Gamble @Matt Cowdery
+133 R Goblin Express @88grezs
+134 C Goblin Roughrider @grundalug and Shadothezombie
+135 R Goblin Sharpshooter @Arthur &#8217;Two Sheds&#8217;
+136 U Greenskin Gambler @paul Paa
+137 C Greenskin Geologist @ben ben ben
+138 C Guns Blazing @Blaise
+139 R Hoarding Dragon @albyu
+140 R Incendiary Round @chasing artwork
+141 U Inside Job @IgnacioBazanLazcano
+142 C Kayeri Brave @Ryan Pancoast
+143 U Lightning Reload @greenbox
+144 C Maddening Song @tatoosbyhalo
+145 U Mantle of Revolution @Magolobo
+146 C Mine Collapse I @kpeckep
+147 C Minotaur Chieftain @serg androsyuk
+148 R Naaki Gunslinger @Raashaad Jones
+149 C Nain Rogue @lone momo
+150 C Nothing to Lose @highdarktemplar
+151 U Quickdraw @skazi222
+152 M Roselyn Song of Madness @25kartinok (design:fate1316)
+153 C Run and Gun @John Gadbury
+154 R Tawneys Charlatan @Luayne
+155 C Thunderhoof Wildshaper @Parker Boyiddle
+156 C Tie to the Tracks @Under the Gaslight
+157 M Titan of Industry I @hunter
+158 C Two Smoking Barrels @czarnystephan
+159 C Vengeant Pactmaker @ambzilla
+160 C Wrangle @sovanjedi
+161 C Campfire I @malcandrax
+162 U Centaur Desperado @Raironu
+163 C Centaur Fieldhand @kerry Originals
+164 C Cultivate @Terry Redlin
+165 U Cyclone Boar @daemon-blackwinds
+166 C Diamondback Naga @Nightlyre
+167 C Dire Jackalope @tanathe
+168 R Elusive Sasquatch @paulsmith
+169 M Expedition Corps @Ron Sanders (design:fate1316)
+170 R Final Showdown I @moggith
+171 U Home on the Range @james walker
+172 C Hyastee Courser @syoshiko
+173 C Ironhoof Ox @Ragan Gennusa
+174 C Joint Assault @Sydney King
+175 U Leonin Huntress @dark natasha
+176 C Lumberwood Hidebehind @artbycarlos
+177 U Lumberwood Hodag @pyro helfier
+178 U Lupine Waltz @Heliux
+179 C Man Versus Machine @Nick Danzi
+180 R Motherlode @ale x linde
+181 R Mountainclaw Bear @Herbert Collins
+182 C Moxenite Slugs @Ithual
+183 C Naturalize @joel hustak
+184 U Ozuawe Hexcatcher @godofwar
+185 U Partnership @Ryan Pancoast
+186 C Rain Dancer @James Loveless Jr
+187 C Reach for the Sky I @moggith
+188 C Rugged Lumberjack @gutek fuitek
+189 U Settle @Alpha Step
+190 C Silkstrand Wildshaper @susan sheddon
+191 R Snapping Hydra @Emily Stepp
+192 C Stubborn Mule @Klaus Pillon(design:calibur)
+193 R Timberland Giant @David T Wenzel
+194 M Titan of Primacy @Henry Howe (design:fate1316)
+195 U Village Raid @rhineville
+196 C Wild Mustang @desk ridge
+197 R Wildshape Mastery @bonegoddess
+198 R Ace Holden @Moggith (design:pinkmoth and Blydden)
+199 R Appleseed Ghoul @bumskee
+200 U Briar Rabbit @kenket
+201 U Calamity Machinist @jrbarker
+202 U Dead Aim @majster
+203 U Descent of the Mothmen @PoaAlpina
+204 R Ironskin Chief @Tyler Jacobson (design:jim harbor)
+205 R Karakwa, Kayeri Warchief @eduardomonteiro
+206 M Malastrix @moggith
+207 R Miss Cassidy Sureshot @spectre-draws (design:fate1316)
+208 U Rallyridge Protector @hax
+209 U Redeemed Dead @boris Vallejo and Julie Bell
+210 R Sheriff Josiah Woods @direimpulse
+211 R Skinwalker @vollelune (design:revolverzanbolt)
+212 R Stickup @robin boer (design:all_outta_bubblegum)
+213 U Stiff-Legged Bear @Viktor Titov
+214 R Swallow Whole I @max davenport
+215 U Team Hunt @James Paick
+216 U Watchful Rancher @xandarx2
+217 R Words of the Sages @newmilky (design:fate1316)
+218 U Young Gun @Howeitzer
+219 U Arachnoid Mk II @James Carson
+220 R Bloodshot Hexgun @piercetheillusion (design:lordwafflesbane)
+221 C Brainless Scarecrow @Martin Davey
+222 R Colossus of Railroads @Ignacio Baz&#225;n Lazcano(design:cj_the_magic_man)
+223 R Double-Barrel Spellgun @Ithual
+224 U Dual Magelocks @gloom bunny
+225 U Freight Train @devinian (design:goldenneckbeard)
+226 C Frightshot Pistol @xabi gaztelua (design:Kyleometers)
+227 C Mechanical Bull @atelierran
+228 C Mug of Beer @Timothy Jones
+229 U Rail Juggernaut @Martin Davey
+230 U Ranchers Lasso @William &#8217;Buck&#8217; Dunton (design:DracoFreezeFlame)
+231 M Roselyns Viola @Brownie Bottom Sundae (design:pinkmoth)
+232 U Runevolley @Jordan yates
+233 R Sammy Sixguns Steelman @dominic brewer
+234 R Selfless Engineer @tekey
+235 U Sheeps Clothing @Dominic Murphy
+236 C Shortbow @charles Frizzell
+237 C Spellslingers Sixgun @stalker
+238 C Steel Stallion @neisbeis
+239 U Thunderbolt Revolver @artgerm
+240 R Tinman Bushranger @Bosslogix
+241 C Tinman Deputy @tom parrish
+242 C Tinman Grifter @vandervals
+243 U Tinman Posse @dave kapah
+244 C Tinman Vaquero @omuk
+245 U Tomahawk @entenn
+246 R Trading Post @clark kelly price
+247 C Volatile Ewe @Cinder Cat
+248 U Boom Town @finnian-macmanus(design:havoc)
+249 U Carnivorous Bog @Eric Joyner(design:havoc)
+250 R Farmyard @Fanny Palmer
+251 U Fenced Pasture @arisuonpaa(design:havoc)
+252 U Frontier Mission @lisa plokker(design:havoc)
+253 U Hangmans Rock @Oleh Khoda(design:havoc)
+254 U Hoodoo Valley @Thom Loafman(design:havoc)
+255 U Lumber Mill @georgio de michelle(design:havoc)
+256 U Lush Mesa @Duggan(design:havoc)
+257 R Madame Tawneys Saloon @goran-bukvic
+258 C Moxenite Mine @perkyz
+259 U Poisoned Waterhole @2wenty(design:havoc)
+260 U Waterworn Gully @robery perrish(design:havoc)
+261 L Plains
+262 L Island
+263 L Swamp
+264 L Mountain
+265 L Forest
+
+[tokens]
+000 w_0_1_goat @Stephan Baumann
+002 w_1_1_ox @itamar reiner
+004 u_5_5_ox @danger basset
+006 b_1_1_insect_flying @necronocimon
+008 b_1_1_skeleton @Roman Chaliy
+010 b_1_1_vampire_lifelink @Moggith
+012 g_0_1_plant @indeepblue
+014 g_2_2_wolf @kodriak
+016 c_1_1_a_construct @jorge saldana
+018 snake_oil @Tim Murphy
+
+[other]
+01 emblem_farajo_peacemaker
+02 emblem_roselyn_song_of_madness

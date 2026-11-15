@@ -1287,9 +1287,9 @@ public class GameAction {
                         controllerChangeZoneCorrection(c);
                         affectedCards.add(c);
                     }
-                    if (c.isCreature() && c.isPaired()) {
+                    if (c.isPaired() && (c.isCreature() || c.getPairExpiryTurn() >= 0)) {
                         Card partner = c.getPairedWith();
-                        if (!partner.isCreature() || c.getController() != partner.getController() || !c.isInPlay()) {
+                        if (!c.isCreature() || !partner.isCreature() || c.getController() != partner.getController() || !c.isInPlay()) {
                             c.setPairedWith(null);
                             partner.setPairedWith(null);
                             affectedCards.add(c);

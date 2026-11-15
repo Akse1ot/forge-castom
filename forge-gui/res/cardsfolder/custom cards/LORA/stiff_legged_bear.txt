@@ -1,0 +1,7 @@
+Name:Stiff-Legged Bear
+ManaCost:1 B G
+Types:Creature Zombie Bear
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Creature.YouOwn+!token | TriggerZones$ Battlefield | Execute$ TrigCounter | TriggerDescription$ Whenever a creature card is put into your graveyard from anywhere, put a +1/+1 counter on CARDNAME.
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+Oracle:Whenever a creature card is put into your graveyard from anywhere, put a +1/+1 counter on Stiff-Legged Bear.

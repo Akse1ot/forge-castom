@@ -1,0 +1,6 @@
+Name:Lumberwood Hidebehind
+ManaCost:4 G G
+Types:Creature Beast
+PT:5/5
+S:Mode$ Continuous | Affected$ Creature.Self+!attacking+!blocking | AddKeyword$ Hexproof | Description$ CARDNAME has hexproof unless it's attacking or blocking.
+Oracle:Lumberwood Hidebehind has hexproof unless it's attacking or blocking. (It can't be the target of spells or abilities your opponents control unless it's attacking or blocking.)

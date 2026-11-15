@@ -1,0 +1,8 @@
+Name:Cyclone Rider
+ManaCost:3 U U
+Types:Creature Human Wizard
+PT:3/3
+K:Prowess
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigFly | TriggerDescription$ Whenever you cast a noncreature spell, creatures you control gain flying until end of turn.
+SVar:TrigFly:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Flying
+Oracle:Prowess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)\nWhenever you cast a noncreature spell, creatures you control gain flying until end of turn.

@@ -1,0 +1,6 @@
+Name:Calamity Gunslinger
+ManaCost:1 R
+Types:Creature Goblin Rogue
+PT:2/1
+S:Mode$ Continuous | Affected$ Card.Self | IsPresent$ Artifact.YouCtrl | AddPower$ 1 | AddToughness$ 1 | Description$ CARDNAME gets +1/+1 as long as you control an artifact.
+Oracle:Calamity Gunslinger gets +1/+1 as long as you control an artifact.

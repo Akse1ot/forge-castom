@@ -1,0 +1,6 @@
+Name:Mine Collapse I
+ManaCost:1 R
+Types:Sorcery
+A:SP$ Tap | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Land | SubAbility$ DBFreeze | SpellDescription$ Tap up to two target lands. Those lands don't untap during their controller's next untap step.
+SVar:DBFreeze:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent
+Oracle:Tap up to two target lands. Those lands don't untap during their controller's next untap step.

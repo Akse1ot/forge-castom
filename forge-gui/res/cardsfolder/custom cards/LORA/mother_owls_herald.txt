@@ -1,0 +1,8 @@
+Name:Mother Owls Herald
+ManaCost:4 U U
+Types:Creature Bird
+PT:3/4
+K:Flying
+S:Mode$ Continuous | Affected$ Card.TopLibrary | AffectedZone$ Library | MayLookAt$ Player
+S:Mode$ Continuous | Affected$ Card.TopLibrary+nonLand | AffectedZone$ Library | Condition$ PlayerTurn | MayPlay$ True | MayPlayLimit$ 1
+Oracle:Flying\nPlayers play with the top card of their libraries revealed.\nOnce during each of your turns, you may cast the top card of any player's library if it's a nonland card.

@@ -1,0 +1,8 @@
+Name:Stubborn Mule
+ManaCost:1 G
+Types:Creature Horse
+PT:3/3
+K:Defender
+A:AB$ Effect | Cost$ TapType<1/Creature.Other/another creature> | RememberObjects$ Self | StaticAbilities$ CanAttack | SpellDescription$ CARDNAME can attack this turn as though it didn't have defender.
+SVar:CanAttack:Mode$ CanAttackDefender | ValidCard$ Creature.IsRemembered | Description$ This creature can attack as though it didn't have defender this turn.
+Oracle:Defender (This creature can't attack.)\nTap another untapped creature you control: Stubborn Mule can attack as though it didn't have defender this turn.

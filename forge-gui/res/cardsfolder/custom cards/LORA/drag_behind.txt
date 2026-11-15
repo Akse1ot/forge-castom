@@ -1,0 +1,7 @@
+Name:Drag Behind
+ManaCost:W
+Types:Enchantment Aura
+K:Enchant:Creature.YouCtrl:creature you control
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | TriggerDescription$ When CARDNAME enters, exile target creature an opponent controls until CARDNAME leaves the battlefield.
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Creature.OppCtrl | TgtPrompt$ Select target creature an opponent controls | Duration$ UntilHostLeavesPlay
+Oracle:Enchant creature you control\nWhen Drag Behind enters the battlefield, exile target creature an opponent controls until Drag Behind leaves the battlefield. (That creature returns under its owner's control.)

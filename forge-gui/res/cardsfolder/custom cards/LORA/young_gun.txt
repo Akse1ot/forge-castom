@@ -1,0 +1,10 @@
+Name:Young Gun
+ManaCost:R W
+Types:Creature Human Soldier
+PT:2/2
+A:AB$ ChangeZone | Cost$ R W | ValidTgts$ Artifact.YouCtrl | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ Return | SpellDescription$ Exile target artifact you control, then return it to the battlefield under your control. If it's a creature, it gains haste until end of turn. If it's an Equipment, attach it to CARDNAME.
+SVar:Return:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | GainControl$ True | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ Haste
+SVar:Haste:DB$ Pump | Defined$ Remembered.Creature | KW$ Haste | SubAbility$ Attach
+SVar:Attach:DB$ Attach | Defined$ Self | Object$ Remembered.Equipment | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:{R}{W}: Exile target artifact you control, then return it to the battlefield under your control. If it's a creature, it gains haste until end of turn. If it's an Equipment, attach it to Young Gun.

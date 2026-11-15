@@ -1,0 +1,8 @@
+Name:Village Raid
+ManaCost:4 G G
+Types:Sorcery
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ 3 | NumDef$ 3 | SubAbility$ DBEffect | SpellDescription$ Creatures you control get +3/+3 until end of turn. Whenever a creature you control deals combat damage to a player this turn, draw a card.
+SVar:DBEffect:DB$ Effect | Triggers$ TrigDraw
+SVar:TrigDraw:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Command | Execute$ DBDraw | TriggerDescription$ Whenever a creature you control deals combat damage to a player this turn, draw a card.
+SVar:DBDraw:DB$ Draw | NumCards$ 1
+Oracle:Creatures you control get +3/+3 until end of turn. Whenever a creature you control deals combat damage to a player this turn, draw a card.

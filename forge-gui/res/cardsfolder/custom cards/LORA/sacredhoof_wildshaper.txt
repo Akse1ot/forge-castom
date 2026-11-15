@@ -1,0 +1,6 @@
+Name:Sacredhoof Wildshaper
+ManaCost:W
+Types:Creature Human Druid
+PT:1/1
+A:AB$ Animate | Cost$ 2 W | Defined$ Self | Types$ Ox | RemoveCreatureTypes$ True | Power$ 2 | Toughness$ 5 | Keywords$ Lifelink | SpellDescription$ Until end of turn, CARDNAME becomes an Ox with base power and toughness 2/5 and gains lifelink.
+Oracle:{2}{W}: Until end of turn, Sacredhoof Wildshaper becomes an Ox with base power and toughness 2/5 and gains lifelink. (Damage dealt by it also causes you to gain that much life.)

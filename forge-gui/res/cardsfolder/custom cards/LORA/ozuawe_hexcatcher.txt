@@ -1,0 +1,6 @@
+Name:Ozuawe Hexcatcher
+ManaCost:1 G
+Types:Creature Human Shaman
+PT:2/2
+S:Mode$ RaiseCost | ValidTarget$ Player.You,Creature.YouCtrl+inZoneBattlefield | Activator$ Opponent | Type$ Spell | Amount$ 1 | Description$ Spells your opponents cast that target you or creatures you control cost {1} more to cast.
+Oracle:Spells your opponents cast that target you or creatures you control cost {1} more to cast.

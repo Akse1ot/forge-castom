@@ -1,0 +1,11 @@
+Name:Roselyn Song of Madness
+ManaCost:4 R R
+Types:Legendary Planeswalker Roselyn
+Loyalty:5
+A:AB$ GainControl | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent | LoseControl$ EOT | Untap$ True | AddKWs$ Haste | SpellDescription$ Gain control of target permanent until end of turn. Untap it. It gains haste until end of turn.
+A:AB$ Fight | Cost$ SubCounter<4/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | TargetMin$ 2 | TargetMax$ 2 | SpellDescription$ Target creature fights another target creature.
+A:AB$ Effect | Cost$ SubCounter<8/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Roselyn Song of Madness | Image$ emblem_roselyn_song_of_madness | Duration$ Permanent | Triggers$ TrigTap | SpellDescription$ You get an emblem with "Whenever a creature you control becomes tapped, it deals damage equal to its power to any target."
+SVar:TrigTap:Mode$ Taps | ValidCard$ Creature.YouCtrl | TriggerZones$ Command | Execute$ TrigDamage | TriggerDescription$ Whenever a creature you control becomes tapped, it deals damage equal to its power to any target.
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ Power | DamageSource$ TriggeredCardLKICopy
+SVar:Power:TriggeredCardLKICopy$CardPower
+Oracle:[+1]: Gain control of target permanent until end of turn. Untap it. It gains haste until end of turn.\n[-4]: Target creature fights another target creature.\n[-8]: You get an emblem with “Whenever a creature you control becomes tapped, it deals damage equal to its power to any target.”

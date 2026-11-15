@@ -1,0 +1,7 @@
+Name:Dead Mans Hand
+ManaCost:1 B B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouOwn+!token | TriggerZones$ Battlefield | Execute$ TrigChoose | TriggerDescription$ Whenever a nontoken creature you own dies, return it to your hand unless target opponent pays X life, where X is your longest straight.
+SVar:TrigChoose:DB$ ChangeZone | ValidTgts$ Opponent | Defined$ TriggeredNewCardLKICopy | Origin$ Graveyard | Destination$ Hand | UnlessCost$ PayLife<X> | UnlessPayer$ Targeted
+SVar:X:Count$LongestManaValueRun
+Oracle:Whenever a nontoken creature you own dies, return it to your hand unless target opponent pays X life, where X is your longest straight. (One or more nonland permanents you control with consecutive converted mana costs form a straight.)

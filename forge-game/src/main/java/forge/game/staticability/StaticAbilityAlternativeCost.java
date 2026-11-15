@@ -93,6 +93,10 @@ public class StaticAbilityAlternativeCost {
                     // External alternatives need not have a keyword-specific AlternativeCost enum.
                     newSA.putParam(AlternativeCostRuleUtil.PARAM_SELECTED_ALTERNATIVE, "True");
                     newSA.getOriginalMapParams().put(AlternativeCostRuleUtil.PARAM_SELECTED_ALTERNATIVE, "True");
+                    if ("True".equalsIgnoreCase(stAb.getParam(AlternativeCostRuleUtil.PARAM_PREVENT_COST_REPLACEMENT))) {
+                        newSA.putParam(AlternativeCostRuleUtil.PARAM_PREVENT_COST_REPLACEMENT, "True");
+                        newSA.getOriginalMapParams().put(AlternativeCostRuleUtil.PARAM_PREVENT_COST_REPLACEMENT, "True");
+                    }
                 }
 
                 if (stAb.hasParam("XAlternative")) {

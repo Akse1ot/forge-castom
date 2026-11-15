@@ -1,0 +1,9 @@
+Name:Titan of Industry I
+ManaCost:4 R R
+Types:Creature Giant
+PT:6/6
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigCopy | TriggerDescription$ When CARDNAME enters, you may create a token that's a copy of target artifact you control.
+SVar:TrigCopy:DB$ CopyPermanent | ValidTgts$ Artifact.YouCtrl | TgtPrompt$ Select target artifact you control to copy
+T:Mode$ Attacks | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigCopy | TriggerDescription$ Whenever CARDNAME attacks, you may create a token that's a copy of target artifact you control.
+Oracle:Haste (This creature can attack and {T} as soon as it comes under your control.)\nWhenever Titan of Industry I enters the battlefield or attacks, you may create a token that's a copy of target artifact you control.

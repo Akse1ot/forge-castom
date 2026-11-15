@@ -1,0 +1,6 @@
+Name:Run and Gun
+ManaCost:R
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | KW$ Haste | SubAbility$ DBDamage | SpellDescription$ Target creature you control gains haste until end of turn. CARDNAME deals 2 damage to any target.
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2
+Oracle:Target creature you control gains haste until end of turn. (It can attack and {T} this turn.)\nRun and Gun deals 2 damage to any target.

@@ -1,0 +1,5 @@
+Name:Roaming Buffalo
+ManaCost:2 W
+Types:Creature Ox
+PT:2/4
+Oracle:

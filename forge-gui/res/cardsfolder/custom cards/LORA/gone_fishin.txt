@@ -1,0 +1,7 @@
+Name:Gone Fishin
+ManaCost:2 U
+Types:Enchantment Aura
+K:Enchant:Creature
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.EnchantedBy | ValidStepTurnToController$ You | CheckSVar$ Fish | SVarCompare$ EQ0 | Layer$ CantHappen | Description$ Enchanted creature doesn't untap during its controller's untap step unless that player controls a Fish.
+SVar:Fish:Count$Valid Creature.Fish+EnchantedControllerCtrl
+Oracle:Enchant creature\nEnchanted creature doesn't untap during its controller's untap step unless that player controls a Fish.

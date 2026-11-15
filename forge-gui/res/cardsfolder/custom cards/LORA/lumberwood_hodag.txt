@@ -1,0 +1,9 @@
+Name:Lumberwood Hodag
+ManaCost:4 G
+Types:Creature Beast
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigMill | TriggerDescription$ Whenever CARDNAME attacks, you may mill three cards, then CARDNAME gets +1/+1 for each creature card in your graveyard until end of turn.
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 3 | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Self | NumAtt$ X | NumDef$ X
+SVar:X:Count$ValidGraveyard Creature.YouOwn
+Oracle:Whenever Lumberwood Hodag attacks, you may put the top three cards of your library into your graveyard, then Lumberwood Hodag gets +1/+1 for each creature card in your graveyard until end of turn.

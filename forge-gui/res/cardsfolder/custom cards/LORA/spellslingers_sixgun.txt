@@ -1,0 +1,7 @@
+Name:Spellslingers Sixgun
+ManaCost:1
+Types:Artifact Equipment
+K:etbCounter:CHARGE:6:no Condition:Loaded 6 (CARDNAME enters with 6 charge counters.)
+A:AB$ Pump | Cost$ 1 SubCounter<1/CHARGE> | Defined$ Equipped | NumAtt$ 1 | SpellDescription$ Equipped creature gets +1/+0 until end of turn.
+K:Equip:1
+Oracle:Loaded 6 (This enters the battlefield with six charge counters.)\n{1}, Remove a charge counter from Spellslinger's Sixgun: Equipped creature gets +1/+0 until end of turn.\nEquip {1}

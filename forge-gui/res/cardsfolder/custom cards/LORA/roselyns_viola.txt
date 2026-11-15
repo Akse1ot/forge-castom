@@ -1,0 +1,10 @@
+Name:Roselyns Viola
+ManaCost:3
+Types:Legendary Artifact
+A:AB$ Mana | Cost$ T | Produced$ R | TriggersWhenSpent$ Trig | SpellDescription$ Add {R}. When that mana is spent to cast an instant or sorcery spell, exile it when it resolves.
+SVar:Trig:Mode$ SpellCast | ValidCard$ Instant.YouCtrl,Sorcery.YouCtrl | ValidActivatingPlayer$ You | Execute$ Effect
+SVar:Effect:DB$ Effect | ReplacementEffects$ Replace | RememberObjects$ TriggeredCard | ExileOnMoved$ Stack
+SVar:Replace:Event$ Moved | ValidCard$ Card.IsRemembered | Origin$ Stack | Destination$ Graveyard | Fizzle$ False | ReplaceWith$ Exile
+SVar:Exile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile | ExiledWithEffectSource$ True
+A:AB$ Play | Cost$ 4 T Sac<1/CARDNAME> | Defined$ ExiledWith | ValidSA$ Spell | Amount$ All | WithoutManaCost$ 4 True | Optional$ True | SpellDescription$ Cast any number of cards exiled with CARDNAME without paying their mana costs.
+Oracle:{T}: Add {R}. When that mana is spent to cast an instant or sorcery spell, exile it when it resolves.\n{4}, {T}, Sacrifice Roselyn's Viola: Cast any number of cards exiled with Roselyn's Viola without paying their mana costs. (They are put into their owner's graveyards.)

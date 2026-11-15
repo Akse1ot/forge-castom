@@ -1,0 +1,6 @@
+Name:Lumber Mill
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T PayLife<1> | Produced$ Combo U R | SpellDescription$ Add {U} or {R}.
+A:AB$ Draw | Cost$ U R T Sac<1/CARDNAME> | NumCards$ 1 | SpellDescription$ Draw a card.
+Oracle:{T}, Pay 1 life: Add {G} or {U}.\n{G}{U}, {T}, Sacrifice Lumber Mill: Draw a card.

@@ -1,0 +1,8 @@
+Name:Sheriffs Steed
+ManaCost:1 W W
+Types:Creature Griffin
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFlying | TriggerDescription$ When CARDNAME enters, target creature gains flying until end of turn.
+SVar:TrigFlying:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | KW$ Flying
+Oracle:Flying\nWhen Sheriff's Steed enters the battlefield, target creature gains flying until end of turn.

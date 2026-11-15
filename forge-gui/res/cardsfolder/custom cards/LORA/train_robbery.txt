@@ -1,0 +1,7 @@
+Name:Train Robbery
+ManaCost:2 U
+Types:Enchantment
+T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ ExileTop | TriggerDescription$ Whenever a creature you control deals combat damage to a player, exile the top card of that player's library.
+SVar:ExileTop:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile
+S:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreType$ True | Affected$ Card.nonLand+ExiledWithSource | AffectedZone$ Exile
+Oracle:Whenever a creature you control deals combat damage to a player, exile the top card of that player's library.\nYou may cast nonland cards exiled with Train Robbery and spend mana as though it were mana of any type to cast them.

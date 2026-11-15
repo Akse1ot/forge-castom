@@ -1,0 +1,8 @@
+Name:Scavenging Vulture
+ManaCost:2 B
+Types:Creature Bird
+PT:2/1
+K:Flying
+A:AB$ ChangeZone | Cost$ B T | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature | SubAbility$ DBGainLife | SpellDescription$ Exile target creature card from a graveyard. You gain 2 life.
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+Oracle:Flying\n{B}, {T}: Exile target creature card from a graveyard. You gain 2 life.

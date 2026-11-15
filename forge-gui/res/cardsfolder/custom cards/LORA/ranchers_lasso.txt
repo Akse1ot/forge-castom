@@ -1,0 +1,9 @@
+Name:Ranchers Lasso
+ManaCost:2
+Types:Artifact Equipment
+K:Equip:2
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Creature.EquippedBy | ValidStepTurnToController$ You | Layer$ CantHappen | Description$ Equipped creature doesn't untap during its controller's untap step.
+S:Mode$ Continuous | AffectedDefined$ Equipped | Affected$ Creature | AddAbility$ ABLasso | Description$ Equipped creature has "{2}, {T}: Tap target creature and attach CARDNAME to it."
+SVar:ABLasso:AB$ Tap | Cost$ 2 T | ValidTgts$ Creature | SubAbility$ DBAttach | SpellDescription$ Tap target creature and attach ORIGINALHOST to it.
+SVar:DBAttach:DB$ Attach | Object$ OriginalHost | Defined$ Targeted
+Oracle:Equipped creature doesn't untap during its controller's untap step.\nEquipped creature has “{2}, {T}: Tap target creature and attach Rancher's Lasso to it.” (Control of Rancher's Lasso doesn't change. Only you can activate its equip ability.)\nEquip {2} ({2}: Attach to target creature you control. Equip only as a sorcery.)

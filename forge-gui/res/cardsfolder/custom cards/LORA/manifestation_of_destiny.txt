@@ -1,0 +1,9 @@
+Name:Manifestation of Destiny
+ManaCost:5 W
+Types:Creature Avatar
+PT:5/7
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | TriggerDescription$ When CARDNAME enters, search your library for a Plains card, put it onto the battlefield, then shuffle. Then create a 0/1 white Goat creature token for each Plains you control.
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Plains | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ w_0_1_goat | TokenOwner$ You | TokenAmount$ X
+SVar:X:Count$Valid Land.Plains+YouCtrl
+Oracle:When Manifestation of Destiny enters the battlefield, search your library for a Plains card, put it onto the battlefield, then shuffle your library. Then create a 0/1 white Goat creature token for each Plains you control.

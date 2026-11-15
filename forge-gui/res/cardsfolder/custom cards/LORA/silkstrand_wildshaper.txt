@@ -1,0 +1,6 @@
+Name:Silkstrand Wildshaper
+ManaCost:G
+Types:Creature Human Druid
+PT:1/1
+A:AB$ Animate | Cost$ 1 G | Defined$ Self | Types$ Spider | RemoveCreatureTypes$ True | Power$ 2 | Toughness$ 4 | Keywords$ Reach | SpellDescription$ Until end of turn, CARDNAME becomes a Spider with base power and toughness 2/4 and gains reach.
+Oracle:{1}{G}: Until end of turn, Silkstrand Wildshaper becomes a Spider with base power and toughness 2/4 and gains reach. (It can block creatures with flying.)

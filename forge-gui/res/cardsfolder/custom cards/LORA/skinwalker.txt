@@ -1,0 +1,7 @@
+Name:Skinwalker
+ManaCost:1 U B
+Types:Creature Shapeshifter
+PT:2/2
+A:AB$ ChangeZone | Cost$ B | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature | SpellDescription$ Exile target creature card from a graveyard.
+A:AB$ Clone | Cost$ U | Defined$ Self | Choices$ Creature.ExiledWithSource | ChoiceZone$ Exile | GainThisAbility$ True | SpellDescription$ Until end of turn, CARDNAME becomes a copy of a creature card exiled with it and gains this ability.
+Oracle:{B}: Exile target creature card from a graveyard.\n{U}: Until end of turn, Skinwalker becomes a copy of a creature card exiled with it and gains this ability.

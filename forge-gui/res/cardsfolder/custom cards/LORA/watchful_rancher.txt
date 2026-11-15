@@ -1,0 +1,7 @@
+Name:Watchful Rancher
+ManaCost:1 G W
+Types:Creature Human Farmer
+PT:2/2
+K:Vigilance
+S:Mode$ Continuous | Affected$ Creature.Boar+YouCtrl,Creature.Goat+YouCtrl,Creature.Horse+YouCtrl,Creature.Ox+YouCtrl,Creature.Sheep+YouCtrl | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Vigilance | Description$ Boar, Goat, Horse, Ox, and Sheep creatures you control get +1/+1 and have vigilance.
+Oracle:Vigilance (Attacking doesn't cause this creature to tap.)\nBoar, Goat, Horse, Ox, and Sheep creatures you control get +1/+1 and have vigilance.

@@ -1,0 +1,6 @@
+Name:See You in Hell
+ManaCost:1 B
+Types:Instant
+A:SP$ DelayedTrigger | ValidTgts$ Creature | TargetMin$ 2 | TargetMax$ 2 | Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.IsTriggerRemembered | RememberObjects$ Targeted | ThisTurn$ True | Execute$ Kill | SpellDescription$ Choose two target creatures. When one of them dies this turn, destroy the other.
+SVar:Kill:DB$ Destroy | Defined$ DelayTriggerRememberedLKI
+Oracle:Choose two target creatures. When one of them dies this turn, destroy the other.

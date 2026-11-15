@@ -1,0 +1,7 @@
+Name:Home on the Range
+ManaCost:1 G
+Types:Sorcery
+A:SP$ Dig | DigNum$ 5 | Reveal$ True | RememberRevealed$ True | ChangeNum$ 1 | ChangeValid$ Creature,Land | DestinationZone$ Hand | DestinationZone2$ Graveyard | SubAbility$ DBGain | SpellDescription$ Reveal the top five cards of your library. Put a creature or land card from among them into your hand and the rest into your graveyard. If a Boar, Goat, Horse, Ox, or Sheep card was revealed this way, you gain 4 life.
+SVar:DBGain:DB$ GainLife | Defined$ You | LifeAmount$ 4 | ConditionDefined$ Remembered | ConditionPresent$ Card.Boar,Card.Goat,Card.Horse,Card.Ox,Card.Sheep | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Reveal the top five cards of your library. Put a creature or land card from among them into your hand and the rest into your graveyard. If a Boar, Goat, Horse, Ox, or Sheep card was revealed this way, you gain 4 life.

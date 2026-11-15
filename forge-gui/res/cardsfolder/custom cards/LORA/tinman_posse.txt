@@ -1,0 +1,8 @@
+Name:Tinman Posse
+ManaCost:4
+Types:Artifact Creature Construct
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a 1/1 colorless Construct artifact creature token.
+SVar:TrigToken:DB$ Token | TokenScript$ c_1_1_a_construct | TokenOwner$ You
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME dies, create a 1/1 colorless Construct artifact creature token.
+Oracle:When Tinman Posse enters the battlefield or dies, create a 1/1 colorless Construct artifact creature token.

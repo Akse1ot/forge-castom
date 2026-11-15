@@ -1,0 +1,7 @@
+Name:Man Versus Machine
+ManaCost:1 G
+Types:Sorcery
+A:SP$ Effect | ValidTgts$ Creature.YouCtrl | ReplacementEffects$ PreventDamage | SubAbility$ DBFight | SpellDescription$ Prevent all damage that would be dealt by artifact creatures this turn. Target creature you control fights target creature you don't control.
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl | TgtPrompt$ Select target creature you don't control
+SVar:PreventDamage:Event$ DamageDone | ValidSource$ Creature.Artifact | PreventionEffect$ True | Prevent$ True | Description$ Prevent all damage that would be dealt by artifact creatures this turn.
+Oracle:Prevent all damage that would be dealt by artifact creatures this turn. Target creature you control fights target creature you don't control. (Each deals damage equal to its power to the other.)

@@ -1,0 +1,10 @@
+Name:Minotaur Chieftain
+ManaCost:4 R
+Types:Creature Minotaur Warrior
+PT:5/4
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ Pair | TriggerDescription$ Warband (Whenever CARDNAME attacks, you may pair it with another unpaired attacking creature you control until end of turn.)
+SVar:Pair:DB$ Bond | Defined$ TriggeredAttackerLKICopy | ValidCards$ Creature.Other+YouCtrl+attacking+!Paired | PairUntilEndOfTurn$ True
+T:Mode$ BecomesPaired | ValidCard$ Card.StrictlySelf | TriggerZones$ Battlefield | Execute$ Buff | PairAttackBonus$ Trample | TriggerDescription$ Whenever CARDNAME becomes paired with a creature, both creatures gain trample until end of turn.
+SVar:Buff:DB$ Effect | Name$ Warband bonus | Stackable$ True | RememberLKI$ TriggeredCardsLKICopy | Duration$ EndOfTurn | CopyForSimulation$ True | StaticAbilities$ STBuff
+SVar:STBuff:Mode$ Continuous | EffectZone$ Command | AffectedZone$ Battlefield | Affected$ Card.IsRememberedIncarnation | AddKeyword$ Trample
+Oracle:Warband (Whenever this creature attacks, you may pair it with another unpaired attacking creature you control until end of turn.)\nWhenever Minotaur Chieftain becomes paired with a creature, both creatures gain trample until end of turn.

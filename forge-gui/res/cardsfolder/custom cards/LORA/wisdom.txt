@@ -1,0 +1,5 @@
+Name:Wisdom
+ManaCost:4 U U U
+Types:Instant
+A:SP$ Draw | NumCards$ 7 | SpellDescription$ Draw seven cards.
+Oracle:Draw seven cards.

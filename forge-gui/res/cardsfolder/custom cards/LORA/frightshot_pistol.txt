@@ -1,0 +1,8 @@
+Name:Frightshot Pistol
+ManaCost:1
+Types:Artifact Equipment
+K:etbCounter:CHARGE:3:no Condition:Loaded 3 (CARDNAME enters with 3 charge counters.)
+A:AB$ Effect | Cost$ SubCounter<1/CHARGE> | ValidTgts$ Creature | RememberLKI$ Equipped,Targeted | IsPresent$ Creature.EquippedBy | StaticAbilities$ STNoBlock | SpellDescription$ Target creature can't block equipped creature this turn.
+SVar:STNoBlock:Mode$ CantBlockBy | ValidAttacker$ Creature.IsRememberedIncarnation+IsDefined RememberedFirst | ValidBlocker$ Creature.IsRememberedIncarnation+IsDefined RememberedLast
+K:Equip:1
+Oracle:Loaded 3 (This enters the battlefield with three charge counters.)\nRemove a charge counter from Frightshot Pistol: Target creature can't block equipped creature this turn.\nEquip {1}

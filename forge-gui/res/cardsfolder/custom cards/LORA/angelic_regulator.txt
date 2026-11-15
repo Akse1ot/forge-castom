@@ -1,0 +1,8 @@
+Name:Angelic Regulator
+ManaCost:3 W W
+Types:Creature Angel
+PT:4/4
+K:Flying
+K:Renown:1
+S:Mode$ Continuous | IsPresent$ Card.Self+IsRenowned | Affected$ Creature.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1 | Description$ As long as CARDNAME is renowned, other creatures you control get +1/+1.
+Oracle:Flying\nRenown 1 (When this creature deals combat damage to a player, if it isn't renowned, put a +1/+1 counter on it and it becomes renowned.)\nAs long as Angelic Regulator is renowned, other creatures you control get +1/+1.

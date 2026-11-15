@@ -1,0 +1,8 @@
+Name:Empty Night
+ManaCost:3 W W
+Types:Sorcery
+A:SP$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Creature,Planeswalker | SpellDescription$ Exile all creatures and planeswalkers.
+S:Mode$ AlternativeCost | EffectZone$ Hand,Graveyard,Exile,Library,Command | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ 4 W W W | Named$ Reflex | PreventAlternativeCostReplacement$ True | Description$ Reflex
+S:Mode$ CastWithFlash | EffectZone$ Hand,Graveyard,Exile,Library,Command | ValidCard$ Card.Self | ValidSA$ Spell.NamedAbilityReflex
+S:Mode$ Continuous | EffectZone$ Graveyard | AffectedZone$ Graveyard | Affected$ Card.Self | AddHiddenKeyword$ Reflex
+Oracle:Reflex {4}{W}{W}{W} (You may cast this spell any time you could cast an instant for its reflex cost.)\nExile all creatures and planeswalkers.

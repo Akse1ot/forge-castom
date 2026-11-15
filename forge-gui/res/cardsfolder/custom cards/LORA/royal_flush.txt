@@ -1,0 +1,16 @@
+Name:Royal Flush
+ManaCost:B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ Flush | SVarCompare$ GE1 | Execute$ TrigWin | TriggerDescription$ At the beginning of your upkeep, if you control a straight of 5 and all permanents in that straight share a color, you win the game.
+SVar:TrigWin:DB$ WinsGame | Defined$ You
+SVar:WhiteRun:Count$Valid Card.YouCtrl+nonLand+White$LongestManaValueRun
+SVar:BlueRun:Count$Valid Card.YouCtrl+nonLand+Blue$LongestManaValueRun
+SVar:BlackRun:Count$Valid Card.YouCtrl+nonLand+Black$LongestManaValueRun
+SVar:RedRun:Count$Valid Card.YouCtrl+nonLand+Red$LongestManaValueRun
+SVar:GreenRun:Count$Valid Card.YouCtrl+nonLand+Green$LongestManaValueRun
+SVar:Flush:Count$Compare WhiteRun GE5.1.BlueFlush
+SVar:BlueFlush:Count$Compare BlueRun GE5.1.BlackFlush
+SVar:BlackFlush:Count$Compare BlackRun GE5.1.RedFlush
+SVar:RedFlush:Count$Compare RedRun GE5.1.GreenFlush
+SVar:GreenFlush:Count$Compare GreenRun GE5.1.0
+Oracle:At the beginning of your upkeep, if you control a straight of 5 and all permanents in that straight share a color, you win the game. (One or more nonland permanents you control with consecutive converted mana costs form a straight.)

@@ -1,0 +1,7 @@
+Name:Sickening Revival
+ManaCost:2 B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn | SubAbility$ DBLoseLife | SpellDescription$ Return target creature card from your graveyard to your hand. Target player loses life equal to its power.
+SVar:DBLoseLife:DB$ LoseLife | ValidTgts$ Player | LifeAmount$ X
+SVar:X:ParentTargeted$CardPower
+Oracle:Return target creature card from your graveyard to your hand. Target player loses life equal to its power.

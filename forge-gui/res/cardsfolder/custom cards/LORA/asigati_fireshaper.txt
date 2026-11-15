@@ -1,0 +1,11 @@
+Name:Asigati Fireshaper
+ManaCost:1 R
+Types:Creature Human Shaman
+PT:2/1
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ Pair | TriggerDescription$ Warband (Whenever CARDNAME attacks, you may pair it with another unpaired attacking creature you control until end of turn.)
+SVar:Pair:DB$ Bond | Defined$ TriggeredAttackerLKICopy | ValidCards$ Creature.Other+YouCtrl+attacking+!Paired | PairUntilEndOfTurn$ True
+T:Mode$ BecomesPaired | ValidCard$ Card.StrictlySelf | TriggerZones$ Battlefield | Execute$ Buff | TriggerDescription$ Whenever CARDNAME becomes paired with a creature, each of those creatures gains "Spells you cast that target this creature cost {2} less to cast." until end of turn.
+SVar:Buff:DB$ Effect | Name$ Asigati Fireshaper warband | Stackable$ True | RememberLKI$ TriggeredCardsLKICopy | Duration$ EndOfTurn | CopyForSimulation$ True | StaticAbilities$ STGrant
+SVar:STGrant:Mode$ Continuous | EffectZone$ Command | AffectedZone$ Battlefield | Affected$ Card.IsRememberedIncarnation | AddStaticAbility$ STReduce
+SVar:STReduce:Mode$ ReduceCost | ValidTarget$ Card.Self | Activator$ You | Type$ Spell | Amount$ 2 | Description$ Spells you cast that target this creature cost {2} less to cast.
+Oracle:Warband (Whenever this creature attacks, you may pair it with another unpaired attacking creature you control until end of turn.)\nWhenever Asigati Fireshaper becomes paired with a creature, each of those creatures gains “Spells you cast that target this creature cost {2} less to cast.” until end of turn.

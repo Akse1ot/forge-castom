@@ -1,0 +1,10 @@
+Name:Twisted Outlaw
+ManaCost:3 B B
+Types:Creature Human Assassin
+PT:3/3
+A:AB$ DealDamage | Cost$ B T | ValidTgts$ Creature | NumDmg$ 1 | SubAbility$ DBGainLife | SpellDescription$ CARDNAME deals 1 damage to target creature. You gain 1 life.
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+A:AB$ Pump | Cost$ 1 B T | ValidTgts$ Creature | NumAtt$ -2 | NumDef$ -2 | SpellDescription$ Target creature gets -2/-2 until end of turn.
+A:AB$ Sacrifice | Cost$ 2 B T | ValidTgts$ Player | SacValid$ Creature | Amount$ 1 | SpellDescription$ Target player sacrifices a creature.
+A:AB$ Destroy | Cost$ 3 B T | ValidTgts$ Creature.tapped | SpellDescription$ Destroy target tapped creature.
+Oracle:{B}, {T}: Twisted Outlaw deals 1 damage to target creature. You gain 1 life.\n{1}{B}, {T}: Target creature gets -2/-2 until end of turn.\n{2}{B}, {T}: Target player sacrifices a creature.\n{3}{B}, {T}: Destroy target tapped creature.

@@ -8,6 +8,7 @@ import com.google.common.collect.Maps;
 import forge.game.Game;
 import forge.game.GameEntity;
 import forge.game.card.Card;
+import forge.game.card.CardCollection;
 import forge.game.player.Player;
 import forge.game.staticability.StaticAbilityAttackRestrict;
 import forge.util.collect.FCollectionView;
@@ -16,9 +17,15 @@ public class GlobalAttackRestrictions {
 
     private final Integer max;
     private final Map<GameEntity, Integer> defenderMax;
-    private GlobalAttackRestrictions(final Integer max, final Map<GameEntity, Integer> defenderMax) {
+    private final CombatDeclarationHistory history;
+    private final int turnLimit;
+
+    private GlobalAttackRestrictions(final Integer max, final Map<GameEntity, Integer> defenderMax,
+            final CombatDeclarationHistory history, final int turnLimit) {
         this.max = max;
         this.defenderMax = defenderMax;
+        this.history = history;
+        this.turnLimit = turnLimit;
     }
 
     public Integer getMax() {
@@ -28,8 +35,17 @@ public class GlobalAttackRestrictions {
         return defenderMax;
     }
 
+    public boolean allowsAdditionalAttacker(final Iterable<Card> attackers, final Card candidate) {
+        if (turnLimit == Integer.MAX_VALUE) {
+            return true;
+        }
+        final CardCollection proposed = new CardCollection(attackers);
+        proposed.add(candidate);
+        return history.allowsAttackers(proposed, turnLimit);
+    }
+
     public boolean isLegal(final Map<Card, GameEntity> attackers) {
-        if (max != null && attackers.size() > max) {
+        if ((max != null && attackers.size() > max) || !history.allowsAttackers(attackers.keySet(), turnLimit)) {
             return false;
         }
 
@@ -72,6 +88,10 @@ public class GlobalAttackRestrictions {
             max = Math.min(Objects.requireNonNullElse(max, Integer.MAX_VALUE), defenderMax.values().stream().mapToInt(Integer::intValue).sum());
         }
 
-        return new GlobalAttackRestrictions(max, defenderMax);
+        final int turnLimit = StaticAbilityAttackRestrict.turnAttackLimit(game);
+        if (turnLimit != Integer.MAX_VALUE) {
+            max = Math.min(Objects.requireNonNullElse(max, Integer.MAX_VALUE), turnLimit);
+        }
+        return new GlobalAttackRestrictions(max, defenderMax, game.getPhaseHandler().getCombatDeclarationHistory(), turnLimit);
     }
 }

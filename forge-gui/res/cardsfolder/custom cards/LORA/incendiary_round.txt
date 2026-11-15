@@ -1,0 +1,10 @@
+Name:Incendiary Round
+ManaCost:X R
+Types:Sorcery
+A:SP$ DealDamage | ValidTgts$ Any | NumDmg$ X | RememberDamaged$ True | ReplaceDyingDefined$ Remembered.Creature | SubAbility$ DBCleanup | SpellDescription$ CARDNAME deals X damage to any target. If a creature dealt damage this way would die this turn, exile it instead.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid
+S:Mode$ AlternativeCost | EffectZone$ Hand,Graveyard,Exile,Library,Command | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ X R R | Named$ Reflex | PreventAlternativeCostReplacement$ True | Description$ Reflex
+S:Mode$ CastWithFlash | EffectZone$ Hand,Graveyard,Exile,Library,Command | ValidCard$ Card.Self | ValidSA$ Spell.NamedAbilityReflex
+S:Mode$ Continuous | EffectZone$ Graveyard | AffectedZone$ Graveyard | Affected$ Card.Self | AddHiddenKeyword$ Reflex
+Oracle:Reflex {X}{R}{R} (You may cast this spell any time you could cast an instant for its reflex cost.)\nIncendiary Round deals X damage to any target. If a creature dealt damage this way would die this turn, exile it instead.

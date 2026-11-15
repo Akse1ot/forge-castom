@@ -1,0 +1,6 @@
+Name:Carnivorous Bog
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T PayLife<1> | Produced$ Combo B G | SpellDescription$ Add {B} or {G}.
+A:AB$ Draw | Cost$ B G T Sac<1/CARDNAME> | NumCards$ 1 | SpellDescription$ Draw a card.
+Oracle:{T}, Pay 1 life: Add {B} or {G}.\n{B}{G}, {T}, Sacrifice Carnivorous Bog: Draw a card.

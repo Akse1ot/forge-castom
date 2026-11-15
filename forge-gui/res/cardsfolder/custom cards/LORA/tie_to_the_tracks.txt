@@ -1,0 +1,8 @@
+Name:Tie to the Tracks
+ManaCost:R
+Types:Enchantment Aura
+K:Enchant:Creature
+S:Mode$ CantBlock | ValidCard$ Creature.EnchantedBy | Description$ Enchanted creature can't block.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Artifact.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ Whenever an artifact enters under your control, CARDNAME deals 4 damage to enchanted creature.
+SVar:TrigDamage:DB$ DealDamage | Defined$ Enchanted | NumDmg$ 4
+Oracle:Enchant creature\nEnchanted creature can't block.\nWhenever an artifact enters the battlefield under your control, Tie to the Tracks deals 4 damage to enchanted creature.

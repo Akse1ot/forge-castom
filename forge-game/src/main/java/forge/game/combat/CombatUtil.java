@@ -30,6 +30,7 @@ import forge.game.phase.PhaseType;
 import forge.game.player.Player;
 import forge.game.spellability.SpellAbility;
 import forge.game.staticability.StaticAbility;
+import forge.game.staticability.StaticAbilityAttackRestrict;
 import forge.game.staticability.StaticAbilityBlockRestrict;
 import forge.game.staticability.StaticAbilityCantAttackBlock;
 import forge.game.staticability.StaticAbilityMustBlock;
@@ -212,6 +213,11 @@ public class CombatUtil {
             return false;
         }
 
+        if (!forNextTurn && !game.getPhaseHandler().getCombatDeclarationHistory().allowsAttackers(
+                List.of(attacker), StaticAbilityAttackRestrict.turnAttackLimit(game))) {
+            return false;
+        }
+
         // Goad logic
         // a goaded creature does need to attack a player which does not goaded her
         // or if not possible a planeswalker or a player which does goaded her
@@ -363,6 +369,7 @@ public class CombatUtil {
         final List<Card> otherAttackers = combat.getAttackers();
 
         if (triggers) {
+            game.getPhaseHandler().getCombatDeclarationHistory().recordAttacker(c);
             final Map<AbilityKey, Object> runParams = AbilityKey.newMap();
             runParams.put(AbilityKey.Attacker, c);
             otherAttackers.remove(c);
@@ -433,7 +440,18 @@ public class CombatUtil {
             return false;
         }
 
-        return canBlock(blocker);
+        return canBlock(blocker) && allowsTurnBlockers(combat, blocker.getController(), List.of(blocker));
+    }
+
+    public static boolean allowsTurnBlockers(final Combat combat, final Player defender, final List<Card> additions) {
+        final Game game = defender.getGame();
+        final int max = StaticAbilityBlockRestrict.turnBlockLimit(game);
+        if (max == Integer.MAX_VALUE) {
+            return true;
+        }
+        final CardCollection proposed = CardLists.filterControlledBy(combat.getAllBlockers(), defender.getSharedTeam());
+        proposed.addAll(additions);
+        return game.getPhaseHandler().getCombatDeclarationHistory().allowsBlockers(proposed, max);
     }
 
     // can the creature block at all?
@@ -649,7 +667,12 @@ public class CombatUtil {
                         continue;
                     }
 
-                    int additionalBlockers = getMinNumBlockersForAttacker(cardToBeBlocked, defending) -1;
+                    final int minimum = getMinNumBlockersForAttacker(cardToBeBlocked, defending);
+                    if (minimum > StaticAbilityBlockRestrict.turnBlockLimit(defending.getGame())
+                            || !allowsTurnBlockers(combat, defending, List.of(blocker))) {
+                        continue;
+                    }
+                    int additionalBlockers = minimum - 1;
                     int potentialBlockers = 0;
                     // if the attacker can only be blocked with multiple creatures check if that's possible
                     for (int i = 0; i < additionalBlockers; i++) {
@@ -684,7 +707,8 @@ public class CombatUtil {
                         if (getMinNumBlockersForAttacker(attacker, defending) > 1) {
                             final List<Card> possibleBlockers = Lists.newArrayList(freeBlockers);
                             possibleBlockers.addAll(combat.getBlockers(attacker));
-                            if (!canBeBlocked(attacker, possibleBlockers, combat)) {
+                            if (getMinNumBlockersForAttacker(attacker, defending) > StaticAbilityBlockRestrict.turnBlockLimit(defending.getGame())
+                                    || !canBeBlocked(attacker, possibleBlockers, combat)) {
                                 must = false;
                             }
                         }
@@ -718,6 +742,9 @@ public class CombatUtil {
 
     /** Checks the restrictions that depend on the other blockers and on the number of blockers per attacker. */
     public static String validateBlockRestrictions(final Combat combat, final Player defending, final List<Card> blockers) {
+        if (!allowsTurnBlockers(combat, defending, List.of())) {
+            return "Too many different creatures declared as blockers this turn.";
+        }
         // Creatures that aren't allowed to block unless certain restrictions are met.
         for (final Card blocker : blockers) {
             boolean cantBlockAlone = blocker.hasKeyword("CARDNAME can't attack or block alone.") || blocker.hasKeyword("CARDNAME can't block alone.");
@@ -773,6 +800,10 @@ public class CombatUtil {
             return false;
         }
 
+        if (!allowsTurnBlockers(combat, blocker.getController(), List.of(blocker))) {
+            return false;
+        }
+
         final CardCollectionView attackers = combat.getAttackers();
 
         final CardCollection requirementCards = new CardCollection();
@@ -793,7 +824,9 @@ public class CombatUtil {
 
                 if (getMinNumBlockersForAttacker(attacker, defendingPlayer) > 1) {
                     final List<Card> blockers = defendingPlayer.getCreaturesInPlay();
-                    canBe = canBeBlocked(attacker, blockers, combat);
+                    final int minimum = getMinNumBlockersForAttacker(attacker, defendingPlayer);
+                    canBe = minimum <= StaticAbilityBlockRestrict.turnBlockLimit(defender.getGame())
+                            && canBeBlocked(attacker, blockers, combat);
                 }
                 if (canBe) {
                     requirementCards.add(attacker);
@@ -814,7 +847,8 @@ public class CombatUtil {
                 if (getMinNumBlockersForAttacker(attacker, defendingPlayer) > 1) {
                     final List<Card> blockers = freeBlockers != null ? new CardCollection(freeBlockers) : defendingPlayer.getCreaturesInPlay();
                     blockers.remove(blocker);
-                    canBe = canBeBlocked(attacker, blockers, combat);
+                    canBe = getMinNumBlockersForAttacker(attacker, defendingPlayer)
+                            <= StaticAbilityBlockRestrict.turnBlockLimit(defender.getGame()) && canBeBlocked(attacker, blockers, combat);
                 }
                 if (canBe) {
                     requirementCards.add(attacker);

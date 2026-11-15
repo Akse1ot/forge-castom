@@ -1,0 +1,6 @@
+Name:Arachnoid Mk II
+ManaCost:6
+Types:Artifact Creature Spider
+PT:4/8
+K:Reach
+Oracle:Reach (This creature can block creatures with flying.)

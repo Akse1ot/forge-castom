@@ -1,0 +1,5 @@
+Name:Repel Siege
+ManaCost:1 W W
+Types:Instant
+A:SP$ DestroyAll | ValidCards$ Creature.blocked | SpellDescription$ Destroy all blocked creatures.
+Oracle:Destroy all blocked creatures.

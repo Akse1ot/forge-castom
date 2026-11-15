@@ -1,0 +1,7 @@
+Name:Circle the Wagons
+ManaCost:2 W
+Types:Instant
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ 1 | NumDef$ 2 | RememberPumped$ True | SubAbility$ DBUntap | SpellDescription$ Creatures you control get +1/+2 until end of turn. Untap those creatures.
+SVar:DBUntap:DB$ Untap | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Creatures you control get +1/+2 until end of turn. Untap those creatures.

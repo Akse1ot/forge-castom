@@ -1,0 +1,9 @@
+Name:Riverboat Gambler
+ManaCost:3 B B
+Types:Creature Human Rogue
+PT:2/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDrain | TriggerDescription$ When CARDNAME enters, each opponent loses X life and you gain X life, where X is your longest straight.
+SVar:TrigDrain:DB$ LoseLife | Defined$ Opponent | LifeAmount$ X | SubAbility$ DBGain
+SVar:DBGain:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:Count$LongestManaValueRun
+Oracle:When Riverboat Gambler enters the battlefield, each opponent loses X life and you gain X life, where X is your longest straight. (One or more nonland permanents you control with consecutive converted mana costs form a straight.)

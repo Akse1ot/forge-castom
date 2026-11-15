@@ -1,0 +1,6 @@
+Name:Steel Stallion
+ManaCost:3
+Types:Artifact Creature Horse
+PT:2/2
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+Oracle:{T}: Add {C}.

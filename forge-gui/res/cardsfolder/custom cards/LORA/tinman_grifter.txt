@@ -1,0 +1,6 @@
+Name:Tinman Grifter
+ManaCost:6
+Types:Artifact Creature Construct
+PT:4/4
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ Count$LongestManaValueRun | EffectZone$ All | Description$ This spell costs {X} less to cast, where X is your longest straight.
+Oracle:Tinman Grifter costs {X} less to cast, where X is your longest straight. (One or more nonland permanents you control with consecutive converted mana costs form a straight.)

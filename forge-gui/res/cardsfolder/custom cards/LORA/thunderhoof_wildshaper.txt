@@ -1,0 +1,6 @@
+Name:Thunderhoof Wildshaper
+ManaCost:R
+Types:Creature Human Druid
+PT:1/1
+A:AB$ Animate | Cost$ 1 R | Defined$ Self | Types$ Horse | RemoveCreatureTypes$ True | Power$ 3 | Toughness$ 3 | Keywords$ Trample | SpellDescription$ Until end of turn, CARDNAME becomes a Horse with base power and toughness 3/3 and gains trample.
+Oracle:{1}{R}: Until end of turn, Thunderhoof Wildshaper becomes a Horse with base power and toughness 3/3 and gains trample. (It can deal excess combat damage to defending player or planeswalker while attacking.)

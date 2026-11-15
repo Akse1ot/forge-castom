@@ -1,0 +1,7 @@
+Name:Swallow Whole I
+ManaCost:1 W B
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | RememberObjects$ Targeted | SubAbility$ ExileAll | SpellDescription$ Exile target creature and all permanents attached to it.
+SVar:ExileAll:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Exile | ChangeType$ Card.IsRemembered,Card.AttachedTo Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Exile target creature and all permanents attached to it.

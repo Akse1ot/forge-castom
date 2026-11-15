@@ -1,0 +1,8 @@
+Name:Two Smoking Barrels
+ManaCost:1 R
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ 1 | NumDef$ 1 | KW$ Double Strike | SpellDescription$ Target creature gets +1/+1 and gains double strike until end of turn.
+S:Mode$ AlternativeCost | EffectZone$ Hand,Graveyard,Exile,Library,Command | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ 3 R | Named$ Reflex | PreventAlternativeCostReplacement$ True | Description$ Reflex
+S:Mode$ CastWithFlash | EffectZone$ Hand,Graveyard,Exile,Library,Command | ValidCard$ Card.Self | ValidSA$ Spell.NamedAbilityReflex
+S:Mode$ Continuous | EffectZone$ Graveyard | AffectedZone$ Graveyard | Affected$ Card.Self | AddHiddenKeyword$ Reflex
+Oracle:Reflex {3}{R} (You may cast this spell any time you could cast an instant for its reflex cost.)\nTarget creature gets +1/+1 and gains double strike until end of turn. (It deals both first-strike and regular combat damage.)

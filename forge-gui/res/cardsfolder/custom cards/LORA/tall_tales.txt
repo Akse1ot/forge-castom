@@ -1,0 +1,13 @@
+Name:Tall Tales
+ManaCost:3 U U
+Types:Instant
+A:SP$ PeekAndReveal | PeekAmount$ 4 | NoPeek$ True | Defined$ You | RememberRevealed$ True | ValidTgts$ Opponent | SubAbility$ Split | AILogic$ Always | SpellDescription$ Reveal the top four cards of your library. Target opponent separates those cards into two piles, then puts CARDNAME into one of those piles. Put the cards from one pile into their owners' hands and the rest into their owners' graveyards.
+SVar:Split:DB$ ChooseCard | Defined$ TargetedPlayer | DefinedCards$ Remembered | Amount$ Four | MinAmount$ 0 | ImprintChosen$ True | ForgetChosen$ True | SubAbility$ AddSpell | ChoiceTitle$ Select pile one
+SVar:Four:Number$4
+SVar:AddSpell:DB$ GenericChoice | Defined$ TargetedPlayer | Choices$ Left,Right | AILogic$ Always
+SVar:Left:DB$ Pump | Defined$ Self | PumpZone$ Stack | ImprintCards$ Self | SubAbility$ Pick | SpellDescription$ Add this spell to pile one
+SVar:Right:DB$ Pump | Defined$ Self | PumpZone$ Stack | RememberObjects$ Self | SubAbility$ Pick | SpellDescription$ Add this spell to pile two
+SVar:Pick:DB$ TwoPiles | Defined$ You | DefinedPiles$ Imprinted,Remembered | ChosenPile$ ToHand | UnchosenPile$ ToYard
+SVar:ToHand:DB$ ChangeZoneAll | Origin$ Library,Stack | Destination$ Hand | ChangeType$ Card.IsRemembered
+SVar:ToYard:DB$ ChangeZoneAll | Origin$ Library,Stack | Destination$ Graveyard | ChangeType$ Card.IsRemembered
+Oracle:Reveal the top four cards of your library. Target opponent separates those cards into two piles, then puts Tall Tales into one of those piles. Put the cards from one pile into their owners' hands and the rest into their owners' graveyards.

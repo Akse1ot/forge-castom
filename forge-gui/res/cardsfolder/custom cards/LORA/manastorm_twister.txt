@@ -1,0 +1,8 @@
+Name:Manastorm Twister
+ManaCost:2 U U
+Types:Sorcery
+A:SP$ ChangeZone | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 2 | Origin$ Battlefield | Destination$ Hand | SpellDescription$ Return up to two target creatures to their owners' hands.
+S:Mode$ AlternativeCost | EffectZone$ Hand,Graveyard,Exile,Library,Command | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ 4 U U | Named$ Reflex | PreventAlternativeCostReplacement$ True | Description$ Reflex
+S:Mode$ CastWithFlash | EffectZone$ Hand,Graveyard,Exile,Library,Command | ValidCard$ Card.Self | ValidSA$ Spell.NamedAbilityReflex
+S:Mode$ Continuous | EffectZone$ Graveyard | AffectedZone$ Graveyard | Affected$ Card.Self | AddHiddenKeyword$ Reflex
+Oracle:Reflex {4}{U}{U} (You may cast this spell any time you could cast an instant for its reflex cost.)\nReturn up to two target creatures to their owner's hands.

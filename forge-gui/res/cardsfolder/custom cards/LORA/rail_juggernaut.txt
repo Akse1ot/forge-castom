@@ -1,0 +1,7 @@
+Name:Rail Juggernaut
+ManaCost:5
+Types:Artifact Creature Juggernaut
+PT:5/3
+S:Mode$ MustAttack | ValidCreature$ Card.Self | Description$ CARDNAME attacks each combat if able.
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLTtoughness | Description$ CARDNAME can't be blocked by creatures with toughness greater than their power.
+Oracle:Rail Juggernaut can't be blocked by creatures with toughness greater than their power.\nRail Juggernaut attacks each turn if able.

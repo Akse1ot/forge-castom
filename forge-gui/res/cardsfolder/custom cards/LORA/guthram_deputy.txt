@@ -1,0 +1,7 @@
+Name:Guthram Deputy
+ManaCost:1 W W
+Types:Creature Human Soldier
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | TriggerDescription$ When CARDNAME enters, search your library for an Equipment or Aura card, reveal it, put it into your hand, then shuffle.
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Equipment,Aura
+Oracle:When Guthram Deputy enters the battlefield, search your library for an Equipment or Aura card, reveal it, and put it into your hand. Then shuffle your library.

@@ -1,0 +1,11 @@
+Name:Tawneys Charlatan
+ManaCost:2 R
+Types:Creature Human Rogue
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig | TriggerDescription$ When CARDNAME enters, exile the top X cards of your library, where X is your longest straight. You may play those cards until the end of your next turn.
+SVar:TrigDig:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STPlay | SubAbility$ DBCleanup | ForgetOnMoved$ Exile | Duration$ UntilTheEndOfYourNextTurn
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | Description$ Until the end of your next turn, you may play the exiled cards.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$LongestManaValueRun
+Oracle:When Tawney's Charlatan enters the battlefield, exile the top X cards of your library, where X is your longest straight. You may play those cards until the end of your next turn. (One or more nonland permanents you control with consecutive converted mana costs form a straight.)

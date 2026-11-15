@@ -1,0 +1,7 @@
+Name:Mechanical Bull
+ManaCost:4
+Types:Artifact Creature Ox
+PT:4/3
+S:Mode$ MustAttack | ValidCreature$ Card.Self | Description$ CARDNAME attacks each combat if able.
+A:AB$ Pump | Cost$ G | Defined$ Self | KW$ Trample | SpellDescription$ CARDNAME gains trample until end of turn.
+Oracle:Mechanical Bull attacks each turn if able.\n{G}: Mechanical Bull gains trample until end of turn. (It can deal excess combat damage to defending player or planeswalker while attacking.)

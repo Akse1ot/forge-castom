@@ -1,0 +1,8 @@
+Name:Chupacabra
+ManaCost:2 B
+Types:Creature Vampire Dog
+PT:2/2
+A:AB$ Pump | Cost$ Sac<1/Creature.Other/another creature> | Defined$ Self | NumAtt$ 2 | NumDef$ 2 | ConditionCheckSVar$ Herd | ConditionSVarCompare$ EQ0 | SubAbility$ DBPut | SpellDescription$ CARDNAME gets +2/+2 until end of turn. If the sacrificed creature was a Boar, Goat, Horse, Ox, or Sheep, put two +1/+1 counters on CARDNAME instead.
+SVar:DBPut:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2 | ConditionCheckSVar$ Herd | ConditionSVarCompare$ GE1
+SVar:Herd:Sacrificed$Valid Creature.Boar,Creature.Goat,Creature.Horse,Creature.Ox,Creature.Sheep
+Oracle:Sacrifice another creature: Chupacabra gets +2/+2 until end of turn. If that creature was a Boar, Goat, Horse, Ox, or Sheep, put two +1/+1 counters on Chupacabra instead.

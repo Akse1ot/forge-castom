@@ -1,0 +1,10 @@
+Name:Deal at the Crossroads
+ManaCost:1 B B
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ Total | SVarCompare$ GE1 | Execute$ TrigToken | TriggerDescription$ At the beginning of your end step, if you paid life, discarded a card, or sacrificed a creature this turn, create a 1/1 black Vampire creature token with lifelink.
+SVar:Total:PlayerCountDefinedYou$LifePaidThisTurn/Plus.Discards
+SVar:Discards:PlayerCountDefinedYou$CardsDiscardedThisTurn/Plus.Sacs
+SVar:Sacs:PlayerCountDefinedYou$SacrificedThisTurn Creature
+SVar:TrigToken:DB$ Token | TokenScript$ b_1_1_vampire_lifelink | TokenOwner$ You
+A:AB$ Draw | Cost$ 4 B PayLife<1> | NumCards$ 1 | SpellDescription$ Draw a card.
+Oracle:At the beginning of your end step, if you paid life, discarded a card, or sacrificed a creature this turn, create a 1/1 black Vampire creature token with lifelink.\n{4}{B}, Pay 1 life: Draw a card.

@@ -1,0 +1,6 @@
+Name:Dead Aim
+ManaCost:1 B R
+Types:Sorcery
+A:SP$ Destroy | ValidTgts$ Creature | SubAbility$ DBDamage | SpellDescription$ Destroy target creature. CARDNAME deals 3 damage to that creature's controller.
+SVar:DBDamage:DB$ DealDamage | Defined$ TargetedController | NumDmg$ 3
+Oracle:Destroy target creature. Dead Aim deals 3 damage to that creature's controller.

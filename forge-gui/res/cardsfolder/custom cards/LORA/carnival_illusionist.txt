@@ -1,0 +1,8 @@
+Name:Carnival Illusionist
+ManaCost:3 U
+Types:Creature Human Wizard
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTuck | TriggerDescription$ When CARDNAME enters, put target creature into its owner's library just beneath the top X cards of that library, where X is your longest straight.
+SVar:TrigTuck:DB$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Library | LibraryPosition$ X
+SVar:X:Count$LongestManaValueRun
+Oracle:When Carnival Illusionist enters the battlefield, put target creature into its owner's library just beneath the top X cards of that library, where X is your longest straight. (One or more nonland permanents you control with consecutive converted mana costs form a straight.)

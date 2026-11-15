@@ -1,0 +1,8 @@
+Name:Wildcard
+ManaCost:1 B
+Types:Creature Shapeshifter
+PT:2/2
+A:AB$ ChooseNumber | Cost$ 0 | Defined$ You | Min$ 0 | Max$ 5 | AILogic$ ImproveManaValueRun | SubAbility$ DBEffect | SpellDescription$ Choose zero, one, two, three, four, or five. CARDNAME's mana value becomes the chosen number until end of turn.
+SVar:DBEffect:DB$ Effect | RememberLKI$ Self | ExileOnMoved$ Battlefield | Duration$ EndOfTurn | CopyForSimulation$ True | StaticAbilities$ STValue
+SVar:STValue:Mode$ Continuous | EffectZone$ Command | AffectedZone$ Battlefield | Affected$ Card.IsRememberedIncarnation | SetManaValue$ Count$ChosenNumber
+Oracle:{0}: Choose zero, one, two, three, four, or five. Wildcard's converted mana cost becomes the chosen number until end of turn.

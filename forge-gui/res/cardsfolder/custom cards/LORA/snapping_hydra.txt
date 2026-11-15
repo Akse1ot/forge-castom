@@ -1,0 +1,12 @@
+Name:Snapping Hydra
+ManaCost:X G G
+Types:Creature Turtle Hydra
+PT:0/0
+K:etbCounter:P1P1:X
+SVar:X:Count$xPaid
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigFight | OptionalDecider$ You | TriggerDescription$ When CARDNAME enters, you may have it fight another target creature.
+SVar:TrigFight:DB$ Fight | Defined$ Self | ValidTgts$ Creature.Other
+S:Mode$ AlternativeCost | EffectZone$ Hand,Graveyard,Exile,Library,Command | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ X G G G | Named$ Reflex | PreventAlternativeCostReplacement$ True | Description$ Reflex
+S:Mode$ CastWithFlash | EffectZone$ Hand,Graveyard,Exile,Library,Command | ValidCard$ Card.Self | ValidSA$ Spell.NamedAbilityReflex
+S:Mode$ Continuous | EffectZone$ Graveyard | AffectedZone$ Graveyard | Affected$ Card.Self | AddHiddenKeyword$ Reflex
+Oracle:Reflex {X}{G}{G}{G} (You may cast this spell any time you could cast an instant for its reflex cost.)\nSnapping Hydra enters the battlefield with X +1/+1 counters on it.\nWhen Snapping Hydra enters the battlefield, you may have it fight another target creature.

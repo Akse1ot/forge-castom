@@ -404,7 +404,8 @@ public class AiBlockController {
                         if (ComputerUtilCombat.totalFirstStrikeDamageOfBlockers(attacker, blockGang) < damageNeeded
                                 || CombatUtil.getMinNumBlockersForAttacker(attacker, ai) > blockGang.size()) {
                             blockGang.add(blocker);
-                            if (ComputerUtilCombat.totalFirstStrikeDamageOfBlockers(attacker, blockGang) >= damageNeeded) {
+                            if (ComputerUtilCombat.totalFirstStrikeDamageOfBlockers(attacker, blockGang) >= damageNeeded
+                                    && CombatUtil.allowsTurnBlockers(combat, ai, blockGang)) {
                                 currentAttackers.remove(attacker);
                                 for (final Card b : blockGang) {
                                     if (CombatUtil.canBlock(attacker, blocker, combat)) {
@@ -481,7 +482,8 @@ public class AiBlockController {
                         // or attacker is worth more
                         || (lifeInDanger && ComputerUtilCombat.lifeInDanger(ai, combat)))
                         // or life is in danger
-                        && CombatUtil.canBlock(attacker, blocker, combat)) {
+                        && CombatUtil.canBlock(attacker, blocker, combat)
+                        && CombatUtil.allowsTurnBlockers(combat, ai, List.of(leader, blocker))) {
                     // this is needed for attackers that can't be blocked by more than 1
                     currentAttackers.remove(attacker);
                     combat.addBlocker(attacker, blocker);
@@ -537,7 +539,8 @@ public class AiBlockController {
                             || (lifeInDanger && ComputerUtilCombat.lifeInDanger(ai, combat)))
                             // or life is in danger
                             && CombatUtil.canBlock(attacker, secondBlocker, combat)
-                            && CombatUtil.canBlock(attacker, thirdBlocker, combat)) {
+                            && CombatUtil.canBlock(attacker, thirdBlocker, combat)
+                            && CombatUtil.allowsTurnBlockers(combat, ai, List.of(leader, secondBlocker, thirdBlocker))) {
                         // this is needed for attackers that can't be blocked by more than 1
                         currentAttackers.remove(attacker);
                         combat.addBlocker(attacker, thirdBlocker);
@@ -584,7 +587,8 @@ public class AiBlockController {
                 AITimeoutTracker.check();
                 final int absorbedDamage2 = ComputerUtilCombat.getEnoughDamageToKill(blocker, attacker.getNetCombatDamage(), attacker, true);
                 // only do it if neither blocking creature will die
-                if (absorbedDamage > attacker.getNetCombatDamage() && absorbedDamage2 > attacker.getNetCombatDamage()) {
+                if (absorbedDamage > attacker.getNetCombatDamage() && absorbedDamage2 > attacker.getNetCombatDamage()
+                        && CombatUtil.allowsTurnBlockers(combat, ai, List.of(leader, blocker))) {
                     attackersLeft.remove(attacker);
                     combat.addBlocker(attacker, blocker);
                     if (CombatUtil.canBlock(attacker, leader, combat)) {

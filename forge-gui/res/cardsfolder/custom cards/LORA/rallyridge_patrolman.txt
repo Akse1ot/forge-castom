@@ -1,0 +1,6 @@
+Name:Rallyridge Patrolman
+ManaCost:3 W
+Types:Creature Centaur Soldier
+PT:3/3
+K:Renown:1
+Oracle:Renown 1 (When this creature deals combat damage to a player, if it isn't renowned, put a +1/+1 counter on it and it becomes renowned.)

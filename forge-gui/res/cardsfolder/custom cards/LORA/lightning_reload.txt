@@ -1,0 +1,11 @@
+Name:Lightning Reload
+ManaCost:1 R
+Types:Instant
+A:SP$ Charm | Choices$ Blink,DiscardDraw
+SVar:Blink:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Equipment.YouCtrl | RememberChanged$ True | SubAbility$ TargetCreature | SpellDescription$ Exile target Equipment you control, then return it to the battlefield attached to target creature you control.
+SVar:TargetCreature:DB$ Pump | ValidTgts$ Creature.YouCtrl | SubAbility$ Return
+SVar:Return:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Battlefield | AttachedTo$ Targeted.Creature | SubAbility$ DBCleanup
+SVar:DiscardDraw:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1 | RememberDiscarded$ True | SubAbility$ DBDraw | SpellDescription$ Discard a card. If you do, draw two cards.
+SVar:DBDraw:DB$ Draw | NumCards$ 2 | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Choose one—\n• Exile target Equipment you control, then return it to the battlefield attached to target creature you control.\n• Discard a card. If you do, draw two cards.

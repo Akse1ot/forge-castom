@@ -1,0 +1,8 @@
+Name:Trestle Butcher
+ManaCost:2 B
+Types:Creature Satyr Berserker
+PT:2/2
+K:Renown:1
+T:Mode$ BecomeRenowned | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDestroy | OptionalDecider$ You | TriggerDescription$ When CARDNAME becomes renowned, you may destroy target creature.
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature | TgtPrompt$ Select target creature
+Oracle:Renown 1 (When this creature deals combat damage to a player, if it isn't renowned, put a +1/+1 counter on it and it becomes renowned.)\nWhen Trestle Butcher becomes renowned, you may destroy target creature.

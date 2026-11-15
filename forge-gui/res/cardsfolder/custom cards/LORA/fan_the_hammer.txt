@@ -1,0 +1,6 @@
+Name:Fan the Hammer
+ManaCost:R
+Types:Sorcery
+A:SP$ DelayedTrigger | AILogic$ SpellCopy | Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | IsSingleTarget$ True | ThisTurn$ True | Execute$ TrigCopy | SpellDescription$ When you cast your next instant or sorcery spell with a single target this turn, copy that spell. You may choose a new target for the copy.
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+Oracle:When you cast your next instant or sorcery spell with a single target this turn, copy that spell. You may choose a new target for the copy.

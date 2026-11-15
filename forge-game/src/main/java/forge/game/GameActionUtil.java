@@ -346,7 +346,11 @@ public final class GameActionUtil {
             return alternatives;
         }
 
+        final boolean preventCostReplacement = "True".equals(sa.getParam(AlternativeCostRuleUtil.PARAM_PREVENT_COST_REPLACEMENT));
         for (CardPlayOption o : source.mayPlay(activator)) {
+            if (preventCostReplacement && (o.getPayManaCost() == PayManaCost.NO || o.getAltManaCost() != null)) {
+                continue;
+            }
             if (o.getAbility().hasParam("MayPlayAsLand")) {
                 continue;
             }

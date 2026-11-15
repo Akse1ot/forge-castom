@@ -1,0 +1,7 @@
+Name:Tomahawk
+ManaCost:3
+Types:Artifact Equipment
+K:Equip:1
+S:Mode$ Continuous | AffectedDefined$ Equipped | Affected$ Creature | AddPower$ 2 | AddAbility$ ABThrow | Description$ Equipped creature gets +2/+0 and has "{T}, Sacrifice CARDNAME: This creature deals 2 damage to any target."
+SVar:ABThrow:AB$ DealDamage | Cost$ T Sac<1/OriginalHost/Tomahawk> | ValidTgts$ Any | NumDmg$ 2 | SpellDescription$ This creature deals 2 damage to any target.
+Oracle:Equipped creature gets +2/+0.\nEquipped creature has “{T}, Sacrifice Tomahawk: This creature deals 2 damage to any target.”\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)

@@ -1,0 +1,9 @@
+Name:Rugged Lumberjack
+ManaCost:3 G
+Types:Creature Human Scout
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill | TriggerDescription$ When CARDNAME enters, mill three cards, then put a +1/+1 counter on CARDNAME for each land card in your graveyard.
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 3 | SubAbility$ DBCounter
+SVar:DBCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ X
+SVar:X:Count$ValidGraveyard Land.YouOwn
+Oracle:When Rugged Lumberjack enters the battlefield, put the top three cards of your library into your graveyard, then put a +1/+1 counter on Rugged Lumberjack for each land card in your graveyard.

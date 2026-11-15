@@ -1,0 +1,6 @@
+Name:Hogtie
+ManaCost:1 W
+Types:Enchantment Aura
+K:Enchant:Creature
+S:Mode$ CantAttack,CantBlock | ValidCard$ Creature.EnchantedBy | IsPresent$ Creature.YouCtrl | PresentCompare$ GE2 | Description$ Enchanted creature can't attack or block as long as you control two or more creatures.
+Oracle:Enchant creature\nEnchanted creature can't attack or block as long as you control two or more creatures.

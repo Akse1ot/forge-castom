@@ -1,0 +1,9 @@
+Name:Malastrix
+ManaCost:5 B R
+Types:Legendary Creature Dragon
+PT:5/5
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Execute$ TrigDamage | OptionalDecider$ You | TriggerDescription$ Whenever another creature enters, you may pay {B}{R}. If you do, CARDNAME deals damage equal to its power to that creature.
+SVar:TrigDamage:AB$ DealDamage | Cost$ B R | Defined$ TriggeredCard | NumDmg$ X
+SVar:X:Count$CardPower
+Oracle:Flying\nWhenever another creature enters the battlefield, you may pay {B}{R}. If you do, Malastrix deals damage equal to its power to that creature.

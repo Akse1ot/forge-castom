@@ -1,0 +1,12 @@
+Name:Gaile Hannidy
+ManaCost:1 U U
+Types:Legendary Planeswalker Gaile
+Loyalty:4
+A:AB$ Dig | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | Defined$ Player | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile | ExileFaceDown$ True | WithMayLook$ True | NoReveal$ True | SpellDescription$ Exile the top two cards of each player's library face down. You may look at these cards.
+A:AB$ Effect | Cost$ SubCounter<2/LOYALTY> | Planeswalker$ True | Duration$ UntilYourNextTurn | StaticAbilities$ MayCast | Triggers$ Spent | SpellDescription$ Until your next turn, you may cast one card exiled with CARDNAME and spend mana as though it were mana of any type to cast it.
+SVar:Spent:Mode$ SpellCast | ValidSA$ Spell.MayPlaySource | ValidActivatingPlayer$ You | TriggerZones$ Command | Static$ True | Execute$ RemovePermission
+SVar:RemovePermission:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+SVar:MayCast:Mode$ Continuous | MayPlay$ True | MayPlayLimit$ 1 | MayPlayIgnoreType$ True | Affected$ Card.ExiledWithEffectSource+mayInspectFace+nonLand+!faceDownOriginalTypeLand | AffectedZone$ Exile
+A:AB$ Dig | Cost$ SubCounter<9/LOYALTY> | Planeswalker$ True | Ultimate$ True | Defined$ Player | DigNum$ 4 | ChangeNum$ All | DestinationZone$ Exile | SubAbility$ Cast | SpellDescription$ Exile the top four cards of each player's library. You may cast any number of cards exiled with CARDNAME without paying their mana costs.
+SVar:Cast:DB$ Play | ValidZone$ Exile | Valid$ Card.ExiledWithSource+mayInspectFace | ValidSA$ Spell | Amount$ All | WithoutManaCost$ True | Optional$ True
+Oracle:[+2]: Exile the top two cards of each player's library face down. You may look at these cards.\n[-2]: Until your next turn, you may cast one card exiled with Gaile Hannidy and spend mana as though it were mana of any type to cast it.\n[-9]: Exile the top four cards of each player's library. You may cast any number of cards exiled with Gaile Hannidy without paying their mana costs.

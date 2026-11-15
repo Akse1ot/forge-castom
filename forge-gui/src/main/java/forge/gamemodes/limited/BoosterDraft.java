@@ -362,11 +362,9 @@ public class BoosterDraft implements IBoosterDraft {
                     );
                 }
 
-                // 4. LAND_SET_CODE — безопасный дефолт (как в Full Draft)
-                IBoosterDraft.LAND_SET_CODE[0] =
-                        CardEdition.Predicates.getRandomSetWithAllBasicLands(
-                                FModel.getMagicDb().getEditions()
-                        );
+                // Use the chosen edition's basics when it has the full set.
+                IBoosterDraft.LAND_SET_CODE[0] = chosen.hasBasicLands() ? chosen
+                        : CardEdition.Predicates.getRandomSetWithAllBasicLands(FModel.getMagicDb().getEditions());
 
                 // подключаем ранкинги для set-draft
                 IBoosterDraft.CUSTOM_RANKINGS_FILE[0] = chosen.getCode() + ".rnk";

@@ -1,0 +1,5 @@
+Name:Partnership
+ManaCost:2 G G
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | IsPresent$ Creature.YouCtrl | PresentCompare$ EQ2 | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Vigilance | Description$ As long as you control exactly two creatures, those creatures get +2/+2 and have vigilance.
+Oracle:As long as you control exactly two creatures, those creatures get +2/+2 and have vigilance. (Attacking doesn't cause them to tap.)

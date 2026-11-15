@@ -118,6 +118,11 @@ public class InputAttack extends InputSyncronizedBase {
         updateMessage();
     }
 
+    private boolean canDeclareAttacker(Card card, GameEntity defender) {
+        return CombatUtil.canAttack(card, defender)
+                && combat.getAttackConstraints().getGlobalRestrictions().allowsAdditionalAttacker(combat.getAttackers(), card);
+    }
+
     void alphaStrike() {
         final List<Player> defenders = playerAttacks.getOpponents();
         final Set<CardView> refreshCards = Sets.newHashSet();
@@ -130,7 +135,7 @@ public class InputAttack extends InputSyncronizedBase {
             final List<GameEntity> mustAttack = StaticAbilityMustAttack.entitiesMustAttack(c);
             if (!mustAttack.isEmpty()) {
                 for (final GameEntity defender : mustAttack) {
-                    if (combat.getDefenders().contains(defender) && CombatUtil.canAttack(c, defender)) {
+                    if (combat.getDefenders().contains(defender) && canDeclareAttacker(c, defender)) {
                         combat.addAttacker(c, defender);
                         refreshCards.add(CardView.get(c));
                         break;
@@ -141,14 +146,14 @@ public class InputAttack extends InputSyncronizedBase {
                 }
             }
 
-            if (currentDefender != null && CombatUtil.canAttack(c, currentDefender)) {
+            if (currentDefender != null && canDeclareAttacker(c, currentDefender)) {
                 combat.addAttacker(c, currentDefender);
                 refreshCards.add(CardView.get(c));
                 continue;
             }
 
             for (final Player defender : defenders) {
-                if (CombatUtil.canAttack(c, defender)) {
+                if (canDeclareAttacker(c, defender)) {
                     combat.addAttacker(c, defender);
                     refreshCards.add(CardView.get(c));
                     break;
@@ -229,7 +234,7 @@ public class InputAttack extends InputSyncronizedBase {
             }
         }
 
-        if (playerAttacks.getZone(ZoneType.Battlefield).contains(card) && CombatUtil.canAttack(card, currentDefender)) {
+        if (playerAttacks.getZone(ZoneType.Battlefield).contains(card) && canDeclareAttacker(card, currentDefender)) {
             if (activeBand != null && !activeBand.canJoinBand(card)) {
                 activeBand = null;
                 updateMessage();
@@ -239,7 +244,7 @@ public class InputAttack extends InputSyncronizedBase {
             declareAttacker(card);
             if (otherCardsToSelect != null) {
                 for (Card c : otherCardsToSelect) {
-                    if (CombatUtil.canAttack(c, currentDefender)) {
+                    if (canDeclareAttacker(c, currentDefender)) {
                         declareAttacker(c);
                     }
                 }
@@ -267,7 +272,7 @@ public class InputAttack extends InputSyncronizedBase {
             }
             return null;
         }
-        if (playerAttacks.getZone(ZoneType.Battlefield).contains(card) && CombatUtil.canAttack(card, currentDefender)) {
+        if (playerAttacks.getZone(ZoneType.Battlefield).contains(card) && canDeclareAttacker(card, currentDefender)) {
             return Localizer.getInstance().getMessage("lblAttackWithCard");
         }
         return null;
@@ -321,7 +326,7 @@ public class InputAttack extends InputSyncronizedBase {
         final CardCollectionView possibleAttackers = playerAttacks.getCardsIn(ZoneType.Battlefield);
         for (final Card c : possibleAttackers) {
             if ((c.hasKeyword(Keyword.BANDING) || c.hasKeyword(Keyword.BANDSWITH)) &&
-                    CombatUtil.canAttack(c, currentDefender)) {
+                    canDeclareAttacker(c, currentDefender)) {
                 return true;
             }
         }

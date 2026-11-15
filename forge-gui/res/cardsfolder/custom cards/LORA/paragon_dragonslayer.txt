@@ -1,0 +1,6 @@
+Name:Paragon Dragonslayer
+ManaCost:3 W
+Types:Creature Human Knight
+PT:3/2
+A:AB$ Destroy | Cost$ W Sac<1/CARDNAME> | ValidTgts$ Creature.powerGE4 | TgtPrompt$ Select target creature with power 4 or greater | SpellDescription$ Destroy target creature with power 4 or greater.
+Oracle:{W}, Sacrifice Paragon Dragonslayer: Destroy target creature with power 4 or greater.

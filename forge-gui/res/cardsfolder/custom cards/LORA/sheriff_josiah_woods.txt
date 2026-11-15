@@ -1,0 +1,8 @@
+Name:Sheriff Josiah Woods
+ManaCost:4 W U
+Types:Legendary Creature Human Soldier
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigControl | TriggerDescription$ When CARDNAME enters, gain control of all creatures enchanted by Auras you control, then destroy all enchantments.
+SVar:TrigControl:DB$ GainControl | Defined$ Valid Creature.EnchantedBy Aura.YouCtrl | NewController$ You | SubAbility$ DBDestroy
+SVar:DBDestroy:DB$ DestroyAll | ValidCards$ Enchantment
+Oracle:When Sheriff Josiah Woods enters the battlefield, gain control of all creatures enchanted by Auras you control, then destroy all enchantments.

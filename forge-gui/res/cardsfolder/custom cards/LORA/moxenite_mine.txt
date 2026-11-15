@@ -1,0 +1,6 @@
+Name:Moxenite Mine
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ Mana | Cost$ 2 T | Produced$ Any | Amount$ 2 | SpellDescription$ Add two mana of any one color.
+Oracle:{T}: Add {C}.\n{2}, {T}: Add two mana of any one color.

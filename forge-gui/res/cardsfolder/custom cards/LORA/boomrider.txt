@@ -1,0 +1,7 @@
+Name:Boomrider
+ManaCost:2 R R
+Types:Creature Goblin Artificer
+PT:2/2
+K:Flying
+A:AB$ DamageAll | Cost$ 1 R Sac<1/CARDNAME> | ValidCards$ Creature | NumDmg$ 2 | SpellDescription$ CARDNAME deals 2 damage to each creature.
+Oracle:Flying\n{1}{R}, Sacrifice Boomrider: Boomrider deals 2 damage to each creature.

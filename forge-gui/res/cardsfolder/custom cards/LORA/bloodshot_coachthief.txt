@@ -1,0 +1,13 @@
+Name:Bloodshot Coachthief
+ManaCost:1 B
+Types:Creature Vampire Rogue
+PT:2/1
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCleanup | TriggerDescription$ At the beginning of your upkeep, exile the top card of your library and choose a number. Any opponent may pay that much life. If no player does, you lose that much life and put that card into your hand.
+SVar:TrigCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ TrigDig
+SVar:TrigDig:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ Number
+SVar:Number:DB$ ChooseNumber | Defined$ You | Min$ 0 | Max$ 2147483647 | ChooseAnyNumber$ True | Notify$ True | SubAbility$ Loss
+SVar:Loss:DB$ LoseLife | Defined$ You | LifeAmount$ X | UnlessCost$ PayLife<X> | UnlessPayer$ Opponent | UnlessResolveSubs$ WhenNotPaid | SubAbility$ ToHand
+SVar:X:Count$ChosenNumber
+SVar:ToHand:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Hand | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:At the beginning of your upkeep, exile the top card of your library and choose a number. Any opponent may pay that much life. If no player does, you lose that much life and put that card into your hand.

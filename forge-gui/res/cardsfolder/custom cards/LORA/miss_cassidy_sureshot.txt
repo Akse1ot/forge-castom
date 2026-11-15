@@ -1,0 +1,9 @@
+Name:Miss Cassidy Sureshot
+ManaCost:3 U R
+Types:Legendary Creature Human Wizard
+PT:2/2
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ ExileSpells | TriggerDescription$ When CARDNAME enters, exile all instant and sorcery spells. (Those spells won't resolve.)
+SVar:ExileSpells:DB$ ChangeZoneAll | Origin$ Stack | Destination$ Exile | ChangeType$ Instant,Sorcery
+A:AB$ Play | Cost$ 4 T | Valid$ Card.ExiledWithSource+!copiedSpell | ValidZone$ Exile | ValidSA$ Spell | Amount$ 1 | CopyCard$ True | WithoutManaCost$ True | Optional$ True | SpellDescription$ Copy a card exiled with CARDNAME. You may cast the copy without paying its mana cost.
+Oracle:Flash (You may cast this spell any time you could cast an instant.)\nWhen Miss Cassidy Sureshot enters the battlefield, exile all instant and sorcery spells. (Those spells won't resolve.)\n{4}, {T}: Copy a card exiled with Miss Cassidy Sureshot. You may cast the copy without paying its mana cost.

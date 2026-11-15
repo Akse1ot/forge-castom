@@ -1,0 +1,7 @@
+Name:Goblin Express
+ManaCost:1 R
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Haste | Description$ Creatures you control have haste.
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigBounce | TriggerDescription$ At the beginning of your end step, return a creature you control to its owner's hand.
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ChangeType$ Creature.YouCtrl
+Oracle:Creatures you control have haste.\nAt the beginning of your end step, return a creature you control to its owner's hand.

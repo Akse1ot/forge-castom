@@ -1,0 +1,8 @@
+Name:Death Cheater
+ManaCost:2 B B
+Types:Creature Zombie
+PT:2/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn | TriggerDescription$ When CARDNAME enters, return up to X target creature cards from your graveyard to your hand, where X is your longest straight.
+SVar:TrigReturn:DB$ ChangeZone | ValidTgts$ Creature.YouOwn | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ X
+SVar:X:Count$LongestManaValueRun
+Oracle:When Death Cheater enters the battlefield, return up to X target creature cards from your graveyard to your hand, where X is your longest straight. (One or more nonland permanents you control with consecutive converted mana costs form a straight.)

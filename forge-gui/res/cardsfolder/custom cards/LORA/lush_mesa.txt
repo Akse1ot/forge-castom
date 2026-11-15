@@ -1,0 +1,6 @@
+Name:Lush Mesa
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T PayLife<1> | Produced$ Combo R G | SpellDescription$ Add {R} or {G}.
+A:AB$ Draw | Cost$ R G T Sac<1/CARDNAME> | NumCards$ 1 | SpellDescription$ Draw a card.
+Oracle:{T}, Pay 1 life: Add {R} or {G}.\n{R}{G}, {T}, Sacrifice Lush Mesa: Draw a card.

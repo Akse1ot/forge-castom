@@ -1,0 +1,7 @@
+Name:Goat Herder
+ManaCost:W
+Types:Creature Human Farmer
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a 0/1 white Goat creature token.
+SVar:TrigToken:DB$ Token | TokenAmount$ 1 | TokenScript$ w_0_1_goat | TokenOwner$ You
+Oracle:When Goat Herder enters the battlefield, create a 0/1 white Goat creature token.

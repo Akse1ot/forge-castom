@@ -2,6 +2,7 @@ package forge.game.ability.effects;
 
 import java.util.List;
 
+import forge.GameCommand;
 import forge.game.Game;
 import forge.game.ability.SpellAbilityEffect;
 import forge.game.card.Card;
@@ -90,9 +91,28 @@ public class ControlExchangeEffect extends SpellAbilityEffect {
             return;
         }
 
+        final String duration = sa.getParam("Duration");
+        if (duration != null && (!host.equalsWithGameTimestamp(game.getCardState(host, null))
+                || !checkValidDuration(duration, sa))) {
+            return;
+        }
+
         final long tStamp = game.getNextTimestamp();
         object2.addTempController(player1, tStamp);
         object1.addTempController(player2, tStamp);
+        if (duration != null) {
+            final Card first = object1;
+            final Card second = object2;
+            addUntilCommand(sa, new GameCommand() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public void run() {
+                    first.removeTempController(tStamp);
+                    second.removeTempController(tStamp);
+                }
+            });
+        }
         if (sa.hasParam("RememberExchanged")) {
             host.addRemembered(object1);
             host.addRemembered(object2);

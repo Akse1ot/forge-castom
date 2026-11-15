@@ -354,15 +354,28 @@ public class CostAdjustment {
                 host.clearDelved();
 
                 final CardZoneTable table = new CardZoneTable();
-                final CardCollection mutableGrave = new CardCollection(activator.getCardsIn(ZoneType.Graveyard));
-                final CardCollectionView toExile = activator.getController().chooseCardsToDelve(cost.getUnpaidShards(ManaCostShard.GENERIC), mutableGrave);
+                final CardCollection mutableGrave = CardLists.filter(activator.getCardsIn(ZoneType.Graveyard),
+                        CardPredicates.canExiledBy(sa, false));
+                final int generic = cost.getUnpaidShards(ManaCostShard.GENERIC);
+                final CardCollectionView toExile = generic > 0 && !mutableGrave.isEmpty()
+                        ? activator.getController().chooseCardsToDelve(generic, mutableGrave)
+                        : new CardCollection();
+                final CardCollection accepted = new CardCollection();
                 for (final Card c : toExile) {
+                    if (cost.getUnpaidShards(ManaCostShard.GENERIC) <= 0) {
+                        break;
+                    }
+                    final Card current = game.getCardState(c, null);
+                    if (!c.equalsWithGameTimestamp(current) || !activator.getCardsIn(ZoneType.Graveyard).contains(current)
+                            || !current.canExiledBy(sa, false) || !accepted.add(current)) {
+                        continue;
+                    }
                     cost.decreaseGenericMana(1);
                     if (cardsToDelveOut != null) {
-                        cardsToDelveOut.add(c);
+                        cardsToDelveOut.add(current);
                     } else if (!test) {
-                        host.addDelved(c);
-                        final Card d = game.getAction().exile(c, null, null);
+                        host.addDelved(current);
+                        final Card d = game.getAction().exile(current, null, null);
                         host.addExiledCard(d);
                         d.setExiledWith(host);
                         d.setExiledBy(host.getController());

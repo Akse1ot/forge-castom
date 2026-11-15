@@ -1,0 +1,6 @@
+Name:Giant Catfish
+ManaCost:3 U
+Types:Creature Fish
+PT:3/3
+K:Flash
+Oracle:Flash (You may cast this spell any time you could cast an instant.)

@@ -1,0 +1,5 @@
+Name:Trail Sickness
+ManaCost:3 B B
+Types:Sorcery
+A:SP$ Sacrifice | Defined$ Player | SacValid$ Creature | Amount$ 3 | SpellDescription$ Each player sacrifices three creatures.
+Oracle:Each player sacrifices three creatures.

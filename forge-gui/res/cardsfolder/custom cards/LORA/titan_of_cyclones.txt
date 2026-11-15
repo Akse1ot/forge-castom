@@ -1,0 +1,9 @@
+Name:Titan of Cyclones
+ManaCost:4 U U
+Types:Creature Elemental
+PT:6/6
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigBounce | TriggerDescription$ When CARDNAME enters, you may return target nonland permanent to its owner's hand.
+SVar:TrigBounce:DB$ ChangeZone | ValidTgts$ Permanent.nonLand | Origin$ Battlefield | Destination$ Hand
+T:Mode$ Attacks | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigBounce | TriggerDescription$ Whenever CARDNAME attacks, you may return target nonland permanent to its owner's hand.
+Oracle:Flying\nWhenever Titan of Cyclones enters the battlefield or attacks, you may return target nonland permanent to its owner's hand.

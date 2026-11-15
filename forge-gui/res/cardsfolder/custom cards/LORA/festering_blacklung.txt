@@ -1,0 +1,7 @@
+Name:Festering Blacklung
+ManaCost:2 B
+Types:Creature Zombie
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigMill | TriggerDescription$ When CARDNAME enters, mill three cards.
+SVar:TrigMill:DB$ Mill | Defined$ You | NumCards$ 3
+Oracle:When Festering Blacklung enters the battlefield, put the top three cards of your library into your graveyard.

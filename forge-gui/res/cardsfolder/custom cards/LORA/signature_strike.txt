@@ -1,0 +1,6 @@
+Name:Signature Strike
+ManaCost:W
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ 2 | NumDef$ 2 | SubAbility$ DBUntap | SpellDescription$ Target creature gets +2/+2 until end of turn. If it's enchanted, equipped, or has a counter on it, untap it.
+SVar:DBUntap:DB$ Untap | Defined$ Targeted | ConditionDefined$ Targeted | ConditionPresent$ Creature.enchanted,Creature.equipped,Creature.HasCounters
+Oracle:Target creature gets +2/+2 until end of turn. If it's enchanted, equipped, or has a counter on it, untap it.

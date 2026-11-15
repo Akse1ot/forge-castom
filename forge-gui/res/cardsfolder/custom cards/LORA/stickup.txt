@@ -1,0 +1,6 @@
+Name:Stickup
+ManaCost:2 B R
+Types:Sorcery
+A:SP$ TwoPiles | ValidTgts$ Player | Chooser$ You | Separator$ TargetedPlayer | Zone$ Hand | FaceDown$ One | ChosenPile$ Discard | SpellDescription$ Target player separates their hand into a face up pile and a face down pile. Choose a pile. That player discards the chosen pile and returns the other to their hand.
+SVar:Discard:DB$ Discard | Defined$ TargetedPlayer | Mode$ Defined | DefinedCards$ Remembered
+Oracle:Target player separates their hand into a face up pile and a face down pile. Choose a pile. That player discards the chosen pile and returns the other to their hand.

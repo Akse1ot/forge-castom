@@ -1,0 +1,7 @@
+Name:Double-Barrel Spellgun
+ManaCost:4
+Types:Artifact Equipment
+K:etbCounter:CHARGE:2:no Condition:Loaded 2 (CARDNAME enters with 2 charge counters.)
+A:AB$ DealDamage | Cost$ SubCounter<1/CHARGE> | ValidTgts$ Creature | DamageSource$ Equipped | NumDmg$ 3 | SpellDescription$ Equipped creature deals 3 damage to target creature.
+K:Equip:3
+Oracle:Loaded 2 (This enters the battlefield with two charge counters.)\nRemove a charge counter from Double-Barrel Spellgun: Equipped creature deals 3 damage to target creature.\nEquip {3}

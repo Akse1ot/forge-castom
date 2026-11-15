@@ -1,0 +1,6 @@
+Name:Bloodshot Desperada
+ManaCost:2 R
+Types:Creature Vampire Rogue
+PT:2/2
+A:AB$ DealDamage | Cost$ Sac<1/Artifact;Creature/artifact or creature> | ValidTgts$ Any | NumDmg$ 1 | SpellDescription$ CARDNAME deals 1 damage to any target.
+Oracle:Sacrifice an artifact or creature: Bloodshot Desperada deals 1 damage to any target.

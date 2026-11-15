@@ -1,0 +1,6 @@
+Name:Farmyard
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ PutCounterAll | Cost$ 3 T | ValidCards$ Creature.Boar+YouCtrl,Creature.Goat+YouCtrl,Creature.Horse+YouCtrl,Creature.Ox+YouCtrl,Creature.Sheep+YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | SpellDescription$ Put a +1/+1 counter on each Boar, Goat, Horse, Ox, and Sheep creature you control.
+Oracle:{T}: Add {C}.\n{3}, {T}: Put a +1/+1 counter on each Boar, Goat, Horse, Ox, and Sheep creature you control.

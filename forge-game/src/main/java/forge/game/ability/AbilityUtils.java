@@ -1746,6 +1746,15 @@ public class AbilityUtils {
         Iterable<Card> someCards = null;
         final Game game = c.getGame();
 
+        // Count$LongestManaValueRun uses your nonland permanents by default.
+        if (l[0].equals("LongestManaValueRun")) {
+            final Player controller = player != null ? player : c.getController();
+            final int run = controller == null || game == null ? 0 : longestManaValueRun(
+                    IterableUtil.filter(game.getCardsIn(ZoneType.Battlefield),
+                            card -> !card.isLand() && controller.equals(card.getController())));
+            return doXMath(run, expr, c, ctb);
+        }
+
         if (sq[0].equals("OpponentGainedControlOfOwnedPermanentThisTurn")) {
             return doXMath(game.getTrapTurnHistory().ownedPermanentTaken(player) ? 1 : 0, expr, c, ctb);
         }
@@ -4026,6 +4035,11 @@ public class AbilityUtils {
             return doXMath(Iterables.size(paidList), CardFactoryUtil.extractOperators(def), source, ctb);
         }
 
+        // Count$Valid <filter>$LongestManaValueRun uses the selected cards.
+        if (def.equals("LongestManaValueRun") || def.startsWith("LongestManaValueRun/")) {
+            return doXMath(longestManaValueRun(paidList), CardFactoryUtil.extractOperators(def), source, ctb);
+        }
+
         if (def.startsWith("TapPowerValue")) {
             return CardLists.getTotalPower(paidList, ctb);
         }
@@ -4143,6 +4157,23 @@ public class AbilityUtils {
             finalDef = def;
         }
         return func.apply(StreamUtil.stream(paidList).mapToInt(c -> xCount(c, finalDef, ctb)));
+    }
+
+    private static int longestManaValueRun(final Iterable<Card> cards) {
+        final Set<Integer> values = new TreeSet<>();
+        for (final Card card : cards) {
+            values.add(card.getCMC());
+        }
+
+        int longest = 0;
+        int run = 0;
+        long previous = Long.MIN_VALUE;
+        for (final int value : values) {
+            run = value == previous + 1 ? run + 1 : 1;
+            longest = Math.max(longest, run);
+            previous = value;
+        }
+        return longest;
     }
 
     private static CardCollectionView getCardListForXCount(final Card c, final Player cc, final String[] sq, CardTraitBase ctb) {

@@ -1,0 +1,8 @@
+Name:Cyclone Boar
+ManaCost:5 G G
+Types:Creature Elemental Boar
+PT:6/6
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDamage | TriggerDescription$ Whenever CARDNAME attacks, it deals 3 damage to each creature with flying defending player controls.
+SVar:TrigDamage:DB$ DamageAll | ValidCards$ Creature.withFlying+ControlledBy TriggeredDefendingPlayer | NumDmg$ 3
+Oracle:Trample (This creature can deal excess combat damage to defending player or planeswalker while attacking.)\nWhenever Cyclone Boar attacks, it deals 3 damage to each creature with flying defending player controls.

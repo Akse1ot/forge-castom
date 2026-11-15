@@ -1,0 +1,7 @@
+Name:Horned Serpent
+ManaCost:4 U
+Types:Creature Serpent
+PT:2/5
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever you cast a noncreature spell, CARDNAME gets +3/+0 until end of turn.
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ 3
+Oracle:Whenever you cast a noncreature spell, Horned Serpent gets +3/+0 until end of turn.

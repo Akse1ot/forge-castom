@@ -1,0 +1,6 @@
+Name:Frontier Mission
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T PayLife<1> | Produced$ Combo W U | SpellDescription$ Add {W} or {U}.
+A:AB$ Draw | Cost$ W U T Sac<1/CARDNAME> | NumCards$ 1 | SpellDescription$ Draw a card.
+Oracle:{T}, Pay 1 life: Add {W} or {U}.\n{W}{U}, {T}, Sacrifice Frontier Mission: Draw a card.

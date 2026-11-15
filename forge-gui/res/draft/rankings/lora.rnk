@@ -1,0 +1,253 @@
+//Rank|Name|Rarity|Set
+//Provisional Limited estimates; ordinal, not empirical win rates.
+#1|Titan of Cyclones|M|LORA
+#2|Pactbound Simians|R|LORA
+#3|Titan of Primacy|M|LORA
+#4|Titan of Industry I|M|LORA
+#5|Goblin Sharpshooter|R|LORA
+#6|Appleseed Ghoul|R|LORA
+#7|Empty Night|M|LORA
+#8|Quickdraw|U|LORA
+#9|Twisted Outlaw|M|LORA
+#10|Angelic Regulator|R|LORA
+#11|Karakwa, Kayeri Warchief|R|LORA
+#12|Incendiary Round|R|LORA
+#13|Nimbus Hog|R|LORA
+#14|Swallow Whole I|R|LORA
+#15|Roselyn Song of Madness|M|LORA
+#16|Dead Aim|U|LORA
+#17|Farajo Peacemaker|M|LORA
+#18|Mother Owls Herald|M|LORA
+#19|Malastrix|M|LORA
+#20|Blaze of Malastrix|R|LORA
+#21|Drag Behind|R|LORA
+#22|Fort Redemption Ranger|M|LORA
+#23|Double-Barrel Spellgun|R|LORA
+#24|Guns Blazing|C|LORA
+#25|Wildshape Mastery|R|LORA
+#26|Hoarding Dragon|R|LORA
+#27|Manifestation of Destiny|R|LORA
+#28|Words of the Sages|R|LORA
+#29|Gaile Hannidy|M|LORA
+#30|Trading Post|R|LORA
+#31|Sammy Sixguns Steelman|R|LORA
+#32|Cyclone Boar|U|LORA
+#33|Gamblers Ruin|U|LORA
+#34|Thunderbolt Revolver|U|LORA
+#35|Village Raid|U|LORA
+#36|Timberland Giant|R|LORA
+#37|Hyastee Sphinx|R|LORA
+#38|Drive Off|C|LORA
+#39|Hogtie|C|LORA
+#40|Run and Gun|C|LORA
+#41|Snapping Hydra|R|LORA
+#42|Briar Rabbit|U|LORA
+#43|Calamity Machinist|U|LORA
+#44|Career Criminal|U|LORA
+#45|Descent of the Mothmen|U|LORA
+#46|Snake Oil Salesman|R|LORA
+#47|Greenskin Gambler|U|LORA
+#48|Centaur Desperado|U|LORA
+#49|Naaki Gunslinger|R|LORA
+#50|Dual Magelocks|U|LORA
+#51|Ironskin Chief|R|LORA
+#52|Arrest|U|LORA
+#53|Cultivate|C|LORA
+#54|Ranchers Lasso|U|LORA
+#55|Tar Snare|C|LORA
+#56|Carnival Illusionist|R|LORA
+#57|Sheriff Josiah Woods|R|LORA
+#58|Mug of Beer|C|LORA
+#59|Redeemed Dead|U|LORA
+#60|Chupacabra|U|LORA
+#61|Tie to the Tracks|C|LORA
+#62|Bloodshot Desperada|U|LORA
+#63|Manastorm Twister|U|LORA
+#64|Penetrating Round|C|LORA
+#65|Smoke the Peace Pipe|C|LORA
+#66|Tomahawk|U|LORA
+#67|Mountainclaw Bear|R|LORA
+#68|Boomrider|U|LORA
+#69|Minotaur Chieftain|C|LORA
+#70|Roselyns Viola|M|LORA
+#71|Stunshot Centaur|U|LORA
+#72|Trestle Butcher|U|LORA
+#73|Sheeps Clothing|U|LORA
+#74|Bloodshot Coachthief|R|LORA
+#75|Inside Job|U|LORA
+#76|Into the Sunset|C|LORA
+#77|Man Versus Machine|C|LORA
+#78|Miss Cassidy Sureshot|R|LORA
+#79|Skinwalker|R|LORA
+#80|Pan the River|U|LORA
+#81|Tall Tales|R|LORA
+#82|Vengeant Pactmaker|C|LORA
+#83|Lupine Waltz|U|LORA
+#84|Rallyridge Protector|U|LORA
+#85|Conjure Frost|C|LORA
+#86|Final Showdown I|R|LORA
+#87|Foretell|C|LORA
+#88|Kill Shot|C|LORA
+#89|Triggerbane Ward|C|LORA
+#90|Wisdom|R|LORA
+#91|Stiff-Legged Bear|U|LORA
+#92|Blightwing Wildshaper|C|LORA
+#93|Outlaw Necromancer|C|LORA
+#94|Hyastee Sigil|C|LORA
+#95|Voracious Wendigo|C|LORA
+#96|Wild Mustang|C|LORA
+#97|Deal at the Crossroads|U|LORA
+#98|Hang|U|LORA
+#99|Up to No Good|U|LORA
+#100|Leonin Huntress|U|LORA
+#101|Redeemed Lawbringer|C|LORA
+#102|Soulless Thieves|C|LORA
+#103|Ace Holden|R|LORA
+#104|Selfless Engineer|R|LORA
+#105|Cyclone Rider|U|LORA
+#106|Wisewing Wildshaper|C|LORA
+#107|Devouring Wendigo|U|LORA
+#108|Runevolley|U|LORA
+#109|Two Smoking Barrels|C|LORA
+#110|Riverboat Gambler|C|LORA
+#111|Tinman Posse|U|LORA
+#112|Death Cheater|U|LORA
+#113|Young Gun|U|LORA
+#114|Ironhoof Ox|C|LORA
+#115|Watchful Rancher|U|LORA
+#116|Dead Mans Hand|R|LORA
+#117|Gone Fishin|C|LORA
+#118|Repel Siege|R|LORA
+#119|See You in Hell|C|LORA
+#120|Trail Sickness|R|LORA
+#121|Boom Town|U|LORA
+#122|Carnivorous Bog|U|LORA
+#123|Fenced Pasture|U|LORA
+#124|Frontier Mission|U|LORA
+#125|Hangmans Rock|U|LORA
+#126|Hoodoo Valley|U|LORA
+#127|Lumber Mill|U|LORA
+#128|Lush Mesa|U|LORA
+#129|Poisoned Waterhole|U|LORA
+#130|Waterworn Gully|U|LORA
+#131|Winged Constable|U|LORA
+#132|Tinman Bushranger|R|LORA
+#133|Hasty Retreat|U|LORA
+#134|Wanted|C|LORA
+#135|Tawneys Charlatan|R|LORA
+#136|Lumberwood Hidebehind|C|LORA
+#137|Thunderhoof Wildshaper|C|LORA
+#138|Nain Rogue|C|LORA
+#139|Hyastee Courser|C|LORA
+#140|Lumberwood Hodag|U|LORA
+#141|Diamondback Naga|C|LORA
+#142|Aven Deputy|U|LORA
+#143|Kayeri Brave|C|LORA
+#144|Cattle Drive|C|LORA
+#145|Expel I|U|LORA
+#146|Rallyridge Quartermaster|R|LORA
+#147|Snallygaster|U|LORA
+#148|Elusive Sasquatch|R|LORA
+#149|Freight Train|U|LORA
+#150|Ghostly Presence|C|LORA
+#151|Aven Dealer|C|LORA
+#152|Colossus of Railroads|R|LORA
+#153|Bloodshot Enforcer|C|LORA
+#154|Tinman Grifter|C|LORA
+#155|Coat with Venom|C|LORA
+#156|Farmyard|R|LORA
+#157|Frightshot Pistol|C|LORA
+#158|Moxenite Slugs|C|LORA
+#159|Naaki Shepherd|U|LORA
+#160|Pine Gulch Bandit|C|LORA
+#161|Sheriffs Steed|C|LORA
+#162|Farajos Blessing|U|LORA
+#163|Joint Assault|C|LORA
+#164|Lost in the Mist|C|LORA
+#165|Partnership|U|LORA
+#166|Team Hunt|U|LORA
+#167|Train Robbery|R|LORA
+#168|Wrangle|C|LORA
+#169|Rain Dancer|C|LORA
+#170|Volatile Ewe|C|LORA
+#171|Firstfeather Elders|C|LORA
+#172|Guthram Deputy|U|LORA
+#173|Home on the Range|U|LORA
+#174|Paragon Dragonslayer|U|LORA
+#175|Silkstrand Wildshaper|C|LORA
+#176|Nimble Spellslinger|C|LORA
+#177|Scavenging Vulture|C|LORA
+#178|Cardhall Hooligan|C|LORA
+#179|Wildcard|U|LORA
+#180|Rail Juggernaut|U|LORA
+#181|Bloodshot Hexgun|R|LORA
+#182|Spellslingers Sixgun|C|LORA
+#183|Rugged Lumberjack|C|LORA
+#184|Calamity Gunslinger|C|LORA
+#185|Centaur Fieldhand|C|LORA
+#186|Grit|U|LORA
+#187|Firstfeather Stormwing|C|LORA
+#188|Naaki Healer|C|LORA
+#189|Dire Jackalope|C|LORA
+#190|Featherswine|C|LORA
+#191|Lightning Reload|U|LORA
+#192|Madame Tawneys Saloon|R|LORA
+#193|Mantle of Revolution|U|LORA
+#194|Reach for the Sky I|C|LORA
+#195|Steel Stallion|C|LORA
+#196|Tinman Deputy|C|LORA
+#197|Off the River|R|LORA
+#198|Arachnoid Mk II|U|LORA
+#199|Campfire I|C|LORA
+#200|Naturalize|C|LORA
+#201|Moxenite Mine|C|LORA
+#202|Mechanical Bull|C|LORA
+#203|Sacredhoof Wildshaper|C|LORA
+#204|Aerial Shootout|C|LORA
+#205|Caracole|C|LORA
+#206|Shortbow|C|LORA
+#207|Sickening Revival|C|LORA
+#208|Signature Strike|C|LORA
+#209|Tawneys Huckster|U|LORA
+#210|Cattle Rustler|U|LORA
+#211|Call Your Bluff|C|LORA
+#212|Goblin Express|R|LORA
+#213|Asigati Fireshaper|U|LORA
+#214|Rallyridge Patrolman|C|LORA
+#215|Tinman Vaquero|C|LORA
+#216|Fan the Hammer|U|LORA
+#217|Nothing to Lose|C|LORA
+#218|Yorona Banshee|R|LORA
+#219|Giant Catfish|C|LORA
+#220|Roaming Buffalo|C|LORA
+#221|Expedition Corps|M|LORA
+#222|Shellback Deputy|C|LORA
+#223|Dowsing Prospector|C|LORA
+#224|Ozuawe Hexcatcher|U|LORA
+#225|Goat Herder|C|LORA
+#226|Brainless Scarecrow|C|LORA
+#227|Festering Blacklung|C|LORA
+#228|Trinket Peddler|C|LORA
+#229|Starry Visions|C|LORA
+#230|Horned Serpent|C|LORA
+#231|Guardian of the Dead|U|LORA
+#232|Settle|U|LORA
+#233|Stubborn Mule|C|LORA
+#234|Goblin Roughrider|C|LORA
+#235|Mana Heist|R|LORA
+#236|Stickup|R|LORA
+#237|Circle the Wagons|C|LORA
+#238|Maddening Song|C|LORA
+#239|Motherlode|R|LORA
+#240|Greenskin Geologist|C|LORA
+#241|Last Will and Testament|R|LORA
+#242|Back in the Saddle|U|LORA
+#243|Bulletproof Barrier|U|LORA
+#244|High Noon I|R|LORA
+#245|Gamble|M|LORA
+#246|Bad Blood|C|LORA
+#247|Dadgum Varmints|C|LORA
+#248|Mine Collapse I|C|LORA
+#249|Farajos Shield|C|LORA
+#250|Claim Jumper I|U|LORA
+#251|Royal Flush|M|LORA

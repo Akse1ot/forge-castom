@@ -1,0 +1,5 @@
+Name:Expel I
+ManaCost:U U
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card.cmcLE3 | TgtPrompt$ Select target spell with mana value 3 or less | SpellDescription$ Counter target spell with mana value 3 or less.
+Oracle:Counter target spell with converted mana cost 3 or less.

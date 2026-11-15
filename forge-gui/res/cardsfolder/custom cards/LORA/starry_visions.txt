@@ -1,0 +1,5 @@
+Name:Starry Visions
+ManaCost:1 U
+Types:Sorcery
+A:SP$ Dig | DigNum$ 3 | ChangeNum$ 1 | DestinationZone$ Hand | DestinationZone2$ Graveyard | SpellDescription$ Look at the top three cards of your library. Put one into your hand and the rest into your graveyard.
+Oracle:Look at the top three cards of your library. Put one into your hand and the rest into your graveyard.

@@ -1,0 +1,7 @@
+Name:Dadgum Varmints
+ManaCost:1 B
+Types:Creature Squirrel
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife | TriggerDescription$ Whenever a land enters under an opponent's control, that player loses 1 life.
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredCardController | LifeAmount$ 1
+Oracle:Whenever a land enters the battlefield under an opponent's control, that player loses 1 life.

@@ -303,5 +303,5 @@ Base=fromSheet("AENR Lands")
 5 r_2_1_elemental_haste
 
 [other]
-5 emblem_Roselyn_Valvidia
+6 emblem_Roselyn_Valvidia
 

@@ -1,0 +1,11 @@
+Name:Words of the Sages
+ManaCost:4 G U
+Types:Instant
+A:SP$ PeekAndReveal | PeekAmount$ 7 | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBChooseCreature | SpellDescription$ Reveal the top seven cards of your library. Put a creature card from among them onto the battlefield and a noncreature card from among them into your hand. Put the rest into your graveyard.
+SVar:DBChooseCreature:DB$ ChooseCard | Defined$ You | Choices$ Creature.IsRemembered | ChoiceZone$ Library | SubAbility$ DBPutCreature
+SVar:DBPutCreature:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Library | Destination$ Battlefield | ForgetChanged$ True | SubAbility$ DBChooseOther
+SVar:DBChooseOther:DB$ ChooseCard | Defined$ You | Choices$ Card.nonCreature+IsRemembered | ChoiceZone$ Library | SubAbility$ DBPutOther
+SVar:DBPutOther:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Library | Destination$ Hand | ForgetChanged$ True | SubAbility$ DBRest
+SVar:DBRest:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Graveyard | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+Oracle:Reveal the top seven cards of your library. Put a creature card from among them onto the battlefield and a noncreature card from among them into your hand. Put the rest into your graveyard.

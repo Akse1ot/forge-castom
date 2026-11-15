@@ -1,0 +1,6 @@
+Name:Farajos Shield
+ManaCost:1 W
+Types:Instant
+A:SP$ Effect | ReplacementEffects$ Prevent | SpellDescription$ Prevent all damage that would be dealt this turn except by creatures that are enchanted, equipped, or have counters on them.
+SVar:Prevent:Event$ DamageDone | ActiveZones$ Command | Prevent$ True | ValidSource$ Card.nonCreature,Creature.!enchanted+!equipped+!HasCounters
+Oracle:Prevent all damage that would be dealt this turn except by creatures that are enchanted, equipped, or have counters on them.

@@ -1,0 +1,8 @@
+Name:Mountainclaw Bear
+ManaCost:6 G G
+Types:Creature Bear
+PT:8/8
+K:Trample
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDestroy | TriggerDescription$ Whenever CARDNAME attacks, destroy target artifact, enchantment, or land.
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment,Land | TgtPrompt$ Select target artifact, enchantment, or land
+Oracle:Trample (This creature can deal excess combat damage to defending player or planeswalker while attacking.)\nWhenever Mountainclaw Bear attacks, destroy target artifact, enchantment, or land.

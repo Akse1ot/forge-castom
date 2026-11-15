@@ -1,0 +1,4 @@
+Name:Snake Oil Token
+ManaCost:no cost
+Types:Artifact
+Oracle:

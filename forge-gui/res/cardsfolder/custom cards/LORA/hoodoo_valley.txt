@@ -1,0 +1,6 @@
+Name:Hoodoo Valley
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T PayLife<1> | Produced$ Combo R W | SpellDescription$ Add {R} or {W}.
+A:AB$ Draw | Cost$ R W T Sac<1/CARDNAME> | NumCards$ 1 | SpellDescription$ Draw a card.
+Oracle:{T}, Pay 1 life: Add {R} or {W}.\n{R}{W}, {T}, Sacrifice Hoodoo Valley: Draw a card.

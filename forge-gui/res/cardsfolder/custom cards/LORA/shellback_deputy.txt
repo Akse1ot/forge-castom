@@ -1,0 +1,5 @@
+Name:Shellback Deputy
+ManaCost:1 U
+Types:Creature Turtle Soldier
+PT:1/4
+Oracle:

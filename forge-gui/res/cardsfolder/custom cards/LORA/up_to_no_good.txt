@@ -1,0 +1,8 @@
+Name:Up to No Good
+ManaCost:3 B
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Menace | Description$ Creatures you control have menace.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+counters_GE1_P1P1 | TriggerZones$ Battlefield | Execute$ TrigLoseLife | TriggerDescription$ Whenever a creature you control with a +1/+1 counter on it dies, each opponent loses 2 life and you gain 2 life.
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+Oracle:Creatures you control have menace. (They can't be blocked except by two or more creatures.)\nWhenever a creature you control with a +1/+1 counter on it dies, each opponent loses 2 life and you gain 2 life.

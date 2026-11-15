@@ -1,0 +1,12 @@
+Name:Farajo Peacemaker
+ManaCost:3 W
+Types:Legendary Planeswalker Farajo
+Loyalty:3
+A:AB$ Effect | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select up to one target creature | RememberObjects$ Targeted | Duration$ UntilYourNextTurn | ExileOnMoved$ Battlefield | StaticAbilities$ STAttack,STActivate | SpellDescription$ Until your next turn, up to one target creature can't attack and its activated abilities can't be activated.
+SVar:STAttack:Mode$ CantAttack | ValidCard$ Creature.IsRemembered | Description$ This creature can't attack.
+SVar:STActivate:Mode$ CantBeActivated | ValidCard$ Creature.IsRemembered | Description$ This creature's activated abilities can't be activated.
+A:AB$ ChangeZone | Cost$ SubCounter<X/LOYALTY> | Planeswalker$ True | Origin$ Library | Destination$ Battlefield | ChangeType$ Enchantment.cmcEQX | SpellDescription$ Search your library for an enchantment card with mana value X, put it onto the battlefield, then shuffle.
+SVar:X:Count$xPaid
+A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Farajo Peacemaker | Image$ emblem_farajo_peacemaker | Duration$ Permanent | StaticAbilities$ STTax | SpellDescription$ You get an emblem with "Creatures can't attack you or planeswalkers you control unless their controller pays {5} for each attacking creature they control."
+SVar:STTax:Mode$ CantAttackUnless | ValidCard$ Creature | Target$ You,Planeswalker.YouCtrl | Cost$ 5 | Description$ Creatures can't attack you or planeswalkers you control unless their controller pays {5} for each attacking creature they control.
+Oracle:[+1]: Until your next turn, up to one target creature can't attack and its activated abilities can't be activated.\n[-X]: Search your library for an enchantment card with converted mana cost X, put it onto the battlefield, then shuffle your library.\n[-7]: You get an emblem with “Creatures can't attack you or planeswalkers you control unless their controller pays {5} for each attacking creature they control.”

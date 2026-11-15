@@ -1,0 +1,7 @@
+Name:Cattle Rustler
+ManaCost:2 R
+Types:Creature Goblin Rogue
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSteal | TriggerDescription$ When CARDNAME enters, gain control of target Boar, Goat, Horse, Ox, or Sheep until end of turn. Untap it. It gains haste until end of turn.
+SVar:TrigSteal:DB$ GainControl | ValidTgts$ Creature.Boar,Creature.Goat,Creature.Horse,Creature.Ox,Creature.Sheep | LoseControl$ EOT | Untap$ True | AddKWs$ Haste
+Oracle:When Cattle Rustler enters the battlefield, gain control of target Boar, Goat, Horse, Ox, or Sheep until end of turn. Untap it. It gains haste until end of turn.

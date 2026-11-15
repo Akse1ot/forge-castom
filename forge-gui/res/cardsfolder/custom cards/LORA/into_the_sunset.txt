@@ -1,0 +1,7 @@
+Name:Into the Sunset
+ManaCost:3 W
+Types:Sorcery
+A:SP$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Exile | SubAbility$ DBGainLife | SpellDescription$ Exile target creature. Its controller gains life equal to its toughness.
+SVar:DBGainLife:DB$ GainLife | Defined$ TargetedController | LifeAmount$ X
+SVar:X:Targeted$CardToughness
+Oracle:Exile target creature. Its controller gains life equal to its toughness.

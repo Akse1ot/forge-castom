@@ -1,0 +1,17 @@
+Name:Hyastee Sphinx
+ManaCost:4 U
+Types:Creature Sphinx
+PT:3/5
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ Pick | TriggerDescription$ Whenever CARDNAME attacks, choose a card type, then defending player guesses whether a card of that type is in your hand. You may reveal your hand. If you do and they guessed wrong, draw two cards.
+SVar:Pick:DB$ ChooseType | Defined$ You | Type$ Card | SubAbility$ Guess
+SVar:Guess:DB$ GenericChoice | Defined$ TriggeredDefendingPlayer | Choices$ Yes,No
+SVar:Yes:DB$ StoreSVar | SVar$ Guess | Type$ Number | Expression$ 0 | SpellDescription$ Yes | SubAbility$ Reveal
+SVar:No:DB$ StoreSVar | SVar$ Guess | Type$ Number | Expression$ 1 | SpellDescription$ No | SubAbility$ Reveal
+SVar:Reveal:DB$ GenericChoice | Defined$ You | Choices$ Show,Hide | AILogic$ Always
+SVar:Show:DB$ RevealHand | Defined$ You | RememberRevealed$ True | SubAbility$ Award | SpellDescription$ Reveal hand
+SVar:Hide:DB$ Draw | Defined$ You | NumCards$ 0 | SpellDescription$ Do not reveal
+SVar:Award:DB$ Draw | Defined$ You | ConditionDefined$ Remembered | ConditionPresent$ Card.ChosenType | ConditionCompare$ GE1 | ConditionCheckSVar$ Guess | ConditionSVarCompare$ EQ1 | NumCards$ 2 | SubAbility$ AwardAbsent
+SVar:AwardAbsent:DB$ Draw | Defined$ You | ConditionDefined$ Remembered | ConditionPresent$ Card.ChosenType | ConditionCompare$ EQ0 | ConditionCheckSVar$ Guess | ConditionSVarCompare$ EQ0 | NumCards$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Flying\nWhenever Hyastee Sphinx attacks, choose a card type, then defending player guesses whether a card of that type is in your hand. You may reveal your hand. If you do and they guessed wrong, draw two cards.

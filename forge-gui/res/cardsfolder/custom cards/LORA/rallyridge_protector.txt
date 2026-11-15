@@ -1,0 +1,8 @@
+Name:Rallyridge Protector
+ManaCost:2 W U
+Types:Creature Bird Soldier
+PT:3/2
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigUntap | TriggerDescription$ Whenever CARDNAME attacks, untap each other creature you control.
+SVar:TrigUntap:DB$ UntapAll | ValidCards$ Creature.Other+YouCtrl
+Oracle:Flying\nWhenever Rallyridge Protector attacks, untap each other creature you control.

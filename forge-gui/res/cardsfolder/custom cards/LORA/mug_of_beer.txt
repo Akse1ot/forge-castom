@@ -1,0 +1,6 @@
+Name:Mug of Beer
+ManaCost:2
+Types:Artifact
+A:AB$ Tap | Cost$ 2 T | ValidTgts$ Creature | SubAbility$ DBGainLife | SpellDescription$ Tap target creature. That creature's controller gains 1 life.
+SVar:DBGainLife:DB$ GainLife | Defined$ TargetedController | LifeAmount$ 1
+Oracle:{2}, {T}: Tap target creature. That creature's controller gains 1 life.

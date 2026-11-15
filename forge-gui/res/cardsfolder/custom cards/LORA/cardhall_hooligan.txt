@@ -1,0 +1,9 @@
+Name:Cardhall Hooligan
+ManaCost:3 R
+Types:Creature Human Rogue
+PT:2/3
+K:Haste
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump | TriggerDescription$ When CARDNAME enters, it gets +X/+0 until end of turn, where X is your longest straight.
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ X
+SVar:X:Count$LongestManaValueRun
+Oracle:Haste\nWhen Cardhall Hooligan enters the battlefield, it gets +X/+0 until end of turn, where X is your longest straight. (One or more nonland permanents you control with consecutive converted mana costs form a straight.)

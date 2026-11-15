@@ -728,6 +728,10 @@ public final class StaticAbilityContinuous {
                     final ManaCost manaCost = new ManaCost(stAb.getParam("ManaCost"));
                     affectedCard.addChangedManaCost(manaCost, false, se.getTimestamp(), stAb.getId());
                 }
+                if (stAb.hasParam("SetManaValue") && affectedCard.isInPlay()) {
+                    final int value = AbilityUtils.calculateAmount(hostCard, stAb.getParam("SetManaValue"), stAb);
+                    affectedCard.addChangedManaValue(value, se.getTimestamp(), stAb.getId());
+                }
 
                 if (stAb.hasParam("AddNames")) { // currently only for AllNonLegendaryCreatureNames
                     affectedCard.addChangedName(null, true, se.getTimestamp(), stAb.getId());

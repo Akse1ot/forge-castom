@@ -1,0 +1,6 @@
+Name:Inside Job
+ManaCost:4 R R
+Types:Sorcery
+A:SP$ GainControl | ValidTgts$ Creature | LoseControl$ EOT | Untap$ True | AddKWs$ Haste | SubAbility$ DBNoBlock | SpellDescription$ Gain control of target creature until end of turn. Untap it. It gains haste until end of turn. Creatures without flying can't block this turn.
+SVar:DBNoBlock:DB$ PumpAll | ValidCards$ Creature.withoutFlying | KW$ HIDDEN CARDNAME can't block.
+Oracle:Gain control of target creature until end of turn. Untap that creature. It gains haste until end of turn.\nCreatures without flying can't block this turn.

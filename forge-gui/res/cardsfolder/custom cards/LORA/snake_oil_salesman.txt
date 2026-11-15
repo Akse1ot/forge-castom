@@ -1,0 +1,7 @@
+Name:Snake Oil Salesman
+ManaCost:2 U
+Types:Creature Human Rogue
+PT:1/2
+A:AB$ Token | Cost$ T | TokenScript$ snake_oil | TokenOwner$ You | SpellDescription$ Create a colorless artifact token named Snake Oil.
+A:AB$ ExchangeControl | Cost$ 3 U U T | ValidTgts$ Permanent.nonLand | TargetMin$ 2 | TargetMax$ 2 | Duration$ AsLongAsControl | SpellDescription$ Exchange control of two target nonland permanents for as long as you control CARDNAME.
+Oracle:{T}: Create a colorless artifact token named Snake Oil.\n{3}{U}{U}, {T}: Exchange control of two target nonland permanents for as long as you control Snake Oil Salesman.

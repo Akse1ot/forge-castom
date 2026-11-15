@@ -1,0 +1,9 @@
+Name:Aven Deputy
+ManaCost:2 U
+Types:Creature Bird Soldier
+PT:2/1
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn | TriggerDescription$ When CARDNAME enters, return target card with reflex from your graveyard to your hand.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.YouOwn+hasKeywordReflex | TgtPrompt$ Select target card with reflex from your graveyard
+Oracle:Flash (You may cast this spell any time you could cast an instant.)\nFlying\nWhen Aven Deputy enters the battlefield, return target card with reflex from your graveyard to your hand.

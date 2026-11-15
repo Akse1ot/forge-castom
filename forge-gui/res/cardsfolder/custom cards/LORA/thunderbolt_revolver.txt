@@ -1,0 +1,7 @@
+Name:Thunderbolt Revolver
+ManaCost:2
+Types:Artifact Equipment
+K:etbCounter:CHARGE:3:no Condition:Loaded 3 (CARDNAME enters with 3 charge counters.)
+A:AB$ DealDamage | Cost$ SubCounter<1/CHARGE> | ValidTgts$ Any | DamageSource$ Equipped | NumDmg$ 1 | SpellDescription$ Equipped creature deals 1 damage to any target.
+K:Equip:2
+Oracle:Loaded 3 (This enters the battlefield with three charge counters.)\nRemove a charge counter from Thunderbolt Revolver: Equipped creature deals 1 damage to any target.\nEquip {2}

@@ -1,0 +1,6 @@
+Name:Call Your Bluff
+ManaCost:1 U
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | ValidTgts$ Card | UnlessCost$ Straight | SpellDescription$ Counter target spell unless its controller pays {X}, where X is your longest straight.
+SVar:Straight:Count$LongestManaValueRun
+Oracle:Counter target spell unless its controller pays {X}, where X is your longest straight. (One or more nonland permanents you control with consecutive converted mana costs form a straight.)

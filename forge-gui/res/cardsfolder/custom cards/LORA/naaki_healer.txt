@@ -1,0 +1,8 @@
+Name:Naaki Healer
+ManaCost:3 W
+Types:Creature Bird Shaman
+PT:2/2
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigDestroy | TriggerDescription$ When CARDNAME enters, you may destroy target enchantment.
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Enchantment | TgtPrompt$ Select target enchantment
+Oracle:Flying\nWhen Naaki Healer enters the battlefield, you may destroy target enchantment.

@@ -1,0 +1,9 @@
+Name:Hyastee Courser
+ManaCost:3 G
+Types:Creature Centaur Warrior
+PT:3/3
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ Pair | TriggerDescription$ Warband (Whenever CARDNAME attacks, you may pair it with another unpaired attacking creature you control until end of turn.)
+SVar:Pair:DB$ Bond | Defined$ TriggeredAttackerLKICopy | ValidCards$ Creature.Other+YouCtrl+attacking+!Paired | PairUntilEndOfTurn$ True
+T:Mode$ BecomesPaired | ValidCard$ Card.StrictlySelf | TriggerZones$ Battlefield | Execute$ Buff | TriggerDescription$ Whenever CARDNAME becomes paired with a creature, untap both creatures.
+SVar:Buff:DB$ Untap | Defined$ TriggeredCardsLKICopy
+Oracle:Warband (Whenever this creature attacks, you may pair it with another unpaired attacking creature you control until end of turn.)\nWhenever Hyastee Courser becomes paired with a creature, untap both creatures.

@@ -1,0 +1,7 @@
+Name:Ace Holden
+ManaCost:1 G W
+Types:Legendary Creature Human Knight
+PT:2/2
+K:First Strike
+A:AB$ Pump | Cost$ G W TapType<2/Creature.Other/other creatures> | Defined$ Self | NumAtt$ 3 | NumDef$ 3 | KW$ HIDDEN CARDNAME must be blocked if able. | SpellDescription$ Until end of turn, CARDNAME gets +3/+3 and must be blocked if able.
+Oracle:First strike\n{G}{W}, Tap two other untapped creatures you control: Until end of turn, Ace Holden gets +3/+3 and must be blocked if able.

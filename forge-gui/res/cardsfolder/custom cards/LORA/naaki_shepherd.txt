@@ -1,0 +1,8 @@
+Name:Naaki Shepherd
+ManaCost:4 W
+Types:Creature Human Farmer
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create three 0/1 white Goat creature tokens.
+SVar:TrigToken:DB$ Token | TokenAmount$ 3 | TokenScript$ w_0_1_goat | TokenOwner$ You
+A:AB$ PutCounter | Cost$ T | ValidTgts$ Creature.Boar,Creature.Goat,Creature.Horse,Creature.Ox,Creature.Sheep | TgtPrompt$ Select target Boar, Goat, Horse, Ox, or Sheep | CounterType$ P1P1 | CounterNum$ 1 | SpellDescription$ Put a +1/+1 counter on target Boar, Goat, Horse, Ox, or Sheep.
+Oracle:When Naaki Shepherd enters the battlefield, create three 0/1 white Goat creature tokens.\n{T}: Put a +1/+1 counter on target Boar, Goat, Horse, Ox, or Sheep.

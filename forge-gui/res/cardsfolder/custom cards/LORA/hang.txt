@@ -1,0 +1,5 @@
+Name:Hang
+ManaCost:1 B
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Creature.numCreatureTypesGE2 | TgtPrompt$ Select target creature with two or more creature types | SpellDescription$ Destroy target creature that has two or more creature types.
+Oracle:Destroy target creature that's two or more creature types.

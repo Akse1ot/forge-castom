@@ -23,6 +23,7 @@ import forge.game.spellability.SpellAbility;
 import forge.game.spellability.FocusHelper;
 import forge.game.spellability.SpellAbilityStackInstance;
 import forge.game.staticability.StaticAbility;
+import forge.game.trigger.PairingTriggerCopy;
 import forge.game.trigger.TriggerType;
 import forge.game.zone.PlayerZoneBattlefield;
 import forge.game.zone.ZoneType;
@@ -218,6 +219,7 @@ public class GameCopier {
             }
         }
 
+        newGame.getPhaseHandler().getCombatDeclarationHistory().copyFrom(origPhaseHandler.getCombatDeclarationHistory());
         if (origPhaseHandler.getCombat() != null) {
             newGame.getPhaseHandler().setCombat(new Combat(origPhaseHandler.getCombat(), gameObjectMap));
         }
@@ -245,7 +247,9 @@ public class GameCopier {
         // Map every spell first: retargeting can make an older spell target a newer one.
         for (SpellAbilityStackInstance entry : origGame.getStack()) {
             SpellAbility original = entry.getSpellAbility();
-            if (original.isSpell()) {
+            if (PairingTriggerCopy.supports(original)) {
+                stackMap.put(original, PairingTriggerCopy.copy(original, newGame));
+            } else if (original.isSpell()) {
                 SpellAbility copied = findSAInCard(original, map.map(original.getHostCard()));
                 if (copied == null) {
                     copied = FocusHelper.findFocusedSpell(original, map.map(original.getHostCard()));
@@ -260,10 +264,7 @@ public class GameCopier {
         for (Iterator<SpellAbilityStackInstance> it = origGame.getStack().reverseIterator(); it.hasNext();) {
             SpellAbilityStackInstance origEntry = it.next();
             SpellAbility origSa = origEntry.getSpellAbility();
-            SpellAbility newSa = null;
-            if (origSa.isSpell()) {
-                newSa = stackMap.get(origSa);
-            }
+            SpellAbility newSa = stackMap.get(origSa);
             if (newSa != null) {
                 newSa.setActivatingPlayer(map.map(origSa.getActivatingPlayer()));
                 newSa.setFocused(origSa.isFocused());
@@ -336,8 +337,6 @@ public class GameCopier {
 
         for (Card card : origGame.getCardsIn(ZoneType.Battlefield)) {
             Card otherCard = cardMap.get(card);
-            otherCard.setGameTimestamp(card.getGameTimestamp());
-            otherCard.setLayerTimestamp(card.getLayerTimestamp());
             otherCard.setSickness(card.hasSickness());
             otherCard.setState(card.getCurrentStateName(), false);
             if (card.isAttachedToEntity()) {
@@ -358,7 +357,7 @@ public class GameCopier {
                 otherCard.setSaddledByThisTurn(card.getSaddledByThisTurn());
             }
             if (card.isPaired()) {
-                otherCard.setPairedWith(cardMap.get(card.getPairedWith()));
+                otherCard.setPairedWith(cardMap.get(card.getPairedWith()), card.getPairExpiryTurn());
             }
             if (card.getCopiedPermanent() != null) {
                 // TODO would it be safe to simply reuse the prototype?
@@ -387,7 +386,78 @@ public class GameCopier {
             }
         }
 
+        copyExileLinks(newGame);
         copyLeftThisTurn(newGame, aiPlayer);
+    }
+
+    private record ExileIncarnation(int id, long timestamp) {
+        private ExileIncarnation(Card card) {
+            this(card.getId(), card.getGameTimestamp());
+        }
+    }
+
+    private void copyExileLinks(Game newGame) {
+        final Map<ExileIncarnation, Card> formerIncarnations = new HashMap<>();
+        for (Map.Entry<Card, Card> entry : cardMap.entrySet()) {
+            final Card original = entry.getKey();
+            final Card copy = entry.getValue();
+            for (Card exiled : original.getExiledCards()) {
+                final Card mapped = findSameIncarnation(exiled);
+                if (mapped != null) {
+                    copy.addExiledCard(mapped);
+                }
+            }
+            for (Card imprinted : original.getImprintedCards()) {
+                copy.addImprintedCard(mapExileIncarnation(newGame, imprinted, formerIncarnations));
+            }
+            final Card source = original.getExiledWith();
+            copy.setExiledBy(playerMap.get(original.getExiledBy()));
+            if (source == null) {
+                continue;
+            }
+            final Card mappedSource = mapExileIncarnation(newGame, source, formerIncarnations);
+            copy.setExiledWith(mappedSource);
+            if (mappedSource.isLKI() && source.getExiledCards().anyMatch(original::equalsWithGameTimestamp)) {
+                mappedSource.addExiledCard(copy);
+            }
+            final SpellAbility cause = original.getExiledSA();
+            if (cause != null) {
+                final Card host = findSameIncarnation(cause.getHostCard());
+                if (host != null) {
+                    copy.setExiledSA(findSAInCard(cause, host));
+                }
+            }
+        }
+    }
+
+    private Card findSameIncarnation(Card original) {
+        final Card mapped = cardMap.get(original);
+        return mapped != null && original.equalsWithGameTimestamp(cardMap.inverse().get(mapped)) ? mapped : null;
+    }
+
+    private Card mapExileIncarnation(Game newGame, Card source, Map<ExileIncarnation, Card> formerIncarnations) {
+        final Card mapped = findSameIncarnation(source);
+        if (mapped != null) {
+            return mapped;
+        }
+        return formerIncarnations.computeIfAbsent(new ExileIncarnation(source), ignored -> {
+            // Keep the old identity and printed characteristics in this game, without copying its live references.
+            final Card identity = new Card(source.getId(), source.getPaperCard(), newGame);
+            identity.setOwner(playerMap.get(source.getOwner()));
+            final Player controller = playerMap.get(source.getController());
+            if (controller != null) {
+                identity.setController(controller, source.getGameTimestamp());
+            }
+            identity.setName(source.getName());
+            identity.setType(new CardType(source.getType()));
+            identity.setGameTimestamp(source.getGameTimestamp());
+            identity.setColor(source.getColor());
+            identity.setManaCost(source.getManaCost());
+            identity.setBasePower(source.getNetPower());
+            identity.setBaseToughness(source.getNetToughness());
+            identity.setLKICMC(source.getCMC());
+            return identity;
+        });
     }
 
     /**
@@ -489,9 +559,9 @@ public class GameCopier {
     private void addCard(Game newGame, ZoneType zone, Card c, Player aiPlayer) {
         final Player owner = playerMap.get(c.getOwner());
         final Card newCard = createCardCopy(newGame, owner, c, aiPlayer);
+        newCard.setGameTimestamp(c.getGameTimestamp());
+        newCard.setLayerTimestamp(c.getLayerTimestamp());
         cardMap.put(c, newCard);
-
-        // TODO ExiledWith
 
         Player zoneOwner = owner;
         // everything the CreatureEvaluator checks must be set here

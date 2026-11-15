@@ -1,0 +1,9 @@
+Name:Outlaw Necromancer
+ManaCost:3 B
+Types:Creature Human Wizard
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | TriggerDescription$ When CARDNAME enters, exile target creature card from a graveyard. If you do, create a 1/1 black Skeleton creature token.
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature | RememberChanged$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ b_1_1_skeleton | TokenOwner$ You | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:When Outlaw Necromancer enters the battlefield, exile target creature card from a graveyard. If you do, create a 1/1 black Skeleton creature token.

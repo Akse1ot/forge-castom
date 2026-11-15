@@ -1,0 +1,10 @@
+Name:Wildshape Mastery
+ManaCost:2 G
+Types:Enchantment
+A:AB$ Charm | Cost$ G | ActivationLimit$ 1 | Choices$ DBTrample,DBVigilance,DBDeathtouch,DBReach,DBPump | AdditionalDescription$ . Activate only once each turn.
+SVar:DBTrample:DB$ Pump | ValidTgts$ Creature | KW$ Trample | SpellDescription$ Target creature gains trample until end of turn.
+SVar:DBVigilance:DB$ Pump | ValidTgts$ Creature | KW$ Vigilance | SpellDescription$ Target creature gains vigilance until end of turn.
+SVar:DBDeathtouch:DB$ Pump | ValidTgts$ Creature | KW$ Deathtouch | SpellDescription$ Target creature gains deathtouch until end of turn.
+SVar:DBReach:DB$ Pump | ValidTgts$ Creature | KW$ Reach | SpellDescription$ Target creature gains reach until end of turn.
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | NumAtt$ 2 | NumDef$ 2 | SpellDescription$ Target creature gets +2/+2 until end of turn.
+Oracle:{G}: Target creature gains your choice of trample, vigilance, deathtouch, or reach or gets +2/+2 until end of turn. Activate this ability only once each turn.

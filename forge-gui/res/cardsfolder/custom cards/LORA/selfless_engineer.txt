@@ -1,0 +1,6 @@
+Name:Selfless Engineer
+ManaCost:3
+Types:Artifact Creature Construct
+PT:2/2
+A:AB$ PumpAll | Cost$ Sac<1/CARDNAME> | ValidCards$ Creature.YouCtrl,Artifact.YouCtrl | KW$ Indestructible | SpellDescription$ Creatures and artifacts you control gain indestructible until end of turn.
+Oracle:Sacrifice Selfless Engineer: Creatures and artifacts you control gain indestructible until end of turn. (Damage and effects that say “destroy” don't destroy them.)

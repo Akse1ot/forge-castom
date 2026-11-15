@@ -126,6 +126,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
 
     // if this card is attached or linked to something, what card is it currently attached to
     private Card encoding, cloneOrigin, haunting, effectSource, pairedWith, meldedWith;
+    private int pairExpiryTurn = -1;
     private Card mergedTo;
 
     private SpellAbility effectSourceAbility;
@@ -175,6 +176,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     private final Table<Long, Long, CardColor> changedCardColors = FSnapshotTable.createTree(); // Layer 5
 
     protected final Table<Long, Long, CardManaCost> changedCardManaCost = FSnapshotTable.createTree(); // Layer 3
+    private Table<Long, Long, Integer> changedManaValue;
 
     private final NavigableMap<Long, CardCloneStates> clonedStates = Maps.newTreeMap(); // Layer 1
     private record AttachmentCloneMemory(Long predecessor, GameCommand restore) {}
@@ -1430,7 +1432,14 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         return pairedWith;
     }
     public final void setPairedWith(final Card c) {
+        setPairedWith(c, -1);
+    }
+    public final void setPairedWith(final Card c, final int expiryTurn) {
         pairedWith = view.setCard(pairedWith, c, TrackableProperty.PairedWith);
+        pairExpiryTurn = c == null ? -1 : expiryTurn;
+    }
+    public final int getPairExpiryTurn() {
+        return pairExpiryTurn;
     }
     public final boolean isPaired() {
         return pairedWith != null;
@@ -2138,6 +2147,18 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         updateManaCostForView();
         return result;
     }
+
+    public void addChangedManaValue(final int value, final long timestamp, final long staticId) {
+        if (changedManaValue == null) {
+            changedManaValue = FSnapshotTable.createTree();
+        }
+        changedManaValue.put(timestamp, staticId, value);
+    }
+
+    public boolean removeChangedManaValue(final long timestamp, final long staticId) {
+        return changedManaValue != null && changedManaValue.remove(timestamp, staticId) != null;
+    }
+
     private record CardManaCost(ManaCost mana, boolean additional) {
 
     }
@@ -7665,6 +7686,9 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
     public int getCMC(SplitCMCMode mode) {
         if (lkiCMC >= 0) {
             return lkiCMC; // a workaround used by getLKICopy
+        }
+        if (changedManaValue != null && !changedManaValue.isEmpty() && isInPlay()) {
+            return Iterables.getLast(changedManaValue.values());
         }
 
         int xPaid = 0;

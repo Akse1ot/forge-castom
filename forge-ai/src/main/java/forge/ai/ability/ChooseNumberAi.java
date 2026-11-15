@@ -11,7 +11,13 @@ public class ChooseNumberAi extends SpellAbilityAi {
     protected AiAbilityDecision checkApiLogic(Player aiPlayer, SpellAbility sa) {
         String aiLogic = sa.getParamOrDefault("AILogic", "");
 
-        if (aiLogic.isEmpty()) {
+        if (ManaValueRunAi.LOGIC.equals(aiLogic)) {
+            final int min = AbilityUtils.calculateAmount(sa.getHostCard(), sa.getParamOrDefault("Min", "0"), sa);
+            final int max = AbilityUtils.calculateAmount(sa.getHostCard(), sa.getParamOrDefault("Max", "5"), sa);
+            final boolean improves = ManaValueRunAi.choose(aiPlayer, sa, min, max) != sa.getHostCard().getCMC();
+            return improves ? new AiAbilityDecision(100, AiPlayDecision.WillPlay)
+                    : new AiAbilityDecision(0, AiPlayDecision.CantPlayAi);
+        } else if (aiLogic.isEmpty()) {
             return new AiAbilityDecision(0, AiPlayDecision.MissingLogic);
         } else if (aiLogic.equals("SweepCreatures")) {
             int maxChoiceLimit = AbilityUtils.calculateAmount(sa.getHostCard(), sa.getParam("Max"), sa);

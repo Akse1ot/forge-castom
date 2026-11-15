@@ -2,6 +2,7 @@ package forge.game;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Lists;
+import forge.game.ability.effects.EffectEffect;
 import forge.game.card.Card;
 import forge.game.card.CardCollection;
 import forge.game.card.CardCollectionView;
@@ -16,6 +17,7 @@ import forge.game.player.Player;
 import forge.game.player.RegisteredPlayer;
 import forge.game.spellability.SpellAbility;
 import forge.game.spellability.SpellAbilityStackInstance;
+import forge.game.trigger.PairingTriggerCopy;
 import forge.game.trigger.TriggerType;
 import forge.game.zone.PlayerZone;
 import forge.game.zone.PlayerZoneBattlefield;
@@ -75,6 +77,8 @@ public class GameSnapshot {
     }
 
     public void assignGameState(Game fromGame, Game toGame, boolean includeStack) {
+        final boolean refreshIncarnationEffects = EffectEffect.hasIncarnationEffect(fromGame)
+                || EffectEffect.hasIncarnationEffect(toGame);
         for (int i = 0; i < fromGame.getPlayers().size(); i++) {
             Player origPlayer = fromGame.getPlayers().get(i);
             Player newPlayer = findBy(toGame, origPlayer);
@@ -151,7 +155,7 @@ public class GameSnapshot {
             }
         }
 
-        forge.game.ability.effects.EffectEffect.copyForSimulation(fromGame, toGame);
+        EffectEffect.copyForSimulation(fromGame, toGame);
         LibraryRevealHelper.copyForSimulation(fromGame, toGame);
 
         // Undo effects first before calculating them below, to avoid them applying twice.
@@ -159,10 +163,14 @@ public class GameSnapshot {
 //            effect.removeMapped(gameObjectMap);
 //        }
 
+        toGame.getPhaseHandler().getCombatDeclarationHistory().copyFrom(origPhaseHandler.getCombatDeclarationHistory());
         if (origPhaseHandler.getCombat() != null) {
             Combat combat = new Combat(origPhaseHandler.getCombat(), gameObjectMap);
             toGame.getPhaseHandler().setCombat(combat);
             //System.out.println(origPhaseHandler.getCombat().toString());
+        }
+        if (refreshIncarnationEffects) {
+            toGame.getAction().checkStaticAbilities(false);
         }
 
         // I think re-assigning this is killing something?
@@ -259,12 +267,22 @@ public class GameSnapshot {
         for (SpellAbilityStackInstance toEntry : toGame.getStack()) {
             stackIds.put(toEntry.getId(), toEntry);
         }
+        if (restore) {
+            for (final SpellAbilityStackInstance entry : List.copyOf(stackIds.values())) {
+                if (PairingTriggerCopy.supports(entry.getSpellAbility())) {
+                    toGame.getStack().remove(entry);
+                    stackIds.remove(entry.getId());
+                }
+            }
+        }
 
         // Targets may refer to newer spells after retargeting; map all entries before copying targets.
         for (SpellAbilityStackInstance entry : fromGame.getStack()) {
             SpellAbility original = entry.getSpellAbility();
             SpellAbilityStackInstance existing = stackIds.get(entry.getId());
-            if (existing != null) {
+            if (PairingTriggerCopy.supports(original)) {
+                copiedStackAbilities.put(original, PairingTriggerCopy.copy(original, toGame));
+            } else if (existing != null) {
                 copiedStackAbilities.put(original, existing.getSpellAbility());
             } else if (original.isSpell()) {
                 Card host = findBy(toGame, original.getHostCard());
@@ -301,10 +319,7 @@ public class GameSnapshot {
             SpellAbility origSa = origEntry.getSpellAbility();
             // FInd newEntry from origEntrys
 
-            SpellAbility newSa = null;
-            if (origSa.isSpell()) {
-                newSa = copiedStackAbilities.get(origSa);
-            }
+            SpellAbility newSa = copiedStackAbilities.get(origSa);
 
             // Is the SA on the stack?
             if (newSa != null) {
@@ -432,7 +447,9 @@ public class GameSnapshot {
                 newCard.setEffectSource(toGame.findById(fromCard.getEffectSource().getId()));
             }
             if (fromCard.isPaired()) {
-                newCard.setPairedWith(toGame.findById(fromCard.getPairedWith().getId()));
+                newCard.setPairedWith(toGame.findById(fromCard.getPairedWith().getId()), fromCard.getPairExpiryTurn());
+            } else if (newCard.getPairExpiryTurn() >= 0) {
+                newCard.setPairedWith(null);
             }
             if (fromCard.getCopiedPermanent() != null) {
                 newCard.setCopiedPermanent(toGame.findById(fromCard.getCopiedPermanent().getId()));

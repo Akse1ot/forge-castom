@@ -1,0 +1,9 @@
+Name:Mana Heist
+ManaCost:2 U U
+Types:Instant
+A:SP$ Pump | Defined$ You | TargetType$ Spell | ValidTgts$ Card.Instant+OppCtrl,Card.Sorcery+OppCtrl | RememberObjects$ TargetedController | SubAbility$ Bounce | SpellDescription$ Return target instant or sorcery spell an opponent controls to its owner's hand. Look at that player's hand. You may cast an instant or sorcery card from that player's hand without paying its mana cost.
+SVar:Bounce:DB$ ChangeZone | Defined$ Targeted | Origin$ Stack | Destination$ Hand | SubAbility$ Look
+SVar:Look:DB$ RevealHand | Defined$ RememberedPlayer | Look$ True | SubAbility$ Cast
+SVar:Cast:DB$ Play | Valid$ Instant.RememberedPlayerOwn,Sorcery.RememberedPlayerOwn | ValidZone$ Hand | WithoutManaCost$ True | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Return target instant or sorcery spell an opponent controls to its owner's hand. Look at that players hand. You may cast an instant or sorcery card from that player's hand without paying its mana cost.

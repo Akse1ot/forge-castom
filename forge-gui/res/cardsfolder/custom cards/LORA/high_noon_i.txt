@@ -1,0 +1,8 @@
+Name:High Noon I
+ManaCost:1 W
+Types:Enchantment
+S:Mode$ AttackRestrict | MaxAttackers$ 1 | PerTurn$ True | Description$ No more than one creature may attack each turn.
+S:Mode$ BlockRestrict | MaxBlockers$ 1 | PerTurn$ True | Description$ No more than one creature may block each turn.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.inCombatLKI | TriggerZones$ Battlefield | Execute$ TrigSacrifice | TriggerDescription$ When an attacking or blocking creature dies, sacrifice CARDNAME.
+SVar:TrigSacrifice:DB$ Sacrifice | SacValid$ Self
+Oracle:No more than one creature may attack each turn.\nNo more than one creature may block each turn.\nWhen an attacking or blocking creature dies, sacrifice High Noon I.

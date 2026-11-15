@@ -1,0 +1,8 @@
+Name:Nimbus Hog
+ManaCost:3 W
+Types:Creature Boar
+PT:2/4
+K:Flying
+T:Mode$ Phase | Phase$ BeginCombat | TriggerZones$ Battlefield | Execute$ TrigTap | TriggerDescription$ At the beginning of each combat, tap or untap target creature.
+SVar:TrigTap:DB$ TapOrUntap | ValidTgts$ Creature | TgtPrompt$ Select target creature
+Oracle:Flying\nAt the beginning of each combat, tap or untap target creature.

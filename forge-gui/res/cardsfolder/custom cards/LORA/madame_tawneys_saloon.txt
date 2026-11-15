@@ -1,0 +1,7 @@
+Name:Madame Tawneys Saloon
+ManaCost:no cost
+Types:Legendary Land
+A:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+A:AB$ Mana | Cost$ 2 T | Produced$ Any | Amount$ X | SpellDescription$ Add X mana of any one color, where X is your longest straight.
+SVar:X:Count$LongestManaValueRun
+Oracle:{T}: Add {C}.\n{2}, {T}: Add X mana of any one color, where X is your longest straight. (One or more nonland permanents you control with consecutive converted mana costs form a straight.)

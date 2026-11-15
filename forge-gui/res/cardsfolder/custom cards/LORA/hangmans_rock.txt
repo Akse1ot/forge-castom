@@ -1,0 +1,6 @@
+Name:Hangmans Rock
+ManaCost:no cost
+Types:Land
+A:AB$ Mana | Cost$ T PayLife<1> | Produced$ Combo B R | SpellDescription$ Add {B} or {R}.
+A:AB$ Draw | Cost$ B R T Sac<1/CARDNAME> | NumCards$ 1 | SpellDescription$ Draw a card.
+Oracle:{T}, Pay 1 life: Add {B} or {R}.\n{B}{R}, {T}, Sacrifice Hangman's Rock: Draw a card.

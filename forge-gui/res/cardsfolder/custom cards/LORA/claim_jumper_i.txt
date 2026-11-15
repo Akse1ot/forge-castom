@@ -1,0 +1,7 @@
+Name:Claim Jumper I
+ManaCost:U
+Types:Creature Human Scout
+PT:0/3
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMill | TriggerDescription$ Whenever you cast a noncreature spell, target player mills three cards.
+SVar:TrigMill:DB$ Mill | ValidTgts$ Player | TgtPrompt$ Select target player | NumCards$ 3
+Oracle:Whenever you cast a noncreature spell, target player puts the top three cards of their library into their graveyard.

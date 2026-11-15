@@ -23,6 +23,7 @@ import com.google.common.collect.Sets;
 import forge.ai.AiCardMemory.MemorySet;
 import forge.ai.ability.ChangeZoneAi;
 import forge.ai.ability.LearnAi;
+import forge.ai.ability.ManaValueRunAi;
 import forge.ai.simulation.*;
 import forge.card.CardStateName;
 import forge.card.CardType;
@@ -3001,7 +3002,9 @@ public class AiController {
     public int chooseNumber(SpellAbility sa, String title, int min, int max) {
         final Card source = sa.getHostCard();
         final String logic = sa.getParamOrDefault("AILogic", "Max");
-        if ("GainLife".equals(logic)) {
+        if (ManaValueRunAi.LOGIC.equals(logic)) {
+            return Math.max(min, Math.min(max, ManaValueRunAi.choose(player, sa, min, max)));
+        } else if ("GainLife".equals(logic)) {
             if (player.getLife() < 5 || player.getCardsIn(ZoneType.Hand).size() >= player.getMaxHandSize()) {
                 return min;
             }

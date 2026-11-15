@@ -1,0 +1,6 @@
+Name:Volatile Ewe
+ManaCost:2
+Types:Artifact Creature Sheep
+PT:2/1
+A:AB$ Destroy | Cost$ 1 R Sac<1/CARDNAME> | ValidTgts$ Artifact | TgtPrompt$ Select target artifact | SpellDescription$ Destroy target artifact.
+Oracle:{1}{R}, Sacrifice Volatile Ewe: Destroy target artifact.

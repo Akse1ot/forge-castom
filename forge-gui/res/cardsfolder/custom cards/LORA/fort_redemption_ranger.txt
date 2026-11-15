@@ -1,0 +1,9 @@
+Name:Fort Redemption Ranger
+ManaCost:3 W
+Types:Creature Human Knight
+PT:3/3
+K:Renown:1
+S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl | AddKeyword$ Renown:1 | Description$ Other creatures you control have renown 1.
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounter | TriggerDescription$ At the beginning of your end step, put a +1/+1 counter on each creature you control with a +1/+1 counter on it.
+SVar:TrigCounter:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl+counters_GE1_P1P1 | CounterType$ P1P1 | CounterNum$ 1
+Oracle:Renown 1 (When this creature deals combat damage to a player, if it isn't renowned, put a +1/+1 counter on it and it becomes renowned.)\nOther creatures you control have renown 1.\nAt the beginning of your end step, put a +1/+1 counter on each creature you control with a +1/+1 counter on it.

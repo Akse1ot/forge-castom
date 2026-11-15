@@ -1,0 +1,10 @@
+Name:Runevolley
+ManaCost:2
+Types:Artifact Equipment
+K:etbCounter:CHARGE:3:no Condition:Loaded 3 (CARDNAME enters with 3 charge counters.)
+A:AB$ Charm | Cost$ SubCounter<1/CHARGE> | Choices$ GiveFirstStrike,GiveTrample,GiveProwess
+SVar:GiveFirstStrike:DB$ Pump | Defined$ Equipped | KW$ First Strike | SpellDescription$ Equipped creature gains first strike until end of turn.
+SVar:GiveTrample:DB$ Pump | Defined$ Equipped | KW$ Trample | SpellDescription$ Equipped creature gains trample until end of turn.
+SVar:GiveProwess:DB$ Pump | Defined$ Equipped | KW$ Prowess | SpellDescription$ Equipped creature gains prowess until end of turn.
+K:Equip:1
+Oracle:Loaded 3 (This enters the battlefield with three charge counters.)\nRemove a charge counter from Runevolley: Equipped creature gains your choice of first strike, trample, or prowess until end of turn. (If a creature has multiple instances of prowess, each triggers separately.)\nEquip {1}
