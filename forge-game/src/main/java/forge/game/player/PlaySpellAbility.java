@@ -670,8 +670,9 @@ public class PlaySpellAbility {
         }
 
         final Game game = player.getGame();
-        boolean refreeze = game.getStack().isFrozen();
+        final boolean refreeze = game.getStack().isFrozen();
         ResonanceHelper.CastAttempt resonance = null;
+        final int waitingMark = game.getTriggerHandler().getWaitingTriggerCount();
 
         if (!skipStack) {
             if (!refreeze) {
@@ -778,7 +779,9 @@ public class PlaySpellAbility {
             ability.isLegalAfterStack();
 
         // Freeze the stack just before we start paying costs but after the ability is fully set up
-        game.getStack().freezeStack(skipStack ? null : ability);
+        if (!refreeze) {
+            game.getStack().freezeStack(skipStack ? null : ability);
+        }
         final boolean skipPayment = isFree && (!CausalityCostHelper.isEnabled(ability) || ability.isCopied());
         final boolean prerequisitesMet = preCostRequisites && (skipPayment || payment.payCost(controller.getCostDecisionMaker(player, ability, ability.isTrigger())));
 
@@ -791,13 +794,13 @@ public class PlaySpellAbility {
             if (ability.isTrigger()) {
                 // Only roll back triggers if they were not paid for
                 if (game.EXPERIMENTAL_RESTORE_SNAPSHOT && preCostRequisites) {
-                    GameActionUtil.rollbackAbility(ability, fromZone, zonePosition, payment, c);
+                    GameActionUtil.rollbackAbility(ability, fromZone, zonePosition, payment, c, waitingMark, refreeze);
                 } else {
                     // If precost requsities failed, then there probably isn't anything to refund during experimental
                     payment.refundPayment();
                 }
             } else {
-                GameActionUtil.rollbackAbility(ability, fromZone, zonePosition, payment, c);
+                GameActionUtil.rollbackAbility(ability, fromZone, zonePosition, payment, c, waitingMark, refreeze);
             }
 
             if (!refreeze) {
@@ -831,7 +834,7 @@ public class PlaySpellAbility {
                 }
             } else {
                 ensureAbilityHasDescription(ability);
-                game.getStack().addAndUnfreeze(ability);
+                game.getStack().addAndUnfreeze(ability, refreeze);
                 NextSpellColorHelper.commitPreparedSpellColor(player, ability);
             }
 

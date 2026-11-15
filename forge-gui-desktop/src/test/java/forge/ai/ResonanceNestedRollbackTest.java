@@ -3,12 +3,14 @@ package forge.ai;
 import forge.card.ColorSet;
 import forge.game.Game;
 import forge.game.ability.AbilityFactory;
+import forge.game.ability.AbilityKey;
 import forge.game.card.Card;
 import forge.game.player.Player;
 import forge.game.player.PlayerActionConfirmMode;
 import forge.game.spellability.SpellAbility;
 import forge.game.trigger.Trigger;
 import forge.game.trigger.TriggerHandler;
+import forge.game.trigger.TriggerType;
 import forge.game.zone.Zone;
 import forge.game.zone.ZoneType;
 import org.testng.annotations.DataProvider;
@@ -78,6 +80,7 @@ public class ResonanceNestedRollbackTest extends AITest {
         watcher.addTrigger(trigger);
         game.getAction().checkStaticAbilities();
         game.getTriggerHandler().resetActiveTriggers();
+        game.getAction().checkStateEffects(true);
         game.getStack().freezeStack(outer);
         SpellAbility queued = AbilityFactory.getAbility(
                 "AB$ GainLife | Cost$ 0 | Defined$ You | LifeAmount$ 1", watcher);
@@ -87,12 +90,17 @@ public class ResonanceNestedRollbackTest extends AITest {
         Card foreignGraveyardCard = game.findById(bear.getId());
         assertEquals(ai.getLife(), 20, "The external ChangesZone trigger must still be waiting");
 
+        int outerWaiting = game.getTriggerHandler().getWaitingTriggerCount();
+        assertTrue(outerWaiting > 0);
         AtomicReference<Card> stackCopy = new AtomicReference<>();
         PlayerControllerAi controller = new PlayerControllerAi(game, ai, ai.getLobbyPlayer()) {
             @Override
             public boolean confirmAction(SpellAbility sa, PlayerActionConfirmMode mode, String message,
                     List<String> options, Card cardToShow, Map<String, Object> params) {
-                stackCopy.compareAndSet(null, sa.getHostCard());
+                if (stackCopy.compareAndSet(null, sa.getHostCard())) {
+                    game.getTriggerHandler().runTrigger(TriggerType.Taps, AbilityKey.mapFromCard(watcher), false);
+                    assertTrue(game.getTriggerHandler().getWaitingTriggerCount() > outerWaiting);
+                }
                 return true;
             }
         };
@@ -115,7 +123,10 @@ public class ResonanceNestedRollbackTest extends AITest {
             assertEquals(ai.getPendingResonance(), List.of(pending));
             assertTrue(pending.isInZone(ZoneType.Exile));
             assertEquals(ai.getNextSpellAddColors(), ColorSet.G);
-            assertEquals(game.getStack().size(), 1);
+            assertEquals(game.getStack().size(), 2, "An object added during the freeze is already on the stack");
+            assertSame(game.getStack().peekAbility().getOriginalAbility(), queued);
+            assertEquals(game.getTriggerHandler().getWaitingTriggerCount(), outerWaiting,
+                    "Only events queued by the cancelled attempt should be discarded");
             assertTrue(game.getStack().isFrozen());
             assertEquals(ai.getLife(), 20, "The waiting external trigger must not run during rollback");
             assertTrue(outerMana.isTapped(), "Refunding the inner cost must not undo the outer cost");
@@ -131,6 +142,7 @@ public class ResonanceNestedRollbackTest extends AITest {
             assertTrue(cast(ai, spell, playStack), "The same restored SA must be castable again");
             assertEquals(countId(game, original.getId()), 1L);
             assertTrue(ai.getPendingResonance().isEmpty());
+            assertFalse(ai.hasNextSpellAddColors(), "A successful retry consumes the pending spell color");
             assertTrue(game.getStack().isFrozen());
             assertTrue(outerMana.isTapped());
             assertEquals(outer.getTotalManaSpent(), 1);
@@ -161,7 +173,6 @@ public class ResonanceNestedRollbackTest extends AITest {
     private boolean cast(Player player, SpellAbility spell, boolean playStack) {
         Game game = player.getGame();
         game.copyLastState();
-        game.getAction().checkStateEffects(true);
         return playStack ? ComputerUtil.playStack(spell, player, game)
                 : ComputerUtil.handlePlayingSpellAbility(player, spell, null);
     }

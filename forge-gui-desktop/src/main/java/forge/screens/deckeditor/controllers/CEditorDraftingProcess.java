@@ -23,6 +23,7 @@ import forge.deck.DeckGroup;
 import forge.deck.DeckSection;
 import forge.game.GameType;
 import forge.gamemodes.limited.BoosterDraft;
+import forge.gamemodes.limited.CommanderDraftUtil;
 import forge.gamemodes.limited.IBoosterDraft;
 import forge.gamemodes.limited.FullChaosDraftPicker;
 import forge.gamemodes.limited.IDraftLog;
@@ -308,7 +309,7 @@ public class CEditorDraftingProcess extends ACEditorBase<PaperCard, DeckGroup> i
 
         humanDeck.setDraftNotes(player.getSerializedDraftNotes());
         if (((BoosterDraft) boosterDraft).isCommanderDraft()) {
-            humanDeck.getTags().add("CommanderDraft");
+            CommanderDraftUtil.markCommanderDraftDeck(humanDeck);
         }
         finishedDraft.setHumanDeck(humanDeck);
         finishedDraft.addAiDecks(computer);

@@ -106,7 +106,7 @@ public class ResonanceBoundaryReviewTest extends AITest {
                 "AB$ GainLife | Cost$ 0 | Defined$ You | LifeAmount$ 1", outer.getHostCard());
         queued.setActivatingPlayer(ai);
         game.getStack().add(queued);
-        assertTrue(game.getStack().isEmpty(), "The outer ability must really be waiting in the frozen stack");
+        assertSame(game.getStack().peekAbility().getOriginalAbility(), queued, "The outer ability is already on the stack");
         AtomicInteger preparedEffects = new AtomicInteger();
         PlayerControllerAi controller = new PlayerControllerAi(game, ai, ai.getLobbyPlayer()) {
             @Override

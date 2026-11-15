@@ -53,6 +53,7 @@ public class CardMockTestCase {
 
     protected MockedStatic<FModel> fModelMock;
     protected MockedStatic<ImageKeys> imageKeysMock;
+    private StaticData staticDataBeforeMocking;
 
     /**
      * The {@link Localizer} that was installed when this class last replaced it with a mock,
@@ -73,6 +74,7 @@ public class CardMockTestCase {
         // BaseGameSimulationTest.runGame() calls this again part-way through a test, and
         // Mockito refuses to open a second static mock for a class that already has one.
         releaseMocks();
+        staticDataBeforeMocking = StaticData.instance();
         initForgeSingletons();
         initCardImageMocks();
         initForgePreferences();
@@ -88,6 +90,8 @@ public class CardMockTestCase {
         if (fModelMock != null) {
             fModelMock.close();
             fModelMock = null;
+            setStaticDataInstance(staticDataBeforeMocking);
+            staticDataBeforeMocking = null;
         }
         // Undo our own mock and nothing else. Leaving the mock in place, or clearing the
         // singleton outright, breaks every AITest-based class that runs later in this JVM.
@@ -198,7 +202,7 @@ public class CardMockTestCase {
     /**
      * Points both {@code FModel.getMagicDb()} and {@link StaticData#instance()} at this class's
      * database. The singleton needs setting too because {@link StaticData}'s constructor assigns it,
-     * so a class that builds its own database leaves it pointing there for the rest of the JVM.
+     * until releaseMocks() restores the active database.
      */
     protected void useStaticData(StaticData data) {
         fModelMock.when(FModel::getMagicDb).thenReturn(data);

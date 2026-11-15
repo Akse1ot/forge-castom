@@ -373,7 +373,7 @@ public class ResonanceCastLifecycleTest extends AITest {
         game.getStack().freezeStack(outer);
         assertTrue(cast(ai, spell, playStack));
         assertTrue(game.getStack().isFrozen());
-        assertTrue(game.getStack().isEmpty());
+        assertSame(game.getStack().peekAbility(), spell);
         assertTrue(ai.getPendingResonance().isEmpty());
         game.getStack().unfreezeStack();
         assertEquals(game.getStack().size(), 1);

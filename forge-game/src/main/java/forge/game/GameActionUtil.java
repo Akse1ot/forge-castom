@@ -975,13 +975,19 @@ public final class GameActionUtil {
         return completeList;
     }
 
-    public static void rollbackAbility(SpellAbility ability, final Zone fromZone, final int zonePosition, CostPayment payment, Card oldCard) {
+    /**
+     * Undoes a cast or activation that couldn't be completed.
+     * @param waitingMark the waiting trigger count before the cast began: only the triggers since then are cleared
+     * @param keepFrozen whether an enclosing action already froze the stack
+     */
+    public static void rollbackAbility(SpellAbility ability, final Zone fromZone, final int zonePosition, CostPayment payment, Card oldCard,
+            final int waitingMark, final boolean keepFrozen) {
         // cancel ability during target choosing
         final Game game = ability.getActivatingPlayer().getGame();
 
         NextSpellColorHelper.rollbackPreparedSpellColor(ability);
 
-        if (game.restoreGameState()) {
+        if (!keepFrozen && game.restoreGameState()) {
             // If we're able to restore the whole game state when rolling back an ability don't try to manually roll back
             System.out.println("Restored state from snapshot! Rolled back: " + ability.getHostCard().getName() + " - " + ability.getActivatingPlayer());
 
@@ -1047,8 +1053,10 @@ public final class GameActionUtil {
         ability.resetOnceResolved();
         payment.refundPayment();
 
-        game.getStack().clearFrozen();
-        game.getTriggerHandler().clearWaitingTriggers();
+        game.getTriggerHandler().clearWaitingTriggersFrom(waitingMark);
+        if (!keepFrozen) {
+            game.getStack().setFrozen(false);
+        }
     }
 
 }

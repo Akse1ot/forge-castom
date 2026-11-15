@@ -1922,7 +1922,9 @@ public class CardDbCardMockTestCase extends CardMockTestCase {
         PaperCard landCard = this.cardDb.getCard(snowCoveredLand);
         assertNotNull(landCard);
         assertEquals(landCard.getName(), snowCoveredLand);
-        assertEquals(landCard.getEdition(), "MB2");
+        // Drauholm is a newer printing and is eligible when all editions are allowed.
+        assertEquals(landCard.getEdition(), "DWAP");
+        assertNotNull(this.cardDb.getCard(snowCoveredLand, "MB2"));
 
         this.cardDb.setCardArtPreference(true, true);
         assertEquals(this.cardDb.getCardArtPreference(),

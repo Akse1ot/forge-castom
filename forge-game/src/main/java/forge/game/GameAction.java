@@ -2053,7 +2053,7 @@ public class GameAction {
                     if (p.conceded()) {
                         mate.concede();
                         losers.add(mate);
-                    } else if (mate.loseConditionMet(p.getOutcome().lossState, null)) {
+                    } else if (mate.loseConditionMet(p.getOutcome().lossState, p.getOutcome().loseConditionSpell)) {
                         losers.add(mate);
                     }
                 }

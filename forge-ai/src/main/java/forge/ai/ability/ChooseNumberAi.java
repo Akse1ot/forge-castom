@@ -17,9 +17,15 @@ public class ChooseNumberAi extends SpellAbilityAi {
             final boolean improves = ManaValueRunAi.choose(aiPlayer, sa, min, max) != sa.getHostCard().getCMC();
             return improves ? new AiAbilityDecision(100, AiPlayDecision.WillPlay)
                     : new AiAbilityDecision(0, AiPlayDecision.CantPlayAi);
-        } else if (aiLogic.isEmpty()) {
-            return new AiAbilityDecision(0, AiPlayDecision.MissingLogic);
-        } else if (aiLogic.equals("SweepCreatures")) {
+        }
+        if (aiLogic.isEmpty()) {
+            // no logic of its own: the number is worth naming when something else in the spell uses it, and the
+            // chosen number is read from what that does (see NumberChoice). A number nothing reads is a wasted card.
+            if (sa.getSubAbility() == null) {
+                return new AiAbilityDecision(0, AiPlayDecision.MissingLogic);
+            }
+        }
+        if (aiLogic.equals("SweepCreatures")) {
             int maxChoiceLimit = AbilityUtils.calculateAmount(sa.getHostCard(), sa.getParam("Max"), sa);
             int ownCreatureCount = aiPlayer.getCreaturesInPlay().size();
             int oppMaxCreatureCount = 0;

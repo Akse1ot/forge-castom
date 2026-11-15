@@ -238,6 +238,10 @@ public class CardZoom extends FOverlay {
         Forge.getClipboard().setContents(result.toString());
     }
 
+    public static boolean isCurrent(CardView cv) {
+        return cv != null && cv == viewAt(currentIndex);
+    }
+
     public static void hideZoom() {
         if (isAdvBack) {
             requestClose();

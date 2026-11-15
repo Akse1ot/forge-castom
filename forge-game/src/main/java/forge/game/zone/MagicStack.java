@@ -75,17 +75,13 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
 
     // They don't provide a LIFO queue, so had to use a deque
     private final Deque<SpellAbilityStackInstance> stack = new LinkedBlockingDeque<>();
-    private final Stack<SpellAbilityStackInstance> frozenStack = new Stack<>();
     private final Stack<SpellAbility> undoStack = new Stack<>();
     private Player undoStackOwner;
 
     private SpellAbility primaryAbility = null;
     private boolean frozen = false;
-    private boolean bResolving = false;
 
     // Commands that expire when the current stack object finishes resolving.
-    // This is deliberately separate from bResolving: GameState also uses
-    // setResolving(true) while constructing a state outside real stack resolution.
     private boolean endOfResolutionScopeActive = false;
     private final Deque<GameCommand> untilEndOfResolution = new ArrayDeque<>();
 
@@ -109,6 +105,9 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
     }
     public final void setFrozen(final boolean frozen0) {
         frozen = frozen0;
+        if (!frozen) {
+            primaryAbility = null;
+        }
     }
 
     private int maxDistinctSources = 0;
@@ -125,8 +124,6 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
         curResolving = null;
         triggerRepeats.clear();
         illegalAdditions.clear();
-        frozenStack.clear();
-
         endOfResolutionScopeActive = false;
         untilEndOfResolution.clear();
 
@@ -152,6 +149,10 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
     }
 
     public final void addAndUnfreeze(final SpellAbility ability) {
+        addAndUnfreeze(ability, false);
+    }
+
+    public final void addAndUnfreeze(final SpellAbility ability, final boolean keepFrozen) {
         final Card source = ability.getHostCard();
 
         // if the ability is a spell, but not a copied spell and its not already
@@ -173,7 +174,7 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
         }
 
         add(ability);
-        if (primaryAbility == null || ability.equals(primaryAbility)) {
+        if (!keepFrozen && (primaryAbility == null || ability.equals(primaryAbility))) {
             unfreezeStack();
         } // else is for mana abilities
     }
@@ -182,29 +183,16 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
         frozen = false;
         primaryAbility = null;
 
-        // Add all Frozen Abilities onto the stack
-        while (!frozenStack.isEmpty()) {
-            final SpellAbilityStackInstance si = frozenStack.pop();
-            add(si.getSpellAbility(), si);
-        }
         // Add all waiting triggers onto the stack
         game.getTriggerHandler().resetActiveTriggers();
         game.getTriggerHandler().runWaitingTriggers();
-    }
-
-    public final void clearFrozen() {
-        // TODO: frozen triggered abilities and undoable costs have nasty consequences
-        frozen = false;
-        frozenStack.clear();
     }
 
     /**
      * Register a command that must run when the current stack object finishes
      * resolving.
      *
-     * This scope exists only inside resolveStack(). It intentionally does not use
-     * isResolving(), because GameState also sets that flag while constructing a
-     * game state and mana/static abilities can resolve outside resolveStack().
+     * The scope closes before the controller and the stack are restored.
      */
     public final void addUntilEndOfResolution(final GameCommand command) {
         if (!endOfResolutionScopeActive) {
@@ -248,19 +236,14 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
     }
 
     public final boolean isResolving() {
-        return bResolving;
+        return curResolving != null;
     }
-    public final void setResolving(final boolean b) {
-        bResolving = b;
-    }
-
     public final boolean isResolving(Card c) {
         if (!isResolving()) {
             return false;
         }
         return c.equals(curResolving.getHostCard());
     }
-
     public final SpellAbility getResolvingAbility() {
         return curResolving;
     }
@@ -375,12 +358,6 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
             }
         }
 
-        if (frozen && !sp.hasParam("IgnoreFreeze") && !sp.isCastFromPlayEffect()) {
-            si = new SpellAbilityStackInstance(sp, id);
-            frozenStack.push(si);
-            return;
-        }
-
         if (sp.isAbility() && !sp.isCopied() && !sp.isTrigger()) {
             addAbilityActivatedThisTurn(sp);
         }
@@ -408,13 +385,6 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
         }
         distinctSources += sources.size();
         if (distinctSources > maxDistinctSources) maxDistinctSources = distinctSources;
-
-        // 2012-07-21 the following comparison needs to move below the pushes but somehow screws up priority
-        // When it's down there. That makes absolutely no sense to me, so i'm putting it back for now
-        if (!(sp.isTrigger() || (sp instanceof AbilityStatic))) {
-            // when something is added we need to setPriority
-            game.getPhaseHandler().setPriority(sp.getActivatingPlayer());
-        }
 
         sp.getHostCard().getGame().getAction().checkStaticAbilities(false);
         sp.getHostCard().getGame().getTriggerHandler().resetActiveTriggers();
@@ -734,7 +704,6 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
     public final void resolveStack() {
         // freeze the stack while we're in the middle of resolving
         freezeStack(null);
-        setResolving(true);
 
         // The SpellAbility isn't removed from the Stack until it finishes resolving
         // temporarily reverted removing SAs after resolution
@@ -832,13 +801,8 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
         }
 
         // After SA resolves we have to do a handful of things
-        setResolving(false);
         unfreezeStack();
         sa.resetOnceResolved();
-
-        if (sa.getApi() != ApiType.EndTurn) {
-            game.getPhaseHandler().onStackResolved();
-        }
 
         curResolving = null;
     }
@@ -963,9 +927,7 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
 
     /** CounterEffect defers Resonance cleanup until movement and its LKI event have been prepared. */
     public final void remove(final SpellAbilityStackInstance si, final boolean clearResonance) {
-        boolean removed = stack.remove(si);
-        removed |= frozenStack.remove(si);
-        if (!removed) {
+        if (!stack.remove(si)) {
             return;
         }
         NextSpellColorHelper.clearDirectColorOverrideForSpellCast(si.getSpellAbility());
@@ -1043,9 +1005,6 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
             // caused by DevTools before first turn
             return false;
         }
-        if (!playerTurn.isInGame()) {
-            playerTurn = game.getNextPlayerAfter(playerTurn);
-        }
         List<Player> players = game.getPlayersInTurnOrder(playerTurn);
 
         boolean result = false;
@@ -1109,12 +1068,6 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
 
     public final boolean hasStateTrigger(final int triggerID) {
         for (final SpellAbilityStackInstance sasi : stack) {
-            if (sasi.isStateTrigger(triggerID)) {
-                return true;
-            }
-        }
-
-        for (final SpellAbilityStackInstance sasi : frozenStack) {
             if (sasi.isStateTrigger(triggerID)) {
                 return true;
             }
@@ -1212,7 +1165,7 @@ public class MagicStack /* extends MyObservable */ implements Iterable<SpellAbil
 
     @Override
     public String toString() {
-        return TextUtil.concatNoSpace(simultaneousStackEntryList.toString(),"==", frozenStack.toString(), "==", stack.toString());
+        return TextUtil.concatNoSpace(simultaneousStackEntryList.toString(),"==", stack.toString());
     }
 
     static protected boolean commitCrimeCheck(Player p, Iterable<TargetChoices> chosenTargets) {

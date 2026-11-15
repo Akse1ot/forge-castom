@@ -100,6 +100,8 @@ public class ComputerUtil {
             Consumer<SpellAbility> chooseTargets, CausalityCostHelper.Attempt causality) {
         final Card source = sa.getHostCard();
         final Game game = source.getGame();
+        final int waitingMark = game.getTriggerHandler().getWaitingTriggerCount();
+        final boolean refreeze = game.getStack().isFrozen();
         final boolean validateAfterResonance = ResonanceHelper.mayMergeOnCast(ai, sa);
         RunawayLoop.note(ai, sa);
         if (!sa.isCopied() && !sa.isTrigger() && ai.getController() instanceof PlayerControllerAi pc) {
@@ -154,7 +156,7 @@ public class ComputerUtil {
             // 603.3c If no mode is chosen, the ability is removed from the stack.
             NextSpellColorHelper.rollbackPreparedSpellColor(sa);
             if (CausalityCostHelper.isEnabled(sa)) {
-                GameActionUtil.rollbackAbility(sa, hz, zonePosition, new CostPayment(sa.getPayCosts(), sa), source);
+                GameActionUtil.rollbackAbility(sa, hz, zonePosition, new CostPayment(sa.getPayCosts(), sa), source, waitingMark, refreeze);
             } else {
                 abandonCast(game, sa, hz, movedToStack, new CostPayment(sa.getPayCosts(), sa));
             }
@@ -165,7 +167,7 @@ public class ComputerUtil {
             if (!sa.isTargetNumberValid()) {
                 NextSpellColorHelper.rollbackPreparedSpellColor(sa);
                 if (CausalityCostHelper.isEnabled(sa)) {
-                    GameActionUtil.rollbackAbility(sa, hz, zonePosition, new CostPayment(sa.getPayCosts(), sa), source);
+                    GameActionUtil.rollbackAbility(sa, hz, zonePosition, new CostPayment(sa.getPayCosts(), sa), source, waitingMark, refreeze);
                 } else {
                     // the spell is already in the stack zone: it has to go back, or it is lost
                     abandonCast(game, sa, hz, movedToStack, new CostPayment(sa.getPayCosts(), sa));
@@ -177,19 +179,20 @@ public class ComputerUtil {
                 effects -> ai.getController().chooseTargetsFor(effects))) {
             // Spell Permanents inherit their cost from Mana Cost
             final Cost cost = sa.getPayCosts();
-            final boolean refreeze = game.getStack().isFrozen();
             if ((validateAfterResonance || resonance.isPrepared() || CausalityCostHelper.isEnabled(sa))
                     && !game.getStack().hasLegalTargeting(sa)) {
-                rollbackResonanceCast(resonance, sa, hz, zonePosition, new CostPayment(cost, sa), source, refreeze);
+                rollbackResonanceCast(resonance, sa, hz, zonePosition, new CostPayment(cost, sa), source, waitingMark, refreeze);
                 return false;
             }
 
-            game.getStack().freezeStack(sa);
+            if (!refreeze) {
+                game.getStack().freezeStack(sa);
+            }
 
             final CostPayment pay = new CostPayment(cost, sa);
             if (pay.payComputerCosts(new AiCostDecision(ai, sa, false))) {
                 resonance.commit(sa);
-                game.getStack().addAndUnfreeze(sa);
+                game.getStack().addAndUnfreeze(sa, refreeze);
                 NextSpellColorHelper.commitPreparedSpellColor(ai, sa);
 
                 if (sa.getSplicedCards() != null && !sa.getSplicedCards().isEmpty()) {
@@ -199,7 +202,7 @@ public class ComputerUtil {
             }
 
             if (resonance.isPrepared() || CausalityCostHelper.isEnabled(sa)) {
-                rollbackResonanceCast(resonance, sa, hz, zonePosition, pay, source, refreeze);
+                rollbackResonanceCast(resonance, sa, hz, zonePosition, pay, source, waitingMark, refreeze);
                 if (!refreeze) {
                     game.getStack().unfreezeStack();
                 }
@@ -225,15 +228,16 @@ public class ComputerUtil {
     }
 
     private static void rollbackResonanceCast(ResonanceHelper.CastAttempt resonance, SpellAbility sa,
-            Zone fromZone, int zonePosition, CostPayment payment, Card source, boolean refreeze) {
+            Zone fromZone, int zonePosition, CostPayment payment, Card source, int waitingMark, boolean refreeze) {
         resonance.rollback(sa);
         if (refreeze) {
             // A nested cast does not own the enclosing frozen stack or its waiting triggers.
             NextSpellColorHelper.rollbackPreparedSpellColor(sa);
             payment.refundPayment();
             rollbackResonanceSource(sa, fromZone, zonePosition, source);
+            sa.getActivatingPlayer().getGame().getTriggerHandler().clearWaitingTriggersFrom(waitingMark);
         } else {
-            GameActionUtil.rollbackAbility(sa, fromZone, zonePosition, payment, source);
+            GameActionUtil.rollbackAbility(sa, fromZone, zonePosition, payment, source, waitingMark, false);
         }
     }
 
@@ -382,6 +386,8 @@ public class ComputerUtil {
         }
 
         final Card source = sa.getHostCard();
+        final int waitingMark = game.getTriggerHandler().getWaitingTriggerCount();
+        final boolean refreeze = game.getStack().isFrozen();
 
         Zone fromZone = game.getZoneOf(source);
         int zonePosition = 0;
@@ -403,16 +409,15 @@ public class ComputerUtil {
 
         // do this after card got added to stack
         if (!sa.checkRestrictions(ai)) {
-            GameActionUtil.rollbackAbility(sa, fromZone, zonePosition, pay, source);
+            GameActionUtil.rollbackAbility(sa, fromZone, zonePosition, pay, source, waitingMark, refreeze);
             return false;
         }
 
         try (ResonanceHelper.CastAttempt resonance = ResonanceHelper.prepareCast(game, ai, sa,
                 effects -> ai.getController().chooseTargetsFor(effects))) {
-            final boolean refreeze = game.getStack().isFrozen();
             if ((resonance.isPrepared() || CausalityCostHelper.isEnabled(sa))
                     && !game.getStack().hasLegalTargeting(sa)) {
-                rollbackResonanceCast(resonance, sa, fromZone, zonePosition, pay, source, refreeze);
+                rollbackResonanceCast(resonance, sa, fromZone, zonePosition, pay, source, waitingMark, refreeze);
                 return false;
             }
             if (resonance.isPrepared() && !refreeze) {
@@ -426,10 +431,11 @@ public class ComputerUtil {
                 } else {
                     game.getStack().add(sa);
                 }
+                NextSpellColorHelper.commitPreparedSpellColor(ai, sa);
                 return true;
             }
             if (resonance.isPrepared() || CausalityCostHelper.isEnabled(sa)) {
-                rollbackResonanceCast(resonance, sa, fromZone, zonePosition, pay, source, refreeze);
+                rollbackResonanceCast(resonance, sa, fromZone, zonePosition, pay, source, waitingMark, refreeze);
                 if (!refreeze) {
                     game.getStack().unfreezeStack();
                 }
@@ -1530,6 +1536,11 @@ public class ComputerUtil {
         final SpellAbility sub = sa.getSubAbility();
 
         if (source != null && "ALWAYS".equals(source.getSVar("PlayMain1"))) {
+            return true;
+        }
+
+        // an instant or sorcery before combat pumps a prowess creature that is going to attack
+        if (ProwessTiming.worthBeforeCombat(ai, sa)) {
             return true;
         }
 
