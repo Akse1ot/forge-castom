@@ -458,6 +458,31 @@ public class TriggerHandler {
         return true;
     }
 
+    /** Triggers an existing chapter without a counter event. Other trigger restrictions still apply. */
+    public void triggerChapter(final Trigger chapter) {
+        if (!chapter.isChapter() || chapter.isStatic() || chapter.isSuppressed()
+                || isTriggerSuppressed(chapter.getMode())
+                || !chapter.getHostCard().isInPlay() || chapter.getHostCard().isPhasedOut()
+                || !chapter.zonesCheck(game.getZoneOf(chapter.getHostCard()))
+                || !chapter.phasesCheck(game) || chapter.limitByActivations(1) == 0) {
+            return;
+        }
+        final Map<AbilityKey, Object> params = AbilityKey.mapFromCard(chapter.getHostCard());
+        params.put(AbilityKey.Player, chapter.getHostCard().getController());
+        final TriggerWaiting event = new TriggerWaiting(chapter.getMode(), params);
+        // Deliberately skip performTest: no lore counter was added. Keep intervening-if checks.
+        if (!chapter.checkWith(event, () -> chapter.requirementsCheck(game)
+                && chapter.meetsRequirementsOnTriggeredObjects(game, params))
+                || StaticAbilityDisableTriggers.disabled(game, chapter, params)) {
+            return;
+        }
+        final int amount = chapter.limitByActivations(
+                1 + StaticAbilityPanharmonicon.countPanharmonicon(game, chapter, params));
+        for (int i = 0; i < amount; i++) {
+            runSingleTrigger(chapter, event, null);
+        }
+    }
+
     public void runSingleTriggerWithWrapper(final Trigger regtrig,
                                             final Map<AbilityKey, Object> runParams,
                                             final BiFunction<SpellAbility, Player, WrappedAbility> wrapperFactory) {

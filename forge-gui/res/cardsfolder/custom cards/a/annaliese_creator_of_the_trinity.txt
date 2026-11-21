@@ -1,0 +1,8 @@
+Name:Annaliese, Creator of the Trinity
+ManaCost:W B
+Types:Legendary Creature Elf Noble
+PT:1/1
+T:Mode$ AbilityResolves | ValidSource$ Saga.YouCtrl | ValidSpellAbility$ Triggered.LastChapter | TriggerZones$ Battlefield | Execute$ TrigChapters | TriggerDescription$ Whenever the final chapter ability of a Saga you control resolves, trigger each non-final chapter ability of another Saga you control.
+SVar:TrigChapters:DB$ TriggerSagaChapters
+DeckNeeds:Type$Saga
+Oracle:Whenever the final chapter ability of a Saga you control resolves, trigger each non-final chapter ability of another Saga you control.

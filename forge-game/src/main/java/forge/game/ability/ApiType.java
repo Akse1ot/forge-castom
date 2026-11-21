@@ -217,6 +217,7 @@ public enum ApiType {
     Tax (TaxEffect.class),
     TimeTravel (TimeTravelEffect.class),
     Torment (TormentEffect.class),
+    TriggerSagaChapters (TriggerSagaChaptersEffect.class),
     Token (TokenEffect.class),
     TwoPiles (TwoPilesEffect.class),
     Unattach (UnattachEffect.class),
