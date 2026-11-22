@@ -1,0 +1,8 @@
+Name:Seal Justice
+ManaCost:X W W W
+Types:Sorcery
+A:SP$ ChangeZoneAll | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.YouOwn+cmcLEX | SubAbility$ ExileSelf | SpellDescription$ Return all creature cards with mana value X or less from your graveyard to the battlefield. Exile CARDNAME.
+SVar:ExileSelf:DB$ ChangeZone | Origin$ Stack | Destination$ Exile
+SVar:X:Count$xPaid
+DeckHas:Ability$Graveyard
+Oracle:Return all creature cards with mana value X or less from your graveyard to the battlefield.\nExile Seal Justice.

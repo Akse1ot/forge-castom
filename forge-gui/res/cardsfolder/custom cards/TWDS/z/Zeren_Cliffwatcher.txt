@@ -1,0 +1,12 @@
+Name:Zeren Cliffwatcher
+ManaCost:4 R
+Types:Creature Dragon
+PT:3/3
+K:Flying
+A:AB$ PutCounter | Cost$ X R | Monstrosity$ X
+T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigGoad | TriggerDescription$ When CARDNAME becomes monstrous, goad up to X target creatures your opponents control.
+SVar:TrigGoad:DB$ Goad | ValidTgts$ Creature.OppCtrl | TargetMin$ 0 | TargetMax$ MonstrosityX
+SVar:X:Count$xPaid
+SVar:MonstrosityX:TriggerCount$Amount
+DeckHas:Ability$Counters
+Oracle:Flying\n{X}{R}: Monstrosity X. (If this creature isn't monstrous, put X +1/+1 counters on it and it becomes monstrous.)\nWhen this creature becomes monstrous, goad up to X target creatures your opponents control. (Until your next turn, those creatures attack each combat if able and attack a player other than you if able.)

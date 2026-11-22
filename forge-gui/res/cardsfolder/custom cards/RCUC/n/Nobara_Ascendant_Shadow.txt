@@ -1,0 +1,8 @@
+Name:Nobara, Ascendant Shadow
+ManaCost:3 B
+Types:Legendary Creature Human Ninja
+PT:3/2
+K:Ninjutsu:3 B B:Commander
+A:AB$ Clone | Cost$ ExileFromGrave<1/Creature> | Defined$ Exiled | Duration$ UntilEndOfTurn | ActivationLimit$ 1 | SpellDescription$ CARDNAME becomes a copy of the exiled creature card until end of turn. Activate only once each turn.
+DeckHints:Ability$Mill|Discard & Type$Ninja
+Oracle:Commander ninjutsu {3}{B}{B} ({3}{B}{B}, Return an unblocked attacker you control to hand: Put this card onto the battlefield from your hand or the command zone tapped and attacking.)\nExile a creature card from your graveyard: Nobara, Ascendant Shadow becomes a copy of it until end of turn. Activate only once each turn.

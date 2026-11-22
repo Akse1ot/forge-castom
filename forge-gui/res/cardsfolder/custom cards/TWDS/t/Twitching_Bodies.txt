@@ -1,0 +1,10 @@
+Name:Twitching Bodies
+ManaCost:3 B
+Types:Creature Ghoul
+PT:2/4
+T:Mode$ Discarded | ValidCard$ Card.OppOwn | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ Whenever an opponent discards a card, CARDNAME deals 2 damage to that player.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigTorment | TriggerDescription$ When CARDNAME dies, torment target player.
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredCardController | NumDmg$ 2
+SVar:TrigTorment:DB$ Torment | ValidTgts$ Player
+DeckHints:Ability$Discard
+Oracle:Whenever an opponent discards a card, this creature deals 2 damage to that player.\nWhen this creature dies, torment target player.

@@ -1,0 +1,9 @@
+Name:Palatial Dueler
+ManaCost:1 W U
+Types:Creature Angel Soldier
+PT:2/2
+K:Flying
+K:First Strike
+T:Mode$ CustomReplayEtb | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever you worship, this creature gets +3/+3 until end of turn.
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +3 | NumDef$ +3
+Oracle:Flying, first strike\nWhenever you worship, this creature gets +3/+3 until end of turn.

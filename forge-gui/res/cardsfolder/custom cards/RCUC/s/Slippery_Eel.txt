@@ -1,0 +1,10 @@
+Name:Slippery Eel
+ManaCost:2 U U
+Types:Creature Fish
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigUnblockable | TriggerDescription$ When CARDNAME enters, creatures you control can't be blocked this turn.
+SVar:TrigUnblockable:DB$ Effect | StaticAbilities$ Unblockable
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Creature.YouCtrl | Description$ Creatures you control can't be blocked this turn.
+K:Dash:3 U U
+SVar:PlayMain1:TRUE
+Oracle:When Slippery Eel enters the battlefield, creatures you control can't be blocked this turn.\nDash {3}{U}{U} (You may cast this spell for its dash cost. If you do, it gains haste, and it's returned from the battlefield to its owner's hand at the beginning of the next end step.)

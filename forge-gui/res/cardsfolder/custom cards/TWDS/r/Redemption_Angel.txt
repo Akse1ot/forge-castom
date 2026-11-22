@@ -1,0 +1,8 @@
+Name:Redemption Angel
+ManaCost:2 W W
+Types:Creature Angel Soldier
+PT:2/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl+!token | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever another nontoken creature enters under your control, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Flying\nWhenever another nontoken creature enters under your control, draw a card.

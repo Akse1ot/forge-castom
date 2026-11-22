@@ -1,0 +1,8 @@
+Name:Darkwing Overseer
+ManaCost:4 W
+Types:Creature Angel Soldier
+PT:3/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy | TriggerDescription$ When CARDNAME enters, destroy target creature with power 4 or greater.
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.powerGE4 | TgtPrompt$ Select target creature with power 4 or greater
+Oracle:Flying\nWhen Darkwing Overseer enters, destroy target creature with power 4 or greater.

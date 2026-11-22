@@ -1,0 +1,14 @@
+Name:Damned Hydra
+ManaCost:4 B R
+Types:Creature Nightmare Hydra
+PT:4/4
+K:Trample
+K:Lifelink
+K:etbCounter:P1P1:X:no Condition:CARDNAME enters with a +1/+1 counter on it for each card you've discarded this turn.
+T:Mode$ Discarded | ValidCard$ Card | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ Whenever a player discards a card, put a +1/+1 counter on CARDNAME.
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+K:Madness:3 B R
+SVar:X:PlayerCountDefinedYou$CardsDiscardedThisTurn
+DeckHas:Ability$Counters
+DeckHints:Ability$Discard
+Oracle:Trample, lifelink\nDamned Hydra enters with a +1/+1 counter on it for each card you've discarded this turn.\nWhenever a player discards a card, put a +1/+1 counter on Damned Hydra.\nMadness {3}{B}{R} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

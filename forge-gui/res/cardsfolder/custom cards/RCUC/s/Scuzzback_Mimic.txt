@@ -1,0 +1,8 @@
+Name:Scuzzback Mimic
+ManaCost:1 RG
+Types:Creature Shapeshifter
+PT:2/1
+T:Mode$ SpellCast | ValidCard$ Card.Red+Green | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate | TriggerDescription$ Whenever you cast a spell that's both red and green, CARDNAME has base power and toughness 5/4 until end of turn and gains haste until end of turn.
+SVar:TrigAnimate:DB$ Animate | Defined$ Self | Power$ 5 | Toughness$ 4 | Keywords$ Haste
+SVar:BuffedBy:Card.Red+Green
+Oracle:Whenever you cast a spell that's both red and green, Scuzzback Mimic has base power and toughness 5/4 until end of turn and gains haste until end of turn.

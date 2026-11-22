@@ -1,0 +1,9 @@
+Name:Victory Charger
+ManaCost:R
+Types:Creature Human Knight
+PT:1/1
+K:Menace
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player.Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigUnity | TriggerDescription$ Whenever CARDNAME deals combat damage to an opponent, you get a unity counter.
+SVar:TrigUnity:DB$ PutCounter | Defined$ You | CounterType$ UNITY | CounterNum$ 1
+DeckHas:Ability$Counters
+Oracle:Menace\nWhenever this creature deals combat damage to an opponent, you get a unity counter.

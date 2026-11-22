@@ -1,0 +1,9 @@
+Name:Death of the King
+ManaCost:3 B B
+Types:Enchantment Saga
+S:Mode$ Continuous | Affected$ Creature.OppCtrl | RemoveKeyword$ First Strike & Hexproof & Trample | Description$ Creatures your opponents control lose first strike, hexproof, and trample.
+K:Chapter:3:DBChapter,DBChapter,DBChapter
+SVar:DBChapter:DB$ Destroy | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select up to one target creature | SubAbility$ DBDraw | SpellDescription$ Destroy up to one target creature. Draw a card and lose 2 life.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 2
+Oracle:Creatures your opponents control lose first strike, hexproof, and trample.\nI, II, III — Destroy up to one target creature. Draw a card and lose 2 life.

@@ -1,0 +1,13 @@
+Name:Heavy Slime
+ManaCost:5 G U
+Types:Creature Ooze
+PT:4/5
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All | CheckSVar$ SpellsCast | SVarCompare$ EQ0 | Description$ This spell costs {2} less to cast if you haven't cast a spell this turn.
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 2 | EffectZone$ All | CheckSVar$ RaidTest | SVarCompare$ EQ0 | Description$ This spell costs {2} less to cast if you haven't attacked this turn.
+K:Hexproof
+K:Trample
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.wasCastFromYourHandByYou+Self | Execute$ TrigEndTurn | TriggerDescription$ When CARDNAME enters the battlefield, if you cast it from your hand, end the turn.
+SVar:TrigEndTurn:DB$ EndTurn
+SVar:SpellsCast:Count$ThisTurnCast_Card.YouCtrl
+SVar:RaidTest:Count$AttackersDeclared
+Oracle:This spell costs {2} less to cast if you haven't cast a spell this turn.\nThis spell costs {2} less to cast if you haven't attacked this turn.\nHexproof, trample\nWhen Heavy Slime enters the battlefield, if you cast it from your hand, end the turn.

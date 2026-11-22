@@ -1,0 +1,11 @@
+Name:Terror of the Divine
+ManaCost:4 B B
+Types:Creature Nightmare
+PT:*/*
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy | TriggerDescription$ When CARDNAME enters, destroy target creature.
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X | Description$ CARDNAME's power and toughness are each equal to the number of creature cards in all graveyards.
+K:Madness:3 B
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature
+SVar:X:Count$ValidGraveyard Creature
+DeckHints:Ability$Mill|Discard
+Oracle:When this creature enters, destroy target creature.\nThis creature's power and toughness are each equal to the number of creature cards in all graveyards.\nMadness {3}{B}

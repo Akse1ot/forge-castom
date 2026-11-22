@@ -1,0 +1,10 @@
+Name:Tarnish
+ManaCost:1 G
+Types:Instant
+A:SP$ PutCounter | ValidTgts$ Creature | TgtPrompt$ Select target creature | CounterType$ DEFEAT | CounterNum$ 3 | IsCurse$ True | SubAbility$ DBEffect | SpellDescription$ Put three defeat counters on target creature. It gains humbled and loses all other abilities until it has no defeat counters on it.
+SVar:DBEffect:DB$ Effect | RememberObjects$ ParentTarget | StaticAbilities$ HumbledEffect | Triggers$ RemoveHumbled | Duration$ Permanent | ExileOnMoved$ Battlefield | ConditionDefined$ ParentTarget | ConditionPresent$ Card+counters_GE1_DEFEAT | ConditionCompare$ GE1
+SVar:HumbledEffect:Mode$ Continuous | Affected$ Card.IsRemembered+counters_GE1_DEFEAT | RemoveAllAbilities$ True | AddKeyword$ Humbled | Description$ That creature gains humbled and loses all other abilities until it has no defeat counters on it.
+SVar:RemoveHumbled:Mode$ CounterRemovedOnce | ValidCard$ Card.IsRemembered | CounterType$ DEFEAT | Remaining$ 0 | TriggerZones$ Command | Static$ True | Execute$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+DeckHas:Ability$Counters
+Oracle:Put three defeat counters on target creature. It gains humbled and loses all other abilities until it has no defeat counters on it. (As long as a permanent with humbled has a defeat counter on it, it's an enchantment and loses all other card types. At the beginning of its controller's upkeep, they remove a defeat counter from it.)

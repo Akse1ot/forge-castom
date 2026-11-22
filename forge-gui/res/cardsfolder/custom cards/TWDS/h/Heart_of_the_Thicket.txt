@@ -1,0 +1,8 @@
+Name:Heart of the Thicket
+ManaCost:1 G
+Types:Legendary Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigRearrange | TriggerDescription$ At the beginning of your upkeep, you may look at the top X plus one cards of your library, where X is the number of creatures you control. Then, put them back in any order.
+SVar:TrigRearrange:DB$ RearrangeTopOfLibrary | Defined$ You | NumCards$ X
+SVar:X:Count$Valid Creature.YouCtrl/Plus.1
+DeckHints:Type$Creature
+Oracle:At the beginning of your upkeep, you may look at the top X plus one cards of your library, where X is the number of creatures you control. Then, put them back in any order.

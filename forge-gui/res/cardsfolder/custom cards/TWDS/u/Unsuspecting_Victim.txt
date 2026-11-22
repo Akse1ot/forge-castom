@@ -1,0 +1,9 @@
+Name:Unsuspecting Victim
+ManaCost:2 U
+Types:Sorcery
+A:SP$ Charm | Choices$ DBTop,DBDestroy
+SVar:DBTop:DB$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 0 | SpellDescription$ Put target creature on top of its owner's library.
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature | AILogic$ Pongify | SubAbility$ DBToken | SpellDescription$ Destroy target creature. Its controller creates a 2/3 blue Serpent creature token.
+SVar:DBToken:DB$ Token | TokenScript$ u_2_3_serpent | TokenOwner$ TargetedController
+DeckHas:Ability$Token
+Oracle:Choose one —\n• Put target creature on top of its owner's library.\n• Destroy target creature. Its controller creates a 2/3 blue Serpent creature token.

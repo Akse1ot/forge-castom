@@ -1,0 +1,7 @@
+Name:Prevent Progress
+ManaCost:X U U U
+Types:Instant
+K:Coalesce
+A:SP$ ChangeZone | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ X | TgtPrompt$ Select up to X target creatures | Origin$ Battlefield | Destination$ Hand | SpellDescription$ Return up to X target creatures to their owners' hands.
+SVar:X:Count$xPaid
+Oracle:Coalesce (For every two cards you put into your graveyard from among cards you own in exile while casting this spell pays for {1}.)\nReturn up to X target creatures to their owners' hands.

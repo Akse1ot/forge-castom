@@ -1,0 +1,7 @@
+Name:Surrounded by Shadow
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True | SubAbility$ DBDelay | SpellDescription$ Target creature gets -2/-2 until end of turn. When that creature dies this turn, return CARDNAME from your graveyard to your hand.
+SVar:DBDelay:DB$ DelayedTrigger | Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.IsTriggerRemembered | RememberObjects$ Targeted | ThisTurn$ True | Execute$ DBReturn | StackDescription$ None | TriggerDescription$ When that creature dies this turn, return CARDNAME from your graveyard to your hand.
+SVar:DBReturn:DB$ ChangeZone | Defined$ CorrectedSelf | Origin$ Graveyard | Destination$ Hand
+Oracle:Target creature gets -2/-2 until end of turn. When that creature dies this turn, return Surrounded by Shadow from your graveyard to your hand.

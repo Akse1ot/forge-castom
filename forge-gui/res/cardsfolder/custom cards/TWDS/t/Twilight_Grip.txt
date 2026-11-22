@@ -1,0 +1,9 @@
+Name:Twilight Grip
+ManaCost:4 U B
+Types:Sorcery
+A:SP$ Subjugate | Amount$ 10 | SubAbility$ DBDigUntil | SpellDescription$ Subjugate 10. (Create ten Vicious Nightmare tokens and shuffle them into each opponent's library.) Exile cards from the top of each opponent's library until they exile a Vicious Nightmare. You may cast a spell from among cards exiled this way without paying its mana cost.
+SVar:DBDigUntil:DB$ DigUntil | Defined$ Opponent | Valid$ Card.namedVicious_Nightmare | ValidDescription$ Vicious Nightmare | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | RememberRevealed$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Play | Defined$ Remembered | ValidZone$ Exile | ValidSA$ Spell | WithoutManaCost$ True | Optional$ True | Amount$ 1 | ForgetPlayed$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Subjugate
+Oracle:Subjugate 10. (Create ten Vicious Nightmare tokens and shuffle them into each opponent's library.)\nExile cards from the top of each opponent's library until they exile a Vicious Nightmare. You may cast a spell from among cards exiled this way without paying its mana cost.

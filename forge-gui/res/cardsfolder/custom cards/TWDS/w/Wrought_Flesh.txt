@@ -1,0 +1,9 @@
+Name:Wrought Flesh
+ManaCost:B
+Types:Creature Horror
+PT:1/1
+K:Corrupt
+S:Mode$ CantBlock | ValidCard$ Card.Self | Description$ This creature can't block.
+A:AB$ Pump | Cost$ B Sac<1/Creature.Other/another creature> | Defined$ Self | KW$ Menace | SpellDescription$ This creature gains menace until end of turn.
+DeckHas:Ability$Sacrifice|Counters
+Oracle:Corrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nThis creature can't block.\n{B}, Sacrifice another creature: This creature gains menace until end of turn.

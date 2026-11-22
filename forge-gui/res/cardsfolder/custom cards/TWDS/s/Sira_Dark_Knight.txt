@@ -1,0 +1,12 @@
+Name:Sira Dark Knight
+ManaCost:3 B
+Types:Creature Elf Knight
+PT:4/3
+K:First Strike
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDrain | TriggerDescription$ When CARDNAME enters or dies, each opponent loses 2 life and you gain 2 life.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDrain | Secondary$ True | TriggerDescription$ When CARDNAME enters or dies, each opponent loses 2 life and you gain 2 life.
+SVar:TrigDrain:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 2 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 2
+K:Cursed:3
+DeckHas:Ability$LifeGain
+Oracle:First strike\nWhen Sira Dark Knight enters or dies, each opponent loses 2 life and you gain 2 life.\nCursed 3 (When this permanent leaves the battlefield, create three 1/1 black Soul creature tokens with haste and “This creature attacks each turn if able. Sacrifice this creature at the beginning of your next end step.”)

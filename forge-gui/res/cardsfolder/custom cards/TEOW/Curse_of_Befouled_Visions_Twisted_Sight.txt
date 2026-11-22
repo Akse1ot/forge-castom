@@ -1,0 +1,23 @@
+Name:Curse of Befouled Visions
+ManaCost:1 U U
+Types:Enchantment Aura Curse
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+T:Mode$ DrawnOnce | ValidPlayer$ Player.EnchantedBy | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigSurveil | TriggerDescription$ Whenever enchanted player draws one or more cards, you may surveil 3.
+SVar:TrigSurveil:DB$ Surveil | Amount$ 3 | Defined$ You
+Text:The abyss always has more eyes.
+DeckHas:Ability$Surveil|Discard
+DeckHints:Ability$Graveyard & Type$Curse
+AlternateMode:Adventure
+Oracle:Enchant player\nWhenever enchanted player draws one or more cards, you may surveil 3.
+
+ALTERNATE
+
+Name:Twisted Sight
+ManaCost:4 U U
+Types:Sorcery Adventure
+A:SP$ Discard | ValidTgts$ Player | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBDraw | SpellDescription$ Target player discards their hand. Then you and that player each draw cards equal to the number of cards discarded this way.
+SVar:DBDraw:DB$ Draw | Defined$ TargetedAndYou | NumCards$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+Oracle:Target player discards their hand. Then you and that player each draw cards equal to the number of cards discarded this way.

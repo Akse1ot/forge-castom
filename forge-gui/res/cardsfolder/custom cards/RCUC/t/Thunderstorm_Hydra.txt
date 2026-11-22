@@ -1,0 +1,14 @@
+Name:Thunderstorm Hydra
+ManaCost:X X R
+Types:Creature Hydra Wizard
+PT:1/1
+K:Flash
+K:etbCounter:P1P1:X
+T:Mode$ SpellCast | ValidCard$ Card.Self | Execute$ TrigExile | TriggerDescription$ When you cast CARDNAME, exile the top X cards of your library. Until the end of your next turn, you may play those cards.
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ StaticMayPlay | Duration$ UntilTheEndOfYourNextTurn | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:StaticMayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True | Description$ Until the end of your next turn, you may play those cards.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid
+DeckHas:Ability$Counters
+Oracle:Flash\nWhen you cast Thunderstorm Hydra, exile the top X cards of your library. Until the end of your next turn, you may play those cards.\nThunderstorm Hydra enters the battlefield with X +1/+1 counters on it.

@@ -1,0 +1,9 @@
+Name:Twilight Rogue
+ManaCost:2 U
+Types:Creature Human Rogue
+PT:3/2
+K:Coalesce
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerDescription$ When CARDNAME enters, draw two cards, then exile two cards from your hand.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2 | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card.YouOwn | ChangeNum$ 2 | Mandatory$ True | Hidden$ True
+Oracle:Coalesce (For every two cards you put into your graveyard from among cards you own in exile while casting this spell pays for {1}.)\nWhen Twilight Rogue enters, draw two cards, then exile two cards from your hand.

@@ -1,0 +1,12 @@
+Name:Zeren Cliffbreaker
+ManaCost:2 R R
+Types:Creature Dragon
+PT:4/4
+K:Flying
+A:AB$ PutCounter | Cost$ X R R | Monstrosity$ X
+T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ When CARDNAME becomes monstrous, it deals X damage to each creature without flying.
+SVar:TrigDamage:DB$ DamageAll | ValidCards$ Creature.withoutFlying | NumDmg$ MonstrosityX | SpellDescription$ CARDNAME deals X damage to each creature without flying.
+SVar:X:Count$xPaid
+SVar:MonstrosityX:TriggerCount$Amount
+DeckHas:Ability$Counters
+Oracle:Flying\n{X}{R}{R}: Monstrosity X. (If this creature isn't monstrous, put X +1/+1 counters on it and it becomes monstrous.)\nWhen this creature becomes monstrous, it deals X damage to each creature without flying.

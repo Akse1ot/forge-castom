@@ -1,0 +1,10 @@
+Name:Slithering Constrictor
+ManaCost:G
+Types:Creature Serpent
+PT:1/1
+K:Deathtouch
+A:AB$ PutCounter | Cost$ 3 G | Monstrosity$ 2
+T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigFight | TriggerDescription$ When CARDNAME becomes monstrous, you may have it fight target creature an opponent controls.
+SVar:TrigFight:DB$ Fight | Defined$ Self | ValidTgts$ Creature.OppCtrl | Optional$ True | AILogic$ Fight | TgtPrompt$ Select target creature an opponent controls
+DeckHas:Ability$Counters
+Oracle:Deathtouch\n{3}{G}: Monstrosity 2.\nWhen this creature becomes monstrous, you may have it fight target creature an opponent controls. (Each deals damage equal to its power to the other.)

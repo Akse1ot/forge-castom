@@ -1,0 +1,11 @@
+Name:Phlaegrean Ghast
+ManaCost:2 B B
+Types:Creature Shade
+PT:2/4
+S:Mode$ Continuous | Affected$ Swamp.YouOwn | MayPlay$ True | AffectedZone$ Graveyard | Description$ You may play Swamps from your graveyard.
+T:Mode$ TapsForMana | ValidCard$ Swamp | Activator$ You | TriggerZones$ Battlefield | Static$ True | OptionalDecider$ You | Execute$ TrigMana | TriggerDescription$ Whenever you tap a Swamp for mana, you may pay 1 life. If you do, add an additional {B}.
+SVar:TrigMana:AB$ Mana | Cost$ PayLife<1> | Produced$ B | Amount$ 1
+SVar:NonStackingEffect:True
+DeckHas:Ability$Graveyard
+DeckHints:Ability$Mill & Color$Black
+Oracle:You may play Swamps from your graveyard.\n\nWhenever you tap a Swamp for mana, you may pay 1 life. If you do, add an additional {B}.

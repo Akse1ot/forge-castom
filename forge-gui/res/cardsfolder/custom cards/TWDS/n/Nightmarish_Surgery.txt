@@ -1,0 +1,7 @@
+Name:Nightmarish Surgery
+ManaCost:1 U
+Types:Instant
+A:SP$ Subjugate | Amount$ 4 | SubAbility$ DBAnimate | SpellDescription$ Subjugate 4. Target creature has base power and toughness 1/1 and loses all abilities until end of turn.
+SVar:DBAnimate:DB$ Animate | ValidTgts$ Creature | TgtPrompt$ Select target creature | Power$ 1 | Toughness$ 1 | RemoveAllAbilities$ True | IsCurse$ True
+DeckHas:Ability$Subjugate
+Oracle:Subjugate 4.\nTarget creature has base power and toughness 1/1 and loses all abilities until end of turn.

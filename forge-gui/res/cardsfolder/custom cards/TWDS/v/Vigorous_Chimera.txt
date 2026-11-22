@@ -1,0 +1,11 @@
+Name:Vigorous Chimera
+ManaCost:3 G
+Types:Creature Chimera Beast
+PT:4/4
+K:Trample
+A:AB$ PutCounter | Cost$ 1 G G | Monstrosity$ 2
+T:Mode$ BecomeMonstrous | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever CARDNAME or another creature you control becomes monstrous, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+DeckHas:Ability$Counters
+DeckHints:Ability$Counters
+Oracle:Trample\n{1}{G}{G}: Monstrosity 2.\nWhenever this creature or another creature you control becomes monstrous, draw a card.

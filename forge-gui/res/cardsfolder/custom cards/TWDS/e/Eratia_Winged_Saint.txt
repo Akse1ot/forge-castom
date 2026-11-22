@@ -1,0 +1,10 @@
+Name:Eratia, Winged Saint
+ManaCost:3 W U
+Types:Legendary Creature Angel Cleric
+PT:4/4
+K:Flying
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigWorship | TriggerZones$ Battlefield | TriggerDescription$ Whenever one or more creatures you control attacks or blocks each combat, worship. (Trigger the enters effect of target permanent you control.)
+T:Mode$ BlockersDeclared | IsPresent$ Creature.YouCtrl+blocking | PresentCompare$ GE1 | Execute$ TrigWorship | TriggerZones$ Battlefield | Secondary$ True
+SVar:TrigWorship:DB$ CustomReplayEtb | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select target permanent you control
+SVar:HasAttackEffect:TRUE
+Oracle:Flying\nWhenever one or more creatures you control attacks or blocks each combat, worship. (Trigger the enters effect of target permanent you control.)

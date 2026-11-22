@@ -1,0 +1,7 @@
+Name:Belie
+ManaCost:U B
+Types:Instant
+A:SP$ Subjugate | Amount$ 4 | SubAbility$ DBPump | SpellDescription$ Subjugate 4. (Create four Vicious Nightmare tokens and shuffle them into each opponent's library.) Target creature gets -3/-3 until end of turn.
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ -3 | NumDef$ -3 | IsCurse$ True
+DeckHas:Ability$Subjugate
+Oracle:Subjugate 4. (Create four Vicious Nightmare tokens and shuffle them into each opponent's library.)\nTarget creature gets -3/-3 until end of turn.

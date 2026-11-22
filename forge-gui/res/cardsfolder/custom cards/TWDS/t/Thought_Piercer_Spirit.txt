@@ -1,0 +1,15 @@
+Name:Thought-Piercer Spirit
+ManaCost:2 U U
+Types:Creature Spirit Rogue
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig | TriggerDescription$ When CARDNAME enters, look at the top four cards of your library. Put any number of them into your graveyard and up to one of them into your hand.
+SVar:TrigDig:DB$ Dig | DigNum$ 4 | ChangeNum$ Any | ChangeValid$ Card | DestinationZone$ Graveyard | DestinationZone2$ Library | LibraryPosition2$ 0 | SkipReorder$ True | RememberChanged$ True | SubAbility$ DBDigHand
+SVar:DBDigHand:DB$ Dig | DigNum$ Y | ChangeNum$ 1 | Optional$ True | ChangeValid$ Card | DestinationZone$ Hand | DestinationZone2$ Library | LibraryPosition2$ 0 | SkipReorder$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Number$4
+SVar:Y:SVar$X/Minus.Z
+SVar:Z:Remembered$Amount
+S:Mode$ Continuous | Affected$ Card.Self | MayPlay$ True | AffectedZone$ Graveyard | EffectZone$ Graveyard | RaiseCost$ ExileFromGrave<3/Card> | Description$ You may cast CARDNAME from your graveyard by exiling three cards from your graveyard in addition to paying its mana cost.
+DeckHas:Ability$Graveyard
+DeckHints:Ability$Graveyard|Mill
+Oracle:When Thought-Piercer Spirit enters, look at the top four cards of your library. Put any number of them into your graveyard and up to one of them into your hand.\nYou may cast this spell from your graveyard by exiling three cards from your graveyard in addition to paying its mana cost.

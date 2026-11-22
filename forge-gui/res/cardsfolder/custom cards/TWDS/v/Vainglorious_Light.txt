@@ -1,0 +1,11 @@
+Name:Vainglorious Light
+ManaCost:1 W
+Types:Enchantment Aura
+K:Enchant:Permanent
+SVar:AttachAILogic:Pump
+SVar:AttachAITgts:Card.YouCtrl+counters_GE1_DEFEAT,Creature.YouCtrl
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigRemove | TriggerDescription$ When this Aura enters, remove all defeat counters from enchanted permanent.
+SVar:TrigRemove:DB$ RemoveCounter | Defined$ Enchanted | CounterType$ DEFEAT | CounterNum$ All
+S:Mode$ Continuous | Affected$ Card.EnchantedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Ward:tapXType<1/Creature> | Description$ Enchanted permanent gets +2/+2 and has ward—Tap a creature you control. (Whenever that permanent becomes the target of a spell or ability an opponent controls, counter it unless that player taps a creature they control.)
+DeckHints:Keyword$Humbled
+Oracle:Enchant permanent\nWhen this Aura enters, remove all defeat counters from enchanted permanent.\nEnchanted permanent gets +2/+2 and has ward—Tap a creature you control. (Whenever that permanent becomes the target of a spell or ability an opponent controls, counter it unless that player taps a creature they control.)

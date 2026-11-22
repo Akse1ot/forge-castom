@@ -1,0 +1,11 @@
+Name:Green Moon Druid
+ManaCost:2 G
+Types:Creature Human Druid
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | TriggerDescription$ When CARDNAME enters, exile a card from your graveyard.
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | DefinedPlayer$ You | ChangeType$ Card.YouOwn | ChangeNum$ 1 | Mandatory$ True | Hidden$ True | Imprint$ True | SelectPrompt$ Select a card from your graveyard
+S:Mode$ ReduceCost | ValidCard$ Card.sharesCardTypeWith Imprinted.ExiledWithSource | Type$ Spell | Activator$ You | Amount$ 1 | Description$ Spells you cast that share a card type with cards exiled with CARDNAME cost {1} less to cast.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+DeckHints:Ability$Graveyard|Mill|Discard
+Oracle:When Green Moon Druid enters, exile a card from your graveyard.\nSpells you cast that share a card type with cards exiled with Green Moon Druid cost {1} less to cast.

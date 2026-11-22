@@ -1,0 +1,8 @@
+Name:Unrelenting Horde
+ManaCost:3 B
+Types:Creature Ghoul
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDelayedReturn | TriggerDescription$ When CARDNAME dies, return it to its owner's hand at the beginning of your next end step.
+SVar:TrigDelayedReturn:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player.IsTriggerRemembered | RememberObjects$ TriggeredNewCardLKICopy & TriggeredCardController | Execute$ DBReturn | TriggerDescription$ Return CARDNAME to its owner's hand.
+SVar:DBReturn:DB$ ChangeZone | Defined$ DelayTriggerRemembered | Origin$ Graveyard | Destination$ Hand
+Oracle:When this creature dies, return it to its owner's hand at the beginning of your next end step.

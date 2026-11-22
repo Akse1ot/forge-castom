@@ -1,0 +1,14 @@
+Name:Karutar, King of Beasts
+ManaCost:5 G U
+Types:Legendary Creature Beast Avatar
+PT:7/9
+K:Trample
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigUntap | TriggerDescription$ At the beginning of each end step, untap each creature and land you control.
+SVar:TrigUntap:DB$ UntapAll | ValidCards$ Creature.YouCtrl,Land.YouCtrl
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | OpponentTurn$ True | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever you cast a spell during an opponent's turn, create a 3/3 green Beast creature token. If this is the first time this ability has resolved this turn, put a +1/+1 counter on each creature you control.
+SVar:TrigToken:DB$ Token | TokenScript$ g_3_3_beast | TokenOwner$ You | SubAbility$ DBPutCounters
+SVar:DBPutCounters:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 1 | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ1
+SVar:Resolved:Count$ResolvedThisTurn
+DeckHas:Ability$Token|Counters & Type$Beast
+DeckHints:Type$Instant
+Oracle:Trample\nAt the beginning of each end step, untap each creature and land you control.\nWhenever you cast a spell during an opponent's turn, create a 3/3 green Beast creature token. If this is the first time this ability has resolved this turn, put a +1/+1 counter on each creature you control.

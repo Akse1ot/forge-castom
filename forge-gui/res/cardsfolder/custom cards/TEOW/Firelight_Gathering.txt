@@ -1,0 +1,10 @@
+Name:Firelight Gathering
+ManaCost:2 R W
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+counters_GE1_HEAT | AddKeyword$ Haste | Description$ Creatures you control with heat counters on them have haste.
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You.!attackedWithCreaturesThisTurn | TriggerZones$ Battlefield | Execute$ TrigTreasure | TriggerDescription$ Campfire — At the beginning of your end step, if you didn't attack this turn, create a Treasure token and a 1/1 Human Scout creature token.
+SVar:TrigTreasure:DB$ Token | TokenScript$ c_a_treasure_sac | TokenOwner$ You | SubAbility$ DBScout
+SVar:DBScout:DB$ Token | TokenScript$ c_1_1_human_scout | TokenOwner$ You
+DeckHas:Ability$Token & Type$Treasure|Human|Scout
+DeckHints:Ability$Counters
+Oracle:Creatures you control with heat counters on them have haste.\nCampfire — At the beginning of your end step, if you didn't attack this turn, create a Treasure token and a 1/1 Human Scout creature token.

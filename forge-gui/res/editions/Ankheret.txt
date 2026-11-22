@@ -1,0 +1,294 @@
+[metadata]
+Code=ANKH
+Code2=ANKH
+Name=Ankheret
+Date=2017-06-23
+Type=Custom_Set
+Foil=NotSupported
+Booster=10 Common, 3 Uncommon, 1 RareMythic, 1 Land
+BoosterCollation=ANKH_EXACT_V1
+
+[WalkerTypes]
+Sobki
+
+[cards]
+001 U Ainok Vanguard @Char Reed
+002 M Atun, God of the Sun @Diego Cunha
+003 U Atun's Steward @Keith Parkinson
+004 C Bonds of Faith @&amp;#169; Perfect World
+005 U Boon Magnification @Gracjana Zieli&amp;#324;ska
+006 C Champion of Ainorek @Matthew Ribeiro
+007 U Divine Revelation @Joseph Goode
+008 R Duality of Purity @Malcolm Brown
+009 R Exodus Pilgrim @Marc Simonetti
+010 C Face the Truth @Bogdan Szot
+011 C Fervent Charioteer @Wojciech Ostrycharz
+012 C Floodplain Farmers @Ekaterina Burmak
+013 C Glintsand Lammasu @Antonio Jos&amp;#233; Manzanedo
+014 R Ibis Angel @Shane Braithwaite
+015 R Lammasu Sentinel Trap @Daniel Warren
+016 U Monument Building @Wojciech Ostrycharz
+017 C Mortal's Renewal @Lane
+018 C Nabuto Ambusher @Mika Harju
+019 U Name @Peter Mohrbacher
+020 R Opener of the Way @Jonathan Duncan
+021 U Pack's Sandlancer @Alector Fencer
+022 M Pharaoh Nimseput @Miguel Coimbra
+023 C Priest of Echoes @Ekaterina Burmak
+024 C Recorder of Stories @Emilio L&amp;#243;pez Rolandi
+025 U Reflector Trap @Tara Rueping
+026 C Remember the Names @Joelle Douglas
+027 C Sacred Bennu @SpaceWeaver
+028 C Sanctuary Cat @Esra Sagir
+029 C Sandborn Seeker @Lin Bo
+030 C Sandchamber Trap @Lin Bo
+031 U Sarcophagus Sealer @&amp;#37225;&amp;#25010;
+032 C Shifting Sands @tsitra360
+033 R Solar Restoration @Yannick Dubeau
+034 U Sundisk's Messenger @Antonio Camparo
+035 C Unbreakable Bond I @Joelle Douglas
+036 U Weigh the Heart @Yneddt
+037 C Wings of Afterlife @Liiga Smilshkalne
+038 U Annex @Andre de Freitas Cardozo
+039 C Archive's Loreblade @Pavel Romanov
+040 U Chronowarp Trap @&amp;#169; Square-Enix
+041 C Confabulate @Noah Bradley
+042 C Cursebreaker Mage @Kirsten Zirngibl
+043 C Daughter of Iterinis @Tyler Edlin
+044 U Deface I @Maichol Quinto
+045 C Divination @Paul Tobin
+046 C Drowning Trap @Avionetca
+047 R Duality of Truth @James Paick
+048 C Dying of Thirst @Eugene Fromentin
+049 C Isle Turtle @Janice Duke
+050 M Iterinis, God of Waters @&amp;#169; Concept Art House
+051 C Lighthouse Pirates @&amp;#169; Firaxis
+052 C Lunar Akhu @Alexander Alexandrov
+053 U Master of Mysteries @Anastasia Kustova
+054 R Mind Control Trap @Nikolai Ostertag
+055 C Neutralize I @Reno
+056 C Nutkeb's Explorer @Nicholas Kay
+057 C Palace Harpist @Kinuko Y. Craft
+058 U Part the Sea @Marcel Mercado
+059 C Riddle of Existence @Reiko Murakami
+060 C Royal Archaeomancer @Dede Putra
+061 U Scholar of Enigmas @Nick Avallone
+062 U Secrets Forgotten @Oleg Sakyan
+063 U Serpent of Myth @Michael Anthony Gonzales
+064 R Sphinx of Right Answers @Emmanuel Bou
+065 C Sphinx's Renewal @Akreon
+066 M Tamiyo, Moonseeker @Drake Tsui
+067 R Tamiyo's Voyage @Kuyler Lang
+068 U Telekinetic Mastery @Joshua Eiten
+069 U Thought @Peter Mohrbacher
+070 C Timeless Currents @Yu Qi Wang
+071 U Trapmaker's Secret @Ben Wooten
+072 C Unexpected Flood @&amp;#169; Fantasy Flight Games
+073 R Unexplore @Oleg Saakyan
+074 R Unlock the Conundrum @Claire Hummel
+075 R Avatar of Servitude @Yousaf Ejaz
+076 C Blood Offering @Dan dos Santos
+077 U Bloodrite Priest @Patrick McEvoy
+078 R Bonerise Trap @Francisco Rico Torres
+079 U Curse of the Pharaoh @Andrew Cefalu
+080 C Devouring Scarab @Daarken
+081 C Disciple of the Lost Moon @Kim Dingwall
+082 C Disentomb @Luis Salas
+083 U Disturb the Dead @Vania Marita
+084 R Duality of Ambition @Alai Corvus Aorax
+085 C Embalmer's Renewal @Wojciech Ostrycharz
+086 C Etiolate @Timur Baysal
+087 C Final Answer @Sida Chen
+088 U Flesh-Eating Scarabs @Alexandra Zhao
+089 C Granary's Bane @Steph Ruple
+090 U Griffin Mummy @Tim Kings-Lynne
+091 C Infernal Apophis @Gonzalo Ord&amp;#243;&amp;#241;ez Arias
+092 U Insatiable Ammit @Elias Aboulkacem
+093 C Lurking Mummy @Chris Kuhlman
+094 M Mass Decrypt @John Wigley
+095 U Mastaba Defiler @Jon Neimeister
+096 C Mortician's Touch @Thomas Wievegg
+097 R Mummify @Rob Joseph
+098 C Necropolis Seneschal @Cristi Balanescu
+099 U Pendulum Trap @Billy Wimblett
+100 U Plaguetouch Mummy @Jason Edmiston
+101 U Plea Bargain @Alector Fencer
+102 C Restless Mummy @Nick Avallone
+103 C Rotting Giraffe @Jugganaut
+104 M Sentesh, God of Secrets @Mauricio Herrera
+105 C Sentesh's Rattlesnake @Maria Trepaline
+106 C Servant of Erises @Emmanuel Bou
+107 R Sesmu of Enslavement @Jesse Keisala
+108 U Shadow @Peter Mohrbacher
+109 C Slumbering Pharaoh @Randy Robin Galiban
+110 R Vengeful Pharaoh @Sebastian Luque
+111 C Water to Blood @Sheila Moreno
+112 U Acid Spray Trap @Anton Grundvall
+113 C Act of Betrayal @Andy PTimm
+114 R Adorned Dragon @Philippe Feremans
+115 U Ainok Browbeater @Dyana Wang
+116 C Apostate Thug @Keja Blank
+117 U Ash Akhu @Ros Kovac
+118 C Careless Archaeologist @Ruschelle Kucala
+119 C Cave-In Trap @Dan Scott
+120 U Cone of Flame @&amp;#169; Riot Games
+121 U Dack's Trickery @Terese Nielson
+122 C Demolish @Sheila Moreno
+123 C Desert Colossus @Seung Jin Woo
+124 U Disciple of Hesaret @WarNick
+125 R Duality of Passion @Veronica Jones
+126 C Eager Ainok @Emmanuel Bou
+127 R Firehollow Phoenix @Sandara
+128 C Flame's Renewal @satiiiva
+129 C Foretell with Fire @Rob Joseph
+130 R Harness the Storm @SilEnigmaArts
+131 U Heart @Peter Mohrbacher
+132 M Hesaret, God of Inspiration @&amp;#169; Hi-Rez
+133 C Hesaret's Alacrity @Andy PTimm
+134 C Horned Heartstoker @Andy PTimm
+135 C Incandescent Hieroglyphs @Elayne Neves
+136 M Iun, World Reborn @Jaan-Paul van Eeden
+137 U Iun's Flameweaver @Alyssa Davis
+138 C Jackal Familiar @Jeremy James White
+139 C Lawmage of Kismut @&amp;#169; Riot Games
+140 U Lightning Effigy @Javier Garcia Ure&amp;#241;a
+141 U Papyrus Archivist @Nick Corbell
+142 C Phoenix-Flame Ritual @Aneka Shu
+143 R Stoneball Trap @Richard Wright
+144 R Sun God's Ire @Hector Herrera
+145 C Tomb Robbers @&amp;#169; Paizo
+146 U Trapmaker's Detonator @Viking-heart
+147 C Undead Ainok @Yefim Kligerman
+148 C Zebra Behemoth @Edward Delandre
+149 U Acolyte of Coils @Julie Dillon
+150 U Cobra Trap @Bernie Kang
+151 C Colossal Dunewurm @Edward Pun
+152 U Continual Sandstorm @Lennart Verhoeff
+153 C Desert Guide @Kas (deviantart)
+154 R Dreamscale Hydra @Justin Cherry
+155 R Duality of Destiny @Sergey Lesiuk
+156 U Essence @Peter Mohrbacher
+157 U Excavate @Anthony Pismarov
+158 C Fade into Antiquity @&amp;#169; Atomhawk Studios
+159 C Giant Growth @Yefumm
+160 C Glintsand Cloak @Lhuin
+161 C Gods' Gift @Kate Pelto
+162 C Hunter's Triumph @Lindsey Wakefield
+163 U Indomitable Elephant @Jamshed Jurabaev
+164 C Living Sandstorm @Michael Mowak
+165 M Ma'at, God of Harmony @Sheila Moreno
+166 C Merchant Caravan @Bruno Balixa
+167 R Mirror Mirage @Mike Corriero
+168 C Nabuto Cavalry @Rudy Siswanto
+169 C Nomad's Renewal @Pavel Romanov
+170 U Pharaonic Proportions @Pavel Romanov
+171 U Plague of Locusts @isotx
+172 R Planar Lockdown @Ivan Laliashvili
+173 R Sandbreeder @SiredD
+174 C Savage Hippo @Benjamin Clair
+175 R Scapeshift @Alexandra Khitrova
+176 C Scavenging Petsuchos @Pavel Spitsyn
+177 C Shortcut @freelanceart (deviantart)
+178 M Sobki, World Severer @Andy PTimm
+179 U Sobki's Ambusher @Obrotowy
+180 C Tiphsu's Emissary @Lancelot Richardson
+181 U Venerable Explorer @44Shadow44
+182 C Warden of Life @Esra Sagir
+183 U Wayfarer Giant @J. Lonnee
+184 C Weaver of Seasons @Sida Chen
+185 C Wild Camelicorn @Mourlie
+186 U Ainok General @Des Hanley
+187 R Beseecher of Mortals @Duke Yin
+188 U Cartographer of Kariro @Kelley Morris
+189 U Cryptic Reversal @Tierno Beauregard
+190 M Dack, Tomb Raider @Tyler Walpole
+191 R Desert Tornado @Ibrahem Swaid
+192 R Dune Enchantress @Manuel Dupong
+193 U Electrify the Soul @Dede Putra
+194 R Firstborn's Demise @Lawrence Alma-Tadema
+195 U Glintsand Gatherer @Geoff Trebs
+196 R Grand Finale @Paul Dainton
+197 R Hatseket, Great Archivist @Julia Metzger
+198 U Mummified Mortician @Marko Djurdjevic
+199 U Nutkeb's Titan @Eric Jonasson
+200 U Origin of Life @Bao Pham
+201 R Reimagine @Oker Zhu
+202 R The Scorpion King @Laia L&amp;#243;pez Tubau
+203 U Sphere of Faith @Jesus Blones
+204 R Sphincolich Loremaster @Michael jaecks
+205 M Sphinx's Revelation @Travis Purvis
+206 M Travelling Stargazer @Alexander Nanitchkov
+207 U Underworld Escort @Johan Grenier
+208 R Warlord Rejanak @Chris Bj&amp;#246;rs
+209 U Archaic Remnant @Cole Eastburn
+210 R Ark of Extinction @Alex Groseth
+211 U Brass-Sting Guardian @Billy Christian
+212 C Bronze Khopesh @Emmanuel Bou
+213 U Dreamfire Bow @Emmanuel Bou
+214 R Electrum-Gilded Swarm @Emmanuel Bou
+215 C Expedition Map @Nate Barnes
+216 U Game of Passing @Kazuki Takahashi
+217 U Godsent Ankh @Javier Santamaria Carpio
+218 R Heart of Erises @Mathias Leth
+219 U Piece of Erises @Christian Otten
+220 U Pilgrim's Eye @Turbofanatic
+221 M Scales of Composure @Vasylina
+222 U Scribe's Fetich @Hugo Solis
+223 C Sky Barge @Michael Jaecks
+224 C Sleeping Guardian @Jonathan Dufresne
+225 R Soulcatcher Obelisk @Stephen Garrett Rusk
+226 R Stone of Tongues @Shahab Alizadeh
+227 C Stonewrought Companion @Alex Ries
+228 M Archive of Kariro @&amp;#169; Atlas Documentary Films
+229 U Bloodstone Oasis @Noah Bradley
+230 C Burial Chamber @Tom Prante
+231 R Collapsing Underworld @Andreas Rocha
+232 C Crossroads Sands @Emrah Elmasli
+233 C Crumbling Vestige @Gillaume Bonamy
+234 C Desert Temple @Alessandro Chirico
+235 R Desolate Lighthouse @Andrei Pervukhin
+236 R Forgotten Necropolis @Aitor Holgado
+237 U Garden Oasis @Flavio Bolla
+238 R Gelid Pyramids @Alexander Rommel
+239 R Mana Confluence @Melvin Chan
+240 R Memory Lane @Nicolas Zuriaga
+241 U Rotting Oasis @Anastassia Grigorieva
+242 U Sanctified Oasis @Hans Lobos
+243 U Stonekeep Sphinx @&amp;#169; Eidos Interactive
+244 C Sunset Pyramids @Michael Richards
+245 R Temephis Promenade @Alessandro Constantini
+246 U Tranquil Oasis @Tommaso Renieri
+247 R Treasure Room of Akhamesses @Herve groussin
+248 C Unknown Shores @Michael Jaecks
+249 U Valley of Pyramids @Ben Wooden
+250 L Plains @Brennan Pierre Massicotte
+251 L Plains @Karol Lukaszczyk
+252 L Plains @Josh Hutchinson
+253 L Island @Simon Kopp
+254 L Island @&amp;#169; Fantasy Flight Games
+255 L Island @Jacobus Alburtus Michael Jacobs
+256 L Swamp @Pierre Raveneau
+257 L Swamp @Titus Lunter
+258 L Swamp @Alexandra Khitrova
+259 L Mountain @Anna Shulgina
+260 L Mountain @&amp;#169; Pathea Games
+261 L Mountain @Miguel Coimbra
+264 L Forest @Lino Drieghe
+263 L Forest @Johannes Figlhuber
+262 L Forest @Joakim Olofsson
+
+[tokens]
+1 w_1_1_human
+2 w_1_1_spirit_flying
+3 w_2_2_bird_flying
+4 w_5_5_lammasu_flying
+5 u_1_1_bird_flying
+6 b_2_2_zombie
+7 r_2_2_phoenix_flying
+8 r_3_1_elemental_haste_sacrifice
+9 g_0_1_plant
+10 g_1_1_saproling
+11 g_1_1_snake
+12 g_1_2_scorpion_deathtouch
+13 g_3_3_snake
+14 rw_2_2_jackal

@@ -1,0 +1,12 @@
+Name:Bread and Circuses
+ManaCost:B B
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Choose target creature you control | RememberTargets$ True | AILogic$ Fight | SubAbility$ DBTargetOpp | SpellDescription$ Target creature you control fights target creature an opponent controls. Whenever one of those creatures dies this turn, create a Food token.
+SVar:DBTargetOpp:DB$ Pump | ValidTgts$ Creature.OppCtrl | TgtPrompt$ Choose target creature an opponent controls | RememberTargets$ True | AILogic$ Fight | SubAbility$ DBDelayedTrigger | StackDescription$ None
+SVar:DBDelayedTrigger:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Remembered | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ TrigFood | SubAbility$ DBFight | StackDescription$ None
+SVar:DBFight:DB$ Fight | Defined$ Remembered | SubAbility$ DBCleanup
+SVar:TrigFood:DB$ Token | TokenScript$ c_a_food_sac | TokenOwner$ You
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Token|LifeGain|Food
+DeckHints:Ability$Food
+Oracle:Target creature you control fights target creature an opponent controls. Whenever one of those creatures dies this turn, create a Food token. (It's an artifact with "{2}, {T}, Sacrifice this artifact: You gain 3 life.")

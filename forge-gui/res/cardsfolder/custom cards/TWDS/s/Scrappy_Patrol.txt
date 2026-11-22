@@ -1,0 +1,12 @@
+Name:Scrappy Patrol
+ManaCost:2 W
+Types:Creature Human Soldier
+PT:3/3
+K:Vigilance
+R:Event$ Moved | ActiveZones$ Battlefield | Destination$ Battlefield | ValidCard$ Card.Self+hasCounterTypeOtherThan_P1P1,Creature.Other+YouCtrl+hasCounterTypeOtherThan_P1P1 | ReplaceWith$ AddCounters | ReplacementResult$ Updated | Description$ If a creature would enter under your control with a number of counters that aren't +1/+1 counters on it, it enters with that many +1/+1 counters on it too.
+SVar:AddCounters:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ X
+SVar:X:SVar$Y/Minus.Z
+SVar:Y:ReplacedNewCard$CardCounters.ALL
+SVar:Z:ReplacedNewCard$CardCounters.P1P1
+DeckHas:Ability$Counters
+Oracle:Vigilance\nIf a creature would enter under your control with a number of counters that aren't +1/+1 counters on it, it enters with that many +1/+1 counters on it too.

@@ -1,0 +1,9 @@
+Name:Northern Grunt
+ManaCost:2 G G
+Types:Creature Human Soldier
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self,Enchantment.Other+YouCtrl | Execute$ TrigDraw | TriggerDescription$ Whenever CARDNAME or an enchantment enters under your control, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:BuffedBy:Enchantment
+DeckNeeds:Type$Enchantment
+Oracle:Whenever this creature or an enchantment enters under your control, draw a card.

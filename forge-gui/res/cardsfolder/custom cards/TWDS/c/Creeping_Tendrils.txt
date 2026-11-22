@@ -1,0 +1,12 @@
+Name:Creeping Tendrils
+ManaCost:3 U R
+Types:Creature Nightmare
+PT:5/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerDescription$ Whenever CARDNAME enters or attacks, you may discard a card. If you do, draw two cards.
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDraw | Secondary$ True | TriggerDescription$ Whenever CARDNAME enters or attacks, you may discard a card. If you do, draw two cards.
+SVar:TrigDraw:AB$ Draw | Cost$ Discard<1/Card> | NumCards$ 2
+K:Madness:2 U R
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Discard
+DeckHints:Ability$Discard & Keyword$Madness
+Oracle:Whenever Creeping Tendrils enters or attacks, you may discard a card. If you do, draw two cards.\nMadness {2}{U}{R} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

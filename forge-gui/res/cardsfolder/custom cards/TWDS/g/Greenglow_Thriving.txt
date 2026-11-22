@@ -1,0 +1,10 @@
+Name:Greenglow Thriving
+ManaCost:3 G G
+Types:Sorcery
+A:SP$ Draw | NumCards$ X | SubAbility$ DBGainLife | SpellDescription$ Draw a card and gain 2 life for each land card in your graveyard.
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ Y
+SVar:X:Count$ValidGraveyard Land.YouOwn
+SVar:Y:Count$ValidGraveyard Land.YouOwn/Times.2
+DeckHas:Ability$Graveyard|LifeGain
+DeckHints:Ability$Mill|Discard
+Oracle:Draw a card and gain 2 life for each land card in your graveyard.

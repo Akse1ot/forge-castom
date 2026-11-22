@@ -1,0 +1,10 @@
+Name:Night Drake
+ManaCost:1 U
+Types:Creature Drake
+PT:1/1
+K:Flying
+S:Mode$ Continuous | AffectedDefined$ Self | AddPower$ 3 | CheckSVar$ X | SVarCompare$ GE4 | Description$ CARDNAME gets +3/+0 as long as you have four or more instant and/or sorcery cards in your graveyard.
+SVar:X:Count$ValidGraveyard Instant.YouOwn,Sorcery.YouOwn
+SVar:BuffedBy:Instant,Sorcery
+DeckHints:Ability$Graveyard|Mill & Type$Instant|Sorcery
+Oracle:Flying\nThis creature gets +3/+0 as long as you have four or more instant and/or sorcery cards in your graveyard.

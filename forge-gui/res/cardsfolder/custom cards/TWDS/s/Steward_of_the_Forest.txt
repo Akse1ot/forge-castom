@@ -1,0 +1,11 @@
+Name:Steward of the Forest
+ManaCost:5 G G
+Types:Creature Spirit Druid
+PT:5/5
+K:Trample
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter | TriggerDescription$ Whenever CARDNAME enters or you cast a spell from your graveyard, distribute five +1/+1 counters among any number of creatures you control.
+T:Mode$ SpellCast | ValidCard$ Card.wasCastFromYourGraveyard | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | Secondary$ True | TriggerDescription$ Whenever CARDNAME enters or you cast a spell from your graveyard, distribute five +1/+1 counters among any number of creatures you control.
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select creatures you control to distribute counters to | CounterType$ P1P1 | CounterNum$ 5 | TargetMin$ 0 | TargetMax$ 5 | DividedAsYouChoose$ 5
+DeckHas:Ability$Counters
+DeckHints:Ability$Graveyard
+Oracle:Trample\nWhenever this creature enters or you cast a spell from your graveyard, distribute five +1/+1 counters among any number of creatures you control.

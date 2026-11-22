@@ -1,0 +1,8 @@
+Name:Blood Charm
+ManaCost:B R
+Types:Instant
+A:SP$ Charm | Choices$ DBPumpAll,DBDestroyCreature,DBDestroyArtifact
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | KW$ Haste | SpellDescription$ Creatures you control get +1/+0 and gain haste until end of turn.
+SVar:DBDestroyCreature:DB$ Destroy | ValidTgts$ Creature.toughnessLE3 | TgtPrompt$ Select target creature with toughness 3 or less | SpellDescription$ Destroy target creature with toughness 3 or less.
+SVar:DBDestroyArtifact:DB$ Destroy | ValidTgts$ Artifact | SpellDescription$ Destroy target artifact.
+Oracle:Choose one —\n• Creatures you control get +1/+0 and gain haste until end of turn.\n• Destroy target creature with toughness 3 or less.\n• Destroy target artifact.

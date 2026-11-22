@@ -1,0 +1,10 @@
+Name:Veteran Commander
+ManaCost:R W
+Types:Creature Human Knight
+PT:3/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigUnity | TriggerDescription$ When CARDNAME enters, you get a unity counter for each creature you control.
+SVar:TrigUnity:DB$ PutCounter | Defined$ You | CounterType$ UNITY | CounterNum$ X
+SVar:X:Count$Valid Creature.YouCtrl
+DeckHints:Type$Creature
+DeckHas:Ability$Counters
+Oracle:When this creature enters, you get a unity counter for each creature you control.

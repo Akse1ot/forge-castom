@@ -1,0 +1,9 @@
+Name:Recomposed Thalakos Elementalist
+ManaCost:2 U
+Types:Creature Zombie Weird Thalakos
+PT:2/2
+K:Shadow
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigReturn | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, you may discard a card. If you do, return target instant or sorcery card from your graveyard to your hand.
+SVar:TrigReturn:AB$ ChangeZone | Cost$ Discard<1/Card> | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouCtrl,Sorcery.YouCtrl | TgtPrompt$ Select target instant or sorcery card from your graveyard
+DeckHints:Ability$Graveyard
+Oracle:Shadow (This creature can block or be blocked by only creatures with shadow.)\nWhenever Recomposed Thalakos Elementalist deals combat damage to a player, you may discard a card. If you do, return target instant or sorcery card from your graveyard to your hand.

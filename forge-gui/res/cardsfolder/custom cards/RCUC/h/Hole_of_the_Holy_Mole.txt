@@ -1,0 +1,12 @@
+Name:Hole of the Holy Mole
+ManaCost:R G
+Types:Legendary Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | TriggerDescription$ When CARDNAME enters, search your library for a God creature card, reveal it, put it into your hand, then shuffle.
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ God | ChangeNum$ 1
+S:Mode$ Continuous | Affected$ God.YouOwn | AffectedZone$ All | AddKeyword$ Disguise:CardManaCost | Description$ You may play God creatures face down as though they had disguise.
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidLKI$ Card.YouCtrl+faceDownOriginalTypeGod | ReplaceWith$ DBTurnFaceUp | Description$ If a face-down God you control would die, turn it face up and regenerate it.
+SVar:DBTurnFaceUp:DB$ SetState | Defined$ ReplacedCard | Mode$ TurnFaceUp | SubAbility$ DBRegenerate
+SVar:DBRegenerate:DB$ Regeneration | Defined$ ReplacedCard
+DeckNeeds:Type$God
+DeckHints:Type$God
+Oracle:When Hole of the Holy Mole enters the battlefield, search your library for a God creature, reveal it and add it to your hand, then shuffle.\nYou may play God creatures facedown as though they had disguise.\nIf a face down God under you control would die, turn it face up and regenerate it.

@@ -1,0 +1,10 @@
+Name:Magnetic Shot
+ManaCost:2 R W
+Types:Instant
+A:SP$ Pump | ValidTgts$ Equipment | TgtPrompt$ Select target Equipment | RememberObjects$ ThisTargetedCard | SubAbility$ DBDamage | StackDescription$ SpellDescription | SpellDescription$ CARDNAME deals damage equal to target Equipment's mana value to any target. You may attach that Equipment to target creature you control.
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X | SubAbility$ DBAttach
+SVar:DBAttach:DB$ Attach | Object$ Remembered | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:ParentTargeted$CardManaCost
+DeckNeeds:Type$Equipment
+Oracle:Magnetic Shot deals damage equal to target Equipment's mana value to any target. You may attach that Equipment to target creature you control.

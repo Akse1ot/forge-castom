@@ -1,0 +1,12 @@
+Name:Greenglow Hydra
+ManaCost:X G G
+Types:Creature Hydra
+PT:0/0
+K:Trample
+K:etbCounter:P1P1:X
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Land.!token+YouOwn | TriggerZones$ Battlefield | Execute$ TrigDouble | TriggerDescription$ Whenever a land card is put into your graveyard from anywhere, double the number of +1/+1 counters on CARDNAME.
+SVar:TrigDouble:DB$ MultiplyCounter | Defined$ Self | CounterType$ P1P1
+SVar:X:Count$xPaid
+DeckHas:Ability$Counters|Graveyard
+DeckHints:Ability$Discard|Mill
+Oracle:Trample\nGreenglow Hydra enters with X +1/+1 counters on it.\nWhenever a land card is put into your graveyard from anywhere, double the number of +1/+1 counters on Greenglow Hydra.

@@ -1,0 +1,11 @@
+Name:Hollow Stalker
+ManaCost:3 B
+Types:Creature Horror
+PT:4/3
+K:Menace
+T:Mode$ Phase | Phase$ Main2 | ValidPlayer$ You | IsPresent$ Card.Self+dealtCombatDamageThisTurn Any+!counters_GE1_HERO | TriggerZones$ Battlefield | Execute$ TrigHeroCounter | TriggerDescription$ Fabled (At the beginning of your postcombat main phase, if this creature dealt combat damage this turn, put a hero counter on it.)
+SVar:TrigHeroCounter:DB$ PutCounter | Defined$ Self | CounterType$ HERO | CounterNum$ 1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | IsPresent$ Card.Self+counters_GE1_HERO | TriggerZones$ Battlefield | Execute$ TrigSacrifice | TriggerDescription$ As long as CARDNAME has a hero counter on it, whenever it deals combat damage to a player, that player sacrifices a creature.
+SVar:TrigSacrifice:DB$ Sacrifice | Defined$ TriggeredTarget | SacValid$ Creature
+DeckHas:Ability$Counters
+Oracle:Menace\nFabled (At the beginning of your postcombat main phase, if this creature dealt combat damage this turn, put a hero counter on it.)\nAs long as Hollow Stalker has a hero counter on it, whenever it deals combat damage to a player, that player sacrifices a creature.

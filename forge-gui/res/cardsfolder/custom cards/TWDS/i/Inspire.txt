@@ -1,0 +1,7 @@
+Name:Inspire
+ManaCost:4 W
+Types:Instant
+A:SP$ RemoveCounterAll | ValidCards$ Permanent.YouCtrl | CounterType$ DEFEAT | CounterNum$ 2 | SubAbility$ DBPump | SpellDescription$ Remove two defeat counters from each permanent you control. Then creatures you control get +2/+2 until end of turn.
+SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | NumDef$ +2
+DeckHints:Keyword$Humbled
+Oracle:Remove two defeat counters from each permanent you control. Then creatures you control get +2/+2 until end of turn.

@@ -1,0 +1,14 @@
+Name:Beguiler of Truths
+ManaCost:6 U B
+Types:Creature Nightmare Serpent
+PT:4/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGainControl | TriggerDescription$ When CARDNAME enters, for each opponent, gain control of target creature that player controls. Put a menace counter and a deathtouch counter on each creature you gain control of this way.
+SVar:TrigGainControl:DB$ GainControl | ValidTgts$ Creature.OppCtrl | TargetMin$ OneEach | TargetMax$ OneEach | TargetsForEachPlayer$ True | RememberControlled$ True | SubAbility$ DBMenace
+SVar:DBMenace:DB$ PutCounter | Defined$ Remembered | CounterType$ Menace | CounterNum$ 1 | SubAbility$ DBDeathtouch
+SVar:DBDeathtouch:DB$ PutCounter | Defined$ Remembered | CounterType$ Deathtouch | CounterNum$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:OneEach:PlayerCountOpponents$Amount
+K:Madness:2 U U B B
+DeckHas:Ability$Counters
+DeckHints:Ability$Discard
+Oracle:When this creature enters, for each opponent, gain control of target creature that player controls. Put a menace counter and a deathtouch counter on each creature you gain control of this way.\nMadness {2}{U}{U}{B}{B}

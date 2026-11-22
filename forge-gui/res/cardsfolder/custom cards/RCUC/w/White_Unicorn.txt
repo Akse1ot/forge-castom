@@ -1,0 +1,8 @@
+Name:White Unicorn
+ManaCost:W W W
+Types:Creature Unicorn
+PT:1/2
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigGainLife | TriggerZones$ Battlefield | TriggerDescription$ During your upkeep, you gain 1 life.
+T:Mode$ ChangesZone | ValidCard$ Creature.YouCtrl | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a creature you control enters, you gain 1 life.
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+Oracle:During your upkeep, you gain 1 life.\nWhenever a creature you control enters, you gain 1 life.

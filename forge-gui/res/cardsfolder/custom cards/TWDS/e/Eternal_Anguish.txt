@@ -1,0 +1,11 @@
+Name:Eternal Anguish
+ManaCost:1 U B
+Types:Enchantment
+T:Mode$ Phase | Phase$ End of Turn | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE1 | Execute$ TrigSubjugate | TriggerDescription$ At the beginning of each end step, if an opponent discarded a Vicious Nightmare this turn, subjugate 4 and draw a card. (Create four Vicious Nightmare tokens and shuffle them into each opponent's library.)
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 4 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:X:Count$ValidAll Card.namedVicious_Nightmare+OppOwn+DiscardedThisTurn
+DeckHas:Ability$Subjugate
+DeckNeeds:Ability$Subjugate
+DeckHints:Ability$Subjugate
+Oracle:At the beginning of each end step, if an opponent discarded a Vicious Nightmare this turn, subjugate 4 and draw a card. (Create four Vicious Nightmare tokens and shuffle them into each opponent's library.)

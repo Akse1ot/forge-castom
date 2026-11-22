@@ -1,0 +1,13 @@
+Name:Voto, Master Replicator
+ManaCost:1 U R W
+Types:Legendary Creature Aetherborn Wizard
+PT:4/3
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+!doesNotShareNameWith OtherYourCreatures | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Ward:1 | Description$ As long as you control two or more creatures with the same name, those creatures get +1/+1 and have ward {1}.
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopy | TriggerDescription$ At the beginning of combat on your turn, you may discard a card. If you do, create a token that's a copy of target nonlegendary artifact or creature you control. It gains haste until end of turn. Exile it at the beginning of your next end step unless you pay {5}.
+SVar:TrigCopy:AB$ CopyPermanent | Cost$ Discard<1/Card> | ValidTgts$ Artifact.nonLegendary+YouCtrl,Creature.nonLegendary+YouCtrl | TgtPrompt$ Select target nonlegendary artifact or creature you control | PumpKeywords$ Haste | RememberTokens$ True | SubAbility$ DBDelay
+SVar:DBDelay:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | RememberObjects$ Remembered | Execute$ DBExile | TriggerDescription$ Exile the token unless you pay {5}. | SubAbility$ DBCleanup
+SVar:DBExile:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Battlefield | Destination$ Exile | UnlessCost$ 5 | UnlessPayer$ You | ConditionDefined$ DelayTriggerRemembered | ConditionPresent$ Card.inZoneBattlefield | ConditionCompare$ GE1
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Token|Discard
+DeckHints:Type$Artifact
+Oracle:As long as you control two or more creatures with the same name, those creatures get +1/+1 and have ward {1}.\nAt the beginning of combat on your turn, you may discard a card. If you do, create a token that's a copy of target nonlegendary artifact or creature you control. It gains haste until end of turn. Exile it at the beginning of your next end step unless you pay {5}.

@@ -1,0 +1,10 @@
+Name:Mountainbear Knight
+ManaCost:3 G W
+Types:Creature Human Knight
+PT:8/8
+K:Trample
+K:Humbled:5
+T:Mode$ AttackersDeclared | AttackedTarget$ You | TriggerZones$ Battlefield | Execute$ TrigRemoveCounter | TriggerDescription$ Whenever you are attacked, remove a defeat counter from CARDNAME.
+SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ DEFEAT | CounterNum$ 1
+DeckHas:Ability$Counters
+Oracle:Trample\nWhenever you are attacked, remove a defeat counter from this creature.\nHumbled 5

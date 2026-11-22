@@ -1,0 +1,13 @@
+Name:Shabian, All Claiming
+ManaCost:6 U B R
+Types:Legendary Creature Sphinx
+PT:5/9
+R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen | Description$ This spell can't be countered.
+K:Flying
+K:Deathtouch
+S:Mode$ Continuous | Affected$ Opponent.NonActive | ControlPlayer$ You | Description$ You control each opponent during turns that aren't that player's turn.
+T:Mode$ SpellCast | ValidCard$ Card.cmcGE4 | TriggerZones$ Battlefield | Execute$ TrigDiscard | TriggerDescription$ Whenever a player casts a spell with mana value 4 or greater, each opponent discards a card and you draw a card.
+SVar:TrigDiscard:DB$ Discard | Defined$ Opponent | Mode$ TgtChoose | NumCards$ 1 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+DeckHas:Ability$Discard
+Oracle:This spell can't be countered.\nFlying, deathtouch\nYou control each opponent during turns that aren't that player's turn.\nWhenever a player casts a spell with mana value 4 or greater, each opponent discards a card and you draw a card.

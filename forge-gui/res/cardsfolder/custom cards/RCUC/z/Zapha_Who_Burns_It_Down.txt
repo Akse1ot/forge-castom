@@ -1,0 +1,16 @@
+Name:Zapha, Who Burns It Down
+ManaCost:R G
+Types:Legendary Creature Human Rogue
+PT:3/2
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigEach | TriggerDescription$ Whenever CARDNAME deals combat damage to a player or dies, each player may discard a land card. Each player who doesn't discard a land card this way sacrifices a land.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigEach | Secondary$ True
+SVar:TrigEach:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Defined$ Player.IsRemembered | ChoiceZone$ Hand | Choices$ Land.RememberedPlayerCtrl | Amount$ 1 | MinAmount$ 0 | ChoiceTitle$ Choose a land card to discard, or decline to sacrifice a land | SubAbility$ DBBranch
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ ChosenCount | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBDiscard | FalseSubAbility$ DBSacrifice
+SVar:DBDiscard:DB$ Discard | Defined$ Player.IsRemembered | Mode$ Defined | DefinedCards$ ChosenCard | SubAbility$ DBCleanup
+SVar:DBSacrifice:DB$ Sacrifice | Defined$ Player.IsRemembered | SacValid$ Land | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+SVar:ChosenCount:ChosenCard$Amount
+S:Mode$ Continuous | Affected$ Card.Self | IsPresent$ Land | PresentZone$ Graveyard | PresentCompare$ GE10 | AddPower$ 2 | AddToughness$ 3 | AddKeyword$ Trample | Description$ As long as there are ten or more land cards among graveyards, CARDNAME gets +2/+3 and has trample.
+DeckHas:Ability$Discard|Sacrifice
+Oracle:Whenever Zapha, Who Burns It Down deals combat damage to a player or dies, each player may discard a land card. Each player who doesn't discard a land card this way sacrifices a land.\nAs long as there are ten or more land cards among graveyards, Zapha gets +2/+3 and has trample.\n"Those on top wish to speak yet will not listen. Now they hear us."

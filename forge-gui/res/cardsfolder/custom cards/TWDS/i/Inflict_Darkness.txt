@@ -1,0 +1,8 @@
+Name:Inflict Darkness
+ManaCost:X B B
+Types:Instant
+A:SP$ RepeatEach | ValidTgts$ Player | RepeatCards$ Creature.TargetedPlayerCtrl | RepeatSubAbility$ DBSacrifice | SpellDescription$ For each creature target player controls, they sacrifice it unless they pay X life.
+SVar:DBSacrifice:DB$ SacrificeAll | Defined$ Remembered | UnlessCost$ PayLife<X> | UnlessPayer$ Targeted
+SVar:X:Count$xPaid
+DeckHas:Ability$Sacrifice
+Oracle:For each creature target player controls, they sacrifice it unless they pay X life.

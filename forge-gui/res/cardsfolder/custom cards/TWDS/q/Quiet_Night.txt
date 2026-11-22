@@ -1,0 +1,8 @@
+Name:Quiet Night
+ManaCost:1 W W
+Types:Sorcery
+A:SP$ Charm | Choices$ DBDestroyArtifacts,DBDestroyEnchantments,DBDestroyCreatures
+SVar:DBDestroyArtifacts:DB$ DestroyAll | ValidCards$ Artifact | SpellDescription$ Destroy all artifacts.
+SVar:DBDestroyEnchantments:DB$ DestroyAll | ValidCards$ Enchantment | SpellDescription$ Destroy all enchantments.
+SVar:DBDestroyCreatures:DB$ DestroyAll | ValidCards$ Creature.powerGE4 | SpellDescription$ Destroy each creature with power 4 or greater.
+Oracle:Choose one —\n• Destroy all artifacts.\n• Destroy all enchantments.\n• Destroy each creature with power 4 or greater.

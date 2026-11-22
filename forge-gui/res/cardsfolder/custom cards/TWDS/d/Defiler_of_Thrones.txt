@@ -1,0 +1,9 @@
+Name:Defiler of Thrones
+ManaCost:4 B B
+Types:Creature Ghoul Soldier
+PT:6/4
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTorment | TriggerDescription$ When this creature enters, torment target player twice. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)
+SVar:TrigTorment:DB$ Torment | ValidTgts$ Player | Amount$ 2
+DeckHas:Ability$Torment
+Oracle:Flash (You may cast this spell any time you could cast an instant.)\nWhen this creature enters, torment target player twice. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)

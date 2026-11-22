@@ -1,0 +1,17 @@
+Name:Curse of Tempting Scent
+ManaCost:1 R R
+Types:Enchantment Aura Curse
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+S:Mode$ PlayerMustAttack | MustAttack$ Player.EnchantedBy | Description$ Each player must attack enchanted player with one or more creatures each combat if able.
+AlternateMode:Adventure
+Oracle:Enchant player\nEach player must attack enchanted player with one or more creatures each combat if able.
+
+ALTERNATE
+
+Name:Rousing Pollen
+ManaCost:2 R
+Types:Sorcery Adventure
+A:SP$ Animate | ValidTgts$ Creature | TgtPrompt$ Select target creature | Power$ 6 | Toughness$ 1 | Duration$ Permanent | SubAbility$ DBGoad | SpellDescription$ The base power and toughness of target creature becomes 6/1. Goad it for the rest of the game.
+SVar:DBGoad:DB$ Goad | Defined$ ParentTarget | Duration$ Permanent
+Oracle:The base power and toughness of target creature becomes 6/1. Goad it for the rest of the game.

@@ -1,0 +1,9 @@
+Name:Healer of the Salve
+ManaCost:W
+Types:Creature Human Cleric
+PT:1/1
+A:AB$ Charm | Cost$ W Discard<1/Card> | Choices$ DBPreventDamage,DBGainLife | CharmNum$ 1 | SpellDescription$ Choose one — Prevent the next 3 damage that would be dealt to target creature this turn; or you gain 3 life.
+SVar:DBPreventDamage:DB$ PreventDamage | ValidTgts$ Creature | TgtPrompt$ Select target creature | Amount$ 3 | SpellDescription$ Prevent the next 3 damage that would be dealt to target creature this turn.
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ 3 | Defined$ You | SpellDescription$ You gain 3 life.
+DeckHas:Ability$Discard & Ability$LifeGain
+Oracle:{W}, Discard a card: Choose one —\n• Prevent the next 3 damage that would be dealt to target creature this turn.\n• You gain 3 life.

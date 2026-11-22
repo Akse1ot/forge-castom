@@ -1,0 +1,9 @@
+Name:Perverted Knight
+ManaCost:3 G
+Types:Creature Horror Knight
+PT:4/4
+K:Corrupt
+T:Mode$ CounterPlayerAddedAll | ValidObject$ Card.Self+inRealZoneBattlefield | TriggerZones$ Battlefield | ValidSource$ You | Execute$ TrigPutCountersOther | TriggerDescription$ Whenever you put one or more counters on this creature, put one of each of those kinds of counters on up to one other target creature.
+SVar:TrigPutCountersOther:DB$ PutCounter | Placer$ TriggeredSource | TriggeredCounterMap$ True | CounterMapValues$ 1 | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select up to one other target creature | ValidTgts$ Creature.Other
+DeckHas:Ability$Counters
+Oracle:Corrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nWhenever you put one or more counters on this creature, put one of each of those kinds of counters on up to one other target creature.

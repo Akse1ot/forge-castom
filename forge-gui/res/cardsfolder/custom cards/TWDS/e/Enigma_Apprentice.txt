@@ -1,0 +1,10 @@
+Name:Enigma Apprentice
+ManaCost:2 R
+Types:Creature Human Wizard
+PT:3/2
+K:Coalesce
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | CheckSVar$ X | SVarCompare$ GE1 | TriggerZones$ Battlefield | Execute$ TrigGoad | TriggerDescription$ At the beginning of combat on your turn, if you own one or more cards in exile, goad target creature you don't control.
+SVar:TrigGoad:DB$ Goad | ValidTgts$ Creature.YouDontCtrl | TgtPrompt$ Select target creature you don't control
+SVar:X:Count$ValidExile Card.YouOwn
+DeckNeeds:Ability$Exile
+Oracle:Coalesce\nAt the beginning of combat on your turn, if you own one or more cards in exile, goad target creature you don't control.

@@ -1,0 +1,11 @@
+Name:Deadly Alliance I
+ManaCost:2 B
+Types:Instant
+K:Escalate:2
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 3 | Choices$ DBShrink,DBDamage,DBDelayedDiscard
+SVar:DBShrink:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature to get -3/-3 | NumAtt$ -3 | NumDef$ -3 | IsCurse$ True | SpellDescription$ Target creature gets -3/-3 until end of turn.
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Opponent,Planeswalker | TgtPrompt$ Select target opponent or planeswalker | NumDmg$ 2 | SpellDescription$ CARDNAME deals 2 damage to target opponent or planeswalker.
+SVar:DBDelayedDiscard:DB$ DelayedTrigger | Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl | ThisTurn$ True | Execute$ TrigDiscard | SpellDescription$ The next time a creature an opponent controls dies this turn, its controller discards a card.
+SVar:TrigDiscard:DB$ Discard | Defined$ TriggeredCardController | NumCards$ 1 | Mode$ TgtChoose
+DeckHas:Ability$Discard
+Oracle:Escalate {2} (Pay this cost for each mode chosen beyond the first.)\nChoose one or more —\n• Target creature gets -3/-3 until end of turn.\n• Deadly Alliance deals 2 damage to target opponent or planeswalker.\n• The next time a creature an opponent controls dies this turn, its controller discards a card.

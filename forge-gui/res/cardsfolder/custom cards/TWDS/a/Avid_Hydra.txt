@@ -1,0 +1,11 @@
+Name:Avid Hydra
+ManaCost:X R G
+Types:Creature Hydra
+PT:0/0
+K:Haste
+K:Trample
+K:etbCounter:P1P1:X
+A:AB$ PutCounter | Cost$ X R G | Monstrosity$ X
+SVar:X:Count$xPaid
+DeckHas:Ability$Counters
+Oracle:Haste, trample\nThis creature enters with X +1/+1 counters on it.\n{X}{R}{G}: Monstrosity X. (If this creature isn't monstrous, put X +1/+1 counters on it and it becomes monstrous.)

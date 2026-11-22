@@ -1,0 +1,8 @@
+Name:Presence of the Black Moon
+ManaCost:2 B B
+Types:Legendary Enchantment
+S:Mode$ Continuous | Affected$ Creature.OppCtrl | AddPower$ -1 | AddToughness$ -1 | Description$ Creatures your opponents control get -1/-1.
+T:Mode$ Sacrificed | ValidCard$ Creature | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever you sacrifice a creature, up to one target creature gets -3/-3 until end of turn.
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | NumAtt$ -3 | NumDef$ -3 | IsCurse$ True
+DeckHints:Ability$Sacrifice
+Oracle:Creatures your opponents control get -1/-1.\nWhenever you sacrifice a creature, up to one target creature gets -3/-3 until end of turn.

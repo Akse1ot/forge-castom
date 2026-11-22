@@ -1,0 +1,11 @@
+Name:Afflicated Angel
+ManaCost:3 W W
+Types:Creature Angel
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerDescription$ When CARDNAME enters, draw a card. Then, you may remove any number of counters from any number of permanents or players.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBRemovePermanents
+SVar:DBRemovePermanents:DB$ RemoveCounter | Choices$ Permanent | ChoiceOptional$ True | CounterType$ Any | CounterNum$ Any | SubAbility$ DBRepeatPlayers
+SVar:DBRepeatPlayers:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBRemovePlayer
+SVar:DBRemovePlayer:DB$ RemoveCounter | Defined$ Player.IsRemembered | CounterType$ Any | CounterNum$ Any
+Oracle:Flying\nWhen this creature enters, draw a card. Then, you may remove any number of counters from any number of permanents or players.

@@ -1,0 +1,9 @@
+Name:Breech Sanity
+ManaCost:1 B
+Types:Instant
+A:SP$ Subjugate | Amount$ 3 | SubAbility$ DBDraw | SpellDescription$ Subjugate 3. (Create three Vicious Nightmare tokens and shuffle them into each opponent's library.) Draw a card.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl+!token | TriggerZones$ Graveyard | Execute$ TrigReturn | TriggerDescription$ Whenever a nontoken creature you control dies, return this card from your graveyard to your hand.
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Hand
+DeckHas:Ability$Subjugate
+Oracle:Subjugate 3. (Create three Vicious Nightmare tokens and shuffle them into each opponent's library.)\nDraw a card.\nWhenever a nontoken creature you control dies, return this card from your graveyard to your hand.

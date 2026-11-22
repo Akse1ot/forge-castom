@@ -1,0 +1,8 @@
+Name:Pay Tribute
+ManaCost:B
+Types:Sorcery
+A:SP$ SacrificeAll | ValidCards$ Vessel.YouCtrl | AILogic$ CursedSacrificeAll | SpellDescription$ Sacrifice all Vessels you control.
+SVar:NeedsToPlay:Vessel.YouCtrl
+DeckHas:Ability$Sacrifice
+DeckNeeds:Type$Vessel
+Oracle:Sacrifice all Vessels you control.

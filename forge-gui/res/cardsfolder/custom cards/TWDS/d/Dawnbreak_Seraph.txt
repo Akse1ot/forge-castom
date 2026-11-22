@@ -1,0 +1,10 @@
+Name:Dawnbreak Seraph
+ManaCost:3 W U
+Types:Creature Angel Cleric
+PT:3/3
+K:Flying
+K:Lifelink
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | Execute$ TrigWorship | TriggerZones$ Battlefield | TriggerDescription$ Whenever you attack, worship. (Trigger the enters effect of target permanent you control.)
+SVar:TrigWorship:DB$ CustomReplayEtb | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select target permanent you control
+SVar:HasAttackEffect:TRUE
+Oracle:Flying, lifelink\nWhenever you attack, worship. (Trigger the enters effect of target permanent you control.)

@@ -1,0 +1,12 @@
+Name:Nightmare Realm Aura
+ManaCost:1 U U
+Types:Enchantment Aura
+K:Enchant:Permanent.nonLand:nonland permanent
+K:Madness:1 U
+SVar:AttachAILogic:Curse
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigTap | TriggerDescription$ When CARDNAME enters, tap enchanted permanent.
+SVar:TrigTap:DB$ Tap | Defined$ Enchanted
+R:Event$ Untap | ActiveZones$ Battlefield | ValidCard$ Card.EnchantedBy | ValidStepTurnToController$ You | Layer$ CantHappen | Description$ Enchanted permanent doesn't untap during its controller's untap step.
+S:Mode$ CantBeActivated | ValidCard$ Card.EnchantedBy | Description$ Enchanted permanent's activated abilities can't be activated.
+DeckHints:Ability$Discard
+Oracle:Enchant nonland permanent\nWhen this Aura enters, tap enchanted permanent.\nEnchanted permanent doesn't untap during its controller's untap step and its activated abilities can't be activated.\nMadness {1}{U} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

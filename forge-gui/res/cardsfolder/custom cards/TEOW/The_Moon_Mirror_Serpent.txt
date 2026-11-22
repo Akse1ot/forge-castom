@@ -1,0 +1,9 @@
+Name:The Moon-Mirror Serpent
+ManaCost:4 U U
+Types:Legendary Creature Serpent Spirit
+PT:5/5
+K:Flash
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Opponent | ActivatorThisTurnCast$ EQ2 | TriggerZones$ Battlefield | Execute$ TrigCopy | OptionalDecider$ You | TriggerDescription$ Whenever an opponent casts their second spell each turn, you may copy that spell. You may choose new targets for the copy.
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | Controller$ You | MayChooseTarget$ True | AILogic$ Always
+Oracle:Flash\nFlying\nWhenever an opponent casts their second spell each turn, you may copy that spell. You may choose new targets for the copy.

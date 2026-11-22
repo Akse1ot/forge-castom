@@ -1,0 +1,9 @@
+Name:Bring the Pack
+ManaCost:2 G W
+Types:Sorcery
+A:SP$ Token | TokenAmount$ 1 | TokenScript$ w_3_3_wolf | TokenOwner$ You | SubAbility$ DBExtraToken | SpellDescription$ Create a 3/3 white Wolf creature token. If an opponent has more cards in hand than you, create an additional 3/3 white Wolf creature token.
+SVar:DBExtraToken:DB$ Token | TokenAmount$ 1 | TokenScript$ w_3_3_wolf | TokenOwner$ You | ConditionCheckSVar$ OppHand | ConditionSVarCompare$ GTYourHand
+SVar:OppHand:PlayerCountOpponents$HighestCardsInHand
+SVar:YourHand:Count$CardsInYourHand
+DeckHas:Ability$Token & Type$Wolf
+Oracle:Create a 3/3 white Wolf creature token.\nIf an opponent has more cards in hand than you, create an additional 3/3 white Wolf creature token.

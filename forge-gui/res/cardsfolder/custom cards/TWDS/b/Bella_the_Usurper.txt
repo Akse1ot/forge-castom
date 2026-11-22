@@ -1,0 +1,7 @@
+Name:Bella, the Usurper
+ManaCost:1 U U
+Types:Legendary Creature Human Rogue
+PT:2/1
+S:Mode$ CantBlockBy | ValidAttacker$ Card.Self | Description$ CARDNAME can't be blocked.
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Other+YouCtrl+powerLE2 | Description$ Other creatures you control with power 2 or less can't be blocked.
+Oracle:Bella can't be blocked.\nOther creatures you control with power 2 or less can't be blocked.

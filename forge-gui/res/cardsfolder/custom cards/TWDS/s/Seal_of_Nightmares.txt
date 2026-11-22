@@ -1,0 +1,9 @@
+Name:Seal of Nightmares
+ManaCost:2 U U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:GainControl
+S:Mode$ Continuous | AffectedDefined$ Enchanted | GainControl$ You | Description$ You control enchanted creature.
+K:Madness:U U
+DeckHints:Ability$Discard
+Oracle:Enchant creature\nYou control enchanted creature.\nMadness {U}{U} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

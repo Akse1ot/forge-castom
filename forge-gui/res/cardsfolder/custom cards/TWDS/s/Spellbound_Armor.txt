@@ -1,0 +1,10 @@
+Name:Spellbound Armor
+ManaCost:1 U
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach | TriggerDescription$ When this Equipment enters, attach it to target creature you control.
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | ValidTgtsDesc$ creature you control
+S:Mode$ Continuous | AffectedDefined$ Equipped | Affected$ Creature | AddKeyword$ Hexproof | Description$ Equipped creature has hexproof.
+K:Equip:ExileFromGrave<1/Instant;Sorcery/instant or sorcery>
+DeckHas:Ability$Graveyard
+DeckNeeds:Type$Instant|Sorcery
+Oracle:When this Equipment enters, attach it to target creature you control.\nEquipped creature has hexproof.\nEquip—Exile an instant or sorcery card from your graveyard. (Exile an instant or sorcery card from your graveyard: Attach to target creature you control. Equip only as a sorcery.)

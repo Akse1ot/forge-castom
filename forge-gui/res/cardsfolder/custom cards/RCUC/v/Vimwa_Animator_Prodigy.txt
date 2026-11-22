@@ -1,0 +1,10 @@
+Name:Vimwa, Animator Prodigy
+ManaCost:U
+Types:Legendary Creature Kor Artificer
+PT:2/1
+A:AB$ Animate | Cost$ 2 U U | ValidTgts$ Artifact.YouCtrl | TgtPrompt$ Select target artifact you control | Power$ 4 | Toughness$ 4 | Types$ Creature | Duration$ UntilHostLeavesPlay | SorcerySpeed$ True | SpellDescription$ Target artifact you control becomes an artifact creature with base power and toughness 4/4 for as long as CARDNAME remains on the battlefield. Activate only as a sorcery.
+A:AB$ Connive | Cost$ 5 U U | Defined$ Valid Artifact.Creature+YouCtrl | SpellDescription$ Each artifact creature you control connives.
+SVar:PlayMain1:TRUE
+DeckHints:Type$Artifact
+DeckHas:Ability$Discard|Counters
+Oracle:{2}{U}{U}: Target artifact you control becomes an artifact creature with base power and toughness 4/4 for as long as Vimwa, Animator Prodigy remains on the battlefield. Activate only as a sorcery.\n{5}{U}{U}: Each artifact creature you control connives. (To have a creature connive, draw a card, then discard a card. If you discarded a nonland card, put a +1/+1 counter on that creature.)

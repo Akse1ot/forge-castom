@@ -1,0 +1,8 @@
+Name:Presence of the White Moon
+ManaCost:1 W W
+Types:Legendary Enchantment
+S:Mode$ Continuous | Affected$ You | AddKeyword$ Hexproof | Description$ You have hexproof.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounter | TriggerDescription$ At the beginning of your upkeep, put a +1/+1 counter on each creature you control with power 2 or less.
+SVar:TrigCounter:DB$ PutCounterAll | ValidCards$ Creature.YouCtrl+powerLE2 | CounterType$ P1P1 | CounterNum$ 1
+DeckHas:Ability$Counters
+Oracle:You have hexproof.\nAt the beginning of your upkeep, put a +1/+1 counter on each creature you control with power 2 or less.

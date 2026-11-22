@@ -1,0 +1,11 @@
+Name:Rice To The Dead
+ManaCost:5 U B
+Types:Instant
+A:SP$ Effect | Triggers$ TrigDies | SpellDescription$ Until end of turn, whenever a creature an opponent controls dies, you may pay life equal to its mana value. If you do, return it to the battlefield under your control. It's a Zombie in addition to its other types.
+SVar:TrigDies:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl | TriggerZones$ Command | Execute$ TrigReanimate | TriggerDescription$ Whenever a creature an opponent controls dies, you may pay life equal to its mana value. If you do, return it to the battlefield under your control. It's a Zombie in addition to its other types.
+SVar:TrigReanimate:AB$ ChangeZone | Cost$ PayLife<X> | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Battlefield | GainControl$ True | ChangeNum$ 1 | StaticEffect$ Animate
+SVar:Animate:Mode$ Continuous | Affected$ Card.IsRemembered | AddType$ Zombie
+SVar:X:TriggeredCard$CardManaCost
+DeckHas:Ability$Reanimate
+DeckHints:Type$Zombie
+Oracle:Until end of turn, whenever a creature an opponent controls dies, you may pay life equal to its mana value. If you do, return it to the battlefield under your control. It's a Zombie in addition to its other types.

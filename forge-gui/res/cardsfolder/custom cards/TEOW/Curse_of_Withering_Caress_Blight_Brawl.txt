@@ -1,0 +1,20 @@
+Name:Curse of Withering Caress
+ManaCost:1 G G
+Types:Enchantment Aura Curse
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | Affected$ Creature.EnchantedPlayerCtrl | AddPower$ -AffectedX | AddToughness$ -AffectedX | Description$ Creatures enchanted player controls get -1/-1 for each counter on them.
+SVar:AffectedX:Count$CardCounters.ALL
+AlternateMode:Adventure
+Oracle:Enchant player\nCreatures enchanted player controls get -1/-1 for each counter on them.
+
+ALTERNATE
+
+Name:Blight Brawl
+ManaCost:1 G G
+Types:Sorcery Adventure
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | KW$ Wither | SubAbility$ DBFight | SpellDescription$ Target creature you control gains wither until end of turn. You may have it fight another target creature.
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.NotDefinedParentTarget | TgtPrompt$ Select another target creature | Optional$ True
+DeckHas:Ability$Counters
+DeckHints:Keyword$Wither|Infect & Ability$Proliferate
+Oracle:Target creature you control gains wither until end of turn. You may have it fight another target creature.

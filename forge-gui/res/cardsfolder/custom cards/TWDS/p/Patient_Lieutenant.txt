@@ -1,0 +1,9 @@
+Name:Patient Lieutenant
+ManaCost:R
+Types:Creature Human Soldier
+PT:1/1
+K:Reach
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigUnity | TriggerDescription$ Whenever CARDNAME attacks, you get a unity counter.
+SVar:TrigUnity:DB$ PutCounter | Defined$ You | CounterType$ UNITY | CounterNum$ 1
+DeckHas:Ability$Counters
+Oracle:Reach\nWhenever this creature attacks, you get a unity counter.

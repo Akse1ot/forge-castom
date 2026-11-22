@@ -1,0 +1,12 @@
+Name:Flaying Nightmare
+ManaCost:1 U B
+Types:Creature Nightmare
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSubjugate | TriggerDescription$ When this creature enters or dies, subjugate 5. (Create five Vicious Nightmare tokens and shuffle them into each opponent's library.)
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigSubjugate | Secondary$ True | TriggerDescription$ When this creature enters or dies, subjugate 5. (Create five Vicious Nightmare tokens and shuffle them into each opponent's library.)
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 5
+T:Mode$ Discarded | ValidPlayer$ Opponent | ValidCard$ Card.namedVicious_Nightmare | TriggerZones$ Battlefield | Execute$ TrigLoseLife | TriggerDescription$ Whenever an opponent discards a Vicious Nightmare, that player loses 5 life.
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredCardOwner | LifeAmount$ 5
+DeckHas:Ability$Subjugate
+DeckHints:Ability$Subjugate
+Oracle:When this creature enters or dies, subjugate 5. (Create five Vicious Nightmare tokens and shuffle them into each opponent's library.)\nWhenever an opponent discards a Vicious Nightmare, that player loses 5 life.

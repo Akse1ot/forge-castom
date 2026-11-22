@@ -59,6 +59,8 @@ public class CostPayment extends ManaConversionMatrix {
             final SpellAbility sa,
             final boolean costIsPaid,
             final Map<AbilityKey, Object> params) {
+        // Replace the record rather than clearing a list shared with a copied spell.
+        sa.getPaidHash().remove("CoalescedCards", true);
         final CardCollection coalesced =
                 sa.getPaidList(COALESCE_PAYMENT, true);
 
@@ -88,10 +90,13 @@ public class CostPayment extends ManaConversionMatrix {
                     continue;
                 }
 
-                game.getAction().moveToGraveyard(
+                final Card moved = game.getAction().moveToGraveyard(
                         gameCard,
                         null,
                         params);
+                if (moved != null && moved.isInZone(ZoneType.Graveyard)) {
+                    sa.addCostToHashList(moved, "CoalescedCards", true);
+                }
             }
         }
 

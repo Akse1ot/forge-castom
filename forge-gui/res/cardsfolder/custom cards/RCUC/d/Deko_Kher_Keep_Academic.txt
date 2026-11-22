@@ -1,0 +1,15 @@
+Name:Deko, Kher Keep Academic
+ManaCost:R
+Types:Legendary Creature Kobold Warlock
+PT:0/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Dragon.YouCtrl | CheckOnTriggeredCard$ CheckPower GTY | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever a Dragon enters the battlefield under your control, if its power is greater than the number of Kobolds you control, create a number of 0/1 red Kobold creature tokens equal to the difference.
+SVar:TrigToken:DB$ Token | TokenScript$ kobolds_of_kher_keep | TokenAmount$ Difference | ConditionCheckSVar$ Difference | ConditionSVarCompare$ GT0
+SVar:CheckPower:Count$CardPower
+SVar:Y:Count$Valid Kobold.YouCtrl
+SVar:Difference:TriggeredCard$CardPower/Minus.Y
+S:Mode$ Continuous | Affected$ Dragon.YouOwn | AffectedZone$ Hand | AddKeyword$ Plot:CardManaCost | Description$ Dragon cards in your hand have plot. The plot cost is equal to their mana cost reduced by {1}.
+S:Mode$ ReduceCost | ValidCard$ Dragon.YouOwn | ValidSpell$ Static.Plotting | AffectedZone$ Hand | Activator$ You | Amount$ 1 | Description$ Plotting Dragon cards from your hand costs {1} less.
+DeckHas:Ability$Token & Type$Kobold & Keyword$Plot
+DeckHints:Type$Dragon
+DeckNeeds:Type$Dragon
+Oracle:Whenever a Dragon enters the battlefield under your control, if its power is greater than the number of Kobolds you control, create a number of 0/1 red Kobold creature tokens equal to the difference.\nDragon cards in your hand have plot. The plot cost is equal to their mana cost reduced by {1}.

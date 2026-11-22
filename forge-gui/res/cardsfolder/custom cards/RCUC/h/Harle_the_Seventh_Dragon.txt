@@ -1,0 +1,8 @@
+Name:Harle, the Seventh Dragon
+ManaCost:2 B B
+Types:Legendary Planeswalker Harle
+Loyalty:4
+A:AB$ PumpAll | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | ValidTgts$ Opponent | ValidCards$ Creature | NumAtt$ -1 | NumDef$ -1 | IsCurse$ True | SpellDescription$ All creatures target opponent controls get -1/-1 until end of turn.
+A:AB$ PumpAll | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | ValidCards$ Creature.YouCtrl | KW$ Hexproof | InstantSpeed$ True | SpellDescription$ All creatures you control gain hexproof until end of turn. You may activate this ability anytime you could cast an instant.
+A:AB$ DestroyAll | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | ValidCards$ Creature | ValidTgts$ Opponent | IsCurse$ True | Ultimate$ True | SpellDescription$ Destroy all creatures target opponent controls.
+Oracle:[+1]: All creatures target opponent controls get -1/-1 until end of turn.\n[-3]: All creatures you control gain hexproof until end of turn. You may activate this ability anytime you could cast an instant.\n[-6]: Destroy all creatures target opponent controls.

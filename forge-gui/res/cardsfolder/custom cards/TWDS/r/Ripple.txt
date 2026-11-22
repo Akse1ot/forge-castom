@@ -1,0 +1,6 @@
+Name:Ripple
+ManaCost:1 U U
+Types:Instant
+A:SP$ Draw | NumCards$ X | SpellDescription$ Draw a card for each card you've drawn this turn.
+SVar:X:Count$YouDrewThisTurn
+Oracle:Draw a card for each card you've drawn this turn.

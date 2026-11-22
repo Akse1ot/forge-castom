@@ -1,0 +1,566 @@
+[metadata]
+Code=TWDS
+Date=2026-02-15
+Name=Twilight Descends
+Type=CUSTOM_SET
+
+[cards]
+1 M Accursed Angel
+2 U Afflicated Angel
+3 R Allison's Sentinel
+4 R Angel of Dust
+5 R Angel of Sin
+6 R Arrival of Winter
+7 M Asteroth, Shepherd of Souls
+8 R Banishing Angel
+9 R Banner of the Selfless
+10 U Battlefield Scout
+11 U Beast Hunter
+12 R Blade of Humility
+13 U Borderland Scout
+14 M Carolina's Champion
+15 M Catherine's Letter
+16 U Collect the Legion
+17 U Corps Avenger
+18 R Cursed Shrine
+19 U Dark Chapel Angel
+20 U Darkwing Overseer
+21 R Depraved Persecution
+22 R Destroy the Remnants
+23 U Devoted Angel
+24 U Dissipate Nightmares
+25 R Eternal Greed
+26 R Eternal Wrath
+27 U Expedition Leader I
+28 R Exultant Capture
+29 R Faithful Battalion
+30 R First in the Realm
+31 U Fitting Burial
+32 U Glorian Messenger
+33 R Graveyard Attendant
+34 U Griffin Tamer
+35 R Hero of the Silver City
+36 R Holy Arbiter
+37 U Holy Flare
+38 R Homeward Soldier
+39 U Hopeful Crusader
+40 U Inspire
+41 R Journey West
+42 U Keeper of Life
+43 R Lady of the Fallen
+44 R Landscape Watcher
+45 R Late Reinforcements
+46 R Lone Survivor
+47 R Lonesome Solidarity
+48 U Lost Legionnaire
+49 C Loyal Hounds
+50 R March of the Souls
+51 U Martyr Angel
+52 U Midnight Patrol
+53 M Mourning Widow
+54 R Nazalia Gold Keeper
+55 R Nazalia High Priestess
+56 R Nazalia Treasury
+57 R Overthrow
+58 R Parting Gift
+59 M Presence of the White Moon
+60 R Quest for Lost Strength
+61 R Quiet Night
+62 R Redemption Angel
+63 U Ride Through the Woods
+64 R Rose Wing
+65 R Scrappy Patrol
+66 R Seal Justice
+67 M Seal Overseer
+68 R Seen by the House
+69 R The Send Off
+70 R Silver Armor
+71 M Sin Savior
+72 R Snowfall Assassin
+73 U Snowfall Rider
+74 R Snowfall Soldier
+75 U Snowfall Tracker
+76 R Southern Border Cavalry
+77 U Southern Huntsman
+78 R Southern March
+79 R Stash of Nazalia
+80 R Stone Guardian
+81 R Sweet Piety
+82 U Treasures of the Rich
+83 R Unending Resilience
+84 R Vainglorious Light
+85 U Vengeful Angel
+86 R Vensia, the Heretic Saint
+87 R Warring Winter
+88 R Winterland Commander
+89 R Winterland Soldier
+90 U Abnegate
+91 R Ambush Mage
+92 U Apathetic Angel
+93 R Arella's Lost Destiny
+94 R Bella, the Usurper
+95 R Brain Webbing
+96 U Break the Illusion
+97 R Child of the Blue Moon
+98 R Chosen of Midnight
+99 R Clockwork Drake
+100 R Collective Knowledge
+101 U Compound Failure
+102 U Condemn to Rest
+103 R Contradict Reality
+104 U Crawling Nightmare
+105 R Crest of Insight
+106 U Dastardly Rogue
+107 U Destiny Eater
+108 R Disciple of the Unreal
+109 U Disgrace
+110 R Enigma Weaponsmith
+111 U Enveloping Mist
+112 R Eratia's Judge
+113 M Expulsion
+114 M Feather Wing Angel
+115 M Formable Mindbender
+116 U Freeze Over
+117 U Frostwind Drake
+118 U Frozen Kraken
+119 M Grieve
+120 U Icewing Drake
+121 U Illuminated Spirit
+122 U Illuminated Vision
+123 R Infinite Storm
+124 R Itaru's Champion
+125 C Journey South
+126 U Lashing Sorcerer
+127 M Lightmaw Drake
+128 R Masked Spirit
+129 M Midnight Revelation
+130 U Midnight Rider
+131 R Midnight Rogue
+132 C Mystic Encounter
+133 C Night Drake
+134 R Night Terror
+135 R Nightfrost Drake
+136 U Nightmare Realm Aura
+137 R Nightmarish Influence
+138 R Nightmarish Pressence
+139 C Nightmarish Surgery
+140 R Palatial Enforcer
+141 R Peek into the Nightmare
+142 U Peer into Memory
+143 M Presence of the Blue Moon
+144 R Prevent Progress
+145 R Quest for Lost Knowledge
+146 R Reflective Spirit
+147 M Ripple
+148 U Screeching Nightmare
+149 R Seal Flow Mage
+150 R Seal of Nightmares
+151 U Search the Stars
+152 R Smothering Enigma
+153 R Snowfall of the Spirit Realm
+154 R Spellbound Armor
+155 R Spirit Harvester
+156 R Spirit Realm Arch
+157 U Spirit Realm Explorer
+158 R Spirit Realm Imitator
+159 U Spirit Realm Lurker
+160 R Spirit Realm Plaguer
+161 R Stellar Leap
+162 M Sunset Drake
+163 R Terrorize
+164 M Thought-Piercer Spirit
+165 R Treasure Fiend
+166 R Twilight Haunting
+167 R Twilight Jouster
+168 U Twilight Rogue
+169 U Unknown Journey
+170 U Unsuspecting Victim
+171 R Wasteland Drakes
+172 R Winter Nightmare
+173 R Winter Skies
+174 R Winterchill Drake
+175 U Winterchill Familiar
+176 U Winterchill Howler
+177 R Winterchill Visitor
+178 M Wintertide Warbringer
+179 M Worship the Beyond
+180 R Adversary of Life
+181 R Alayne's Vision
+182 R Ancestral Extraction
+183 R Anguish of the Mind
+184 R Animate Darkwoods
+185 U Archfiend of the Night
+186 U Bat Mutant
+187 U Black Moon Weaver
+188 R Black Mouth Titan
+189 R Black Skyscreamer
+190 R Bleeding Nightmare
+191 R Vilemouth Hydra
+192 U Blood of the Ancestors
+193 M Bloodeye Terror
+194 R Blossoming Death
+195 U Breech Sanity
+196 U Butcher of Souls
+197 R Caress of Death
+198 R Cleric of Estelle
+199 R Commander's Betrayal
+200 U Compounding Terror
+201 U Concentrate Sin
+202 R Convene with Evil
+203 R Cover of Dusk
+204 R Crazed Hermit
+205 C Creeping Dream Eater
+206 U Crowd of the Corrupted
+207 M Dark Times
+208 M Dead of Night
+209 R Death of the King
+210 R Death Pact
+211 U Deathmist Mage
+212 U Deathtracks Creeper
+213 U Decapitate
+214 U Defiler of Thrones
+215 R Dismiss Service
+216 U Dragonblight
+217 U Dream to Nightmare
+218 M End of an Era
+219 R Estelle Harvest
+220 U Everlasting Agony
+221 U Extract Potential
+222 R Eye of Dark Madness
+223 U Faith Eater
+224 R Fear Weaver
+225 U Feast on the Living
+226 U Ferocious Flesh Bat
+227 C Fill with Sorrow
+228 R Final Ritual
+229 R Flesh Hunter
+230 R Flesh Manipulators
+231 U Forest Horror
+232 U Gnaw at the Mind
+233 M Harbinger of Twilight
+234 R Haunting Torturer
+235 M Herald of the Eclipse
+236 U Holy Hamper
+237 R Horrific Specter
+238 C Hunchback Horror
+239 R Infest Dreams
+240 M Inflict Darkness
+241 C Inglorious Traitor
+242 R Invitation of Insanity
+243 M Khiara's Truth
+244 U Knight of Twilight
+245 C Lantern Haunt
+246 U Last Resort
+247 R Life Swallower
+248 R Light Swallower
+249 U Living Skin
+250 M Maddening Goliath
+251 M Masked Martyr
+252 R Matriarch's Armor
+253 R Matriarch's Secret
+254 R Matricide
+255 M Mind Dissector
+256 R Mind Helix
+257 U Miserable Failure
+258 U Nazalia Dominator
+259 R Nazalia Jewels
+260 R Nightmare Rider
+261 R Noxious Angel
+262 U Pay Tribute
+263 R Perverted Savior
+264 R Phantom Stalker
+265 M Presence of the Black Moon
+266 R Prophet of Bad Dreams
+267 M Punish the Damned
+268 R Quest for Lost Hope
+269 U Rack
+270 R Recruit from the Grave
+271 R Rhapsody of Twilight
+272 U Risen Noble
+273 U Ruthless Execution
+274 C Sacrifice the Ancestors
+275 U Sanguine Vault
+276 R Shadow Knight
+277 R Shadow of Midnight
+278 R Sira Dark Knight
+279 R Sira Dark Mother
+280 R Sira Needles
+281 R Soul of the Cult
+282 C Spear Through
+283 M Succumb to Fear
+284 M Succumb to Greed
+285 U Suffering I
+286 R Surrounded by Shadow
+287 R Sweet Anguish
+288 R Terror of the Divine
+289 R The Blood Oath
+290 R Twitching Bodies
+291 R Ultimate Sacrifice
+292 U Undying Breath
+293 R Unholy Rites
+294 M Unleash the Cemetery
+295 U Unrelenting Horde
+296 U Vicious Stalker
+297 R Vilemouth Hydra
+298 R Walking Soul Cage
+299 U Weaken Resolve
+300 U Welcome to Estelle
+301 C Writhing Horde
+302 R Wrought Flesh
+303 M Zariel, Curator of Death
+304 R Abducting Dragon
+305 R Apprentice Mage
+306 U Battleground
+307 M Behold the Red Moon
+308 M Between Fates
+309 U The Bleeding Woods
+310 R Blood Parasite
+311 R Bloody Neonate
+312 M Committed Ritualist
+313 U Courtyard Campaign
+314 R Crashing Realm
+315 C Crusader's Fall
+316 R Cult Pain Wheel
+317 U Cultist Summons
+318 U Disciple of Chaos
+319 R Dragon of the Peak
+320 R Dragon Tyrant I
+321 R Dragonfall
+322 R Dragon's Ire
+323 U Dubious Pyromancer
+324 U Eastern Reinforcements
+325 R Enigma Apprentice
+326 R Enveloping Embers
+327 U Exultant Hunter
+328 U Fearless Knight
+329 U Firefist Enthusiast
+330 R Firefist Mage
+331 M Firefist Master
+332 R Firey Torrent
+333 U Flametail Dragon
+334 R Flametongue Dragon
+335 R Flesh Rider
+//336 M Glimpse of Possibility - реализация невозможна
+337 U Harrowing Strike
+338 U Legion Lance
+339 R Living Bait
+340 R Living Outburst
+341 R Momentary Greatness
+342 U Mountaincrash Elemental
+343 M Mountaintop Bull
+344 U Patient Lieutenant
+345 U Plunder Memory
+346 M Presence of the Red Moon
+347 R Quest for Lost Power
+348 R The Red Glow
+349 U Rise Up
+350 M The Sanguine Sacrament
+351 M Scorgoth, Zeren Skybreaker
+352 U Seasoned Firedancer
+353 R Seer of the Realms
+354 R Shatter Armaments
+355 U Shatter the Realm
+356 M The Silent Rise
+357 U Skybreaker's Roar
+358 U Snapping Firesnake
+359 U Soldiers of Valor
+360 R Southern Pack-Hunter
+361 R Tear Asunder I
+362 U Touch of Sunset
+363 R Traversing Dragons
+364 U Tribute Dragon
+365 C Victory Charger
+366 M Wintertide Tyrant
+367 R Zeren Cliffbreaker
+368 R Zeren Cliffwatcher
+369 U Abandoned Soldier
+370 U Bristle Boar
+371 R Cavernous Spider
+372 U Disrupt Nature
+373 U Dreaming Spirit
+374 U Drifting Ethereal
+375 R Endless Keeper
+376 R Extending Leylines
+377 U Ferocious Forest Cat
+378 M Final Touch
+379 M First from the Realm
+380 R Forest Patrol
+381 M Gift of the Mist
+382 U Graveyard Vines
+383 M Green Moon Druid
+384 U Greenglow Druid
+385 C Greenglow Explorer
+386 M Greenglow Horizon
+387 R Greenglow Hydra
+388 U Greenglow Spiral
+389 R Greenglow Tender
+390 R Greenglow Thriving
+391 U Greenglow Vigor
+392 M Heart of the Thicket
+393 R Heart Predator
+394 R Hollowground Attendant
+395 U Hollowground Druid
+396 R Hollowground Spirit
+397 U Honor the Forest
+398 M Lost Expedition
+399 U Lost Veteran
+400 R Lurking Beasts
+401 M Manaflow Druid
+402 R Melody of Fantasy
+403 R Mystical Charge
+404 U Mystics of the Spirit Realm
+405 U Nature Warden
+406 R Northern Grunt
+407 R Nurture
+408 R Perverted Knight
+409 R Pestilence Wind
+410 R Pond Lurker Hydra
+411 U Praising Beast
+412 M Presence of the Green Moon
+413 R Quest for Lost Land
+414 R Realm's Chosen
+415 R Realmtreader Serpent
+416 U Reap of the Horde
+417 M Regal Monstrosity
+418 U Root Familiar
+419 U Search the Realms
+420 R Silver Executioner
+421 U Slithering Constrictor
+422 R Slumbering Bog Lurker
+423 U Sporeridden Flower
+424 R Spreading Slime
+425 M Stellar Sculpting
+426 R Steward of the Forest
+427 R Tarnish
+428 U Territorial Beasts
+429 R Thicket Abomination
+430 U Thicket Wolf Mother
+431 U Thriving Beast
+432 C Unfortunate Encounter
+433 R Unleashed Growth
+434 U Vibrant Regrowth
+435 U Vigorous Chimera
+436 R Vivacious Saproling
+437 U Wandering Hound
+438 U Watch the Spirit Realm
+439 U Withering Thicket Guard
+440 M Adelaide Sira, the Secondborn
+441 M Alayne Sira, the Fourthborn
+442 R Angel of the Last Breath
+443 M Angel of the Seal
+444 M Annaliese, Creator of the Trinity
+445 R Arella's Sacrifice
+446 U Averting Light
+447 U Avid Hydra
+448 M Battle for Golden City
+449 U Bear Rider Captain
+450 M Beguiler of Truths
+451 U Belie
+452 R Beya, Cursed Aristocrat
+453 U Black Mouth Hound
+454 U Bleeding Collar
+455 U Blessing of Light
+456 U Blighted Beast
+457 U Blood Charm
+458 U Blood Twins
+459 R Bring the Pack
+460 U Carolina's Escort
+461 R Casualties of Battle
+462 R Charging Spirits
+463 R Chosen of Elizabeth
+464 M Compounding Whispers
+
+466 R Creeping Tendrils
+467 R Cult Phoenix
+468 R Cynari, the Effervescent
+469 R Damned Hydra
+470 R Darren, the Savior
+471 R Dawnbreak Seraph
+472 R Decree of the Archangel
+473 R Defeated
+474 R Delving Serpent
+//475 R Deprive Existence - необходима реализация 3-цветной гибридной маны
+476 R Dethrone the East
+477 R Distort Fate
+478 U Dream Charm
+479 U Dream Twins
+480 R Dredge the Realms
+481 U Enigma Charm
+482 R Enigma Construct
+
+485 R Envoy of Nazalia
+486 M Eratia, Winged Saint
+
+488 R Eternal Anguish
+
+493 R Fantasy Dragon
+494 R Fantasy Lurker
+495 M Fantasy Mare
+
+498 R Fervent Terrain
+499 R Flaying Nightmare
+
+508 U Harbinger of Fumes
+509 R Harrowing Chateau
+
+511 U Haunting Reflection
+
+514 U Inquisitor Stockpile
+515 R Invade the Mind
+516 M Itaru, the Welcomer
+
+518 M Lady Elizabeth
+
+520 M Levi Sira, the Sixthborn
+
+525 R Memories in the Past
+
+530 M Monument of the Domain
+531 R Mountainbear Knight
+
+533 U Mountaintop Scout
+
+538 R Oozing Spider
+
+541 U Palatial Angel
+
+543 M Palatial Dueler
+
+548 R Priestess of Dying Light
+
+551 U Repentant Knight
+
+556 R Silver Coating
+
+572 M Ulsay, the Fantasy Shaper
+
+577 R Veteran Commander
+
+560 U Spirit Realm Banshee
+
+566 M Terrible Emanations
+567 R Terror of Humanity
+568 R The Consumers
+569 M Traversing Hydra
+
+571 M Twilight Grip
+
+580 U Wicker Monster
+
+583 R World Breach
+
+622 M House Sira
+
+[tokens]
+
+1 c_vessel_cursed
+2 b_1_1_soul_cursed
+3 vicious_nightmare
+4 b_2_1_nightmare_noblock
+5 b_2_2_ghoul
+6 b_1_1_soul_haste_must_attack
+7 g_1_1_moonlit
+8 g_3_3_stag_trample
+9 w_3_3_wolf
+
+[other]

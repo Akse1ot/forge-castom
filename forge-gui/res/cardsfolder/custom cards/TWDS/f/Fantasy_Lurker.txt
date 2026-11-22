@@ -1,0 +1,11 @@
+Name:Fantasy Lurker
+ManaCost:2 B G
+Types:Creature Horror Spider
+PT:2/5
+K:Reach
+K:Deathtouch
+K:Corrupt
+S:Mode$ Continuous | AffectedDefined$ Self | CanBlockAmount$ X | Description$ Fantasy Lurker can block X creatures, where X is its power.
+SVar:X:Count$CardPower/Minus.1
+DeckHas:Ability$Counters
+Oracle:Reach, deathtouch\nCorrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nFantasy Lurker can block X creatures, where X is its power.

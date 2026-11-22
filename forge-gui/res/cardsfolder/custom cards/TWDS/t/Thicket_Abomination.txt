@@ -1,0 +1,10 @@
+Name:Thicket Abomination
+ManaCost:1 G G
+Types:Creature Horror Plant
+PT:1/1
+K:Indestructible
+K:Corrupt
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigPutCounter | TriggerZones$ Battlefield | TriggerDescription$ Whenever this creature attacks, put a +1/+1 counter on it.
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+DeckHas:Ability$Counters
+Oracle:Indestructible\nCorrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nWhenever this creature attacks, put a +1/+1 counter on it.

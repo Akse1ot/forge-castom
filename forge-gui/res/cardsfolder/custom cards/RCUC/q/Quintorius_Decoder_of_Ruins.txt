@@ -1,0 +1,18 @@
+Name:Quintorius, Decoder of Ruins
+ManaCost:3 R W
+Types:Legendary Planeswalker Quintorius
+Loyalty:4
+A:AB$ ChangeZone | Cost$ AddCounter<1/LOYALTY> | Planeswalker$ True | Origin$ Graveyard | Destination$ Exile | DefinedPlayer$ You | ChangeType$ Card.nonCreature+nonLand | ChangeNum$ 2 | Optional$ True | RememberChanged$ True | SubAbility$ DBDraw | SpellDescription$ Exile up to two noncreature, nonland cards from your graveyard. Draw a card for each card exiled this way.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBCleanup
+SVar:X:Remembered$Amount
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ Effect | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Triggers$ NoncreatureCast | SpellDescription$ Whenever you cast a noncreature spell this turn, create a 3/2 red and white Spirit creature token. It gains indestructible until end of turn.
+SVar:NoncreatureCast:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ TrigSpirit | TriggerDescription$ Whenever you cast a noncreature spell this turn, create a 3/2 red and white Spirit creature token. It gains indestructible until end of turn.
+SVar:TrigSpirit:DB$ Token | TokenScript$ rw_3_2_spirit | TokenOwner$ You | PumpKeywords$ Indestructible | PumpDuration$ EOT
+A:AB$ Effect | Cost$ SubCounter<6/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Quintorius, Decoder of Ruins | Image$ emblem_quintorius_decoder_of_ruins | StaticAbilities$ STEmblem | ReplacementEffects$ REEmblem | Duration$ Permanent | AILogic$ Always | SpellDescription$ You get an emblem with "Once each turn, you may cast a spell exiled with Quintorius, Decoder of Ruins. If a spell cast this way would be put into a graveyard, put it on the bottom of its owner's library instead."
+SVar:STEmblem:Mode$ Continuous | MayPlay$ True | MayPlayLimit$ 1 | Affected$ Card.nonLand+ExiledWithEffectSource | AffectedZone$ Exile | Description$ Once each turn, you may cast a spell exiled with Quintorius, Decoder of Ruins. If a spell cast this way would be put into a graveyard, put it on the bottom of its owner's library instead.
+SVar:REEmblem:Event$ Moved | EffectZone$ Command | ValidLKI$ Card.CastSa Spell.MayPlaySource | Origin$ Stack | Destination$ Graveyard | ReplaceWith$ MoveLibrary
+SVar:MoveLibrary:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Library | LibraryPosition$ -1
+DeckHas:Ability$Token|Graveyard
+DeckHints:Type$Instant|Sorcery|Enchantment|Artifact
+Oracle:[+1]: Exile up to two noncreature, nonland cards from your graveyard. Draw a card for each card exiled this way.\n[-3]: Whenever you cast a noncreature spell this turn, create a 3/2 red and white Spirit creature token. It gains indestructible until end of turn.\n[-6]: You get an emblem with "Once each turn, you may cast a spell exiled with Quintorius, Decoder of Ruins. If a spell cast this way would be put into a graveyard, put it on the bottom of its owner's library instead."

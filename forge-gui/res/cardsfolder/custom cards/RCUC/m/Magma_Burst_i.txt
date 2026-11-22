@@ -1,0 +1,7 @@
+Name:Magma Burst I
+ManaCost:3 R
+Types:Sorcery
+A:SP$ DealDamage | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumDmg$ X | SpellDescription$ CARDNAME deals 4 damage to target creature. If your devotion to red is one, CARDNAME deals 5 damage to that creature instead. If your devotion to red is two, CARDNAME deals 6 damage to that creature instead. If your devotion to red is three or more, CARDNAME deals 7 damage to that creature instead.
+SVar:Devotion:Count$Devotion.Red/LimitMax.3
+SVar:X:SVar$Devotion/Plus.4
+Oracle:Magma Burst deals 4 damage to target creature.\nIf your devotion to red is one, Magma Burst deals 5 damage to that creature instead.\nIf your devotion to red is two, Magma Burst deals 6 damage to that creature instead.\nIf your devotion to red is three or more, Magma Burst deals 7 damage to that creature instead.\n(Each {R} in the mana costs of permanents you control counts toward your devotion to red.)

@@ -1,0 +1,10 @@
+Name:Deathtracks Creeper
+ManaCost:1 B
+Types:Creature Horror Spider
+PT:1/3
+K:Reach
+K:Corrupt
+T:Mode$ CounterAddedOnce | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDeathtouch | TriggerDescription$ Whenever one or more counters are placed on this creature, creatures you control gain deathtouch until end of turn.
+SVar:TrigDeathtouch:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Deathtouch
+DeckHas:Ability$Counters
+Oracle:Reach\nCorrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nWhenever one or more counters are placed on this creature, creatures you control gain deathtouch until end of turn.

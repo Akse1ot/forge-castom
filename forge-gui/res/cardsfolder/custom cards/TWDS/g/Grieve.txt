@@ -1,0 +1,7 @@
+Name:Grieve
+ManaCost:3 U
+Types:Instant
+A:SP$ ExchangeControl | TargetMin$ 2 | TargetMax$ 2 | ValidTgts$ Permanent | TgtPrompt$ Select target permanents | SpellDescription$ Exchange control of two target permanents.
+AI:RemoveDeck:All
+AI:RemoveDeck:Random
+Oracle:Exchange control of two target permanents.

@@ -1,0 +1,10 @@
+Name:Soldiers of Valor
+ManaCost:2 R
+Types:Creature Human Knight
+PT:3/3
+K:Unity
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddKeyword$ Haste | CheckSVar$ X | SVarCompare$ GE2 | Description$ Creatures you control get +1/+0 and have haste as long as CARDNAME has two or more unity counters on it.
+SVar:X:Count$CardCounters.UNITY
+DeckHas:Ability$Counters
+DeckHints:Keyword$Unity
+Oracle:Unity (As this permanent enters, you may pay any number of unity counters. This permanent enters with a unity counter on it for each unity counter paid this way.)\nCreatures you control get +1/+0 and have haste as long as Soldiers of Valor has two or more unity counters on it.

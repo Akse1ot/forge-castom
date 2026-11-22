@@ -1,0 +1,10 @@
+Name:Forest Horror
+ManaCost:3 B B
+Types:Creature Horror Beast
+PT:6/3
+K:Corrupt
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerDescription$ When this creature enters, draw two cards and lose 2 life.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 2 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 2
+DeckHas:Ability$Counters|LifeLoss
+Oracle:Corrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nWhen this creature enters, draw two cards and lose 2 life.

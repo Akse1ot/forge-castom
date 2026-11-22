@@ -1,0 +1,6 @@
+Name:Invade the Mind
+ManaCost:U B
+Types:Sorcery
+A:SP$ Subjugate | Amount$ 12 | SpellDescription$ Subjugate 12.
+DeckHas:Ability$Subjugate
+Oracle:Subjugate 12.

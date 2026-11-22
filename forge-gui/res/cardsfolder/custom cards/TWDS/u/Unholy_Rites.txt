@@ -1,0 +1,10 @@
+Name:Unholy Rites
+ManaCost:4 B
+Types:Sorcery
+A:SP$ Draw | Cost$ 4 B Sac<X/Creature> | NumCards$ Y | SpellDescription$ Draw twice X cards.
+SVar:X:Count$xPaid
+SVar:Y:SVar$X/Times.2
+SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE2
+DeckHas:Ability$Sacrifice
+DeckHints:Ability$Token
+Oracle:As an additional cost to cast this spell, sacrifice X creatures.\nDraw twice X cards.

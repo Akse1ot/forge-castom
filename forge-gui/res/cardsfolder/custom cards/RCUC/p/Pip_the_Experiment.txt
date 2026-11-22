@@ -1,0 +1,16 @@
+Name:Pip, the Experiment
+ManaCost:W
+Types:Legendary Creature Beast
+PT:1/1
+A:AB$ Branch | Cost$ BR BR | BranchConditionSVar$ Count$Valid Card.Self+Devil | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBElderDevil | FalseSubAbility$ DBDevilCheck | StackDescription$ SpellDescription | SpellDescription$ If CARDNAME isn't an Angel, it becomes a Devil Beast with base power and toughness 3/2. If CARDNAME is a Devil, instead it becomes an Elder Devil Beast with base power and toughness 5/4. Put a trample counter on it.
+SVar:DBElderDevil:DB$ Animate | Defined$ Self | Types$ Elder,Devil,Beast | RemoveCreatureTypes$ True | Duration$ Permanent | Power$ 5 | Toughness$ 4 | SubAbility$ DBTrample
+SVar:DBDevilCheck:DB$ Branch | BranchConditionSVar$ Count$Valid Card.Self+nonAngel | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBDevil | FalseSubAbility$ DBTrample
+SVar:DBDevil:DB$ Animate | Defined$ Self | Types$ Devil,Beast | RemoveCreatureTypes$ True | Duration$ Permanent | Power$ 3 | Toughness$ 2 | SubAbility$ DBTrample
+SVar:DBTrample:DB$ PutCounter | Defined$ Self | CounterType$ Trample | CounterNum$ 1
+A:AB$ Branch | Cost$ GU GU | BranchConditionSVar$ Count$Valid Card.Self+Angel | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBElderAngel | FalseSubAbility$ DBAngelCheck | StackDescription$ SpellDescription | SpellDescription$ If CARDNAME isn't a Devil, it becomes an Angel Beast with base power and toughness 2/3. If CARDNAME is an Angel, instead it becomes an Elder Angel Beast with base power and toughness 4/5. Put a vigilance counter on it.
+SVar:DBElderAngel:DB$ Animate | Defined$ Self | Types$ Elder,Angel,Beast | RemoveCreatureTypes$ True | Duration$ Permanent | Power$ 4 | Toughness$ 5 | SubAbility$ DBVigilance
+SVar:DBAngelCheck:DB$ Branch | BranchConditionSVar$ Count$Valid Card.Self+nonDevil | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBAngel | FalseSubAbility$ DBVigilance
+SVar:DBAngel:DB$ Animate | Defined$ Self | Types$ Angel,Beast | RemoveCreatureTypes$ True | Duration$ Permanent | Power$ 2 | Toughness$ 3 | SubAbility$ DBVigilance
+SVar:DBVigilance:DB$ PutCounter | Defined$ Self | CounterType$ Vigilance | CounterNum$ 1
+DeckHas:Ability$Counters
+Oracle:{B/R}{B/R}: If Pip, the Experiment isn't an Angel, it becomes a Devil Beast with base power and toughness 3/2. If Pip, the Experiment is a Devil, instead it becomes an Elder Devil Beast with base power and toughness 5/4. Put a trample counter on it.\n{G/U}{G/U}: If Pip, the Experiment isn't a Devil, it becomes an Angel Beast with base power and toughness 2/3. If Pip, the Experiment is an Angel, instead it becomes an Elder Angel Beast with base power and toughness 4/5. Put a vigilance counter on it.

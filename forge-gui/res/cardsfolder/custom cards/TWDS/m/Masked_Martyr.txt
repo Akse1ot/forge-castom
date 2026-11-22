@@ -1,0 +1,15 @@
+Name:Masked Martyr
+ManaCost:2 B B
+Types:Creature Nightmare
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSubjugate | TriggerDescription$ When this creature enters, subjugate 4.
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 4
+T:Mode$ Subjugated | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigDiscard | TriggerDescription$ Whenever you subjugate, you may discard your hand. If you do, draw that many cards and lose that much life.
+SVar:TrigDiscard:DB$ Discard | Defined$ You | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+DeckHas:Ability$Subjugate|Discard
+DeckHints:Ability$Subjugate
+Oracle:When this creature enters, subjugate 4.\nWhenever you subjugate, you may discard your hand. If you do, draw that many cards and lose that much life.

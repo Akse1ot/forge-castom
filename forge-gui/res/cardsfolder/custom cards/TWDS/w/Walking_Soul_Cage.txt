@@ -1,0 +1,18 @@
+Name:Walking Soul Cage
+ManaCost:1 B
+Types:Creature Ghoul
+PT:2/2
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidLKI$ Creature.!token+OppCtrl | ReplaceWith$ Exile | Description$ If a nontoken creature an opponent controls would die, exile it instead.
+SVar:Exile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile
+T:Mode$ ChangesZoneAll | Destination$ Exile | ValidCards$ Card.ExiledWithSource | TriggerZones$ Battlefield | Static$ True | Secondary$ True | Execute$ DBCountExiled
+T:Mode$ TurnBegin | ValidPlayer$ Player | TriggerZones$ Battlefield | Static$ True | Secondary$ True | Execute$ DBResetCount
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Static$ True | Secondary$ True | Execute$ DBResetCount
+T:Mode$ ChangesZoneAll | Destination$ Exile | ValidCards$ Card.ExiledWithSource | TriggerZones$ Battlefield | CheckSVar$ ExiledThisTurn | SVarCompare$ GE3 | ActivationLimit$ 1 | Execute$ TrigTorment | TriggerDescription$ Whenever three or more cards are exiled with CARDNAME in a single turn, torment each opponent.
+SVar:DBCountExiled:DB$ StoreSVar | SVar$ ExiledThisTurn | Type$ AdditiveForEach | Expression$ BatchCount | StackDescription$ None
+SVar:DBResetCount:DB$ StoreSVar | SVar$ ExiledThisTurn | Type$ Number | Expression$ 0 | StackDescription$ None
+SVar:BatchCount:Count$TriggerObjectsCards$Amount
+SVar:ExiledThisTurn:Number$0
+SVar:TrigTorment:DB$ Torment | Defined$ Opponent
+DeckHas:Ability$Exile
+DeckHints:Ability$Destroy
+Oracle:If a nontoken creature an opponent controls would die, exile it instead.\nWhenever three or more cards are exiled with this creature in a single turn, torment each opponent.

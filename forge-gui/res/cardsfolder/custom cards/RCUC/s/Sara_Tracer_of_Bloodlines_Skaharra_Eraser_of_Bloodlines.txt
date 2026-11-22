@@ -1,0 +1,28 @@
+Name:Sara, Tracer of Bloodlines
+ManaCost:2 R
+Types:Legendary Creature Human Advisor Werewolf
+PT:2/2
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigSearch | TriggerDescription$ Whenever this creature enters or transforms into CARDNAME, you may pay {G}. If you do, search your library for a nonlegendary Wolf or Werewolf card and put it into your hand. Then shuffle your library.
+T:Mode$ Transformed | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigSearch | Secondary$ True | TriggerDescription$ Whenever this creature enters or transforms into CARDNAME, you may pay {G}. If you do, search your library for a nonlegendary Wolf or Werewolf card and put it into your hand. Then shuffle your library.
+SVar:TrigSearch:AB$ ChangeZone | Cost$ G | Origin$ Library | Destination$ Hand | ChangeType$ Card.Wolf+nonLegendary,Card.Werewolf+nonLegendary | ChangeNum$ 1
+K:Daybound
+DeckNeeds:Type$Wolf|Werewolf
+AlternateMode:DoubleFaced
+Oracle:Flash\nDaybound\nWhenever this creature enters the battlefield or transforms into Sara, Tracer of Bloodlines, you may pay {G}. If you do, search your library for a nonlegendary Wolf or Werewolf card and put it into your hand. Then shuffle your library.
+
+ALTERNATE
+
+Name:Skaharra, Eraser of Bloodlines
+ManaCost:no cost
+Colors:red,green
+Types:Legendary Creature Werewolf
+PT:3/3
+K:Haste
+K:Protection:Human
+K:Nightbound
+T:Mode$ Transformed | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigPut | TriggerDescription$ Whenever this creature transforms into CARDNAME, you may put a nonlegendary Wolf or Werewolf card from your hand onto the battlefield transformed under your control. It gains haste until end of turn.
+SVar:TrigPut:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Card.Wolf+nonLegendary+CanTransform,Card.Werewolf+nonLegendary+CanTransform | ChangeNum$ 1 | Transformed$ True | GainControl$ True | RememberChanged$ True | SubAbility$ DBHaste
+SVar:DBHaste:DB$ Pump | Defined$ Remembered | KW$ Haste | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Nightbound\nHaste, protection from Humans\nWhenever this creature transforms into Skaharra, Eraser of Bloodlines, you may put a nonlegendary Wolf or Werewolf card from your hand onto the battlefield transformed under your control. It gains haste until end of turn.

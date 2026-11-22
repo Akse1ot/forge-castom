@@ -1,0 +1,15 @@
+Name:Badru, Notorious Heel
+ManaCost:2 B B
+Types:Legendary Creature Orc Rogue
+PT:4/3
+K:Partner with:Gav, Beloved Face
+K:Menace
+T:Mode$ DamageDoneOnce | ValidSource$ Creature.YouCtrl | ValidTarget$ Player,Battle | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigChoose | TriggerDescription$ Whenever one or more creatures you control deal combat damage to a player or battle, you may sacrifice one of them. If you do, create a number of Treasure tokens equal to its power.
+SVar:TrigChoose:DB$ ChooseCard | DefinedCards$ TriggeredSources | Amount$ 1 | MinAmount$ 0 | ChoiceTitle$ Choose up to one creature to sacrifice | SubAbility$ DBSac
+SVar:DBSac:DB$ SacrificeAll | Defined$ ChosenCard | Controller$ You | RememberSacrificed$ True | SubAbility$ DBTreasure | StackDescription$ None
+SVar:DBTreasure:DB$ Token | TokenScript$ c_a_treasure_sac | TokenAmount$ X | ConditionDefined$ Remembered | ConditionPresent$ Card | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+SVar:X:RememberedLKI$CardPower
+DeckHas:Ability$Sacrifice|Token & Type$Treasure|Artifact
+DeckHints:Name$Gav, Beloved Face
+Oracle:Partner with Gav, Beloved Face\nMenace\nWhenever one or more creatures you control deal combat damage to a player or battle, you may sacrifice one of them. If you do, create a number of Treasure tokens equal to its power.

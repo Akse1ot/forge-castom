@@ -1,0 +1,10 @@
+Name:Traversing Dragons
+ManaCost:3 R R
+Types:Creature Spirit Dragon
+PT:*/*
+K:Traverse
+K:Flying
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X | Description$ CARDNAME's power and toughness are each equal to the number of lands you control.
+SVar:X:Count$Valid Land.YouCtrl
+SVar:BuffedBy:Land
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nFlying\nTraversing Dragons's power and toughness are each equal to the number of lands you control.

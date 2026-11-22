@@ -1,0 +1,10 @@
+Name:Infest Dreams
+ManaCost:3 B
+Types:Sorcery
+K:Madness:X B
+A:SP$ Token | TokenAmount$ Y | TokenScript$ b_2_1_nightmare_noblock | TokenOwner$ You | SpellDescription$ Create three 2/1 black Nightmare creature tokens that can't block. If CARDNAME's madness cost was paid, create X of those tokens instead.
+SVar:X:Count$xPaid
+SVar:Y:Count$Madness.X.3
+DeckHas:Ability$Token & Type$Nightmare
+DeckHints:Ability$Discard
+Oracle:Create three 2/1 black Nightmare creature tokens that can't block. If this spell's madness cost was paid, create X of those tokens instead.\nMadness {X}{B} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

@@ -1,0 +1,10 @@
+Name:Spirit Realm Banshee
+ManaCost:2 U B
+Types:Creature Nightmare
+PT:4/2
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSubjugate | TriggerDescription$ When this creature enters or dies, subjugate 6.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigSubjugate | Secondary$ True | TriggerDescription$ When this creature enters or dies, subjugate 6.
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 6
+DeckHas:Ability$Subjugate
+Oracle:Deathtouch\nWhen this creature enters or dies, subjugate 6.

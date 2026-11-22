@@ -1,0 +1,8 @@
+Name:Nurture
+ManaCost:X X G
+Types:Sorcery
+A:SP$ Token | TokenAmount$ X | TokenScript$ g_3_3_stag_trample | TokenOwner$ You | SpellDescription$ Create X 3/3 green Stag creature tokens with trample.
+A:AB$ Token | Cost$ 2 G ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | SorcerySpeed$ True | PrecostDesc$ Renew — | TokenScript$ g_3_3_stag_trample | TokenOwner$ You | SpellDescription$ Create a 3/3 green Stag creature token with trample. Activate only as a sorcery.
+SVar:X:Count$xPaid
+DeckHas:Ability$Token|Graveyard
+Oracle:Create X 3/3 green Stag creature tokens with trample.\nRenew — {2}{G}, Exile this card from your graveyard: Create a 3/3 green Stag creature token with trample. Activate only as a sorcery.

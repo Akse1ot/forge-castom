@@ -1,0 +1,7 @@
+Name:Journey South
+ManaCost:U
+Types:Sorcery
+A:SP$ Effect | ValidTgts$ Creature | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ Pump | StackDescription$ {c:Targeted} can't be blocked this turn. | SubAbility$ DBDraw | SpellDescription$ Target creature can't be blocked until end of turn. Draw a card.
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered | Description$ This creature can't be blocked this turn.
+SVar:DBDraw:DB$ Draw
+Oracle:Target creature can't be blocked until end of turn.\nDraw a card.

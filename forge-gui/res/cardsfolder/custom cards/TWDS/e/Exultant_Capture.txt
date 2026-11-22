@@ -1,0 +1,11 @@
+Name:Exultant Capture
+ManaCost:2 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | TriggerDescription$ When CARDNAME enters, exile target nonland permanent an opponent controls. You get a number of unity counters equal to that permanent's mana value.
+SVar:TrigExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+OppCtrl | TgtPrompt$ Select target nonland permanent an opponent controls | Duration$ UntilHostLeavesPlay | SubAbility$ DBUnity
+SVar:DBUnity:DB$ PutCounter | Defined$ You | CounterType$ UNITY | CounterNum$ X
+SVar:X:Targeted$CardManaCost
+SVar:PlayMain1:TRUE
+SVar:OblivionRing:TRUE
+DeckHas:Ability$Counters
+Oracle:When this enchantment enters, exile target nonland permanent an opponent controls. You get a number of unity counters equal to that permanent's mana value.\nWhen this enchantment leaves the battlefield, return the exiled card to the battlefield under its owner's control.

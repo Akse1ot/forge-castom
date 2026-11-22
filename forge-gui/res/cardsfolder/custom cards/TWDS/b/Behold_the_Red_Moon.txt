@@ -1,0 +1,7 @@
+Name:Behold the Red Moon
+ManaCost:2 R R
+Types:Sorcery
+A:SP$ Charm | Choices$ DBDamage,DBTorment
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 5 | SpellDescription$ CARDNAME deals 5 damage to any target.
+SVar:DBTorment:DB$ Torment | Defined$ Opponent | Amount$ 2 | SpellDescription$ Torment each opponent twice.
+Oracle:Choose one —\n• Behold the Red Moon deals 5 damage to any target.\n• Torment each opponent twice. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)

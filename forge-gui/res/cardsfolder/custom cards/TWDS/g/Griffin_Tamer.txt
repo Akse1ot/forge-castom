@@ -1,0 +1,9 @@
+Name:Griffin Tamer
+ManaCost:3 W
+Types:Creature Human Knight
+PT:3/3
+K:Flying
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigUnity | TriggerDescription$ Whenever CARDNAME attacks, you get two unity counters.
+SVar:TrigUnity:DB$ PutCounter | Defined$ You | CounterType$ UNITY | CounterNum$ 2
+DeckHas:Ability$Counters
+Oracle:Flying\nWhenever this creature attacks, you get two unity counters.

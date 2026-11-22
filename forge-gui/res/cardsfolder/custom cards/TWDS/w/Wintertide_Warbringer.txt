@@ -1,0 +1,15 @@
+Name:Wintertide Warbringer
+ManaCost:1 U U
+Types:Creature Spirit Soldier
+PT:3/3
+K:Hexproof
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | TriggerDescription$ When CARDNAME enters, exile up to one target card from your graveyard.
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Card.YouOwn | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select up to one target card from your graveyard | Imprint$ True | AILogic$ ExilePreference:MostProminentOwnType
+R:Event$ Counter | ValidSA$ Spell.YouCtrl+sharesCardTypeWith Imprinted.ExiledWithSource | Layer$ CantHappen | ActiveZones$ Battlefield | Description$ Spells you cast that share a card type with the card exiled with CARDNAME can't be countered.
+S:Mode$ CastWithFlash | ValidCard$ Card.sharesCardTypeWith Imprinted.ExiledWithSource | ValidSA$ Spell | Caster$ You | Description$ Spells you cast that share a card type with the card exiled with CARDNAME can be cast as though they had flash.
+T:Mode$ ChangesZone | Origin$ Battlefield | ValidCard$ Card.Self | Destination$ Any | Execute$ DBCleanup | Static$ True
+SVar:DBCleanup:DB$ Cleanup | ClearImprinted$ True
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Any | Static$ True | ValidCard$ Card.IsImprinted+ExiledWithSourceLKI | Execute$ DBForget
+SVar:DBForget:DB$ Pump | ForgetImprinted$ TriggeredCard
+DeckHints:Ability$Graveyard|Discard
+Oracle:Hexproof\nWhen Wintertide Warbringer enters, exile up to one target card from your graveyard.\nSpells you cast that share a card type with the card exiled with Wintertide Warbringer can't be countered and can be cast as though they had flash.

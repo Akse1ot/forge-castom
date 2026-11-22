@@ -1,0 +1,9 @@
+Name:Alayne's Vision
+ManaCost:2 B
+Types:Instant
+A:SP$ Dig | Cost$ 2 B Sac<X/Artifact;Creature/artifacts and/or creatures> | CostDesc$ As an additional cost to cast this spell, sacrifice X artifacts and/or creatures. | DigNum$ X | ChangeNum$ 2 | RestRandomOrder$ True | AIXMax$ 2 | SpellDescription$ Look at the top X cards of your library. Put two of them into your hand and the rest on the bottom in a random order.
+SVar:X:Count$xPaid
+SVar:AIPreference:SacCost$Artifact.token,Creature.token,Artifact.cmcEQ0+nonLegendary,Creature.cmcLE1+nonLegendary
+DeckHas:Ability$Sacrifice
+DeckHints:Type$Artifact|Creature
+Oracle:As an additional cost to cast this spell, sacrifice X artifacts and/or creatures.\nLook at the top X cards of your library. Put two of them into your hand and the rest on the bottom in a random order.

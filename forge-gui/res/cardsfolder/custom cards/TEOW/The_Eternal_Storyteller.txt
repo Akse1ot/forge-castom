@@ -1,0 +1,12 @@
+Name:The Eternal Storyteller
+ManaCost:W U
+Types:Legendary Creature Spirit Advisor
+PT:3/5
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card.Adventure | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever you cast an Adventure spell, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 2 | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever you draw your second card each turn, create a 1/1 colorless Spirit creature token.
+SVar:TrigToken:DB$ Token | TokenScript$ c_1_1_spirit
+SVar:BuffedBy:Card.Adventure
+DeckHas:Ability$Token
+Oracle:Flying\nWhenever you cast an Adventure spell, draw a card.\nWhenever you draw your second card each turn, create a 1/1 colorless Spirit creature token.

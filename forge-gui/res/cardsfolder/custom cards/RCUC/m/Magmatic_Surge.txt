@@ -1,0 +1,12 @@
+Name:Magmatic Surge
+ManaCost:1 R
+Types:Sorcery
+A:SP$ Mana | Produced$ R | Amount$ 2 | AILogic$ ManaRitual | AINoRecursiveCheck$ True | SubAbility$ DBEffect | SpellDescription$ Add {R}{R}. Until end of turn, whenever you cast a red spell from your hand, exile the top card of your library. You may play that card this turn.
+SVar:DBEffect:DB$ Effect | Triggers$ SpellCast
+SVar:SpellCast:Mode$ SpellCast | ValidCard$ Card.Red+wasCastFromHand | ValidActivatingPlayer$ You | TriggerZones$ Command | Execute$ TrigExile | TriggerDescription$ Until end of turn, whenever you cast a red spell from your hand, exile the top card of your library. You may play that card this turn.
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBPlay
+SVar:DBPlay:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | SubAbility$ DBCleanup | ExileOnMoved$ Exile
+SVar:Play:Mode$ Continuous | MayPlay$ True | EffectZone$ Command | Affected$ Card.IsRemembered | AffectedZone$ Exile | Description$ You may play the exiled card this turn.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHints:Color$Red
+Oracle:Add {R}{R}. Until end of turn, whenever you cast a red spell from your hand, exile the top card of your library. You may play that card this turn.

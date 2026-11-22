@@ -1,0 +1,11 @@
+Name:Sanguine Vault
+ManaCost:1 B
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDestroy | TriggerDescription$ When CARDNAME enters, destroy target nonblack, nonartifact creature.
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature.nonArtifact+nonBlack | TgtPrompt$ Select target nonblack, nonartifact creature
+A:AB$ Draw | Cost$ 3 B Sac<1/CARDNAME> | NumCards$ 2 | SubAbility$ DBTorment | SpellDescription$ You draw two cards. Then torment target player.
+SVar:DBTorment:DB$ Torment | ValidTgts$ Player | TgtPrompt$ Select target player to torment
+SVar:PlayMain1:TRUE
+DeckHas:Ability$Sacrifice
+DeckHints:Ability$Sacrifice
+Oracle:When this enchantment enters, destroy target nonblack, nonartifact creature.\n{3}{B}, Sacrifice this enchantment: You draw two cards. Then torment target player. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)

@@ -1,0 +1,8 @@
+Name:Opassa Beach
+ManaCost:no cost
+Types:Legendary Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ CARDNAME enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ U | Amount$ 1 | SpellDescription$ Add {U}.
+A:AB$ Phases | Cost$ 1 Sac<1/CARDNAME> | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 3 | TgtPrompt$ Select up to three target creatures | SpellDescription$ Up to three target creatures phase out.
+Oracle:Opassa Beach enters tapped.\n{T}: Add {U}.\n{1}, Sacrifice Opassa Beach: Up to three target creatures phase out. (Treat them and anything attached to them as though they don't exist until their controller's next turn.)

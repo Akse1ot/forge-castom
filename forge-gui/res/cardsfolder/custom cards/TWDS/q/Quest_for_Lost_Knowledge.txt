@@ -1,0 +1,14 @@
+Name:Quest for Lost Knowledge
+ManaCost:U
+Types:Enchantment Quest
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDrawDiscard | TriggerDescription$ When this Quest enters, draw a card, then discard a card.
+SVar:TrigDrawDiscard:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+K:QuestStage:2:1 U:AddTrigger$ TriggerStage2
+SVar:TriggerStage2:Mode$ ClassLevelGained | ClassLevel$ 2 | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigScry | Secondary$ True | TriggerDescription$ When this Quest becomes stage 2, scry 4.
+SVar:TrigScry:DB$ Scry | Defined$ You | ScryNum$ 4
+K:QuestStage:3:1 U U:AddTrigger$ TriggerStage3
+SVar:TriggerStage3:Mode$ Phase | Phase$ Draw | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | Secondary$ True | TriggerDescription$ At the beginning of your draw step, draw an additional card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+DeckHas:Ability$Discard
+Oracle:(Gain the next level as a sorcery to add its ability.)\nWhen this Quest enters, draw a card, then discard a card.\n{1}{U}: Stage 2\nWhen this Quest becomes stage 2, scry 4.\n{1}{U}{U}: Stage 3\nAt the beginning of your draw step, draw an additional card.

@@ -1,0 +1,9 @@
+Name:Graveyard Vines
+ManaCost:3 G
+Types:Creature Plant
+PT:3/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerDescription$ When CARDNAME enters, choose one — ABILITY
+SVar:TrigCharm:DB$ Charm | Choices$ DBDestroy,DBShuffle
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Artifact,Enchantment | TgtPrompt$ Select target artifact or enchantment | SpellDescription$ Destroy target artifact or enchantment.
+SVar:DBShuffle:DB$ ChangeZoneAll | ValidTgts$ Player | TgtPrompt$ Select target player to shuffle their graveyard into their library | Origin$ Graveyard | Destination$ Library | ChangeType$ Card | Shuffle$ True | SpellDescription$ Target player shuffles their graveyard into their library.
+Oracle:When this creature enters, choose one —\n• Destroy target artifact or enchantment.\n• Target player shuffles their graveyard into their library.

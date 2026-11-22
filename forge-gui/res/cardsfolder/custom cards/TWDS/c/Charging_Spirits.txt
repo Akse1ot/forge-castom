@@ -1,0 +1,10 @@
+Name:Charging Spirits
+ManaCost:G U R
+Types:Creature Spirit Horse
+PT:3/3
+K:Traverse
+K:Haste
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigSearch | TriggerDescription$ Whenever CARDNAME deals combat damage to an opponent, search your library for a basic land card. Reveal that card, put it into your hand, then shuffle.
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land | ChangeNum$ 1
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nHaste, trample\nWhenever this creature deals combat damage to an opponent, search your library for a basic land card. Reveal that card, put it into your hand, then shuffle.

@@ -1,0 +1,12 @@
+Name:Fear Weaver
+ManaCost:2 B
+Types:Creature Nightmare Spider
+PT:2/3
+K:Reach
+A:AB$ PutCounter | Cost$ Discard<1/Card> | CounterType$ P1P1 | CounterNum$ 1 | SpellDescription$ Put a +1/+1 counter on CARDNAME.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigLoseLife | TriggerDescription$ When CARDNAME dies, each opponent loses life equal to its power.
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ X
+SVar:X:TriggeredCard$CardPower
+DeckHas:Ability$Discard|Counters
+DeckHints:Keyword$Madness
+Oracle:Reach\nDiscard a card: Put a +1/+1 counter on this creature.\nWhen this creature dies, each opponent loses life equal to its power.

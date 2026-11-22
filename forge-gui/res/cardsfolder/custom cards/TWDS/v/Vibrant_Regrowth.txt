@@ -1,0 +1,7 @@
+Name:Vibrant Regrowth
+ManaCost:3 G G
+Types:Instant
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Permanent.YouOwn | TargetMin$ 0 | TargetMax$ 2 | TgtPrompt$ Select up to two target permanent cards from your graveyard | SpellDescription$ Return up to two target permanent cards from your graveyard to your hand.
+A:AB$ ChangeZone | Cost$ 7 G G ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | SorcerySpeed$ True | PrecostDesc$ Renew — | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Permanent.YouOwn | TargetMin$ 0 | TargetMax$ 2 | TgtPrompt$ Select up to two target permanent cards from your graveyard | SpellDescription$ Return up to two target permanent cards from your graveyard to your hand. Activate only as a sorcery.
+DeckHas:Ability$Graveyard
+Oracle:Return up to two target permanent cards from your graveyard to your hand.\nRenew — {7}{G}{G}, Exile this card from your graveyard: Return up to two target permanent cards from your graveyard to your hand. Activate only as a sorcery.

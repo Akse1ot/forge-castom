@@ -1,0 +1,15 @@
+Name:Phag Tas, Copper Host Bonder
+ManaCost:2 G G
+Types:Legendary Creature Phyrexian Elf Druid
+PT:5/4
+K:Trample
+K:Soulbond
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player,Battle | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigSac | TriggerDescription$ Whenever CARDNAME deals combat damage to a player or battle, sacrifice the creature that is paired with it, then search your library for a creature card with mana value X or less, where X is 2 plus the sacrificed creature's mana value. Put that card onto the battlefield, then shuffle.
+SVar:TrigSac:DB$ SacrificeAll | Defined$ Valid Creature.PairedWith | Controller$ You | RememberSacrificed$ True | SubAbility$ DBSearch
+SVar:DBSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Creature.cmcLEX | ChangeNum$ 1 | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:RememberedLKI$CardManaCost/Plus.2
+SVar:HasCombatEffect:TRUE
+DeckHas:Ability$Sacrifice
+DeckNeeds:Type$Creature
+Oracle:Trample, soulbond\nWhenever Phag Tas, Copper Host Bonder deals combat damage to a player or battle, sacrifice the creature that is paired with it, then search your library for a creature card with mana value X or less, where X is 2 plus the sacrificed creature's mana value. Put that card onto the battlefield, then shuffle.

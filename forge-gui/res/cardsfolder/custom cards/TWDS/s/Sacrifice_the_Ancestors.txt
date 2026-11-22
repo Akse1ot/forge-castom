@@ -1,0 +1,8 @@
+Name:Sacrifice the Ancestors
+ManaCost:B
+Types:Sorcery
+A:SP$ Token | Cost$ B Sac<1/Creature> | TokenAmount$ 3 | TokenScript$ c_vessel_cursed | TokenOwner$ You | SpellDescription$ Create three Vessel tokens. (They're artifacts with Cursed 1.)
+SVar:AIPreference:SacCost$Creature.token+powerLE2+toughnessLE2,Creature.cmcLE2+powerLE1+toughnessLE2+inZoneBattlefield
+DeckHas:Ability$Token|Sacrifice
+DeckNeeds:Type$Creature
+Oracle:As an additional cost to cast this spell, sacrifice a creature.\nCreate three Vessel tokens. (They're artifacts with Cursed 1.)

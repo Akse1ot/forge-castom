@@ -1,0 +1,14 @@
+Name:Greenglow Druid
+ManaCost:4 G
+Types:Creature Human Druid
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLook | TriggerDescription$ When CARDNAME enters, look at the top five cards of your library. You may reveal a creature card and a land card from among them and put them into your hand. Put the rest into your graveyard.
+SVar:TrigLook:DB$ PeekAndReveal | PeekAmount$ 5 | NoReveal$ True | RememberPeeked$ True | SubAbility$ DBChooseCreature
+SVar:DBChooseCreature:DB$ ChooseCard | Defined$ You | Choices$ Creature.IsRemembered | ChoiceZone$ Library | Amount$ 1 | Reveal$ True | ChoiceTitle$ Choose a creature card to put into your hand | SubAbility$ DBGetCreature
+SVar:DBGetCreature:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Library | Destination$ Hand | SubAbility$ DBChooseLand
+SVar:DBChooseLand:DB$ ChooseCard | Defined$ You | Choices$ Land.IsRemembered | ChoiceZone$ Library | Amount$ 1 | Reveal$ True | ChoiceTitle$ Choose a land card to put into your hand | SubAbility$ DBGetLand
+SVar:DBGetLand:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Library | Destination$ Hand | SubAbility$ DBGrave
+SVar:DBGrave:DB$ ChangeZoneAll | Origin$ Library | Destination$ Graveyard | ChangeType$ Card.IsRemembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+DeckHas:Ability$Graveyard
+Oracle:When Greenglow Druid enters, look at the top five cards of your library. You may reveal a creature card and a land card from among them and put them into your hand. Put the rest into your graveyard.

@@ -1,0 +1,13 @@
+Name:Margoth, Supreme Necrogarch
+ManaCost:3 B G U
+Types:Legendary Creature Zombie Noble
+PT:6/6
+K:Flash
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigMonarch | TriggerDescription$ When CARDNAME enters, you become the monarch.
+SVar:TrigMonarch:DB$ BecomeMonarch
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigMill | TriggerDescription$ Whenever you draw a card, target player mills four cards.
+SVar:TrigMill:DB$ Mill | ValidTgts$ Player | TgtPrompt$ Select target player to mill four cards | NumCards$ 4
+A:AB$ Token | Cost$ ExileAnyGrave<13/Card> | CostDesc$ Exile thirteen cards from among graveyards: | TokenAmount$ 3 | TokenScript$ b_2_2_zombie | TokenOwner$ You | SpellDescription$ Create three 2/2 black Zombie creature tokens.
+DeckHas:Ability$Mill|Token & Type$Zombie
+DeckHints:Ability$Mill|Graveyard
+Oracle:Flash\nWhen Margoth, Supreme Necrogarch enters, you become the monarch.\nWhenever you draw a card, target player mills four cards.\nExile thirteen cards from among graveyards: Create three 2/2 black Zombie creature tokens.

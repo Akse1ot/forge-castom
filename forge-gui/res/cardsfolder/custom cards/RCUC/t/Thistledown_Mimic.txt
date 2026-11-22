@@ -1,0 +1,8 @@
+Name:Thistledown Mimic
+ManaCost:1 WU
+Types:Creature Shapeshifter
+PT:2/1
+T:Mode$ SpellCast | ValidCard$ Card.White+Blue | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate | TriggerDescription$ Whenever you cast a spell that's both white and blue, CARDNAME has base power and toughness 3/5 until end of turn and gains vigilance until end of turn.
+SVar:TrigAnimate:DB$ Animate | Defined$ Self | Power$ 3 | Toughness$ 5 | Keywords$ Vigilance
+SVar:BuffedBy:Card.White+Blue
+Oracle:Whenever you cast a spell that's both white and blue, Thistledown Mimic has base power and toughness 3/5 until end of turn and gains vigilance until end of turn.

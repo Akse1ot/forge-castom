@@ -1,0 +1,10 @@
+Name:Regal Monstrosity
+ManaCost:4 G G
+Types:Creature Horror Cat
+PT:6/6
+K:CannotBeCountered
+K:Trample
+K:Hexproof
+K:Corrupt
+DeckHas:Ability$Counters
+Oracle:This spell can't be countered.\nTrample, hexproof\nCorrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)

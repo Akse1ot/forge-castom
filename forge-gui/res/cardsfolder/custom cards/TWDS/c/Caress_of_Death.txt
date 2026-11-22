@@ -1,0 +1,7 @@
+Name:Caress of Death
+ManaCost:2 B B
+Types:Sorcery
+A:SP$ PumpAll | ValidCards$ Creature | NumAtt$ -4 | NumDef$ -4 | IsCurse$ True | SpellDescription$ All creatures get -4/-4 until end of turn.
+K:Madness:???
+DeckHints:Ability$Discard
+Oracle:All creatures get -4/-4 until end of turn.\nMadness ??? (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

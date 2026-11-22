@@ -1,0 +1,10 @@
+Name:Horrific Specter
+ManaCost:3 B B
+Types:Creature Nightmare
+PT:5/5
+T:Mode$ Discarded | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ Whenever you discard a card, put a -1/-1 counter on each creature your opponents control.
+SVar:TrigPutCounter:DB$ PutCounterAll | ValidCards$ Creature.OppCtrl | CounterType$ M1M1 | CounterNum$ 1
+K:Madness:B B B
+DeckHas:Ability$Counters
+DeckHints:Ability$Discard
+Oracle:Whenever you discard a card, put a -1/-1 counter on each creature your opponents control.\nMadness {B}{B}{B} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

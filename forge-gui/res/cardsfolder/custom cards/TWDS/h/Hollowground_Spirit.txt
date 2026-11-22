@@ -1,0 +1,8 @@
+Name:Hollowground Spirit
+ManaCost:2 G
+Types:Creature Spirit Druid
+PT:1/1
+S:Mode$ Continuous | Affected$ Land.YouCtrl | AddType$ AllBasicLandType | Description$ Lands you control are every basic land type in addition to their other types.
+S:Mode$ Continuous | AffectedDefined$ Self | AddPower$ X | AddToughness$ X | Description$ CARDNAME gets +1/+1 for each land card in your graveyard.
+SVar:X:Count$ValidGraveyard Land.YouOwn
+Oracle:Lands you control are every basic land type in addition to their other types.\nHollowground Spirit gets +1/+1 for each land card in your graveyard.

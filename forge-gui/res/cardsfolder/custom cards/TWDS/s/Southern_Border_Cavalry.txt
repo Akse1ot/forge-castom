@@ -1,0 +1,7 @@
+Name:Southern Border Cavalry
+ManaCost:1 W
+Types:Creature Human Knight
+PT:2/2
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+HasCounters | AddKeyword$ Ward:1 | Description$ Creatures you control with one or more counters on them have ward {1}. (Whenever this creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays {1}.)
+DeckNeeds:Ability$Counters
+Oracle:Creatures you control with one or more counters on them have ward {1}. (Whenever this creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays {1}.)

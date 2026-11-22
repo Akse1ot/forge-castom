@@ -1,0 +1,7 @@
+Name:The Undead Kid
+ManaCost:1 U
+Types:Creature Zombie
+PT:1/1
+S:Mode$ Continuous | Affected$ Zombie.YouCtrl+Other | AddPower$ 1 | Description$ Other Zombies you control get +1/+0.
+DeckHints:Type$Zombie
+Oracle:Other Zombies you control get +1/+0.

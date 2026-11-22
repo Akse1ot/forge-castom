@@ -1,0 +1,8 @@
+Name:Nights Walker
+ManaCost:1 B R
+Types:Creature Zombie
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigSac | TriggerDescription$ When CARDNAME dies, each opponent sacrifices a creature.
+SVar:TrigSac:DB$ Sacrifice | Defined$ Opponent | SacValid$ Creature
+DeckHas:Ability$Sacrifice
+Oracle:When CARDNAME dies, each opponent sacrifices a creature.

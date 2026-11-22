@@ -1,0 +1,10 @@
+Name:Courtyard Campaign
+ManaCost:3 R
+Types:Enchantment
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | ValidAttackers$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever you attack with one or more creatures, you may discard that many cards. If you do, draw that many cards plus one.
+SVar:TrigDraw:AB$ Draw | Cost$ Discard<X/Card> | Defined$ You | NumCards$ Y
+SVar:X:TriggerObjectsAttackers$Amount
+SVar:Y:SVar$X/Plus.1
+DeckHas:Ability$Discard|Draw
+DeckHints:Keyword$Madness
+Oracle:Whenever you attack with one or more creatures, you may discard that many cards. If you do, draw that many cards plus one.

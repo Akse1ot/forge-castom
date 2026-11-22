@@ -1,0 +1,10 @@
+Name:Ultimate Sacrifice
+ManaCost:8 B B
+Types:Sorcery
+A:SP$ DestroyAll | Cost$ 8 B B Sac<X/Creature> | ValidCards$ Creature.YouDontCtrl | AILogic$ SacToReduceCost | AdditionalDesc$ This spell costs {1} less to cast for each creature sacrificed this way. | SpellDescription$ Destroy all creatures you don't control.
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All | Relative$ True
+SVar:X:Count$xPaid
+SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE2
+DeckHas:Ability$Sacrifice
+DeckHints:Ability$Token
+Oracle:As an additional cost to cast this spell, you may sacrifice any number of creatures. This spell costs {1} less to cast for each creature sacrificed this way.\nDestroy all creatures you don't control.

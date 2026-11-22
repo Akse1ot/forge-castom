@@ -1,0 +1,8 @@
+Name:Defeated
+ManaCost:2 B R
+Types:Instant
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ 3 | Choices$ SacCreature,SacLand,SacArtifact
+SVar:SacCreature:DB$ Sacrifice | ValidTgts$ Player | SacValid$ Creature | SpellDescription$ Target player sacrifices a creature.
+SVar:SacLand:DB$ Sacrifice | ValidTgts$ Player | SacValid$ Land | SpellDescription$ Target player sacrifices a land.
+SVar:SacArtifact:DB$ Sacrifice | ValidTgts$ Player | SacValid$ Artifact | SpellDescription$ Target player sacrifices an artifact.
+Oracle:Choose one or more —\n• Target player sacrifices a creature.\n• Target player sacrifices a land.\n• Target player sacrifices an artifact.

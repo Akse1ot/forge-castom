@@ -1,0 +1,7 @@
+Name:Price of Experience
+ManaCost:B B
+Types:Sorcery
+A:SP$ Draw | NumCards$ 2 | SubAbility$ DBLoseLife | SpellDescription$ If you lost 2 or more life this turn, you draw 2 cards. Otherwise, you draw 2 cards and you lose 2 life.
+SVar:DBLoseLife:DB$ LoseLife | LifeAmount$ 2 | ConditionCheckSVar$ X | ConditionSVarCompare$ LT2
+SVar:X:PlayerCountPropertyYou$LifeLostThisTurn
+Oracle:If you lost 2 or more life this turn, you draw 2 cards. Otherwise, you draw 2 cards and you lose 2 life.

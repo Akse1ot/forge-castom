@@ -1,0 +1,8 @@
+Name:Frostflux Engine
+ManaCost:1 G U
+Types:Snow Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTap | TriggerDescription$ When CARDNAME enters, tap target permanent an opponent controls. That permanent doesn't untap during its controller's next untap step.
+SVar:TrigTap:DB$ Tap | ValidTgts$ Permanent.OppCtrl | TgtPrompt$ Choose target permanent an opponent controls | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Targeted | Duration$ Permanent | KW$ HIDDEN This card doesn't untap during your next untap step.
+A:AB$ Mana | Cost$ T | Produced$ Any | SpellDescription$ Add one mana of any color.
+Oracle:When Frostflux Engine enters, tap target permanent an opponent controls. That permanent doesn't untap during its controller's next untap step.\n{T}: Add one mana of any color.

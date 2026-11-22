@@ -1,0 +1,6 @@
+Name:Squire of the Guildpact
+ManaCost:W
+Types:Creature Spirit
+PT:1/1
+S:Mode$ Continuous | Affected$ Card.Self+equipped | AddKeyword$ Protection:Card.MonoColor:monocolored | Description$ As long as CARDNAME is equipped, it has protection from monocolored.
+Oracle:As long as this creature is equipped, it has protection from monocolored.

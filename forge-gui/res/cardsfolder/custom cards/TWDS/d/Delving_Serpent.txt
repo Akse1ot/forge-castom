@@ -1,0 +1,7 @@
+Name:Delving Serpent
+ManaCost:3 U R
+Types:Creature Spirit Serpent
+PT:5/5
+K:Traverse
+S:Mode$ ReplaceCostPart | CostPart$ Traverse | Cost$ Scry<1> | CostPartDescription$ Scry 1 | ValidCard$ Card.YouOwn | Activator$ You | EffectZone$ Battlefield | Description$ You may scry 1 rather than pay the traverse cost of spells you own.
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nYou may scry 1 rather than pay the traverse cost of spells you own.

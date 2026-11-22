@@ -1,0 +1,9 @@
+Name:Levi Sira, the Sixthborn
+ManaCost:W B
+Types:Legendary Creature Elf Noble
+PT:2/2
+T:Mode$ AttackersDeclared | AttackingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigVessel | TriggerDescription$ Whenever you attack, create a Vessel token for each player you attacked this turn. (It's an artifact with Cursed 1.)
+SVar:TrigVessel:DB$ Token | TokenAmount$ X | TokenScript$ c_vessel_cursed | TokenOwner$ You
+SVar:X:TriggeredCardController$OpponentsAttackedThisTurn
+DeckHas:Ability$Token
+Oracle:Whenever you attack, create a Vessel token for each player you attacked this turn. (It's an artifact with Cursed 1.)

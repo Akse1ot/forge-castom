@@ -1,0 +1,10 @@
+Name:Vensia, the Heretic Saint
+ManaCost:1 W
+Types:Legendary Creature Angel Cleric
+PT:1/2
+K:Flying
+K:Lifelink
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | TargetsValid$ Creature | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever you cast a spell that targets one or more creatures, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+DeckHas:Ability$Draw
+Oracle:Flying, lifelink\nWhenever you cast a spell that targets one or more creatures, draw a card.

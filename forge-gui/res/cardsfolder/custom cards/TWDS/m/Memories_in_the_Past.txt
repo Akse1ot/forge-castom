@@ -1,0 +1,8 @@
+Name:Memories in the Past
+ManaCost:G U
+Types:Enchantment
+K:Traverse
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigScry | TriggerDescription$ Landfall — Whenever a land enters under your control, scry 1. Then reveal the top card of your library. If it's a land, put it onto the battlefield tapped. This ability triggers only once each turn.
+SVar:TrigScry:DB$ Scry | ScryNum$ 1 | SubAbility$ DBReveal
+SVar:DBReveal:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ 1 | ChangeValid$ Land | DestinationZone$ Battlefield | Tapped$ True | DestinationZone2$ Library | LibraryPosition2$ 0
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nLandfall — Whenever a land enters under your control, scry 1. Then reveal the top card of your library. If it's a land, put it onto the battlefield tapped. This ability triggers only once each turn.

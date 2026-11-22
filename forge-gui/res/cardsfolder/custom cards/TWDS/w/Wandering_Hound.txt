@@ -1,0 +1,7 @@
+Name:Wandering Hound
+ManaCost:G
+Types:Creature Dog
+PT:1/1
+A:AB$ Effect | Cost$ Sac<1/CARDNAME> | StaticAbilities$ SReduceCost | Duration$ EndOfTurn | SpellDescription$ Activated abilities of creatures you control cost {2} less to activate until end of turn. This effect can't reduce the mana in that cost to less than one mana.
+SVar:SReduceCost:Mode$ ReduceCost | ValidCard$ Creature.YouCtrl | Type$ Ability | Amount$ 2 | MinMana$ 1 | AffectedZone$ Battlefield
+Oracle:Sacrifice this creature: Activated abilities of creatures you control cost {2} less to activate until end of turn. This effect can't reduce the mana in that cost to less than one mana.

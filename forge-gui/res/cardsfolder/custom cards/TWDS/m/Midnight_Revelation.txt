@@ -1,0 +1,8 @@
+Name:Midnight Revelation
+ManaCost:3 U
+Types:Sorcery
+A:SP$ PumpAll | ValidCards$ Instant.YouOwn,Sorcery.YouOwn | KW$ Flashback | PumpZone$ Graveyard | SpellDescription$ Instant and sorcery cards in your graveyard gain flashback until end of turn. Their flashback cost is equal to their mana cost.
+A:AB$ Play | Cost$ 5 U U ExileFromGrave<1/CARDNAME> | PrecostDesc$ Renew — | ActivationZone$ Graveyard | SorcerySpeed$ True | TgtZone$ Graveyard | WithoutManaCost$ True | ValidSA$ Spell | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | Optional$ True | TgtPrompt$ Choose target instant or sorcery card in your graveyard | ReplaceGraveyard$ Exile | SpellDescription$ You may cast target instant or sorcery card in your graveyard without paying its mana cost. Exile it instead of putting it into your graveyard. Activate only as a sorcery.
+DeckHas:Ability$Graveyard
+DeckNeeds:Type$Instant|Sorcery
+Oracle:Instant and sorcery cards in your graveyard gain flashback until end of turn. Their flashback cost is equal to their mana cost.\nRenew — {5}{U}{U}, Exile this card from your graveyard: You may cast target instant or sorcery card in your graveyard without paying its mana cost. Exile it instead of putting it into your graveyard. Activate only as a sorcery.

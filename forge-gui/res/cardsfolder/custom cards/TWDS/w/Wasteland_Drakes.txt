@@ -1,0 +1,11 @@
+Name:Wasteland Drakes
+ManaCost:4 U U
+Types:Creature Drake
+PT:4/4
+K:Flash
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZone | TriggerDescription$ When CARDNAME enters, return up to two target instant and/or sorcery cards from your graveyard to your hand.
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | TargetMin$ 0 | TargetMax$ 2 | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | TgtPrompt$ Select up to two target instant and/or sorcery cards from your graveyard
+DeckHas:Ability$Graveyard
+DeckHints:Type$Instant|Sorcery
+Oracle:Flash\nFlying\nWhen Wasteland Drakes enters, return up to two target instant and/or sorcery cards from your graveyard to your hand.

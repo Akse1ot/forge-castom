@@ -1,0 +1,13 @@
+Name:Quest for Lost Power
+ManaCost:R
+Types:Enchantment Quest
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigEnter | TriggerDescription$ When CARDNAME enters, it deals 2 damage to target player.
+SVar:TrigEnter:DB$ DealDamage | ValidTgts$ Player | NumDmg$ 2
+K:QuestStage:2:1 R:AddTrigger$ TrigStage2
+SVar:TrigStage2:Mode$ ClassLevelGained | ClassLevel$ 2 | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigStage2Damage | Secondary$ True | TriggerDescription$ When this Quest becomes stage 2, it deals 3 damage to target creature.
+SVar:TrigStage2Damage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 3
+K:QuestStage:3:1 R R:AddTrigger$ TrigStage3
+SVar:TrigStage3:Mode$ DamageDone | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | CombatDamage$ False | TriggerZones$ Battlefield | Execute$ TrigStage3Damage | Secondary$ True | TriggerDescription$ Whenever a source you control deals noncombat damage, CARDNAME deals 3 damage to each opponent.
+SVar:TrigStage3Damage:DB$ DealDamage | Defined$ Opponent | NumDmg$ 3
+SVar:PlayMain1:TRUE
+Oracle:(Gain the next level as a sorcery to add its ability.)\nWhen this Quest enters, it deals 2 damage to target player.\n{1}{R}: Stage 2\nWhen this Quest becomes stage 2, it deals 3 damage to target creature.\n{1}{R}{R}: Stage 3\nWhenever you deal noncombat damage, this Quest deals 3 damage to each opponent.

@@ -1,0 +1,9 @@
+Name:Phantom Stalker
+ManaCost:1 B
+Types:Creature Ghoul
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTorment | TriggerDescription$ When CARDNAME enters, torment each player.
+T:Mode$ Sacrificed | ValidCard$ Permanent.OppCtrl | TriggerZones$ Graveyard | OptionalDecider$ You | Execute$ TrigReturn | TriggerDescription$ Whenever an opponent sacrifices a permanent, you may return CARDNAME from your graveyard to your hand.
+SVar:TrigTorment:DB$ Torment | Defined$ Player
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Defined$ Self
+Oracle:When Phantom Stalker enters, torment each player. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)\nWhenever an opponent sacrifices a permanent, you may return Phantom Stalker from your graveyard to your hand.

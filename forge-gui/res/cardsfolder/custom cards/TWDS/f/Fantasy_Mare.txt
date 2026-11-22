@@ -1,0 +1,11 @@
+Name:Fantasy Mare
+ManaCost:5 B G
+Types:Creature Horror Horse
+PT:7/7
+K:Trample
+K:Corrupt
+R:Event$ AddCounter | ActiveZones$ Battlefield | ValidSource$ You | ValidObject$ Creature.YouCtrl+inZoneBattlefield | ReplaceWith$ TripleCounters | Description$ If you would put one or more counters on a creature you control, three times that many counters are put on it instead.
+SVar:TripleCounters:DB$ ReplaceCounter | ValidSource$ You | Amount$ X
+SVar:X:ReplaceCount$CounterNum/Times.3
+DeckHas:Ability$Counters
+Oracle:Trample\nCorrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nIf you would put one or more counters on a creature you control, three times that many counters are put on it instead.

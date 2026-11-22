@@ -1,0 +1,7 @@
+Name:Disgrace
+ManaCost:3 U
+Types:Instant
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ 4 | EffectZone$ All | IsPresent$ Creature.YouCtrl+withFlying | Description$ This spell costs {4} less to cast if you control a creature with flying.
+A:SP$ ChangeZone | ValidTgts$ Creature.YouDontCtrl | TgtPrompt$ Select target creature you don't control | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBDraw | SpellDescription$ Return target creature you don't control to its owner's hand. Draw a card.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:This spell costs {4} less to cast if you control a creature with flying.\nReturn target creature you don't control to its owner's hand.\nDraw a card.

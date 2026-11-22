@@ -1,0 +1,11 @@
+Name:Lashing Sorcerer
+ManaCost:2 U
+Types:Creature Human Wizard
+PT:2/3
+K:Coalesce
+K:Prowess
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | TriggerDescription$ When CARDNAME enters, exile a card from the top of your library for each creature on the battlefield.
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile
+SVar:X:Count$Valid Creature
+DeckHints:Keyword$Coalesce
+Oracle:Coalesce (For every two cards you put into your graveyard from among cards you own in exile while casting this spell pays for {1}.)\nProwess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)\nWhen this creature enters, exile a card from the top of your library for each creature on the battlefield.

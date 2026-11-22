@@ -1,0 +1,12 @@
+Name:Lost Expedition
+ManaCost:X G G
+Types:Creature Human Scout
+PT:0/0
+K:etbCounter:P1P1:Y:no Condition:CARDNAME enters with twice X +1/+1 counters on it.
+K:Humbled:X
+T:Mode$ CounterRemoved | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever you remove a counter from CARDNAME, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:X:Count$xPaid
+SVar:Y:SVar$X/Twice
+DeckHas:Ability$Counters
+Oracle:This creature enters with twice X +1/+1 counters on it.\nHumbled X (This creature enters with X defeat counters on it. As long as it has a defeat counter on it, it's an enchantment and loses all other types. At the beginning of your upkeep, remove a defeat counter from it.)\nWhenever you remove a counter from this creature, draw a card.

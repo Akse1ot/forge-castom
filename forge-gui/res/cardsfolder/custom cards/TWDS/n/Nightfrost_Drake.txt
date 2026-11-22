@@ -1,0 +1,11 @@
+Name:Nightfrost Drake
+ManaCost:4 U U
+Types:Creature Drake
+PT:5/5
+K:Flying
+K:Ward:2
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigHexproof | TriggerDescription$ Whenever you cast an instant or sorcery spell, creatures you control gain hexproof until end of turn. Then, draw a card.
+SVar:TrigHexproof:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Hexproof | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+DeckHints:Type$Instant|Sorcery
+Oracle:Flying, ward {2} (Whenever this creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays {2}.)\nWhenever you cast an instant or sorcery spell, creatures you control gain hexproof until end of turn. Then, draw a card.

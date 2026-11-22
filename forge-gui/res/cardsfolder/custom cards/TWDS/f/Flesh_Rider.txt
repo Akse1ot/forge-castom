@@ -1,0 +1,12 @@
+Name:Flesh Rider
+ManaCost:4 R R
+Types:Creature Ghoul Knight
+PT:6/5
+K:Menace
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigTorment | TriggerDescription$ Whenever CARDNAME attacks, choose target opponent. Torment that player twice. Creatures that player controls with power 4 or less can't block this turn.
+SVar:TrigTorment:DB$ Torment | ValidTgts$ Opponent | Amount$ 2 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Valid Creature.powerLE4+ControlledBy TargetedPlayer | StaticAbilities$ STCantBlock | ForgetOnMoved$ Battlefield | Duration$ EndOfTurn
+SVar:STCantBlock:Mode$ CantBlock | ValidCard$ Card.IsRemembered | Description$ Creatures that player controls with power 4 or less can't block this turn.
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Torment
+Oracle:Menace\nWhenever this creature attacks, choose target opponent. Torment that player twice. Creatures that player controls with power 4 or less can't block this turn. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)

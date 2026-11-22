@@ -1,0 +1,9 @@
+Name:Crazed Hermit
+ManaCost:3 B
+Types:Creature Ghoul
+PT:4/4
+A:AB$ Pump | Cost$ B Sac<1/Creature.Other/another creature> | Defined$ Self | NumAtt$ +2 | NumDef$ +2 | AILogic$ Aristocrat | SubAbility$ DBTorment | SpellDescription$ This creature gets +2/+2 until end of turn. Torment target player. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)
+SVar:DBTorment:DB$ Torment | ValidTgts$ Player
+SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE2
+DeckHas:Ability$Torment|Sacrifice
+Oracle:{B}, Sacrifice another creature: This creature gets +2/+2 until end of turn. Torment target player. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)

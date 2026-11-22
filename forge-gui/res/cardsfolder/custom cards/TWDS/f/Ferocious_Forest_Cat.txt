@@ -1,0 +1,8 @@
+Name:Ferocious Forest Cat
+ManaCost:3 G G
+Types:Creature Cat
+PT:5/5
+T:Mode$ DamageDoneOnce | CombatDamage$ True | ValidSource$ Creature.YouCtrl | ValidTarget$ Player | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever one or more creatures you control deal combat damage to a player, draw a card.
+SVar:TrigDraw:DB$ Draw | NumCards$ 1
+DeckHints:Type$Creature
+Oracle:Whenever one or more creatures you control deal combat damage to a player, draw a card.

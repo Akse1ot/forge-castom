@@ -1,0 +1,11 @@
+Name:Soul
+ManaCost:no cost
+Colors:black
+Types:Creature Soul
+PT:1/1
+K:Haste
+S:Mode$ MustAttack | ValidCreature$ Card.Self+!attackedThisTurn | Description$ This creature attacks each turn if able.
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSac | TriggerDescription$ At the beginning of your next end step, sacrifice this creature.
+SVar:TrigSac:DB$ Sacrifice | SacValid$ Self
+SVar:EndOfTurnLeavePlay:True
+Oracle:Haste\nThis creature attacks each turn if able.\nSacrifice this creature at the beginning of your next end step.

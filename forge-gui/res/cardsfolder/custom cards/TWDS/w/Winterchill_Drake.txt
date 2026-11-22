@@ -1,0 +1,7 @@
+Name:Winterchill Drake
+ManaCost:3 U
+Types:Creature Drake
+PT:3/3
+K:Flying
+S:Mode$ CastWithFlash | ValidCard$ Sorcery | ValidSA$ Spell | Caster$ You | Description$ You may cast sorcery spells as though they had flash.
+Oracle:Flying\nYou may cast sorcery spells as though they had flash.

@@ -1,0 +1,12 @@
+Name:Olas, the Skymender
+ManaCost:2 R G W
+Types:Planeswalker Olas
+Loyalty:5
+Text:CARDNAME can be your commander.
+A:AB$ Destroy | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Permanent.!token | TgtPrompt$ Select target nontoken permanent | SubAbility$ DBDraw | SpellDescription$ Destroy target nontoken permanent. Its controller draws two cards.
+SVar:DBDraw:DB$ Draw | Defined$ TargetedController | NumCards$ 2
+A:AB$ GainLife | Cost$ AddCounter<0/LOYALTY> | Planeswalker$ True | LifeAmount$ X | SpellDescription$ You gain life equal to the number of loyalty counters on CARDNAME.
+SVar:X:Count$CardCounters.LOYALTY
+A:AB$ ChangeZone | Cost$ SubCounter<X/LOYALTY> | Planeswalker$ True | Origin$ Hand | Destination$ Battlefield | ChangeType$ Creature.cmcEQX | ChangeNum$ 1 | SpellDescription$ Put a creature card with mana value equal to X from your hand onto the battlefield.
+SVar:X:Count$xPaid
+Oracle:[+2]: Destroy target nontoken permanent. Its controller draws two cards.\n[0]: You gain life equal to the number of loyalty counters on Olas, the Skymender.\n[-X]: Put a creature card with mana value equal to X from your hand onto the battlefield.\nOlas, the Skymender can be your commander.

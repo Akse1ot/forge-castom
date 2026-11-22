@@ -1,0 +1,11 @@
+Name:Envoy of Nazalia
+ManaCost:1 W B
+Types:Creature Elf Cleric
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other+YouCtrl,Card.Self | TriggerZones$ Battlefield | Execute$ TrigDrain | TriggerDescription$ Whenever CARDNAME or another creature you control dies, each opponent loses 1 life and you gain 1 life.
+SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+K:Cursed:3
+DeckHas:Ability$LifeGain
+DeckHints:Ability$Sacrifice
+Oracle:Whenever Envoy of Nazalia or another creature you control dies, each opponent loses 1 life and you gain 1 life.\nCursed 3 (When this permanent leaves the battlefield, create three 1/1 black Soul creature tokens with haste and “This creature attacks each turn if able. Sacrifice this creature at the beginning of your next end step.”)

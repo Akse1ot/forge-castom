@@ -1,0 +1,12 @@
+Name:Late Reinforcements
+ManaCost:1 W W
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1 | Description$ Creatures you control get +1/+1.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigRemove | TriggerDescription$ At the beginning of your upkeep, you may pay {1}. If you do, remove a defeat counter from each permanent you control. You gain 1 life for each counter removed this way.
+SVar:TrigRemove:AB$ RemoveCounterAll | Cost$ 1 | ValidCards$ Permanent.YouCtrl | CounterType$ DEFEAT | CounterNum$ 1 | RememberAmount$ True | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$RememberedNumber
+DeckHas:Ability$LifeGain
+DeckHints:Keyword$Humbled
+Oracle:Creatures you control get +1/+1.\nAt the beginning of your upkeep, you may pay {1}. If you do, remove a defeat counter from each permanent you control. You gain 1 life for each counter removed this way.

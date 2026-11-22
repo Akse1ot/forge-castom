@@ -1,0 +1,11 @@
+Name:Inquisitor Stockpile
+ManaCost:1 R W
+Types:Enchantment
+K:Unity
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE3 | Execute$ TrigDraw | TriggerDescription$ At the beginning of your upkeep, if CARDNAME has three or more unity counters on it, draw a card and gain 3 life.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3
+SVar:X:Count$CardCounters.UNITY
+DeckHas:Ability$Counters|LifeGain
+DeckHints:Keyword$Unity
+Oracle:Unity (As this permanent enters, you may pay any number of unity counters. This permanent enters with a unity counter on it for each unity counter paid this way.)\nAt the beginning of your upkeep, if this enchantment has three or more unity counters on it, draw a card and gain 3 life.

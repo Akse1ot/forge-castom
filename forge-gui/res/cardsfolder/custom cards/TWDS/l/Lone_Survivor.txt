@@ -1,0 +1,7 @@
+Name:Lone Survivor
+ManaCost:1 W W
+Types:Creature Human Soldier
+PT:1/1
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | ReplaceWith$ ToHand | Description$ If CARDNAME would die, return it to your hand instead.
+SVar:ToHand:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | Defined$ ReplacedCard
+Oracle:If this creature would die, return it to your hand instead.

@@ -1,0 +1,10 @@
+Name:Battleborn Shieldmaiden
+ManaCost:1 R W
+Types:Creature Human Soldier
+PT:3/4
+T:Mode$ Destroyed | ValidCard$ Card.Self+counters_EQ0_Mentor | ValidCauser$ Spell.OppCtrl,Ability.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigReturn | TriggerDescription$ Whenever a spell or ability an opponent controls destroys CARDNAME, if it had no mentor counters on it, return it to the battlefield under its owner's control.
+T:Mode$ DamageDone | ValidSource$ Card.Self+withoutMentor | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigMentor | TriggerDescription$ Whenever CARDNAME deals combat damage, if it didn't have mentor, put a mentor counter on it.
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Graveyard | Destination$ Battlefield
+SVar:TrigMentor:DB$ PutCounter | Defined$ Self | CounterType$ Mentor | CounterNum$ 1 | ConditionPresent$ Card.Self+withoutMentor
+DeckHas:Ability$Counters
+Oracle:Whenever a spell or ability an opponent controls destroys this creature, if it had no mentor counters on it, return it to the battlefield under its owner's control.\nWhenever this creature deals combat damage, if it didn't have mentor, put a mentor counter on it.\n(Whenever a creature with mentor attacks, put a +1/+1 counter on target attacking creature with lesser power.)

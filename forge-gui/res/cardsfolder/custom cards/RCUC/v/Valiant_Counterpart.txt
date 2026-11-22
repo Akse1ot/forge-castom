@@ -1,0 +1,8 @@
+Name:Valiant Counterpart
+ManaCost:1 R R W
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | Radiance$ True | KW$ Haste | RememberPumped$ True | SubAbility$ DBClone | SpellDescription$ Radiance — Target creature and each other creature that shares a color with it gain haste until end of turn. For each of them, create a token that's a copy of that creature. Exile those tokens at the beginning of the next end step.
+SVar:DBClone:DB$ CopyPermanent | Defined$ Remembered | AtEOT$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Token
+Oracle:Radiance — Target creature and each other creature that shares a color with it gain haste until end of turn. For each of them, create a token that's a copy of that creature. Exile those tokens at the beginning of the next end step.

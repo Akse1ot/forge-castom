@@ -1,0 +1,9 @@
+Name:Withering Thicket Guard
+ManaCost:G
+Types:Creature Horror Beast
+PT:1/1
+K:Corrupt
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever this creature or another creature you control dies, you gain 1 life.
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+DeckHas:Ability$Counters|LifeGain
+Oracle:Corrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nWhenever this creature or another creature you control dies, you gain 1 life.

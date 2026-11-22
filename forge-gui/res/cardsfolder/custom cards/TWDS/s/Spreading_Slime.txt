@@ -1,0 +1,12 @@
+Name:Spreading Slime
+ManaCost:2 G
+Types:Creature Ooze
+PT:4/4
+K:Reach
+K:Deathtouch
+A:AB$ PutCounter | Cost$ 2 G G | Monstrosity$ 2
+T:Mode$ BecomeMonstrous | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigCopy | TriggerDescription$ Whenever CARDNAME or another creature you control becomes monstrous, create a token that's a copy of CARDNAME. (The copy isn't monstrous.)
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ Self
+DeckHas:Ability$Token|Counters
+DeckHints:Ability$Counters
+Oracle:Reach, deathtouch\n{2}{G}{G}: Monstrosity 2. (If this creature isn't monstrous, put two +1/+1 counters on it and it becomes monstrous.)\nWhenever this creature or another creature you control becomes monstrous, create a token that's a copy of this creature. (The copy is not monstrous.)

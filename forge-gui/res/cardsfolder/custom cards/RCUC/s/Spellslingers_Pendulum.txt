@@ -1,0 +1,12 @@
+Name:Spellslinger's Pendulum
+ManaCost:1 U R W
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature+wasCastFromHand | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigExile | TriggerDescription$ Whenever you cast a noncreature spell from your hand, exile the top card of your library. Until the end of your next turn, you may cast that card.
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ Play | Duration$ UntilTheEndOfYourNextTurn | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:Play:Mode$ Continuous | Affected$ Card.nonLand+IsRemembered | AffectedZone$ Exile | MayPlay$ True | Description$ Until the end of your next turn, you may cast that card.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ Whenever you cast an instant or sorcery spell, CARDNAME deals 1 damage to any target.
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1
+DeckHints:Type$Instant|Sorcery
+Oracle:Whenever you cast a noncreature spell from your hand, exile the top card of your library. Until the end of your next turn, you may cast that card.\nWhenever you cast an instant or sorcery spell, Spellslinger's Pendulum deals 1 damage to any target.

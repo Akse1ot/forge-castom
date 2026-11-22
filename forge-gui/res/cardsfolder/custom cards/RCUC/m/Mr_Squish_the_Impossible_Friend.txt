@@ -1,0 +1,11 @@
+Name:"Mr. Squish", the Impossible Friend
+ManaCost:5
+Types:Legendary Creature Eldrazi Illusion
+PT:3/3
+K:Companion:Card.nonLand:Your starting deck contains no lands.
+S:Mode$ Continuous | Affected$ Land.YouCtrl | AddAbility$ AnyMana | Description$ Lands you control have "{T}: Add one mana of any color."
+SVar:AnyMana:AB$ Mana | Cost$ T | Produced$ Any | Amount$ 1 | SpellDescription$ Add one mana of any color.
+SVar:CompanionEffect:Mode$ Continuous | EffectZone$ Command | IsPresent$ Card.EffectSource | PresentZone$ Command | MayPlay$ True | MayPlayAsLand$ True | Affected$ Card.YouOwn | AffectedZone$ Hand | FaceDown$ True | FaceDownPower$ 0 | FaceDownToughness$ 0 | FaceDownSetType$ Basic & Land | FaceDownAddAbility$ ColorlessMana | FaceDownImage$ squish_land | MayPlayText$ face down as a basic land | Description$ As long as EFFECTSOURCE is your Companion and outside of the game, you may play any card from your hand face down as a basic land.
+SVar:ColorlessMana:AB$ Mana | Cost$ T | Produced$ C | SpellDescription$ Add {C}.
+AI:RemoveDeck:All
+Oracle:Companion — Your starting deck contains no lands.\nAs long as “Mr. Squish”, the Impossible Friend is your Companion and outside of the game, you may play any card from your hand face down as a basic land.\nLands you control have "{T}: Add one mana of any color."

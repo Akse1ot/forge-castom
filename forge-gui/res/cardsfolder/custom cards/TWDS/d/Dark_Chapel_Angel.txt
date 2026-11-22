@@ -1,0 +1,9 @@
+Name:Dark Chapel Angel
+ManaCost:2 W
+Types:Creature Angel Soldier
+PT:2/2
+K:Lifelink
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigWorship | TriggerDescription$ Whenever CARDNAME attacks, worship. (Trigger the enters effect of target permanent you control.)
+SVar:TrigWorship:DB$ CustomReplayEtb | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select target permanent you control
+SVar:HasAttackEffect:TRUE
+Oracle:Lifelink\nWhenever this creature attacks, worship. (Trigger the enters effect of target permanent you control.)

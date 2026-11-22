@@ -1,0 +1,14 @@
+Name:Shaya, Untamed
+ManaCost:1 U B
+Types:Legendary Creature Beast Faerie Wizard
+PT:2/3
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ Player.Opponent | ActivatorThisTurnCast$ EQ1 | Execute$ TrigLoseLife | TriggerZones$ Battlefield | TriggerDescription$ Whenever an opponent casts their first spell each turn, that player loses 1 life. Then if that player owns no lands with shift counters on them, put a shift counter on target land they control.
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ TriggeredActivator | LifeAmount$ 1 | SubAbility$ DBCheckShiftLands
+SVar:DBCheckShiftLands:DB$ Branch | BranchConditionSVar$ ShiftLandsOwnedByActivator | BranchConditionSVarCompare$ EQ0 | TrueSubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Land.ControlledBy TriggeredActivator | TgtPrompt$ Select target land that player controls | CounterType$ SHIFT | CounterNum$ 1 | IsCurse$ True
+SVar:ShiftLandsOwnedByActivator:Count$Valid Land.OwnedBy TriggeredActivator+counters_GE1_SHIFT
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | Execute$ TrigGainControl | TriggerZones$ Battlefield | TriggerDescription$ At the beginning of your upkeep, gain control of all lands with shift counters on them until end of turn. Untap them.
+SVar:TrigGainControl:DB$ GainControl | AllValid$ Land.counters_GE1_SHIFT | NewController$ You | LoseControl$ EOT | Untap$ True
+Oracle:Flying\nWhenever an opponent casts their first spell each turn, that player loses 1 life. Then if that player owns no lands with shift counters on them, put a shift counter on target land they control.\nAt the beginning of your upkeep, gain control of all lands with shift counters on them until end of turn. Untap them.
+

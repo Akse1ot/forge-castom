@@ -1,0 +1,6 @@
+Name:Shatter Armaments
+ManaCost:1 R
+Types:Sorcery
+A:SP$ RepeatEach | RepeatCards$ Artifact | RepeatSubAbility$ DBSac | SpellDescription$ For each artifact, its controller sacrifices it unless they pay {1}.
+SVar:DBSac:DB$ SacrificeAll | Defined$ Remembered | UnlessCost$ 1 | UnlessPayer$ RememberedController | ConditionDefined$ Remembered | ConditionPresent$ Card.inRealZoneBattlefield
+Oracle:For each artifact, its controller sacrifices it unless they pay {1}.

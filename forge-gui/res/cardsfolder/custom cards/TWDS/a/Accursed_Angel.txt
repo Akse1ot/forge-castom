@@ -1,0 +1,7 @@
+Name:Accursed Angel
+ManaCost:2 W W
+Types:Creature Angel Soldier
+PT:3/2
+K:Flying
+S:Mode$ Panharmonicon | ValidMode$ ChangesZone,ChangesZoneAll | ValidCard$ Permanent.YouCtrl | ValidCause$ Creature | Destination$ Battlefield | Description$ If a creature entering the battlefield causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time.
+Oracle:Flying\nIf a creature entering the battlefield causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time.

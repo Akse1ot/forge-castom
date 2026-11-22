@@ -1,0 +1,7 @@
+Name:Skybreaker's Roar
+ManaCost:1 R
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | AILogic$ PowerDmg | SubAbility$ DBDamage | StackDescription$ None | SpellDescription$ CARDNAME deals damage to any target equal to target creature's power.
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ X | AILogic$ PowerDmg
+SVar:X:ParentTargeted$CardPower
+Oracle:Skybreaker's Roar deals damage to any target equal to target creature's power.

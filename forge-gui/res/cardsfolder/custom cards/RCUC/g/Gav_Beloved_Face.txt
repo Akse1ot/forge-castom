@@ -1,0 +1,12 @@
+Name:Gav, Beloved Face
+ManaCost:4 R R
+Types:Legendary Creature Troll Warrior
+PT:7/5
+K:Partner with:Badru, Notorious Heel
+T:Mode$ DamageDoneOnce | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ Enrage — Whenever CARDNAME is dealt damage, distribute that many +1/+1 counters among creatures you control. (Creatures that were dealt lethal damage this turn still die.)
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select creatures you control to distribute +1/+1 counters among | CounterType$ P1P1 | CounterNum$ X | TargetMin$ 1 | TargetMax$ X | DividedAsYouChoose$ X
+SVar:X:TriggerCount$DamageAmount
+SVar:HasCombatEffect:TRUE
+DeckHas:Ability$Counters
+DeckHints:Name$Badru, Notorious Heel
+Oracle:Partner with Badru, Notorious Heel\nEnrage — Whenever Gav is dealt damage, distribute that many +1/+1 counters among creatures you control. (Creatures that were dealt lethal damage this turn still die.)

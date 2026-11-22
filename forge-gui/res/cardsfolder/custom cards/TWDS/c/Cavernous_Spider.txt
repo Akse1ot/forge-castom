@@ -1,0 +1,11 @@
+Name:Cavernous Spider
+ManaCost:5 G
+Types:Creature Spider
+PT:5/6
+K:Vigilance
+K:Reach
+A:AB$ PutCounter | Cost$ 5 G G | Monstrosity$ 4
+T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDestroy | TriggerDescription$ When CARDNAME becomes monstrous, destroy each creature your opponents control with flying.
+SVar:TrigDestroy:DB$ DestroyAll | ValidCards$ Creature.withFlying+OppCtrl
+DeckHas:Ability$Counters
+Oracle:Vigilance, reach\n{5}{G}{G}: Monstrosity 4. (If this creature isn't monstrous, put four +1/+1 counters on it and it becomes monstrous.)\nWhen this creature becomes monstrous, destroy each creature your opponents control with flying.

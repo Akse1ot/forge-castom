@@ -1,0 +1,7 @@
+Name:Melody of Fantasy
+ManaCost:3 G G
+Types:Sorcery
+A:SP$ ChooseType | Defined$ You | Type$ Card | InvalidTypes$ Instant,Sorcery,Kindred | SubAbility$ DBReturn | SpellDescription$ Choose a permanent type. Return all cards of the chosen type from your graveyard to your hand.
+SVar:DBReturn:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Hand | ChangeType$ Card.ChosenType+YouCtrl
+AI:RemoveDeck:All
+Oracle:Choose a permanent type. Return all cards of the chosen type from your graveyard to your hand.

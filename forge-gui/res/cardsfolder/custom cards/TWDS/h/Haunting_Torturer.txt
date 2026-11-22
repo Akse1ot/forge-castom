@@ -1,0 +1,9 @@
+Name:Haunting Torturer
+ManaCost:2 B
+Types:Creature Ghoul Wizard
+PT:1/4
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Execute$ TrigTorment | TriggerDescription$ Whenever another creature dies, torment target player. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)
+SVar:TrigTorment:DB$ Torment | ValidTgts$ Player
+DeckHas:Ability$Sacrifice|Discard
+DeckHints:Ability$Sacrifice|Token
+Oracle:Whenever another creature dies, torment target player. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)

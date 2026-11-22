@@ -1,0 +1,17 @@
+Name:The Story That Eats Names
+ManaCost:3 B B B
+Types:Legendary Creature Horror
+PT:6/6
+K:Menace
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.OppCtrl | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigExile | TriggerDescription$ Whenever a creature an opponent controls dies, you may exile it with a story counter on it.
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | Defined$ TriggeredNewCardLKICopy | WithCountersType$ STORY
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigChoose | TriggerDescription$ At the beginning of your upkeep, choose a creature exiled with a story counter. You may cast it this turn by paying life equal to its mana value rather than paying its mana cost. It enters with a finality counter and becomes a 6/6 Horror in addition to its other types.
+SVar:TrigChoose:DB$ ChooseCard | Defined$ You | ChoiceZone$ Exile | Choices$ Creature.counters_GE1_STORY | Mandatory$ True | ChoiceTitle$ Choose a creature card in exile with a story counter | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ ChosenCard | StaticAbilities$ StoryMayPlay | ReplacementEffects$ StoryETB | ConditionDefined$ ChosenCard | ConditionPresent$ Creature | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:StoryMayPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True | MayPlayAltManaCost$ PayLife<ConvertedManaCost> | Description$ You may cast the chosen card this turn by paying life equal to its mana value rather than paying its mana cost.
+SVar:StoryETB:Event$ Moved | Origin$ Stack | Destination$ Battlefield | ValidCard$ Card.IsRemembered | ReplacementResult$ Updated | ReplaceWith$ DBFinality | Description$ The chosen creature enters with a finality counter and becomes a 6/6 Horror in addition to its other types.
+SVar:DBFinality:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ FINALITY | CounterNum$ 1 | SubAbility$ DBAnimate
+SVar:DBAnimate:DB$ Animate | Defined$ ReplacedCard | Types$ Horror | Power$ 6 | Toughness$ 6 | Duration$ Permanent
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+DeckHas:Ability$Counters
+Oracle:Menace\nWhenever a creature an opponent controls dies, you may exile it with a story counter on it.\nAt the beginning of your upkeep, choose a creature exiled with a story counter. You may cast it this turn by paying life equal to its mana value rather than paying its mana cost. It enters with a finality counter and becomes a 6/6 Horror in addition to its other types.

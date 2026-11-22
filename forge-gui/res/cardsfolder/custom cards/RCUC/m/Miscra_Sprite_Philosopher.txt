@@ -1,0 +1,13 @@
+Name:Miscra, Sprite Philosopher
+ManaCost:U R
+Types:Legendary Creature Faerie Sphinx
+PT:1/2
+K:Flying
+A:AB$ Draw | Cost$ T | NumCards$ 1 | SubAbility$ DBDiscard | SpellDescription$ Draw a card, then discard a card.
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ3 | TriggerZones$ Battlefield | Execute$ TrigDiscover | TriggerDescription$ Whenever you cast your third spell each turn, discover X, where X is that spell's mana value.
+SVar:TrigDiscover:DB$ Discover | Num$ X
+SVar:X:TriggeredCard$CardManaCost
+DeckHas:Ability$Discard
+DeckHints:Type$Instant|Sorcery
+Oracle:Flying\n{T}: Draw a card, then discard a card.\nWhenever you cast your third spell each turn, discover X, where X is that spell's mana value. (Exile cards from the top of your library until you exile a nonland card with mana value X or less. Cast it without paying its mana cost or put it into your hand. Put the rest on the bottom in a random order.)

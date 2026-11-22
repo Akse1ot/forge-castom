@@ -1,0 +1,8 @@
+Name:Tear Asunder I
+ManaCost:5 R
+Types:Sorcery
+K:Traverse
+A:SP$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBDamage | DamageMap$ True | SpellDescription$ CARDNAME deals damage to each opponent equal to twice the number of lands that player controls.
+SVar:DBDamage:DB$ DealDamage | Defined$ Remembered | NumDmg$ X
+SVar:X:Count$Valid Land.RememberedPlayerCtrl/Times.2
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nTear Asunder deals damage to each opponent equal to twice the number of lands that player controls.

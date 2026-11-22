@@ -1,0 +1,10 @@
+Name:Touch of Sunset
+ManaCost:1 R
+Types:Enchantment Aura
+K:Traverse
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ X | AddKeyword$ Menace | Description$ Enchanted creature has menace and gets +1/+0 for each land you control.
+SVar:X:Count$Valid Land.YouCtrl
+SVar:BuffedBy:Land
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nEnchant creature\nEnchanted creature has menace and gets +1/+0 for each land you control.

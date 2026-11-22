@@ -1,0 +1,6 @@
+Name:Extending Leylines
+ManaCost:G
+Types:Enchantment
+K:Traverse
+S:Mode$ Continuous | Affected$ Land.YouCtrl | AffectedZone$ Library | AddType$ AllBasicLandType | Description$ Land cards in your library are every basic land type in addition to their other types.
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nLand cards in your library are every basic land type in addition to their other types.

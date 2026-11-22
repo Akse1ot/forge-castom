@@ -1,0 +1,11 @@
+Name:Archfiend of the Night
+ManaCost:2 B
+Types:Creature Nightmare
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSubjugate | TriggerDescription$ When this creature enters, subjugate 5.
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 5
+T:Mode$ Discarded | ValidPlayer$ Opponent | ValidCard$ Card.namedVicious_Nightmare | TriggerZones$ Battlefield | Execute$ TrigCounter | TriggerDescription$ Whenever an opponent discards a Vicious Nightmare, put a +1/+1 counter on this creature.
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+DeckHas:Ability$Subjugate
+DeckHints:Ability$Subjugate
+Oracle:When this creature enters, subjugate 5.\nWhenever an opponent discards a Vicious Nightmare, put a +1/+1 counter on this creature.

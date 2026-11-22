@@ -1,0 +1,11 @@
+Name:Bloodeye Terror
+ManaCost:1 B
+Types:Creature Ghoul
+PT:2/2
+K:Menace
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigTorment | TriggerDescription$ When this creature dies, torment target player. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)
+SVar:TrigTorment:DB$ Torment | ValidTgts$ Player
+A:AB$ PutCounter | Cost$ Sac<1/Creature.Other/another creature> | CounterType$ P1P1 | CounterNum$ 1 | AILogic$ AristocratCounters | SpellDescription$ Put a +1/+1 counter on this creature.
+SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE2
+DeckHas:Ability$Torment|Counters|Sacrifice
+Oracle:Menace\nWhen this creature dies, torment target player. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)\nSacrifice another creature: Put a +1/+1 counter on this creature.

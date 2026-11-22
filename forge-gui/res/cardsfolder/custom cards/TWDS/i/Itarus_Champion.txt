@@ -1,0 +1,8 @@
+Name:Itaru's Champion
+ManaCost:3 U
+Types:Creature Human Soldier
+PT:0/0
+K:Traverse
+K:ETBReplacement:Copy:DBCopy
+SVar:DBCopy:DB$ Clone | Choices$ Creature.Other+YouCtrl | NonLegendary$ True | SpellDescription$ CARDNAME enters as a copy of a creature you control, except it isn't legendary.
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nThis creature enters as a copy of a creature you control, except it isn't legendary.

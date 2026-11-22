@@ -1,0 +1,11 @@
+Name:Haunting Reflection
+ManaCost:U B
+Types:Creature Nightmare
+PT:1/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSubjugate | TriggerDescription$ When this creature enters, subjugate 4.
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 4
+T:Mode$ Discarded | ValidPlayer$ Opponent | ValidCard$ Card.namedVicious_Nightmare | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigReturn | TriggerDescription$ Whenever an opponent discards a Vicious Nightmare, you may return this creature to its owner's hand.
+SVar:TrigReturn:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Hand
+DeckHas:Ability$Subjugate
+DeckHints:Ability$Subjugate
+Oracle:When this creature enters, subjugate 4.\nWhenever an opponent discards a Vicious Nightmare, you may return this creature to its owner's hand.

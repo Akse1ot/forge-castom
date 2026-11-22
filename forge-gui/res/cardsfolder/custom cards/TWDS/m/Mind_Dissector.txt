@@ -1,0 +1,12 @@
+Name:Mind Dissector
+ManaCost:4 B B
+Types:Creature Nightmare
+PT:6/6
+K:Flying
+K:Deathtouch
+K:Madness:2 B B
+T:Mode$ Discarded | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDiscard | TriggerDescription$ Whenever you discard a card, each opponent discards a card.
+SVar:TrigDiscard:DB$ Discard | Defined$ Opponent | NumCards$ 1 | Mode$ TgtChoose
+DeckHas:Ability$Discard
+DeckHints:Ability$Discard
+Oracle:Flying, deathtouch\nWhenever you discard a card, each opponent discards a card.\nMadness {2}{B}{B} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

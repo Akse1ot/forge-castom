@@ -1,0 +1,10 @@
+Name:Lost Legionnaire
+ManaCost:1 W
+Types:Creature Human Soldier
+PT:2/2
+K:Vigilance
+A:AB$ ChooseCard | Cost$ T | Choices$ Permanent.YouCtrl | Mandatory$ True | ChoiceTitle$ Choose a permanent you control | SubAbility$ DBDefeat | SpellDescription$ Add or remove a defeat counter from a permanent you control.
+SVar:DBDefeat:DB$ AddOrRemoveCounter | Defined$ ChosenCard | CounterType$ DEFEAT | CounterNum$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+DeckHints:Keyword$Humbled
+Oracle:Vigilance\n{T}: Add or remove a defeat counter from a permanent you control.

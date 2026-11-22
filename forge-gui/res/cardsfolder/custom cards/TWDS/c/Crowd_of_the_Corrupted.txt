@@ -1,0 +1,9 @@
+Name:Crowd of the Corrupted
+ManaCost:2 B B
+Types:Creature Horror
+PT:1/1
+K:Corrupt
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounters | TriggerDescription$ When this creature enters, put three -1/-1 counters on target creature.
+SVar:TrigPutCounters:DB$ PutCounter | ValidTgts$ Creature | CounterType$ M1M1 | CounterNum$ 3 | IsCurse$ True | TgtPrompt$ Select target creature
+DeckHas:Ability$Counters
+Oracle:Corrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nWhen this creature enters, put three -1/-1 counters on target creature.

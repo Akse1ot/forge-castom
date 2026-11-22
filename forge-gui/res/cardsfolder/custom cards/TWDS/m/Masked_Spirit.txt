@@ -1,0 +1,13 @@
+Name:Masked Spirit
+ManaCost:3 U U
+Types:Creature Spirit
+PT:4/4
+K:Traverse
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBounce | TriggerDescription$ When CARDNAME enters, you may return any number of lands you control to their owner's hand. When you do, draw two cards for each land returned this way.
+SVar:TrigBounce:DB$ ChangeZone | Origin$ Battlefield | Destination$ Hand | ChangeType$ Land.YouCtrl | ChangeNum$ Y | Hidden$ True | SelectPrompt$ Choose any number of lands you control | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ TrigImmediate
+SVar:TrigImmediate:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | RememberObjects$ Remembered | Execute$ TrigDraw | SubAbility$ DBCleanup | TriggerDescription$ When you do, draw two cards for each land returned this way.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ X
+SVar:X:TriggerRemembered$Amount/Times.2
+SVar:Y:Count$Valid Land.YouCtrl
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nWhen Masked Spirit enters, you may return any number of lands you control to their owner's hand. When you do, draw two cards for each land returned this way.

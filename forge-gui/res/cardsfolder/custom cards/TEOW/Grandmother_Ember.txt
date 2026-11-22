@@ -1,0 +1,13 @@
+Name:Grandmother Ember
+ManaCost:4 R R
+Types:Legendary Creature Elder Shaman
+PT:5/5
+T:Mode$ SpellCast | ValidCard$ Card.Adventure | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ Whenever you cast an Adventure spell, CARDNAME deals 2 damage to any target.
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Battlefield | ValidCard$ Permanent | TriggerZones$ Battlefield | Execute$ TrigExile | TriggerDescription$ Whenever a permanent enters the battlefield from exile, exile the top card of your library. You may play that card this turn.
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True | Description$ You may play that card this turn.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckNeeds:Type$Adventure
+Oracle:Whenever you cast an Adventure spell, Grandmother Ember deals 2 damage to any target.\nWhenever a permanent enters the battlefield from exile, exile the top card of your library. You may play that card this turn.

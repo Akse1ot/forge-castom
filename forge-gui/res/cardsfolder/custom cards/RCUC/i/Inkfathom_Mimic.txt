@@ -1,0 +1,8 @@
+Name:Inkfathom Mimic
+ManaCost:1 UB
+Types:Creature Shapeshifter
+PT:2/1
+T:Mode$ SpellCast | ValidCard$ Card.Blue+Black | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate | TriggerDescription$ Whenever you cast a spell that's both blue and black, CARDNAME has base power and toughness 5/2 until end of turn and gains ward—{2}, Pay 2 life until end of turn.
+SVar:TrigAnimate:DB$ Animate | Defined$ Self | Power$ 5 | Toughness$ 2 | Keywords$ Ward:2 PayLife<2>
+SVar:BuffedBy:Card.Blue+Black
+Oracle:Whenever you cast a spell that's both blue and black, Inkfathom Mimic has base power and toughness 5/2 until end of turn and gains ward—{2}, Pay 2 life until end of turn.

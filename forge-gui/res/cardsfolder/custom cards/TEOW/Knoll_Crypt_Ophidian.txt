@@ -1,0 +1,12 @@
+Name:Knoll-Crypt Ophidian
+ManaCost:3 G G
+Types:Creature Plant Snake Horror
+PT:5/4
+K:Deathtouch
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigReturn | TriggerDescription$ Whenever another creature you control dies, you may sacrifice a land. If you do, return that creature to the battlefield tapped with a finality counter on it. It is a colorless land with "{T}: Add {G}" and loses all other card types. (It still has its abilities.)
+SVar:TrigReturn:AB$ ChangeZone | Cost$ Sac<1/Land> | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredNewCardLKICopy | Tapped$ True | WithCountersType$ FINALITY | StaticEffect$ STLand
+SVar:STLand:Mode$ Continuous | Affected$ Card.IsRemembered | SetColor$ Colorless | AddType$ Land | RemoveCardTypes$ True | AddAbility$ ABMana | Description$ It is a colorless land with "{T}: Add {G}" and loses all other card types. It still has its abilities.
+SVar:ABMana:AB$ Mana | Cost$ T | Produced$ G | SpellDescription$ Add {G}.
+DeckHas:Ability$Graveyard|Sacrifice|Counters
+DeckHints:Ability$Sacrifice
+Oracle:Deathtouch\nWhenever another creature you control dies, you may sacrifice a land. If you do, return that creature to the battlefield tapped with a finality counter on it. It is a colorless land with "{T}: Add {G}" and loses all other card types. (It still has its abilities.)

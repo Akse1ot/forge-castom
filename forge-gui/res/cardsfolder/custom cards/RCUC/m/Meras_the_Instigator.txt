@@ -1,0 +1,16 @@
+Name:Meras, the Instigator
+ManaCost:3 R G W
+Types:Legendary Creature Human Warrior
+PT:2/2
+K:Haste
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self | ReplaceWith$ DBImmediateTrigger | ExecuteMode$ PerSource | Description$ If damage would be dealt to CARDNAME, it deals that much damage to target opponent instead.
+SVar:DBImmediateTrigger:DB$ ImmediateTrigger | Execute$ TrigDamage | RememberSVarAmount$ X | TriggerDescription$ When damage would be dealt to CARDNAME, it deals that much damage to target opponent instead.
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Opponent | TgtPrompt$ Select target opponent | NumDmg$ Y
+SVar:X:ReplaceCount$DamageAmount
+SVar:Y:Count$TriggerRememberAmount
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigGoadPlayer | TriggerDescription$ Whenever CARDNAME deals combat damage to a player or battle an opponent is protecting, goad each creature that player controls.
+SVar:TrigGoadPlayer:DB$ Goad | Defined$ Valid Creature.ControlledBy Player.TriggeredTarget
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Battle.OppProtect | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigGoadBattle | Secondary$ True | TriggerDescription$ Whenever CARDNAME deals combat damage to a player or battle an opponent is protecting, goad each creature that player controls.
+SVar:TrigGoadBattle:DB$ Goad | Defined$ Valid Creature.ControlledBy TriggeredDefendingPlayer
+SVar:HasAttackEffect:TRUE
+Oracle:Haste\nIf damage would be dealt to Meras, the Instigator, it deals that much damage to target opponent instead.\nWhenever Meras deals combat damage to a player or battle an opponent is protecting, goad each creature that player controls.

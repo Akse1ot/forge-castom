@@ -1,0 +1,11 @@
+Name:Ferocious Flesh Bat
+ManaCost:3 B
+Types:Creature Horror Bat
+PT:3/2
+K:Flying
+K:Corrupt
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | CheckOnTriggeredCard$ WasSacrificed GE1 | Execute$ TrigDraw | TriggerDescription$ When this creature dies, if it was sacrificed, draw a card.
+SVar:WasSacrificed:PlayerCountPlayers$SacrificedThisTurn Card.StrictlySelf
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+DeckHas:Ability$Sacrifice|Counters
+Oracle:Flying\nCorrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nWhen this creature dies, if it was sacrificed, draw a card.

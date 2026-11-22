@@ -1,0 +1,9 @@
+Name:Dormant Xenomorph
+ManaCost:1 B B
+Types:Creature Demon
+PT:6/6
+Text:CARDNAME enters the battlefield with four -1/-1 counters on it. Whenever another creature enters the battlefield, you may move a -1/-1 counter from this creature onto it.
+K:etbCounter:M1M1:4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Execute$ TrigMoveCounter | TriggerDescription$ Whenever another creature enters the battlefield, you may move a -1/-1 counter from this creature onto it.
+SVar:TrigMoveCounter:DB$ MoveCounter | Source$ Self | Defined$ TriggeredCardLKICopy | CounterType$ M1M1 | CounterNum$ 1
+Oracle:Graft -4 (This creature enters the battlefield with four -1/-1 counters on it. Whenever another creature enters the battlefield, you may move a -1/-1 counter from this creature onto it.)

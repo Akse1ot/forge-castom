@@ -1,0 +1,10 @@
+Name:Pestilence Wind
+ManaCost:3 G
+Types:Sorcery
+A:SP$ ChooseType | Defined$ You | Type$ Card | ValidTypes$ Artifact,Enchantment | SubAbility$ DBDestroy | SpellDescription$ Choose artifacts or enchantments. Destroy all permanents of the chosen type. Then, put a +1/+1 counter on target creature you control for each permanent destroyed this way.
+SVar:DBDestroy:DB$ DestroyAll | ValidCards$ Card.ChosenType | RememberDestroyed$ True | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+DeckHas:Ability$Counters
+Oracle:Choose artifacts or enchantments. Destroy all permanents of the chosen type. Then, put a +1/+1 counter on target creature you control for each permanent destroyed this way.

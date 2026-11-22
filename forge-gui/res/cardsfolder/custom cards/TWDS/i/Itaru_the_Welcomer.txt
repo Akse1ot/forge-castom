@@ -1,0 +1,9 @@
+Name:Itaru, the Welcomer
+ManaCost:G U R
+Types:Legendary Creature Human Wizard
+PT:3/3
+K:Traverse
+S:Mode$ Continuous | Affected$ You | SetMaxHandSize$ Unlimited | Description$ You have no maximum hand size.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDig | TriggerDescription$ Landfall — Whenever a land enters under your control, reveal the top three cards of your library. You may put a land card from among them into your hand and the rest on the bottom of your library in any order.
+SVar:TrigDig:DB$ Dig | DigNum$ 3 | Reveal$ True | ChangeNum$ 1 | ChangeValid$ Land | Optional$ True
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nYou have no maximum hand size.\nLandfall — Whenever a land enters under your control, reveal the top three cards of your library. You may put a land card from among them into your hand and the rest on the bottom of your library in any order.

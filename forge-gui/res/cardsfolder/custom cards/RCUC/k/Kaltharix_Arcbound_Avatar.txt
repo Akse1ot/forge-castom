@@ -1,0 +1,12 @@
+Name:Kaltharix, Arcbound Avatar
+ManaCost:1 R W B
+Types:Legendary Artifact Creature Avatar
+PT:0/0
+K:Modular:3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn | TriggerDescription$ Whenever CARDNAME enters or attacks, return target artifact creature card with power 2 or less from your graveyard to the battlefield.
+T:Mode$ Attacks | ValidCard$ Card.Self | Secondary$ True | Execute$ TrigReturn | TriggerDescription$ Whenever CARDNAME enters or attacks, return target artifact creature card with power 2 or less from your graveyard to the battlefield.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Artifact.Creature+powerLE2+YouCtrl | TgtPrompt$ Select target artifact creature card with power 2 or less from your graveyard
+SVar:HasAttackEffect:TRUE
+DeckHas:Ability$Counters
+DeckHints:Ability$Graveyard
+Oracle:Modular 3 (This creature enters with three +1/+1 counters on it. When it dies, you may put its +1/+1 counters on target artifact creature.)\nWhenever Kaltharix enters or attacks, return target artifact creature card with power 2 or less from your graveyard to the battlefield.

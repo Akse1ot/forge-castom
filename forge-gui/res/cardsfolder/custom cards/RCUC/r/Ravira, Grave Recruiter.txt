@@ -1,0 +1,16 @@
+Name:Ravira, Grave Recruiter
+ManaCost:2 U B
+Types:Legendary Creature Human Elf Warlock
+PT:2/5
+S:Mode$ Continuous | AffectedDefined$ Self | AddKeyword$ Ward:X | Description$ CARDNAME has ward {X}, where X is the number of creatures you control with decayed.
+T:Mode$ SpellCast | ValidCard$ Card.nonCreature | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigExile | TriggerDescription$ Whenever you cast a noncreature spell, you may exile target creature card from a graveyard. If you do, create a token that's a copy of that card, except it's a 1/1 black Zombie with decayed.
+SVar:TrigExile:DB$ ChangeZone | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Creature | TgtPrompt$ Select target creature card from a graveyard | RememberChanged$ True | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Remembered | SetPower$ 1 | SetToughness$ 1 | SetColor$ Black | SetCreatureTypes$ Zombie | AddKeywords$ Decayed | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ At the beginning of your upkeep, draw a card for each creature you control with decayed.
+SVar:TrigDraw:DB$ Draw | NumCards$ X
+SVar:X:Count$Valid Creature.YouCtrl+withDecayed
+DeckHas:Ability$Token|Graveyard|Draw & Type$Zombie
+DeckHints:Keyword$Decayed & Ability$Mill|Discard & Type$Zombie
+DeckNeeds:Type$Instant|Sorcery
+Oracle:Ravira, Grave Recruiter has ward {X}, where X is the number of creatures you control with decayed.\nWhenever you cast a noncreature spell, you may exile target creature card from a graveyard. If you do, create a token that's a copy of that card, except it's a 1/1 black Zombie with decayed.\nAt the beginning of your upkeep, draw a card for each creature you control with decayed.

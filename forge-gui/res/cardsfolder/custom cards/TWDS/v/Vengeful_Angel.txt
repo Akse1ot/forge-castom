@@ -1,0 +1,9 @@
+Name:Vengeful Angel
+ManaCost:2 W W
+Types:Creature Angel Soldier
+PT:2/2
+K:Double Strike
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPump | TriggerDescription$ When CARDNAME enters, another target creature you control gains double strike until end of turn.
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.Other+YouCtrl | TgtPrompt$ Select another target creature you control | KW$ Double Strike
+DeckHas:Keyword$Double Strike
+Oracle:Double strike\nWhen Vengeful Angel enters, another target creature you control gains double strike until end of turn.

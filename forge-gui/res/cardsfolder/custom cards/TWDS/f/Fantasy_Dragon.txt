@@ -1,0 +1,9 @@
+Name:Fantasy Dragon
+ManaCost:4 B G
+Types:Creature Horror Dragon
+PT:6/5
+K:Flying
+K:Corrupt
+A:AB$ ChangeZone | Cost$ SubCounterSameKind<2/Any/Creature/a creature> | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.YouOwn | TgtPrompt$ Select target card in your graveyard | SpellDescription$ Return target card from your graveyard to your hand.
+DeckHas:Ability$Counters|Graveyard
+Oracle:Flying\nCorrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nRemove two counters of the same kind from a creature you control: Return target card from your graveyard to your hand.

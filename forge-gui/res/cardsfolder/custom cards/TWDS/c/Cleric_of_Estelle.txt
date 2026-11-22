@@ -1,0 +1,10 @@
+Name:Cleric of Estelle
+ManaCost:3 B
+Types:Creature Ghoul Cleric
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerDescription$ When CARDNAME enters, ABILITY
+SVar:TrigCharm:DB$ Charm | Choices$ DBTorment,DBReturn
+SVar:DBTorment:DB$ Torment | ValidTgts$ Player | Amount$ 2 | SpellDescription$ Torment target player twice. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn+cmcLE3 | TgtPrompt$ Select target creature card with mana value 3 or less in your graveyard | SpellDescription$ Return target creature card with mana value 3 or less from your graveyard to the battlefield under your control.
+DeckHas:Ability$Torment|Graveyard
+Oracle:When this creature enters, choose one —\n• Torment target player twice. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)\n• Return target creature card with mana value 3 or less from your graveyard to the battlefield under your control.

@@ -1,0 +1,14 @@
+Name:Silver Coating
+ManaCost:G W
+Types:Enchantment Aura
+K:Enchant:Permanent
+SVar:AttachAILogic:Pump
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPutCounter | TriggerDescription$ When CARDNAME enters, put three defeat counters on enchanted permanent. Then that permanent gains humbled until it has no defeat counters on it.
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Enchanted | CounterType$ DEFEAT | CounterNum$ 3 | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Enchanted | StaticAbilities$ GrantHumbled | Triggers$ RemoveHumbled | Duration$ Permanent | ExileOnMoved$ Battlefield | ConditionDefined$ Enchanted | ConditionPresent$ Card+counters_GE1_DEFEAT | ConditionCompare$ GE1
+SVar:GrantHumbled:Mode$ Continuous | Affected$ Card.IsRemembered+counters_GE1_DEFEAT | AddKeyword$ Humbled
+SVar:RemoveHumbled:Mode$ CounterRemovedOnce | ValidCard$ Card.IsRemembered | CounterType$ DEFEAT | Remaining$ 0 | TriggerZones$ Command | Static$ True | Execute$ ExileEffect
+SVar:ExileEffect:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Exile
+S:Mode$ Continuous | Affected$ Creature.EnchantedBy | AddPower$ 4 | AddToughness$ 4 | AddKeyword$ Trample & Vigilance | Description$ Enchanted creature gets +4/+4 and has trample and vigilance.
+DeckHas:Ability$Counters
+Oracle:Enchant permanent\nWhen this Aura enters, put three defeat counters on enchanted permanent. Then that permanent gains humbled until it has no defeat counters on it.\nEnchanted creature gets +4/+4 and has trample and vigilance.

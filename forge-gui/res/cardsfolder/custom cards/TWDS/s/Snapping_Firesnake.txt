@@ -1,0 +1,9 @@
+Name:Snapping Firesnake
+ManaCost:2 R
+Types:Creature Serpent Elemental
+PT:3/1
+A:AB$ PutCounter | Cost$ 3 R R | Monstrosity$ 3
+T:Mode$ AbilityCast | ValidCard$ Creature.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ Whenever you activate an ability of a creature you control, CARDNAME deals 1 damage to each opponent.
+SVar:TrigDamage:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ 1
+DeckHas:Ability$Counters
+Oracle:{3}{R}{R}: Monstrosity 3. (If this creature isn't monstrous, put three +1/+1 counters on it and it becomes monstrous.)\nWhenever you activate an ability of a creature you control, this creature deals 1 damage to each opponent.

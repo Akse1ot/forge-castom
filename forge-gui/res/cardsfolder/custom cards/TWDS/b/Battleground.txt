@@ -1,0 +1,8 @@
+Name:Battleground
+ManaCost:1 R
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.attacking+YouCtrl | AddPower$ 1 | AddToughness$ 1 | Description$ Attacking creatures you control get +1/+1.
+A:AB$ PutCounter | Cost$ R Sac<1/CARDNAME> | Defined$ You | CounterType$ UNITY | CounterNum$ 3 | SpellDescription$ You get three unity counters.
+SVar:PlayMain1:TRUE
+DeckHas:Ability$Counters
+Oracle:Attacking creatures you control get +1/+1.\n{R}, Sacrifice this enchantment: You get three unity counters.

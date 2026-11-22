@@ -1,0 +1,10 @@
+Name:Fitting Burial
+ManaCost:1 W
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a creature you control dies, you may pay {1}. If you do, you gain life equal to that creature's power and you get a unity counter.
+SVar:TrigGainLife:AB$ GainLife | Cost$ 1 | Defined$ You | LifeAmount$ X | SubAbility$ DBUnity
+SVar:DBUnity:DB$ PutCounter | Defined$ You | CounterType$ UNITY | CounterNum$ 1
+SVar:X:TriggeredCard$CardPower
+DeckHints:Type$Creature
+DeckHas:Ability$LifeGain|Counters
+Oracle:Whenever a creature you control dies, you may pay {1}. If you do, you gain life equal to that creature's power and you get a unity counter.

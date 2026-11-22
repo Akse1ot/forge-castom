@@ -1,0 +1,21 @@
+Name:Curse of Insatiable Hunger
+ManaCost:1 B B
+Types:Enchantment Aura Curse
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigSacrifice | TriggerDescription$ Whenever a creature you control dies, enchanted player sacrifices a creature.
+SVar:TrigSacrifice:DB$ Sacrifice | Defined$ EnchantedPlayer | SacValid$ Creature
+Text:The void is always more hungry.
+DeckHas:Ability$Sacrifice
+DeckNeeds:Type$Creature
+DeckHints:Ability$Token|Sacrifice
+AlternateMode:Adventure
+Oracle:Enchant player\nWhenever a creature you control dies, enchanted player sacrifices a creature.
+
+ALTERNATE
+
+Name:Dread Appetite
+ManaCost:B B
+Types:Sorcery Adventure
+A:SP$ Draw | Cost$ B B Sac<1/Creature> | Defined$ You | NumCards$ 2 | SpellDescription$ Draw two cards.
+Oracle:As an additional cost to cast this spell, sacrifice a creature.\nDraw two cards.

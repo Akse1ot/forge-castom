@@ -1,0 +1,18 @@
+Name:Yosova, Bringer of Passage
+ManaCost:R W
+Types:Legendary Creature Dragon Spirit
+PT:5/4
+K:Flying
+K:Battle cry
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ Player | TriggerZones$ Battlefield | Execute$ TrigReturn | TriggerDescription$ At the beginning of combat on each player's turn, return any number of creature cards with different mana values from your graveyard to the battlefield. They gain first strike and haste until end of turn. Shuffle them into your library at the beginning of the next end step.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ChangeType$ Creature.YouOwn | ChangeNum$ X | ChangeNumDesc$ any number of | ChangeTypeDesc$ creature cards with different mana values | DifferentCMC$ True | RememberChanged$ True | AtEOT$ Library | SubAbility$ DBPump
+SVar:DBPump:DB$ Pump | Defined$ Remembered | KW$ First Strike & Haste | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidGraveyard Creature.YouOwn
+S:Mode$ CantPayLife | ValidPlayer$ Player | ValidCause$ Activated | ForCost$ True | Description$ Players can't pay life or sacrifice creatures to activate abilities.
+S:Mode$ CantSacrifice | ValidCard$ Creature | ValidCause$ Activated | ForCost$ True | Secondary$ True | Description$ Players can't pay life or sacrifice creatures to activate abilities.
+SVar:IsReanimatorCard:TRUE
+DeckHas:Ability$Graveyard
+DeckHints:Type$Creature
+DeckNeeds:Type$Creature
+Oracle:Flying, battle cry\nAt the beginning of combat on each player's turn, return any number of creature cards with different mana values from your graveyard to the battlefield. They gain first strike and haste until end of turn. Shuffle them into your library at the beginning of the next end step.\nPlayers can't pay life or sacrifice creatures to activate abilities.

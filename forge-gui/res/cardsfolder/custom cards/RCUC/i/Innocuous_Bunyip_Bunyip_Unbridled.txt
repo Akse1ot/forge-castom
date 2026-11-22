@@ -1,0 +1,22 @@
+Name:Innocuous Bunyip
+ManaCost:2 R
+Types:Creature Beast
+PT:3/3
+K:Trample
+A:AB$ DamageAll | Cost$ 3 T | ValidCards$ Creature.OppCtrl | NumDmg$ 1 | SpellDescription$ CARDNAME deals 1 damage to each creature your opponents control.
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ CombatDamageReceived | SVarCompare$ GE1 | Execute$ TrigTransform | TriggerDescription$ At the beginning of your end step, if CARDNAME was dealt combat damage this turn, transform CARDNAME.
+SVar:TrigTransform:DB$ SetState | Defined$ Self | Mode$ Transform
+SVar:CombatDamageReceived:Count$TotalCombatDamageReceivedThisTurn
+AlternateMode:DoubleFaced
+Oracle:Trample\n{3}, {T}: Innocuous Bunyip deals 1 damage to each creature your opponents control.\nAt the beginning of your end step, if Innocuous Bunyip was dealt combat damage this turn, transform Innocuous Bunyip.
+
+ALTERNATE
+
+Name:Bunyip, Unbridled
+ManaCost:no cost
+Colors:red
+Types:Creature Beast Horror
+PT:4/4
+K:Trample
+A:AB$ PumpAll | Cost$ 3 T | ValidCards$ Creature.OppCtrl | NumAtt$ -2 | NumDef$ -2 | IsCurse$ True | SpellDescription$ Each creature your opponents control gets -2/-2 until end of turn.
+Oracle:Trample\n{3}, {T}: Each creature your opponents control gets -2/-2 until end of turn.

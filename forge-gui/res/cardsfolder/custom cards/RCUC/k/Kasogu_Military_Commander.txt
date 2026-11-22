@@ -1,0 +1,25 @@
+Name:Kasogu, Military Commander
+ManaCost:2 W W
+Types:Legendary Creature Human
+PT:3/3
+K:ETBReplacement:Other:ChooseCT
+SVar:ChooseCT:DB$ ChooseType | Defined$ You | Type$ Creature | ValidTypes$ Knight,Soldier,Warrior | AILogic$ MostProminentInComputerDeck | SubAbility$ ChooseAbility | SpellDescription$ As CARDNAME enters, choose Knight, Soldier, or Warrior, then choose first strike, lifelink, or vigilance.
+SVar:ChooseAbility:DB$ GenericChoice | Choices$ FirstStrike,Lifelink,Vigilance | Defined$ You
+SVar:FirstStrike:DB$ StoreSVar | SVar$ VarFirstStrike | Type$ Number | Expression$ 1 | SpellDescription$ First strike
+SVar:Lifelink:DB$ StoreSVar | SVar$ VarLifelink | Type$ Number | Expression$ 1 | SpellDescription$ Lifelink
+SVar:Vigilance:DB$ StoreSVar | SVar$ VarVigilance | Type$ Number | Expression$ 1 | SpellDescription$ Vigilance
+S:Mode$ Continuous | AffectedDefined$ Self | AddType$ ChosenType | Description$ CARDNAME is the chosen type in addition to its other types and has the chosen ability.
+S:Mode$ Continuous | Affected$ Creature.ChosenType+Other+YouCtrl | AddPower$ 1 | AddToughness$ 1 | Description$ Other creatures you control of the chosen type get +1/+1 and have the chosen ability.
+S:Mode$ Continuous | Affected$ Creature.ChosenType+YouCtrl | AddKeyword$ First Strike | CheckSVar$ VarFirstStrike | SVarCompare$ EQ1
+S:Mode$ Continuous | Affected$ Creature.ChosenType+YouCtrl | AddKeyword$ Lifelink | CheckSVar$ VarLifelink | SVarCompare$ EQ1
+S:Mode$ Continuous | Affected$ Creature.ChosenType+YouCtrl | AddKeyword$ Vigilance | CheckSVar$ VarVigilance | SVarCompare$ EQ1
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Battlefield | Destination$ Any | Execute$ ResetSVars | Static$ True
+SVar:ResetSVars:DB$ StoreSVar | SVar$ VarFirstStrike | Type$ Number | Expression$ 0 | SubAbility$ ResetLifelink
+SVar:ResetLifelink:DB$ StoreSVar | SVar$ VarLifelink | Type$ Number | Expression$ 0 | SubAbility$ ResetVigilance
+SVar:ResetVigilance:DB$ StoreSVar | SVar$ VarVigilance | Type$ Number | Expression$ 0
+SVar:VarFirstStrike:Number$0
+SVar:VarLifelink:Number$0
+SVar:VarVigilance:Number$0
+SVar:PlayMain1:TRUE
+DeckHints:Type$Knight|Soldier|Warrior
+Oracle:As Kasogu, Military Commander enters the battlefield, choose Knight, Soldier, or Warrior, then choose first strike, lifelink, or vigilance.\nKasogu is the chosen type in addition to its other types and has the chosen ability.\nOther creatures you control of the chosen type get +1/+1 and have the chosen ability.

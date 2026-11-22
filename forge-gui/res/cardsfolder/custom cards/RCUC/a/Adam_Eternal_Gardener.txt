@@ -1,0 +1,8 @@
+Name:Adam, Eternal Gardener
+ManaCost:3
+Types:Legendary Artifact Creature Construct
+PT:1/3
+K:Companion:Card.Colorless:Each card in your starting deck is colorless. (Lands are colorless.)
+S:Mode$ Continuous | Affected$ Land.YouCtrl | AddKeyword$ Hexproof | Description$ Lands you control have hexproof.
+A:AB$ Mana | Cost$ T tapXType<1/Land/land> | Produced$ Any | Amount$ 3 | SpellDescription$ Add three mana of any one color.
+Oracle:Companion — Each card in your starting deck is colorless. (Lands are colorless.) (If this card is your chosen companion, you cast it once from outside the game as your commander.)\nLands you control have hexproof.\n{T}, Tap an untapped land you control: Add three mana of any one color.

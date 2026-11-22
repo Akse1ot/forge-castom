@@ -1,0 +1,10 @@
+Name:Syr Tasilla, Ever Protective
+ManaCost:R W B
+Types:Legendary Creature Human Knight
+PT:2/3
+K:Double Strike
+T:Mode$ ChangesZoneAll | Origin$ Battlefield | Destination$ Any | ValidCards$ Enchantment.YouCtrl | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigReturn | TriggerDescription$ Whenever one or more enchantments you control leave the battlefield, you may return a creature card from your graveyard to your hand.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ChangeType$ Creature.YouOwn | ChangeNum$ 1
+DeckHas:Ability$Graveyard
+DeckHints:Type$Enchantment
+Oracle:Double strike\nWhenever one or more enchantments you control leave the battlefield, you may return a creature card from your graveyard to your hand.\n"Even in death we serve."

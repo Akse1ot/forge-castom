@@ -1,0 +1,9 @@
+Name:The Bleeding Woods
+ManaCost:2 R
+Types:Enchantment Saga
+K:Chapter:2:DBPump,DBNoBlock
+SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | KW$ Haste | SpellDescription$ Creatures you control get +2/+0 and gain haste until end of turn.
+SVar:DBNoBlock:DB$ Effect | StaticAbilities$ SNoBlock | SpellDescription$ Creatures your opponents control can't block until end of turn.
+SVar:SNoBlock:Mode$ CantBlock | ValidCard$ Creature.OppCtrl | Description$ Creatures your opponents control can't block until end of turn.
+SVar:PlayMain1:TRUE
+Oracle:(As this Saga enters and after your draw step, add a lore counter. Sacrifice after II.)\nI — Creatures you control get +2/+0 and gain haste until end of turn.\nII — Creatures your opponents control can't block until end of turn.

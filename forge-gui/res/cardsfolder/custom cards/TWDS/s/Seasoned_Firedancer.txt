@@ -1,0 +1,12 @@
+Name:Seasoned Firedancer
+ManaCost:3 R R
+Types:Creature Human Wizard
+PT:5/3
+K:Coalesce
+K:Trample
+K:Haste
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever CARDNAME attacks, other creatures you control get +X/+0 and gain trample until end of turn, where X is half the number of cards you own in exile, rounded down.
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl+Other | NumAtt$ +X | KW$ Trample
+SVar:X:Count$ValidExile Card.YouOwn/HalfDown
+DeckHints:Ability$Exile
+Oracle:Coalesce (For every two cards you put into your graveyard from among cards you own in exile while casting this spell, this spell costs {1} less to cast.)\nTrample, haste\nWhenever this creature attacks, other creatures you control get +X/+0 and gain trample until end of turn, where X is half the number of cards you own in exile, rounded down.

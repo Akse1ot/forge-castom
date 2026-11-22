@@ -1,0 +1,8 @@
+Name:Lonesome Solidarity
+ManaCost:3 W
+Types:Enchantment Saga
+K:Chapter:2:DBExile,DBPump
+SVar:DBExile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | ValidTgts$ Permanent.nonLand+OppCtrl+cmcLE4 | TgtPrompt$ Select target nonland permanent an opponent controls with mana value 4 or less | SpellDescription$ Exile target nonland permanent an opponent controls with mana value 4 or less.
+SVar:DBPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | NumAtt$ +X | NumDef$ +X | SpellDescription$ Target creature you control gets +X/+X until end of turn, where X is the total number of counters among permanents you control.
+SVar:X:Count$Valid Permanent.YouCtrl$CardCounters.ALL
+Oracle:(As this Saga enters and after your draw step, add a lore counter. Sacrifice after II.)\nI — Exile target nonland permanent an opponent controls with mana value 4 or less.\nII — Target creature you control gets +X/+X until end of turn, where X is the total number of counters among permanents you control.

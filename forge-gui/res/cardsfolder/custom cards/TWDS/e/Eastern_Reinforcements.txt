@@ -1,0 +1,9 @@
+Name:Eastern Reinforcements
+ManaCost:2 R
+Types:Creature Human Knight
+PT:3/3
+K:Trample
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X | Description$ CARDNAME gets +1/+1 for each unity counter on permanents you control.
+SVar:X:Count$Valid Permanent.YouCtrl$CardCounters.UNITY
+DeckHints:Keyword$Unity
+Oracle:Trample\nThis creature gets +1/+1 for each unity counter on permanents you control.

@@ -1,0 +1,10 @@
+Name:Knight of Twilight
+ManaCost:1 B
+Types:Creature Ghoul Knight
+PT:2/2
+K:Menace
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigTorment | TriggerDescription$ When CARDNAME dies, torment target player. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)
+SVar:TrigTorment:DB$ Torment | ValidTgts$ Player
+SVar:SacMe:1
+DeckHints:Ability$Sacrifice
+Oracle:Menace\nWhen this creature dies, torment target player. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)

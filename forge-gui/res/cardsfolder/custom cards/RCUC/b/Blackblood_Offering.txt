@@ -1,0 +1,7 @@
+Name:Blackblood Offering
+ManaCost:B
+Types:Sorcery
+K:Flashback:B
+S:Mode$ CantBeCast | ValidCard$ Card.Self | Caster$ You | NumLimitEachTurn$ 1 | EffectZone$ All | Description$ You may cast this spell only once each turn.
+A:SP$ Mana | Cost$ B PayLife<2> | Produced$ B | Amount$ 2 | AILogic$ ManaRitual | AINoRecursiveCheck$ True | SpellDescription$ Add {B}{B}.
+Oracle:You may cast this spell only once each turn. As an additional cost to cast this spell, pay 2 life.\n\nAdd {B}{B}.\n\nFlashback {B}.

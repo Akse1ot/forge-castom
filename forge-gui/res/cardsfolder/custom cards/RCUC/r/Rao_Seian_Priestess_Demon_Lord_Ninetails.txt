@@ -1,0 +1,29 @@
+Name:Rao, Sei'an Priestess
+ManaCost:B W
+Types:Legendary Creature Human Cleric
+PT:1/2
+K:Defender
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ AddCounter | ReplacementResult$ Updated | Description$ CARDNAME enters the battlefield with nine Fox Rod counters on it.
+SVar:AddCounter:DB$ PutCounter | Defined$ Self | ETB$ True | CounterType$ FOX ROD | CounterNum$ 9
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidTarget$ Card.Self | ReplaceWith$ Counters | PreventionEffect$ True | AlwaysReplace$ True | Description$ Whenever damage would be dealt to CARDNAME, prevent that damage and remove that many Fox Rod counters from it.
+SVar:Counters:DB$ RemoveCounter | Defined$ ReplacedTarget | CounterType$ FOX ROD | CounterNum$ X
+SVar:X:ReplaceCount$DamageAmount
+T:Mode$ CounterRemoved | ValidCard$ Card.Self | TriggerZones$ Battlefield | CounterType$ FOX ROD | Execute$ TrigExile | NewCounterAmount$ 0 | TriggerDescription$ When the last Fox Rod counter is removed from CARDNAME, exile it, then return it to the battlefield transformed.
+SVar:TrigExile:DB$ ChangeZone | Defined$ Self | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBTransform
+SVar:DBTransform:DB$ ChangeZone | Origin$ Exile | Destination$ Battlefield | Defined$ Remembered | Transformed$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+AlternateMode:DoubleFaced
+Oracle:Defender.\nRao, Sei'an Priestess enters the battlefield with nine Fox Rod counters on it.\nWhenever damage would be dealt to Rao, prevent that damage and remove that many Fox Rod counters from it.\nWhen the last Fox Rod counter is removed from Rao, exile it, then return it to the battlefield transformed.
+
+ALTERNATE
+
+Name:Demon Lord Ninetails
+ManaCost:no cost
+Colors:black,red
+Types:Legendary Creature Fox God
+PT:0/0
+K:Ward:PayLife<X>
+K:etbCounter:P1P1:9
+A:AB$ Token | Cost$ SubCounter<1/P1P1> | TokenScript$ br_1_1_fox_haste |  ActivationLimit$ 1 | SpellDescription$ Create a 1/1 red and black Fox creature token with haste. Activate this ability only once each turn.
+SVar:X:Count$Valid Fox.YouCtrl
+Oracle:Ward — Pay X life, where X is the number of Fox creature cards on the battlefield.\nDemon Lord Ninetails enters the battlefield with 9 +1/+1 counters on it.\nRemove a +1/+1 counter from Ninetails: Create a 1/1 red and black Fox creature token with haste. Activate this ability only once each turn.

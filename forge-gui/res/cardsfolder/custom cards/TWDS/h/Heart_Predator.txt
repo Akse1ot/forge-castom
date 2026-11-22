@@ -1,0 +1,9 @@
+Name:Heart Predator
+ManaCost:1 G G
+Types:Creature Horror Beast
+PT:2/2
+K:Corrupt
+T:Mode$ CounterAddedOnce | ValidCard$ Card.Self | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigFight | TriggerDescription$ Whenever one or more counters are put on this creature, you may have it fight target creature an opponent controls.
+SVar:TrigFight:DB$ Fight | Defined$ Self | ValidTgts$ Creature.OppCtrl | TgtPrompt$ Select target creature an opponent controls
+DeckHas:Ability$Counters
+Oracle:Corrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nWhenever one or more counters are put on this creature, you may have it fight target creature an opponent controls. (Each deals damage equal to its power to the other.)

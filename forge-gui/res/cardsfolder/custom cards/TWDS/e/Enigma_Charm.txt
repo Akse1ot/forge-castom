@@ -1,0 +1,9 @@
+Name:Enigma Charm
+ManaCost:U R
+Types:Instant
+A:SP$ Charm | Choices$ DBDraw,DBCounter,DBDamage
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SpellDescription$ Draw a card for each spell you've cast this turn.
+SVar:DBCounter:DB$ Counter | TargetType$ Spell | ValidTgts$ Card | TgtPrompt$ Select target spell | UnlessCost$ 1 | SpellDescription$ Counter target spell unless its controller pays {1}.
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 2 | SpellDescription$ CARDNAME deals 2 damage to any target.
+SVar:X:Count$ThisTurnCast_Card.YouCtrl
+Oracle:Choose one —\n• Draw a card for each spell you've cast this turn.\n• Counter target spell unless its controller pays {1}.\n• Enigma Charm deals 2 damage to any target.

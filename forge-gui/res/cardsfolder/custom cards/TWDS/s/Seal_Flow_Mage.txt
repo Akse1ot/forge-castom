@@ -1,0 +1,14 @@
+Name:Seal Flow Mage
+ManaCost:1 U
+Types:Creature Angel Wizard
+PT:1/3
+T:Mode$ SpellCast | ValidCard$ Card.Self | ValidActivatingPlayer$ You | Execute$ TrigWorship | TriggerZones$ Stack | TriggerDescription$ When you cast this spell, worship. (Trigger the enters effect of target permanent you control.)
+SVar:TrigWorship:DB$ CustomReplayEtb | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select target permanent you control
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig | TriggerDescription$ When this creature enters, look at the top X cards of your library, where X is the number of Angels you control. If you look at three or more cards this way, put one of them into your hand. Put the rest on the bottom of your library in any order.
+SVar:TrigDig:DB$ Dig | DigNum$ X | ChangeNum$ Y | NoReveal$ True
+SVar:X:Count$Valid Angel.YouCtrl
+SVar:LibrarySize:Count$ValidLibrary Card
+SVar:Looked:SVar$X/LimitMax.LibrarySize
+SVar:Y:Count$Compare Looked GE3.1.0
+DeckHints:Type$Angel
+Oracle:When you cast this spell, worship. (Trigger the enters effect of target permanent you control.)\nWhen this creature enters, look at the top X cards of your library, where X is the number of Angels you control. If you look at three or more cards this way, put one of them into your hand. Put the rest on the bottom of your library in any order.

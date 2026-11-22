@@ -1,0 +1,8 @@
+Name:Concentrate Sin
+ManaCost:B
+Types:Instant
+A:SP$ Mana | Produced$ B | Amount$ X | AILogic$ ManaRitual | AINoRecursiveCheck$ True | SpellDescription$ Add {B} for each Vessel and Soul you control.
+SVar:X:Count$Valid Vessel.YouCtrl,Soul.YouCtrl
+DeckNeeds:Type$Vessel|Soul
+DeckHints:Type$Vessel|Soul
+Oracle:Add {B} for each Vessel and Soul you control.

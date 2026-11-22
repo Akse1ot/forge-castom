@@ -1,0 +1,8 @@
+Name:Beast Hunter
+ManaCost:1 W
+Types:Creature Human Soldier
+PT:3/3
+K:Humbled:2
+T:Mode$ CounterRemovedOnce | ValidCard$ Card.Self | CounterType$ DEFEAT | Remaining$ 0 | TriggerZones$ Battlefield | Execute$ TrigExile | TriggerDescription$ When CARDNAME is no longer humbled, exile target creature an opponent controls with power 4 or greater.
+SVar:TrigExile:DB$ ChangeZone | ValidTgts$ Creature.OppCtrl+powerGE4 | TgtPrompt$ Select target creature an opponent controls with power 4 or greater | Origin$ Battlefield | Destination$ Exile
+Oracle:When Beast Hunter is no longer humbled, exile target creature an opponent controls with power 4 or greater.\nHumbled 2

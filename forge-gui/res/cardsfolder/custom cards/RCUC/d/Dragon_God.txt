@@ -1,0 +1,17 @@
+Name:Dragon God
+ManaCost:5 W W
+Types:Legendary Creature Dragon
+PT:7/7
+K:Flying
+K:Vigilance
+A:AB$ Animate | Cost$ U T | Defined$ Self | Colors$ Blue | OverwriteColors$ True | Duration$ Permanent | SubAbility$ DBTap | SpellDescription$ CARDNAME becomes blue. Tap target creature.
+SVar:DBTap:DB$ Tap | ValidTgts$ Creature | TgtPrompt$ Select target creature to tap
+A:AB$ Animate | Cost$ B T | Defined$ Self | Colors$ Black | OverwriteColors$ True | Duration$ Permanent | SubAbility$ DBDiscard | SpellDescription$ CARDNAME becomes black. Target player discards a card.
+SVar:DBDiscard:DB$ Discard | ValidTgts$ Player | Mode$ TgtChoose
+A:AB$ Animate | Cost$ R T | Defined$ Self | Colors$ Red | OverwriteColors$ True | Duration$ Permanent | SubAbility$ DBDamage | SpellDescription$ CARDNAME becomes red. CARDNAME deals 2 damage to target creature.
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 2
+A:AB$ Animate | Cost$ G T | Defined$ Self | Colors$ Green | OverwriteColors$ True | Duration$ Permanent | SubAbility$ DBFight | SpellDescription$ CARDNAME becomes green. CARDNAME fights target creature you don't control.
+SVar:DBFight:DB$ Fight | Defined$ Self | ValidTgts$ Creature.YouDontCtrl | TgtPrompt$ Select target creature you don't control
+A:AB$ Animate | Cost$ W T | Defined$ Self | Colors$ White | OverwriteColors$ True | Duration$ Permanent | SubAbility$ DBGainLife | SpellDescription$ CARDNAME becomes white. Gain 3 life.
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3
+Oracle:Flying, vigilance\n{U}, {T}: Dragon God becomes blue. Tap target creature.\n{B}, {T}: Dragon God becomes black. Target player discards a card.\n{R}, {T}: Dragon God becomes red. Dragon God deals 2 damage to target creature.\n{G}, {T}: Dragon God becomes green. Dragon God fights target creature you don't control.\n{W}, {T}: Dragon God becomes white. Gain 3 life.

@@ -1,0 +1,8 @@
+Name:The Silent Rise
+ManaCost:3 R
+Types:Enchantment Saga
+K:Chapter:3:TrigDamage,TrigDamage,TrigWheel
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 6 | SpellDescription$ CARDNAME deals 6 damage to target creature.
+SVar:TrigWheel:DB$ Discard | Mode$ Hand | Defined$ Player | SubAbility$ DBDraw | SpellDescription$ Each player discards their hand, then draws seven cards.
+SVar:DBDraw:DB$ Draw | Defined$ Player | NumCards$ 7
+Oracle:(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI, II — The Silent Rise deals 6 damage to target creature.\nIII — Each player discards their hand, then draws seven cards.

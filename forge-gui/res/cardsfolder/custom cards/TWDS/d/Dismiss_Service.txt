@@ -1,0 +1,8 @@
+Name:Dismiss Service
+ManaCost:2 B B
+Types:Sorcery
+A:SP$ Sacrifice | Amount$ Count$Valid Permanent.YouCtrl | SacValid$ Permanent.YouCtrl | SacMessage$ permanent | RememberSacrificed$ True | Optional$ True | SubAbility$ DBDraw | StackDescription$ SpellDescription | SpellDescription$ Sacrifice any number of permanents. Draw a card for each permanent sacrificed this way.
+SVar:DBDraw:DB$ Draw | NumCards$ Count$RememberedSize | SubAbility$ DBCleanup | StackDescription$ None
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Sacrifice
+Oracle:Sacrifice any number of permanents. Draw a card for each permanent sacrificed this way.

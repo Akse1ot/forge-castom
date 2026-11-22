@@ -1,0 +1,8 @@
+Name:Soul
+ManaCost:no cost
+Colors:black
+Types:Creature Soul
+PT:1/1
+K:Haste
+S:Mode$ MustAttack | ValidCreature$ Card.Self+!attackedThisTurn | Description$ This creature attacks each turn if able.
+Oracle:Haste\nThis creature attacks each turn if able.

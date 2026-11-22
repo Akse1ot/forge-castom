@@ -1,0 +1,13 @@
+Name:Pond Lurker Hydra
+ManaCost:5 G
+Types:Creature Hydra
+PT:6/6
+K:Trample
+A:AB$ PutCounter | Cost$ 8 G G | Monstrosity$ 6 | ReduceCost$ X | SpellDescription$ Monstrosity 6. This ability costs {1} less to activate for each other creature you control.
+T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigFight | TriggerDescription$ When CARDNAME becomes monstrous, it fights each other creature you don't control.
+SVar:TrigFight:DB$ RepeatEach | RepeatCards$ Creature.YouDontCtrl | DamageMap$ True | RepeatSubAbility$ DBFight
+SVar:DBFight:DB$ Fight | Defined$ Self & Remembered
+SVar:X:Count$Valid Creature.Other+YouCtrl
+DeckHas:Ability$Counters
+DeckNeeds:Type$Creature
+Oracle:Trample\n{8}{G}{G}: Monstrosity 6. This ability costs {1} less to activate for each other creature you control.\nWhen this creature becomes monstrous, it fights each other creature you don't control.

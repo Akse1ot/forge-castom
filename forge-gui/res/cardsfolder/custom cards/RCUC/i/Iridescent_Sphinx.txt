@@ -1,0 +1,13 @@
+Name:Iridescent Sphinx
+ManaCost:4 U U
+Types:Creature Sphinx
+PT:4/4
+K:Flying
+A:AB$ Counter | Cost$ U | TargetType$ SpellAbility.numTargets EQ1+IsTargeting Self | ValidTgts$ Card,Emblem | TgtPrompt$ Select target spell or ability that targets only CARDNAME | SpellDescription$ Counter target spell or ability that targets only CARDNAME.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigTapETB | TriggerDescription$ Whenever CARDNAME enters or attacks, tap target nonland permanent an opponent controls. It doesn't untap during its controller's next untap step.
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigTapAttack | Secondary$ True | TriggerDescription$ Whenever CARDNAME enters or attacks, tap target nonland permanent defending player controls. It doesn't untap during its controller's next untap step.
+SVar:TrigTapETB:DB$ Tap | ValidTgts$ Permanent.nonLand+OppCtrl | TgtPrompt$ Select target nonland permanent an opponent controls | SubAbility$ DBNoUntap
+SVar:TrigTapAttack:DB$ Tap | ValidTgts$ Permanent.nonLand+ControlledBy TriggeredDefendingPlayer | TgtPrompt$ Select target nonland permanent defending player controls | SubAbility$ DBNoUntap
+SVar:DBNoUntap:DB$ Pump | Defined$ Targeted | Duration$ Permanent | KW$ HIDDEN This card doesn't untap during your next untap step.
+SVar:HasAttackEffect:TRUE
+Oracle:Flying\n{U}: Counter target spell or ability that targets only Iridescent Sphinx.\nWhenever Iridescent Sphinx enters or attacks, tap target nonland permanent an opponent controls. If Iridescent Sphinx is attacking, that permanent must be controlled by the defending player. It doesn't untap during its controller's next untap step.

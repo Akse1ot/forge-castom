@@ -1,0 +1,7 @@
+Name:Sin Savior
+ManaCost:2 W W
+Types:Creature Angel Cleric
+PT:2/3
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Protection:Player.Opponent+hasMoreCardsInHand:opponents with more cards in their hand than you | Description$ Creatures you control have protection from opponents with more cards in their hand than you.
+A:AB$ Draw | Cost$ Discard<1/Card> | Activator$ Player.Opponent | Defined$ SourceController | NumCards$ 1 | SpellDescription$ CARDNAME's controller draws a card. Only your opponents may activate this ability.
+Oracle:Creatures you control have protection from opponents with more cards in their hand than you.\nDiscard a card: This creature's controller draws a card. Only your opponents may activate this ability.

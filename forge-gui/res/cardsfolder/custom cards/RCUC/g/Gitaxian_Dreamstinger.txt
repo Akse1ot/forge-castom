@@ -1,0 +1,11 @@
+Name:Gitaxian Dreamstinger
+ManaCost:U
+Types:Creature Phyrexian Insect Illusion
+PT:0/1
+K:Flying
+T:Mode$ AttackerUnblocked | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPoison | TriggerDescription$ Whenever CARDNAME attacks and isn't blocked, defending player gets a poison counter.
+T:Mode$ BecomesTarget | ValidTarget$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigSac | TriggerDescription$ When CARDNAME becomes the target of a spell or ability, sacrifice it.
+SVar:TrigPoison:DB$ Poison | Defined$ TriggeredDefendingPlayer | Num$ 1
+SVar:TrigSac:DB$ Sacrifice
+SVar:Targeting:Dies
+Oracle:Flying\nWhenever Gitaxian Dreamstinger attacks and isn't blocked, defending player gets a poison counter.\nWhen Gitaxian Dreamstinger becomes the target of a spell or ability, sacrifice it.

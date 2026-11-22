@@ -1,0 +1,10 @@
+Name:Black Mouth Titan
+ManaCost:5 B B
+Types:Creature Nightmare
+PT:7/7
+K:Lifelink
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSubjugate | TriggerDescription$ When this creature enters, subjugate X, where X is the number of cards in all graveyards. (Create X Vicious Nightmare tokens and shuffle them into each opponent's library.)
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ X
+SVar:X:Count$ValidGraveyard Card
+DeckHas:Ability$Subjugate
+Oracle:Lifelink\nWhen this creature enters, subjugate X, where X is the number of cards in all graveyards. (Create X Vicious Nightmare tokens and shuffle them into each opponent's library.)

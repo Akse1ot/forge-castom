@@ -1,0 +1,8 @@
+Name:Illuminated Vision
+ManaCost:X U
+Types:Instant
+K:Coalesce
+A:SP$ Dig | Defined$ You | DigNum$ X | ChangeNum$ Y | DestinationZone$ Hand | DestinationZone2$ Library | LibraryPosition2$ -1 | SpellDescription$ Look at the top X cards of your library. Put one of them into your hand and the rest on the bottom of your library in any order. If X is ten or greater, put three of them into your hand and the rest on the bottom of your library in any order instead.
+SVar:X:Count$xPaid
+SVar:Y:Count$Compare X GE10.3.1
+Oracle:Coalesce (For every two cards you put into your graveyard from among cards you own in exile while casting this spell pays for {1}.)\nLook at the top X cards of your library. Put one of them into your hand and the rest on the bottom of your library in any order. If X is ten or greater, put three of them into your hand and the rest on the bottom of your library in any order instead.

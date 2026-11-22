@@ -1,0 +1,9 @@
+Name:Angel of the Seal
+ManaCost:2 W U
+Types:Creature Angel Soldier
+PT:3/3
+K:Flying
+K:Hexproof
+T:Mode$ SpellCast | ValidCard$ Card | ValidActivatingPlayer$ You | ActivatorThisTurnCast$ EQ1 | TriggerZones$ Battlefield | Execute$ TrigWorship | TriggerDescription$ Whenever you cast your first spell each turn, worship. (Trigger the enters effect of target permanent you control.)
+SVar:TrigWorship:DB$ CustomReplayEtb | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select target permanent you control
+Oracle:Flying, hexproof\nWhenever you cast your first spell each turn, worship. (Trigger the enters effect of target permanent you control.)

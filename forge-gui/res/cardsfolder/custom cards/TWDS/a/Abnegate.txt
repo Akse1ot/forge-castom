@@ -1,0 +1,6 @@
+Name:Abnegate
+ManaCost:1 U U
+Types:Instant
+K:Coalesce
+A:SP$ Counter | TargetType$ Spell | TgtPrompt$ Select target spell | ValidTgts$ Card | SpellDescription$ Counter target spell.
+Oracle:Coalesce (For every two cards you put into your graveyard from among cards you own in exile while casting this spell pays for {1}.)\nCounter target spell.

@@ -1,0 +1,22 @@
+Name:Deepwater Terror
+ManaCost:5 U U B
+Types:Creature Shark Horror
+PT:7/8
+K:Menace
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigScry | TriggerDescription$ At the beginning of your end step, scry 3, then you may pay 3 life. If you do, draw two cards.
+SVar:TrigScry:DB$ Scry | ScryNum$ 3 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 2 | UnlessCost$ PayLife<3> | UnlessPayer$ You | UnlessSwitched$ True
+AlternateMode:Adventure
+DeckHints:Ability$LifeGain
+Oracle:Menace\nAt the beginning of your end step, scry 3, then you may pay 3 life. If you do, draw two cards.
+
+ALTERNATE
+
+Name:Deep Song
+ManaCost:B B B
+Types:Instant Adventure
+A:SP$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player | ChangeType$ Card | RememberChanged$ True | SubAbility$ DBMana | SpellDescription$ Exile target player's graveyard, then add {B} for each creature card exiled this way.
+SVar:DBMana:DB$ Mana | Produced$ B | Amount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidExile Creature.IsRemembered
+Oracle:Exile target player's graveyard, then add {B} for each creature card exiled this way.

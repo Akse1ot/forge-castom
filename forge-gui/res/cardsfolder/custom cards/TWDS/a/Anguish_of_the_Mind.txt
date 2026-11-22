@@ -1,0 +1,5 @@
+Name:Anguish of the Mind
+ManaCost:B
+Types:Sorcery
+A:SP$ Discard | ValidTgts$ Player | Mode$ RevealYouChoose | DiscardValid$ Card.nonLand+cmcLE4 | DiscardValidDesc$ nonland card from it with mana value 4 or less | SpellDescription$ Target player reveals their hand. You choose a nonland card from it with mana value 4 or less. That player discards that card.
+Oracle:Target player reveals their hand. You choose a nonland card from it with mana value 4 or less. That player discards that card.

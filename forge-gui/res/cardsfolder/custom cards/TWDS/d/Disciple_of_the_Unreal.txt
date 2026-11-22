@@ -1,0 +1,11 @@
+Name:Disciple of the Unreal
+ManaCost:3 U
+Types:Creature Human Wizard
+PT:3/4
+K:Coalesce
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry | TriggerDescription$ When CARDNAME enters, scry 4, draw four cards, then exile four cards from your hand.
+SVar:TrigScry:DB$ Scry | ScryNum$ 4 | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 4 | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card.YouOwn | ChangeNum$ 4 | Hidden$ True | Mandatory$ True
+DeckHas:Ability$Exile
+Oracle:Coalesce (For every two cards you put into your graveyard from among cards you own in exile while casting this spell, this spell costs {1} less to cast.)\nWhen this creature enters, scry 4, draw four cards, then exile four cards from your hand.

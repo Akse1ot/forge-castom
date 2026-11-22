@@ -1,0 +1,9 @@
+Name:Banner of the Selfless
+ManaCost:1 W
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigUnity | TriggerDescription$ When CARDNAME enters, you get three unity counters.
+SVar:TrigUnity:DB$ PutCounter | Defined$ You | CounterType$ UNITY | CounterNum$ 3
+A:AB$ PutCounter | Cost$ Sac<1/Creature> | Defined$ You | CounterType$ UNITY | CounterNum$ 1 | SpellDescription$ You get a unity counter.
+DeckHas:Ability$Sacrifice
+DeckHints:Ability$Token
+Oracle:When this artifact enters, you get three unity counters.\nSacrifice a creature: You get a unity counter.

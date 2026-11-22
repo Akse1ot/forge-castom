@@ -1,0 +1,12 @@
+Name:Zariel, Curator of Death
+ManaCost:3 B B
+Types:Legendary Creature Angel Noble
+PT:5/5
+K:Flying
+K:Lifelink
+A:AB$ Pump | Cost$ 1 B Sac<X/Permanent> | Defined$ Self | NumAtt$ +X | NumDef$ +X | KW$ Menace | SpellDescription$ CARDNAME gets +X/+X and gains menace until end of turn, where X is the number of permanents sacrificed this way.
+SVar:X:Count$xPaid
+SVar:AIPreference:SacCost$Card.token,Permanent.cmcLE1
+DeckHas:Ability$Sacrifice
+DeckHints:Ability$Token
+Oracle:Flying, lifelink\n{1}{B}, Sacrifice any number of permanents: Zariel, Curator of Death gets +X/+X and gains menace until end of turn, where X is the number of permanents sacrificed this way.

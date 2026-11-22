@@ -1,0 +1,6 @@
+Name:Freeze Over
+ManaCost:1 U
+Types:Instant
+A:SP$ Counter | TargetType$ Spell | TgtPrompt$ Select target spell | ValidTgts$ Card | UnlessCost$ 1 | SpellDescription$ Counter target spell unless its controller pays {1}.
+A:AB$ Scry | Cost$ U ExileFromGrave<1/CARDNAME> | PrecostDesc$ Renew — | ActivationZone$ Graveyard | SorcerySpeed$ True | ScryNum$ 2 | SpellDescription$ Scry 2. Activate only as a sorcery.
+Oracle:Counter target spell unless its controller pays {1}.\nRenew — {U}, Exile this card from your graveyard: Scry 2. Activate only as a sorcery.

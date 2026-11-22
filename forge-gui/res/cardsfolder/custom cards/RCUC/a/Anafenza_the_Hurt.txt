@@ -1,0 +1,11 @@
+Name:Anafenza, the Hurt
+ManaCost:2 W
+Types:Legendary Creature Spirit Soldier
+PT:2/2
+K:Vigilance
+S:Mode$ ActivateAbilityAsIfHaste | ValidCard$ Card.Self | Description$ You may activate abilities of CARDNAME as though it had haste.
+A:AB$ PreventDamage | Cost$ T | ValidTgts$ Any | Amount$ 2 | SpellDescription$ Prevent the next 2 damage that would be dealt to any target this turn. You may activate this ability as though CARDNAME had haste.
+T:Mode$ DamagePreventedBySource | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigDamage | TriggerDescription$ Whenever damage is prevented, you may have CARDNAME deal that much damage to the source's controller.
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredSourceController | NumDmg$ X
+SVar:X:TriggerCount$DamageAmount
+Oracle:Vigilance\n{T}: Prevent the next 2 damage that would be dealt to any target this turn. You may activate this ability as though Anafenza, the Hurt had haste.\nWhenever damage is prevented, you may have Anafenza, the Hurt deal that much damage to the source's controller.

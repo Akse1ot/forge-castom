@@ -1,0 +1,8 @@
+Name:First in the Realm
+ManaCost:2 W
+Types:Creature Human Knight
+PT:3/3
+T:Mode$ DamageDone | ValidSource$ Human.YouCtrl | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigPutCounter | TriggerZones$ Battlefield | TriggerDescription$ Whenever a Human you control deals combat damage to an opponent, put a +1/+1 counter on it.
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ TriggeredSourceLKICopy | CounterType$ P1P1 | CounterNum$ 1
+DeckHints:Type$Human
+Oracle:Whenever a Human you control deals combat damage to an opponent, put a +1/+1 counter on it.

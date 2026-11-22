@@ -1,0 +1,10 @@
+Name:The Consumers
+ManaCost:U B
+Types:Legendary Creature Nightmare
+PT:1/3
+K:Deathtouch
+T:Mode$ DamageDone | ValidSource$ Nightmare.YouCtrl | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigSubjugate | TriggerDescription$ Whenever a Nightmare you control deals combat damage to a player, subjugate 3. (Create three Vicious Nightmare tokens and shuffle them into each opponent's library.)
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 3
+DeckHas:Ability$Subjugate
+DeckHints:Type$Nightmare
+Oracle:Deathtouch\nWhenever a Nightmare you control deals combat damage to a player, subjugate 3. (Create three Vicious Nightmare tokens and shuffle them into each opponent's library.)

@@ -1,0 +1,11 @@
+Name:Mountaintop Scout
+ManaCost:R W
+Types:Creature Human Scout
+PT:2/2
+T:Mode$ CounterAddedOnce | ValidPlayer$ You | CounterType$ UNITY | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ Whenever you get one or more unity counters, CARDNAME deals that much damage to each opponent and you gain that much life.
+SVar:TrigDamage:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ X | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X
+SVar:X:TriggerCount$Amount
+DeckHints:Keyword$Unity
+DeckHas:Ability$LifeGain
+Oracle:Whenever you get one or more unity counters, this creature deals that much damage to each opponent and you gain that much life.

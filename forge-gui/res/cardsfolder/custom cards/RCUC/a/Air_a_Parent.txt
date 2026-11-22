@@ -1,0 +1,10 @@
+Name:Air, a Parent
+ManaCost: U U
+Types:Legendary Creature Elemental
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a 1/1 blue Elemental creature token for each other creature you control with Air in its name.
+SVar:TrigToken:DB$ Token | TokenScript$ u_1_1_elemental | TokenAmount$ X
+SVar:X:Count$Valid Creature.YouCtrl+Other+nameHasWordAir
+S:Mode$ IgnoreLegendRule | ValidCard$ Card.Self | Description$ The “legend rule” doesn’t apply to CARDNAME.
+K:A deck can have any number of cards named CARDNAME.
+Oracle:When Air enters, create a 1/1 blue Elemental creature token for each other creature you control with Air in its name.\nThe “legend rule” doesn’t apply to Air, a Parent.\nA deck can have any number of cards named Air, a Parent.

@@ -1,0 +1,8 @@
+Name:Sun Warrior
+ManaCost:1 R W
+Types:Creature Human Knight
+PT:3/2
+T:Mode$ Attached | ValidSource$ Aura.YouCtrl | ValidTarget$ Card.Self,Knight.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever an Aura becomes attached or an Equipment becomes equipped to Sun Warrior or another Knight you control, you gain 1 life.
+T:Mode$ Attached | ValidSource$ Equipment | ValidTarget$ Card.Self,Knight.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever an Aura becomes attached or an Equipment becomes equipped to Sun Warrior or another Knight you control, you gain 1 life.
+SVar:TrigGainLife:DB$ GainLife | LifeAmount$ 1
+Oracle:Whenever an Aura becomes attached or an Equipment becomes equipped to Sun Warrior or another Knight you control, you gain 1 life.

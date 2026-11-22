@@ -1,0 +1,7 @@
+Name:Collective Knowledge
+ManaCost:2 U U
+Types:Enchantment
+R:Event$ Draw | ActiveZones$ Battlefield | ValidPlayer$ Opponent | IsPresent$ Card.IsImprinted | PresentZone$ Command | PresentPlayer$ You | PresentCompare$ EQ0 | ReplaceWith$ ReplaceDraw | Description$ The first time an opponent would draw a card each turn, each player draws a card instead.
+SVar:ReplaceDraw:DB$ Effect | Name$ Collective Knowledge Effect | EffectOwner$ You | ImprintOnHost$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ Player | NumCards$ 1
+Oracle:The first time an opponent would draw a card each turn, each player draws a card instead.

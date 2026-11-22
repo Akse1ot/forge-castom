@@ -1,0 +1,22 @@
+Name:Curse of Whispered Lies
+ManaCost:1 W W
+Types:Enchantment Aura Curse
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+T:Mode$ TapsForMana | ValidCard$ Permanent.nonLand | Activator$ Player.EnchantedBy | TriggerZones$ Battlefield | Execute$ TrigStun | TriggerDescription$ Whenever enchanted player taps a nonland permanent for mana, put a stun counter on that permanent.
+SVar:TrigStun:DB$ PutCounter | Defined$ TriggeredCard | CounterType$ STUN | CounterNum$ 1
+Text:The deep is always more ambitious.
+DeckHas:Ability$Token|Counters & Type$Treasure|Artifact
+AlternateMode:Adventure
+Oracle:Enchant player\nWhenever enchanted player taps a nonland permanent for mana, put a stun counter on that permanent.
+
+ALTERNATE
+
+Name:False Hopes
+ManaCost:X W
+Types:Sorcery Adventure
+A:SP$ Token | TokenScript$ c_a_treasure_sac | TokenOwner$ Player | TokenAmount$ X | TokenTapped$ True | RememberTokens$ True | SubAbility$ DBPutCounters | SpellDescription$ Each player creates X tapped Treasure tokens. Put X stun counters on each token created this way.
+SVar:DBPutCounters:DB$ PutCounter | Defined$ Remembered | CounterType$ STUN | CounterNum$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid
+Oracle:Each player creates X tapped Treasure tokens. Put X stun counters on each token created this way.

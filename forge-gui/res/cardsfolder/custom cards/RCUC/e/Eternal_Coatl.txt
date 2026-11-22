@@ -1,0 +1,12 @@
+Name:Eternal Coatl
+ManaCost:1 G U
+Types:Creature Snake
+PT:*/*
+K:Flying
+K:Protection from black
+S:Mode$ Continuous | CharacteristicDefining$ True | SetPower$ X | SetToughness$ X | Description$ CARDNAME's power and toughness are each equal to the number of cards in your hand.
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | DamageAmount$ GE3 | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigReturn | TriggerDescription$ Whenever CARDNAME deals 3 or more damage to a player, you may return target card from your graveyard to your hand.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.YouCtrl | TgtPrompt$ Select target card in your graveyard
+SVar:X:Count$ValidHand Card.YouOwn
+SVar:NeedsToPlayVar:X GE2
+Oracle:Flying, protection from black\nEternal Coatl's power and toughness are each equal to the number of cards in your hand.\nWhenever Eternal Coatl deals 3 or more damage to a player, you may return target card from your graveyard to your hand.

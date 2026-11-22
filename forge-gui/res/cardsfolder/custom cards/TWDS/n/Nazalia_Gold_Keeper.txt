@@ -1,0 +1,12 @@
+Name:Nazalia Gold Keeper
+ManaCost:1 W
+Types:Artifact Creature Construct Knight
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigVessel | TriggerDescription$ Whenever CARDNAME enters or attacks, create a Vessel token. (It's an artifact with Cursed 1.)
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigVessel | Secondary$ True | TriggerDescription$ Whenever CARDNAME enters or attacks, create a Vessel token. (It's an artifact with Cursed 1.)
+SVar:TrigVessel:DB$ Token | TokenScript$ c_vessel_cursed | TokenOwner$ You
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Artifact.!token+Other | TriggerZones$ Battlefield | Execute$ TrigTreasure | TriggerDescription$ Whenever another nontoken artifact enters, create a tapped Treasure token.
+SVar:TrigTreasure:DB$ Token | TokenScript$ c_a_treasure_sac | TokenOwner$ You | TokenTapped$ True
+DeckHas:Ability$Token|Sacrifice
+DeckHints:Type$Artifact
+Oracle:Whenever Nazalia Gold Keeper enters or attacks, create a Vessel token. (It's an artifact with Cursed 1.)\nWhenever another nontoken artifact enters, create a tapped Treasure token.

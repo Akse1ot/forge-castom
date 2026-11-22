@@ -1,0 +1,6 @@
+Name:Final Touch
+ManaCost:X G G G
+Types:Sorcery
+A:SP$ Dig | DigNum$ X | Reveal$ True | ChangeNum$ Any | ChangeValid$ Permanent.cmcLEX | DestinationZone$ Battlefield | DestinationZone2$ Library | LibraryPosition2$ -1 | SpellDescription$ Reveal the top X cards of your library. You may put any number of permanent cards with mana value X or less from among them onto the battlefield. Then put all cards revealed this way that weren't put onto the battlefield on the bottom of your library in any order.
+SVar:X:Count$xPaid
+Oracle:Reveal the top X cards of your library. You may put any number of permanent cards with mana value X or less from among them onto the battlefield. Then put all cards revealed this way that weren't put onto the battlefield on the bottom of your library in any order.

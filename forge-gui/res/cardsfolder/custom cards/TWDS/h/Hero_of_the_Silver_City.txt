@@ -1,0 +1,8 @@
+Name:Hero of the Silver City
+ManaCost:2 W W
+Types:Creature Human Knight
+PT:6/5
+K:Humbled:2
+T:Mode$ CounterRemoved | ValidCard$ Permanent.YouCtrl | CounterType$ DEFEAT | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever you remove a defeat counter from CARDNAME or another permanent you control, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Whenever you remove a defeat counter from this permanent or another permanent you control, draw a card.\nHumbled 2 (This creature enters with two defeat counters on it. As long as it has a defeat counter on it, it's an enchantment and loses all other types. At the beginning of your upkeep, remove a defeat counter from it.)

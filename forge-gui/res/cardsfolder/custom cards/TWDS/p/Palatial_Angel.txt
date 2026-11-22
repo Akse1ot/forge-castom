@@ -1,0 +1,10 @@
+Name:Palatial Angel
+ManaCost:2 W U
+Types:Creature Angel Soldier
+PT:2/3
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card.Self | ValidActivatingPlayer$ You | Execute$ TrigWorship | TriggerZones$ Stack | TriggerDescription$ When you cast this spell, worship. (Trigger the enters effect of target permanent you control.)
+SVar:TrigWorship:DB$ CustomReplayEtb | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select target permanent you control
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerDescription$ When this creature enters, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:When you cast this spell, worship. (Trigger the enters effect of target permanent you control.)\nFlying\nWhen this creature enters, draw a card.

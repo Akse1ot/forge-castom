@@ -1,0 +1,9 @@
+Name:Apprentice Mage
+ManaCost:3 R
+Types:Creature Human Wizard
+PT:3/2
+K:Coalesce
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage | TriggerDescription$ When CARDNAME enters, it deals 3 damage to target creature. If that creature would die from this damage, exile it instead.
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature | NumDmg$ 3 | ReplaceDyingDefined$ Targeted | ReplaceDyingDuration$ UntilStateBasedActionChecked
+DeckNeeds:Ability$Exile
+Oracle:Coalesce (For every two cards you put into your graveyard from among cards you own in exile while casting this spell, this spell costs {1} less to cast.)\nWhen this creature enters, it deals 3 damage to target creature. If that creature would die from this damage, exile it instead.

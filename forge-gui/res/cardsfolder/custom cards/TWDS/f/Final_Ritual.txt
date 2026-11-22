@@ -1,0 +1,9 @@
+Name:Final Ritual
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Draw | Cost$ 1 B Sac<1/Creature.!token/nontoken creature> | NumCards$ XPower | SubAbility$ DBGainLife | SpellDescription$ You draw cards equal to the sacrificed creature's power and gain life equal to its toughness.
+SVar:DBGainLife:DB$ GainLife | LifeAmount$ XToughness
+SVar:XPower:Sacrificed$CardPower
+SVar:XToughness:Sacrificed$CardToughness
+AI:RemoveDeck:All
+Oracle:As an additional cost to cast this spell, sacrifice a nontoken creature.\nYou draw cards equal to the sacrificed creature's power and gain life equal to its toughness.

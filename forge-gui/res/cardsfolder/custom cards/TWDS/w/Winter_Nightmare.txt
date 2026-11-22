@@ -1,0 +1,11 @@
+Name:Winter Nightmare
+ManaCost:1 U
+Types:Creature Nightmare Soldier
+PT:2/1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigSubjugate | TriggerDescription$ Whenever this creature deals combat damage to a player, subjugate 3.
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 3
+A:AB$ Effect | Cost$ 1 U | ValidTgts$ Nightmare.YouCtrl | TgtPrompt$ Select target Nightmare you control | RememberObjects$ Targeted | ExileOnMoved$ Battlefield | StaticAbilities$ Unblockable | AILogic$ MakeUnblockable | StackDescription$ {c:Targeted} can't be blocked this turn. | SpellDescription$ Target Nightmare you control can't be blocked until end of turn.
+SVar:Unblockable:Mode$ CantBlockBy | ValidAttacker$ Card.IsRemembered | Description$ This creature can't be blocked this turn.
+DeckHints:Type$Nightmare
+DeckHas:Ability$Subjugate
+Oracle:Whenever this creature deals combat damage to a player, subjugate 3.\n{1}{U}: Target Nightmare you control can't be blocked until end of turn.

@@ -1,0 +1,11 @@
+Name:Firey Torrent
+ManaCost:X R R
+Types:Sorcery
+K:Coalesce
+A:SP$ Dig | Defined$ You | DigNum$ X | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect | SpellDescription$ Exile the top X cards of your library. You may play those cards until the end of your next turn.
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | Duration$ UntilTheEndOfYourNextTurn | RememberObjects$ Remembered | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | Affected$ Card.IsRemembered | AffectedZone$ Exile | MayPlay$ True | Description$ You may play those cards until the end of your next turn.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid
+DeckHas:Ability$Exile
+Oracle:Coalesce (For every two cards you put into your graveyard from among cards you own in exile while casting this spell, this spell costs {1} less to cast.)\nExile the top X cards of your library. You may play those cards until the end of your next turn.

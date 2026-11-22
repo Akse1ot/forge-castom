@@ -1,0 +1,11 @@
+Name:Gnaw at the Mind
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Subjugate | Amount$ 4 | SubAbility$ DBDiscard | SpellDescription$ Subjugate 4. (Create four Vicious Nightmare tokens and shuffle them into each opponent's library.) Target player reveals their hand. You choose a nonland card from it. That player discards that card. If the discarded card is a Vicious Nightmare, you draw three cards and lose 3 life.
+SVar:DBDiscard:DB$ Discard | ValidTgts$ Player | TgtPrompt$ Select target player | NumCards$ 1 | Mode$ RevealYouChoose | DiscardValid$ Card.nonLand | DiscardValidDesc$ nonland card | RememberDiscarded$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 3 | ConditionDefined$ Remembered | ConditionPresent$ Card.namedVicious_Nightmare | ConditionCompare$ GE1 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 3 | ConditionDefined$ Remembered | ConditionPresent$ Card.namedVicious_Nightmare | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Subjugate|Discard
+DeckHints:Ability$Subjugate
+Oracle:Subjugate 4. (Create four Vicious Nightmare tokens and shuffle them into each opponent's library.)\nTarget player reveals their hand. You choose a nonland card from it. That player discards that card. If the discarded card is a Vicious Nightmare, you draw three cards and lose 3 life.

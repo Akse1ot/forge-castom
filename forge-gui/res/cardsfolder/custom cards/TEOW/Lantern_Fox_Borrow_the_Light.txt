@@ -1,0 +1,22 @@
+Name:Lantern Fox
+ManaCost:1 U
+Types:Creature Fox Rogue
+PT:2/1
+K:Flash
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card.Adventure | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever you cast an Adventure spell, CARDNAME gets +1/+0 until end of turn.
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +1
+DeckHas:Ability$Draw
+DeckNeeds:Type$Adventure
+DeckHints:Type$Adventure
+AlternateMode:Adventure
+Oracle:Flash\nFlying\nWhenever you cast an Adventure spell, Lantern Fox gets +1/+0 until end of turn.
+
+ALTERNATE
+
+Name:Borrow the Light
+ManaCost:U
+Types:Instant Adventure
+A:SP$ Tap | ValidTgts$ Creature | TgtPrompt$ Select target creature to tap | SubAbility$ DBDraw | SpellDescription$ Tap target creature. Draw a card.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Tap target creature. Draw a card.

@@ -1,0 +1,9 @@
+Name:Kaalia of the Wastes
+ManaCost:1 W
+Types:Creature Human Cleric
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigSearch | TriggerDescription$ When CARDNAME enters, you may search your library for an Angel, Demon, or Dragon card with flying and reveal that card. Shuffle your library, then put the card on top of it.
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Library | LibraryPosition$ 0 | ChangeType$ Card.Angel+withFlying,Card.Demon+withFlying,Card.Dragon+withFlying | ChangeTypeDesc$ Angel, Demon, or Dragon card with flying | ChangeNum$ 1 | ShuffleNonMandatory$ True
+K:Partner
+DeckNeeds:Type$Angel|Demon|Dragon
+Oracle:When Kaalia of the Wastes enters the battlefield, you may search your library for an Angel, Demon, or Dragon card with flying and reveal that card. Shuffle your library, then put the card on top of it.\nPartner (You can have two commanders if both have partner.)

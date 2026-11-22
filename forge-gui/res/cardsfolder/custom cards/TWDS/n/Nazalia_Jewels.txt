@@ -1,0 +1,10 @@
+Name:Nazalia Jewels
+ManaCost:2 B
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create two tapped Treasure tokens.
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_treasure_sac | TokenAmount$ 2 | TokenTapped$ True | TokenOwner$ You
+T:Mode$ Sacrificed | ValidCard$ Permanent.YouCtrl | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigLoseLife | TriggerDescription$ Whenever you sacrifice a permanent, each opponent loses 1 life.
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1
+DeckHas:Ability$Token|Sacrifice & Type$Treasure|Artifact
+DeckHints:Ability$Sacrifice
+Oracle:When this artifact enters, create two tapped Treasure tokens.\nWhenever you sacrifice a permanent, each opponent loses 1 life.

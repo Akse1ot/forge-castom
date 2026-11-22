@@ -1,0 +1,14 @@
+Name:Taraberi, Living Leyline
+ManaCost:2 G W
+Types:Legendary Enchantment Creature Elemental
+PT:1/4
+K:MayEffectFromOpeningHand:FromHand
+K:MayEffectFromOpeningHand:FromCommand
+SVar:FromHand:DB$ ChangeZone | Defined$ Self | Origin$ Hand | Destination$ Battlefield | AILogic$ Always | SpellDescription$ If CARDNAME is in your opening hand, you may begin the game with it on the battlefield.
+SVar:FromCommand:DB$ ChangeZone | Defined$ Self | Origin$ Command | Destination$ Battlefield | AILogic$ Always | SpellDescription$ If CARDNAME is in the command zone, you may begin the game with it on the battlefield.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLife | TriggerDescription$ Landfall — Whenever a land enters the battlefield under your control, you gain 1 life. If this is the third time this ability has resolved this turn, create a copy of CARDNAME, except it isn't legendary.
+SVar:TrigLife:DB$ GainLife | Defined$ You | LifeAmount$ 1 | SubAbility$ DBCopy
+SVar:DBCopy:DB$ CopyPermanent | Defined$ Self | NonLegendary$ True | ConditionCheckSVar$ Resolved | ConditionSVarCompare$ EQ3
+SVar:Resolved:Count$ResolvedThisTurn
+DeckHas:Ability$LifeGain|Token
+Oracle:If Taraberi, Living Leyline is in your opening hand or the command zone, you may begin the game with it on the battlefield.\nLandfall — Whenever a land enters the battlefield under your control, you gain 1 life. If this is the third time this ability has resolved this turn, create a copy of Taraberi, except it isn't legendary.

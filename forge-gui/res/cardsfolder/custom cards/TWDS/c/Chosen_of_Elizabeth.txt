@@ -1,0 +1,11 @@
+Name:Chosen of Elizabeth
+ManaCost:X W G
+Types:Creature Human Soldier
+PT:2/2
+K:Trample
+K:Humbled:X
+T:Mode$ CounterRemoved | ValidCard$ Card.Self | CounterType$ DEFEAT | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ Whenever a defeat counter is removed from CARDNAME, put two +1/+1 counters on it.
+SVar:TrigPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 2
+SVar:X:Count$xPaid
+DeckHas:Ability$Counters
+Oracle:Trample\nWhenever a defeat counter is removed from this creature, put two +1/+1 counters on it.\nHumbled X (This creature enters with X defeat counters on it. As long as it has a defeat counter on it, it's an enchantment and loses all other card types. At the beginning of your upkeep, remove a defeat counter from it.)

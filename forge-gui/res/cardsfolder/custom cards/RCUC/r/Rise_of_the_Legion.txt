@@ -1,0 +1,9 @@
+Name:Rise of the Legion
+ManaCost:4 B B
+Types:Sorcery
+A:SP$ Sacrifice | Defined$ Opponent | SacValid$ Creature | Amount$ 5 | RememberSacrificed$ True | SubAbility$ DBToken | SpellDescription$ Each opponent sacrifices five creatures. Create a 3/3 black and red Zombie Horror creature token for each creature sacrificed this way.
+SVar:DBToken:DB$ Token | TokenScript$ br_3_3_zombie_horror | TokenOwner$ You | TokenAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+DeckHas:Ability$Sacrifice|Token
+Oracle:Each opponent sacrifices five creatures. Create a 3/3 black and red Zombie Horror creature token for each creature sacrificed this way.

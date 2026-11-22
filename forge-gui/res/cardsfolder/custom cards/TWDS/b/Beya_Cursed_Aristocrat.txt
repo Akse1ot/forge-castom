@@ -1,0 +1,9 @@
+Name:Beya, Cursed Aristocrat
+ManaCost:2 W B
+Types:Legendary Creature Elf Noble
+PT:3/3
+S:Mode$ Continuous | Affected$ Creature.Legendary+YouCtrl+Other | AddKeyword$ Lifelink | Description$ Other legendary creatures you control have lifelink.
+S:Mode$ Continuous | EffectZone$ Battlefield | Affected$ Card.Legendary+YouOwn | AffectedZone$ Graveyard | IsPresent$ Legendary.YouCtrl | PresentCompare$ GE3 | MayPlay$ True | Description$ As long as you control three or more legendary permanents, you may play legendary cards from your graveyard.
+DeckNeeds:Type$Legendary
+DeckHints:Type$Legendary
+Oracle:Other legendary creatures you control have lifelink.\nAs long as you control three or more legendary permanents, you may play legendary cards from your graveyard.

@@ -1,0 +1,11 @@
+Name:Casualties of Battle
+ManaCost:3 R W
+Types:Sorcery
+A:SP$ Charm | Choices$ DBDestroyCreatures,DBDestroyAE,DBDamage
+SVar:DBDestroyCreatures:DB$ DestroyAll | ValidCards$ Creature | SpellDescription$ Destroy all creatures.
+SVar:DBDestroyAE:DB$ DestroyAll | ValidCards$ Artifact,Enchantment | SpellDescription$ Destroy all artifacts and enchantments.
+SVar:DBDamage:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ X | SpellDescription$ CARDNAME deals 1 damage to each opponent for each unity counter you have and on permanents you control.
+SVar:X:Count$YourCountersUNITY/Plus.Y
+SVar:Y:Count$Valid Permanent.YouCtrl$CardCounters.UNITY
+DeckHints:Keyword$Unity
+Oracle:Choose one —\n• Destroy all creatures.\n• Destroy all artifacts and enchantments.\n• Casualties of Battle deals 1 damage to each opponent for each unity counter you have and on permanents you control.

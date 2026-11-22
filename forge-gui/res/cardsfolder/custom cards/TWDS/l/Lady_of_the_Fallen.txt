@@ -1,0 +1,7 @@
+Name:Lady of the Fallen
+ManaCost:2 W
+Types:Creature Human Soldier
+PT:5/5
+K:Humbled:2
+S:Mode$ Continuous | IsPresent$ Card.Self+counters_GE1_DEFEAT | Affected$ Creature.YouCtrl | AddKeyword$ Hexproof | Description$ As long as CARDNAME has defeat counters on it, creatures you control have hexproof.
+Oracle:As long as this permanent has defeat counters on it, creatures you control have hexproof.\nHumbled 2 (This creature enters with two defeat counters on it. As long as it has a defeat counter on it, it's an enchantment and loses all other types. At the beginning of your upkeep, remove a defeat counter from it.)

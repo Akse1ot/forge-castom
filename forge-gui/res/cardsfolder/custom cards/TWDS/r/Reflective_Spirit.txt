@@ -1,0 +1,9 @@
+Name:Reflective Spirit
+ManaCost:2 U U
+Types:Creature Spirit
+PT:3/3
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn | TriggerDescription$ When CARDNAME enters or dies, return target card with renew you own in exile to your hand.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigReturn | Secondary$ True | TriggerDescription$ When CARDNAME enters or dies, return target card with renew you own in exile to your hand.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Exile | Destination$ Hand | ValidTgts$ Card.YouOwn+hasAbilityLabelRenew | TgtPrompt$ Select target card with renew you own in exile
+Oracle:Flying\nWhen this creature enters or dies, return target card with renew you own in exile to your hand.

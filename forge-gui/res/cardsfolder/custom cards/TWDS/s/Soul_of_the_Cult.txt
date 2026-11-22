@@ -1,0 +1,8 @@
+Name:Soul of the Cult
+ManaCost:B B
+Types:Creature Ghoul
+PT:4/3
+K:Haste
+K:Menace
+A:SP$ PermanentCreature | Cost$ B B Torment
+Oracle:As an additional cost to cast this spell, torment yourself. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)\nHaste, menace

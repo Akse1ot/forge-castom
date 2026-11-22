@@ -1,0 +1,12 @@
+Name:Tropical Drake
+ManaCost:1 U
+Types:Creature Drake
+PT:2/1
+K:Flying
+K:Kicker:G:R
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked 1 | Execute$ TrigDig | TriggerDescription$ When CARDNAME enters, if it was kicked with its {G} kicker, reveal the top card of your library. If it's a land card, put it onto the battlefield. Otherwise, put that card into your hand.
+SVar:TrigDig:DB$ Dig | DigNum$ 1 | Reveal$ True | ChangeNum$ All | ChangeValid$ Land | DestinationZone$ Battlefield | DestinationZone2$ Hand
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self+kicked 2 | Execute$ TrigDamage | TriggerDescription$ When CARDNAME enters, if it was kicked with its {R} kicker, it deals 2 damage to target creature or planeswalker.
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Creature,Planeswalker | TgtPrompt$ Select target creature or planeswalker | NumDmg$ 2
+DeckHints:Color$Green|Red
+Oracle:Kicker {G} and/or {R} (You may pay an additional {G} and/or {R} as you cast this spell.)\nFlying\nWhen Tropical Drake enters, if it was kicked with its {G} kicker, reveal the top card of your library. If it's a land card, put it onto the battlefield. Otherwise, put that card into your hand.\nWhen Tropical Drake enters, if it was kicked with its {R} kicker, it deals 2 damage to target creature or planeswalker.

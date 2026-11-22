@@ -1,0 +1,12 @@
+Name:Destiny Eater
+ManaCost:2 U
+Types:Creature Nightmare
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSubjugate | TriggerDescription$ When this creature enters, subjugate 4. (Create four Vicious Nightmare tokens and shuffle them into each opponent's library.)
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 4
+T:Mode$ Discarded | ValidPlayer$ Opponent | ValidCard$ Card.namedVicious_Nightmare | TriggerZones$ Battlefield | Execute$ TrigTap | TriggerDescription$ Whenever an opponent discards a Vicious Nightmare, tap target creature that player controls and put a stun counter on it.
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.ControlledBy TriggeredCardOwner | TgtPrompt$ Select target creature that player controls | SubAbility$ DBStun
+SVar:DBStun:DB$ PutCounter | Defined$ Targeted | CounterType$ STUN | CounterNum$ 1
+DeckHas:Ability$Subjugate
+DeckHints:Ability$Subjugate
+Oracle:When this creature enters, subjugate 4. (Create four Vicious Nightmare tokens and shuffle them into each opponent's library.)\nWhenever an opponent discards a Vicious Nightmare, tap target creature that player controls and put a stun counter on it.

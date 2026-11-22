@@ -1,0 +1,14 @@
+Name:The Hollow Hunters
+ManaCost:3 B R
+Types:Legendary Creature Human Horror
+PT:5/5
+K:Haste
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigCounter | TriggerDescription$ Whenever another creature you control dies, put a trophy counter on CARDNAME.
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ TROPHY | CounterNum$ 1
+A:AB$ Pump | Cost$ SubCounter<1/TROPHY> | Defined$ Self | KW$ Deathtouch | SpellDescription$ CARDNAME gains deathtouch until end of turn.
+A:AB$ Animate | Cost$ SubCounter<5/TROPHY> | Defined$ Self | Keywords$ Flying | Triggers$ TrigSacrifice | SpellDescription$ CARDNAME gains flying and "Whenever this creature deals combat damage to a player, that player sacrifices a creature." until end of turn.
+SVar:TrigSacrifice:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ DBSacrifice | TriggerDescription$ Whenever this creature deals combat damage to a player, that player sacrifices a creature.
+SVar:DBSacrifice:DB$ Sacrifice | Defined$ TriggeredTarget | SacValid$ Creature
+DeckHas:Ability$Counters
+DeckHints:Ability$Sacrifice
+Oracle:Haste\nWhenever another creature you control dies, put a trophy counter on The Hollow Hunters.\nRemove a trophy counter from The Hollow Hunters: It gains deathtouch until end of turn.\nRemove five trophy counters from The Hollow Hunters: It gains flying and "Whenever this creature deals combat damage to a player, that player sacrifices a creature." until end of turn.

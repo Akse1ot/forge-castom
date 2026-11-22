@@ -1,0 +1,27 @@
+Name:Trinity, the Ersatz Isle
+ManaCost:3
+Types:Legendary Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigSurveil | TriggerDescription$ When CARDNAME enters, surveil 3.
+SVar:TrigSurveil:DB$ Surveil | Amount$ 3
+A:AB$ Surveil | Cost$ 3 | Amount$ 3 | SpellDescription$ Surveil 3.
+K:Craft:3 ExileCtrlOrGrave<X/Permanent.Other+MonoColor+withDifferentColorsMax3>:up to three monocolored permanents of different colors:up to three monocolored permanents of different colors
+SVar:X:Count$xPaid
+AI:RemoveDeck:All
+DeckHints:Ability$Surveil|Graveyard
+DeckHas:Ability$Surveil|Graveyard|Token & Type$Artifact|Angel
+AlternateMode:DoubleFaced
+Oracle:When Trinity, the Ersatz Isle enters the battlefield, surveil 3.\n{3}: Surveil 3.\nCraft with up to three monocolored permanents of different colors {3}.
+
+ALTERNATE
+
+Name:The Absolution
+ManaCost:no cost
+Types:Legendary Artifact Creature Angel
+PT:3/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ DBWhite | TriggerDescription$ When CARDNAME enters the battlefield, perform the following actions for each color among the permanents used to craft it, in the following order: white, blue, black, red, green.
+SVar:DBWhite:DB$ Token | TokenScript$ c_3_3_a_angel_flying | TokenAmount$ 3 | TokenOwner$ You | ConditionDefined$ Self | ConditionPresent$ Card.CraftedWithColorWhite | SubAbility$ DBBlue
+SVar:DBBlue:DB$ Draw | Defined$ You | NumCards$ 3 | ConditionDefined$ Self | ConditionPresent$ Card.CraftedWithColorBlue | SubAbility$ DBBlack
+SVar:DBBlack:DB$ Discard | Defined$ Player.Opponent | NumCards$ 3 | Mode$ TgtChoose | ConditionDefined$ Self | ConditionPresent$ Card.CraftedWithColorBlack | SubAbility$ DBRed
+SVar:DBRed:DB$ DamageAll | ValidPlayers$ Player.Opponent | ValidCards$ Creature.OppCtrl,Planeswalker.OppCtrl,Battle.OppCtrl | NumDmg$ 3 | ConditionDefined$ Self | ConditionPresent$ Card.CraftedWithColorRed | SubAbility$ DBGreen
+SVar:DBGreen:DB$ Dig | DigNum$ 3 | Reveal$ True | ChangeNum$ All | ChangeValid$ Permanent | DestinationZone$ Battlefield | DestinationZone2$ Graveyard | ConditionDefined$ Self | ConditionPresent$ Card.CraftedWithColorGreen
+Oracle:When The Absolution enters the battlefield, perform the following abilities based on the colors of the permanents used to craft it:\n• White — Create three 3/3 Angel artifact creature tokens with flying.\n• Blue — Draw 3 cards.\n• Black — Each opponent discards 3 cards.\n• Red — The Absolution deals 3 damage to each opponent and each permanent they control.\n• Green — Reveal the top 3 cards of your library, put all permanents revealed this way onto the battlefield under your control and the rest into your graveyard.

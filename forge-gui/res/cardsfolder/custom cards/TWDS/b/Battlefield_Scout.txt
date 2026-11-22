@@ -1,0 +1,9 @@
+Name:Battlefield Scout
+ManaCost:W
+Types:Creature Human Scout
+PT:1/1
+A:AB$ PutCounter | Cost$ 3 W | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBUnity | SpellDescription$ Put two +1/+1 counters on target creature you control. You get two unity counters.
+SVar:DBUnity:DB$ PutCounter | Defined$ You | CounterType$ UNITY | CounterNum$ 2
+DeckHints:Type$Creature
+DeckHas:Ability$Counters
+Oracle:{3}{W}: Put two +1/+1 counters on target creature you control. You get two unity counters.

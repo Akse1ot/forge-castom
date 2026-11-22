@@ -1,0 +1,10 @@
+Name:Battle for Golden City
+ManaCost:2 B R
+Types:Enchantment Saga
+K:Chapter:3:DBSacLegends,DBSacCreature,DBLoseLifeEach
+SVar:DBSacLegends:DB$ SacrificeAll | ValidCards$ Legendary.OppCtrl | SpellDescription$ Each opponent sacrifices all legendary permanents.
+SVar:DBSacCreature:DB$ Sacrifice | Defined$ Opponent | SacValid$ Creature | SpellDescription$ Each opponent sacrifices a creature.
+SVar:DBLoseLifeEach:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBLoseLife | SpellDescription$ Each opponent loses 1 life for each card in their graveyard.
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X
+SVar:X:PlayerCountRemembered$CardsInGraveyard
+Oracle:(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Each opponent sacrifices all legendary permanents.\nII — Each opponent sacrifices a creature.\nIII — Each opponent loses 1 life for each card in their graveyard.

@@ -1,0 +1,11 @@
+Name:Forgotten Camp
+ManaCost:no cost
+Types:Enchantment Land Plains Swamp Forest
+T:Mode$ ChangesZoneAll | Destination$ Battlefield | ValidCards$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever one or more creatures enter the battlefield under your control, you gain 1 life.
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You.!attackedWithCreaturesThisTurn | TriggerZones$ Battlefield | Execute$ TrigFood | TriggerDescription$ Campfire — At the beginning of your end step, if you didn't attack this turn, create a Food token. Then if you control three or more Foods, draw a card.
+SVar:TrigFood:DB$ Token | TokenScript$ c_a_food_sac | TokenOwner$ You | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | ConditionPresent$ Food.YouCtrl | ConditionCompare$ GE3
+DeckHas:Ability$Token|LifeGain & Type$Food
+DeckHints:Type$Food
+Oracle:({T}: Add {W}, {B}, or {G}.)\nWhenever one or more creatures enter the battlefield under your control, you gain 1 life.\nCampfire — At the beginning of your end step, if you didn't attack this turn, create a Food token. Then if you control three or more Foods, draw a card.

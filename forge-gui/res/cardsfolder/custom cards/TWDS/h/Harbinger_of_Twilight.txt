@@ -1,0 +1,10 @@
+Name:Harbinger of Twilight
+ManaCost:4 B B
+Types:Creature Nightmare Wolf
+PT:6/6
+A:AB$ Sacrifice | Cost$ Sac<3/Creature> | Defined$ Opponent | SacValid$ Creature | Amount$ 3 | SorcerySpeed$ True | ActivationLimit$ 1 | SpellDescription$ Each opponent sacrifices three creatures. Activate only as a sorcery and only once each turn.
+K:Madness:2 B B
+SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE2
+DeckHas:Ability$Sacrifice
+DeckHints:Ability$Discard|Token
+Oracle:Sacrifice three creatures: Each opponent sacrifices three creatures. Activate only as a sorcery and only once each turn.\nMadness {2}{B}{B} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

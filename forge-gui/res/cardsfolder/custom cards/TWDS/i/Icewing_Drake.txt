@@ -1,0 +1,9 @@
+Name:Icewing Drake
+ManaCost:3 U U
+Types:Creature Drake
+PT:3/3
+K:Flying
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigReturn | OptionalDecider$ You | TriggerDescription$ Whenever CARDNAME deals combat damage to an opponent, you may return target instant or sorcery card with mana value 3 or less from your graveyard to your hand.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Instant.YouOwn+cmcLE3,Sorcery.YouOwn+cmcLE3 | TgtPrompt$ Select target instant or sorcery card with mana value 3 or less in your graveyard
+DeckHints:Type$Instant|Sorcery
+Oracle:Flying\nWhenever this creature deals combat damage to an opponent, you may return target instant or sorcery card with mana value 3 or less from your graveyard to your hand.

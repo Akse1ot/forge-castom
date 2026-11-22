@@ -1,0 +1,11 @@
+Name:Peek into the Nightmare
+ManaCost:2 U
+Types:Sorcery
+K:Madness:U
+A:SP$ PeekAndReveal | Defined$ Player | RememberRevealed$ True | SubAbility$ DBDraw | SpellDescription$ Each player reveals the top card of their library. Draw a card for each land card revealed this way. Then, you may exile those cards.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ X | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ Remembered | Origin$ Library | Destination$ Exile | Optional$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$ValidLibrary Land.IsRemembered
+DeckHints:Ability$Discard
+Oracle:Each player reveals the top card of their library. Draw a card for each land card revealed this way. Then, you may exile those cards.\nMadness {U} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

@@ -1,0 +1,11 @@
+Name:The Sanguine Sacrament
+ManaCost:4 R R
+Types:Enchantment Saga
+K:Chapter:3:DBDamage,DBDiscard,DBTorment
+SVar:DBDamage:DB$ DamageAll | ValidPlayers$ Player.Opponent | NumDmg$ 4 | SpellDescription$ CARDNAME deals 4 damage to each opponent.
+SVar:DBDiscard:DB$ Discard | Mode$ Hand | Defined$ You | SubAbility$ DBDraw | SpellDescription$ Discard your hand, then draw three cards.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 3
+SVar:DBTorment:DB$ Torment | Defined$ Opponent | Amount$ 5 | SpellDescription$ Torment each opponent five times. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)
+DeckHas:Ability$Discard
+DeckHints:Keyword$Madness
+Oracle:(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — The Sanguine Sacrament deals 4 damage to each opponent.\nII — Discard your hand, then draw three cards.\nIII — Torment each opponent five times. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)

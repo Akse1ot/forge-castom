@@ -1,0 +1,15 @@
+Name:Rootmother of the Singing Forest
+ManaCost:3 G W
+Types:Legendary Creature Spirit Treefolk
+PT:4/7
+K:Reach
+T:Mode$ CounterAdded | ValidCard$ Creature.YouCtrl | CounterType$ P1P1 | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever a +1/+1 counter is put on a creature you control, you gain 1 life.
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE1 | Execute$ TrigToken | TriggerDescription$ At the beginning of your end step, if a land entered the battlefield under your control this turn, create a 4/4 green Beast creature token with trample.
+SVar:TrigToken:DB$ Token | TokenScript$ g_4_4_beast_trample
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+HasCounters | AddKeyword$ Ward:1 | Description$ Creatures you control with counters on them have ward {1}.
+SVar:X:Count$ThisTurnEntered_Battlefield_Land.YouCtrl
+SVar:BuffedBy:Land
+DeckHas:Ability$Token
+DeckHints:Ability$Counters
+Oracle:Reach\nWhenever a +1/+1 counter is put on a creature you control, you gain 1 life.\nAt the beginning of your end step, if a land entered the battlefield under your control this turn, create a 4/4 green Beast creature token with trample.\nCreatures you control with counters on them have ward {1}.

@@ -1,0 +1,8 @@
+Name:Loyal Hounds
+ManaCost:W
+Types:Creature Dog
+PT:1/1
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ 1 | CheckSVar$ X | SVarCompare$ GTY | Description$ As long as an opponent has more cards in hand than you, CARDNAME gets +1/+0.
+SVar:X:PlayerCountOpponents$HighestCardsInHand
+SVar:Y:Count$CardsInYourHand
+Oracle:As long as an opponent has more cards in hand than you, Loyal Hounds gets +1/+0.

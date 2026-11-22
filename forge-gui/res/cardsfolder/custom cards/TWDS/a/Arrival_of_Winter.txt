@@ -1,0 +1,8 @@
+Name:Arrival of Winter
+ManaCost:2 W
+Types:Sorcery
+A:SP$ Tap | TargetMin$ 0 | TargetMax$ X | ValidTgts$ Creature | TgtPrompt$ Select up to X target creatures | SubAbility$ DBStun | SpellDescription$ Tap up to X creatures and put a stun counter on each of them, where X is the number of permanents you control with counters on them.
+SVar:DBStun:DB$ PutCounter | Defined$ Targeted | CounterType$ STUN | CounterNum$ 1
+SVar:X:Count$Valid Permanent.YouCtrl+HasCounters
+DeckNeeds:Ability$Counters
+Oracle:Tap up to X creatures and put a stun counter on each of them, where X is the number of permanents you control with counters on them.

@@ -1,0 +1,11 @@
+Name:Prophet of Bad Dreams
+ManaCost:4 B
+Types:Creature Nightmare Wizard
+PT:5/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSubjugate | TriggerDescription$ When this creature enters, subjugate 7.
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 7
+T:Mode$ Discarded | ValidPlayer$ Opponent | ValidCard$ Card.namedVicious_Nightmare | TriggerZones$ Battlefield | Execute$ TrigSacrifice | TriggerDescription$ Whenever an opponent discards a Vicious Nightmare, that player sacrifices a nonland permanent.
+SVar:TrigSacrifice:DB$ Sacrifice | Defined$ TriggeredCardOwner | Amount$ 1 | SacValid$ Permanent.nonLand
+DeckHas:Ability$Subjugate|Sacrifice
+DeckHints:Ability$Subjugate
+Oracle:When this creature enters, subjugate 7.\nWhenever an opponent discards a Vicious Nightmare, that player sacrifices a nonland permanent.

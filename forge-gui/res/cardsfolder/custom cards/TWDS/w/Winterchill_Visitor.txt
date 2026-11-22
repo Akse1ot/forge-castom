@@ -1,0 +1,10 @@
+Name:Winterchill Visitor
+ManaCost:1 U
+Types:Creature Spirit
+PT:2/1
+K:Flying
+T:Mode$ AbilityCast | ValidSA$ Activated.YouCtrl+inZoneGraveyard | TriggerZones$ Battlefield | Execute$ TrigTap | TriggerDescription$ Whenever you activate an ability of a card in your graveyard, tap target creature an opponent controls, then put a stun counter on that creature.
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature.OppCtrl | TgtPrompt$ Select target creature an opponent controls | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Targeted | CounterType$ Stun | CounterNum$ 1
+DeckHas:Ability$Graveyard
+Oracle:Flying\nWhenever you activate an ability of a card in your graveyard, tap target creature an opponent controls, then put a stun counter on that creature.

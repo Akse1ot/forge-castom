@@ -1,0 +1,6 @@
+Name:Contradict Reality
+ManaCost:U
+Types:Instant
+A:SP$ ChangeText | ValidTgts$ Instant,Sorcery | TargetType$ Spell | ReplaceSpellAbility$ DBDraw | SpellDescription$ Change the text of target instant or sorcery spell by replacing all text with "Draw a card."
+SVar:DBDraw:DB$ Draw | SpellDescription$ Draw a card.
+Oracle:Change the text of target instant or sorcery spell by replacing all text with "Draw a card."

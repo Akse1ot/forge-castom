@@ -1,0 +1,8 @@
+Name:Spirit Realm Explorer
+ManaCost:1 U
+Types:Creature Human
+PT:1/1
+K:Traverse
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDig | TriggerDescription$ When CARDNAME enters, look at the top three cards of your library. You may put one of them into your hand. Put the rest on the bottom of your library in any order.
+SVar:TrigDig:DB$ Dig | DigNum$ 3 | ChangeNum$ 1 | Optional$ True | NoReveal$ True
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nWhen Spirit Realm Explorer enters, look at the top three cards of your library. You may put one of them into your hand. Put the rest on the bottom of your library in any order.

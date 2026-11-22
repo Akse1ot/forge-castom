@@ -1,0 +1,11 @@
+Name:Emmara, Mother of Ravnica
+ManaCost:2 GW
+Types:Legendary Creature Elf Cleric
+PT:2/3
+K:Convoke
+S:Mode$ Continuous | Affected$ Card.YouCtrl | AffectedZone$ Stack | Condition$ PlayerTurn | CheckSVar$ X | SVarCompare$ EQ0 | AddKeyword$ Convoke | Description$ The first spell you cast during each of your turns has convoke.
+T:Mode$ Taps | ValidCard$ Card.Self | Execute$ TrigPopulate | TriggerDescription$ Whenever CARDNAME becomes tapped, populate.
+SVar:TrigPopulate:DB$ CopyPermanent | Populate$ True
+SVar:X:Count$ThisTurnCast_Card.YouCtrl
+DeckNeeds:Ability$Token
+Oracle:Convoke\nThe first spell you cast during each of your turns has convoke.\nWhenever Emmara, Mother of Ravnica becomes tapped, populate.

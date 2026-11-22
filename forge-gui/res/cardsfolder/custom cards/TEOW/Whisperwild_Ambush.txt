@@ -1,0 +1,11 @@
+Name:Whisperwild Ambush
+ManaCost:2 R
+Types:Instant
+A:SP$ Charm | MinCharmNum$ 1 | CharmNum$ Count$Compare Y GE1.2.1 | Choices$ DBFightStart,DBPumpAll | AdditionalDescription$ . If you've cast an Adventure spell this turn, you may choose both instead.
+SVar:DBFightStart:DB$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | AILogic$ Fight | StackDescription$ None | SubAbility$ DBFight | SpellDescription$ Target creature you control fights target creature you don't control.
+SVar:DBFight:DB$ Fight | Defined$ ParentTarget | ValidTgts$ Creature.YouDontCtrl | TgtPrompt$ Select target creature you don't control
+SVar:DBPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +2 | SpellDescription$ Creatures you control get +2/+0 until end of turn.
+SVar:Y:Count$ThisTurnCast_Card.Adventure+YouCtrl
+DeckNeeds:Type$Creature
+DeckHints:Type$Adventure
+Oracle:Choose one —\n• Target creature you control fights target creature you don't control.\n• Creatures you control get +2/+0 until end of turn.\nIf you've cast an Adventure spell this turn, you may choose both instead.

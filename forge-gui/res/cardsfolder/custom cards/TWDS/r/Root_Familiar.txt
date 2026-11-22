@@ -1,0 +1,9 @@
+Name:Root Familiar
+ManaCost:1 G G
+Types:Creature Spirit Druid
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | OptionalDecider$ You | Execute$ TrigSearch | TriggerDescription$ When CARDNAME enters, you may search your library for a card with renew, put it into your graveyard, then shuffle.
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Graveyard | ChangeType$ Card.hasAbilityLabelRenew | ChangeNum$ 1
+A:AB$ Draw | Cost$ 3 ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | SorcerySpeed$ True | PrecostDesc$ Renew — | NumCards$ 1 | SpellDescription$ Draw a card. Activate only as a sorcery.
+DeckHas:Ability$Graveyard
+Oracle:When this creature enters, you may search your library for a card with renew, put it into your graveyard, then shuffle.\nRenew — {3}, Exile this card from your graveyard: Draw a card. Activate only as a sorcery.

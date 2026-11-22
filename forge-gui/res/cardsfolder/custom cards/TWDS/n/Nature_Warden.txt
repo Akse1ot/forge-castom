@@ -1,0 +1,7 @@
+Name:Nature Warden
+ManaCost:1 G
+Types:Creature Spirit Druid
+PT:1/1
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigDig | TriggerDescription$ When CARDNAME enters, look at the top five cards of your library. You may put a basic land card from among them onto the battlefield tapped. Put the rest on the bottom of your library in a random order.
+SVar:TrigDig:DB$ Dig | DigNum$ 5 | ChangeNum$ 1 | ChangeValid$ Land.Basic | Optional$ True | DestinationZone$ Battlefield | DestinationZone2$ Library | LibraryPosition$ -1 | RestRandomOrder$ True | Tapped$ True
+Oracle:When this creature enters, look at the top five cards of your library. You may put a basic land card from among them onto the battlefield tapped. Put the rest on the bottom of your library in a random order.

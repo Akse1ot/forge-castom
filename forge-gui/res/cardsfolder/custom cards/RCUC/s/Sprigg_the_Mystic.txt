@@ -1,0 +1,11 @@
+Name:Sprigg, the Mystic
+ManaCost:G
+Types:Legendary Creature Mystic
+PT:1/2
+R:Event$ Moved | ValidLKI$ Creature.DamagedBy | Destination$ Graveyard | ReplaceWith$ DBExile | ActiveZones$ Battlefield | Description$ If a creature dealt damage this turn by CARDNAME would die, exile it instead. You may have CARDNAME become a copy of the exiled creature as long as it remains exiled.
+SVar:DBExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Battlefield | Destination$ Exile | RememberChanged$ True | SubAbility$ DBClone
+SVar:DBClone:DB$ Clone | Defined$ Remembered | Optional$ True | Duration$ UntilDefinedLeavesZone | DurationDefined$ Remembered | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ DealDamage | Cost$ T | ValidTgts$ Creature.YouDontCtrl | TgtPrompt$ Select target creature you don't control | NumDmg$ X | SpellDescription$ CARDNAME deals damage equal to her power to target creature you don't control.
+SVar:X:Count$CardPower
+Oracle:If a creature dealt damage this turn by Sprigg, the Mystic would die, exile it instead. You may have Sprigg, the Mystic become a copy of the exiled creature as long as it remains exiled.\n{T}: Sprigg, the Mystic deals damage equal to her power to target creature you don't control.

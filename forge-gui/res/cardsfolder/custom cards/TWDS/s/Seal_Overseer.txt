@@ -1,0 +1,15 @@
+Name:Seal Overseer
+ManaCost:4 W W
+Types:Creature Angel Soldier
+PT:6/6
+K:Flying
+K:Vigilance
+K:Lifelink
+T:Mode$ SpellCast | ValidCard$ Card.Self | ValidActivatingPlayer$ You | Execute$ TrigWorship | TriggerZones$ Stack | TriggerDescription$ When you cast this spell, worship twice. (Trigger the enters effect of target permanent you control.)
+SVar:TrigWorship:DB$ CustomReplayEtb | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select a permanent you control for the first worship | SubAbility$ DBWorshipAgain
+SVar:DBWorshipAgain:DB$ CustomReplayEtb | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select a permanent you control for the second worship
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll | TriggerDescription$ When this creature enters, other creatures you control get +2/+2 and gain vigilance until end of turn.
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.Other+YouCtrl | NumAtt$ +2 | NumDef$ +2 | KW$ Vigilance
+SVar:PlayMain1:TRUE
+DeckHas:Keyword$Vigilance
+Oracle:When you cast this spell, worship twice. (Trigger the enters effect of target permanent you control.)\nFlying, vigilance, lifelink\nWhen this creature enters, other creatures you control get +2/+2 and gain vigilance until end of turn.

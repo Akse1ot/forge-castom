@@ -1,0 +1,11 @@
+Name:Praising Beast
+ManaCost:2 G
+Types:Creature Beast
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerDescription$ When CARDNAME enters, ABILITY
+SVar:TrigCharm:DB$ Charm | Choices$ DBPutCounter,DBPumpTokens
+SVar:DBPutCounter:DB$ PutCounter | ValidTgts$ Creature.Other+YouCtrl | CounterType$ P1P1 | CounterNum$ 2 | SpellDescription$ Put two +1/+1 counters on another target creature you control.
+SVar:DBPumpTokens:DB$ PumpAll | ValidCards$ Creature.token+YouCtrl | NumAtt$ +2 | NumDef$ +2 | SpellDescription$ Creature tokens you control get +2/+2 until end of turn.
+DeckHas:Ability$Counters
+DeckNeeds:Ability$Token
+Oracle:When this creature enters, choose one —\n• Put two +1/+1 counters on another target creature you control.\n• Creature tokens you control get +2/+2 until end of turn.

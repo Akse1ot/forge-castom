@@ -1,0 +1,8 @@
+Name:Harbinger of Fumes
+ManaCost:2 B G
+Types:Creature Horror Knight
+PT:3/3
+K:Corrupt
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+HasCounters | AddKeyword$ Trample | Description$ Each creature you control with one or more counters on it has trample.
+DeckHas:Ability$Counters
+Oracle:Corrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nEach creature you control with one or more counters on it has trample.

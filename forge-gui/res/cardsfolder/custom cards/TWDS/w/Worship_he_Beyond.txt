@@ -1,0 +1,8 @@
+Name:Worship the Beyond
+ManaCost:4 U U U
+Types:Sorcery
+K:Coalesce
+R:Event$ Moved | ActiveZones$ Stack | ValidCard$ Card.Self | ValidStackSa$ Spell | ValidCause$ SpellAbility | Origin$ Stack | Destination$ Graveyard | ReplaceWith$ DBReturn | Description$ If this spell is countered by a spell or ability, put it into your hand instead of putting it into its owner's graveyard.
+SVar:DBReturn:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Hand
+A:SP$ Draw | NumCards$ 7 | SpellDescription$ Draw seven cards.
+Oracle:Coalesce (For every two cards you put into your graveyard from among cards you own in exile while casting this spell pays for {1}.)\nIf this spell is countered by a spell or ability, put it into your hand instead of putting it into its owner's graveyard.\nDraw seven cards.

@@ -1,0 +1,9 @@
+Name:Holy Arbiter
+ManaCost:1 W
+Types:Creature Angel Cleric
+PT:1/1
+K:Flash
+K:Flying
+R:Event$ SearchLibrary | ActiveZones$ Battlefield | ValidPlayer$ Any | ReplaceWith$ ReplaceDraw | Description$ If a player would search their library, that player draws a card instead.
+SVar:ReplaceDraw:DB$ Draw | Defined$ Player | NumCards$ 1
+Oracle:Flash\nFlying\nIf a player would search their library, that player draws a card instead.

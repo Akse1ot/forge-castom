@@ -1,0 +1,9 @@
+Name:Snowfall Tracker
+ManaCost:2 W
+Types:Creature Human
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigUnity | TriggerDescription$ When CARDNAME enters, you get a unity counter for each land you control.
+SVar:TrigUnity:DB$ PutCounter | Defined$ You | CounterType$ UNITY | CounterNum$ X
+SVar:X:Count$Valid Land.YouCtrl
+DeckHas:Ability$Counters
+Oracle:When this creature enters, you get a unity counter for each land you control.

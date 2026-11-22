@@ -1,0 +1,10 @@
+Name:Dagger Master
+ManaCost:2 B B
+Types:Creature Human Assassin
+PT:2/2
+K:Deathtouch
+T:Mode$ Attacks | ValidCard$ Card.Self | Execute$ TrigDestroy | TriggerDescription$ Whenever CARDNAME attacks, for each player, destroy target creature that player controls.
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ Creature | TgtPrompt$ For each player, select a target creature that player controls | TargetMin$ OneEach | TargetMax$ OneEach | TargetsForEachPlayer$ True
+SVar:OneEach:PlayerCountPlayers$Amount
+SVar:HasAttackEffect:TRUE
+Oracle:Deathtouch\nWhenever Dagger Master attacks, for each player, destroy target creature that player controls.

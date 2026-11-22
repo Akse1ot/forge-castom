@@ -1,0 +1,8 @@
+Name:Glorian Messenger
+ManaCost:2 W
+Types:Creature Human Scout
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigUnity | TriggerDescription$ When CARDNAME enters, you get three unity counters.
+SVar:TrigUnity:DB$ PutCounter | Defined$ You | CounterType$ UNITY | CounterNum$ 3
+DeckHas:Ability$Counters
+Oracle:When this creature enters, you get three unity counters.

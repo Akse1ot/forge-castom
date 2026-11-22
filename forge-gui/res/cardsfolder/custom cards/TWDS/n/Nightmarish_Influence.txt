@@ -1,0 +1,9 @@
+Name:Nightmarish Influence
+ManaCost:2 U
+Types:Sorcery
+A:SP$ Mill | Cost$ 2 U Discard<X/Card> | Defined$ You | NumCards$ X | SubAbility$ DBDraw | SpellDescription$ Mill X cards. Then, draw X plus one cards.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ Y
+SVar:X:Count$xPaid
+SVar:Y:SVar$X/Plus.1
+DeckHas:Ability$Discard|Graveyard
+Oracle:As an additional cost to cast this spell, discard X cards.\nMill X cards. Then, draw X plus one cards.

@@ -1,0 +1,9 @@
+Name:Ulsay, the Fantasy Shaper
+ManaCost:2 B G
+Types:Legendary Creature Horror Knight
+PT:3/3
+K:Corrupt
+R:Event$ AddCounter | ActiveZones$ Battlefield | ValidCard$ Card.Self | ValidSource$ You | ReplaceWith$ RepSpreadCounters | Description$ If you would put one or more counters on CARDNAME, put that many counters on each creature you control instead.
+SVar:RepSpreadCounters:DB$ ReplaceCounter | RedirectTo$ Valid Creature.YouCtrl
+DeckHas:Ability$Counters
+Oracle:Corrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nIf you would put one or more counters on Ulsay, put that many counters on each creature you control instead.

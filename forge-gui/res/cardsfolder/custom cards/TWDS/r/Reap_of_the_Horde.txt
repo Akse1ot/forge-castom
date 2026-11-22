@@ -1,0 +1,7 @@
+Name:Reap of the Horde
+ManaCost:2 G
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land | ChangeNum$ X | Tapped$ True | SpellDescription$ Search your library for up to X basic land cards, where X is the number of creatures you control with counters on them. Put those land cards onto the battlefield tapped, then shuffle.
+SVar:X:Count$Valid Creature.YouCtrl+HasCounters
+DeckNeeds:Ability$Counters
+Oracle:Search your library for up to X basic land cards, where X is the number of creatures you control with counters on them. Put those land cards onto the battlefield tapped, then shuffle.

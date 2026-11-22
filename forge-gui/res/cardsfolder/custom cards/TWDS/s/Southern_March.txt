@@ -1,0 +1,8 @@
+Name:Southern March
+ManaCost:1 W
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ At the beginning of your upkeep, create a 1/1 white Soldier creature token and you get a unity counter.
+SVar:TrigToken:DB$ Token | TokenScript$ w_1_1_soldier | TokenOwner$ You | SubAbility$ DBUnity
+SVar:DBUnity:DB$ PutCounter | Defined$ You | CounterType$ UNITY | CounterNum$ 1
+DeckHas:Ability$Token|Counters
+Oracle:At the beginning of your upkeep, create a 1/1 white Soldier creature token and you get a unity counter.

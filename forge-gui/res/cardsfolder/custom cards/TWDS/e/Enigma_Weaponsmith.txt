@@ -1,0 +1,11 @@
+Name:Enigma Weaponsmith
+ManaCost:X U
+Types:Creature Human Wizard
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry | TriggerDescription$ When CARDNAME enters, scry X, then reveal the top card of your library. If you reveal an Equipment card, put it onto the battlefield.
+SVar:TrigScry:DB$ Scry | ScryNum$ X | SubAbility$ DBReveal
+SVar:DBReveal:DB$ PeekAndReveal | Defined$ You | PeekAmount$ 1 | SubAbility$ DBPut
+SVar:DBPut:DB$ ChangeZone | Defined$ TopOfLibrary | Origin$ Library | Destination$ Battlefield | ConditionDefined$ TopOfLibrary | ConditionPresent$ Card.Equipment | ConditionCompare$ GE1
+SVar:X:Count$xPaid
+DeckHints:Type$Equipment
+Oracle:When this creature enters, scry X, then reveal the top card of your library. If you reveal an Equipment card, put it onto the battlefield.

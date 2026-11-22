@@ -1,0 +1,8 @@
+Name:Demon Token
+ManaCost:no cost
+Colors:black
+Types:Creature Demon
+PT:6/6
+K:Flying
+K:Trample
+Oracle:Flying\nTrample

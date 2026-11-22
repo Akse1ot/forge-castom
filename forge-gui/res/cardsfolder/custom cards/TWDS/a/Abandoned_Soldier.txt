@@ -1,0 +1,9 @@
+Name:Abandoned Soldier
+ManaCost:1 G
+Types:Creature Human Soldier
+PT:4/4
+K:Humbled:2
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE1 | Execute$ TrigPump | TriggerDescription$ At the beginning of combat on your turn, if you removed a defeat counter from CARDNAME this turn, target creature you control gets +2/+2 until end of turn.
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | NumAtt$ 2 | NumDef$ 2
+SVar:X:Count$CountersRemovedThisTurn DEFEAT Card.Self
+Oracle:At the beginning of combat on your turn, if you removed a defeat counter from this creature this turn, target creature you control gets +2/+2 until end of turn.\nHumbled 2

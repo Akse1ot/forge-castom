@@ -1,0 +1,7 @@
+Name:Honor the Forest
+ManaCost:4 G G
+Types:Sorcery
+A:SP$ Draw | NumCards$ X | SpellDescription$ Draw a card for each creature your opponents control.
+SVar:X:Count$Valid Creature.OppCtrl
+SVar:NeedsToPlay:Creature.OppCtrl
+Oracle:Draw a card for each creature your opponents control.

@@ -1,0 +1,10 @@
+Name:Carolina's Champion
+ManaCost:2 W W W
+Types:Creature Human Soldier
+PT:5/5
+K:Unity
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+Other | AddPower$ X | AddToughness$ X | Description$ Other creatures you control get +1/+1 for every two unity counters on CARDNAME.
+SVar:X:Count$CardCounters.UNITY/HalfDown
+DeckHints:Type$Creature
+DeckHas:Ability$Counters
+Oracle:Unity (As this permanent enters, you may pay any number of unity counters. This permanent enters with a unity counter on it for each unity counter paid this way.)\nOther creatures you control get +1/+1 for every two unity counters on CARDNAME.

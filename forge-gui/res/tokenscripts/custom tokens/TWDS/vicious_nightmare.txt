@@ -1,0 +1,7 @@
+Name:Vicious Nightmare
+ManaCost:no cost
+Types:Instant
+K:Cycling:2
+T:Mode$ Cycled | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerDescription$ When you cycle CARDNAME, each opponent draws a card.
+SVar:TrigDraw:DB$ Draw | Defined$ Opponent | NumCards$ 1
+Oracle:Cycling {2}\nWhen you cycle Vicious Nightmare, each opponent draws a card.

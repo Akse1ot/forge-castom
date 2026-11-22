@@ -1,0 +1,6 @@
+Name:Enveloping Mist
+ManaCost:U
+Types:Instant
+A:SP$ ChangeZone | ValidTgts$ Creature | TgtPrompt$ Select target creature | Origin$ Battlefield | Destination$ Hand | SpellDescription$ Return target creature to its owner's hand.
+A:AB$ ChangeZone | Cost$ 1 U ExileFromGrave<1/CARDNAME> | PrecostDesc$ Renew — | ActivationZone$ Graveyard | SorcerySpeed$ True | ValidTgts$ Creature | TgtPrompt$ Select target creature | Origin$ Battlefield | Destination$ Hand | SpellDescription$ Return target creature to its owner's hand. Activate only as a sorcery.
+Oracle:Return target creature to its owner's hand.\nRenew — {1}{U}, Exile this card from your graveyard: Return target creature to its owner's hand. Activate only as a sorcery.

@@ -1,0 +1,9 @@
+Name:Council of Nemm
+ManaCost:2 W U
+Types:Legendary Creature Human Advisor
+PT:2/4
+K:Flash
+A:AB$ ChangeZone | Cost$ W U ChooseCard<1/CARDNAME> | CostDesc$ {W}{U}, Reveal CARDNAME from your hand or the command zone: | ActivationZone$ Hand | AdditionalActivationZone$ Command | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select target permanent you control | Origin$ Battlefield | Destination$ Exile | WithCountersType$ INDUCTION | WithCountersAmount$ 1 | SpellDescription$ Exile target permanent you control. Put an induction counter on it.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigReturn | TriggerDescription$ When CARDNAME enters the battlefield, return all cards exiled with induction counters on them to the battlefield.
+SVar:TrigReturn:DB$ ChangeZoneAll | Origin$ Exile | Destination$ Battlefield | ChangeType$ Card.counters_GE1_INDUCTION
+Oracle:Flash\n{W}{U}, Reveal Council of Nemm from your hand or the command zone: Exile target permanent you control. Put an induction counter on it.\nWhen Council of Nemm enters the battlefield, return all cards exiled with induction counters on them to the battlefield.

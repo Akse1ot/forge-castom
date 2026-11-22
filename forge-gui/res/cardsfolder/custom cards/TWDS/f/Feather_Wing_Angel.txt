@@ -1,0 +1,12 @@
+Name:Feather Wing Angel
+ManaCost:3 U U
+Types:Creature Angel
+PT:4/4
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigPumpAll | TriggerDescription$ When this creature enters, creatures you control gain flying and hexproof until end of turn.
+SVar:TrigPumpAll:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Flying & Hexproof
+T:Mode$ AttackersDeclared | Execute$ TrigWorship | ValidAttackers$ Creature.withFlying | ValidAttackersAmount$ GE2 | TriggerZones$ Battlefield | AttackingPlayer$ You | TriggerDescription$ Whenever you attack with two or more creatures with flying, worship.
+SVar:TrigWorship:DB$ CustomReplayEtb | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select target permanent you control
+SVar:HasAttackEffect:TRUE
+DeckHints:Keyword$Flying
+Oracle:Flying\nWhen this creature enters, creatures you control gain flying and hexproof until end of turn.\nWhenever you attack with two or more creatures with flying, worship.

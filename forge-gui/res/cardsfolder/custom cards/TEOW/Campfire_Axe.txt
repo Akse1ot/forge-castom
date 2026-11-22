@@ -1,0 +1,9 @@
+Name:Campfire Axe
+ManaCost:2
+Types:Artifact Equipment
+K:Equip:2
+S:Mode$ Continuous | AffectedDefined$ Equipped | Affected$ Creature | AddPower$ 3 | AddToughness$ 1 | Description$ Equipped creature gets +3/+1.
+T:Mode$ CounterAdded | ValidCard$ Creature | CounterType$ HERO | TriggerZones$ Battlefield | Execute$ TrigUntap | TriggerDescription$ Whenever a hero counter is put on a creature, untap equipped creature.
+SVar:TrigUntap:DB$ Untap | Defined$ Equipped
+DeckHints:Ability$Counters
+Oracle:Equipped creature gets +3/+1.\nWhenever a hero counter is put on a creature, untap equipped creature.\nEquip {2}

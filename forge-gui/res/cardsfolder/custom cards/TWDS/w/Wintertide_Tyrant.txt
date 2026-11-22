@@ -1,0 +1,11 @@
+Name:Wintertide Tyrant
+ManaCost:4 R R
+Types:Creature Dragon
+PT:4/4
+K:Flying
+A:AB$ PutCounter | Cost$ 2 R R | Monstrosity$ 3
+S:Mode$ Continuous | Affected$ Creature.attacking+YouCtrl | AddKeyword$ Double Strike | Description$ Attacking creatures you control have double strike.
+SVar:NonStackingEffect:True
+SVar:PlayMain1:TRUE
+DeckHas:Ability$Counters
+Oracle:Flying\n{2}{R}{R}: Monstrosity 3. (If this creature isn't monstrous, put three +1/+1 counters on it and it becomes monstrous.)\nAttacking creatures you control have double strike.

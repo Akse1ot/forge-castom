@@ -1,0 +1,7 @@
+Name:Chosen of Midnight
+ManaCost:1 U
+Types:Creature Nightmare
+PT:2/1
+K:Flash
+A:AB$ Draw | Cost$ U U | NumCards$ 1 | SpellDescription$ Draw a card.
+Oracle:Flash\n{U}{U}: Draw a card.

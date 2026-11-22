@@ -1,0 +1,8 @@
+Name:Dragon of the Peak
+ManaCost:3 R R
+Types:Creature Dragon
+PT:4/4
+K:Flying
+T:Mode$ BecomesTarget | ValidTarget$ Creature.YouCtrl+inZoneBattlefield | ValidSource$ SpellAbility.OppCtrl | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ Whenever a creature you control becomes the target of a spell or ability an opponent controls, CARDNAME deals 3 damage to that player.
+SVar:TrigDamage:DB$ DealDamage | Defined$ TriggeredSourceSAController | NumDmg$ 3
+Oracle:Flying\nWhenever a creature you control becomes the target of a spell or ability an opponent controls, this creature deals 3 damage to that player.

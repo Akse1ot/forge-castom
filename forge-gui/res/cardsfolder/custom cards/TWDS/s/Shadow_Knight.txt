@@ -1,0 +1,9 @@
+Name:Shadow Knight
+ManaCost:1 B
+Types:Creature Ghoul Knight
+PT:3/1
+K:Deathtouch
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigTorment | TriggerDescription$ Whenever CARDNAME deals combat damage to an opponent, torment that player.
+SVar:TrigTorment:DB$ Torment | Defined$ TriggeredTarget
+DeckHas:Ability$Torment
+Oracle:Deathtouch\nWhenever Shadow Knight deals combat damage to an opponent, torment that player. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)

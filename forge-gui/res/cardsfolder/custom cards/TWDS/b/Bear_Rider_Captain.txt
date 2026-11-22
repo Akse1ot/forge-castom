@@ -1,0 +1,10 @@
+Name:Bear Rider Captain
+ManaCost:3 R W
+Types:Creature Human Knight
+PT:5/5
+K:Unity
+S:Mode$ Continuous | Affected$ Creature.YouCtrl+Other | AddPower$ 2 | AddToughness$ 2 | CheckSVar$ X | SVarCompare$ GE3 | Description$ Other creatures you control get +2/+2 as long as CARDNAME has three or more unity counters on it.
+SVar:X:Count$CardCounters.UNITY
+DeckHas:Ability$Counters
+DeckHints:Keyword$Unity
+Oracle:Unity (As this permanent enters, you may pay any number of unity counters. This permanent enters with a unity counter on it for each unity counter paid this way.)\nOther creatures you control get +2/+2 as long as this creature has three or more unity counters on it.

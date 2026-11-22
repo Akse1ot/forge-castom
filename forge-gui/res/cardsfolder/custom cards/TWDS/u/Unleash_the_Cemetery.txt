@@ -1,0 +1,12 @@
+Name:Unleash the Cemetery
+ManaCost:X X B
+Types:Sorcery
+A:SP$ Mill | Defined$ Player | NumCards$ Y | RememberMilled$ True | SubAbility$ DBToken | SpellDescription$ Each player mills X plus one cards. For each creature card milled this way, you create a 2/2 black Ghoul creature token.
+SVar:DBToken:DB$ Token | TokenScript$ b_2_2_ghoul | TokenOwner$ You | TokenAmount$ Z | SubAbility$ DBCleanup | StackDescription$ None
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$xPaid
+SVar:Y:SVar$X/Plus.1
+SVar:Z:RememberedLKI$Valid Creature
+DeckHas:Ability$Mill|Token
+DeckHints:Type$Creature
+Oracle:Each player mills X plus one cards. For each creature card milled this way, you create a 2/2 black Ghoul creature token.

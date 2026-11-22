@@ -1,0 +1,12 @@
+Name:Mind Helix
+ManaCost:3 B
+Types:Sorcery
+A:SP$ Discard | Defined$ Player | Mode$ Hand | RememberDiscarded$ True | SubAbility$ DBDraw | SpellDescription$ Each player discards their hand, then draws cards equal to the greatest number of cards discarded this way minus one.
+SVar:DBDraw:DB$ Draw | Defined$ Player | NumCards$ Y | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:PlayerCountPlayers$HighestValidGraveyard,Library,Exile Card.IsRemembered+YouOwn
+SVar:Y:SVar$X/Minus.1
+AI:RemoveDeck:All
+DeckHas:Ability$Discard
+DeckHints:Keyword$Madness
+Oracle:Each player discards their hand, then draws cards equal to the greatest number of cards discarded this way minus one.

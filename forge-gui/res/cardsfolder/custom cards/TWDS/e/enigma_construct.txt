@@ -1,0 +1,12 @@
+Name:Enigma Construct
+ManaCost:2 U R
+Types:Artifact Creature Construct
+PT:3/3
+K:Coalesce
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard | TriggerDescription$ When CARDNAME enters, discard X cards, where X is the number of cards moved from exile to your graveyard using coalesce as you cast it. Then draw twice X cards and exile X cards from your hand.
+SVar:TrigDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ X | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ DoubleX | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Hidden$ True | DefinedPlayer$ You | Origin$ Hand | Destination$ Exile | ChangeType$ Card | ChangeNum$ X | Mandatory$ True
+SVar:X:CastSA>CoalescedCards$Amount
+SVar:DoubleX:CastSA>CoalescedCards$Amount/Times.2
+Oracle:Coalesce (For every two cards you put into your graveyard from among cards you own in exile while casting this spell, this spell costs {1} less to cast.)\nWhen Enigma Construct enters, discard X cards, where X is the number of cards moved from exile to your graveyard using coalesce as you cast it. Then draw twice X cards and exile X cards from your hand.

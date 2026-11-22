@@ -1,0 +1,53 @@
+[metadata]
+Code=TEOW
+Date=2026-10-25
+Name=The Exploration of Whisperwild
+Type=CUSTOM_SET
+
+[cards]
+1 M Ari, First Keeper of the Campfire
+2 R Campfire Elder
+3 M Curse of Whispered Lies
+4 M Meeting at the Crossroads
+5 M Curse of Befouled Visions
+6 R Lantern Fox
+7 R Moonlit Wayfinder
+8 M The Moon-Mirror Serpent
+9 R Whisper in the Reeds
+10 M Arcanist's Grimoire
+11 M Curse of Insatiable Hunger
+12 R Cursed Storyteller
+13 R Hollow Stalker
+14 M The Story That Eats Names
+15 M Curse of Tempting Scent
+16 M Grandmother Ember
+17 R Whisperwild Ambush
+18 M Curse of Withering Caress
+19 M Knoll-Crypt Ophidian
+20 M The Worldwalker Wombat
+21 R Beast of the Burning Hills
+22 M Deepwater Terror
+23 M Echoes of the Forgotten
+24 R Firelight Gathering
+25 R Guardian of the Sacred Grove
+26 M Mistmother of the Forgotten paths
+27 M Old Firetail
+28 M Rootmother of the Singing Forest
+29 R The Ancestors' Chorus
+30 M The Eternal Storyteller
+31 M The Hollow Hunters
+32 M The Living Tale
+33 M Titanic Winterhound
+34 R Warden of Whisperwild
+35 R Campfire Axe
+36 R Hearthstone Compass
+37 R Monster Hunter's Journal
+38 M The First Campfire
+39 R Forgotten Camp
+40 M Whisperwild Tail
+
+[tokens]
+1 b_6_6_demon_flying_trample
+2 w_3_3_beast
+3 c_1_1_human_scout
+

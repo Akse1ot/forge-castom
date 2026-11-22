@@ -1,0 +1,15 @@
+Name:Quest for Lost Hope
+ManaCost:B
+Types:Enchantment Quest
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDiscard | TriggerDescription$ When CARDNAME enters, each player discards a card.
+SVar:TrigDiscard:DB$ Discard | Defined$ Player | NumCards$ 1 | Mode$ TgtChoose
+K:QuestStage:2:1 B:AddTrigger$ TriggerStage2
+SVar:TriggerStage2:Mode$ ClassLevelGained | ClassLevel$ 2 | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigReanimate | Secondary$ True | TriggerDescription$ When this Quest becomes stage 2, return target creature card with mana value 3 or less from your graveyard to the battlefield.
+SVar:TrigReanimate:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.cmcLE3+YouOwn | TgtPrompt$ Select target creature card with mana value 3 or less from your graveyard
+K:QuestStage:3:1 B B:AddTrigger$ TriggerStage3
+SVar:TriggerStage3:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigReturn | Secondary$ True | TriggerDescription$ At the beginning of your upkeep, return target creature card from your graveyard to your hand.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.YouOwn | TgtPrompt$ Select target creature card from your graveyard
+DeckHas:Ability$Discard|Graveyard
+DeckNeeds:Type$Creature
+DeckHints:Ability$Mill
+Oracle:(Gain the next level as a sorcery to add its ability.)\nWhen this Quest enters, each player discards a card.\n{1}{B}: Stage 2\nWhen this Quest becomes stage 2, return target creature card with mana value 3 or less from your graveyard to the battlefield.\n{1}{B}{B}: Stage 3\nAt the beginning of your upkeep, return target creature card from your graveyard to your hand.

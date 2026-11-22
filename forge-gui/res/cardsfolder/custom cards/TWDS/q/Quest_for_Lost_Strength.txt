@@ -1,0 +1,12 @@
+Name:Quest for Lost Strength
+ManaCost:W
+Types:Enchantment Quest
+T:Mode$ ChangesZone | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigToken | TriggerDescription$ When CARDNAME enters, create a 1/1 white Soldier creature token.
+SVar:TrigToken:DB$ Token | TokenAmount$ 1 | TokenScript$ w_1_1_soldier | TokenOwner$ You
+K:QuestStage:2:1 W:AddTrigger$ TriggerStage2
+SVar:TriggerStage2:Mode$ ClassLevelGained | ClassLevel$ 2 | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigStage2 | Secondary$ True | TriggerDescription$ When this Quest becomes stage 2, put two +1/+1 counters on target creature you control.
+SVar:TrigStage2:DB$ PutCounter | ValidTgts$ Creature.YouCtrl | CounterType$ P1P1 | CounterNum$ 2
+K:QuestStage:3:1 W W:AddStaticAbility$ Stage3Pump
+SVar:Stage3Pump:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1 | Secondary$ True | Description$ Creatures you control get +1/+1.
+DeckHas:Ability$Token|Counters
+Oracle:(Gain the next stage as a sorcery to add its ability.)\nWhen this Quest enters, create a 1/1 white Soldier creature token.\n{1}{W}: Stage 2\nWhen this Quest becomes stage 2, put two +1/+1 counters on target creature you control.\n{1}{W}{W}: Stage 3\nCreatures you control get +1/+1.

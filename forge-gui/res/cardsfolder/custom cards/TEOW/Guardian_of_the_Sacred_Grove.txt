@@ -1,0 +1,11 @@
+Name:Guardian of the Sacred Grove
+ManaCost:3 G W
+Types:Creature Treefolk Spirit
+PT:4/5
+K:Vigilance
+T:Mode$ Phase | Phase$ Main2 | ValidPlayer$ You | IsPresent$ Card.Self+dealtCombatDamageThisTurn Any+!counters_GE1_HERO | TriggerZones$ Battlefield | Execute$ TrigHeroCounter | TriggerDescription$ Fabled (At the beginning of your postcombat main phase, if this creature dealt combat damage this turn, put a hero counter on it.)
+SVar:TrigHeroCounter:DB$ PutCounter | Defined$ Self | CounterType$ HERO | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Ward:1 | IsPresent$ Card.Self+counters_GE1_HERO | Description$ As long as CARDNAME has a hero counter on it, other creatures you control get +1/+1 and have ward {1}.
+DeckHas:Ability$Counters
+DeckHints:Ability$Token
+Oracle:Vigilance\nFabled (At the beginning of your postcombat main phase, if this creature dealt combat damage this turn, put a hero counter on it.)\nAs long as Guardian of the Sacred Grove has a hero counter on it, other creatures you control get +1/+1 and have ward {1}.

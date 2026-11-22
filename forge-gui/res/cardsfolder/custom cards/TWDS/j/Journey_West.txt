@@ -1,0 +1,9 @@
+Name:Journey West
+ManaCost:5 W
+Types:Enchantment Saga
+K:Chapter:3:DBUnity,DBReturn,DBReturn
+SVar:DBUnity:DB$ PutCounterAll | ValidCards$ Permanent.YouCtrl+withUnity | CounterType$ UNITY | CounterNum$ 3 | SpellDescription$ Put three unity counters on each permanent you control with unity.
+SVar:DBReturn:DB$ ChangeZone | ValidTgts$ Permanent.YouCtrl+cmcLE4 | TgtPrompt$ Select target permanent card with mana value 4 or less from your graveyard | Origin$ Graveyard | Destination$ Battlefield | SpellDescription$ Return target permanent card with mana value 4 or less from your graveyard to the battlefield.
+DeckHas:Ability$Counters
+DeckHints:Keyword$Unity
+Oracle:I — Put three unity counters on each permanent you control with unity.\nII, III — Return target permanent card with mana value 4 or less from your graveyard to the battlefield.

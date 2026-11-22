@@ -1,0 +1,6 @@
+Name:Momir's Summoning
+ManaCost:X G
+Types:Sorcery
+A:SP$ CopyPermanent | ValidSupportedCopy$ Creature.cmcEQX | RandomCopied$ True | RandomNum$ 1 | SpellDescription$ Create a creature token that's a copy of a creature card with mana value X chosen at random.
+SVar:X:Count$xPaid
+Oracle:Create a creature token as a copy of any creature card with converted mana cost X, chosen at random.

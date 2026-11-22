@@ -1,0 +1,6 @@
+Name:Distort Fate
+ManaCost:U R
+Types:Enchantment
+T:Mode$ ChangesZoneAll | Destination$ Exile | ValidCards$ Card.YouOwn | ValidCause$ Spell.YouCtrl | Execute$ TrigDraw | TriggerZones$ Battlefield | TriggerDescription$ Whenever a spell you cast causes one or more cards you own to be put into exile, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Whenever a spell you cast causes one or more cards you own to be put into exile, draw a card.

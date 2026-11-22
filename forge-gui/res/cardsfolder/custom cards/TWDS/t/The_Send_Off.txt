@@ -1,0 +1,9 @@
+Name:The Send Off
+ManaCost:2 W
+Types:Enchantment Saga
+K:Chapter:3:DBToken,DBBuff,DBBuff
+SVar:DBToken:DB$ Token | TokenScript$ w_2_2_knight | SpellDescription$ Create a 2/2 white Knight creature token.
+SVar:DBBuff:DB$ ProtectionAll | ValidCards$ Creature.YouCtrl | Gains$ Choice | Choices$ AnyColor | SubAbility$ DBPump | SpellDescription$ Creatures you control get +1/+1 and gain protection from the color of your choice until end of turn.
+SVar:DBPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +1 | NumDef$ +1
+DeckHas:Ability$Token
+Oracle:(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Create a 2/2 white Knight creature token.\nII, III — Creatures you control get +1/+1 and gain protection from the color of your choice until end of turn.

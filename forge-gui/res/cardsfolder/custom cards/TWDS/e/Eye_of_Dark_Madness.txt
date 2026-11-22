@@ -1,0 +1,14 @@
+Name:Eye of Dark Madness
+ManaCost:4 B
+Types:Creature Nightmare Eye
+PT:3/3
+K:Flying
+K:Ward:PayLife<3>
+T:Mode$ Discarded | ValidCard$ Card | TriggerZones$ Battlefield | Execute$ TrigExile | OptionalDecider$ You | TriggerDescription$ Whenever a player discards a card, you may exile that card. If you do, you may play that card for as long as it remains exiled and spend mana as though it were mana of any color to cast that spell.
+SVar:TrigExile:DB$ ChangeZone | Defined$ TriggeredCard | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ STPlay | Duration$ Permanent | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreColor$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | Description$ You may play that card for as long as it remains exiled, and you may spend mana as though it were mana of any color to cast that spell.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Madness:2 B
+DeckHints:Ability$Discard
+Oracle:Flying, ward—Pay 3 life. (Whenever this creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays 3 life.)\nWhenever a player discards a card, you may exile that card. If you do, you may play that card for as long as it remains exiled and spend mana as though it were mana of any color to cast that spell.\nMadness {2}{B} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

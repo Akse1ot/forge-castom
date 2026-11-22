@@ -1,0 +1,8 @@
+Name:Weaken Resolve
+ManaCost:1 B
+Types:Sorcery
+A:SP$ ChooseCard | ValidTgts$ Creature | TargetMin$ 2 | TargetMax$ 2 | TargetsWithSameController$ True | Defined$ TargetedController | DefinedCards$ Targeted | ControlledByPlayer$ Chooser | Mandatory$ True | RememberChosen$ True | ChoiceTitle$ Choose one of the target creatures to sacrifice | SubAbility$ DBSac | StackDescription$ SpellDescription | SpellDescription$ Choose two target creatures controlled by the same player. That player sacrifices one of them.
+SVar:DBSac:DB$ SacrificeAll | Defined$ Remembered | SubAbility$ DBCleanup | StackDescription$ None
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | StackDescription$ None
+DeckHas:Ability$Sacrifice
+Oracle:Choose two target creatures controlled by the same player. That player sacrifices one of them.

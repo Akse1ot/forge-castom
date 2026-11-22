@@ -1,0 +1,10 @@
+Name:Blighted Beast
+ManaCost:3 B G
+Types:Creature Horror Beast
+PT:4/4
+K:Trample
+K:Corrupt
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ AffectedX | AddToughness$ AffectedX | Description$ Each creature you control gets +1/+1 for each counter on it.
+SVar:AffectedX:Count$CardCounters.ALL
+DeckHas:Ability$Counters
+Oracle:Trample\nCorrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nEach creature you control gets +1/+1 for each counter on it.

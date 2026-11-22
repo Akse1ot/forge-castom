@@ -1,0 +1,9 @@
+Name:Plunder Memory
+ManaCost:1 R
+Types:Sorcery
+A:SP$ ChangeZoneAll | Cost$ 1 R Discard<1/Card/card> | CostDesc$ As an additional cost to cast this spell, discard a card. | Origin$ Graveyard | Destination$ Exile | ValidTgts$ Player | ChangeType$ Card | SubAbility$ DBDraw | SpellDescription$ Exile target player's graveyard. Draw two cards.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 2
+K:Madness:R
+DeckHas:Ability$Discard
+DeckHints:Keyword$Madness & Ability$Delirium
+Oracle:As an additional cost to cast this spell, discard a card.\nExile target player's graveyard. Draw two cards.\nMadness {R} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

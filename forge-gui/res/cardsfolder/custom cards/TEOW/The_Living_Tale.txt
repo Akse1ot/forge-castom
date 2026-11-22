@@ -1,0 +1,14 @@
+Name:The Living Tale
+ManaCost:W U B R G
+Types:Legendary Artifact Creature Book Avatar
+PT:7/5
+S:Mode$ Continuous | Affected$ Card.YouOwn+AdventureCard | AffectedZone$ Graveyard | MayPlay$ True | MayPlayOnlyAdventure$ True | Description$ You may cast Adventure spells from your graveyard.
+T:Mode$ SpellCast | ValidCard$ Card.Adventure | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCharm | TriggerDescription$ Whenever you cast an Adventure spell, ABILITY
+SVar:TrigCharm:DB$ Charm | ChoiceRestriction$ ThisGame | Choices$ DBDraw,DBToken,DBCounters,DBReturn
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SpellDescription$ Draw a card.
+SVar:DBToken:DB$ Token | TokenScript$ c_1_1_spirit | SpellDescription$ Create a 1/1 colorless Spirit creature token.
+SVar:DBCounters:DB$ PutCounter | ValidTgts$ Creature.Other | CounterType$ P1P1 | CounterNum$ 2 | SpellDescription$ Put two +1/+1 counters on another target creature.
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Permanent.YouCtrl+cmcLE2 | SpellDescription$ Return target permanent card with mana value 2 or less from your graveyard to the battlefield.
+DeckNeeds:Type$Adventure
+DeckHas:Ability$Token|Counters|Graveyard
+Oracle:You may cast Adventure spells from your graveyard.\nWhenever you cast an Adventure spell, choose one that hasn't been chosen —\n• Draw a card.\n• Create a 1/1 colorless Spirit creature token.\n• Put two +1/+1 counters on another target creature.\n• Return target permanent card with mana value 2 or less from your graveyard to the battlefield.

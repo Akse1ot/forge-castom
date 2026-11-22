@@ -1,0 +1,6 @@
+Name:Shadow of Midnight
+ManaCost:2 B B
+Types:Enchantment
+T:Mode$ ChangesZoneAll | Origin$ Battlefield | Destination$ Graveyard | ValidCards$ Creature | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever one or more creatures die, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+Oracle:Whenever one or more creatures die, draw a card.

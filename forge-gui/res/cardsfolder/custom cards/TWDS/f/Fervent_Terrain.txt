@@ -1,0 +1,7 @@
+Name:Fervent Terrain
+ManaCost:2 R G
+Types:Sorcery
+K:Traverse
+A:SP$ AnimateAll | Power$ 3 | Toughness$ 3 | Types$ Creature,Elemental | Keywords$ Trample & Indestructible & Haste | ValidCards$ Land.YouCtrl | Duration$ UntilTheEndOfYourNextTurn | SpellDescription$ Until the end of your next turn, all lands you control become 3/3 Elemental creatures with trample, indestructible, and haste. They're still lands.
+AI:RemoveDeck:All
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nUntil the end of your next turn, all lands you control become 3/3 Elemental creatures with trample, indestructible, and haste. They're still lands.

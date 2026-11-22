@@ -1,0 +1,8 @@
+Name:Compounding Terror
+ManaCost:2 B
+Types:Sorcery
+K:AlternateAdditionalCost:Sac<1/Creature.!token/nontoken creature>:Discard<1/Card>
+SVar:AIPreference:SacCost$Creature.cmcLE2
+A:SP$ Destroy | TargetMin$ 2 | TargetMax$ 2 | ValidTgts$ Creature | TgtPrompt$ Select two target creatures | SpellDescription$ Destroy two target creatures.
+DeckHas:Ability$Discard|Sacrifice
+Oracle:As an additional cost to cast this spell, sacrifice a nontoken creature or discard a card.\nDestroy two target creatures.

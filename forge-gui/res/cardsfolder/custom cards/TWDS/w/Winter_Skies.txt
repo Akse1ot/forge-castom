@@ -1,0 +1,8 @@
+Name:Winter Skies
+ManaCost:1 U U
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigFlashback | TriggerDescription$ At the beginning of your upkeep, target instant or sorcery card in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost.
+SVar:TrigFlashback:DB$ Pump | ValidTgts$ Instant.YouOwn,Sorcery.YouOwn | TgtZone$ Graveyard | TgtPrompt$ Select target instant or sorcery card in your graveyard | KW$ Flashback | PumpZone$ Graveyard | AILogic$ ReplaySpell
+DeckHas:Ability$Graveyard & Keyword$Flashback
+DeckHints:Ability$Graveyard|Mill & Type$Instant|Sorcery
+Oracle:At the beginning of your upkeep, target instant or sorcery card in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost.

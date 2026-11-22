@@ -1,0 +1,9 @@
+Name:Warring Winter
+ManaCost:3 W
+Types:Enchantment
+S:Mode$ Continuous | Affected$ You | AddKeyword$ Hexproof | Description$ You have hexproof.
+T:Mode$ CounterAdded | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever a counter is placed or removed from a creature you control, that creature gets +2/+2 and gains vigilance until end of turn.
+T:Mode$ CounterRemoved | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever a counter is placed or removed from a creature you control, that creature gets +2/+2 and gains vigilance until end of turn.
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredCard | NumAtt$ +2 | NumDef$ +2 | KW$ Vigilance
+DeckNeeds:Ability$Counters
+Oracle:You have hexproof.\nWhenever a counter is placed or removed from a creature you control, that creature gets +2/+2 and gains vigilance until end of turn.

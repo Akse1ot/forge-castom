@@ -1,0 +1,12 @@
+Name:Hunchback Horror
+ManaCost:B
+Types:Creature Horror
+PT:1/1
+K:Corrupt
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ When this creature dies, you gain 1 life. If this creature was sacrificed, you draw a card.
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | TriggerZones$ Battlefield | CheckOnTriggeredCard$ WasSacrificed GE1 | Execute$ TrigDraw | TriggerDescription$ If this creature was sacrificed, you draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:WasSacrificed:PlayerCountPlayers$SacrificedThisTurn Card.StrictlySelf
+DeckHas:Ability$Sacrifice|Counters|LifeGain
+Oracle:Corrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nWhen this creature dies, you gain 1 life. If this creature was sacrificed, you draw a card.

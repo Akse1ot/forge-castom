@@ -1,0 +1,7 @@
+Name:Dredge the Realms
+ManaCost:1 G U
+Types:Sorcery
+A:SP$ CopyPermanent | ValidTgts$ Creature | TgtPrompt$ Select target creature to copy | SetPower$ 1 | SetToughness$ 1 | SetColor$ Green,Blue | SetCreatureTypes$ Spirit | SpellDescription$ Create a token that's a copy of target creature, except it's a 1/1 green and blue Spirit.
+A:AB$ CopyPermanent | Cost$ 3 G U ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | SorcerySpeed$ True | ValidTgts$ Creature | TgtPrompt$ Select target creature to copy | SpellDescription$ Renew — {3}{G}{U}, Exile this card from your graveyard: Create a token that's a copy of target creature. Activate only as a sorcery.
+DeckHas:Ability$Token|Graveyard
+Oracle:Create a token that's a copy of target creature, except it's a 1/1 green and blue Spirit.\nRenew — {3}{G}{U}, Exile this card from your graveyard: Create a token that's a copy of target creature. Activate only as a sorcery.

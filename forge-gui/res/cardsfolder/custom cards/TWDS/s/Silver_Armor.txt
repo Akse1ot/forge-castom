@@ -1,0 +1,11 @@
+Name:Silver Armor
+ManaCost:2 W
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach | TriggerDescription$ When CARDNAME enters, attach it to target creature you control.
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddStaticAbility$ StaticCantBlock | AddSVar$ SilverArmorPower | Description$ Equipped creature gets +2/+2 and has “This creature can't be blocked by creatures with less power.”
+SVar:StaticCantBlock:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLTSilverArmorPower | Description$ This creature can't be blocked by creatures with less power.
+SVar:SilverArmorPower:Count$CardPower
+K:Equip:1 W
+DeckHas:Ability$Equipment
+Oracle:When Silver Armor enters, attach it to target creature you control.\nEquipped creature gets +2/+2 and has “This creature can’t be blocked by creatures with less power.”\nEquip {1}{W}

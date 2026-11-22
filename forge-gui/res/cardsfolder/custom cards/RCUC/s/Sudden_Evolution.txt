@@ -1,0 +1,6 @@
+Name:Sudden Evolution
+ManaCost:G
+Types:Instant
+A:SP$ Mutate | ValidTgts$ Creature.YouCtrl+nonHuman | TgtPrompt$ Select target non-Human creature you control | MutateFrom$ Hand | MutateValid$ Creature.YouOwn+nonHuman+cmcLE3 | Optional$ True | SpellDescription$ You may mutate a non-Human creature card with mana value 3 or less from your hand onto target non-Human creature you control.
+DeckNeeds:Type$Creature
+Oracle:You may mutate a non-Human creature card with mana value 3 or less from your hand onto target non-Human creature you control.

@@ -1,0 +1,9 @@
+Name:Kissel, Mindless Zombie
+ManaCost:1 U B
+Types:Legendary Creature Zombie Knight
+PT:2/3
+A:AB$ ProtectionAll | Cost$ U U B B T | ValidCards$ Zombie.YouCtrl+Other | Gains$ Choice | Choices$ AnyColor | SpellDescription$ Choose a color. Other Zombies you control gain protection from the chosen color until end of turn.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Zombie.YouCtrl | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigDraw | TriggerDescription$ Whenever a Zombie you control dies, you may pay {1}{U}{B}. If you do, draw a card.
+SVar:TrigDraw:AB$ Draw | Cost$ 1 U B | Defined$ You | NumCards$ 1
+DeckHints:Type$Zombie
+Oracle:{U}{U}{B}{B}, {T}: Choose a color. Other Zombies you control gain protection from the chosen color until end of turn.\nWhenever a Zombie you control dies, you may pay {1}{U}{B}. If you do, draw a card.

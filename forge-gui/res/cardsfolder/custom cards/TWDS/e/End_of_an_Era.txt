@@ -1,0 +1,5 @@
+Name:End of an Era
+ManaCost:2 B B
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Creature | SpellDescription$ Destroy all creatures.
+Oracle:Destroy all creatures.

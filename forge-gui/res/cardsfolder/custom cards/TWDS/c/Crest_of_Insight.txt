@@ -1,0 +1,7 @@
+Name:Crest of Insight
+ManaCost:2 U U
+Types:Artifact
+K:Coalesce
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDig | ActivatorThisTurnCast$ EQ2 | TriggerDescription$ Whenever you cast your second spell each turn, look at the top two cards of your library. Exile one, then put the other into your hand.
+SVar:TrigDig:DB$ Dig | DigNum$ 2 | ChangeNum$ 1 | DestinationZone2$ Exile | NoReveal$ True
+Oracle:Coalesce (For every two cards you put into your graveyard from among cards you own in exile while casting this spell, this spell costs {1} less to cast.)\nWhenever you cast your second spell each turn, look at the top two cards of your library. Exile one, then put the other into your hand.

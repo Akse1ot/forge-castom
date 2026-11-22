@@ -1,0 +1,8 @@
+Name:Estelle Harvest
+ManaCost:B
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Ghoul.YouCtrl | AddKeyword$ Menace | Description$ Ghouls you control have menace.
+A:AB$ Token | Cost$ B B ExileAnyGrave<1/Creature.OppOwn/creature card from an opponent's graveyard> | TokenScript$ b_2_2_ghoul | TokenOwner$ You | SpellDescription$ Create a 2/2 black Ghoul creature token.
+DeckHas:Ability$Token & Type$Ghoul
+DeckHints:Type$Ghoul
+Oracle:Ghouls you control have menace.\n{B}{B}, Exile a creature card from an opponent's graveyard: Create a 2/2 black Ghoul creature token.

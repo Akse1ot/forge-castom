@@ -1,0 +1,11 @@
+Name:Quest for Lost Land
+ManaCost:G
+Types:Enchantment Quest
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigLand | TriggerDescription$ When CARDNAME enters, you may put a basic land card from your hand onto the battlefield tapped.
+SVar:TrigLand:DB$ ChangeZone | Origin$ Hand | Destination$ Battlefield | ChangeType$ Land.Basic | ChangeNum$ 1 | Tapped$ True | Optional$ You
+K:QuestStage:2:1 G:AddTrigger$ TriggerStage2
+SVar:TriggerStage2:Mode$ ClassLevelGained | ClassLevel$ 2 | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigMana | Secondary$ True | TriggerDescription$ When this Quest becomes stage 2, add {G}{G}{G}.
+SVar:TrigMana:DB$ Mana | Produced$ G | Amount$ 3
+K:QuestStage:3:1 G G:AddStaticAbility$ SLandProtection
+SVar:SLandProtection:Mode$ Continuous | Affected$ Land.YouCtrl | AddKeyword$ Hexproof & Indestructible | Secondary$ True | Description$ Lands you control have hexproof and indestructible.
+Oracle:(Gain the next level as a sorcery to add its ability.)\nWhen this Quest enters, you may put a basic land card from your hand onto the battlefield tapped.\n{1}{G}: Stage 2\nWhen this Quest becomes stage 2, add {G}{G}{G}.\n{1}{G}{G}: Stage 3\nLands you control have hexproof and indestructible.

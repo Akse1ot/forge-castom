@@ -1,0 +1,10 @@
+Name:Flesh Manipulators
+ManaCost:2 B
+Types:Creature Horror
+PT:3/2
+K:Menace
+K:Corrupt
+T:Mode$ CounterPlayerAddedAll | ValidSource$ Opponent | ValidObjectToSource$ Creature.YouCtrl+inRealZoneBattlefield | TriggerZones$ Battlefield | Execute$ TrigCounters | TriggerDescription$ Whenever an opponent puts one or more counters on a creature they control, they put the same number and kind of counters on this creature.
+SVar:TrigCounters:DB$ PutCounter | Defined$ Self | Placer$ TriggeredSource | TriggeredCounterMap$ True
+DeckHas:Ability$Counters
+Oracle:Menace\nCorrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nWhenever an opponent puts one or more counters on a creature they control, they put the same number and kind of counters on this creature.

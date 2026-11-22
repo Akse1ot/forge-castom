@@ -1,0 +1,10 @@
+Name:Realmtreader Serpent
+ManaCost:2 G G
+Types:Creature Spirit Serpent
+PT:1/1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | TriggerDescription$ When CARDNAME enters, search your library for up to four basic land cards, reveal those cards, put one onto the battlefield tapped and the rest into your hand, then shuffle.
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land | ChangeNum$ 4 | RememberChanged$ True | Reveal$ True | Shuffle$ False | StackDescription$ None | SubAbility$ DBBattlefield
+SVar:DBBattlefield:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.IsRemembered | ChangeNum$ 1 | Mandatory$ True | NoLooking$ True | SelectPrompt$ Select a card to put onto the battlefield | Tapped$ True | Shuffle$ False | StackDescription$ None | SubAbility$ DBHand
+SVar:DBHand:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.IsRemembered | ChangeNum$ 3 | Mandatory$ True | NoLooking$ True | SelectPrompt$ Select cards to put into your hand | StackDescription$ None | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:When Realmtreader Serpent enters, search your library for up to four basic land cards, reveal those cards, put one onto the battlefield tapped and the rest into your hand, then shuffle.

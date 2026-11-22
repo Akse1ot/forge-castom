@@ -1,0 +1,9 @@
+Name:Ashiok's Mindstorm
+ManaCost:1 B
+Types:Instant
+A:SP$ ChangeZoneAll | Origin$ Exile | Destination$ Graveyard | ChangeType$ Card | ForgetOtherRemembered$ True | RememberChanged$ Card.nonLand | SubAbility$ DBRepeat | SpellDescription$ Each player returns each card they own in exile to their graveyard. They lose life equal to the number of nonland cards returned this way.
+SVar:DBRepeat:DB$ RepeatEach | RepeatPlayers$ Player | RepeatSubAbility$ DBLoseLife | SubAbility$ DBCleanup
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Player.IsRemembered | LifeAmount$ X
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Valid Card.RememberedPlayerOwn
+Oracle:Each player returns each card they own in exile to their graveyard. They lose life equal to the number of nonland cards returned this way.

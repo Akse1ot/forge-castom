@@ -1,0 +1,9 @@
+Name:Gift of the Mist
+ManaCost:4 G G G
+Types:Sorcery
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | NumAtt$ +X | NumDef$ +X | KW$ Trample | SpellDescription$ Until end of turn, creatures you control gain trample and get +X/+X, where X is the number of creatures you control.
+A:AB$ Token | Cost$ 2 G ExileFromGrave<1/CARDNAME/this card> | PrecostDesc$ Renew — | ActivationZone$ Graveyard | SorcerySpeed$ True | TokenScript$ g_1_1_moonlit | TokenAmount$ 2 | SpellDescription$ Create two 1/1 green Beast creature tokens named Moonlit. Activate only as a sorcery.
+SVar:X:Count$Valid Creature.YouCtrl
+DeckHas:Ability$Token|Graveyard
+DeckHints:Type$Creature
+Oracle:Until end of turn, creatures you control gain trample and get +X/+X, where X is the number of creatures you control.\nRenew — {2}{G}, Exile this card from your graveyard: Create two 1/1 green Beast creature tokens named Moonlit. Activate only as a sorcery.

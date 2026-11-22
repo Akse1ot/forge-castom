@@ -1,0 +1,11 @@
+Name:Water Walker
+ManaCost:3 U R
+Types:Creature Zombie Pirate
+PT:5/5
+T:Mode$ Sacrificed | ValidCard$ Permanent | Execute$ TrigCounter | TriggerZones$ Battlefield | TriggerDescription$ Whenever a player sacrifices a permanent, put a +1/+1 counter on CARDNAME and you gain 1 life.
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1 | SubAbility$ TrigLife
+SVar:TrigLife:DB$ GainLife | LifeAmount$ 1
+S:Mode$ Continuous | Affected$ Card.YouOwn+nonLand | AffectedZone$ Graveyard | AddKeyword$ Escape:CardManaCost ExileFromGrave<3/Card.Other/other> | Description$ Each nonland card in your graveyard has escape. The escape cost is equal to the card's mana cost plus exile three other cards from your graveyard. (You may cast cards from your graveyard for their escape cost.)
+DeckHas:Ability$Counters|LifeGain|Graveyard
+DeckHints:Type$Zombie
+Oracle:Whenever a player sacrifices a permanent, put a +1/+1 counter on CARDNAME and you gain 1 life.\nEach nonland card in your graveyard has escape. The escape cost is equal to the card's mana cost plus exile three other cards from your graveyard. (You may cast cards from your graveyard for their escape cost.)

@@ -1,0 +1,10 @@
+Name:Asteroth, Shepherd of Souls
+ManaCost:W W
+Types:Legendary Creature Angel Cleric
+PT:1/2
+K:Flying
+K:Vigilance
+R:Event$ CreateToken | ActiveZones$ Battlefield | ValidToken$ Card.YouCtrl | ReplaceWith$ AddToken | Description$ If one or more tokens would be created under your control, that many plus one tokens are created instead.
+SVar:AddToken:DB$ ReplaceToken | Type$ Amount | Amount$ Plus.1
+DeckNeeds:Ability$Token
+Oracle:Flying, vigilance\nIf one or more tokens would be created under your control, that many plus one tokens are created instead.

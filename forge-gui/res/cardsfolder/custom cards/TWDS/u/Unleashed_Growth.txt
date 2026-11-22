@@ -1,0 +1,7 @@
+Name:Unleashed Growth
+ManaCost:2 G G
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDouble | TriggerDescription$ At the beginning of your upkeep, double up to one target creature's power until end of turn.
+SVar:TrigDouble:DB$ Pump | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | NumAtt$ Double | StackDescription$ None
+A:AB$ Pump | Cost$ 1 G ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | SorcerySpeed$ True | PrecostDesc$ Renew — | ValidTgts$ Creature | NumAtt$ Double | StackDescription$ SpellDescription | SpellDescription$ Double target creature's power until end of turn. Activate only as a sorcery.
+Oracle:At the beginning of your upkeep, double up to one target creature's power until end of turn.\nRenew — {1}{G}, Exile this card from your graveyard: Double target creature's power until end of turn. Activate only as a sorcery.

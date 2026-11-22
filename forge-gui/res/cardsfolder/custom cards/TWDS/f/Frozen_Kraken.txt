@@ -1,0 +1,7 @@
+Name:Frozen Kraken
+ManaCost:1 U
+Types:Creature Kraken
+PT:4/4
+K:Defender
+S:Mode$ CanAttackDefender | ValidCard$ Card.Self | IsPresent$ Card.YouOwn | PresentZone$ Graveyard | PresentCompare$ GE5 | Description$ As long as there are five or more cards in your graveyard, CARDNAME can attack as though it didn't have defender.
+Oracle:Defender\nAs long as there are five or more cards in your graveyard, this creature can attack as though it didn't have defender.

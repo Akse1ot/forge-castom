@@ -1,0 +1,9 @@
+Name:Flesh Hunter
+ManaCost:2 B
+Types:Creature Horror
+PT:3/3
+K:Corrupt
+T:Mode$ DamageDone | ValidSource$ Creature.YouCtrl+HasCounters | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigCounters | TriggerDescription$ Whenever a creature you control with one or more counters on it deals combat damage to a player, for each kind of counter on that creature, put another counter of that kind on it.
+SVar:TrigCounters:DB$ PutCounter | Defined$ TriggeredSourceLKICopy | CounterType$ ExistingCounter | EachExistingCounter$ True | CounterNum$ 1
+DeckHas:Ability$Counters
+Oracle:Corrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nWhenever a creature you control with one or more counters on it deals combat damage to a player, for each kind of counter on that creature, put another counter of that kind on it.

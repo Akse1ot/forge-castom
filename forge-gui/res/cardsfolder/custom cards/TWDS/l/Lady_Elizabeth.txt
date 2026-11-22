@@ -1,0 +1,13 @@
+Name:Lady Elizabeth
+ManaCost:G W W
+Types:Legendary Creature Human Soldier
+PT:3/3
+K:First Strike
+K:Vigilance
+K:Humbled:3
+A:AB$ ChooseCard | Cost$ W G | Choices$ Permanent.YouCtrl+HasCounters | Mandatory$ True | ChoiceTitle$ Choose a permanent you control with a counter on it | SubAbility$ DBRemoveCounter | SpellDescription$ Remove a counter from a permanent you control. Put two +1/+1 counters on that permanent.
+SVar:DBRemoveCounter:DB$ RemoveCounter | Defined$ ChosenCard | CounterType$ Any | CounterNum$ 1 | SubAbility$ DBPutCounter
+SVar:DBPutCounter:DB$ PutCounter | Defined$ ChosenCard | CounterType$ P1P1 | CounterNum$ 2 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+DeckHas:Ability$Counters
+Oracle:First strike, vigilance\n{W}{G}: Remove a counter from a permanent you control. Put two +1/+1 counters on that permanent.\nHumbled 3

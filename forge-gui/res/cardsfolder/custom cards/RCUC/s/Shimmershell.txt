@@ -1,0 +1,10 @@
+Name:Shimmershell
+ManaCost:G
+Types:Creature Insect
+PT:1/1
+A:AB$ PutCounter | Cost$ W | CounterType$ P1P1 | CounterNum$ 1 | GameActivationLimit$ 1 | SpellDescription$ Put a +1/+1 counter on CARDNAME. Activate only once.
+A:AB$ PutCounter | Cost$ U | CounterType$ P1P1 | CounterNum$ 1 | GameActivationLimit$ 1 | SpellDescription$ Put a +1/+1 counter on CARDNAME. Activate only once.
+A:AB$ PutCounter | Cost$ B | CounterType$ P1P1 | CounterNum$ 1 | GameActivationLimit$ 1 | SpellDescription$ Put a +1/+1 counter on CARDNAME. Activate only once.
+A:AB$ PutCounter | Cost$ R | CounterType$ P1P1 | CounterNum$ 1 | GameActivationLimit$ 1 | SpellDescription$ Put a +1/+1 counter on CARDNAME. Activate only once.
+DeckHas:Ability$Counters
+Oracle:{W}: Put a +1/+1 counter on Shimmershell. Activate only once.\n{U}: Put a +1/+1 counter on Shimmershell. Activate only once.\n{B}: Put a +1/+1 counter on Shimmershell. Activate only once.\n{R}: Put a +1/+1 counter on Shimmershell. Activate only once.

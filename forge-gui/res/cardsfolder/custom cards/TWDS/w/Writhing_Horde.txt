@@ -1,0 +1,10 @@
+Name:Writhing Horde
+ManaCost:B
+Types:Creature Ghoul
+PT:1/1
+T:Mode$ Discarded | ValidCard$ Card.Self | TriggerZones$ Graveyard | Execute$ TrigDelay | TriggerDescription$ When CARDNAME is discarded, return it from your graveyard to the battlefield at the beginning of the next end step.
+SVar:TrigDelay:DB$ DelayedTrigger | Mode$ Phase | Phase$ End of Turn | RememberObjects$ Self | Execute$ DBReturn | TriggerDescription$ Return CARDNAME from your graveyard to the battlefield.
+SVar:DBReturn:DB$ ChangeZone | Defined$ DelayTriggerRememberedLKI | Origin$ Graveyard | Destination$ Battlefield
+SVar:DiscardMe:3
+DeckNeeds:Ability$Discard
+Oracle:When this card is discarded, return it from your graveyard to the battlefield at the beginning of the next end step.

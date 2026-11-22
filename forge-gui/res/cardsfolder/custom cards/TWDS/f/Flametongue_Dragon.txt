@@ -1,0 +1,9 @@
+Name:Flametongue Dragon
+ManaCost:5 R
+Types:Creature Dragon
+PT:5/5
+K:Flying
+A:AB$ PutCounter | Cost$ 1 R R | Monstrosity$ 2 | SpellDescription$ Monstrosity 2. (If CARDNAME isn't monstrous, put two +1/+1 counters on it and it becomes monstrous.)
+S:Mode$ Continuous | Affected$ Creature.Other+YouCtrl | IsPresent$ Card.Self+IsMonstrous | AddPower$ 1 | AddKeyword$ Haste | Description$ As long as CARDNAME is monstrous, other creatures you control get +1/+0 and have haste.
+DeckHas:Ability$Counters
+Oracle:Flying\n{1}{R}{R}: Monstrosity 2. (If this creature isn't monstrous, put two +1/+1 counters on it and it becomes monstrous.)\nAs long as this creature is monstrous, other creatures you control get +1/+0 and have haste.

@@ -1,0 +1,7 @@
+Name:Expulsion
+ManaCost:4 U
+Types:Instant
+A:SP$ ChooseColor | Defined$ You | SubAbility$ DBReturn | AILogic$ MostExcessOpponentControls | SpellDescription$ Return all permanents of the color of your choice to their owners' hands.
+SVar:DBReturn:DB$ ChangeZoneAll | ChangeType$ Permanent.ChosenColor | Origin$ Battlefield | Destination$ Hand
+A:AB$ Draw | Cost$ 1 U ExileFromGrave<1/CARDNAME> | PrecostDesc$ Renew — | ActivationZone$ Graveyard | SorcerySpeed$ True | Defined$ You | NumCards$ 1 | SpellDescription$ Draw a card. Activate only as a sorcery.
+Oracle:Return all permanents of the color of your choice to their owners' hands.\nRenew — {1}{U}, Exile this card from your graveyard: Draw a card. Activate only as a sorcery.

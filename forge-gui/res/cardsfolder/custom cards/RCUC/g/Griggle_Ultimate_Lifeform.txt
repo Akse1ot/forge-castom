@@ -1,0 +1,12 @@
+Name:Griggle, Ultimate Lifeform
+ManaCost:G W U
+Types:Legendary Creature Ooze Shapeshifter
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | TriggerDescription$ When CARDNAME enters, you may exile a creature card from your hand with mana value X or less, where X is CARDNAME's power. Put a growth counter on the exiled card.
+SVar:TrigExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Creature.cmcLEX | ChangeNum$ 1 | Optional$ True | WithCountersType$ GROWTH | WithCountersAmount$ 1 | SelectPrompt$ Select a creature card with mana value X or less to exile
+SVar:X:Count$CardPower
+S:Mode$ Continuous | AffectedDefined$ Self | EffectZone$ Battlefield | GainsAbilitiesOf$ Card.counters_GE1_GROWTH | GainsTriggerAbsOf$ Card.counters_GE1_GROWTH | GainsAbilitiesOfZones$ Exile | Description$ CARDNAME has all activated and triggered abilities of cards exiled with growth counters on them.
+S:Mode$ CountersRemain | ValidCard$ Card.Self | EffectZone$ All | Description$ Counters remain on CARDNAME as it moves to any zone other than a player's hand or library.
+DeckHas:Ability$Counters
+DeckNeeds:Type$Creature
+Oracle:When Griggle, Ultimate Lifeform enters, you may exile a creature card from your hand with mana value X or less, where X is Griggle's power. Put a growth counter on the exiled card.\nGriggle has all activated and triggered abilities of cards exiled with growth counters on them.\nCounters remain on Griggle as it moves to any zone other than a player's hand or library.

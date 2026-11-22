@@ -1,0 +1,7 @@
+Name:Thicket Wolf Mother
+ManaCost:1 G
+Types:Creature Wolf
+PT:2/2
+T:Mode$ Fight | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever CARDNAME fights, it gets +4/+4 until end of turn.
+SVar:TrigPump:DB$ Pump | Defined$ Self | NumAtt$ +4 | NumDef$ +4
+Oracle:Whenever this creature fights, it gets +4/+4 until end of turn.

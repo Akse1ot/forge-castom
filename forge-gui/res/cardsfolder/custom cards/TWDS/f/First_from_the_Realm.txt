@@ -1,0 +1,8 @@
+Name:First from the Realm
+ManaCost:2 G
+Types:Creature Dream Stag
+PT:2/2
+A:AB$ Mana | Cost$ T | Produced$ Combo Any | Amount$ 2 | RestrictValid$ Spell.Creature | SpellDescription$ Add two mana in any combination of colors. Spend this mana only to cast creature spells.
+A:AB$ Draw | Cost$ 3 G G T | NumCards$ 3 | IsPresent$ Creature.YouCtrl | PresentCompare$ GE5 | SorcerySpeed$ True | SpellDescription$ Draw three cards. Activate this ability only if you control five or more creatures and only as a sorcery.
+DeckHints:Type$Creature
+Oracle:{T}: Add two mana in any combination of colors. Spend this mana only to cast creature spells.\n{3}{G}{G}, {T}: Draw three cards. Activate this ability only if you control five or more creatures and only as a sorcery.

@@ -1,0 +1,8 @@
+Name:World Breach
+ManaCost:1 G U R
+Types:Enchantment
+K:Traverse
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Landfall — Whenever a land enters under your control, draw a card.
+SVar:TrigDraw:DB$ Draw
+SVar:BuffedBy:Land
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nLandfall — Whenever a land enters under your control, draw a card.

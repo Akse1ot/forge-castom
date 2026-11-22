@@ -1,0 +1,12 @@
+Name:Aggressive Mummy
+ManaCost:3 W
+Types:Creature Zombie
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAmass | TriggerDescription$ When CARDNAME enters, amass Zombies 2. When you do, target Army you control gains double strike until end of turn.
+SVar:TrigAmass:DB$ Amass | Type$ Zombie | Num$ 2 | RememberAmass$ True | SubAbility$ DBImmediateTrig
+SVar:DBImmediateTrig:DB$ ImmediateTrigger | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | Execute$ TrigPump | SubAbility$ DBCleanup | TriggerDescription$ When you do, target Army you control gains double strike until end of turn.
+SVar:TrigPump:DB$ Pump | ValidTgts$ Army.YouCtrl | TgtPrompt$ Select target Army you control | KW$ Double Strike
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+DeckHas:Ability$Amass|Counters|Token
+DeckHints:Ability$Amass & Type$Army|Zombie
+Oracle:When Aggressive Mummy enters, amass Zombies 2. When you do, target Army you control gains double strike until end of turn. (To amass Zombies 2, put two +1/+1 counters on an Army you control. It's also a Zombie. If you don't control an Army, create a 0/0 black Zombie Army creature token first.)

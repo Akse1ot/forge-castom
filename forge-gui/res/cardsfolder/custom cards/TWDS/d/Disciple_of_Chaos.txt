@@ -1,0 +1,9 @@
+Name:Disciple of Chaos
+ManaCost:1 R
+Types:Creature Human Wizard
+PT:2/2
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigExile | TriggerDescription$ When CARDNAME enters, exile the top two cards of each player's library.
+SVar:TrigExile:DB$ Dig | Defined$ Player | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile
+DeckHas:Ability$Exile
+Oracle:Menace\nWhen this creature enters, exile the top two cards of each player's library.

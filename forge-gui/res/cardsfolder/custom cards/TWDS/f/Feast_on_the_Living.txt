@@ -1,0 +1,5 @@
+Name:Feast on the Living
+ManaCost:2 B
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Creature.nonGhoul | TgtPrompt$ Select target non-Ghoul creature | SpellDescription$ Destroy target non-Ghoul creature.
+Oracle:Destroy target non-Ghoul creature.

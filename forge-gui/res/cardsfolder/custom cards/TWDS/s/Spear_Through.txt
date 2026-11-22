@@ -1,0 +1,6 @@
+Name:Spear Through
+ManaCost:1 B B
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Creature | SubAbility$ DBLoseLife | StackDescription$ SpellDescription | SpellDescription$ Destroy target creature. If that creature is a token, its controller loses 3 life.
+SVar:DBLoseLife:DB$ LoseLife | Defined$ TargetedController | LifeAmount$ 3 | ConditionPresent$ Card.token | ConditionDefined$ Targeted
+Oracle:Destroy target creature. If that creature is a token, its controller loses 3 life.

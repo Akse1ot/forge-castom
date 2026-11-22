@@ -1,0 +1,13 @@
+Name:The Blood Oath
+ManaCost:2 B B
+Types:Enchantment Saga
+K:Chapter:4:DBLoseLife,DBPumpII,DBPumpIII,DBDrain
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 7 | SpellDescription$ You lose 7 life.
+SVar:DBPumpII:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Menace & Lifelink | SpellDescription$ Creatures you control gain menace and lifelink until end of turn.
+SVar:DBPumpIII:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Menace & Lifelink | SpellDescription$ Creatures you control gain menace and lifelink until end of turn.
+SVar:DBDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 7 | SubAbility$ DBGainLife | SpellDescription$ Each opponent loses 7 life. You gain life equal to the total life lost this way.
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ AFLifeLost | StackDescription$ None
+SVar:AFLifeLost:Number$0
+DeckHas:Ability$LifeGain
+DeckHints:Keyword$Menace|Lifelink
+Oracle:(As this Saga enters and after your draw step, add a lore counter. Sacrifice after IV.)\nI — You lose 7 life.\nII, III — Creatures you control gain menace and lifelink until end of turn.\nIV — Each opponent loses 7 life. You gain life equal to the total life lost this way.

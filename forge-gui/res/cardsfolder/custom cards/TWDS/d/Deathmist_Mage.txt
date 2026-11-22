@@ -1,0 +1,12 @@
+Name:Deathmist Mage
+ManaCost:5 B
+Types:Creature Nightmare Wizard
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSubjugate | TriggerDescription$ When this creature enters, subjugate 9. (Create nine Vicious Nightmare tokens and shuffle them into each opponent's library.)
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 9
+T:Mode$ Discarded | ValidPlayer$ Opponent | ValidCard$ Card.namedVicious_Nightmare | TriggerZones$ Battlefield | Execute$ TrigDrain | TriggerDescription$ Whenever an opponent discards a Vicious Nightmare, that player loses 3 life and you gain 3 life.
+SVar:TrigDrain:DB$ LoseLife | Defined$ TriggeredCardOwner | LifeAmount$ 3 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 3
+DeckHas:Ability$Subjugate
+DeckHints:Ability$Subjugate
+Oracle:When this creature enters, subjugate 9. (Create nine Vicious Nightmare tokens and shuffle them into each opponent's library.)\nWhenever an opponent discards a Vicious Nightmare, that player loses 3 life and you gain 3 life.

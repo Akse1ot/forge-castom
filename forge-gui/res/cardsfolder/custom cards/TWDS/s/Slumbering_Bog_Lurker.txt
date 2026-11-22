@@ -1,0 +1,10 @@
+Name:Slumbering Bog Lurker
+ManaCost:1 G
+Types:Creature Horror Beast
+PT:1/2
+K:Corrupt
+R:Event$ AddCounter | ActiveZones$ Battlefield | ValidSource$ You | ValidObject$ Permanent.YouCtrl+inZoneBattlefield | ReplaceWith$ ReplaceCounters | Description$ If you would put one or more counters on a permanent you control, put X counters on that permanent instead, where X is this creature's power.
+SVar:ReplaceCounters:DB$ ReplaceCounter | ChooseCounter$ True | Amount$ X
+SVar:X:Count$CardPower
+DeckHas:Ability$Counters
+Oracle:Corrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nIf you would put one or more counters on a permanent you control, put X counters on that permanent instead, where X is this creature's power.

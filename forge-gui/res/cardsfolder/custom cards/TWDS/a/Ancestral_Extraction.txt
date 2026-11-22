@@ -1,0 +1,9 @@
+Name:Ancestral Extraction
+ManaCost:1 B
+Types:Sorcery
+A:SP$ ChangeZoneAll | ChangeType$ Creature | Origin$ Graveyard | Destination$ Exile | RememberChanged$ True | SubAbility$ DBToken | SpellDescription$ Exile all creature cards from all graveyards. Then, create a 1/1 black Soul creature token with haste that must attack each turn if able for each creature card exiled this way. Sacrifice them at the beginning of your next end step.
+SVar:DBToken:DB$ Token | TokenScript$ b_1_1_soul_haste_must_attack | TokenOwner$ You | TokenAmount$ X | AtEOT$ YourSacrifice | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+DeckHas:Ability$Token|Sacrifice & Type$Soul
+Oracle:Exile all creature cards from all graveyards. Then, create a 1/1 black Soul creature token with haste that must attack each turn if able for each creature card exiled this way. Sacrifice them at the beginning of your next end step.

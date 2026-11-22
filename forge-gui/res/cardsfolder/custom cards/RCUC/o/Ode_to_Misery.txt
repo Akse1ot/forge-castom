@@ -1,0 +1,8 @@
+Name:Ode to Misery
+ManaCost:B
+Types:Instant
+A:SP$ Effect | Triggers$ DiesTrig | SpellDescription$ Whenever a nontoken creature you control dies this turn, each opponent discards a card.
+SVar:DiesTrig:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.!token+YouCtrl | TriggerZones$ Command | Execute$ TrigDiscard | TriggerDescription$ Whenever a nontoken creature you control dies this turn, each opponent discards a card.
+SVar:TrigDiscard:DB$ Discard | Defined$ Player.Opponent | NumCards$ 1 | Mode$ TgtChoose
+DeckNeeds:Type$Creature
+Oracle:Whenever a nontoken creature you control dies this turn, each opponent discards a card.

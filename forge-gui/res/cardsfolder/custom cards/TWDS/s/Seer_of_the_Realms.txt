@@ -1,0 +1,8 @@
+Name:Seer of the Realms
+ManaCost:1 R
+Types:Creature Spirit
+PT:2/1
+K:Traverse
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Landfall — Whenever a land enters under your control, target creature gets +2/+2 until end of turn.
+SVar:TrigPump:DB$ Pump | ValidTgts$ Creature | TgtPrompt$ Select target creature | NumAtt$ +2 | NumDef$ +2
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nLandfall — Whenever a land enters under your control, target creature gets +2/+2 until end of turn.

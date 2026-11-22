@@ -1,0 +1,11 @@
+Name:Rose Wing
+ManaCost:3 W W
+Types:Creature Angel Soldier
+PT:3/3
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Card.Self | ValidActivatingPlayer$ You | Execute$ TrigWorship | TriggerZones$ Stack | TriggerDescription$ When you cast this spell, worship.
+SVar:TrigWorship:DB$ CustomReplayEtb | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select target permanent you control
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAnimate | TriggerDescription$ When this creature enters, any number of target creatures you control have base power and toughness 3/3 until end of turn.
+SVar:TrigAnimate:DB$ Animate | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select any number of target creatures you control | TargetMin$ 0 | TargetMax$ X | Power$ 3 | Toughness$ 3
+SVar:X:Count$Valid Creature.YouCtrl
+Oracle:When you cast this spell, worship.\nFlying\nWhen this creature enters, any number of target creatures you control have base power and toughness 3/3 until end of turn.

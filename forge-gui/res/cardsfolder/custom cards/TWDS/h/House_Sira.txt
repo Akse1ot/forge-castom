@@ -1,0 +1,10 @@
+Name:House Sira
+ManaCost:no cost
+Types:Legendary Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplacementResult$ Updated | ReplaceWith$ ETBTapped | Description$ CARDNAME enters tapped.
+SVar:ETBTapped:DB$ Tap | Defined$ Self | ETB$ True
+A:AB$ Mana | Cost$ T | Produced$ Combo W B | SpellDescription$ Add {W} or {B}.
+A:AB$ Token | Cost$ W B T | TokenAmount$ 1 | TokenScript$ c_vessel_cursed | TokenOwner$ You | SpellDescription$ Create a Vessel token. (It's an artifact with Cursed 1.)
+DeckHas:Ability$Token
+DeckHints:Type$Vessel
+Oracle:House Sira enters tapped.\n{T}: Add {W} or {B}.\n{W}{B}, {T}: Create a Vessel token. (It's an artifact with Cursed 1.)

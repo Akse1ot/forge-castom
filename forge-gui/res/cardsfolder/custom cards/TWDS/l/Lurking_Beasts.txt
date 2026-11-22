@@ -1,0 +1,6 @@
+Name:Lurking Beasts
+ManaCost:1 G
+Types:Enchantment
+T:Mode$ Attacks | ValidCard$ Creature.YouCtrl | Alone$ True | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ Whenever a creature you control attacks alone, it gets +3/+3 and gains trample until end of turn.
+SVar:TrigPump:DB$ Pump | Defined$ TriggeredAttackerLKICopy | NumAtt$ +3 | NumDef$ +3 | KW$ Trample
+Oracle:Whenever a creature you control attacks alone, it gets +3/+3 and gains trample until end of turn.

@@ -1,0 +1,7 @@
+Name:Fox Token
+ManaCost:no cost
+Colors:black,red
+Types:Creature Fox
+PT:1/1
+K:Haste
+Oracle:Haste

@@ -1,0 +1,5 @@
+Name:Decapitate
+ManaCost:1 B
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Creature.powerGTtoughness,Creature.equalPT | TgtPrompt$ Select target creature with power equal to or greater than its toughness | SpellDescription$ Destroy target creature with power equal to or greater than its toughness.
+Oracle:Destroy target creature with power equal to or greater than its toughness.

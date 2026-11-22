@@ -1,0 +1,6 @@
+Name:Dragon Tear
+ManaCost:2
+Types:Legendary Artifact
+A:AB$ Scry | Cost$ 1 T | ScryNum$ 1 | SpellDescription$ Scry 1.
+A:AB$ ExchangeControl | Cost$ 4 T Sac<1/CARDNAME> | ValidTgts$ Creature | TargetMin$ 2 | TargetMax$ 2 | TgtPrompt$ Select two target creatures | SpellDescription$ Exchange control of two target creatures.
+Oracle:{1}, {T}: Scry 1. (Look at the top card of your library. You may put that card on the bottom of your library.)\n{4}, {T}, Sacrifice Dragon Tear: Exchange control of two target creatures.

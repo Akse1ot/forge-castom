@@ -1,0 +1,7 @@
+Name:Matricide
+ManaCost:1 B
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | AITgts$ Card.leastPower | TgtPrompt$ Select target creature to compare power against | SubAbility$ DBDestroy | StackDescription$ SpellDescription | SpellDescription$ Destroy target creature with power greater than target creature's power.
+SVar:DBDestroy:DB$ Destroy | ValidTgts$ Creature.powerGTX | TgtPrompt$ Select target creature with power greater than the first target creature's power | AILogic$ Destroy
+SVar:X:ParentTargeted$CardPower
+Oracle:Destroy target creature with power greater than target creature's power.

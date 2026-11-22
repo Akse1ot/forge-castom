@@ -1,0 +1,11 @@
+Name:Spirit Realm Lurker
+ManaCost:U
+Types:Creature Nightmare
+PT:0/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDraw | TriggerDescription$ When CARDNAME enters, draw a card, then discard a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose
+K:Madness:0
+DeckHas:Ability$Discard
+DeckHints:Ability$Discard
+Oracle:When Spirit Realm Lurker enters, draw a card, then discard a card.\nMadness {0} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

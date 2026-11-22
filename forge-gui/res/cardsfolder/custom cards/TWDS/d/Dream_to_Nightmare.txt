@@ -1,0 +1,5 @@
+Name:Dream to Nightmare
+ManaCost:B
+Types:Instant
+A:SP$ PumpAll | ValidCards$ Creature.attacking+unblocked | NumAtt$ +2 | SpellDescription$ Each unblocked creature gets +2/+0 until end of turn.
+Oracle:Each unblocked creature gets +2/+0 until end of turn.

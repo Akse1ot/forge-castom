@@ -1,0 +1,11 @@
+Name:Alayne Sira, the Fourthborn
+ManaCost:1 W B
+Types:Legendary Creature Elf Noble
+PT:2/2
+K:Deathtouch
+T:Mode$ TokenCreatedOnce | ValidToken$ Card.token+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife | TriggerDescription$ Whenever you create or sacrifice one or more tokens, each opponent loses 1 life.
+T:Mode$ SacrificedOnce | ValidPlayer$ You | ValidCard$ Card.token | TriggerZones$ Battlefield | Execute$ TrigLoseLife | Secondary$ True | TriggerDescription$ Whenever you create or sacrifice one or more tokens, each opponent loses 1 life.
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ 1
+DeckNeeds:Ability$Token
+DeckHints:Ability$Sacrifice
+Oracle:Deathtouch\nWhenever you create or sacrifice one or more tokens, each opponent loses 1 life.

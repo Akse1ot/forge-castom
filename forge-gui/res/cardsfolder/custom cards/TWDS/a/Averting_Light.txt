@@ -1,0 +1,6 @@
+Name:Averting Light
+ManaCost:W U
+Types:Instant
+A:SP$ CustomReplayEtb | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select target permanent you control | SubAbility$ DBCounter | SpellDescription$ Worship. (Trigger the enters effect of target permanent you control.) Counter target spell that targets you or a permanent you control.
+SVar:DBCounter:DB$ Counter | TargetType$ Spell | ValidTgts$ Card | TgtPrompt$ Select target spell | TargetValidTargeting$ Permanent.YouCtrl+inRealZoneBattlefield,You
+Oracle:Worship. (Trigger the enters effect of target permanent you control.)\nCounter target spell that targets you or a permanent you control.

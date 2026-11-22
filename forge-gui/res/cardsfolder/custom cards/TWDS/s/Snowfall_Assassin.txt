@@ -1,0 +1,11 @@
+Name:Snowfall Assassin
+ManaCost:1 W
+Types:Creature Human Soldier
+PT:4/3
+K:First Strike
+K:Humbled:2
+T:Mode$ CounterRemovedOnce | ValidCard$ Card.Self | CounterType$ DEFEAT | Remaining$ 0 | TriggerZones$ Battlefield | Execute$ TrigCharm | TriggerDescription$ When CARDNAME is no longer humbled, choose one — ABILITY
+SVar:TrigCharm:DB$ Charm | Choices$ DBExileGraves,DBExileAE
+SVar:DBExileGraves:DB$ ChangeZoneAll | ChangeType$ Card.OppOwn | Origin$ Graveyard | Destination$ Exile | SpellDescription$ Exile each opponent's graveyard.
+SVar:DBExileAE:DB$ ChangeZone | ValidTgts$ Artifact,Enchantment | TgtPrompt$ Select target artifact or enchantment | Origin$ Battlefield | Destination$ Exile | SpellDescription$ Exile target artifact or enchantment.
+Oracle:First strike\nWhen this creature is no longer humbled, choose one —\n• Exile each opponent's graveyard.\n• Exile target artifact or enchantment.\nHumbled 2

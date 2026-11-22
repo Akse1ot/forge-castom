@@ -1,0 +1,11 @@
+Name:Enveloping Embers
+ManaCost:2 R R
+Types:Enchantment Aura Curse
+K:Coalesce
+K:Enchant:Player
+SVar:AttachAILogic:Curse
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ At the beginning of your upkeep, CARDNAME deals X damage to each creature controlled by the enchanted player, where X is half the number of cards you own in exile, rounded down.
+SVar:TrigDamage:DB$ DamageAll | ValidCards$ Creature.ControlledBy EnchantedPlayer | NumDmg$ X
+SVar:X:Count$ValidExile Card.YouOwn/HalfDown
+DeckNeeds:Ability$Exile
+Oracle:Coalesce (For every two cards you put into your graveyard from among cards you own in exile while casting this spell, this spell costs {1} less to cast.)\nEnchant player\nAt the beginning of your upkeep, this enchantment deals X damage to each creature controlled by the enchanted player, where X is half the number of cards you own in exile, rounded down.

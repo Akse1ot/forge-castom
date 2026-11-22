@@ -1,0 +1,14 @@
+Name:Khiara's Truth
+ManaCost:2 B B
+Types:Enchantment Saga
+K:Chapter:3:DBToken,DBToken,DBBranch
+SVar:DBToken:DB$ Token | TokenScript$ b_2_1_nightmare_noblock | TokenOwner$ You | SpellDescription$ Create a 2/1 black Nightmare creature token that can't block.
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ LE1 | TrueSubAbility$ DBDraw | FalseSubAbility$ DBDelayedReturn | SpellDescription$ If you have one or fewer cards in hand, you draw three cards and you lose 3 life. Otherwise, when this Saga is put into your graveyard from the battlefield this turn, return it to the battlefield.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 3 | SubAbility$ DBLoseLife
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 3
+SVar:DBDelayedReturn:DB$ DelayedTrigger | Mode$ ChangesZone | RememberObjects$ Self | ValidCard$ Card.IsTriggerRemembered | Origin$ Battlefield | Destination$ Graveyard | ThisTurn$ True | Execute$ DBReturn | TriggerDescription$ When CARDNAME is put into your graveyard from the battlefield this turn, return it to the battlefield.
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | Defined$ TriggeredCard
+SVar:X:Count$ValidHand Card.YouOwn
+DeckHas:Ability$Token & Type$Nightmare
+DeckHints:Ability$Discard
+Oracle:(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI, II — Create a 2/1 black Nightmare creature token that can't block.\nIII — If you have one or fewer cards in hand, you draw three cards and you lose 3 life. Otherwise, when this Saga is put into your graveyard from the battlefield this turn, return it to the battlefield.

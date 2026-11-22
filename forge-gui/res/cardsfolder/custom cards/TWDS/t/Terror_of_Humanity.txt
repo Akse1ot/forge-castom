@@ -1,0 +1,11 @@
+Name:Terror of Humanity
+ManaCost:U B
+Types:Creature Nightmare
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSubjugate | TriggerDescription$ When this creature enters, subjugate 5. (Create five Vicious Nightmare tokens and shuffle them into each opponent's library.)
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 5
+T:Mode$ Discarded | ValidPlayer$ Opponent | ValidCard$ Card.namedVicious_Nightmare | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ Whenever an opponent discards a Vicious Nightmare, put a -1/-1 counter on target creature.
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | TgtPrompt$ Select target creature | CounterType$ M1M1 | CounterNum$ 1 | IsCurse$ True
+DeckHas:Ability$Subjugate|Counters
+DeckHints:Ability$Subjugate
+Oracle:When this creature enters, subjugate 5. (Create five Vicious Nightmare tokens and shuffle them into each opponent's library.)\nWhenever an opponent discards a Vicious Nightmare, put a -1/-1 counter on target creature.

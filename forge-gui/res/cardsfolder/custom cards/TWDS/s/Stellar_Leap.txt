@@ -1,0 +1,5 @@
+Name:Stellar Leap
+ManaCost:5 U
+Types:Sorcery
+A:SP$ ChangeZoneAll | ChangeType$ Permanent.nonLand | Origin$ Battlefield | Destination$ Hand | PayGenericWithReturn$ Land.YouCtrl+YouOwn | SpellDescription$ Return all nonland permanents to their owners' hands.
+Oracle:Each land you return to your hand while casting this spell pays for {1}.\nReturn all nonland permanents to their owners' hands.

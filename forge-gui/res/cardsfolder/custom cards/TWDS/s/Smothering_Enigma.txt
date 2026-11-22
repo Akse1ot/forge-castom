@@ -1,0 +1,7 @@
+Name:Smothering Enigma
+ManaCost:2 U
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Card.YouCtrl | ValidActivatingPlayer$ You | CheckSVar$ X | SVarCompare$ EQ1 | Execute$ TrigDraw | TriggerZones$ Battlefield | TriggerDescription$ Whenever you cast a spell that doesn't share a type with another spell you've cast this turn, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:X:Count$ThisTurnCast_Card.YouCtrl+sharesCardTypeWith TriggeredCard
+Oracle:Whenever you cast a spell that doesn't share a type with another spell you've cast this turn, draw a card.

@@ -1,0 +1,13 @@
+Name:Cursed Storyteller
+ManaCost:2 B
+Types:Creature Human Warlock
+PT:2/3
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Creature.Other | TriggerZones$ Battlefield | Execute$ TrigDrain | TriggerDescription$ Whenever another creature dies, each opponent loses 1 life and you gain 1 life.
+SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You.!attackedWithCreaturesThisTurn | TriggerZones$ Battlefield | Execute$ TrigReturn | TriggerDescription$ Campfire — At the beginning of your end step, if you didn't attack this turn, return target creature card with mana value 2 or less from your graveyard to your hand.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.cmcLE2+YouOwn | TgtPrompt$ Select target creature card with mana value 2 or less in your graveyard
+DeckHas:Ability$LifeGain|Graveyard
+DeckNeeds:Type$Creature
+DeckHints:Ability$Sacrifice|Token
+Oracle:Whenever another creature dies, each opponent loses 1 life and you gain 1 life.\nCampfire — At the beginning of your end step, if you didn't attack this turn, return target creature card with mana value 2 or less from your graveyard to your hand.

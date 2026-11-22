@@ -1,0 +1,7 @@
+Name:Manaflow Druid
+ManaCost:2 G G
+Types:Creature Spirit Druid
+PT:2/3
+A:AB$ Mana | Cost$ T | Produced$ G | Amount$ X | SpellDescription$ Add {G} for each creature you control.
+SVar:X:Count$Valid Creature.YouCtrl
+Oracle:{T}: Add {G} for each creature you control.

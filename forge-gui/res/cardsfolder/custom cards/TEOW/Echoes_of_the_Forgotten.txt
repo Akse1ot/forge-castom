@@ -1,0 +1,11 @@
+Name:Echoes of the Forgotten
+ManaCost:2 U B
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Creature.YouOwn | TargetMin$ 1 | TargetMax$ MaxTargets | TgtPrompt$ Select one or two target creature cards from your graveyard | Tapped$ True | WithCountersType$ FINALITY | WithCountersAmount$ FinalityCount | SpellDescription$ Return target creature card from your graveyard to the battlefield tapped. If you've cast an Adventure spell this turn, you may choose two target creature cards instead. They enter with a finality counter.
+SVar:AdventureCount:Count$ThisTurnCast_Card.Adventure+YouCtrl
+SVar:MaxTargets:Count$Compare AdventureCount GE1.2.1
+SVar:TargetCount:TargetedObjects$Amount
+SVar:FinalityCount:Count$Compare TargetCount GE2.1.0
+DeckHas:Ability$Graveyard
+DeckHints:Type$Adventure
+Oracle:Return target creature card from your graveyard to the battlefield tapped.\nIf you've cast an Adventure spell this turn, you may choose two target creature cards instead. They enter with a finality counter.

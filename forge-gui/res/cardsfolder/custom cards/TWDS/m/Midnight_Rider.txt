@@ -1,0 +1,11 @@
+Name:Midnight Rider
+ManaCost:2 U
+Types:Creature Nightmare Knight
+PT:3/4
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSubjugate | TriggerDescription$ When this creature enters, subjugate 4.
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 4
+T:Mode$ Discarded | ValidPlayer$ Opponent | ValidCard$ Card.namedVicious_Nightmare | TriggerZones$ Battlefield | ActivationLimit$ 1 | Execute$ TrigDraw | TriggerDescription$ Whenever an opponent discards a Vicious Nightmare, draw a card. This ability triggers only once each turn.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+DeckHas:Ability$Subjugate
+DeckHints:Ability$Subjugate
+Oracle:When this creature enters, subjugate 4.\nWhenever an opponent discards a Vicious Nightmare, draw a card. This ability triggers only once each turn.

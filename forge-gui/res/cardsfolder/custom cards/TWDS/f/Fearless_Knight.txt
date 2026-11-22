@@ -1,0 +1,10 @@
+Name:Fearless Knight
+ManaCost:2 R
+Types:Creature Human Knight
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigDamage | TriggerDescription$ When CARDNAME enters or dies, it deals 1 damage to any target and you get a unity counter.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigDamage | TriggerDescription$ When CARDNAME enters or dies, it deals 1 damage to any target and you get a unity counter.
+SVar:TrigDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1 | SubAbility$ DBUnity
+SVar:DBUnity:DB$ PutCounter | Defined$ You | CounterType$ UNITY | CounterNum$ 1
+DeckHas:Ability$Counters
+Oracle:When this creature enters or dies, it deals 1 damage to any target and you get a unity counter.

@@ -1,0 +1,12 @@
+Name:Black Moon Weaver
+ManaCost:3 B
+Types:Creature Nightmare Spider
+PT:3/4
+K:Reach
+K:Deathtouch
+T:Mode$ Discarded | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ Whenever you discard a card, put two -1/-1 counters on up to one target creature.
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | TargetMin$ 0 | TargetMax$ 1 | TgtPrompt$ Select up to one target creature | CounterType$ M1M1 | CounterNum$ 2 | IsCurse$ True
+K:Madness:2 B
+DeckHas:Ability$Counters
+DeckHints:Ability$Discard
+Oracle:Reach, deathtouch\nWhenever you discard a card, put two -1/-1 counters on up to one target creature.\nMadness {2}{B} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

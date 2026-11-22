@@ -1,0 +1,9 @@
+Name:Blessing of Light
+ManaCost:1 W U
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Pump
+T:Mode$ Attacks | ValidCard$ Card.EnchantedBy | Execute$ TrigWorship | TriggerZones$ Battlefield | TriggerDescription$ Whenever enchanted creature attacks, worship. (Trigger the enters effect of target permanent you control.)
+SVar:TrigWorship:DB$ CustomReplayEtb | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select target permanent you control
+SVar:NonStackingAttachEffect:True
+Oracle:Enchant creature\nWhenever enchanted creature attacks, worship. (Trigger the enters effect of target permanent you control.)

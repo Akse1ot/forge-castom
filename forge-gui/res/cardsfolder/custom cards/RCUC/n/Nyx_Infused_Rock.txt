@@ -1,0 +1,11 @@
+Name:Nyx-Infused Rock
+ManaCost:3 W
+Types:Artifact Enchantment
+K:ETBReplacement:Copy:DBCopy:Optional
+SVar:DBCopy:DB$ Clone | Choices$ Aura.YouCtrl,Equipment.YouCtrl | AddTriggers$ NyxRockDeath | AddSVars$ NyxRockDraw | SubAbility$ DBEquipAttach | SpellDescription$ You may have CARDNAME enter the battlefield as a copy of any Aura or Equipment you control, except it gains "When this permanent is put into a graveyard from the battlefield, draw a card." If you do, attach it to a creature you control if it's an Equipment or to a permanent it can enchant if it's an Aura.
+SVar:DBEquipAttach:DB$ Attach | Object$ Self | Choices$ Creature.YouCtrl | ChoiceTitle$ Choose a creature you control to attach this Equipment to | ConditionDefined$ Self | ConditionPresent$ Equipment | ConditionCompare$ GE1
+SVar:NyxRockDeath:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ NyxRockDraw | TriggerDescription$ When this permanent is put into a graveyard from the battlefield, draw a card.
+SVar:NyxRockDraw:DB$ Draw | Defined$ TriggeredCardController | NumCards$ 1
+SVar:NeedsToPlay:Aura.YouCtrl,Equipment.YouCtrl
+DeckHints:Type$Aura|Equipment
+Oracle:You may have Nyx-Infused Rock enter the battlefield as a copy of any Aura or Equipment you control, except it gains "When this permanent is put into a graveyard from the battlefield, draw a card." If you do, attach it to a creature you control if it's an Equipment or to a permanent or player it can enchant if it's an Aura.

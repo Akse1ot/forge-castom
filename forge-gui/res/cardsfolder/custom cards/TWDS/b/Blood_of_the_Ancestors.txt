@@ -1,0 +1,9 @@
+Name:Blood of the Ancestors
+ManaCost:2 B
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Soul.YouCtrl | AddPower$ 1 | AddToughness$ 1 | AddKeyword$ Deathtouch | Description$ Souls you control get +1/+1 and have deathtouch.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Soul.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigLoseLife | TriggerDescription$ Whenever a Soul you control leaves the battlefield, each opponent loses 1 life.
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 1
+DeckHints:Type$Soul
+DeckNeeds:Keyword$Cursed
+Oracle:Souls you control get +1/+1 and have deathtouch.\nWhenever a Soul you control leaves the battlefield, each opponent loses 1 life.

@@ -1,0 +1,6 @@
+Name:Overthrow
+ManaCost:2 W W W
+Types:Sorcery
+A:SP$ Pump | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control | KW$ Indestructible | SubAbility$ DBDestroyAll | SpellDescription$ Target creature you control gains indestructible until end of turn. Then, destroy all creatures.
+SVar:DBDestroyAll:DB$ DestroyAll | ValidCards$ Creature | SpellDescription$ Then destroy all creatures.
+Oracle:Target creature you control gains indestructible until end of turn. Then, destroy all creatures.

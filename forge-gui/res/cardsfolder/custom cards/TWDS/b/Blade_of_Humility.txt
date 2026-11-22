@@ -1,0 +1,10 @@
+Name:Blade of Humility
+ManaCost:W
+Types:Artifact Equipment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigAttach | TriggerDescription$ When CARDNAME enters, attach it to target creature you control.
+SVar:TrigAttach:DB$ Attach | ValidTgts$ Creature.YouCtrl | TgtPrompt$ Select target creature you control
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 1 | AddToughness$ 1 | Description$ Equipped creature gets +1/+1.
+S:Mode$ Continuous | Affected$ Creature.EquippedBy+token | AddPower$ 2 | AddToughness$ 2 | Description$ If the equipped creature is a token, it gets an additional +2/+2.
+K:Equip:1 W
+SVar:NeedsToPlay:Creature.YouCtrl
+Oracle:When this Equipment enters, attach it to target creature you control.\nEquipped creature gets +1/+1. If the equipped creature is a token, it gets an additional +2/+2.\nEquip {1}{W}

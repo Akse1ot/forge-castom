@@ -1,0 +1,7 @@
+Name:Holy Flare
+ManaCost:2 W
+Types:Instant
+A:SP$ CustomReplayEtb | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select target permanent you control | SubAbility$ DBCounters | SpellDescription$ Worship. (Trigger the enters effect of target permanent you control.) Distribute three +1/+1 counters among any number of target creatures.
+SVar:DBCounters:DB$ PutCounter | ValidTgts$ Creature | TgtPrompt$ Select any number of target creatures | CounterType$ P1P1 | CounterNum$ 3 | TargetMin$ 1 | TargetMax$ 3 | DividedAsYouChoose$ 3
+DeckHas:Ability$Counters
+Oracle:Worship. (Trigger the enters effect of target permanent you control.)\nDistribute three +1/+1 counters among any number of target creatures.

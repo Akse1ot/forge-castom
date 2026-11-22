@@ -1,0 +1,22 @@
+Name:Titanic Winterhound
+ManaCost:2 G G
+Types:Creature Werewolf Giant
+PT:10/5
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSac | TriggerDescription$ At the beginning of your upkeep, you may sacrifice another Food or creature. If you don't, sacrifice CARDNAME.
+SVar:TrigSac:DB$ Sacrifice | Defined$ You | SacValid$ Food.Other,Creature.Other | Optional$ True | RememberSacrificed$ True | SubAbility$ DBSacSelf
+SVar:DBSacSelf:DB$ Sacrifice | SacValid$ Self | ConditionCheckSVar$ X | ConditionSVarCompare$ EQ0 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Remembered$Amount
+DeckHas:Ability$Token|Sacrifice & Type$Food
+DeckHints:Ability$Food|Token
+AlternateMode:Adventure
+Oracle:At the beginning of your upkeep, you may sacrifice another Food or creature. If you don't, sacrifice Titanic Winterhound.
+
+ALTERNATE
+
+Name:Stalk Prey
+ManaCost:3 B
+Types:Instant Adventure
+A:SP$ Destroy | ValidTgts$ Creature | SubAbility$ DBToken | SpellDescription$ Destroy target creature. Create two Food tokens. (Then exile this card. You may cast the creature later from exile.)
+SVar:DBToken:DB$ Token | TokenAmount$ 2 | TokenScript$ c_a_food_sac | TokenOwner$ You
+Oracle:Destroy target creature. Create two Food tokens. (Then exile this card. You may cast the creature later from exile.)

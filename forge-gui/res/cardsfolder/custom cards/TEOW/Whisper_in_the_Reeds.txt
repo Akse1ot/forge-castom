@@ -1,0 +1,11 @@
+Name:Whisper in the Reeds
+ManaCost:2 U
+Types:Enchantment
+T:Mode$ SpellCast | ValidCard$ Card.Adventure | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigSurveil | TriggerDescription$ Whenever you cast an Adventure spell, surveil 2.
+SVar:TrigSurveil:DB$ Surveil | Amount$ 2
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You.!attackedWithCreaturesThisTurn | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Campfire — At the beginning of your end step, if you didn't attack this turn, draw a card, then discard a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+DeckHas:Ability$Surveil|Discard
+DeckHints:Type$Adventure
+Oracle:Whenever you cast an Adventure spell, surveil 2.\nCampfire — At the beginning of your end step, if you didn't attack this turn, draw a card, then discard a card.

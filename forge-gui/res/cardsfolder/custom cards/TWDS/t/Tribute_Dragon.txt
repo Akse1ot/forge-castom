@@ -1,0 +1,10 @@
+Name:Tribute Dragon
+ManaCost:3 R
+Types:Creature Dragon
+PT:3/3
+K:Flying
+A:AB$ PutCounter | Cost$ 5 R | Monstrosity$ 3
+T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ When CARDNAME becomes monstrous, create six tapped Treasure tokens.
+SVar:TrigToken:DB$ Token | TokenScript$ c_a_treasure_sac | TokenAmount$ 6 | TokenTapped$ True
+DeckHas:Ability$Counters|Token & Type$Treasure|Artifact
+Oracle:Flying\n{5}{R}: Monstrosity 3. (If this creature isn't monstrous, put three +1/+1 counters on it and it becomes monstrous.)\nWhen this creature becomes monstrous, create six tapped Treasure tokens.

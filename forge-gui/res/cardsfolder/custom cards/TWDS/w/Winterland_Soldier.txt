@@ -1,0 +1,8 @@
+Name:Winterland Soldier
+ManaCost:2 W
+Types:Creature Human Soldier
+PT:6/6
+K:Humbled:6
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Land.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigRemoveCounter | TriggerDescription$ Landfall — Whenever a land enters under your control, remove a defeat counter from CARDNAME.
+SVar:TrigRemoveCounter:DB$ RemoveCounter | Defined$ Self | CounterType$ DEFEAT | CounterNum$ 1
+Oracle:Landfall — Whenever a land enters under your control, remove a defeat counter from this permanent.\nHumbled 6

@@ -1,0 +1,15 @@
+Name:Sayla and Esca
+ManaCost:1 U B
+Types:Legendary Creature Merfolk Wizard
+PT:1/4
+K:Menace
+T:Mode$ Attacks | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDraw | OptionalDecider$ You | TriggerDescription$ Whenever CARDNAME attacks, you may draw a card. If you do, reveal a card from your hand. Note its name, then put it into your library seventh from the top.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBChoose
+SVar:DBChoose:DB$ ChooseCard | Defined$ You | ChoiceZone$ Hand | Choices$ Card.YouOwn | Mandatory$ True | Reveal$ True | SubAbility$ DBName
+SVar:DBName:DB$ NameCard | Defined$ You | ChooseFromDefinedCards$ ChosenCard | ConditionDefined$ ChosenCard | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBPut
+SVar:DBPut:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Hand | Destination$ Library | LibraryPosition$ 6
+T:Mode$ SpellCast | ValidCard$ Card.NamedCard | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDrain | TriggerDescription$ Whenever you cast a spell with a name noted by CARDNAME, each opponent loses 4 life and you gain 4 life.
+SVar:TrigDrain:DB$ LoseLife | Defined$ Player.Opponent | LifeAmount$ 4 | SubAbility$ DBGainLife
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 4
+DeckHas:Ability$LifeGain
+Oracle:Menace\nWhenever Sayla and Esca attack, you may draw a card. If you do, reveal a card from your hand. Note its name, then put it into your library seventh from the top.\nWhenever you cast a spell with a name noted by Sayla and Esca, each opponent loses 4 life and you gain 4 life.

@@ -1,0 +1,12 @@
+Name:Crawling Nightmare
+ManaCost:4 U
+Types:Creature Nightmare
+PT:4/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSubjugate | TriggerDescription$ When this creature enters, subjugate 7. (Create seven Vicious Nightmare tokens and shuffle them into each opponent's library.)
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 7
+T:Mode$ Discarded | ValidPlayer$ Opponent | ValidCard$ Card.namedVicious_Nightmare | TriggerZones$ Battlefield | Execute$ TrigReturn | OptionalDecider$ You | TriggerDescription$ Whenever an opponent discards a Vicious Nightmare, you may return an instant or sorcery card from your graveyard to your hand.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Hidden$ True | ChangeType$ Instant.YouOwn,Sorcery.YouOwn | ChangeNum$ 1
+DeckHints:Type$Instant|Sorcery
+DeckHas:Ability$Subjugate
+DeckHints:Ability$Subjugate
+Oracle:When this creature enters, subjugate 7. (Create seven Vicious Nightmare tokens and shuffle them into each opponent's library.)\nWhenever an opponent discards a Vicious Nightmare, you may return an instant or sorcery card from your graveyard to your hand.

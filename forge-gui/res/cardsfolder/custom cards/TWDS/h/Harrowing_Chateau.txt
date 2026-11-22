@@ -1,0 +1,10 @@
+Name:Harrowing Chateau
+ManaCost:W B
+Types:Enchantment
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCharm | TriggerDescription$ At the beginning of your upkeep, ABILITY
+SVar:TrigCharm:DB$ Charm | Choices$ DBVessel,DBReturn
+SVar:DBVessel:DB$ Token | TokenAmount$ 2 | TokenScript$ c_vessel_cursed | TokenOwner$ You | SpellDescription$ Create two Vessel tokens. (They're artifacts with Cursed 1.)
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | Hidden$ True | Mandatory$ True | ChangeType$ Creature.YouOwn+cmcLE3 | ChangeNum$ 1 | SpellDescription$ Return a creature card with mana value 3 or less from your graveyard to your hand.
+DeckHas:Ability$Token|Graveyard
+DeckHints:Ability$Mill|Discard|Sacrifice
+Oracle:At the beginning of your upkeep, choose one —\n• Create two Vessel tokens. (They are artifacts with Cursed 1.)\n• Return a creature card with mana value 3 or less from your graveyard to your hand.

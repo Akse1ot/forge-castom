@@ -1,0 +1,11 @@
+Name:Abducting Dragon
+ManaCost:4 R
+Types:Creature Dragon
+PT:4/4
+K:Flying
+K:Haste
+A:AB$ PutCounter | Cost$ 4 R R | Monstrosity$ 3
+T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigGainControl | TriggerDescription$ When CARDNAME becomes monstrous, gain control of each creature with power 3 or less until end of turn. Untap those creatures. They gain haste until end of turn.
+SVar:TrigGainControl:DB$ GainControl | AllValid$ Creature.powerLE3 | Untap$ True | AddKWs$ Haste | LoseControl$ EOT
+DeckHas:Ability$Counters
+Oracle:Flying, haste\n{4}{R}{R}: Monstrosity 3.\nWhen this creature becomes monstrous, gain control of each creature with power 3 or less until end of turn. Untap those creatures. They gain haste until end of turn.

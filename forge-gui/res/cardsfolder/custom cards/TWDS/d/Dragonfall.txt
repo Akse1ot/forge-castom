@@ -1,0 +1,9 @@
+Name:Dragonfall
+ManaCost:5 R R
+Types:Enchantment Saga
+K:Chapter:4:DBToken,DBToken,DBToken,DBDamageFive
+SVar:DBToken:DB$ Token | TokenScript$ r_5_5_dragon_flying | SubAbility$ DBDamageOne | SpellDescription$ Create a 5/5 red Dragon creature token with flying. Then CARDNAME deals 1 damage to each creature and each player.
+SVar:DBDamageOne:DB$ DamageAll | ValidCards$ Creature | ValidPlayers$ Player | NumDmg$ 1 | ValidDescription$ each creature and each player.
+SVar:DBDamageFive:DB$ DamageAll | ValidCards$ Creature | NumDmg$ 5 | ValidDescription$ each creature. | SpellDescription$ CARDNAME deals 5 damage to each creature.
+DeckHas:Ability$Token & Type$Dragon
+Oracle:(As this Saga enters and after your draw step, add a lore counter. Sacrifice after IV.)\nI, II, III — Create a 5/5 red Dragon creature token with flying. Then Dragonfall deals 1 damage to each creature and each player.\nIV — Dragonfall deals 5 damage to each creature.

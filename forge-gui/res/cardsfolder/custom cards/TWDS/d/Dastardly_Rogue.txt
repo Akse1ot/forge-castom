@@ -1,0 +1,8 @@
+Name:Dastardly Rogue
+ManaCost:2 U
+Types:Creature Human Rogue
+PT:3/3
+K:Coalesce
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigExile | TriggerDescription$ Whenever CARDNAME deals combat damage to an opponent, exile the top two cards of your library.
+SVar:TrigExile:DB$ Dig | Defined$ You | DigNum$ 2 | ChangeNum$ All | DestinationZone$ Exile
+Oracle:Coalesce (For every two cards you put into your graveyard from among cards you own in exile while casting this spell, this spell costs {1} less to cast.)\nWhenever this creature deals combat damage to an opponent, exile the top two cards of your library.

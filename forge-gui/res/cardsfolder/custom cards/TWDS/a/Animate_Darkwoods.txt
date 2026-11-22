@@ -1,0 +1,8 @@
+Name:Animate Darkwoods
+ManaCost:1 B
+Types:Enchantment Aura
+K:Enchant:Land
+SVar:AttachAILogic:Animate
+S:Mode$ Continuous | AffectedDefined$ AttachedBy Self | Affected$ Land | AddType$ Creature | SetColor$ Black | SetPower$ 2 | SetToughness$ 2 | AddKeyword$ Menace & Corrupt | Description$ Enchanted land is a 2/2 black creature with menace and corrupt. It's still a land.
+DeckHas:Ability$Counters
+Oracle:Enchant land\nEnchanted land is a 2/2 black creature with menace and corrupt. It's still a land. (Whenever another creature dies, put a +1/+1 counter on this creature.)

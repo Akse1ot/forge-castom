@@ -1,0 +1,23 @@
+Name:Blarot, Underworld Upturner
+ManaCost:2 B R G
+Types:Legendary Creature Goblin Zombie
+PT:3/3
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Haste | Description$ Creatures you control have haste.
+A:AB$ Draw | Cost$ T Discard<1/Card> | NumCards$ 1 | SpellDescription$ Draw a card.
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigRoll | TriggerDescription$ At the beginning of combat on your turn, roll a d6. If the result is less than or equal to the number of creatures you control, exile all creature cards from your graveyard, then sacrifice all other creatures you control, then put all cards exiled this way onto the battlefield.
+SVar:TrigRoll:DB$ RollDice | Sides$ 6 | ResultSVar$ Result | SubAbility$ DBInit
+SVar:DBInit:DB$ StoreSVar | SVar$ RollSuccess | Type$ Number | Expression$ 0 | SubAbility$ DBCheck
+SVar:DBCheck:DB$ StoreSVar | SVar$ RollSuccess | Type$ Number | Expression$ 1 | ConditionCheckSVar$ Result | ConditionSVarCompare$ LEX | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZoneAll | Origin$ Graveyard | Destination$ Exile | ChangeType$ Creature.YouOwn | RememberChanged$ True | ConditionCheckSVar$ RollSuccess | ConditionSVarCompare$ EQ1 | SubAbility$ DBSac
+SVar:DBSac:DB$ SacrificeAll | ValidCards$ Creature.Other+YouCtrl | ConditionCheckSVar$ RollSuccess | ConditionSVarCompare$ EQ1 | SubAbility$ DBReturn
+SVar:DBReturn:DB$ ChangeZoneAll | Origin$ Exile | Destination$ Battlefield | ChangeType$ Card.IsRemembered | ConditionCheckSVar$ RollSuccess | ConditionSVarCompare$ EQ1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | SubAbility$ DBClearRoll
+SVar:DBClearRoll:DB$ StoreSVar | SVar$ RollSuccess | Type$ Number | Expression$ 0
+SVar:RollSuccess:Number$0
+SVar:X:Count$Valid Creature.YouCtrl
+SVar:BuffedBy:Creature
+SVar:PlayMain1:TRUE
+DeckHas:Ability$Discard|Sacrifice|Graveyard
+DeckHints:Ability$Mill|Discard|Graveyard
+DeckNeeds:Type$Creature
+Oracle:Creatures you control have haste.\n{T}, Discard a card: Draw a card.\nAt the beginning of combat on your turn, roll a d6. If the result is less than or equal to the number of creatures you control, exile all creature cards from your graveyard, then sacrifice all other creatures you control, then put all cards exiled this way onto the battlefield.

@@ -1,0 +1,11 @@
+Name:Campfire Elder
+ManaCost:2 W
+Types:Creature Human Cleric
+PT:2/4
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You.!attackedWithCreaturesThisTurn | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Campfire — At the beginning of your end step, if you didn't attack this turn, create a 1/1 white Spirit creature token with flying.
+SVar:TrigToken:DB$ Token | TokenScript$ w_1_1_spirit_flying | TokenOwner$ You
+S:Mode$ Continuous | Affected$ Creature.Spirit+YouCtrl | AddPower$ 1 | AddToughness$ 1 | Description$ Spirits you control get +1/+1.
+SVar:PlayMain1:TRUE
+DeckHas:Ability$Token & Type$Spirit
+DeckHints:Type$Spirit
+Oracle:Campfire — At the beginning of your end step, if you didn't attack this turn, create a 1/1 white Spirit creature token with flying.\nSpirits you control get +1/+1.

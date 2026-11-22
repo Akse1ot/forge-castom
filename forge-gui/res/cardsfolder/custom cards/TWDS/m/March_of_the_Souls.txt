@@ -1,0 +1,8 @@
+Name:March of the Souls
+ManaCost:1 W
+Types:Enchantment Saga
+K:Chapter:4:DBToken,DBSacrifice,DBToken,DBSacrifice
+SVar:DBToken:DB$ Token | TokenScript$ c_vessel_cursed | TokenAmount$ 3 | TokenOwner$ You | SpellDescription$ Create three Vessel tokens. (They're artifacts with Cursed 1.)
+SVar:DBSacrifice:DB$ SacrificeAll | ValidCards$ Vessel.YouCtrl | SpellDescription$ Sacrifice all Vessels.
+DeckHas:Ability$Token|Sacrifice
+Oracle:I — Create three Vessel tokens. (They're artifacts with Cursed 1.)\nII — Sacrifice all Vessels.\nIII — Create three Vessel tokens. (They're artifacts with Cursed 1.)\nIV — Sacrifice all Vessels.

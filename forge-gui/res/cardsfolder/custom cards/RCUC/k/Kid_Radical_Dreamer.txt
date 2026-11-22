@@ -1,0 +1,11 @@
+Name:Kid, Radical Dreamer
+ManaCost:2 R R
+Types:Legendary Planeswalker Kid
+Loyalty:4
+A:AB$ Dig | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | ValidTgts$ Opponent | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect | SpellDescription$ Exile the top card of target opponent's library. You may play that card this turn, and you may spend mana as though it were mana of any color to cast that spell.
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | RememberObjects$ Remembered | Duration$ EndOfTurn | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | MayPlayIgnoreColor$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | Description$ You may play that card this turn, and you may spend mana as though it were mana of any color to cast that spell.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ DamageAll | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | NumDmg$ 3 | ValidCards$ Creature | ValidDescription$ each creature. | SpellDescription$ CARDNAME deals 3 damage to all creatures.
+A:AB$ DealDamage | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | ValidTgts$ Any | NumDmg$ 7 | Ultimate$ True | SpellDescription$ CARDNAME deals 7 damage to any target.
+Oracle:[+2]: Exile the top card of target opponent's library. You may play that card this turn, and you may spend mana as though it were mana of any color to cast that spell.\n[-3]: Kid, Radical Dreamer deals 3 damage to all creatures.\n[-7]: Kid, Radical Dreamer deals 7 damage to any target.

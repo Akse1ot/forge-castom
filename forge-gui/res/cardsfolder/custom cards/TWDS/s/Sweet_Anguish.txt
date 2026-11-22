@@ -1,0 +1,9 @@
+Name:Sweet Anguish
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Mana | Cost$ 1 B Sac<1/Creature> | Produced$ B | Amount$ 6 | AILogic$ ManaRitual | AINoRecursiveCheck$ True | SpellDescription$ Add {B}{B}{B}{B}{B}{B}.
+SVar:AIPreference:SacCost$Creature.token,Creature.cmcLE2
+DeckHas:Ability$Sacrifice
+DeckHints:Ability$Token
+AI:RemoveDeck:All
+Oracle:As an additional cost to cast this spell, sacrifice a creature.\nAdd {B}{B}{B}{B}{B}{B}.

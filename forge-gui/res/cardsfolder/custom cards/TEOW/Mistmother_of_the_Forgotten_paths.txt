@@ -1,0 +1,12 @@
+Name:Mistmother of the Forgotten Paths
+ManaCost:2 U B
+Types:Legendary Creature Nightmare Spirit
+PT:4/4
+K:Flash
+T:Mode$ AttackersDeclared | AttackedTarget$ You | ValidAttackers$ Creature.attackingYou | TriggerZones$ Battlefield | Execute$ TrigChoose | TriggerDescription$ Whenever one or more creatures attack you, exile one of them until CARDNAME leaves the battlefield.
+SVar:TrigChoose:DB$ ChooseCard | Defined$ You | DefinedCards$ TriggeredAttackers | Mandatory$ True | ChoiceTitle$ Choose an attacking creature to exile | SubAbility$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Battlefield | Destination$ Exile | Duration$ UntilHostLeavesPlay | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearChosenCard$ True
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Battlefield | ValidCard$ Permanent | TriggerZones$ Battlefield | Execute$ TrigMill | TriggerDescription$ Whenever a permanent enters the battlefield from exile, its controller mills three cards.
+SVar:TrigMill:DB$ Mill | Defined$ TriggeredCardController | NumCards$ 3
+Oracle:Flash\nWhenever one or more creatures attack you, exile one of them until Mistmother of the Forgotten Paths leaves the battlefield.\nWhenever a permanent enters the battlefield from exile, its controller mills three cards.

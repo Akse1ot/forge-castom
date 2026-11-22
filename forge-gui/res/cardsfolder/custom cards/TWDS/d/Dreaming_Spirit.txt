@@ -1,0 +1,7 @@
+Name:Dreaming Spirit
+ManaCost:1 G
+Types:Creature Spirit
+PT:2/2
+K:Traverse
+S:Mode$ ReplaceCostPart | CostPart$ Traverse | Cost$ 1 | ValidCard$ Card.YouOwn | Activator$ You | EffectZone$ Battlefield | Description$ You may pay {1} rather than pay the traverse cost of spells you own.
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nYou may pay {1} rather than pay the traverse cost of spells you own.

@@ -1,0 +1,13 @@
+Name:Rhapsody of Twilight
+ManaCost:X 2 B
+Types:Enchantment Saga
+A:SP$ PermanentNoncreature | XMax$ 3
+K:etbCounter:LORE:X:no Condition:CARDNAME enters the battlefield with X lore counters on it. X can't be 4 or greater.
+K:Chapter:4:DBDiscard,DBSacrifice,DBLoseLife,DBOppSac
+SVar:DBDiscard:DB$ Discard | Defined$ You | NumCards$ 1 | Mode$ TgtChoose | SpellDescription$ Discard a card.
+SVar:DBSacrifice:DB$ Sacrifice | Defined$ You | SacValid$ Creature | SpellDescription$ Sacrifice a creature.
+SVar:DBLoseLife:DB$ LoseLife | Defined$ You | LifeAmount$ 3 | SpellDescription$ You lose 3 life.
+SVar:DBOppSac:DB$ Sacrifice | Defined$ Player.Opponent | SacValid$ Creature | Amount$ 3 | SpellDescription$ Each opponent sacrifices three creatures.
+SVar:X:Count$xPaid
+SVar:PlayMain1:TRUE
+Oracle:Rhapsody of Twilight enters the battlefield with X lore counters on it. X can't be 4 or greater.\nI — Discard a card.\nII — Sacrifice a creature.\nIII — You lose 3 life.\nIV — Each opponent sacrifices three creatures.

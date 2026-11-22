@@ -1,0 +1,8 @@
+Name:Living Skin
+ManaCost:no cost
+Colors:black
+Types:Creature Nightmare
+PT:3/2
+K:Madness:B PayLife<2>
+DeckNeeds:Ability$Discard
+Oracle:Madness—{B}, Pay 2 life. (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

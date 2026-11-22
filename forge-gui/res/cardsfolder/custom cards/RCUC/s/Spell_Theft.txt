@@ -1,0 +1,10 @@
+Name:Spell Theft
+ManaCost:1 U U
+Types:Enchantment
+K:Flash
+T:Mode$ SpellCast | ValidCard$ Card.Self | TriggerZones$ Stack | OptionalDecider$ You | Execute$ TrigExchange | TriggerDescription$ When you cast CARDNAME, you may exchange control of it and target spell an opponent controls.
+SVar:TrigExchange:DB$ ControlSpell | TargetType$ Spell | ValidTgts$ Card.OppCtrl | TgtPrompt$ Select target spell an opponent controls | Mode$ Exchange | DefinedExchange$ SourceFirstSpell
+A:AB$ Draw | Cost$ 2 Sac<1/CARDNAME> | Defined$ You | NumCards$ 1 | SpellDescription$ Draw a card.
+AI:RemoveDeck:All
+DeckHas:Ability$Sacrifice|Draw
+Oracle:Flash\nWhen you cast Spell Theft, you may exchange control of it and target spell an opponent controls.\n{2}, Sacrifice Spell Theft: Draw a card.

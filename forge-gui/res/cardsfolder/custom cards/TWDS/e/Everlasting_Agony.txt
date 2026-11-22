@@ -1,0 +1,6 @@
+Name:Everlasting Agony
+ManaCost:B
+Types:Enchantment
+A:AB$ Token | Cost$ 1 ExileAnyGrave<1/Creature> | TokenScript$ b_1_1_soul_haste_must_attack | TokenOwner$ You | AtEOT$ Sacrifice | SpellDescription$ Create a 1/1 black Soul creature token with haste that must attack each turn if able. Sacrifice it at the beginning of your next end step.
+DeckHas:Ability$Token|Sacrifice & Type$Soul
+Oracle:{1}, Exile a creature card from a graveyard: Create a 1/1 black Soul creature token with haste that must attack each turn if able. Sacrifice it at the beginning of your next end step.

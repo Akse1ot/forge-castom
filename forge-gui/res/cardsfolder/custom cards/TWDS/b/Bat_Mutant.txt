@@ -1,0 +1,10 @@
+Name:Bat Mutant
+ManaCost:1 B
+Types:Creature Horror Bat
+PT:1/1
+K:Corrupt
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Graveyard | ValidCard$ Card.Self | Execute$ TrigLoseLife | TriggerDescription$ When this creature dies, each opponent loses life equal to its power.
+SVar:TrigLoseLife:DB$ LoseLife | Defined$ Opponent | LifeAmount$ X
+SVar:X:TriggeredCard$CardPower
+DeckHas:Ability$Counters
+Oracle:Corrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nWhen this creature dies, each opponent loses life equal to its power.

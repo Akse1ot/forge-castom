@@ -1,0 +1,9 @@
+Name:Ambush Mage
+ManaCost:1 U
+Types:Creature Human Wizard
+PT:1/2
+K:Flash
+K:Coalesce
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCounter | TriggerDescription$ When CARDNAME enters, counter target triggered or activated ability unless its controller pays {1}.
+SVar:TrigCounter:DB$ Counter | TargetType$ Activated,Triggered | TgtPrompt$ Select target activated or triggered ability | ValidTgts$ Card,Emblem | UnlessCost$ 1
+Oracle:Flash, coalesce (For every two cards you put into your graveyard from among cards you own in exile while casting this spell pays for {1}.)\nWhen this creature enters, counter target triggered or activated ability unless its controller pays {1}.

@@ -1,0 +1,11 @@
+Name:The Ancestors' Chorus
+ManaCost:2 W U
+Types:Enchantment
+T:Mode$ ChangesZoneAll | Destination$ Battlefield | ValidCards$ Spirit.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigScry | TriggerDescription$ Whenever one or more Spirits enter the battlefield under your control, scry 1.
+SVar:TrigScry:DB$ Scry | ScryNum$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You.!attackedWithCreaturesThisTurn | TriggerZones$ Battlefield | Execute$ TrigReturn | TriggerDescription$ Campfire — At the beginning of your end step, if you didn't attack this turn, return target Spirit card with mana value 2 or less from your graveyard to the battlefield tapped.
+SVar:TrigReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Battlefield | ValidTgts$ Spirit.YouOwn+cmcLE2 | TgtZone$ Graveyard | TgtPrompt$ Select target Spirit card with mana value 2 or less from your graveyard | Tapped$ True
+DeckNeeds:Type$Spirit
+DeckHints:Ability$Token
+DeckHas:Ability$Graveyard
+Oracle:Whenever one or more Spirits enter the battlefield under your control, scry 1.\nCampfire — At the beginning of your end step, if you didn't attack this turn, return target Spirit card with mana value 2 or less from your graveyard to the battlefield tapped.

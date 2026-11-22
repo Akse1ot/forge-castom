@@ -1,0 +1,10 @@
+Name:Priestess of Dying Light
+ManaCost:2 W B
+Types:Creature Elf Cleric
+PT:4/4
+R:Event$ Moved | ActiveZones$ Battlefield | Origin$ Battlefield | ValidLKI$ Creature.!token+YouCtrl | Optional$ True | ReplaceWith$ Exile | Description$ If a nontoken creature you control would leave the battlefield, you may exile it instead. If you do, create three Vessel tokens. (They are artifacts with Cursed 1.)
+SVar:Exile:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ ReplacedCard | SubAbility$ DBVessel
+SVar:DBVessel:DB$ Token | TokenAmount$ 3 | TokenScript$ c_vessel_cursed | TokenOwner$ You
+DeckHas:Ability$Token
+DeckHints:Ability$Sacrifice
+Oracle:If a nontoken creature you control would leave the battlefield, you may exile it instead. If you do, create three Vessel tokens. (They are artifacts with Cursed 1.)

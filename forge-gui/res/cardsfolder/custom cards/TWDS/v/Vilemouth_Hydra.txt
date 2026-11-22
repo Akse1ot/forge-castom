@@ -1,0 +1,12 @@
+Name:Vilemouth Hydra
+ManaCost:X B B
+Types:Creature Horror Hydra
+PT:0/0
+K:Deathtouch
+K:Menace
+K:Corrupt
+K:etbCounter:P1P1:X
+SVar:X:Count$xPaid
+DeckHas:Ability$Counters
+DeckHints:Ability$Sacrifice
+Oracle:Deathtouch, menace, corrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nThis creature enters with X +1/+1 counters on it.

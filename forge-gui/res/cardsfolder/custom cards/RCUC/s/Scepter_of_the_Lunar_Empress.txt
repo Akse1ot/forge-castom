@@ -1,0 +1,11 @@
+Name:Scepter of the Lunar Empress
+ManaCost:4 U U
+Types:Legendary Artifact Equipment
+K:Ward:4
+K:Equip:2
+S:Mode$ Continuous | Affected$ Creature.EquippedBy | AddPower$ 2 | AddToughness$ 2 | AddKeyword$ Vigilance & Ward:2 | Description$ Equipped creature gets +2/+2 and has vigilance and ward {2}.
+T:Mode$ Attacks | ValidCard$ Card.AttachedBy | Execute$ TrigCounter | TriggerZones$ Battlefield | TriggerDescription$ Whenever equipped creature attacks, put a stun counter on up to two target lands defending player controls. Tap those lands.
+SVar:TrigCounter:DB$ PutCounter | ValidTgts$ Land.ControlledBy TriggeredDefendingPlayer | TgtPrompt$ Select up to two target lands defending player controls | TargetMin$ 0 | TargetMax$ 2 | CounterType$ Stun | CounterNum$ 1 | IsCurse$ True | SubAbility$ DBTap
+SVar:DBTap:DB$ Tap | Defined$ Targeted
+DeckHas:Ability$Counters
+Oracle:Ward {4}\nEquipped creature gets +2/+2 and has vigilance and ward {2}.\nWhenever equipped creature attacks, put a stun counter on up to two target lands defending player controls. Tap those lands.\nEquip {2}

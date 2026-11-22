@@ -1,0 +1,8 @@
+Name:Territorial Beasts
+ManaCost:2 G
+Types:Creature Beast
+PT:3/3
+K:Vigilance
+A:AB$ PutCounter | Cost$ 3 G | Monstrosity$ 2
+DeckHas:Ability$Counters
+Oracle:Vigilance\n{3}{G}: Monstrosity 2. (If this creature isn't monstrous, put two +1/+1 counters on it and it becomes monstrous.)

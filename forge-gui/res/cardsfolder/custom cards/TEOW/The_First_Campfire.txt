@@ -1,0 +1,11 @@
+Name:The First Campfire
+ManaCost:5
+Types:Legendary Artifact
+T:Mode$ SpellCast | ValidCard$ Card.Adventure | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigMana | TriggerDescription$ Whenever you cast an Adventure spell, add one mana of any color.
+SVar:TrigMana:DB$ Mana | Produced$ Any
+T:Mode$ ChangesZone | Origin$ Exile | Destination$ Battlefield | ValidCard$ Permanent | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever a permanent enters the battlefield from exile, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddPower$ 1 | AddToughness$ 1 | Description$ Creatures you control get +1/+1.
+DeckHints:Type$Adventure|Creature
+SVar:PlayMain1:TRUE
+Oracle:Whenever you cast an Adventure spell, add one mana of any color.\nWhenever a permanent enters the battlefield from exile, draw a card.\nCreatures you control get +1/+1.

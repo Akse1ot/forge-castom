@@ -1,0 +1,6 @@
+Name:Terrorize
+ManaCost:U
+Types:Instant
+A:SP$ Counter | Cost$ U Discard<1/Card> | CostDesc$ As an additional cost to cast this spell, discard a card. | ValidTgts$ Spell | TgtPrompt$ Select target spell | SpellDescription$ Counter target spell.
+DeckHas:Ability$Discard
+Oracle:As an additional cost to cast this spell, discard a card.\nCounter target spell.

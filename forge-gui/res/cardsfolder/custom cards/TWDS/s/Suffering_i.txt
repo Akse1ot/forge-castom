@@ -1,0 +1,8 @@
+Name:Suffering I
+ManaCost:1 B
+Types:Sorcery
+A:SP$ Sacrifice | ValidTgts$ Player | SacValid$ Creature.cmcEQX | RememberSacrificed$ True | SubAbility$ DBDraw | StackDescription$ SpellDescription | SpellDescription$ Target player sacrifices a creature with the greatest mana value among creatures they control. If you sacrifice a creature this way, draw three cards.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 3 | ConditionPresent$ Card.YouCtrl | ConditionDefined$ Remembered | SubAbility$ DBCleanup | StackDescription$ None
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | StackDescription$ None
+SVar:X:Count$Valid Creature.TargetedPlayerCtrl$GreatestCardManaCost
+Oracle:Target player sacrifices a creature with the greatest mana value among creatures they control. If you sacrifice a creature this way, draw three cards.

@@ -1,0 +1,12 @@
+Name:Arella's Sacrifice
+ManaCost:2 W U
+Types:Enchantment Saga
+K:Chapter:3:DBWeaken,DBWeaken,DBDestroy
+SVar:DBWeaken:DB$ PumpAll | ValidCards$ Creature.OppCtrl | NumAtt$ -3 | NumDef$ 0 | Duration$ UntilTheEndOfYourNextTurn | IsCurse$ True | SubAbility$ DBDraw | SpellDescription$ Creatures your opponents control get -3/-0 until the end of your next turn. Then, draw a card.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:DBDestroy:DB$ DestroyAll | ValidCards$ Ghoul,Horror,Nightmare | RememberDestroyed$ True | SubAbility$ DBGainLife | SpellDescription$ Destroy all Ghouls, Horrors, and Nightmares. You gain 1 life for each creature destroyed this way.
+SVar:DBGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:RememberedLKI$ValidCreature
+DeckHas:Ability$LifeGain
+Oracle:(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI, II — Creatures your opponents control get -3/-0 until the end of your next turn. Then, draw a card.\nIII — Destroy all Ghouls, Horrors, and Nightmares. You gain 1 life for each creature destroyed this way.

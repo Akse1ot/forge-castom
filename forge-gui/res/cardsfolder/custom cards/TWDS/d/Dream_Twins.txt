@@ -1,0 +1,7 @@
+Name:Dream Twins
+ManaCost:1 R G
+Types:Creature Dream
+PT:3/2
+K:Trample
+S:Mode$ ReduceCost | ValidCard$ Card.Red,Card.Green | Type$ Spell | Activator$ You | Amount$ 1 | Description$ Red spells and green spells you cast cost {1} less to cast.
+Oracle:Trample\nRed spells and green spells you cast cost {1} less to cast.

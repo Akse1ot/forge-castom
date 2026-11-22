@@ -1,0 +1,15 @@
+Name:Larmatine, the Shift Engine
+ManaCost:2 G U R
+Types:Legendary Artifact Creature Golem
+PT:10/9
+K:Trample
+S:Mode$ CantAttackUnless | ValidCard$ Card.Self | Cost$ 4 | Description$ CARDNAME can't attack or block unless you pay {4}.
+S:Mode$ CantBlockUnless | ValidCard$ Card.Self | Cost$ 4
+T:Mode$ Transformed | ValidCard$ Permanent.YouCtrl+inZoneBattlefield | TriggerZones$ Battlefield | Execute$ TrigScry | TriggerDescription$ Whenever a permanent you control transforms or a transformed permanent enters the battlefield under your control, scry 3 and create a tapped Powerstone token.
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Permanent.Transformed+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigScry | Secondary$ True | TriggerDescription$ Whenever a permanent you control transforms or a transformed permanent enters the battlefield under your control, scry 3 and create a tapped Powerstone token.
+SVar:TrigScry:DB$ Scry | ScryNum$ 3 | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenScript$ c_a_powerstone | TokenOwner$ You | TokenTapped$ True
+DeckHas:Ability$Token & Type$Artifact
+DeckHints:Type$Artifact
+DeckNeeds:Type$Werewolf
+Oracle:Trample\nLarmatine, the Shift Engine can't attack or block unless you pay {4}.\nWhenever a permanent you control transforms or a transformed permanent enters the battlefield under your control, scry 3 and create a tapped Powerstone token.

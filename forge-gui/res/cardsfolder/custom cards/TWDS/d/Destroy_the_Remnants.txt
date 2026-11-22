@@ -1,0 +1,8 @@
+Name:Destroy the Remnants
+ManaCost:1 W W
+Types:Sorcery
+A:SP$ DestroyAll | ValidCards$ Creature.powerGE3 | SpellDescription$ Destroy all creatures with power 3 or greater.
+SVar:NeedsToPlayVar:Y GTZ
+SVar:Y:Count$Valid Creature.OppCtrl+powerGE3
+SVar:Z:Count$Valid Creature.YouCtrl+powerGE3
+Oracle:Destroy all creatures with power 3 or greater.

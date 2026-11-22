@@ -1,0 +1,12 @@
+Name:Concert Charnagophile
+ManaCost:3 R
+Types:Creature Goblin Bard
+PT:2/2
+K:Trample
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigProliferate | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, proliferate.
+SVar:TrigProliferate:DB$ Proliferate
+T:Mode$ SpellCast | ValidActivatingPlayer$ You | TargetsValid$ Card.Self,Player.Other | TriggerZones$ Battlefield | Execute$ TrigCounter | TriggerDescription$ Whenever you cast a spell that targets CARDNAME or another player, put a +1/+1 counter on CARDNAME.
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+DeckHas:Ability$Counters|Proliferate
+DeckHints:Ability$Counters
+Oracle:Trample\nWhenever Concert Charnagophile deals combat damage to a player, proliferate.\nWhenever you cast a spell that targets Concert Charnagophile or another player, put a +1/+1 counter on Concert Charnagophile.

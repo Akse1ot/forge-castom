@@ -1,0 +1,9 @@
+Name:Frostwind Drake
+ManaCost:3 U
+Types:Creature Drake
+PT:3/3
+K:Flying
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigTap | TriggerDescription$ Whenever you cast an instant or sorcery spell, tap target creature.
+SVar:TrigTap:DB$ Tap | ValidTgts$ Creature | TgtPrompt$ Select target creature
+DeckHints:Type$Instant|Sorcery
+Oracle:Flying\nWhenever you cast an instant or sorcery spell, tap target creature.

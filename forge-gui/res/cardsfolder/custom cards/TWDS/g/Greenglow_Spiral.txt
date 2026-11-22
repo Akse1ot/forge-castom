@@ -1,0 +1,11 @@
+Name:Greenglow Spiral
+ManaCost:1 G G
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library | Destination$ Library | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land | ChangeNum$ 3 | RememberChanged$ True | Reveal$ True | Shuffle$ False | StackDescription$ SpellDescription | SubAbility$ DBBattlefield | SpellDescription$ Search your library for up to three basic land cards, reveal those cards, put one onto the battlefield tapped, another into your graveyard, and the other into your hand, then shuffle.
+SVar:DBBattlefield:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.IsRemembered | ChangeNum$ 1 | Mandatory$ True | NoLooking$ True | SelectPrompt$ Select a card to put onto the battlefield | Tapped$ True | Shuffle$ False | SubAbility$ DBGraveyard | StackDescription$ None
+SVar:DBGraveyard:DB$ ChangeZone | Origin$ Library | Destination$ Graveyard | ChangeType$ Land.IsRemembered | ChangeNum$ 1 | Mandatory$ True | NoLooking$ True | SelectPrompt$ Select a card to put into your graveyard | Shuffle$ False | SubAbility$ DBHand | StackDescription$ None
+SVar:DBHand:DB$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land.IsRemembered | ChangeNum$ 1 | Mandatory$ True | NoLooking$ True | SelectPrompt$ Select a card to put into your hand | SubAbility$ DBCleanup | StackDescription$ None
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+A:AB$ ChangeZone | PrecostDesc$ Renew — | Cost$ 2 G ExileFromGrave<1/CARDNAME/this card> | ActivationZone$ Graveyard | SorcerySpeed$ True | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land | ChangeNum$ 1 | Tapped$ True | SpellDescription$ Search your library for a basic land card, reveal it, put it onto the battlefield tapped, then shuffle. Activate only as a sorcery.
+DeckHas:Ability$Graveyard
+Oracle:Search your library for up to three basic land cards, reveal those cards, put one onto the battlefield tapped, another into your graveyard, and the other into your hand, then shuffle.\nRenew — {2}{G}, Exile this card from your graveyard: Search your library for a basic land card, reveal it, put it onto the battlefield tapped, then shuffle. Activate only as a sorcery.

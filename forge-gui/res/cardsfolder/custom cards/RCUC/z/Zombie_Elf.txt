@@ -1,0 +1,7 @@
+Name:Zombie Elf
+ManaCost:3 B
+Types:Creature Zombie Elf
+PT:1/2
+A:AB$ Mana | Cost$ T | Produced$ Combo U B R | RestrictValid$ Spell.Zombie | SpellDescription$ Add {U}, {B}, or {R}. Spend this mana only to cast a Zombie spell.
+DeckNeeds:Type$Zombie
+Oracle:{T}: Add {U}, {B}, or {R}. Spend this mana only to cast a Zombie spell.

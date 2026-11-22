@@ -1,0 +1,11 @@
+Name:Life Swallower
+ManaCost:1 B B
+Types:Creature Nightmare
+PT:2/2
+R:Event$ GainLife | ActiveZones$ Battlefield | ValidPlayer$ Opponent | ReplaceWith$ RLoseLife | AILogic$ LoseLife | Description$ If an opponent would gain life, that player loses that much life instead.
+SVar:RLoseLife:DB$ LoseLife | LifeAmount$ X | Defined$ ReplacedPlayer
+SVar:X:ReplaceCount$LifeGained
+SVar:NonStackingEffect:True
+K:Madness:1 B
+DeckHints:Ability$Discard
+Oracle:If an opponent would gain life, that player loses that much life instead.\nMadness {1}{B} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

@@ -1,0 +1,10 @@
+Name:Angel of the Last Breath
+ManaCost:1 W U
+Types:Creature Angel Cleric
+PT:2/3
+T:Mode$ SpellCast | ValidCard$ Card.Self | ValidActivatingPlayer$ You | Execute$ TrigCastWorship | TriggerZones$ Stack | TriggerDescription$ When you cast this spell, worship. (Trigger the enters effect of target permanent you control.)
+SVar:TrigCastWorship:DB$ CustomReplayEtb | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select target permanent you control
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | Number$ 2 | TriggerZones$ Battlefield | Execute$ TrigDrawWorship | TriggerDescription$ Whenever you draw your second card each turn, worship.
+SVar:TrigDrawWorship:DB$ CustomReplayEtb | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select target permanent you control
+DeckHints:Ability$Draw
+Oracle:When you cast this spell, worship. (Trigger the enters effect of target permanent you control.)\nWhenever you draw your second card each turn, worship.

@@ -1,0 +1,6 @@
+Name:Fill with Sorrow
+ManaCost:1 B B
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Creature | TgtPrompt$ Select target creature | SubAbility$ DBExile | SpellDescription$ Destroy target creature. Exile target player's graveyard.
+SVar:DBExile:DB$ ChangeZoneAll | ValidTgts$ Player | TgtPrompt$ Select target player | Origin$ Graveyard | Destination$ Exile | ChangeType$ Card | IsCurse$ True
+Oracle:Destroy target creature.\nExile target player's graveyard.

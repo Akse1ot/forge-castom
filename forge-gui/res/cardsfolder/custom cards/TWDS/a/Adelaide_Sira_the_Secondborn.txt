@@ -1,0 +1,9 @@
+Name:Adelaide Sira, the Secondborn
+ManaCost:3 W B
+Types:Legendary Creature Elf Noble
+PT:4/4
+K:Vigilance
+S:Mode$ Continuous | Affected$ Soul.YouCtrl | AddPower$ 1 | AddToughness$ 1 | Description$ Souls you control get +1/+1 and can't be sacrificed.
+S:Mode$ CantSacrifice | ValidCard$ Soul.YouCtrl | Secondary$ True
+DeckHints:Type$Soul
+Oracle:Vigilance\nSouls you control get +1/+1 and can't be sacrificed.

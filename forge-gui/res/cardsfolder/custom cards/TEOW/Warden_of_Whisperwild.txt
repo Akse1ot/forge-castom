@@ -1,0 +1,13 @@
+Name:Warden of Whisperwild
+ManaCost:2 G W
+Types:Creature Human Ranger
+PT:3/4
+K:Vigilance
+T:Mode$ Phase | Phase$ Main2 | ValidPlayer$ You | IsPresent$ Card.Self+dealtCombatDamageThisTurn Any+!counters_GE1_HERO | TriggerZones$ Battlefield | Execute$ TrigHeroCounter | TriggerDescription$ Fabled (At the beginning of your postcombat main phase, if this creature dealt combat damage this turn, put a hero counter on it.)
+SVar:TrigHeroCounter:DB$ PutCounter | Defined$ Self | CounterType$ HERO | CounterNum$ 1
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Creature.Other+YouCtrl | TriggerZones$ Battlefield | Execute$ TrigPutCounter | TriggerDescription$ Whenever another creature enters the battlefield under your control, put a +1/+1 counter on target creature.
+SVar:TrigPutCounter:DB$ PutCounter | ValidTgts$ Creature | TgtPrompt$ Select target creature | CounterType$ P1P1 | CounterNum$ 1
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Vigilance & Lifelink | IsPresent$ Card.Self+counters_GE1_HERO | Description$ As long as CARDNAME has a hero counter on it, creatures you control get vigilance and lifelink.
+DeckHas:Ability$Counters
+DeckHints:Ability$Token
+Oracle:Vigilance\nFabled (At the beginning of your postcombat main phase, if this creature dealt combat damage this turn, put a hero counter on it.)\nWhenever another creature enters the battlefield under your control, put a +1/+1 counter on target creature.\nAs long as Warden of Whisperwild has a hero counter on it, creatures you control get vigilance and lifelink.

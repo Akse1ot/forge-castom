@@ -1,0 +1,9 @@
+Name:Snowfall Soldier
+ManaCost:2 W
+Types:Creature Human Soldier
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Enchantment.YouCtrl | Execute$ TrigDraw | TriggerZones$ Battlefield | TriggerDescription$ Whenever an enchantment enters under your control, draw a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1
+SVar:BuffedBy:Enchantment
+DeckHints:Type$Enchantment
+Oracle:Whenever an enchantment enters under your control, draw a card.

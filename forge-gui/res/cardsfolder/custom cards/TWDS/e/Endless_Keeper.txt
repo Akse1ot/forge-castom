@@ -1,0 +1,10 @@
+Name:Endless Keeper
+ManaCost:2 G
+Types:Creature Spirit
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigEffect | TriggerDescription$ When CARDNAME enters, you may cast target creature card in your graveyard until end of turn.
+SVar:TrigEffect:DB$ Effect | ValidTgts$ Creature.YouOwn | TgtZone$ Graveyard | TgtPrompt$ Select target creature card in your graveyard | StaticAbilities$ STPlay | RememberObjects$ Targeted | ExileOnMoved$ Graveyard
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Graveyard
+DeckHints:Type$Creature
+DeckHas:Ability$Graveyard
+Oracle:When Endless Keeper enters, you may cast target creature card in your graveyard until end of turn.

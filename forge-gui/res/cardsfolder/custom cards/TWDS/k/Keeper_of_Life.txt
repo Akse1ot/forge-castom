@@ -1,0 +1,10 @@
+Name:Keeper of Life
+ManaCost:4 W
+Types:Creature Angel Cleric
+PT:4/5
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ When CARDNAME enters, gain X life and scry X, where X is the number of creatures you control.
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ X | SubAbility$ DBScry
+SVar:DBScry:DB$ Scry | ScryNum$ X
+SVar:X:Count$Valid Creature.YouCtrl
+DeckHas:Ability$LifeGain
+Oracle:When this creature enters, gain X life and scry X, where X is the number of creatures you control.

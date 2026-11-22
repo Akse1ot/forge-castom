@@ -1,0 +1,10 @@
+Name:Terrible Emanations
+ManaCost:2 U B
+Types:Enchantment
+R:Event$ CreateToken | ActiveZones$ Battlefield | ValidPlayer$ You | ValidToken$ Card.namedVicious_Nightmare+OppCtrl | ReplaceWith$ DoubleNightmares | Description$ If you would shuffle one or more Vicious Nightmare tokens into an opponent's library, shuffle twice that many Vicious Nightmare tokens into that player's library instead.
+SVar:DoubleNightmares:DB$ ReplaceToken | Type$ Amount
+T:Mode$ Drawn | ValidCard$ Card.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigSubjugate | TriggerDescription$ Whenever you draw a card, subjugate 1. (Create a Vicious Nightmare token and shuffle them into each opponent's library.)
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 1
+DeckHas:Ability$Subjugate
+DeckHints:Ability$Subjugate|Draw
+Oracle:If you would shuffle one or more Vicious Nightmare tokens into an opponent's library, shuffle twice that many Vicious Nightmare tokens into that player's library instead.\nWhenever you draw a card, subjugate 1. (Create a Vicious Nightmare token and shuffle them into each opponent's library.)

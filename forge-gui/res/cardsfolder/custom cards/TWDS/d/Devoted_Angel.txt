@@ -1,0 +1,10 @@
+Name:Devoted Angel
+ManaCost:1 W
+Types:Creature Angel Cleric
+PT:1/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBottom | TriggerDescription$ When CARDNAME enters, you may put a card from your hand on the bottom of your library. If you do, draw a card.
+SVar:TrigBottom:DB$ ChangeZone | Origin$ Hand | Destination$ Library | LibraryPosition$ -1 | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ DBDraw
+SVar:DBDraw:DB$ Draw | ConditionDefined$ Remembered | ConditionPresent$ Card | ConditionCompare$ GE1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Flying\nWhen Devoted Angel enters, you may put a card from your hand on the bottom of your library. If you do, draw a card.

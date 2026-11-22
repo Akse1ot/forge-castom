@@ -1,0 +1,10 @@
+Name:Dubious Pyromancer
+ManaCost:2 R
+Types:Creature Human Wizard
+PT:3/2
+K:Coalesce
+T:Mode$ ChangesZoneAll | Origin$ Exile | ValidCards$ Card.YouOwn | TriggerZones$ Battlefield | Execute$ TrigDamage | TriggerDescription$ Whenever one or more cards you own leave exile, CARDNAME deals 1 damage to each opponent.
+SVar:TrigDamage:DB$ DealDamage | Defined$ Player.Opponent | NumDmg$ 1
+DeckHints:Keyword$Coalesce
+DeckNeeds:Ability$Exile
+Oracle:Coalesce (For every two cards you put into your graveyard from among cards you own in exile while casting this spell, this spell costs {1} less to cast.)\nWhenever one or more cards you own leave exile, this creature deals 1 damage to each opponent.

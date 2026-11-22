@@ -1,0 +1,5 @@
+Name:Treasures of the Rich
+ManaCost:2 U
+Types:Instant
+A:SP$ Token | TokenScript$ c_vessel_cursed | TokenAmount$ 6 | TokenOwner$ You | SpellDescription$ Create six Vessel tokens.
+Oracle:Create six Vessel tokens.

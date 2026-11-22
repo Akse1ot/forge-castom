@@ -1,0 +1,8 @@
+Name:Disrupt Nature
+ManaCost:1 G
+Types:Instant
+A:SP$ Destroy | ValidTgts$ Artifact,Enchantment | SubAbility$ DBMill | SpellDescription$ Destroy target artifact or enchantment. Mill three cards.
+SVar:DBMill:DB$ Mill | Defined$ You | NumCards$ 3
+A:AB$ Mill | Cost$ 1 G ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | SorcerySpeed$ True | NumCards$ 3 | Defined$ You | PrecostDesc$ Renew — | SpellDescription$ Mill three cards. Activate only as a sorcery.
+DeckHas:Ability$Graveyard
+Oracle:Destroy target artifact or enchantment. Mill three cards.\nRenew — {1}{G}, Exile this card from your graveyard: Mill three cards. Activate only as a sorcery.

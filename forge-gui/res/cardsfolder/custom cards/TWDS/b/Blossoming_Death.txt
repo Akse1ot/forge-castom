@@ -1,0 +1,6 @@
+Name:Blossoming Death
+ManaCost:2 B B
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | SubAbility$ DBExileAll | StackDescription$ SpellDescription | SpellDescription$ Exile target creature and all other creatures with the same name as that creature.
+SVar:DBExileAll:DB$ ChangeZoneAll | ChangeType$ TargetedCard.Self,Creature.NotDefinedTargeted+sharesNameWith Targeted | Origin$ Battlefield | Destination$ Exile | StackDescription$ None
+Oracle:Exile target creature and all other creatures with the same name as that creature.

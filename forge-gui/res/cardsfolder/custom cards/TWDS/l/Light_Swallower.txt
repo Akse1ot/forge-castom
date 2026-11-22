@@ -1,0 +1,12 @@
+Name:Light Swallower
+ManaCost:3 B B
+Types:Creature Nightmare
+PT:3/2
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSubjugate | TriggerDescription$ When this creature enters, subjugate 8.
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 8
+T:Mode$ Discarded | ValidPlayer$ Opponent | ValidCard$ Card.namedVicious_Nightmare | TriggerZones$ Battlefield | Execute$ TrigSacrifice | TriggerDescription$ Whenever an opponent discards a Vicious Nightmare, that player sacrifices two creatures.
+SVar:TrigSacrifice:DB$ Sacrifice | Defined$ TriggeredCardOwner | Amount$ 2 | SacValid$ Creature
+DeckHas:Ability$Subjugate|Sacrifice
+DeckHints:Ability$Subjugate
+Oracle:Menace\nWhen this creature enters, subjugate 8.\nWhenever an opponent discards a Vicious Nightmare, that player sacrifices two creatures.

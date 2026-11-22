@@ -1,0 +1,10 @@
+Name:Cynari, the Effervescent
+ManaCost:1 G U
+Types:Legendary Creature Spirit Wizard
+PT:3/3
+K:Traverse
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Trample & Ward:1 | CheckSVar$ X | SVarCompare$ GEY | Description$ As long as you control the most lands among all players, creatures you control have trample and ward {1}.
+SVar:X:Count$Valid Land.YouCtrl
+SVar:Y:PlayerCountOpponents$HighestValid Land.YouCtrl
+SVar:BuffedBy:Land
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nAs long as you control the most lands among all players, creatures you control have trample and ward {1}.

@@ -1,0 +1,14 @@
+Name:Meeting at the Crossroads
+ManaCost:W W
+Types:Sorcery
+A:SP$ GenericChoice | Defined$ Player | Choices$ DBExile,DBSacrifice,DBDiscard | TempRemember$ True | ChoicePrompt$ Choose one — | AILogic$ Random | SubAbility$ DBSecondChoice | StackDescription$ SpellDescription | SpellDescription$ Each player chooses one — Exile a creature you control; Sacrifice a noncreature permanent; or Discard two cards. Then each player chooses one — Create a 3/3 white Beast creature token; Gain 6 life; or Draw two cards.
+SVar:DBExile:DB$ ChooseCard | Defined$ Remembered | Choices$ Creature | ControlledByPlayer$ Chooser | Mandatory$ True | SubAbility$ DBExileChosen | SpellDescription$ Exile a creature you control.
+SVar:DBExileChosen:DB$ ChangeZone | Origin$ Battlefield | Destination$ Exile | Defined$ ChosenCard
+SVar:DBSacrifice:DB$ Sacrifice | Defined$ Remembered | SacValid$ Permanent.nonCreature | SpellDescription$ Sacrifice a noncreature permanent.
+SVar:DBDiscard:DB$ Discard | Defined$ Remembered | Mode$ TgtChoose | NumCards$ 2 | SpellDescription$ Discard two cards.
+SVar:DBSecondChoice:DB$ GenericChoice | Defined$ Player | Choices$ DBToken,DBGainLife,DBDraw | TempRemember$ True | ChoicePrompt$ Choose one — | AILogic$ Random
+SVar:DBToken:DB$ Token | TokenScript$ w_3_3_beast | TokenOwner$ Remembered | SpellDescription$ Create a 3/3 white Beast creature token.
+SVar:DBGainLife:DB$ GainLife | Defined$ Remembered | LifeAmount$ 6 | SpellDescription$ You gain 6 life.
+SVar:DBDraw:DB$ Draw | Defined$ Remembered | NumCards$ 2 | SpellDescription$ Draw two cards.
+DeckHas:Ability$Token|LifeGain
+Oracle:Each player chooses one —\n• Exile a creature you control.\n• Sacrifice a noncreature permanent.\n• Discard two cards.\nEach player chooses one —\n• Create a 3/3 white Beast creature token.\n• You gain 6 life.\n• Draw two cards.

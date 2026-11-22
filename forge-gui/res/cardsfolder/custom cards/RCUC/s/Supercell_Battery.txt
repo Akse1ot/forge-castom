@@ -1,0 +1,8 @@
+Name:Supercell Battery
+ManaCost:1 U
+Types:Enchantment
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigBounce | TriggerDescription$ When CARDNAME enters, return target creature to its owner's hand.
+SVar:TrigBounce:DB$ ChangeZone | ValidTgts$ Creature | Origin$ Battlefield | Destination$ Hand
+A:AB$ DealDamage | Cost$ R Sac<1/CARDNAME> | ValidTgts$ Any | NumDmg$ 2 | SpellDescription$ It deals 2 damage to any target.
+DeckHas:Ability$Sacrifice
+Oracle:When Supercell Battery enters, return target creature to its owner's hand.\n{R}, Sacrifice Supercell Battery: It deals 2 damage to any target.

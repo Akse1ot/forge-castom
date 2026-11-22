@@ -1,0 +1,10 @@
+Name:Black Skyscreamer
+ManaCost:1 B
+Types:Creature Horror
+PT:1/1
+K:Flying
+K:Corrupt
+T:Mode$ SpellCast | ValidCard$ Card.nonBlack | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigDestroy | TriggerDescription$ Whenever you cast a nonblack spell, you may sacrifice this creature. If you do, destroy target creature.
+SVar:TrigDestroy:AB$ Destroy | Cost$ Sac<1/CARDNAME> | ValidTgts$ Creature | AITgts$ BetterThanSource | TgtPrompt$ Select target creature
+DeckHas:Ability$Counters|Sacrifice
+Oracle:Flying\nCorrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nWhenever you cast a nonblack spell, you may sacrifice this creature. If you do, destroy target creature.

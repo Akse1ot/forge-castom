@@ -1,0 +1,8 @@
+Name:Catherine's Letter
+ManaCost:3 W
+Types:Artifact
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigGive | TriggerDescription$ When CARDNAME enters, target opponent gains control of it.
+SVar:TrigGive:DB$ GainControl | Defined$ Self | ValidTgts$ Opponent | TgtPrompt$ Select target opponent
+T:Mode$ Drawn | ValidPlayer$ Player.OpponentOf CardOwner+controlsArtifact.namedCatherine's Letter | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Whenever an opponent who controls an artifact named Catherine's Letter draws a card, this artifact's owner draws a card.
+SVar:TrigDraw:DB$ Draw | Defined$ CardOwner | NumCards$ 1
+Oracle:When this artifact enters, target opponent gains control of it.\nWhenever an opponent who controls an artifact named Catherine's Letter draws a card, this artifact's owner draws a card.

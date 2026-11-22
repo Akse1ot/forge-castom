@@ -1,0 +1,8 @@
+Name:Resounding Strike
+ManaCost:2 W
+Types:Instant
+A:SP$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ First Strike | SpellDescription$ Creatures you control gain first strike until end of turn.
+K:Cycling:5 R W B
+T:Mode$ Cycled | ValidCard$ Card.Self | Execute$ TrigPump | TriggerDescription$ When you cycle CARDNAME, creatures you control gain double strike until end of turn.
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl | KW$ Double Strike
+Oracle:Creatures you control gain first strike until end of turn.\nCycling {5}{R}{W}{B} ({5}{R}{W}{B}, Discard this card: Draw a card.)\nWhen you cycle Resounding Strike, creatures you control gain double strike until end of turn.

@@ -1,0 +1,7 @@
+Name:Allison's Sentinel
+ManaCost:1 W
+Types:Creature Angel Soldier
+PT:1/2
+K:Lifelink
+S:Mode$ RaiseCost | ValidCard$ Card.nonCreature | Type$ Spell | Amount$ 1 | Description$ Noncreature spells cost {1} more to cast.
+Oracle:Lifelink\nNoncreature spells cost {1} more to cast.

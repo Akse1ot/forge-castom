@@ -1,0 +1,11 @@
+Name:Whisperwild Tail
+ManaCost:no cost
+Types:Land
+R:Event$ Moved | ValidCard$ Card.Self | Destination$ Battlefield | ReplaceWith$ LandTapped | ReplacementResult$ Updated | Description$ CARDNAME enters the battlefield tapped unless you control a creature with a hero counter on it.
+SVar:LandTapped:DB$ Tap | Defined$ Self | ETB$ True | ConditionPresent$ Creature.YouCtrl+counters_GE1_HERO | ConditionCompare$ EQ0
+A:AB$ Mana | Cost$ T | Produced$ Combo G W | SpellDescription$ Add {G} or {W}.
+A:AB$ ChangeZone | Cost$ 3 T | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Card.AdventureCard+YouOwn | TgtZone$ Graveyard | TgtPrompt$ Select target Adventure card from your graveyard | SpellDescription$ Return target Adventure card from your graveyard to your hand.
+DeckNeeds:Type$Adventure
+DeckHints:Ability$Counters
+DeckHas:Ability$Graveyard
+Oracle:Whisperwild Trail enters the battlefield tapped unless you control a creature with a hero counter on it.\n{T}: Add {G} or {W}.\n{3}, {T}: Return target Adventure card from your graveyard to your hand.

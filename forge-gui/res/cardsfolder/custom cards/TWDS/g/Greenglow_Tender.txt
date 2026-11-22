@@ -1,0 +1,9 @@
+Name:Greenglow Tender
+ManaCost:1 G
+Types:Creature Human Druid
+PT:2/2
+A:SP$ PermanentCreature | Cost$ 1 G Sac<1/Land>
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSearch | TriggerDescription$ When CARDNAME enters, search your library for a land card, put that card onto the battlefield, then shuffle.
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land | ChangeNum$ 1
+DeckHas:Ability$Sacrifice
+Oracle:As an additional cost to cast this spell, sacrifice a land.\nWhen Greenglow Tender enters, search your library for a land card, put that card onto the battlefield, then shuffle.

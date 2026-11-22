@@ -1,0 +1,12 @@
+Name:Arcanist's Grimoire
+ManaCost:6 B
+Types:Legendary Artifact Book
+K:Ward:PayLife<10>
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ At the beginning of your upkeep, create a 6/6 black Demon creature token with flying and trample.
+SVar:TrigToken:DB$ Token | TokenScript$ b_6_6_demon_flying_trample | TokenOwner$ You
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You.!attackedWithCreaturesThisTurn | TriggerZones$ Battlefield | Execute$ TrigSac | TriggerDescription$ Campfire — At the beginning of your end step, if you didn't attack this turn, sacrifice CARDNAME and each creature you control.
+SVar:TrigSac:DB$ SacrificeAll | ValidCards$ Card.Self,Creature.YouCtrl | Controller$ You
+DeckHas:Ability$Token|Sacrifice
+DeckNeeds:Type$Creature
+DeckHints:Keyword$Haste
+Oracle:Ward—Pay 10 life.\nAt the beginning of your upkeep, create a 6/6 black Demon creature token with flying and trample.\nCampfire — At the beginning of your end step, if you didn't attack this turn, sacrifice Arcanist's Grimoire and each creature you control.

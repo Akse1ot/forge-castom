@@ -1,0 +1,10 @@
+Name:Living Bait
+ManaCost:1 R
+Types:Creature Human Soldier
+PT:1/1
+K:Unity
+S:Mode$ ReduceCost | ValidCard$ Aura,Equipment | Type$ Spell | Activator$ You | Amount$ X | Description$ Equipment and Aura spells you cast cost {1} less to cast for each unity counter on CARDNAME.
+SVar:X:Count$CardCounters.UNITY
+DeckHints:Type$Aura|Equipment
+DeckHas:Ability$Counters
+Oracle:Unity (As this permanent enters, you may pay any number of unity counters. This permanent enters with a unity counter on it for each unity counter paid this way.)\nEquipment and Aura spells you cast cost {1} less to cast for each unity counter on this creature.

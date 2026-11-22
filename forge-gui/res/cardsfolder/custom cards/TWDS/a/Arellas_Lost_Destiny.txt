@@ -1,0 +1,8 @@
+Name:Arella's Lost Destiny
+ManaCost:2 U
+Types:Enchantment Saga
+K:Chapter:3:DBLoseAbilities,DBWorship,DBWorship
+SVar:DBLoseAbilities:DB$ Effect | ValidTgts$ Creature | TgtPrompt$ Select target creature | IsCurse$ True | RememberObjects$ Targeted | ForgetOnMoved$ Battlefield | StaticAbilities$ STLoseAbilities | Duration$ AsLongAsControl | SpellDescription$ Target creature loses all abilities for as long as you control CARDNAME.
+SVar:STLoseAbilities:Mode$ Continuous | Affected$ Card.IsRemembered | RemoveAllAbilities$ True | AffectedZone$ Battlefield | Description$ This creature loses all abilities for as long as you control EFFECTSOURCE.
+SVar:DBWorship:DB$ CustomReplayEtb | ValidTgts$ Permanent.YouCtrl | TgtPrompt$ Select target permanent you control | SpellDescription$ Worship. (Trigger the enters effect of target permanent you control.)
+Oracle:(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Target creature loses all abilities for as long as you control Arella's Lost Destiny.\nII, III — Worship. (Trigger the enters effect of target permanent you control.)

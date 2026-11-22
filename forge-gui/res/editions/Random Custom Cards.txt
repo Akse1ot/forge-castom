@@ -1,0 +1,142 @@
+[metadata]
+Code=RCUC
+Date=2026-05-01
+Name=Random Custom Cards
+Type=CUSTOM_SET
+
+[cards]
+1 M Rao, Sei'an Priestess
+2 U Dormant Xenomorph
+3 M Shaya, Untamed
+4 U Spiritrealm Warden
+5 C Sun Warrior
+6 U Air, a Parent
+7 U White Unicorn
+8 M Gomora, The Acidic Fog Elemental
+9 U Momir's Summoning
+10 R Heavy Slime
+11 C Squire of the Guildpact
+12 C Healer of the Salve
+13 R Shimmershell
+14 R Battleborn Shieldmaiden
+15 C Inkfathom Mimic
+16 C Spiteflame Mimic
+17 C Scuzzback Mimic
+18 C Thistledown Mimic
+19 C Gitaxian Dreamstinger
+20 M Kaltharix, Arcbound Avatar
+21 R Recomposed Thalakos Elementalist
+22 U Sleep I
+23 M Kid, Radical Dreamer
+24 M Harle, the Seventh Dragon
+25 M Dragon God
+26 M Sprigg, the Mystic
+27 R Innocuous Bunyip
+28 M Dragon Tear
+29 M Opassa Beach
+30 U Magma Burst I
+31 M Pip, the Experiment
+32 C Evening the Odds
+33 U The Undead Kid
+34 M Rise of the Dark Realms
+35 R Rise of the Legion
+36 C Zombie Elf
+37 M Avenger, The Undead King
+38 U Do Not Enter
+39 M Kissel, Mindless Zombie
+40 M Kruphath, God Of Dusk
+41 C Nights Walker
+42 R Rice To The Dead
+43 R Water Walker
+44 R Ashiok's Mindstorm
+45 U Magmatic Surge
+46 C Price of Experience
+47 U Blackblood Offering
+48 R Phlaegrean Ghast
+49 R Bagliore, The Hallowed City
+50 R Tropical Drake
+51 R Cardinal Entity
+52 R Chiyome Mochizuki
+53 M Thunderstorm Hydra
+54 M Sara, Tracer of Bloodlines
+55 M Emmara, Mother of Ravnica
+56 R Nora, Guardian of Relics
+57 R Spellslinger's Pendulum
+58 R Kaalia of the Wastes
+59 U Sudden Evolution
+60 U Bread and Circuses
+61 R Ode to Misery
+62 U Magnetic Shot
+63 R Valiant Counterpart
+64 M Quintorius, Decoder of Ruins
+65 R Scepter of the Lunar Empress
+66 R Eater of Wisdom
+67 R Eternal Coatl
+68 R Anafenza, the Hurt
+69 R The Flametongue Oath
+70 M Olas, the Skymender
+71 U Frostflux Engine
+72 R Collected Clairvoyance
+73 U Supercell Battery
+74 M Adam, Eternal Gardener
+75 M Iridescent Sphinx
+76 R Spellgorger Demon
+77 M Mashera Enteyes
+78 M Hole of the Holy Mole
+79 M "Mr. Squish", the Impossible Friend
+80 M Trinity, the Ersatz Isle
+81 R Concert Charnagophile
+82 U Revoa, Gifted by Life
+83 U Vimwa, Animator Prodigy
+84 U Badru, Notorious Heel
+85 U Nobara, Ascendant Shadow
+86 M Deko, Kher Keep Academic
+87 M Ravira, Grave Recruiter
+88 M Mephala, Delver of Histories
+89 U Gav, Beloved Face
+90 M Phag Tas, Copper Host Bonder
+91 R Blarot, Underworld Upturner
+92 U Council of Nemm
+93 U Fenmari, the Uniter
+94 R Griggle, Ultimate Lifeform
+95 U Karutar, King of Beasts
+96 R Larmatine, the Shift Engine
+97 R Margoth, Supreme Necrogarch
+98 R Matara, Archangel of War
+99 R Meras, the Instigator
+100 U Miscra, Sprite Philosopher
+101 U Sayla and Esca
+102 R Legendary Creature Sphinx
+103 R Syr Tasilla, Ever Protective
+104 U Taraberi, Living Leyline
+105 R Teferi, Destiny Shaper
+106 R Voto, Master Replicator
+107 U Yametter and Arixis
+108 U Yosova, Bringer of Passage
+109 U Zapha, Who Burns It Down
+110 R Shabian, All Claiming
+111 U Aggressive Mummy
+112 R Kasogu, Military Commander
+113 M Nyx-Infused Rock
+114 C Resounding Strike
+115 M Larion, Wise Scholar
+116 U Slippery Eel
+117 R Spell Theft
+118 R Dagger Master
+119 U Deadly Alliance I
+120 M Deadly Combat
+121 M Drainer of Blood
+122 M End of Times
+
+[tokens]
+1 br_1_1_fox_haste
+2 u_1_1_elemental
+3 br_3_3_zombie_horror
+4 g_1_1_snake_reach
+5 c_3_3_a_angel_flying
+
+[other]
+99 squish_land
+100 emblem_quintorius_decoder_of_ruins
+101 emblem_mashera_enteyes
+102 emblem_teferi_destiny_shaper

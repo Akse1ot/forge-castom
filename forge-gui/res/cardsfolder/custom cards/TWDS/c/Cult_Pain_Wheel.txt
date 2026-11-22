@@ -1,0 +1,8 @@
+Name:Cult Pain Wheel
+ManaCost:2 R R
+Types:Artifact
+R:Event$ DamageDone | ActiveZones$ Battlefield | ValidSource$ Card.YouCtrl,Emblem.YouCtrl | ValidTarget$ Permanent.OppCtrl,Opponent | ReplaceWith$ DmgPlus1 | Description$ If a source you control would deal damage to an opponent or a permanent an opponent controls, it deals that much damage plus 1 to that permanent or player instead.
+SVar:DmgPlus1:DB$ ReplaceEffect | VarName$ DamageAmount | VarValue$ X
+SVar:X:ReplaceCount$DamageAmount/Plus.1
+SVar:PlayMain1:TRUE
+Oracle:If a source you control would deal damage to an opponent or a permanent an opponent controls, it deals that much damage plus one to that permanent or player instead.

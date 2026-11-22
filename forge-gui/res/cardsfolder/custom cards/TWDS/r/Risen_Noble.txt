@@ -1,0 +1,10 @@
+Name:Risen Noble
+ManaCost:2 B
+Types:Creature Ghoul Noble
+PT:2/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigCharm | TriggerDescription$ When CARDNAME enters, choose one — ABILITY
+SVar:TrigCharm:DB$ Charm | Choices$ DBTorment,DBReturn
+SVar:DBTorment:DB$ Torment | ValidTgts$ Player | TgtPrompt$ Select target player to torment | SpellDescription$ Torment target player.
+SVar:DBReturn:DB$ ChangeZone | Origin$ Graveyard | Destination$ Hand | ValidTgts$ Creature.Ghoul+YouOwn | TgtPrompt$ Select target Ghoul creature card in your graveyard | SpellDescription$ Return target Ghoul creature card from your graveyard to your hand.
+DeckHints:Type$Ghoul
+Oracle:When this creature enters, choose one —\n• Torment target player. (To torment a player, that player loses 3 life unless they sacrifice a permanent or discard a card.)\n• Return target Ghoul creature card from your graveyard to your hand.

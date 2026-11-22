@@ -1,0 +1,19 @@
+Name:Teferi, Destiny Shaper
+ManaCost:2 W U B
+Types:Legendary Planeswalker Teferi
+Loyalty:4
+Text:CARDNAME can be your commander.
+A:AB$ RearrangeTopOfLibrary | Cost$ AddCounter<2/LOYALTY> | Planeswalker$ True | NumCards$ 4 | ValidTgts$ Player | SpellDescription$ Look at the top four cards of target player's library. You may put them back in any order.
+A:AB$ PeekAndReveal | Cost$ SubCounter<3/LOYALTY> | Planeswalker$ True | Defined$ You | PeekAmount$ 1 | NoPeek$ True | RememberRevealed$ True | SubAbility$ DBBranch | SpellDescription$ Reveal the top card of your library. If it's a nonland permanent card, choose a permanent that shares a card type with it and put that permanent into its owner's library second from the top. Otherwise, draw a card.
+SVar:DBBranch:DB$ Branch | BranchConditionSVar$ X | BranchConditionSVarCompare$ GE1 | TrueSubAbility$ DBChoose | FalseSubAbility$ DBDraw
+SVar:DBChoose:DB$ ChooseCard | Defined$ You | ChoiceZone$ Battlefield | Choices$ Permanent.sharesCardTypeWith Remembered | Mandatory$ True | Amount$ 1 | ChoiceTitle$ Choose a permanent that shares a card type with the revealed card | SubAbility$ DBPut
+SVar:DBPut:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Battlefield | Destination$ Library | LibraryPosition$ 1 | SubAbility$ DBCleanup
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True | ClearChosenCard$ True
+SVar:X:RememberedLKI$Valid Permanent.nonLand
+A:AB$ Effect | Cost$ SubCounter<7/LOYALTY> | Planeswalker$ True | Ultimate$ True | Name$ Emblem — Teferi, Destiny Shaper | Image$ emblem_teferi_destiny_shaper | StaticAbilities$ STJump,STReduce | Duration$ Permanent | AILogic$ Always | SpellDescription$ You get an emblem with "Instant and sorcery cards in your graveyard have jump-start" and "Spells you cast cost {2} less to cast."
+SVar:STJump:Mode$ Continuous | Affected$ Instant.YouOwn,Sorcery.YouOwn | AffectedZone$ Graveyard | AddKeyword$ Jump-start | Description$ Instant and sorcery cards in your graveyard have jump-start.
+SVar:STReduce:Mode$ ReduceCost | Type$ Spell | Activator$ You | Amount$ 2 | Description$ Spells you cast cost {2} less to cast.
+DeckHas:Ability$Graveyard
+DeckHints:Type$Instant|Sorcery
+Oracle:[+2]: Look at the top four cards of target player's library. You may put them back in any order.\n[-3]: Reveal the top card of your library. If it's a nonland permanent card, choose a permanent that shares a card type with it and put that permanent into its owner's library second from the top. Otherwise, draw a card.\n[-7]: You get an emblem with "Instant and sorcery cards in your graveyard have jump-start" and "Spells you cast cost {2} less to cast."\nTeferi, Destiny Shaper can be your commander.

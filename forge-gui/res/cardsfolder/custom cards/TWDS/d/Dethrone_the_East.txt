@@ -1,0 +1,5 @@
+Name:Dethrone the East
+ManaCost:W R
+Types:Instant
+A:SP$ Destroy | Cost$ W R Or(PayLife<5>~2) | ValidTgts$ Creature | TargetMin$ 2 | TargetMax$ 2 | SpellDescription$ Destroy two target creatures.
+Oracle:As an additional cost to cast this spell, pay 5 life or {2}.\nDestroy two target creatures.

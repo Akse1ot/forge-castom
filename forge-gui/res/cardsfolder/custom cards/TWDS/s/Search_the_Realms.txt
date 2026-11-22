@@ -1,0 +1,6 @@
+Name:Search the Realms
+ManaCost:2 G
+Types:Sorcery
+K:Traverse
+A:SP$ ChangeZone | Origin$ Library | Destination$ Hand | ChangeType$ Land | ChangeTypeDesc$ land | ChangeNum$ 2 | SpellDescription$ Search your library for up to two land cards, reveal those cards, put them into your hand, then shuffle.
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nSearch your library for up to two land cards, reveal those cards, put them into your hand, then shuffle.

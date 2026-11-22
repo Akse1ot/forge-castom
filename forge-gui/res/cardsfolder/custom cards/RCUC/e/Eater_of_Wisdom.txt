@@ -1,0 +1,12 @@
+Name:Eater of Wisdom
+ManaCost:1 G
+Types:Creature Elf Horror
+PT:1/2
+K:Hexproof
+T:Mode$ SpellCast | ValidCard$ Instant,Sorcery | TriggerZones$ Battlefield | OptionalDecider$ You | Execute$ TrigEffect | TriggerDescription$ Whenever a player casts an instant or sorcery spell, you may pay {G}. If you do, exile that card as it resolves and put a +1/+1 counter on CARDNAME.
+SVar:TrigEffect:AB$ Effect | Cost$ G | ReplacementEffects$ ReMoved | RememberObjects$ TriggeredCard | ExileOnMoved$ Stack | SubAbility$ DBPutCounter
+SVar:ReMoved:Event$ Moved | ValidLKI$ Card.IsRemembered | Origin$ Stack | Destination$ Graveyard | Fizzle$ False | ReplaceWith$ DBExile
+SVar:DBExile:DB$ ChangeZone | Defined$ ReplacedCard | Origin$ Stack | Destination$ Exile
+SVar:DBPutCounter:DB$ PutCounter | Defined$ Self | CounterType$ P1P1 | CounterNum$ 1
+DeckHas:Ability$Counters
+Oracle:Hexproof\nWhenever a player casts an instant or sorcery spell, you may pay {G}. If you do, exile that card as it resolves and put a +1/+1 counter on Eater of Wisdom.

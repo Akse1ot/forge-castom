@@ -1,0 +1,10 @@
+Name:Succumb to Greed
+ManaCost:X B B
+Types:Sorcery
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ TokenCount | Relative$ True | EffectZone$ All | Description$ This spell costs {1} less to cast for each token you control.
+A:SP$ Draw | ValidTgts$ Player | NumCards$ X | SubAbility$ DBLoseLife | SpellDescription$ Target player draws X cards and loses X life.
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Targeted | LifeAmount$ X
+SVar:X:Count$xPaid
+SVar:TokenCount:Count$ValidBattlefield Card.token+YouCtrl
+DeckHints:Ability$Token
+Oracle:This spell costs {1} less to cast for each token you control.\nTarget player draws X cards and loses X life.

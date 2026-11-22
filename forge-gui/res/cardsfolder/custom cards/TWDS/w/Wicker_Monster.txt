@@ -1,0 +1,12 @@
+Name:Wicker Monster
+ManaCost:2 B G
+Types:Creature Horror Plant
+PT:3/3
+K:Haste
+K:Corrupt
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | IsPresent$ Creature.YouCtrl+HasCounters | Execute$ TrigEffect | TriggerDescription$ When this creature enters, if you control a creature with counters on it, creatures your opponents control with power 2 or less can't block this turn.
+SVar:TrigEffect:DB$ Effect | StaticAbilities$ KWCantBlock | SpellDescription$ Creatures your opponents control with power 2 or less can't block this turn.
+SVar:KWCantBlock:Mode$ Continuous | AffectedZone$ Battlefield | Affected$ Creature.OppCtrl+powerLE2 | AddHiddenKeyword$ CARDNAME can't block. | Description$ Creatures your opponents control with power 2 or less can't block this turn.
+SVar:PlayMain1:TRUE
+DeckHas:Ability$Counters
+Oracle:Haste\nCorrupt (Whenever another creature dies, put a +1/+1 counter on this creature.)\nWhen this creature enters, if you control a creature with counters on it, creatures your opponents control with power 2 or less can't block this turn.

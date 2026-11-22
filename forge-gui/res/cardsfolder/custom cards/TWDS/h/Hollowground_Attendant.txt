@@ -1,0 +1,8 @@
+Name:Hollowground Attendant
+ManaCost:3 G G
+Types:Creature Spirit
+PT:3/3
+K:Vigilance
+T:Mode$ TapsForMana | ValidCard$ Land | Activator$ You | Execute$ TrigMana | TriggerZones$ Battlefield | Static$ True | TriggerDescription$ Whenever you tap a land for mana, add one mana of a color that land can't produce.
+SVar:TrigMana:DB$ ManaReflected | ColorOrType$ Color | Valid$ Defined.TriggeredCard | ReflectProperty$ CannotProduce | Defined$ You
+Oracle:Vigilance\nWhenever you tap a land for mana, add one mana of a color that land can't produce.

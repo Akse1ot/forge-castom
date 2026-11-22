@@ -1,0 +1,10 @@
+Name:Sporeridden Flower
+ManaCost:G
+Types:Creature Plant
+PT:0/1
+A:AB$ Mana | Cost$ T | Produced$ G | SpellDescription$ Add {G}.
+A:AB$ PutCounter | Cost$ 2 G | Monstrosity$ 1
+S:Mode$ Continuous | AffectedDefined$ Self | Affected$ Card.IsMonstrous | AddAbility$ MonstrousMana | Description$ As long as CARDNAME is monstrous, it has "{T}: Add {G}{G}{G}."
+SVar:MonstrousMana:AB$ Mana | Cost$ T | Produced$ G | Amount$ 3 | SpellDescription$ Add {G}{G}{G}.
+DeckHas:Ability$Counters
+Oracle:{T}: Add {G}.\n{2}{G}: Monstrosity 1. (If this creature isn't monstrous, put a +1/+1 counter on it and it becomes monstrous.)\nAs long as this creature is monstrous, it has "{T}: Add {G}{G}{G}."

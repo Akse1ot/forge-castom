@@ -1,0 +1,7 @@
+Name:Unknown Journey
+ManaCost:1 U
+Types:Sorcery
+K:Traverse
+A:SP$ ChangeZone | ValidTgts$ Permanent.nonLand | TgtPrompt$ Select target nonland permanent | Origin$ Battlefield | Destination$ Hand | SubAbility$ DBDraw | SpellDescription$ Return target nonland permanent to its owner's hand. Draw a card if you control five or more lands.
+SVar:DBDraw:DB$ Draw | Defined$ You | NumCards$ 1 | IsPresent$ Land.YouCtrl | PresentCompare$ GE5
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nReturn target nonland permanent to its owner's hand. Draw a card if you control five or more lands.

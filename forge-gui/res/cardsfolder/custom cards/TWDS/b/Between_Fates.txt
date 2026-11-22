@@ -1,0 +1,8 @@
+Name:Between Fates
+ManaCost:4 R R R
+Types:Sorcery
+K:Coalesce
+A:SP$ Effect | StaticAbilities$ STMayPlay | Duration$ EndOfTurn | SpellDescription$ Until end of turn, you may cast up to five spells you own in exile without paying their mana costs.
+SVar:STMayPlay:Mode$ Continuous | Affected$ Card.YouOwn+nonLand | AffectedZone$ Exile | MayPlay$ True | MayPlayWithoutManaCost$ True | MayPlayLimit$ 5 | Description$ Until end of turn, you may cast up to five spells you own in exile without paying their mana costs.
+DeckNeeds:Ability$Exile
+Oracle:Coalesce (For every two cards you put into your graveyard from among cards you own in exile while casting this spell, this spell costs {1} less to cast.)\nUntil end of turn, you may cast up to five spells you own in exile without paying their mana costs.

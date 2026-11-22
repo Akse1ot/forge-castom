@@ -1,0 +1,6 @@
+Name:Zombie Horror Token
+ManaCost:no cost
+Colors:black,red
+Types:Creature Zombie Horror
+PT:3/3
+Oracle:

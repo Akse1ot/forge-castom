@@ -1,0 +1,12 @@
+Name:Rack
+ManaCost:1 B
+Types:Instant
+A:SP$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBLoseLife | SpellDescription$ For each opponent that has more cards in hand than you, that player loses life equal to twice the difference.
+SVar:DBLoseLife:DB$ LoseLife | Defined$ Remembered | LifeAmount$ X
+SVar:YourCards:PlayerCountPropertyYou$CardsInHand
+SVar:Difference:PlayerCountRemembered$CardsInHand/Minus.YourCards
+SVar:PositiveDifference:SVar$Difference/LimitMin.0
+SVar:X:SVar$PositiveDifference/Twice
+K:Madness:B
+DeckHints:Ability$Discard
+Oracle:For each opponent that has more cards in hand than you, that player loses life equal to twice the difference.\nMadness {B} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

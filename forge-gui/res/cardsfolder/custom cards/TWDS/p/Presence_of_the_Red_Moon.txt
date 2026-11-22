@@ -1,0 +1,9 @@
+Name:Presence of the Red Moon
+ManaCost:1 R R
+Types:Legendary Enchantment
+S:Mode$ MinMaxBlocker | ValidCard$ Creature.YouCtrl | Max$ 1 | Description$ Creatures you control can't be blocked by more than one creature.
+T:Mode$ Phase | Phase$ BeginCombat | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ At the beginning of combat on your turn, creatures you control with greater power than toughness get +2/+2 until end of turn.
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.YouCtrl+powerGTtoughness | NumAtt$ +2 | NumDef$ +2
+SVar:PlayMain1:TRUE
+DeckNeeds:Type$Creature
+Oracle:Creatures you control can't be blocked by more than one creature.\nAt the beginning of combat on your turn, creatures you control with greater power than toughness get +2/+2 until end of turn.

@@ -1,0 +1,9 @@
+Name:Bristle Boar
+ManaCost:2 G G
+Types:Creature Beast
+PT:4/4
+S:Mode$ CantBlockBy | ValidAttacker$ Creature.Self | ValidBlocker$ Creature.powerLE2 | Description$ CARDNAME can't be blocked by creatures with power 2 or less.
+A:AB$ PutCounter | Cost$ 2 G | Monstrosity$ 2
+S:Mode$ Continuous | AffectedDefined$ Self | Affected$ Card.IsMonstrous | AddKeyword$ Trample | Description$ As long as CARDNAME is monstrous, it has trample.
+DeckHas:Ability$Counters
+Oracle:This creature can't be blocked by creatures with power 2 or less.\n{2}{G}: Monstrosity 2. (If this creature isn't monstrous, put two +1/+1 counters on it and it becomes monstrous.)\nAs long as this creature is monstrous, it has trample.

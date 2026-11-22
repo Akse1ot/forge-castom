@@ -1,0 +1,10 @@
+Name:Compounding Whispers
+ManaCost:4 U B
+Types:Enchantment
+T:Mode$ Drawn | ValidPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigLoseLifeDraw | TriggerDescription$ Whenever an opponent draws a card, they lose 2 life for each card they've drawn this turn.
+SVar:TrigLoseLifeDraw:DB$ LoseLife | Defined$ TriggeredPlayer | LifeAmount$ X
+SVar:X:TriggeredPlayer$CardsDrawn/Twice
+T:Mode$ SpellCast | ValidActivatingPlayer$ Opponent | TriggerZones$ Battlefield | Execute$ TrigLoseLifeCast | TriggerDescription$ Whenever an opponent casts a spell, they lose 2 life for each spell they've cast that turn.
+SVar:TrigLoseLifeCast:DB$ LoseLife | Defined$ TriggeredActivator | LifeAmount$ Y
+SVar:Y:TriggeredActivator$SpellsCastThisTurn/Twice
+Oracle:Whenever an opponent draws a card, they lose 2 life for each card they've drawn this turn.\nWhenever an opponent casts a spell, they lose 2 life for each spell they've cast that turn.

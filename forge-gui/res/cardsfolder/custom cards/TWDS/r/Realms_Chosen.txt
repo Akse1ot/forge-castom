@@ -1,0 +1,9 @@
+Name:Realm's Chosen
+ManaCost:8 G G
+Types:Creature Spirit Beast
+PT:10/10
+K:Traverse
+K:Trample
+S:Mode$ ReduceCost | ValidCard$ Card.Self | Type$ Spell | Amount$ X | EffectZone$ All | Description$ This spell costs {1} less to cast for each nonbasic land you control.
+SVar:X:Count$Valid Land.nonBasic+YouCtrl
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nThis creature costs {1} less to cast for each nonbasic land you control.\nTrample

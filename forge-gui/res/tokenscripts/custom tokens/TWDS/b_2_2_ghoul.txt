@@ -1,0 +1,6 @@
+Name:Ghoul Token
+ManaCost:no cost
+Colors:black
+Types:Creature Ghoul
+PT:2/2
+Oracle:

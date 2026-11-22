@@ -1,0 +1,10 @@
+Name:Carolina's Escort
+ManaCost:R W
+Types:Creature Human Soldier
+PT:2/2
+K:Haste
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player.Opponent | CombatDamage$ True | TriggerZones$ Battlefield | Execute$ TrigUnity | TriggerDescription$ Whenever CARDNAME deals combat damage to an opponent, put a unity counter on each permanent you control with one or more unity counters on it.
+SVar:TrigUnity:DB$ PutCounterAll | ValidCards$ Permanent.YouCtrl+counters_GE1_UNITY | CounterType$ UNITY | CounterNum$ 1
+DeckHints:Keyword$Unity
+DeckHas:Ability$Counters
+Oracle:Haste\nWhenever this creature deals combat damage to an opponent, put a unity counter on each permanent you control with one or more unity counters on it.

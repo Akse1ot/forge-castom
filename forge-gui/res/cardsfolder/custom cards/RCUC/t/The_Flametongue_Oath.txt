@@ -1,0 +1,8 @@
+Name:The Flametongue Oath
+ManaCost:R G
+Types:Legendary Creature Human Druid
+PT:0/3
+R:Event$ Counter | ValidCard$ Card.Self | ValidSA$ Spell | Layer$ CantHappen | Description$ This spell can't be countered.
+K:Protection from blue
+A:AB$ Mana | Cost$ T PayLife<3> | Produced$ Combo C R G | AddsNoCounter$ True | AddsNoCounterAbility$ True | SpellDescription$ Add {C}, {R}, or {G}. If this mana is spent to cast a spell or activate an ability, that spell or ability can't be countered.
+Oracle:This spell can't be countered.\nProtection from blue\n{T}, Pay 3 life: Add {C}, {R}, or {G}. If this mana is spent to cast a spell or activate an ability, that spell or ability can't be countered.

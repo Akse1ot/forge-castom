@@ -1,0 +1,11 @@
+Name:Adversary of Life
+ManaCost:2 B
+Types:Creature Nightmare Wizard
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSubjugate5 | TriggerDescription$ When this creature enters, subjugate 5. (Create five Vicious Nightmare tokens and shuffle them into each opponent's library.)
+SVar:TrigSubjugate5:DB$ Subjugate | Amount$ 5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Graveyard | ValidCard$ Card.!token+YouOwn+Other | TriggerZones$ Battlefield | Execute$ TrigSubjugate1 | TriggerDescription$ Whenever a card is put into your graveyard from anywhere, subjugate 1.
+SVar:TrigSubjugate1:DB$ Subjugate | Amount$ 1
+DeckHas:Ability$Graveyard
+DeckHas:Ability$Subjugate
+Oracle:When this creature enters, subjugate 5. (Create five Vicious Nightmare tokens and shuffle them into each opponent's library.)\nWhenever a card is put into your graveyard from anywhere, subjugate 1.

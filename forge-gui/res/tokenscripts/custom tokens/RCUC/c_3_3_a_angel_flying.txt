@@ -1,0 +1,6 @@
+Name:Angel Token
+ManaCost:no cost
+Types:Artifact Creature Angel
+PT:3/3
+K:Flying
+Oracle:Flying

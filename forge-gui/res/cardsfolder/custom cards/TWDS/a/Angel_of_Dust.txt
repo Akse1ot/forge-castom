@@ -1,0 +1,9 @@
+Name:Angel of Dust
+ManaCost:2 W
+Types:Creature Angel Cleric
+PT:3/2
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChange | CheckSVar$ Y | SVarCompare$ GTX | TriggerDescription$ When CARDNAME enters, if an opponent controls more lands than you, search your library for a Plains card and put that card onto the battlefield tapped, then shuffle.
+SVar:TrigChange:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | Tapped$ True | ChangeType$ Plains | ChangeNum$ 1
+SVar:X:Count$Valid Land.YouCtrl
+SVar:Y:PlayerCountOpponents$HighestValid Land.YouCtrl
+Oracle:When this creature enters, if an opponent controls more lands than you, search your library for a Plains card and put that card onto the battlefield tapped, then shuffle.

@@ -1,0 +1,9 @@
+Name:Twilight Jouster
+ManaCost:5 U
+Types:Creature Human Knight
+PT:5/5
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigChangeZoneAll | TriggerDescription$ When CARDNAME enters, return each creature your opponents control with toughness X or less to its owner's hand, where X is the number of artifacts you control.
+SVar:TrigChangeZoneAll:DB$ ChangeZoneAll | Origin$ Battlefield | Destination$ Hand | ChangeType$ Creature.toughnessLEX+OppCtrl
+SVar:X:Count$Valid Artifact.YouCtrl
+DeckNeeds:Type$Artifact
+Oracle:When Twilight Jouster enters, return each creature your opponents control with toughness X or less to its owner's hand, where X is the number of artifacts you control.

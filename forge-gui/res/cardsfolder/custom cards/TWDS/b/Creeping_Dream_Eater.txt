@@ -1,0 +1,12 @@
+Name:Creeping Dream Eater
+ManaCost:2 B
+Types:Creature Nightmare
+PT:3/2
+K:Menace
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSubjugate | TriggerDescription$ When this creature enters, subjugate 4.
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 4
+T:Mode$ Discarded | ValidPlayer$ Opponent | ValidCard$ Card.namedVicious_Nightmare | TriggerZones$ Battlefield | Execute$ TrigGainLife | TriggerDescription$ Whenever an opponent discards a Vicious Nightmare, you gain 2 life.
+SVar:TrigGainLife:DB$ GainLife | Defined$ You | LifeAmount$ 2
+DeckHas:Ability$Subjugate
+DeckHints:Ability$Subjugate
+Oracle:Menace\nWhen this creature enters, subjugate 4.\nWhenever an opponent discards a Vicious Nightmare, you gain 2 life.

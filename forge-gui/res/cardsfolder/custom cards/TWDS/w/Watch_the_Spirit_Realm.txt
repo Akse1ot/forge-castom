@@ -1,0 +1,7 @@
+Name:Watch the Spirit Realm
+ManaCost:1 G
+Types:Sorcery
+A:SP$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land | Tapped$ True | ChangeNum$ 1 | SpellDescription$ Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.
+A:AB$ Draw | Cost$ 1 G ExileFromGrave<1/CARDNAME> | ActivationZone$ Graveyard | SorcerySpeed$ True | PrecostDesc$ Renew — | NumCards$ 1 | SpellDescription$ Draw a card. Activate only as a sorcery.
+DeckHas:Ability$Graveyard
+Oracle:Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.\nRenew — {1}{G}, Exile this card from your graveyard: Draw a card. Activate only as a sorcery.

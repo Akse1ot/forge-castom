@@ -1,0 +1,7 @@
+Name:Cultist Summons
+ManaCost:1 R R
+Types:Sorcery
+A:SP$ CopyPermanent | ValidTgts$ Creature | PumpKeywords$ Haste | AtEOT$ Sacrifice | SpellDescription$ Create a token that is a copy of target creature. That token gains haste. Sacrifice it at the beginning of the next end step.
+DeckHas:Ability$Token
+DeckHints:Type$Creature
+Oracle:Create a token that is a copy of target creature. That token gains haste. Sacrifice it at the beginning of the next end step.

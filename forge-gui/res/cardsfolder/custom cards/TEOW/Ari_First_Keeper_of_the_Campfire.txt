@@ -1,0 +1,12 @@
+Name:Ari, First Keeper of the Campfire
+ManaCost:1 W W
+Types:Legendary Creature Human Spirit
+PT:2/3
+K:Vigilance
+K:ETBReplacement:Other:ExtraCounter:Mandatory:Battlefield:Creature.YouCtrl+wasCastFromExile
+SVar:ExtraCounter:DB$ PutCounter | ETB$ True | Defined$ ReplacedCard | CounterType$ P1P1 | CounterNum$ 1 | SpellDescription$ Each creature you control that was cast from exile enters with an additional +1/+1 counter on it.
+T:Mode$ SpellCast | ValidCard$ Card.Adventure | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigToken | TriggerDescription$ Whenever you cast an Adventure spell, create a 1/1 white Spirit creature token with flying.
+SVar:TrigToken:DB$ Token | TokenScript$ w_1_1_spirit_flying | TokenOwner$ You
+DeckHas:Ability$Token|Counters & Type$Spirit
+DeckHints:Type$Adventure & Keyword$Foretell
+Oracle:Vigilance\nEach creature you control that was cast from exile enters with an additional +1/+1 counter on it.\nWhenever you cast an Adventure spell, create a 1/1 white Spirit creature token with flying.

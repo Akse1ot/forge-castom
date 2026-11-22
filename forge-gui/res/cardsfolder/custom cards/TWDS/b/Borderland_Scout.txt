@@ -1,0 +1,8 @@
+Name:Borderland Scout
+ManaCost:2 W W
+Types:Creature Human Knight
+K:Vigilance
+K:Humbled:3
+T:Mode$ CounterRemovedOnce | ValidCard$ Card.Self | CounterType$ DEFEAT | Remaining$ 0 | TriggerZones$ Battlefield | Execute$ TrigPump | TriggerDescription$ When CARDNAME is no longer humbled, other creatures you control get +3/+3 and gain vigilance until end of turn.
+SVar:TrigPump:DB$ PumpAll | ValidCards$ Creature.Other+YouCtrl | NumAtt$ 3 | NumDef$ 3 | KW$ Vigilance
+Oracle:Vigilance\nWhen Borderland Scout is no longer humbled, other creatures you control get +3/+3 and gain vigilance until end of turn.\nHumbled 3

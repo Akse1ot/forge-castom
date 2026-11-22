@@ -1,0 +1,16 @@
+Name:Crashing Realm
+ManaCost:2 R
+Types:Enchantment
+K:Traverse
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | TriggerZones$ Battlefield | ValidCard$ Land.YouCtrl | Execute$ TrigCharm | TriggerDescription$ Landfall — Whenever a land enters under your control, ABILITY
+SVar:TrigCharm:DB$ Charm | Choices$ DBExile,DBDamage
+SVar:DBExile:DB$ Dig | Defined$ You | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | ForgetOtherRemembered$ True | SubAbility$ DBRemoveOldEffect | AILogic$ ExileAndPlayUntilEOT | SpellDescription$ Exile the top card of your library. You may play that card until you exile another card with CARDNAME.
+SVar:DBRemoveOldEffect:DB$ ChangeZone | Defined$ Imprinted | Origin$ Command | Destination$ Exile | SubAbility$ DBClearImprinted
+SVar:DBClearImprinted:DB$ Cleanup | ClearImprinted$ True | SubAbility$ DBPlayEffect
+SVar:DBPlayEffect:DB$ Effect | RememberObjects$ Remembered | StaticAbilities$ Play | Duration$ Permanent | ForgetOnMoved$ Exile | ImprintOnHost$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:Play:Mode$ Continuous | MayPlay$ True | Affected$ Card.IsRemembered | AffectedZone$ Exile | Description$ You may play this card until you exile another card with CARDNAME.
+SVar:DBDamage:DB$ DealDamage | ValidTgts$ Any | NumDmg$ 1 | SpellDescription$ CARDNAME deals 1 damage to any target.
+T:Mode$ ChangesZone | Origin$ Battlefield | Destination$ Any | ValidCard$ Card.Self | Execute$ DBCleanupLeave
+SVar:DBCleanupLeave:DB$ Cleanup | ClearImprinted$ True
+Oracle:Traverse (As an additional cost to cast this spell, put a land card from your hand onto the battlefield tapped.)\nLandfall — Whenever a land enters under your control, choose one —\n• Exile the top card of your library. You may play that card until you exile another card with this enchantment.\n• This enchantment deals 1 damage to any target.

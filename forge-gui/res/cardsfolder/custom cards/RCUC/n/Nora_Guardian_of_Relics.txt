@@ -1,0 +1,9 @@
+Name:Nora, Guardian of Relics
+ManaCost:1 R W
+Types:Legendary Creature Human Cleric
+PT:1/4
+S:Mode$ Continuous | Affected$ Equipment.YouCtrl | AddType$ Treasure | Description$ Equipment you control are Treasures in addition to their other types.
+S:Mode$ Continuous | Affected$ Treasure.YouCtrl | AddAbility$ Mana | Description$ Treasures you control have "{T}: Add {C}."
+SVar:Mana:AB$ Mana | Cost$ T | Produced$ C | Amount$ 1 | SpellDescription$ Add {C}.
+DeckHints:Type$Equipment|Treasure
+Oracle:Equipment you control are Treasures in addition to their other types.\nTreasures you control have "{T}: Add {C}."

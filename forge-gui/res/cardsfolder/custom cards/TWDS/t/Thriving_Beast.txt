@@ -1,0 +1,9 @@
+Name:Thriving Beast
+ManaCost:G
+Types:Creature Beast
+PT:1/1
+A:AB$ PutCounter | Cost$ 2 G | Monstrosity$ 2
+T:Mode$ BecomeMonstrous | ValidCard$ Creature.YouCtrl | TriggerZones$ Battlefield | Execute$ TrigSearch | TriggerDescription$ Whenever CARDNAME or another creature you control becomes monstrous, search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.
+SVar:TrigSearch:DB$ ChangeZone | Origin$ Library | Destination$ Battlefield | ChangeType$ Land.Basic | ChangeTypeDesc$ basic land | Tapped$ True
+DeckHas:Ability$Counters
+Oracle:{2}{G}: Monstrosity 2. (If this creature isn't monstrous, put two +1/+1 counters on it and it becomes monstrous.)\nWhenever this creature or another creature you control becomes monstrous, search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.

@@ -1,0 +1,9 @@
+Name:Succumb to Fear
+ManaCost:5 B B
+Types:Sorcery
+A:SP$ Mill | Defined$ Player.Opponent | NumCards$ 7 | SubAbility$ DBEach | SpellDescription$ Each opponent mills seven cards then loses life equal to the total mana value of cards in their graveyard.
+SVar:DBEach:DB$ RepeatEach | RepeatPlayers$ Player.Opponent | RepeatSubAbility$ DBLose
+SVar:DBLose:DB$ LoseLife | Defined$ Remembered | LifeAmount$ X
+SVar:X:Count$ValidGraveyard Card.RememberedPlayerOwn$CardManaCost
+DeckHas:Ability$Mill
+Oracle:Each opponent mills seven cards then loses life equal to the total mana value of cards in their graveyard.

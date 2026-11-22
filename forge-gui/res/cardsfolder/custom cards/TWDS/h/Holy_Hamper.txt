@@ -1,0 +1,9 @@
+Name:Holy Hamper
+ManaCost:2 B
+Types:Enchantment Aura
+K:Enchant:Creature
+SVar:AttachAILogic:Curse
+S:Mode$ Continuous | AffectedDefined$ Enchanted | Affected$ Creature | AddPower$ -3 | AddToughness$ -3 | Description$ Enchanted creature gets -3/-3.
+S:Mode$ Continuous | AffectedDefined$ Enchanted | Affected$ Creature.Angel | AddPower$ -9 | AddToughness$ -9 | Description$ As long as enchanted creature is an Angel, it gets an additional -9/-9.
+S:Mode$ CantGainLife | ValidPlayer$ Player.EnchantedController | Description$ Enchanted creature's controller can't gain life.
+Oracle:Enchant creature\nEnchanted creature gets -3/-3. As long as enchanted creature is an Angel, it gets an additional -9/-9.\nEnchanted creature's controller can't gain life.

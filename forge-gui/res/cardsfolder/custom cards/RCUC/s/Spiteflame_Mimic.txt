@@ -1,0 +1,8 @@
+Name:Spiteflame Mimic
+ManaCost:1 BR
+Types:Creature Shapeshifter
+PT:2/1
+T:Mode$ SpellCast | ValidCard$ Card.Black+Red | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigAnimate | TriggerDescription$ Whenever you cast a spell that's both black and red, CARDNAME has base power and toughness 4/3 until end of turn and gains menace until end of turn.
+SVar:TrigAnimate:DB$ Animate | Defined$ Self | Power$ 4 | Toughness$ 3 | Keywords$ Menace
+SVar:BuffedBy:Card.Black+Red
+Oracle:Whenever you cast a spell that's both black and red, Spiteflame Mimic has base power and toughness 4/3 until end of turn and gains menace until end of turn.

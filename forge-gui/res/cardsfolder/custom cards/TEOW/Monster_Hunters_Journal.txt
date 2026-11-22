@@ -1,0 +1,10 @@
+Name:Monster Hunter's Journal
+ManaCost:3
+Types:Legendary Artifact Book
+T:Mode$ SpellCast | ValidCard$ Card.Adventure | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCounter | TriggerDescription$ Whenever you cast an Adventure spell, put a page counter on CARDNAME.
+SVar:TrigCounter:DB$ PutCounter | Defined$ Self | CounterType$ PAGE | CounterNum$ 1
+A:AB$ ChangeZone | Cost$ SubCounter<5/PAGE> | Origin$ Library | Destination$ Hand | ChangeType$ Creature,Card.AdventureCard | ChangeTypeDesc$ creature card or card with an Adventure | ChangeNum$ 1 | SpellDescription$ Search your library for a creature card or Adventure card, reveal it, put it into your hand, then shuffle.
+DeckNeeds:Type$Adventure
+DeckHints:Type$Creature
+DeckHas:Ability$Counters
+Oracle:Whenever you cast an Adventure spell, put a page counter on Monster Hunter's Journal.\nRemove five page counters from Monster Hunter's Journal: Search your library for a creature card or Adventure card, reveal it, put it into your hand, then shuffle.

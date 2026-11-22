@@ -1,0 +1,12 @@
+Name:Decree of the Archangel
+ManaCost:3 W U
+Types:Sorcery
+A:SP$ ChooseCard | Choices$ Creature.YouCtrl | Amount$ X | MinAmount$ 0 | ChoiceDesc$ creatures you control | SubAbility$ DBReturn | SpellDescription$ Return any number of creatures you control to their owner's hand. Create a 4/4 white Angel creature token with flying for each creature returned this way.
+SVar:DBReturn:DB$ ChangeZone | Defined$ ChosenCard | Origin$ Battlefield | Destination$ Hand | RememberChanged$ True | SubAbility$ DBToken
+SVar:DBToken:DB$ Token | TokenAmount$ Y | TokenScript$ w_4_4_angel_flying | TokenOwner$ You | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:X:Count$Valid Creature.YouCtrl
+SVar:Y:Remembered$Amount
+DeckHas:Ability$Token
+DeckNeeds:Type$Creature
+Oracle:Return any number of creatures you control to their owner's hand. Create a 4/4 white Angel creature token with flying for each creature returned this way.

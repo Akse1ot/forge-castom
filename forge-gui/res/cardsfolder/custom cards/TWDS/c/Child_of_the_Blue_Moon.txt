@@ -1,0 +1,7 @@
+Name:Child of the Blue Moon
+ManaCost:2 U U
+Types:Creature Spirit
+PT:3/4
+K:Traverse
+S:Mode$ Continuous | Affected$ Card.YouOwn | AffectedZone$ Hand | AddKeyword$ Cycling:2 | Description$ Each card in your hand has cycling {2}.
+Oracle:Traverse\nEach card in your hand has cycling {2}. ({2}, Discard this card: Draw a card.)

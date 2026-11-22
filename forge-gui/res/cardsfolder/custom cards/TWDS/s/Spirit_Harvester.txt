@@ -1,0 +1,12 @@
+Name:Spirit Harvester
+ManaCost:4 U
+Types:Creature Nightmare Wizard
+PT:3/4
+K:Hexproof
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigSubjugate | TriggerDescription$ When this creature enters, subjugate 7.
+SVar:TrigSubjugate:DB$ Subjugate | Amount$ 7
+T:Mode$ Discarded | ValidPlayer$ Opponent | ValidCard$ Card.namedVicious_Nightmare | TriggerZones$ Battlefield | Execute$ TrigBounce | TriggerDescription$ Whenever an opponent discards a Vicious Nightmare, return target creature an opponent controls to its owner's hand.
+SVar:TrigBounce:DB$ ChangeZone | ValidTgts$ Creature.OppCtrl | TgtPrompt$ Select target creature an opponent controls | Origin$ Battlefield | Destination$ Hand
+DeckHas:Ability$Subjugate
+DeckHints:Ability$Subjugate
+Oracle:Hexproof\nWhen this creature enters, subjugate 7.\nWhenever an opponent discards a Vicious Nightmare, return target creature an opponent controls to its owner's hand.

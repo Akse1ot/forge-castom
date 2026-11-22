@@ -1,0 +1,8 @@
+Name:Dissipate Nightmares
+ManaCost:W
+Types:Instant
+A:SP$ Charm | Choices$ DBExile,DBUnity
+SVar:DBExile:DB$ ChangeZone | ValidTgts$ Card.Nightmare,Card.Horror | TgtPrompt$ Select target Nightmare or Horror | Origin$ Battlefield | Destination$ Exile | SpellDescription$ Exile target Nightmare or Horror.
+SVar:DBUnity:DB$ PutCounter | Defined$ You | CounterType$ UNITY | CounterNum$ 2 | SpellDescription$ You get two unity counters.
+DeckHas:Ability$Counters
+Oracle:Choose one —\n• Exile target Nightmare or Horror.\n• You get two unity counters.

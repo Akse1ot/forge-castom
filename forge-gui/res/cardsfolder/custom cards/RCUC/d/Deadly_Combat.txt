@@ -1,0 +1,10 @@
+Name:Deadly Combat
+ManaCost:3 B B
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.YouCtrl | AddKeyword$ Deathtouch | Description$ Creatures you control have deathtouch.
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Battlefield | CheckSVar$ X | SVarCompare$ GE20 | Execute$ TrigWin | TriggerDescription$ At the beginning of your end step, if the total number of creature cards in all graveyards is twenty or more, you win the game.
+SVar:TrigWin:DB$ WinsGame | Defined$ You | ConditionCheckSVar$ X | ConditionSVarCompare$ GE20
+SVar:X:Count$ValidGraveyard Creature
+SVar:PlayMain1:TRUE
+DeckHints:Ability$Mill|Graveyard
+Oracle:Creatures you control have deathtouch.\nAt the beginning of your end step, if the total number of creature cards in all graveyards is twenty or more, you win the game.

@@ -1,0 +1,9 @@
+Name:Hopeful Crusader
+ManaCost:1 W
+Types:Creature Human Soldier
+PT:1/1
+K:First Strike
+S:Mode$ Continuous | Affected$ Card.Self | AddPower$ X | AddToughness$ X | Description$ CARDNAME gets +1/+1 for each unity counter among permanents you control.
+SVar:X:Count$Valid Permanent.YouCtrl$CardCounters.UNITY
+DeckHints:Ability$Counters
+Oracle:First strike\nThis creature gets +1/+1 for each unity counter among permanents you control.

@@ -1,0 +1,10 @@
+Name:Mountaincrash Elemental
+ManaCost:4 R
+Types:Creature Elemental
+PT:5/5
+K:Trample
+A:AB$ PutCounter | Cost$ 3 R | Monstrosity$ 3 | SpellDescription$ Monstrosity 3.
+T:Mode$ BecomeMonstrous | ValidCard$ Card.Self | TriggerZones$ Battlefield | Execute$ TrigDestroy | TriggerDescription$ When CARDNAME becomes monstrous, destroy target nonenchantment permanent.
+SVar:TrigDestroy:DB$ Destroy | ValidTgts$ !Enchantment | TgtPrompt$ Select target nonenchantment permanent
+DeckHas:Ability$Counters
+Oracle:Trample\n{3}{R}: Monstrosity 3. (If this creature isn't monstrous, put three +1/+1 counters on it and it becomes monstrous.)\nWhen this creature becomes monstrous, destroy target nonenchantment permanent.

@@ -1,0 +1,10 @@
+Name:Screeching Nightmare
+ManaCost:2 U
+Types:Creature Nightmare
+PT:3/1
+K:Flying
+T:Mode$ ChangesZone | Origin$ Any | Destination$ Battlefield | ValidCard$ Card.Self | Execute$ TrigScry | TriggerDescription$ When CARDNAME enters, scry 3.
+SVar:TrigScry:DB$ Scry | ScryNum$ 3
+K:Madness:1 U
+DeckHints:Ability$Discard
+Oracle:Flying\nWhen Screeching Nightmare enters, scry 3.\nMadness {1}{U} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)

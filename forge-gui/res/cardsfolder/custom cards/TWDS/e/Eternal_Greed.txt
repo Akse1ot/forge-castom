@@ -1,0 +1,9 @@
+Name:Eternal Greed
+ManaCost:1 W
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Vessel.YouCtrl | AddKeyword$ Indestructible | Description$ Vessels you control can't be destroyed.
+S:Mode$ CantSacrifice | ValidCard$ Vessel.YouCtrl | Description$ Vessels you control can't be sacrificed.
+T:Mode$ Phase | Phase$ Upkeep | ValidPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigCopy | TriggerDescription$ At the beginning of your upkeep, for each Vessel you control, create a token that's a copy of it.
+SVar:TrigCopy:DB$ CopyPermanent | Defined$ Valid Vessel.YouCtrl
+DeckNeeds:Type$Vessel
+Oracle:Vessels you control can't be sacrificed or destroyed.\nAt the beginning of your upkeep, for each Vessel you control, create a token that's a copy of it.

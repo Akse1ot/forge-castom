@@ -1,0 +1,11 @@
+Name:Welcome to Estelle
+ManaCost:1 B
+Types:Sorcery
+S:Mode$ OptionalCost | EffectZone$ All | ValidCard$ Card.Self | ValidSA$ Spell | Cost$ Discard<1/Card> | Description$ As an additional cost to cast this spell, you may discard a card.
+T:Mode$ SpellCast | ValidCard$ Card.Self | TriggerZones$ Stack | CheckSVar$ DiscardPaid | Execute$ TrigCopy | TriggerDescription$ When you do, copy CARDNAME.
+SVar:TrigCopy:DB$ CopySpellAbility | Defined$ TriggeredSpellAbility | MayChooseTarget$ True
+SVar:DiscardPaid:CastSA>Count$OptionalGenericCostPaid.1.0
+A:SP$ Token | TokenScript$ b_2_2_ghoul | TokenOwner$ You | SpellDescription$ Create a 2/2 black Ghoul creature token.
+DeckHas:Ability$Token|Discard
+DeckHints:Keyword$Madness
+Oracle:As an additional cost to cast this spell, you may discard a card. When you do, copy this spell.\nCreate a 2/2 black Ghoul creature token.

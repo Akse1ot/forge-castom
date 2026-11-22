@@ -1,0 +1,23 @@
+Name:Moonlit Wayfinder
+ManaCost:1 U
+Types:Creature Fox Scout
+PT:2/2
+K:Flash
+T:Mode$ SpellCast | ValidCard$ Card.Adventure | ValidActivatingPlayer$ You | TriggerZones$ Battlefield | Execute$ TrigScry | TriggerDescription$ Whenever you cast an Adventure spell, scry 1.
+SVar:TrigScry:DB$ Scry | ScryNum$ 1
+T:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You.!attackedWithCreaturesThisTurn | TriggerZones$ Battlefield | Execute$ TrigDraw | TriggerDescription$ Campfire — At the beginning of your end step, if you didn't attack this turn, draw a card, then discard a card.
+SVar:TrigDraw:DB$ Draw | Defined$ You | NumCards$ 1 | SubAbility$ DBDiscard
+SVar:DBDiscard:DB$ Discard | Defined$ You | Mode$ TgtChoose | NumCards$ 1
+DeckHas:Ability$Discard
+DeckHints:Type$Adventure
+AlternateMode:Adventure
+Oracle:Flash\nWhenever you cast an Adventure spell, scry 1.\nCampfire — At the beginning of your end step, if you didn't attack this turn, draw a card, then discard a card.
+
+ALTERNATE
+
+Name:Follow the Lantern
+ManaCost:U
+Types:Instant Adventure
+A:SP$ Tap | ValidTgts$ Creature | TgtPrompt$ Select target creature | SubAbility$ DBPump | SpellDescription$ Tap target creature. It doesn't untap during its controller's next untap step.
+SVar:DBPump:DB$ Pump | Defined$ Targeted | KW$ HIDDEN This card doesn't untap during your next untap step. | Duration$ Permanent | IsCurse$ True
+Oracle:Tap target creature. It doesn't untap during its controller's next untap step.
