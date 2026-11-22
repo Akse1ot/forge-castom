@@ -43,6 +43,13 @@ final class ChaosDeckTuner {
     }
 
     Result improve(Deck seed, List<PaperCard> stock) {
+        try (var shadow = ChaosManaDemandShadow.open(seed, stock)) {
+            return improve(seed, stock, shadow);
+        }
+    }
+
+    // The explicit context also permits deterministic diagnostic replay without global settings.
+    Result improve(Deck seed, List<PaperCard> stock, ChaosManaDemandShadow shadow) {
         List<PaperCard> main = seed.getMain().toFlatList();
         List<PaperCard> sideboard = seed.has(DeckSection.Sideboard)
                 ? seed.get(DeckSection.Sideboard).toFlatList() : List.of();
@@ -99,6 +106,9 @@ final class ChaosDeckTuner {
                             && (value.uncastable() >= current.uncastable() || value.castability() < current.castability() + 1)) {
                         rejection = "unmodeled_land_ability";
                     }
+                    if (shadow != null) {
+                        shadow.trial(main, index, replacement, value.score() - current.score(), rejection, round);
+                    }
                     if (rejection != null) {
                         rejected.merge(rejection, 1, Integer::sum);
                     } else if (best == null || value.score() > best.metrics().score()) {
@@ -110,6 +120,9 @@ final class ChaosDeckTuner {
                 break;
             }
             PaperCard removed = main.set(best.out(), best.in());
+            if (shadow != null) {
+                shadow.accepted(removed, best.in(), round);
+            }
             swaps.add(new Swap(removed.getName(), best.in().getName(), best.metrics().score() - current.score()));
             current = best.metrics();
             Deck board = (Deck) seed.copyTo(seed.getName());

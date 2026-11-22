@@ -178,6 +178,37 @@ public class ChaosDeckTunerTest extends AITest {
         }
     }
 
+    @Test
+    public void shadowAndFailedDiagnosticSinkPreserveAllAcceptedDecisions() throws IOException {
+        try (Ratings files = new Ratings()) {
+            Deck seed = seed("Plains", "Swamp", "Carrier Thrall", "Murder", "Herbal Poultice");
+            List<PaperCard> stock = new ArrayList<>(seed.getMain().toFlatList());
+            stock.add(card("Orzhov Signet"));
+            ChaosDeckTuner.reconcile(seed, stock);
+            var tuner = new ChaosDeckTuner(files.load(), ColorSet.fromMask(5));
+            var expected = tuner.improve(seed, stock, null);
+            List<java.util.Map<String, Object>> rows = new ArrayList<>();
+            var config = new ChaosManaDemand.Config(8, 8, 817263L, false, true, 16, 65536, 200000);
+            try (var shadow = new ChaosManaDemandShadow(seed.getMain().toFlatList(), stock, config, rows::add)) {
+                var actual = tuner.improve(seed, stock, shadow);
+                assertEquals(actual.swaps(), expected.swaps());
+                assertEquals(actual.rejected(), expected.rejected());
+                assertEquals(actual.after(), expected.after());
+                for (DeckSection section : DeckSection.values()) {
+                    assertEquals(actual.deck().has(section), expected.deck().has(section));
+                    if (actual.deck().has(section)) { assertEquals(actual.deck().get(section).toFlatList(), expected.deck().get(section).toFlatList()); }
+                }
+            }
+            assertEquals(rows.get(rows.size() - 1).get("failed"), false);
+            try (var shadow = new ChaosManaDemandShadow(seed.getMain().toFlatList(), stock, config,
+                    row -> { throw new IllegalStateException("injected sink failure"); })) {
+                var actual = tuner.improve(seed, stock, shadow);
+                assertEquals(actual.swaps(), expected.swaps());
+                assertEquals(actual.after(), expected.after());
+            }
+        }
+    }
+
     private static ChaosDeckTuner.Result tune(Deck seed, List<PaperCard> side, int colors, Ratings ratings) {
         List<PaperCard> stock = new ArrayList<>(seed.getMain().toFlatList());
         stock.addAll(side);
