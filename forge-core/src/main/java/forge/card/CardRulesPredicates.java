@@ -655,7 +655,7 @@ public final class CardRulesPredicates {
     public static final Predicate<CardRules> IS_CONSPIRACY = CardRulesPredicates.coreType(CardType.CoreType.Conspiracy);
     public static final Predicate<CardRules> IS_DUNGEON = CardRulesPredicates.coreType(CardType.CoreType.Dungeon);
     public static final Predicate<CardRules> IS_STICKER_SHEET = CardRulesPredicates.coreType(CardType.CoreType.Stickers);
-    public static final Predicate<CardRules> IS_NON_LAND = CardRulesPredicates.coreType(CardType.CoreType.Land);
+    public static final Predicate<CardRules> IS_NON_LAND = CardRulesPredicates.IS_LAND.negate();
     public static final Predicate<CardRules> IS_WHITE = CardRulesPredicates.isColor(MagicColor.WHITE);
     public static final Predicate<CardRules> IS_BLUE = CardRulesPredicates.isColor(MagicColor.BLUE);
     public static final Predicate<CardRules> IS_BLACK = CardRulesPredicates.isColor(MagicColor.BLACK);
