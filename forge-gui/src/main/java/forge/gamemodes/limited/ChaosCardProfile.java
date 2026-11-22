@@ -25,6 +25,8 @@ import java.util.Set;
 final class ChaosCardProfile {
     private static final Set<String> GRANTED_RECORDS = Set.of("AddAbility", "AddTrigger", "AddStaticAbility",
             "AddReplacementEffect");
+    private static final java.util.regex.Pattern SACRIFICE_DRAW_COST =
+            java.util.regex.Pattern.compile("(?:(\\d{1,2}) )?(T )?Sac<1/CARDNAME>");
     enum Support { INDEPENDENT, AVAILABLE, POTENTIAL, UNAVAILABLE, UNKNOWN }
 
     record Strength(Double value, Double external, String source, Support support, Double standalone,
@@ -280,6 +282,15 @@ final class ChaosCardProfile {
             value = 0.0;
         } else if (context.forAi && blockedActivation && baseline != null && value != null) {
             value = Math.min(value, baseline + contribution);
+        }
+        if (unavailableMana()) {
+            // The external rating also values mana that this format cannot produce.
+            // Keep only demonstrated standalone utility, even if another effect exists.
+            double ceiling = baseline == null ? 1 : baseline;
+            value = value == null ? ceiling : Math.min(value, ceiling);
+            status = baseline != null ? Support.UNAVAILABLE
+                    : manaSource().traits().independentEffect() ? Support.UNKNOWN : Support.UNAVAILABLE;
+            dependencies.add(Map.entry("format_mana_unavailable", Support.UNAVAILABLE));
         }
         if (value == null) {
             source = "unrated";
@@ -647,8 +658,35 @@ final class ChaosCardProfile {
         int manaValue = face.getManaCost().getCMC();
         for (Effect effect : effects) {
             value = Math.max(value, independentValue(effect, manaValue));
+            if (unavailableMana()) {
+                value = Math.max(value, sacrificeDrawValue(effect, manaValue));
+            }
         }
         return value == 0 ? null : Math.max(12, Math.min(85, value));
+    }
+
+    private boolean unavailableMana() {
+        var source = manaSource();
+        return source.traits().kind() == ChaosManaTraits.Kind.FORMAT_UNAVAILABLE && source.produces() == 0;
+    }
+
+    private static double sacrificeDrawValue(Effect effect, int manaValue) {
+        var params = effect.params();
+        if (effect.api() != ApiType.Draw || effect.conditional() || !params.containsKey("AB")
+                || !isOwnEffect(params) || !params.keySet().stream().allMatch(
+                        Set.of("AB", "Cost", "NumCards", "Defined", "SpellDescription", "Description")::contains)) {
+            return 0;
+        }
+        String amount = params.getOrDefault("NumCards", "1");
+        var cost = SACRIFICE_DRAW_COST.matcher(params.getOrDefault("Cost", ""));
+        if (!amount.matches("[1-5]") || !cost.matches()) {
+            return 0;
+        }
+        int activation = cost.group(1) == null ? 0 : Integer.parseInt(cost.group(1));
+        // Sacrificing the permanent makes this a one-use draw spell. Use the same
+        // draw scale as independentValue, paying both casting and activation mana.
+        return 37 + 6 * (Integer.parseInt(amount) - 1) - 2 * (manaValue + activation - 2)
+                - (cost.group(2) == null ? 0 : 2);
     }
 
     private static double independentValue(Effect effect, int manaValue) {

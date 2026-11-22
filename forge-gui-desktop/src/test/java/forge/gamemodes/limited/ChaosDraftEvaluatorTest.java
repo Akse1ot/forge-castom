@@ -1,5 +1,8 @@
 package forge.gamemodes.limited;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import forge.ai.AITest;
 import forge.card.CardRarity;
 import forge.card.CardRules;
@@ -15,6 +18,8 @@ import forge.model.FModel;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.AbstractList;
@@ -25,6 +30,194 @@ import java.util.List;
 import static org.testng.Assert.*;
 
 public class ChaosDraftEvaluatorTest extends AITest {
+    @Test
+    public void replaysEightArchivedUnratedPicksWithoutChangingTheirScores() throws IOException {
+        JsonObject fixtures = unratedFixtures();
+        try (RatingFiles files = new RatingFiles()) {
+            ChaosRatings ratings = fixtureRatings(files, fixtures);
+            assertEquals(fixtures.getAsJsonArray("fixtures").size(), 8);
+            for (var item : fixtures.getAsJsonArray("fixtures")) {
+                JsonObject fixture = item.getAsJsonObject();
+                List<PaperCard> pack = fixtureCards(fixture.getAsJsonArray("ranked"));
+                List<PaperCard> pool = fixtureCards(fixture.getAsJsonArray("pool"));
+                DeckColors colors = colors(fixture.get("colors").getAsInt());
+                var evaluator = new ChaosDraftEvaluator(ratings, pool, colors.getChosenColors(), new Deck(), true);
+                var before = evaluator.evaluatePack(pack, 2, true);
+                assertEquals(before.get(0).exclusion(), "unrated");
+                assertNull(before.get(0).strength().value());
+                assertEquals(before.get(0).support(), Support.UNKNOWN);
+                assertEquals(before.get(0).score(), Double.NEGATIVE_INFINITY);
+                PaperCard expected = pack.stream().filter(card -> card.getName().equals(
+                        fixture.get("expected").getAsString())).findFirst().orElseThrow();
+                for (int repeat = 0; repeat < 3; repeat++) {
+                    assertSame(choose(pack, pool, colors, ratings), expected, "case " + fixture.get("id"));
+                }
+                assertEquals(evaluator.evaluatePack(pack, 2, true), before);
+                assertEquals(colors.getChosenColors().getColor(), fixture.get("colors").getAsInt());
+            }
+        }
+    }
+
+    @Test
+    public void usesTheCurrentPropheticPrismRestrictionWithoutRestoringTheArchive() throws IOException {
+        JsonObject fixtures = unratedFixtures();
+        try (RatingFiles files = new RatingFiles()) {
+            ChaosRatings ratings = fixtureRatings(files, fixtures);
+            JsonObject fixture = fixtures.getAsJsonObject("prismCase");
+            List<PaperCard> pack = fixtureCards(fixture.getAsJsonArray("ranked"));
+            List<PaperCard> pool = fixtureCards(fixture.getAsJsonArray("pool"));
+            var colors = colors(fixture.get("colors").getAsInt());
+            var candidates = new ChaosDraftEvaluator(ratings, pool, colors.getChosenColors(), new Deck(), true)
+                    .evaluatePack(pack, 2, true);
+            var prism = candidates.stream().filter(c -> c.card().getName().equals("Prophetic Prism"))
+                    .findFirst().orElseThrow();
+            assertTrue(prism.selectable());
+            assertEquals(prism.score(), 89.81, .000001);
+            assertSame(choose(pack, pool, colors, ratings), prism.card());
+        }
+    }
+
+    @Test
+    public void keepsNativeOnTiesAndUsesAnExactRatedPrintingWithoutNativeEvidence() throws IOException {
+        try (RatingFiles files = new RatingFiles()) {
+            Files.writeString(files.directory.resolve("ratings.tsv"), "Shredding Winds\t39.5\nGrizzly Bears\t65\n");
+            var ratings = files.load();
+            PaperCard orb = FModel.getMagicDb().getCommonCards().getCard("Sunlight Orb", "CNVL");
+            PaperCard winds = FModel.getMagicDb().getCommonCards().getCard("Shredding Winds", "THS");
+            assertEquals(CardRanker.getRawScore(orb), 39.0);
+            var tie = new ChaosDraftEvaluator(ratings, List.of(), ColorSet.fromMask(MagicColor.WHITE | MagicColor.GREEN),
+                    new Deck(), true).evaluatePack(List.of(orb, winds), 2, true);
+            assertEquals(tie.get(0).exclusion(), "unrated");
+            assertEquals(tie.get(1).score(), 43.0);
+            assertEquals(CardRanker.getRawScore(orb) + tie.get(0).nativeBonus(), tie.get(1).score());
+            assertSame(choose(List.of(orb, winds), List.of(), colors(MagicColor.WHITE | MagicColor.GREEN), ratings), orb);
+
+            PaperCard unknown = custom("Name:Unrated Priority Probe", "ManaCost:G", "Types:Instant",
+                    "A:SP$ Pump | ValidTgts$ Creature | NumAtt$ 2 | NumDef$ 2");
+            PaperCard bears = FModel.getMagicDb().getCommonCards().getCard("Grizzly Bears", "M10");
+            PaperCard otherPrinting = FModel.getMagicDb().getCommonCards().getCard("Grizzly Bears", "10E");
+            assertNotSame(bears, otherPrinting);
+            assertTrue(CardRanker.getRawScore(unknown) < 0);
+            for (int repeat = 0; repeat < 3; repeat++) {
+                assertSame(choose(List.of(unknown, bears, otherPrinting), List.of(), colors(MagicColor.GREEN), ratings), bears);
+            }
+        }
+    }
+
+    @Test
+    public void preservesFallbackWithNoRatedCandidateAndKeepsCustomStandaloneSelectable() throws IOException {
+        try (RatingFiles files = new RatingFiles()) {
+            PaperCard first = custom("Name:First Unknown Trick", "ManaCost:G", "Types:Instant",
+                    "A:SP$ Pump | ValidTgts$ Creature | NumAtt$ 1 | NumDef$ 1");
+            PaperCard second = custom("Name:Second Unknown Trick", "ManaCost:G", "Types:Instant",
+                    "A:SP$ Pump | ValidTgts$ Creature | NumAtt$ 2 | NumDef$ 2");
+            var ratings = files.load();
+            assertSame(choose(List.of(first, second), List.of(), colors(MagicColor.GREEN), ratings), first);
+            assertSame(choose(List.of(first), List.of(), colors(MagicColor.GREEN), ratings), first);
+            assertNull(choose(List.of(), List.of(), colors(MagicColor.GREEN), ratings));
+            PaperCard offColor = custom("Name:Unknown White Trick", "ManaCost:W", "Types:Instant",
+                    "A:SP$ Pump | ValidTgts$ Creature | NumAtt$ 2 | NumDef$ 2");
+            PaperCard forest = FModel.getMagicDb().getCommonCards().getCard("Forest", "M10");
+            var pool = Collections.nCopies(12, forest);
+            assertSame(choose(List.of(offColor, forest), pool, colors(MagicColor.BLUE | MagicColor.GREEN), ratings), offColor);
+
+            Files.writeString(files.directory.resolve("ratings.tsv"), "Weldfast Wingsmith\t1.69\n");
+            ratings = files.load();
+            PaperCard harbinger = FModel.getMagicDb().getCommonCards().getCard("Abyssal Harbinger", "IAMR");
+            PaperCard wingsmith = FModel.getMagicDb().getCommonCards().getCard("Weldfast Wingsmith", "KLD");
+            var strength = new ChaosDraftEvaluator(ratings, List.of(), ColorSet.C, new Deck(), true).strength(harbinger);
+            assertNull(strength.external());
+            assertEquals(strength.standalone(), 30.0);
+            assertSame(choose(List.of(harbinger, wingsmith), List.of(), colors(MagicColor.BLUE | MagicColor.BLACK), ratings), harbinger);
+        }
+    }
+
+    @Test
+    public void doesNotLetUnratedPriorityBypassCandidateExclusions() throws IOException {
+        try (RatingFiles files = new RatingFiles()) {
+            PaperCard bears = FModel.getMagicDb().getCommonCards().getCard("Grizzly Bears", "M10");
+            PaperCard offColor = custom("Name:Excluded White Trick", "ManaCost:W", "Types:Instant",
+                    "A:SP$ Pump | ValidTgts$ Creature | NumAtt$ 2 | NumDef$ 2");
+            PaperCard blocked = custom("Name:Excluded Ai Trick", "ManaCost:G", "Types:Instant",
+                    "A:SP$ Pump | ValidTgts$ Creature | NumAtt$ 2 | NumDef$ 2", "AI:RemoveDeck:All");
+            PaperCard unsupported = new PaperCard(CardRules.getUnsupportedCardNamed("Unsupported Priority Probe"), "M10", CardRarity.Common);
+            PaperCard forest = FModel.getMagicDb().getCommonCards().getCard("Forest", "M10");
+            var excludedCandidates = new ChaosDraftEvaluator(files.load(), Collections.nCopies(12, bears),
+                    ColorSet.fromMask(MagicColor.BLUE | MagicColor.GREEN), new Deck(), true)
+                    .evaluatePack(List.of(offColor, blocked, unsupported, forest, bears), 2, true);
+            assertEquals(excludedCandidates.get(0).exclusion(), "color_cap");
+            assertEquals(excludedCandidates.get(1).exclusion(), "native_ai_deck_restriction");
+            assertTrue(excludedCandidates.stream().noneMatch(candidate -> candidate.card() == unsupported));
+            assertEquals(excludedCandidates.get(2).exclusion(), "free_basic_land");
+            for (PaperCard excluded : List.of(offColor, blocked, unsupported, forest)) {
+                assertSame(choose(List.of(excluded, bears), Collections.nCopies(12, bears),
+                        colors(MagicColor.BLUE | MagicColor.GREEN), files.load()), bears);
+            }
+        }
+    }
+
+    @Test
+    public void preservesDisabledAndOtherLimitedEntryPoints() throws IOException {
+        try (RatingFiles files = new RatingFiles()) {
+            PaperCard unknown = custom("Name:Disabled Unrated Probe", "ManaCost:G", "Types:Instant",
+                    "A:SP$ Pump | ValidTgts$ Creature | NumAtt$ 2 | NumDef$ 2");
+            PaperCard bears = FModel.getMagicDb().getCommonCards().getCard("Grizzly Bears", "M10");
+            var pack = List.of(unknown, bears);
+            var colors = colors(MagicColor.GREEN);
+            assertSame(FullChaosDraftPicker.choose(pack, List.of(), colors, 1,
+                    new BoosterDraft(LimitedPoolType.Full), new Deck(), files.load(), false), unknown);
+            for (LimitedPoolType type : List.of(LimitedPoolType.Block, LimitedPoolType.FantasyBlock, LimitedPoolType.Custom)) {
+                assertSame(FullChaosDraftPicker.choose(pack, List.of(), colors, 1,
+                        new BoosterDraft(type), new Deck(), files.load(), true), unknown);
+            }
+            var sealed = new SealedDeckBuilder(new ArrayList<>(Collections.nCopies(23, bears))).buildDeck("M10");
+            assertEquals(sealed.getMain().countAll(), 40);
+            assertNull(forge.game.GameType.Sealed.getDeckFormat().getDeckConformanceProblem(sealed));
+        }
+    }
+
+    private static PaperCard choose(List<PaperCard> pack, List<PaperCard> pool, DeckColors colors, ChaosRatings ratings) {
+        return FullChaosDraftPicker.choose(pack, pool, colors, 1, new BoosterDraft(LimitedPoolType.Full), new Deck(), ratings, true);
+    }
+
+    private static DeckColors colors(int mask) {
+        DeckColors colors = new DeckColors();
+        colors.setColorsByList(List.of((byte) mask));
+        return colors;
+    }
+
+    private static JsonObject unratedFixtures() throws IOException {
+        try (var stream = ChaosDraftEvaluatorTest.class.getResourceAsStream("unrated-picks.json")) {
+            if (stream == null) {
+                throw new IOException("Missing unrated-picks.json");
+            }
+            return JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8)).getAsJsonObject();
+        }
+    }
+
+    private static ChaosRatings fixtureRatings(RatingFiles files, JsonObject fixtures) throws IOException {
+        StringBuilder table = new StringBuilder();
+        fixtures.getAsJsonObject("ratings").entrySet().forEach(entry ->
+                table.append(entry.getKey()).append('\t').append(entry.getValue().getAsDouble()).append('\n'));
+        Files.writeString(files.directory.resolve("ratings.tsv"), table);
+        return files.load();
+    }
+
+    private static List<PaperCard> fixtureCards(JsonArray rows) {
+        List<PaperCard> cards = new ArrayList<>();
+        for (var row : rows) {
+            var fields = row.getAsJsonArray();
+            PaperCard card = FModel.getMagicDb().getCommonCards().getCard(fields.get(0).getAsString(),
+                    fields.get(1).getAsString(), fields.get(2).getAsString());
+            assertNotNull(card, row.toString());
+            assertEquals(card.getName(), fields.get(0).getAsString());
+            assertEquals(card.getEdition(), fields.get(1).getAsString());
+            assertEquals(card.getCollectorNumber(), fields.get(2).getAsString());
+            cards.add(card);
+        }
+        return cards;
+    }
+
     @Test
     public void evaluatesOpeningAndVisitingSeparately() throws IOException {
         try (RatingFiles files = new RatingFiles()) {

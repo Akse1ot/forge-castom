@@ -2,6 +2,8 @@ package forge.gamemodes.limited;
 
 import com.google.gson.JsonParser;
 import forge.ai.AITest;
+import forge.card.CardRarity;
+import forge.card.CardRules;
 import forge.card.ColorSet;
 import forge.card.MagicColor;
 import forge.deck.Deck;
@@ -181,6 +183,94 @@ public class ChaosDraftCalibrationTest extends AITest {
     }
 
     @Test
+    public void capsUnavailableCommanderManaAtVerifiedStandaloneUtility() throws IOException {
+        var ratings = ratings(directory());
+        PaperCard sphere = card("Commander's Sphere");
+        PaperCard angel = card("Serra Angel");
+        var pack = List.of(sphere, angel);
+        for (var pool : List.<List<PaperCard>>of(List.of(), Collections.nCopies(20, angel))) {
+            var evaluator = new ChaosDraftEvaluator(ratings, pool, ColorSet.fromMask(MagicColor.WHITE), new Deck(), false);
+            var human = evaluator.evaluatePack(pack, 2, false);
+            var preview = evaluator.preview(pack);
+            var candidate = human.get(0);
+            assertEquals(candidate.rating(), 98.93);
+            assertEquals(candidate.strength().standalone(), 35.0);
+            assertEquals(candidate.strength().value(), 35.0);
+            assertEquals(candidate.poolBase(), 35.0);
+            assertTrue(candidate.score() > 0 && candidate.score() < human.get(1).score() - 40);
+            assertEquals(preview.get(sphere).value(), candidate.score());
+            assertSame(preview.recommended(), angel);
+            assertTrue(candidate.strength().dependencyReason().contains("format_mana_unavailable"));
+
+            var ai = evaluate(ratings, pool, MagicColor.WHITE, pack, true);
+            assertEquals(ai.get(0).exclusion(), "native_ai_deck_restriction");
+            assertFalse(ChaosAiEvidence.deckAllowed(sphere, pool));
+            assertTrue(ai.get(1).selectable());
+        }
+    }
+
+    @Test
+    public void preservesUsableManaAndNativeNonCommanderRestrictions() throws IOException {
+        var ratings = ratings(directory());
+        for (String name : List.of("Command Tower", "Path of Ancestry", "Arcane Signet")) {
+            PaperCard card = card(name);
+            var human = evaluate(ratings, List.of(), 0, List.of(card), false).get(0);
+            assertEquals(human.score(), 1.0, name);
+            assertEquals(human.support(), ChaosCardProfile.Support.UNAVAILABLE, name);
+            assertEquals(evaluate(ratings, List.of(), 0, List.of(card), true).get(0).exclusion(),
+                    "native_ai_deck_restriction", name);
+        }
+        PaperCard palace = card("Opal Palace");
+        var source = ChaosManaPlan.readSource(palace);
+        assertEquals(source.produces(), 32);
+        var human = evaluate(ratings, List.of(), 0, List.of(palace), false).get(0);
+        assertEquals(human.strength().value(), 88.0);
+        assertEquals(human.poolBase(), 30.0);
+        assertEquals(human.score(), 34.0);
+        assertFalse(ChaosAiEvidence.deckAllowed(palace, List.of()));
+        for (String name : List.of("Mind Stone", "Hedron Archive", "Sol Ring")) {
+            PaperCard card = card(name);
+            var evaluator = new ChaosDraftEvaluator(ratings, List.of(), ColorSet.C, new Deck(), false);
+            var strength = evaluator.strength(card);
+            assertEquals(strength.value(), ratings.lookup(card).value(), name);
+            assertNull(strength.standalone(), name);
+            assertEquals(evaluator.poolValue(card, strength, 0), strength.value().doubleValue(), name);
+            assertTrue(ChaosManaPlan.readSource(card).produces() != 0, name);
+        }
+    }
+
+    @Test
+    public void pricesSacrificeDrawCostsAndRejectsUnverifiedActivationConditions() {
+        var context = new ChaosCardProfile.Context(List.of(), List.of(), new Deck(), false, false);
+        String draw = "A:AB$ Draw | Cost$ Sac<1/CARDNAME> | NumCards$ 1";
+        var rating = new ChaosRatings.Rating(98.93, "test");
+        var simple = ChaosCardProfile.read(unavailableManaArtifact(3, draw)).strength(rating, context);
+        assertEquals(simple.value(), 35.0);
+        assertEquals(ChaosCardProfile.read(unavailableManaArtifact(5, draw)).strength(rating, context).value(), 31.0);
+        assertEquals(ChaosCardProfile.read(unavailableManaArtifact(3,
+                draw.replace("Cost$ Sac", "Cost$ 1 T Sac"))).strength(rating, context).value(), 31.0);
+        assertEquals(ChaosCardProfile.read(unavailableManaArtifact(3,
+                draw.replace("NumCards$ 1", "NumCards$ 2"))).strength(rating, context).value(), 41.0);
+        assertEquals(ChaosCardProfile.read(unavailableManaArtifact(3, draw)).strength(null, context).value(), 35.0);
+        for (String unverified : List.of(draw + " | ConditionPresent$ Creature.YouCtrl",
+                draw + " | ActivationZone$ Graveyard", draw + " | ActivationLimit$ 1",
+                draw.replace("Sac<1/CARDNAME>", "Sac<1/Creature.Other>"),
+                draw.replace("NumCards$ 1", "NumCards$ X"), draw + " | Defined$ Opponent",
+                draw + " | SubAbility$ Missing", "A:AB$ GainLife | Cost$ Sac<1/CARDNAME> | LifeAmount$ 1")) {
+            var strength = ChaosCardProfile.read(unavailableManaArtifact(3, unverified)).strength(rating, context);
+            assertEquals(strength.value(), 1.0, unverified);
+            assertEquals(strength.support(), ChaosCardProfile.Support.UNKNOWN, unverified);
+            assertNull(strength.standalone(), unverified);
+        }
+    }
+
+    private static PaperCard unavailableManaArtifact(int manaValue, String ability) {
+        var rules = CardRules.fromScript(List.of("Name:Standalone draw probe", "ManaCost:" + manaValue,
+                "Types:Artifact", "A:AB$ Mana | Cost$ T | Produced$ Combo ColorIdentity", ability));
+        return new PaperCard(rules, "M10", CardRarity.Common);
+    }
+
+    @Test
     public void writesOnlyTheVisibleSnapshotIncludingTheNonRecommendedPick() throws IOException {
         Path root = directory();
         PaperCard bears = card("Grizzly Bears");
@@ -227,7 +317,9 @@ public class ChaosDraftCalibrationTest extends AITest {
                 + "Jeweled Amulet\t99\nKrark-Clan Ironworks\t99\nForsaken Crossroads\t98\nHarvester Druid\t93\n"
                 + "Fertile Ground\t95\nTerramorphic Expanse\t98\nLlanowar Elves\t98\nIncinerate\t93\n"
                 + "Stone Giant\t50\nIzzet Signet\t82\nTalisman of Indulgence\t80\n"
-                + "Reflecting Pool\t98\nMaze of Ith\t91\n");
+                + "Reflecting Pool\t98\nMaze of Ith\t91\n"
+                + "Commander's Sphere\t98.93\nSerra Angel\t96.0\nArcane Signet\t99\nOpal Palace\t88\n"
+                + "Mind Stone\t98\nHedron Archive\t97\n");
         return new ChaosRatings(root);
     }
 }

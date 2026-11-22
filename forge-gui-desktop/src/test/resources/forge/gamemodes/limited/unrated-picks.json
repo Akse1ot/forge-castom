@@ -1,0 +1,1453 @@
+{
+  "source": "Chaos-Draft-Unrated/test-fixtures.json and cases-classified.jsonl",
+  "baseline": "bd0e1404c61",
+  "ratings": {
+    "Dog Walker": 8.42,
+    "Briarhorn": 48.91,
+    "Jalum Tome": 39.38,
+    "Arcane Flight": 13.05,
+    "Weldfast Wingsmith": 1.69,
+    "Lamplighter of Selhoff": 4.26,
+    "Setessan Griffin": 0.72,
+    "Colossal Dreadmaw": 49.82,
+    "Forest": 74.74,
+    "Alabaster Dragon": 28.51,
+    "Ramosian Sergeant": 64.24,
+    "Over the Edge": 69.33,
+    "Lead the Stampede": 82.57,
+    "Moriok Reaver": 45.57,
+    "Ire of Kaminari": 32.46,
+    "Gimli's Axe": 5.81,
+    "Swamp Mosquito": 37.63,
+    "Faith of the Devoted": 71.35,
+    "Battle Rampart": 3.75,
+    "Vesper Ghoul": 45.22,
+    "Unsummon": 83.95,
+    "Demon's Horn": 87.8,
+    "Path of Ancestry": 98.8,
+    "Towering Thunderfist": 4.51,
+    "Seize the Day": 87.31,
+    "Spreading Seas": 72.76,
+    "Selesnya Sanctuary": 59.61,
+    "Tolarian Terror": 87.54,
+    "Island": 80.09,
+    "Audacity": 52.29,
+    "Perilous Myr": 86.79,
+    "Forgotten Monument": 50.12,
+    "Peerless Samurai": 9.9,
+    "Brimstone Vandal": 15.73,
+    "Compulsive Research": 91.09,
+    "Skymarch Bloodletter": 43.24,
+    "Urza's Mine": 78.8,
+    "Apathy": 16.43,
+    "Scrounger of Souls": 17.33,
+    "Floating Shield": 49.18,
+    "Decision Paralysis": 25.91,
+    "Selesnya Signet": 64.83,
+    "Animate Dead": 99.61,
+    "Charcoal Diamond": 89.17,
+    "Binding Grasp": 89.85,
+    "Barren Moor": 46.73,
+    "Smoldering Crater": 59.96,
+    "Wall of Frost": 81.23,
+    "Jousting Dummy": 10.39,
+    "Frantic Purification": 7.58,
+    "Sacred Excavation": 19.72,
+    "Journey to Nowhere": 98.51,
+    "Yavimaya Elder": 93.07,
+    "The Stasis Coffin": 44.86,
+    "Plains": 77.28,
+    "Wrench Mind": 83.98,
+    "Bone Splinters": 82.71,
+    "Sinew Dancer": 14.94,
+    "Femeref Healer": 20.52,
+    "Mole Worms": 19.75,
+    "Brightfield Mustang": 25.06,
+    "Relic Crush": 32.85,
+    "Thriving Turtle": 40.25,
+    "Brute Force": 67.65,
+    "Impassioned Orator": 69.92,
+    "Grazing Gladehart": 22.62,
+    "Paths of Tuinvale": 76.54,
+    "Mox Sapphire": 99.99,
+    "Professor of Zoomancy": 44.58,
+    "Sauroform Hybrid": 49.58,
+    "Elvish Visionary": 93.87,
+    "Urza's Factory": 30.48,
+    "Chorus of Might": 6.19,
+    "Dampen Thought": 68.25,
+    "Ivory Giant": 9.14,
+    "Absorb Vis": 51.86,
+    "Dust to Dust": 37.62,
+    "Witch's Mark": 73.01,
+    "Blood Researcher": 5.64,
+    "Swamp": 45.64,
+    "Ophidian": 77.36,
+    "Broodbirth Viper": 57.12,
+    "Ruination Rioter": 51.4,
+    "Carnival // Carnage": 28.26,
+    "Canopy Spider": 13.61,
+    "Scrapyard Steelbreaker": 3.28,
+    "Ithilien Kingfisher": 30.42,
+    "Mystic Sanctuary": 89.69,
+    "Prophetic Prism": 89.81
+  },
+  "fixtures": [
+    {
+      "id": 1,
+      "colors": 20,
+      "expected": "Primal Rebuke",
+      "ranked": [
+        [
+          "Primal Rebuke",
+          "DWAP",
+          "177"
+        ],
+        [
+          "Dog Walker",
+          "MKM",
+          "197"
+        ],
+        [
+          "Briarhorn",
+          "HOP",
+          "69"
+        ],
+        [
+          "Jalum Tome",
+          "DMR",
+          "226"
+        ],
+        [
+          "Arcane Flight",
+          "DOM",
+          "43"
+        ],
+        [
+          "Weldfast Wingsmith",
+          "KLD",
+          "69"
+        ],
+        [
+          "Abyssal Harbinger",
+          "IAMR",
+          "144"
+        ],
+        [
+          "Lamplighter of Selhoff",
+          "SOI",
+          "72"
+        ],
+        [
+          "Setessan Griffin",
+          "THS",
+          "30"
+        ],
+        [
+          "Colossal Dreadmaw",
+          "PLST",
+          "XLN-180"
+        ],
+        [
+          "Forest",
+          "BRO",
+          "277"
+        ]
+      ],
+      "pool": [
+        [
+          "Feed the Serpent",
+          "KHM",
+          "95"
+        ],
+        [
+          "Cemetery Prowler",
+          "PRM",
+          "95429"
+        ],
+        [
+          "Woodland Liege",
+          "J25",
+          "27"
+        ],
+        [
+          "Evolving Wilds",
+          "ECL",
+          "264"
+        ]
+      ]
+    },
+    {
+      "id": 6,
+      "colors": 18,
+      "expected": "Hunter's Triumph",
+      "ranked": [
+        [
+          "Hunter's Triumph",
+          "ANKH",
+          "162"
+        ],
+        [
+          "Alabaster Dragon",
+          "WTH",
+          "2"
+        ],
+        [
+          "Ramosian Sergeant",
+          "MMQ",
+          "39"
+        ],
+        [
+          "Over the Edge",
+          "LCI",
+          "205"
+        ],
+        [
+          "Lead the Stampede",
+          "IMA",
+          "173"
+        ],
+        [
+          "Moriok Reaver",
+          "SOM",
+          "70"
+        ],
+        [
+          "Ire of Kaminari",
+          "BOK",
+          "109"
+        ],
+        [
+          "Gimli's Axe",
+          "LTR",
+          "130"
+        ],
+        [
+          "Swamp Mosquito",
+          "ALL",
+          "63a"
+        ],
+        [
+          "Terramorph I",
+          "CNVL",
+          "207"
+        ],
+        [
+          "Forest",
+          "DDL",
+          "81"
+        ],
+        [
+          "Faith of the Devoted",
+          "C19",
+          "112"
+        ]
+      ],
+      "pool": [
+        [
+          "High Fae Trickster",
+          "FDN",
+          "307"
+        ],
+        [
+          "Into the Roil",
+          "ZNR",
+          "387"
+        ],
+        [
+          "Roamer's Routine",
+          "TDM",
+          "154"
+        ],
+        [
+          "Fertilid",
+          "MOR",
+          "122"
+        ],
+        [
+          "Tainted Observer",
+          "ONE",
+          "217"
+        ],
+        [
+          "Hard-Hitting Question",
+          "MKM",
+          "164"
+        ],
+        [
+          "Stormbound Geist",
+          "PLST",
+          "DKA-51"
+        ],
+        [
+          "Simian Sling",
+          "NEO",
+          "163"
+        ],
+        [
+          "Swiftwater Cliffs",
+          "NEO",
+          "277"
+        ],
+        [
+          "Bounty of Skemfar",
+          "J25",
+          "638"
+        ],
+        [
+          "Timberland Guide",
+          "DBL",
+          "202"
+        ],
+        [
+          "Stitched Drake",
+          "ISD",
+          "80"
+        ],
+        [
+          "Prickleboar",
+          "ORI",
+          "158"
+        ],
+        [
+          "Forest",
+          "PELP",
+          "6"
+        ],
+        [
+          "Plummet",
+          "AFR",
+          "199"
+        ],
+        [
+          "Dispel",
+          "WWK",
+          "26"
+        ],
+        [
+          "Elves of Deep Shadow",
+          "ME3",
+          "116"
+        ],
+        [
+          "Farseek",
+          "RAV",
+          "163"
+        ],
+        [
+          "Wall of Tears",
+          "PLST",
+          "STH-50"
+        ],
+        [
+          "Pounce",
+          "J22",
+          "707"
+        ],
+        [
+          "The Binding of the Titans",
+          "THB",
+          "166"
+        ],
+        [
+          "Escape Tunnel",
+          "TMT",
+          "184"
+        ],
+        [
+          "Tyrranax Atrocity",
+          "ONE",
+          "188"
+        ],
+        [
+          "Adventurous Impulse",
+          "STA",
+          "49"
+        ],
+        [
+          "Avoid Fate",
+          "LEG",
+          "175"
+        ],
+        [
+          "Shorecrasher Mimic",
+          "EVE",
+          "159"
+        ],
+        [
+          "Purphoros's Emissary",
+          "2X2",
+          "121"
+        ],
+        [
+          "Venomous Hierophant",
+          "J25",
+          "506"
+        ],
+        [
+          "Generator Servant",
+          "UMA",
+          "133"
+        ],
+        [
+          "Kjeldoran Pride",
+          "CST",
+          "9b"
+        ],
+        [
+          "Fallaji Archaeologist",
+          "PIO",
+          "55"
+        ],
+        [
+          "Rancor",
+          "PCA",
+          "76"
+        ],
+        [
+          "Explore",
+          "C19",
+          "164"
+        ]
+      ]
+    },
+    {
+      "id": 7,
+      "colors": 12,
+      "expected": "Demon's Horn",
+      "ranked": [
+        [
+          "Frightshot Pistol",
+          "LORA",
+          "226"
+        ],
+        [
+          "Battle Rampart",
+          "MMQ",
+          "173"
+        ],
+        [
+          "Vesper Ghoul",
+          "DIS",
+          "57"
+        ],
+        [
+          "Unsummon",
+          "M20",
+          "78"
+        ],
+        [
+          "Demon's Horn",
+          "10E",
+          "320"
+        ],
+        [
+          "Path of Ancestry",
+          "PRM",
+          "86112"
+        ],
+        [
+          "Towering Thunderfist",
+          "CLU",
+          "151"
+        ],
+        [
+          "Seize the Day",
+          "SLD",
+          "480"
+        ],
+        [
+          "Spreading Seas",
+          "PLST",
+          "ZEN-70"
+        ],
+        [
+          "Selesnya Sanctuary",
+          "GK1",
+          "125"
+        ],
+        [
+          "Tolarian Terror",
+          "PLST",
+          "DMU-72"
+        ],
+        [
+          "Island",
+          "DOM",
+          "257"
+        ]
+      ],
+      "pool": [
+        [
+          "Night's Whisper",
+          "5DN",
+          "55"
+        ],
+        [
+          "Misthios's Fury",
+          "ACR",
+          "291"
+        ],
+        [
+          "Bloodhunter Bat",
+          "JMP",
+          "210"
+        ]
+      ]
+    },
+    {
+      "id": 9,
+      "colors": 24,
+      "expected": "Perilous Myr",
+      "ranked": [
+        [
+          "The Holodeck",
+          "TRK",
+          "265"
+        ],
+        [
+          "Audacity",
+          "BRO",
+          "169"
+        ],
+        [
+          "Perilous Myr",
+          "SOM",
+          "192"
+        ],
+        [
+          "Forgotten Monument",
+          "LCI",
+          "272"
+        ],
+        [
+          "Peerless Samurai",
+          "NEO",
+          "322"
+        ],
+        [
+          "Brimstone Vandal",
+          "MID",
+          "130"
+        ],
+        [
+          "Compulsive Research",
+          "E01",
+          "23"
+        ],
+        [
+          "Skymarch Bloodletter",
+          "XLN",
+          "124"
+        ],
+        [
+          "Urza's Mine",
+          "ME4",
+          "257a"
+        ],
+        [
+          "Apathy",
+          "WTH",
+          "33"
+        ],
+        [
+          "Scrounger of Souls",
+          "HOU",
+          "76"
+        ],
+        [
+          "Floating Shield",
+          "TOR",
+          "5"
+        ],
+        [
+          "Decision Paralysis",
+          "AKH",
+          "50"
+        ],
+        [
+          "Selesnya Signet",
+          "TD0",
+          "A118"
+        ],
+        [
+          "Animate Dead",
+          "SOC",
+          "207"
+        ]
+      ],
+      "pool": [
+        [
+          "Rift Bolt",
+          "PRM",
+          "37849"
+        ],
+        [
+          "Beanstalk Giant",
+          "ELD",
+          "295"
+        ],
+        [
+          "Rupture Spire",
+          "JMP",
+          "495"
+        ],
+        [
+          "Terramorphic Expanse",
+          "PCA",
+          "129"
+        ],
+        [
+          "Mudbutton Torchrunner",
+          "PCA",
+          "49"
+        ],
+        [
+          "Glóin the Mighty",
+          "HOB",
+          "263"
+        ],
+        [
+          "Seize the Day",
+          "SLD",
+          "480"
+        ],
+        [
+          "Goblin Grenade",
+          "FEM",
+          "56c"
+        ],
+        [
+          "Centaur Nurturer",
+          "WAR",
+          "156"
+        ],
+        [
+          "Syndicate Messenger",
+          "PIO",
+          "40"
+        ],
+        [
+          "Furnace Whelp",
+          "ARC",
+          "39"
+        ],
+        [
+          "Wild Dogs",
+          "DMR",
+          "351"
+        ],
+        [
+          "Ranger's Guile",
+          "M15",
+          "193"
+        ],
+        [
+          "Prophetic Prism",
+          "CMR",
+          "334"
+        ],
+        [
+          "Island",
+          "DOM",
+          "257"
+        ]
+      ]
+    },
+    {
+      "id": 41,
+      "colors": 17,
+      "expected": "Journey to Nowhere",
+      "ranked": [
+        [
+          "Mug of Beer",
+          "LORA",
+          "228"
+        ],
+        [
+          "Charcoal Diamond",
+          "CLB",
+          "305"
+        ],
+        [
+          "Binding Grasp",
+          "5ED",
+          "74"
+        ],
+        [
+          "Barren Moor",
+          "C15",
+          "277"
+        ],
+        [
+          "Smoldering Crater",
+          "C13",
+          "325"
+        ],
+        [
+          "Wall of Frost",
+          "PC2",
+          "28"
+        ],
+        [
+          "Jousting Dummy",
+          "ELD",
+          "224"
+        ],
+        [
+          "Frantic Purification",
+          "TOR",
+          "6"
+        ],
+        [
+          "Sacred Excavation",
+          "AKH",
+          "67"
+        ],
+        [
+          "Journey to Nowhere",
+          "DDF",
+          "23"
+        ],
+        [
+          "Yavimaya Elder",
+          "CMR",
+          "441"
+        ],
+        [
+          "The Stasis Coffin",
+          "PRM",
+          "105840"
+        ],
+        [
+          "Plains",
+          "AFR",
+          "265"
+        ],
+        [
+          "Wrench Mind",
+          "PLST",
+          "IMA-115"
+        ],
+        [
+          "Bone Splinters",
+          "PLST",
+          "M20-92"
+        ]
+      ],
+      "pool": [
+        [
+          "Sakura-Tribe Elder",
+          "MB2",
+          "72"
+        ],
+        [
+          "Secret Door",
+          "AFR",
+          "71"
+        ],
+        [
+          "Disenchant",
+          "IMA",
+          "15"
+        ],
+        [
+          "Master of Pearls",
+          "KTK",
+          "18"
+        ],
+        [
+          "Vine Trellis",
+          "MMQ",
+          "285"
+        ],
+        [
+          "Man Versus Machine",
+          "LORA",
+          "179"
+        ],
+        [
+          "Ulvenwald Bear",
+          "DKA",
+          "129"
+        ],
+        [
+          "Gorilla Pack",
+          "ICE",
+          "247"
+        ],
+        [
+          "Dauntless Cathar",
+          "SOI",
+          "11"
+        ],
+        [
+          "Act of Heroism",
+          "HOU",
+          "1"
+        ],
+        [
+          "Dwarven Demolition Team",
+          "LEA",
+          "142"
+        ],
+        [
+          "Whip Vine",
+          "ALL",
+          "103a"
+        ],
+        [
+          "Demolish",
+          "9ED",
+          "179"
+        ],
+        [
+          "Frenzied Rage",
+          "DOM",
+          "124"
+        ],
+        [
+          "Swamp",
+          "TD2",
+          "84"
+        ],
+        [
+          "Splitskin Doll",
+          "PLST",
+          "DSK-33"
+        ],
+        [
+          "Swords to Plowshares",
+          "2ED",
+          "41"
+        ],
+        [
+          "Blanchwood Prowler",
+          "PLST",
+          "BRO-172"
+        ],
+        [
+          "Crimson Acolyte",
+          "INV",
+          "11"
+        ],
+        [
+          "Pacifism",
+          "MIR",
+          "32"
+        ],
+        [
+          "Moonglove Extract",
+          "DDF",
+          "67"
+        ],
+        [
+          "Midnight Guard",
+          "J22",
+          "216"
+        ],
+        [
+          "Jubilant Mascot",
+          "PLST",
+          "BBD-28"
+        ],
+        [
+          "Lotusguard Disciple",
+          "DFT",
+          "21"
+        ],
+        [
+          "Daru Lancer",
+          "ONS",
+          "20"
+        ],
+        [
+          "Iron Giant",
+          "FIN",
+          "260"
+        ],
+        [
+          "Soulmender",
+          "PLST",
+          "M15-35"
+        ],
+        [
+          "Avacynian Priest",
+          "INR",
+          "334"
+        ],
+        [
+          "Deathreap Ritual",
+          "M3C",
+          "259"
+        ],
+        [
+          "Mountain",
+          "MID",
+          "274"
+        ]
+      ]
+    },
+    {
+      "id": 42,
+      "colors": 17,
+      "expected": "Memory Trap",
+      "ranked": [
+        [
+          "Memory Trap",
+          "FRA",
+          "15"
+        ],
+        [
+          "Sinew Dancer",
+          "ONE",
+          "32"
+        ],
+        [
+          "Femeref Healer",
+          "MIR",
+          "17"
+        ],
+        [
+          "Mole Worms",
+          "5ED",
+          "179"
+        ],
+        [
+          "Brightfield Mustang",
+          "DFT",
+          "5"
+        ],
+        [
+          "Relic Crush",
+          "C17",
+          "157"
+        ],
+        [
+          "Thriving Turtle",
+          "KLD",
+          "66"
+        ],
+        [
+          "Brute Force",
+          "MM2",
+          "108"
+        ],
+        [
+          "Impassioned Orator",
+          "M20",
+          "306"
+        ],
+        [
+          "Path of Ancestry",
+          "WHO",
+          "884"
+        ],
+        [
+          "Grazing Gladehart",
+          "DDO",
+          "47"
+        ],
+        [
+          "Paths of Tuinvale",
+          "YWOE",
+          "4"
+        ],
+        [
+          "Island",
+          "SOI",
+          "287"
+        ]
+      ],
+      "pool": [
+        [
+          "Choking Restraints",
+          "EMN",
+          "16"
+        ],
+        [
+          "Condemn",
+          "CMR",
+          "369"
+        ],
+        [
+          "Yavimaya Elder",
+          "MIC",
+          "147"
+        ],
+        [
+          "Changeling Sentinel",
+          "MOR",
+          "6"
+        ],
+        [
+          "Prison Sentence",
+          "BRO",
+          "21"
+        ],
+        [
+          "Stampeding Rhino",
+          "M12",
+          "196"
+        ],
+        [
+          "Defiant Salvager",
+          "CMR",
+          "117"
+        ],
+        [
+          "Armory Guard",
+          "RTR",
+          "2"
+        ],
+        [
+          "Nebelgast Beguiler",
+          "DBL",
+          "292"
+        ],
+        [
+          "Compelled Duel",
+          "AFR",
+          "178"
+        ],
+        [
+          "Vulshok Sorcerer",
+          "DDI",
+          "50"
+        ],
+        [
+          "Righteous Aura",
+          "VIS",
+          "20"
+        ],
+        [
+          "Pyrite Spellbomb",
+          "2XM",
+          "283"
+        ],
+        [
+          "Amrou Kithkin",
+          "4ED",
+          "2"
+        ],
+        [
+          "Island",
+          "KLD",
+          "254"
+        ],
+        [
+          "Terrific Team-Up",
+          "SPM",
+          "120"
+        ],
+        [
+          "Take Vengeance",
+          "XANA",
+          "13"
+        ],
+        [
+          "Llanowar Elves",
+          "M12",
+          "182"
+        ],
+        [
+          "Rancor",
+          "PC2",
+          "76"
+        ],
+        [
+          "Farhaven Elf",
+          "SCD",
+          "182"
+        ],
+        [
+          "Brute Suit",
+          "NEO",
+          "241"
+        ],
+        [
+          "Wall of Glare",
+          "PLST",
+          "UDS-25"
+        ],
+        [
+          "Conviction",
+          "STH",
+          "5"
+        ],
+        [
+          "Dragon Bell Monk",
+          "IMA",
+          "17"
+        ],
+        [
+          "Quell Eloquence",
+          "AENR",
+          "16"
+        ],
+        [
+          "Benevolent Unicorn",
+          "MIR",
+          "4"
+        ],
+        [
+          "Rootborn Defenses",
+          "PLST",
+          "MM3-21"
+        ],
+        [
+          "Bog Tatters",
+          "ZEN",
+          "84"
+        ],
+        [
+          "Flicker of Fate",
+          "THB",
+          "16"
+        ],
+        [
+          "Island",
+          "CST",
+          "373"
+        ],
+        [
+          "The Immortal Sun",
+          "CMM",
+          "393"
+        ],
+        [
+          "The Eternal Wanderer",
+          "ONE",
+          "11"
+        ]
+      ]
+    },
+    {
+      "id": 63,
+      "colors": 18,
+      "expected": "Mox Sapphire",
+      "ranked": [
+        [
+          "Miquella's Charm",
+          "ERLB",
+          "57"
+        ],
+        [
+          "Mox Sapphire",
+          "30A",
+          "262"
+        ],
+        [
+          "Professor of Zoomancy",
+          "STX",
+          "140"
+        ],
+        [
+          "Sauroform Hybrid",
+          "RNA",
+          "140"
+        ],
+        [
+          "Elvish Visionary",
+          "ORI",
+          "175"
+        ],
+        [
+          "Urza's Factory",
+          "TSR",
+          "288"
+        ],
+        [
+          "Chorus of Might",
+          "RTR",
+          "119"
+        ],
+        [
+          "Dampen Thought",
+          "MMA",
+          "39"
+        ],
+        [
+          "Sacred Bennu",
+          "ANKH",
+          "027"
+        ],
+        [
+          "Ivory Giant",
+          "TSR",
+          "20"
+        ],
+        [
+          "Absorb Vis",
+          "CN2",
+          "126"
+        ],
+        [
+          "Dust to Dust",
+          "ME4",
+          "11"
+        ],
+        [
+          "Island",
+          "TLA",
+          "283"
+        ],
+        [
+          "Witch's Mark",
+          "PLST",
+          "WOE-158"
+        ]
+      ],
+      "pool": [
+        [
+          "Springbloom Druid",
+          "ZNC",
+          "83"
+        ],
+        [
+          "Nettle Sentinel",
+          "A25",
+          "182"
+        ],
+        [
+          "Echoing Truth",
+          "PLST",
+          "DMC-109"
+        ],
+        [
+          "Temple of Abandon",
+          "CLB",
+          "921"
+        ],
+        [
+          "Allies at Last",
+          "TLA",
+          "164"
+        ],
+        [
+          "Spellblade Rogier",
+          "ERLB",
+          "70"
+        ],
+        [
+          "Goblin Electromancer",
+          "RVR",
+          "367"
+        ],
+        [
+          "Blossoming Defense",
+          "ECL",
+          "167"
+        ],
+        [
+          "Slimebind",
+          "J25",
+          "360"
+        ],
+        [
+          "Crystal Seer",
+          "GPT",
+          "23"
+        ],
+        [
+          "Giant Tortoise",
+          "EMA",
+          "52"
+        ],
+        [
+          "Rotcrown Ghoul",
+          "AVR",
+          "72"
+        ],
+        [
+          "Greenseeker",
+          "TSP",
+          "198"
+        ],
+        [
+          "Mountain",
+          "PRM",
+          "73630"
+        ],
+        [
+          "Forest",
+          "AKH",
+          "268"
+        ],
+        [
+          "Gallant Citizen",
+          "MSC",
+          "820"
+        ]
+      ]
+    },
+    {
+      "id": 66,
+      "colors": 17,
+      "expected": "Signature Strike",
+      "ranked": [
+        [
+          "Signature Strike",
+          "LORA",
+          "043"
+        ],
+        [
+          "Blood Researcher",
+          "STX",
+          "166"
+        ],
+        [
+          "Swamp",
+          "BRO",
+          "273"
+        ],
+        [
+          "Ophidian",
+          "DD2",
+          "9"
+        ]
+      ],
+      "pool": [
+        [
+          "Thraben Inspector",
+          "HA4",
+          "3"
+        ],
+        [
+          "Inspiring Overseer",
+          "FDN",
+          "496"
+        ],
+        [
+          "Acidic Slime",
+          "CMR",
+          "673"
+        ],
+        [
+          "Dryad's Favor",
+          "M11",
+          "169"
+        ],
+        [
+          "Sin Collector",
+          "PIO",
+          "241"
+        ],
+        [
+          "Imperial Hullbreachers",
+          "TRC",
+          "18"
+        ],
+        [
+          "Hamza, Guardian of Arashin",
+          "CMM",
+          "339"
+        ],
+        [
+          "Dark Chapel Angel",
+          "TWDS",
+          "19"
+        ],
+        [
+          "Relentless Pursuit",
+          "J22",
+          "718"
+        ],
+        [
+          "Cloudthresher",
+          "CMA",
+          "96"
+        ],
+        [
+          "Commander Greven il-Vec",
+          "TPR",
+          "88"
+        ]
+      ]
+    }
+  ],
+  "prismCase": {
+    "id": 72,
+    "colors": 3,
+    "expected": "Prophetic Prism",
+    "ranked": [
+      [
+        "Memory Trap",
+        "FRA",
+        "15"
+      ],
+      [
+        "Broodbirth Viper",
+        "C15",
+        "10"
+      ],
+      [
+        "Ruination Rioter",
+        "MH1",
+        "213"
+      ],
+      [
+        "Carnival // Carnage",
+        "RNA",
+        "222"
+      ],
+      [
+        "Canopy Spider",
+        "10E",
+        "254"
+      ],
+      [
+        "Scrapyard Steelbreaker",
+        "NEO",
+        "160"
+      ],
+      [
+        "Ithilien Kingfisher",
+        "HOC",
+        "177"
+      ],
+      [
+        "Plains",
+        "DDI",
+        "39"
+      ],
+      [
+        "Mystic Sanctuary",
+        "MKC",
+        "277"
+      ],
+      [
+        "Prophetic Prism",
+        "DMC",
+        "189"
+      ],
+      [
+        "Colossal Dreadmaw",
+        "SLZ",
+        "194"
+      ]
+    ],
+    "pool": [
+      [
+        "Mana Leak",
+        "TPR",
+        "58"
+      ],
+      [
+        "Lat-Nam's Legacy",
+        "ALL",
+        "30a"
+      ],
+      [
+        "Cowed by Wisdom",
+        "SOK",
+        "5"
+      ],
+      [
+        "Selesnya Signet",
+        "GK1",
+        "123"
+      ]
+    ]
+  }
+}

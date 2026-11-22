@@ -131,18 +131,28 @@ public final class FullChaosDraftPicker {
 
     static PaperCard choose(final List<PaperCard> ranked, final List<PaperCard> picked, final DeckColors deckColors,
                             final int seat, final IBoosterDraft draft, final Deck ownDeck) {
+        return choose(ranked, picked, deckColors, seat, draft, ownDeck, RATINGS, ENABLED);
+    }
+
+    static PaperCard choose(final List<PaperCard> ranked, final List<PaperCard> picked, final DeckColors deckColors,
+                            final int seat, final IBoosterDraft draft, final Deck ownDeck,
+                            final ChaosRatings ratings, final boolean enabled) {
         if (ranked.isEmpty()) {
             return null;
         }
         final PaperCard nativePick = ranked.get(0);
-        if (!isEnabledForDraft(draft)) {
+        if (!usesRatings(enabled, ratings.isAvailable(), draft)) {
             return nativePick;
         }
         final ColorSet chosen = deckColors.getChosenColors();
-        final ChaosDraftEvaluator evaluator = new ChaosDraftEvaluator(RATINGS, picked, chosen, ownDeck, true);
+        final ChaosDraftEvaluator evaluator = new ChaosDraftEvaluator(ratings, picked, chosen, ownDeck, true);
         final List<Candidate> candidates = evaluator.evaluatePack(ranked, deckColors.MAX_COLORS, true);
         Candidate best = null;
+        Candidate nativeCandidate = null;
         for (Candidate candidate : candidates) {
+            if (nativeCandidate == null && candidate.card() == nativePick) {
+                nativeCandidate = candidate;
+            }
             if (candidate.selectable() && (best == null || candidate.score() > best.score())) {
                 best = candidate;
             }
@@ -160,11 +170,20 @@ public final class FullChaosDraftPicker {
             } else {
                 reason = "no_eligible_native_fallback";
             }
-        } else if (fallback == nativePick && evaluator.strength(nativePick).value() == null
+        } else if (fallback == nativePick && nativeCandidate != null && "unrated".equals(nativeCandidate.exclusion())
                 && eligible(nativePick, chosen, deckColors.MAX_COLORS)) {
             // Unknown native top pick remains authoritative, but unknown lower-ranked cards do not veto the pack.
-            pick = nativePick;
-            reason = "native_top_unrated";
+            // Bound that priority by its native evidence and the already calculated context adjustments.
+            final double nativeRaw = CardRanker.getRawScore(nativePick);
+            final double priority = nativeRaw - nativeCandidate.colorPenalty() + nativeCandidate.curveBonus()
+                    + nativeCandidate.landBonus() + nativeCandidate.manaBonus() + nativeCandidate.nativeBonus();
+            if (nativeRaw >= 0 && best.score() <= priority) {
+                pick = nativePick;
+                reason = "native_top_unrated";
+            } else {
+                pick = best.card();
+                reason = "rated_score";
+            }
         } else {
             pick = best.card();
             reason = "rated_score";
