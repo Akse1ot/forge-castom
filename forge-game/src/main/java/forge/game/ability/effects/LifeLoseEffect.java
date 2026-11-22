@@ -12,6 +12,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Map;
 
 public class LifeLoseEffect extends SpellAbilityEffect {
+    public static final String[] OPTIONAL_PARAMS = {};
+    public static final String[][] REQUIRED_PARAMS = {{"LifeAmount"}};
 
     /* (non-Javadoc)
      * @see forge.game.ability.SpellAbilityEffect#getStackDescription(forge.game.spellability.SpellAbility)

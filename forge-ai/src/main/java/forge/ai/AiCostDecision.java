@@ -30,6 +30,8 @@ import static forge.ai.ComputerUtilCard.getWorstCreatureAI;
 public class AiCostDecision extends CostDecisionMakerBase {
     private final CardCollection discarded;
     private final CardCollection tapped;
+    /** What the sacrifice parts decided so far have chosen: a permanent can be sacrificed for one of them only. */
+    private final CardCollection sacrificed = new CardCollection();
 
     private static void reserveZoneChangeDecision(
             final CostPart part,
@@ -717,22 +719,20 @@ public class AiCostDecision extends CostDecisionMakerBase {
     @Override
     public PaymentDecision visit(CostSacrifice cost) {
         if (cost.payCostFromSource()) {
-            return source.canBeSacrificedBy(
-                    ability,
-                    isEffect())
-                    ? PaymentDecision.card(source)
-                    : null;
+            if (!source.canBeSacrificedBy(ability, isEffect()) || sacrificed.contains(source)) {
+                return null;
+            }
+            sacrificed.add(source);
+            return PaymentDecision.card(source);
         }
         if (cost.getType().equals("OriginalHost")) {
-            final Card originalHost =
-                    ability.getOriginalHost();
-
-            return originalHost != null
-                    && originalHost.canBeSacrificedBy(
-                    ability,
-                    isEffect())
-                    ? PaymentDecision.card(originalHost)
-                    : null;
+            final Card originalHost = ability.getOriginalHost();
+            if (originalHost == null || !originalHost.canBeSacrificedBy(ability, isEffect())
+                    || sacrificed.contains(originalHost)) {
+                return null;
+            }
+            sacrificed.add(originalHost);
+            return PaymentDecision.card(originalHost);
         }
         if (cost.getAmount().equals("All")) {
             // Does the AI want to use Sacrifice All?
@@ -741,9 +741,16 @@ public class AiCostDecision extends CostDecisionMakerBase {
 
         int c = cost.getAbilityAmount(ability);
 
+        // All the parts are decided before any is paid: without the exclusion, one creature that fits several parts
+        // (a blue, black and red one for Demon's Herald) is chosen for each, and paying the first leaves the others
+        // "paid" with a permanent that is already gone.
         final AiController aic = ((PlayerControllerAi)player.getController()).getAi();
-        CardCollectionView list = aic.chooseSacrificeType(cost.getType(), ability, isEffect(), c, null);
-        return list == null ? null : PaymentDecision.card(list);
+        CardCollectionView list = aic.chooseSacrificeType(cost.getType(), ability, isEffect(), c, sacrificed);
+        if (list == null) {
+            return null;
+        }
+        sacrificed.addAll(list);
+        return PaymentDecision.card(list);
     }
 
     @Override

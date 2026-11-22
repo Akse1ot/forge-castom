@@ -28,8 +28,52 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.testng.Assert.*;
+import static forge.gamemodes.limited.ChaosDeckTunerTest.card;
 
 public class ChaosDraftEvaluatorTest extends AITest {
+    @Test
+    public void stockDraftStillPassesPacksAndBuildsAnAiDeck() {
+        assertDraftCompletes(LimitedPoolType.Block);
+    }
+
+    @Test
+    public void fullPoolDraftStillPassesPacksAndBuildsAnAiDeck() {
+        assertDraftCompletes(LimitedPoolType.Full);
+    }
+
+    private void assertDraftCompletes(LimitedPoolType format) {
+        var oldLandSet = IBoosterDraft.LAND_SET_CODE[0];
+        String oldRankings = IBoosterDraft.CUSTOM_RANKINGS_FILE[0];
+        try {
+            IBoosterDraft.LAND_SET_CODE[0] = FModel.getMagicDb().getEditions().get("M11");
+            IBoosterDraft.CUSTOM_RANKINGS_FILE[0] = null;
+            BoosterDraft draft = new BoosterDraft(format, 2);
+            List<PaperCard> pack = List.of(card("Llanowar Elves"), card("Grizzly Bears"), card("Giant Spider"));
+            for (int round = 0; round < 15; round++) {
+                draft.product.add(() -> new ArrayList<>(pack));
+            }
+            draft.initializeBoosters();
+            assertFalse(draft.isCommanderDraft());
+            int picks = 0;
+            while (draft.hasNextChoice() && picks < 60) {
+                var choices = draft.nextChoice().toFlatList();
+                assertFalse(choices.isEmpty());
+                assertTrue(draft.setChoice(choices.get(0)));
+                picks++;
+            }
+            assertEquals(picks, 45);
+            assertFalse(draft.hasNextChoice());
+            Deck[] opponents = draft.getComputerDecks();
+            assertEquals(opponents.length, 1);
+            assertEquals(opponents[0].getMain().countAll(), 40);
+            assertTrue(opponents[0].getMain().toFlatList().stream().anyMatch(c -> c.getRules().getType().isLand()));
+            assertTrue(opponents[0].getMain().toFlatList().stream().anyMatch(c -> !c.getRules().getType().isLand()));
+        } finally {
+            IBoosterDraft.LAND_SET_CODE[0] = oldLandSet;
+            IBoosterDraft.CUSTOM_RANKINGS_FILE[0] = oldRankings;
+        }
+    }
+
     @Test
     public void replaysEightArchivedUnratedPicksWithoutChangingTheirScores() throws IOException {
         JsonObject fixtures = unratedFixtures();

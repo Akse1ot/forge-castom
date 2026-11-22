@@ -247,6 +247,11 @@ public enum SpellApiToAi {
         return apiToClass.get(api) == CannotPlayAi.class;
     }
 
+    /** The AI class assigned to an API, or null if it has none. */
+    public Class<? extends SpellAbilityAi> getAiClass(final ApiType api) {
+        return apiToClass.get(api);
+    }
+
     public SpellAbilityAi get(final ApiType api) {
         SpellAbilityAi result = apiToInstance.get(api);
         if (null == result) {

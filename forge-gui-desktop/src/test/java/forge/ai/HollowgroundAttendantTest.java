@@ -52,7 +52,7 @@ public class HollowgroundAttendantTest extends AITest {
             {"Yavimaya Coast", "", "", 'C', "WBR"},
             {"Forest", "Urborg, Tomb of Yawgmoth", "", 'G', "WUR"},
             {"Forest", "Chromatic Lantern", "", 'G', ""},
-            {"Forest", "", "Contamination", 'B', "WUBR"},
+            {"Forest", "", "Contamination", 'B', "WURG"},
         };
     }
 
@@ -211,6 +211,8 @@ public class HollowgroundAttendantTest extends AITest {
             {"Exotic Orchard", "", "Exotic Orchard", 1, "U", false},
             {"Mana Confluence", "", "", 1, "U G", false},
             {"Forest", "", "Contamination", 1, "B U", true},
+            {"Forest", "", "Contamination", 1, "B G", true},
+            {"Forest", "", "Contamination", 1, "B B", false},
         };
     }
 
@@ -278,6 +280,42 @@ public class HollowgroundAttendantTest extends AITest {
         ManaChoices manual = new ManaChoices(player, 'G', mask("WUBR"), Map.of(attendant, 'R'), null);
         player.runWithController(() -> activate(source), manual);
         assertPool(player, 'G', 'R');
+    }
+
+    @Test
+    public void doubledAttendantBonusPaysTwoShards() {
+        Player player = initAndCreateGame().getPlayers().get(1);
+        Card forest = addCard("Forest", player);
+        addAttendant(player);
+        fixture(player, List.of("Name:Double all mana", "ManaCost:0", "Types:Enchantment",
+                "R:Event$ ProduceMana | ActiveZones$ Battlefield | ValidCard$ Card | ValidSA$ Ability | ReplaceWith$ Replace",
+                "SVar:Replace:DB$ ReplaceMana | ReplaceAmount$ 2", "Oracle:"));
+        checkAutoPayment(player, forest, "G G U U", true);
+        assertTrue(player.getManaPool().isEmpty());
+    }
+
+    @Test
+    public void ordinaryAndCannotProduceBonusesPayDifferentColors() {
+        Player player = initAndCreateGame().getPlayers().get(1);
+        Card forest = addCard("Forest", player);
+        addAttendant(player);
+        addCard("Fertile Ground", player).attachToEntity(forest, null);
+        player.getGame().getAction().checkStateEffects(true);
+        checkAutoPayment(player, forest, "G U R", true);
+        assertTrue(player.getManaPool().isEmpty());
+    }
+
+    @Test
+    public void replacementOfTheBonusDoesNotChangeItsLegalColorChoice() {
+        Player player = initAndCreateGame().getPlayers().get(1);
+        Card forest = addCard("Forest", player);
+        addAttendant(player);
+        fixture(player, List.of("Name:White mana replacement", "ManaCost:0", "Types:Enchantment",
+                "R:Event$ ProduceMana | ActiveZones$ Battlefield | ValidCard$ Card | ValidSA$ Ability | ReplaceWith$ Replace",
+                "SVar:Replace:DB$ ReplaceMana | ReplaceColor$ White", "Oracle:"));
+        // White is unavailable in the Attendant's menu, but its chosen other color becomes white.
+        checkAutoPayment(player, forest, "W W", true);
+        assertTrue(player.getManaPool().isEmpty());
     }
 
     private void checkAutoPayment(Player player, Card source, String cost, boolean expected) {

@@ -157,11 +157,11 @@ public class ReflectedManaBehaviorTest extends AITest {
     @DataProvider
     public Object[][] replacements() {
         return new Object[][] {
-            {"Forest", "Contamination", "green", "black"},
-            {"Exotic Orchard", "Contamination", "green", "black"},
-            {"Reflecting Pool", "Contamination", "green", "black"},
-            {"Forest", "Infernal Darkness", "green", "black"},
-            {"Forest", "Color replacement", "green", "white"},
+            {"Forest", "Contamination", "black", "black"},
+            {"Exotic Orchard", "Contamination", "black", "black"},
+            {"Reflecting Pool", "Contamination", "black", "black"},
+            {"Forest", "Infernal Darkness", "black", "black"},
+            {"Forest", "Color replacement", "white", "white"},
         };
     }
 
@@ -179,7 +179,7 @@ public class ReflectedManaBehaviorTest extends AITest {
             addCard(replacement, board.opponent());
         }
 
-        // Characterize the current discrepancy with CR 106.7. The direct activation applies the replacement.
+        // CR 106.7 includes replacements in the declared capability, as well as in direct production.
         assertDeclaredColors(source, Set.of(declaredColor));
         activate(source.getManaAbilities().get(0));
         assertEquals(poolColors(board.active()), Set.of(actualColor));
@@ -191,11 +191,17 @@ public class ReflectedManaBehaviorTest extends AITest {
         Card forest = addCard("Forest", board.active());
         Card black = addCard("Contamination", board.opponent());
         Card white = addReplacement(board.active(), "Color replacement", "ReplaceColor$ White");
-        assertDeclaredColors(forest, Set.of("green"));
+        assertDeclaredColors(forest, Set.of("black", "white"));
 
         for (Card first : List.of(black, white)) {
             board.active().runWithController(() -> {
-                activate(forest.getManaAbilities().get(0));
+                SpellAbility mana = forest.getManaAbilities().get(0);
+                mana.setActivatingPlayer(board.active());
+                assertEquals(ComputerUtilMana.predictMana(mana, board.active(),
+                        first == black ? forge.card.mana.ManaCostShard.WHITE : forge.card.mana.ManaCostShard.BLACK),
+                        first == black ? "W" : "B");
+                assertFalse(forest.isTapped(), "forecast must not activate the source");
+                activate(mana);
                 assertEquals(poolColors(board.active()), Set.of(first == black ? "white" : "black"));
             }, new PlayerControllerAi(forest.getGame(), board.active(), board.active().getLobbyPlayer()) {
                 @Override
@@ -212,7 +218,7 @@ public class ReflectedManaBehaviorTest extends AITest {
     }
 
     @Test
-    public void orchardReadsTheWrongColorFromAReplacedOpposingForest() {
+    public void orchardReadsTheReplacedColorFromAnOpposingForest() {
         Board board = board();
         Card forest = addCard("Forest", board.opponent());
         Card orchard = addCard("Exotic Orchard", board.active());
@@ -220,8 +226,8 @@ public class ReflectedManaBehaviorTest extends AITest {
 
         activate(forest.getManaAbilities().get(0));
         assertEquals(poolColors(board.opponent()), Set.of("white"));
-        // The replacement is scoped to the opponent's lands, so it cannot mask Orchard's incorrect output.
-        assertSource(orchard, Set.of("green"));
+        // Scoped to the opponent's lands: Orchard must reflect white without being replaced itself.
+        assertSource(orchard, Set.of("white"));
     }
 
     @DataProvider
@@ -234,10 +240,10 @@ public class ReflectedManaBehaviorTest extends AITest {
             {"Reflecting Pool", "Wastes", "C", false, true},
             {"Reflecting Pool", "Azorius Guildgate", "R", false, false},
             {"Forest", null, "B", true, true},
-            // The planner rejects these reflected sources although a direct activation produces black.
-            {"Exotic Orchard", "Island", "B", true, false},
+            // Reflected sources can pay black after Contamination, but cannot still pay their former color.
+            {"Exotic Orchard", "Island", "B", true, true},
             {"Exotic Orchard", "Island", "U", true, false},
-            {"Reflecting Pool", "Forest", "B", true, false},
+            {"Reflecting Pool", "Forest", "B", true, true},
         };
     }
 

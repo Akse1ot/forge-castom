@@ -4,6 +4,7 @@ import forge.card.MagicColor;
 import forge.card.mana.ManaAtom;
 import forge.card.mana.ManaCostShard;
 import forge.game.ability.AbilityKey;
+import forge.game.ability.AbilityUtils;
 import forge.game.ability.ApiType;
 import forge.game.card.Card;
 import forge.game.card.CardUtil;
@@ -22,6 +23,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 
 final class CannotProduceManaAi {
     private CannotProduceManaAi() {
@@ -62,15 +64,29 @@ final class CannotProduceManaAi {
             if (!trigger.getHostCard().getController().equals(player) || !supports(trigger)) {
                 continue;
             }
-            SpellAbility effect = trigger.ensureAbility().copy(player);
-            effect.setTrigger(trigger);
-            effect.setTriggeringObjects(trigger.buildTriggeringObjects(event));
+            SpellAbility effect = ability(trigger, source, player, produced);
             Set<String> colors = CardUtil.getReflectableManaColors(effect);
             if (!colors.isEmpty()) {
                 options.put(trigger, colors);
             }
         }
         return options;
+    }
+
+    static SpellAbility ability(Trigger trigger, SpellAbility source, Player player, String produced) {
+        Map<AbilityKey, Object> event = AbilityKey.mapFromCard(source.getHostCard());
+        event.put(AbilityKey.Activator, player);
+        event.put(AbilityKey.AbilityMana, source);
+        event.put(AbilityKey.Produced, produced);
+        SpellAbility effect = trigger.ensureAbility().copy(player);
+        effect.setTrigger(trigger);
+        effect.setTriggeringObjects(trigger.buildTriggeringObjects(event));
+        return effect;
+    }
+
+    static String mana(SpellAbility effect, String color) {
+        int amount = AbilityUtils.calculateAmount(effect.getHostCard(), effect.getParamOrDefault("Amount", "1"), effect);
+        return StringUtils.repeat(color, " ", amount);
     }
 
     private static boolean producesMana(String produced) {
@@ -97,7 +113,7 @@ final class CannotProduceManaAi {
     }
 
     static String choose(Player player, SpellAbility spell, ManaCostBeingPaid cost, ManaCostShard preferred,
-            Trigger trigger, Set<String> colors) {
+            Trigger trigger, Set<String> colors, Function<String, String> produced) {
         List<ManaCostShard> shards = cost == null ? new ArrayList<>(List.of(preferred)) : cost.getUnpaidShards();
         Collections.sort(shards);
         if (!preferred.isGeneric() && shards.remove(preferred)) {
@@ -106,7 +122,8 @@ final class CannotProduceManaAi {
         for (ManaCostShard shard : shards) {
             for (byte color : MagicColor.WUBRG) {
                 if (colors.contains(MagicColor.toLongString(color))
-                        && canPay(player, spell, shard, color, trigger.getHostCard(), cost)) {
+                        && java.util.Arrays.stream(StringUtils.split(produced.apply(MagicColor.toShortString(color))))
+                            .anyMatch(mana -> canPay(player, spell, shard, ManaAtom.fromName(mana), trigger.getHostCard(), cost))) {
                     return MagicColor.toShortString(color);
                 }
             }

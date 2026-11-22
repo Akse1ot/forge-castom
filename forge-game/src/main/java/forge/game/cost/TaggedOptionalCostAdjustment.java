@@ -3,6 +3,7 @@ package forge.game.cost;
 import com.google.common.collect.Lists;
 import forge.game.Game;
 import forge.game.ability.AbilityUtils;
+import forge.game.ability.IHasForgeParams;
 import forge.game.card.Card;
 import forge.game.card.CardCollection;
 import forge.game.player.Player;
@@ -13,7 +14,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
-public final class TaggedOptionalCostAdjustment {
+public final class TaggedOptionalCostAdjustment implements IHasForgeParams {
+    public static final String[] OPTIONAL_PARAMS = {"CostTag", "Defined"};
+
     private TaggedOptionalCostAdjustment() {
     }
 

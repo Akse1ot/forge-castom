@@ -14,6 +14,7 @@ import forge.game.ability.AbilityFactory;
 import forge.game.ability.AbilityUtils;
 import forge.game.card.Card;
 import forge.game.card.CardFactory;
+import forge.game.card.CardCollectionView;
 import forge.game.card.CounterEnumType;
 import forge.game.cost.CostDiscard;
 import forge.game.cost.CostPayEnergy;
@@ -172,6 +173,39 @@ public class GrantedCastTest extends AITest {
         card.setGameTimestamp(game.getNextTimestamp());
         owner.getZone(zone).add(card);
         return card;
+    }
+
+    @Test
+    public void aCostReductionAloneDoesNotListAnotherPlayersCards() {
+        newGame();
+        addCard("Grenzo, Crooked Jailer", me);
+        Card inGraveyard = addCardToZone("Lightning Bolt", opp, ZoneType.Graveyard);
+        Card inHand = addCardToZone("Lightning Bolt", opp, ZoneType.Hand);
+        Card onLibrary = addCardToZone("Lightning Bolt", opp, ZoneType.Library);
+        settle();
+
+        CardCollectionView listed = me.getCardsIn(ZoneType.Flashback);
+        assertFalse("Grenzo lists their graveyard card", listed.contains(inGraveyard));
+        assertFalse("Grenzo lists their hand card", listed.contains(inHand));
+        assertFalse("Grenzo lists their top library card", listed.contains(onLibrary));
+
+        resolve(addCardToZone("Mnemonic Betrayal", me, ZoneType.Hand).getFirstSpellAbility(), null);
+        assertTrue("Mnemonic Betrayal's grant still lists the exiled card",
+                me.getCardsIn(ZoneType.Flashback).contains(game.getCardState(inGraveyard, inGraveyard)));
+    }
+
+    @Test
+    public void aCostReductionAloneDoesNotListMyGraveyard() {
+        newGame();
+        addCard("Conspiracy Unraveler", me);
+        Card bolt = addCardToZone("Lightning Bolt", me, ZoneType.Graveyard);
+        settle();
+
+        assertFalse("Conspiracy Unraveler lists my graveyard card",
+                me.getCardsIn(ZoneType.Flashback).contains(bolt));
+
+        resolve(addCardToZone("Yawgmoth's Will", me, ZoneType.Hand).getFirstSpellAbility(), null);
+        assertTrue("Yawgmoth's Will's grant still lists it", me.getCardsIn(ZoneType.Flashback).contains(bolt));
     }
 
     private void newGame() {

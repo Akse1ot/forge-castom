@@ -46,12 +46,13 @@ public class ReplaceProduceMana extends ReplacementEffect {
             return false;
         }
 
-        if (hasParam("ManaContains") && !Arrays.asList(StringUtils.split((String) runParams.get(AbilityKey.Mana)))
+        if (hasParam("ManaContains") && runParams.containsKey(AbilityKey.Mana) && !Arrays.asList(StringUtils.split((String) runParams.get(AbilityKey.Mana)))
                 .contains(MagicColor.toShortString(getParam("ManaContains")))) {
             return false;
         }
 
-        if (hasParam("ManaAmount")) {
+        // a caller that wants the effects for any amount leaves the mana out
+        if (hasParam("ManaAmount") && runParams.containsKey(AbilityKey.Mana)) {
             String full = getParam("ManaAmount");
             String operator = full.substring(0, 2);
             String operand = full.substring(2);

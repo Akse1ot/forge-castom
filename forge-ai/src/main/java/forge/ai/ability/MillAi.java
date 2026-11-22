@@ -194,6 +194,11 @@ public class MillAi extends SpellAbilityAi {
             return shouldUseDerange(player, sa);
         }
 
+        // "you may mill N" of one's own library: not when it would leave next to nothing to draw
+        if ("You".equals(sa.getParam("Defined")) && sa.hasParam("NumCards")) {
+            final int amount = AbilityUtils.calculateAmount(sa.getHostCard(), sa.getParam("NumCards"), sa);
+            return player.getCardsIn(ZoneType.Library).size() > amount + 6;
+        }
         return true;
     }
 
